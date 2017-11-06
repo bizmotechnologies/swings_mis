@@ -1,8 +1,8 @@
 <?php 
 if(!defined('BASEPATH')) exit('No direct script access allowed');
 
-//Swings Login
-class Role_login extends CI_Controller
+//Swings admin dashboard
+class Admin_dashboard extends CI_Controller
 {
 	public function __construct(){
 		parent::__construct();	
@@ -22,8 +22,9 @@ class Role_login extends CI_Controller
 		// $this->load->model('item_model');
 		// $data['topCategories']=$this->item_model->getTopCategory();//get TOP Popular Categories
 		// $data['popularItems']=$this->item_model->popularItems();//get 10 popular items
-		$data['all_roles']=Role_login::show_roles();
-		$this->load->view('pages/index.php',$data);
+		
+		$this->load->view('includes/navigation.php');
+		$this->load->view('admin/admin_dash.php');
 		
 	}
 	
