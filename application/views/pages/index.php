@@ -16,8 +16,10 @@
 <script type="text/javascript" src="<?php echo base_url(); ?>css/bootstrap/jquery-3.1.1.js"></script>
 <script type="text/javascript" src="<?php echo base_url(); ?>css/bootstrap/bootstrap.min.js"></script>
 <!-- <script type="text/javascript" src="assets/css/alert/jquery-confirm.js"></script> -->
+
 </head>
 <body style="background-color: white">
+  
     <div class="col-lg-4"></div>
     <div class="w3-col l4 w3-padding-xxlarge">
 
@@ -53,6 +55,7 @@
     </div>
     </div> <!-- /container -->
     <div class="col-lg-4"></div>
+    <!-- <div id="spinner" class="spinner"></div> -->
 
 
    
@@ -60,7 +63,7 @@
  $(function(){
    $("#login_form").submit(function(){
      dataString = $("#login_form").serialize();
-    
+         $("#adminLogin_err").html('<img width="85%" height="auto" src="<?php echo base_url(); ?>css/logos/page_spinner2.gif" />');
      $.ajax({
        type: "POST",
        url: "<?php echo base_url(); ?>role_login/login_auth",

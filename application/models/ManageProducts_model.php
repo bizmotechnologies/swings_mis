@@ -1,74 +1,49 @@
 <?php
 if(!defined('BASEPATH')) exit('No direct script access allowed');
 
-class Login_model extends CI_Model{
+class ManageProducts_model extends CI_Model{
 
-	// -----------------------USER LOGIN API----------------------//
-	//-------------------------------------------------------------//
-	public function login($data)
-	{
+// --------------add role model---------------------//
+	public function add_role($data){		
+
 		extract($data);
-				
-	//sql query to check login credentials
-		$query="SELECT * FROM user_tab WHERE user_name='$user_name' AND user_password='$user_password' AND user_role='$user_role'";
-		$result = $this->db->query($query);
 
-	//if credentials are true, their is obviously only one record
-		if($result->num_rows() == 1){
-			foreach ($result->result_array() as $row) {
-				$privilege=$row['access_privilege'];
-				$user_name=$row['user_name'];
-				$user_id=$row['user_id'];
-			}
+		$insert_role="INSERT INTO roles(role_name) VALUES ('$role_name')";
+		$result =$this->db->query($insert_role);
 
-			if ($result) {
-				//response with values to be stored in sessions if update session_bool true
-				$response=array(
-					'status' => 1,
-					'user_id' =>$user_id,
-					'user_name' => $user_name,				
-					'privilege' => $privilege,
-					'status_message' =>'Login Successfull',
-					'role' => $privilege
-				);
-			}
-			else{
-				$response=array(
-					'status' => 0,
-					'user_id' =>$user_id,
-					'user_name' => $user_name,
-					'role' => $privilege,				
-					'status_message' =>'Error to start session for '.$user_name.' !!!',
-				);
-			}
+		//sql query to insert new role
+		if($result)
+		{  
+			$response=array(
+				'status' => 1,
+				'status_message' =>'New Role Added.<br>'
+			);
 		}
 		else
 		{
-		//login failed response
 			$response=array(
 				'status' => 0,
-				'status_message' =>'Sorry..Login credentials are incorrect!!!',
-				'user_name' => $user_name,				
-				'role' => $privilege
+				'status_message' =>'Sorry..New role Addition Failed!!!'
 			);
 		}
+		
 		return $response;
+
 	}
-	//----------------------------LOGIN END------------------------------//
+// ------------------add role model ends--------------------------//
 
-
-	//---------------get all roles model-------------//
-	function getAll_role()
+	//---------------get all products model-------------//
+	function getAll_product()
 	{
-		$query="SELECT * FROM roles";
+		$query="SELECT * FROM products";
 		$result = $this->db->query($query);
 		//return $result['num'];
-				
+
 		if($result->num_rows() <= 0)
 		{  
 			$response=array(
 				'status'	=>	0,
-				'status_message' =>'Roles are not defined yet!!!'
+				'status_message' =>'Products are not defined yet!!!'
 			);
 			return $response;
 		}
@@ -78,7 +53,30 @@ class Login_model extends CI_Model{
 			return $response;
 		}
 	}
-	//----------------get all roles ends--------------------------//
+	//----------------get all products ends--------------------------//
+
+	//---------------get particular products model-------------//
+	function getProduct_details($product_id)
+	{
+		$query="SELECT * FROM products WHERE product_id='$product_id'";
+		$result = $this->db->query($query);
+		//return $result['num'];
+
+		if($result->num_rows() <= 0)
+		{  
+			$response=array(
+				'status'	=>	0,
+				'status_message' =>'Product is not defined yet!!!'
+			);
+			return $response;
+		}
+		else
+		{
+			$response=$result->result_array();
+			return $response;
+		}
+	}
+	//----------------get particular products ends--------------------------//
 
 	//-----------------------function to check whether privilege level already exists------------------//
 	function checkPrivilege_exist($privilege_level)

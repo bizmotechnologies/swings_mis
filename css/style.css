@@ -2,3 +2,9 @@ body {
 	font-family:"Segoe UI",Arial,sans-serif;
 	letter-spacing:1px;
 }
+.spinner{
+	 background: url("css/logos/page_spinner.gif") no-repeat scroll center center #FFF;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+}
