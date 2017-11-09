@@ -1,5 +1,5 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed'); 
-
+$user_name=$this->session->userdata('user_name');
 ?>
 <!DOCTYPE html>
 <html>
@@ -20,40 +20,26 @@
   <nav class="w3-sidebar w3-collapse w3-black w3-animate-left w3-white" style="z-index:2px;width:120px;" id="navigation"><br>
 
     <div class="w3-bar-block">
+      <!--__________________SEALWINGS LOGO _____________________ -->
     <!-- <div class="w3-col l12 w3-margin-bottom" style="padding: 0">
       <center><img class="img img-responsive" title="Seal Wings logo" src="<?php echo base_url(); ?>css/logos/login.jpg" width="180px" height="auto"></center>
       <hr>
     </div> -->
     <a href="#" class="w3-bar-item w3-button w3-padding-16 w3-hide-large w3-dark-grey w3-hover-black" onclick="w3_close()" title="close menu"><i class="fa fa-remove fa-fw"></i>&nbsp; Close</a>
 
-    <a href="<?php echo base_url(); ?>admin_dashboard" class="w3-bar-item w3-hover-text-orange w3-padding w3-center">
+    <a href="<?php echo base_url(); ?>admin/admin_dashboard" class="w3-bar-item w3-hover-text-orange w3-padding w3-center">
       <div class="w3-col l12"><i class="w3-large fa fa-dashboard fa-fw"></i></div>
       <div class="w3-col l12 w3-wide w3-small" style="letter-spacing: 2px">Dashboard<br><br></div>      
     </a>
 
-    <a href="<?php echo base_url(); ?>manage_users" class="w3-bar-item w3-hover-text-orange w3-padding w3-center">
+    <a href="<?php echo base_url(); ?>admin/manage_users" class="w3-bar-item w3-hover-text-orange w3-padding w3-center">
       <div class="w3-col l12"><i class="w3-large fa fa-users fa-fw"></i></div>
       <div class="w3-col l12 w3-wide w3-small" style="letter-spacing: 2px">Manage Users<br><br></div>      
     </a>
 
-    <a href="<?php echo base_url(); ?>manage_quotations" class="w3-bar-item w3-hover-text-orange w3-padding w3-center">
+    <a href="<?php echo base_url(); ?>orders/manage_quotations" class="w3-bar-item w3-hover-text-orange w3-padding w3-center">
       <div class="w3-col l12"><i class="w3-large fa fa-file-text fa-fw"></i></div>
       <div class="w3-col l12 w3-wide w3-small" style="letter-spacing: 2px">Manage Quotations<br><br></div>     
-    </a>
-
-    <a href="<?php echo base_url(); ?>materialStock_Management" class="w3-bar-item w3-hover-text-orange w3-padding w3-center">
-      <div class="w3-col l12"><i class="w3-large fa fa-users fa-fw"></i></div>
-      <div class="w3-col l12 w3-wide w3-small" style="letter-spacing: 2px">Manage Stock<br><br></div>     
-    </a>
-
-    <a href="<?php echo base_url(); ?>manage_materials" class="w3-bar-item w3-hover-text-orange w3-padding w3-center">
-      <div class="w3-col l12"><i class="w3-large fa fa-users fa-fw"></i></div>
-      <div class="w3-col l12 w3-wide w3-small" style="letter-spacing: 2px">Manage Material<br><br></div>     
-    </a>
-
-    <a href="#" class="w3-bar-item w3-hover-text-orange w3-padding w3-center">
-      <div class="w3-col l12"><i class="w3-large fa fa-users fa-fw"></i></div>
-      <div class="w3-col l12 w3-wide w3-small" style="letter-spacing: 2px">Manage Customers<br><br></div>      
     </a>
 
     <a href="<?php echo base_url(); ?>role_login/logout" class="w3-bar-item w3-hover-text-orange w3-padding w3-center">
@@ -76,7 +62,7 @@
     </div>
     <div class="w3-col l2">
       <div class="w3-right">
-        <a href="<?php echo base_url(); ?>general_settings" class="w3-button w3-padding-small"><i class="fa fa-cog"></i></a>        
+        <a href="<?php echo base_url(); ?>admin/general_settings" class="w3-button w3-padding-small"><i class="fa fa-cog"></i></a>        
         <a href="#" class="w3-button w3-padding-small"><i class="fa fa-user"></i></a>
       </div>
     </div>

@@ -1,5 +1,5 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed'); 
-//error_reporting(E_ERROR | E_PARSE);
+error_reporting(E_ERROR | E_PARSE);
 
 ?>
 <!DOCTYPE html>
@@ -73,6 +73,8 @@
   </div><div id="Input_MaterialStock"></div>
   <!-- End page content -->
 </div>
+
+<!-- script to Populate product specification when product is selected -->
 <script>
 function getProduct_details(){
 
@@ -80,7 +82,7 @@ function getProduct_details(){
 
     $.ajax({
       type: "POST",
-      url: "<?php echo base_url(); ?>Manage_quotations/productDetails",
+      url: "<?php echo base_url(); ?>orders/manage_quotations/productDetails",
       data: dataString,
       cache: false,
       success: function(data){
@@ -90,5 +92,7 @@ function getProduct_details(){
 
 }
 </script>
+<!-- script ends -->
+
 </body>
 </html>

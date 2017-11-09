@@ -5,9 +5,7 @@ if(!defined('BASEPATH')) exit('No direct script access allowed');
 class Manage_quotations extends CI_Controller
 {
 	public function __construct(){
-		parent::__construct();
-		// $this->load->model('DbSetup_model')	;
-		// $this->DbSetup_model->createDbSchema();	
+		parent::__construct();			
 	}
 
 	public function index(){
@@ -19,64 +17,6 @@ class Manage_quotations extends CI_Controller
 		$this->load->view('pages/manage_quotations.php',$data);		
 	}
 	
-	// ---------------function to add new feature------------------------//
-	public function add_feature(){
-		extract($_POST);
-		$roles_arr=array();
-		foreach ($feature_roles as $key) {
-			$roles_arr[]=$key;
-		}
-		$data=array(
-			'feature_title' => $feature_title, 
-			'feature_description' => $feature_description, 
-			'role_features' => json_encode($roles_arr), 
-		);
-
-		//Connection establishment, processing of data and response from REST API
-		$path=base_url();
-		$url = $path.'api/settings_api/add_feature';	
-		$ch = curl_init($url);
-		curl_setopt($ch, CURLOPT_POST, true);
-		curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
-		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-		$response_json = curl_exec($ch);
-		curl_close($ch);
-		$response=json_decode($response_json, true);
-		
-		//API processing end
-		if($response['status']==0){
-			echo '<div class="alert alert-danger">
-			<strong>'.$response['status_message'].'</strong> 
-			</div>
-			<script>
-			window.setTimeout(function() {
-				$(".alert").fadeTo(500, 0).slideUp(500, function(){
-					$(this).remove(); 
-				});
-			}, 1000);
-			</script>			
-			';	
-			
-		}
-		else{
-			echo '<div class="alert alert-success">
-			<strong>'.$response['status_message'].'</strong> 
-			</div>
-			<script>
-			window.setTimeout(function() {
-				$(".alert").fadeTo(500, 0).slideUp(500, function(){
-					$(this).remove(); 
-				});
-			}, 1000);
-			</script>			
-			';				
-			
-		}	
-		
-	}
-// ---------------------function ends----------------------------------//
-	
-
 	// ---------------function to show all products------------------------//
 	public function show_products(){
 		
@@ -108,7 +48,9 @@ class Manage_quotations extends CI_Controller
 		$response_json = curl_exec($ch);
 		curl_close($ch);
 		$response=json_decode($response_json, true);
-		
+		//API processing END
+
+		//-------------------populate the following data of respective product when product is selected
 		echo '
 		<div class="w3-col l12 w3-margin-bottom">
             <div class="w3-col l4 w3-left w3-padding-right">
@@ -158,109 +100,7 @@ class Manage_quotations extends CI_Controller
 		return $response;		
 		
 	}
-// ---------------------function ends----------------------------------//
-
-
-	// ---------------function to edit feature------------------------//
-	public function edit_feature(){
-		
-		extract($_POST);		
-		$data=$_POST;
-		$data['editfeature_roles']=json_encode($editfeature_roles);
-
-		//Connection establishment, processing of data and response from REST API
-		
-		$path=base_url();
-		$url = $path.'api/settings_api/edit_feature';	
-		$ch = curl_init($url);
-		curl_setopt($ch, CURLOPT_POST, true);
-		curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
-		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-		$response_json = curl_exec($ch);
-		curl_close($ch);
-		$response=json_decode($response_json, true);		
-		
-		//API processing end
-		if($response['status']==0){
-			$data['updateFeature_set']='<div class="alert alert-danger">
-			<strong>'.$response['status_message'].'</strong> 
-			</div>
-			<script>
-			window.setTimeout(function() {
-				$(".alert").fadeTo(500, 0).slideUp(500, function(){
-					$(this).remove(); 
-				});
-			}, 1000);
-			</script>			
-			';				
-			
-		}
-		else{
-			$data['updateFeature_set']='<div class="alert alert-success">
-			<strong>'.$response['status_message'].'</strong> 
-			</div>
-			<script>
-			window.setTimeout(function() {
-				$(".alert").fadeTo(500, 0).slideUp(500, function(){
-					$(this).remove(); 
-				});
-			}, 1000);
-			</script>			
-			';				
-			
-		}			
-		redirect('General_settings');	
-	}
-// ---------------------function ends----------------------------------//
-
-
-	// ---------------function to delete feature------------------------//
-	public function del_feature(){
-		extract($_POST);
-
-		//Connection establishment to get data from REST API
-		$path=base_url();
-		$url = $path.'api/settings_api/del_feature?feature_id='.$feature_id;		
-		$ch = curl_init($url);
-		curl_setopt($ch, CURLOPT_HTTPGET, true);
-		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-		$response_json = curl_exec($ch);
-		curl_close($ch);
-		$response=json_decode($response_json, true);
-		//api processing ends
-
-		//API processing end
-		if($response['status']==0){
-			echo '<div class="alert alert-danger">
-			<strong>'.$response['status_message'].'</strong> 
-			</div>
-			<script>
-			window.setTimeout(function() {
-				$(".alert").fadeTo(500, 0).slideUp(500, function(){
-					$(this).remove(); 
-				});
-			}, 1000);
-			</script>			
-			';	
-			
-		}
-		else{
-			echo '<div class="alert alert-success">
-			<strong>'.$response['status_message'].'</strong> 
-			</div>
-			<script>
-			window.setTimeout(function() {
-				$(".alert").fadeTo(500, 0).slideUp(500, function(){
-					$(this).remove(); 
-				});
-			}, 1000);
-			</script>			
-			';				
-			
-		}	
-		
-	}
-// ---------------------function ends----------------------------------//
+// ---------------------function ends----------------------------------//	
 	
 }
 ?>

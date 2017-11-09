@@ -57,7 +57,7 @@ class User_model extends CI_Model{
 		foreach ($result->result_array() as $row) 
 		{
 
-			$this->load->model('manageRole_model');
+			$this->load->model('admin_model/manageRole_model');
 			$role_name=$this->manageRole_model->getRole_name($row['user_id']);
 			
 			$extra=array(
@@ -139,31 +139,7 @@ class User_model extends CI_Model{
 	}
 	//----------------delete user ends--------------------------//
 
-	//---------------get roles for features model-------------//
-	function get_roles($feature_id)
-	{
-		
-		$query="SELECT roles FROM features WHERE feature_id=".$feature_id." ";	
-		$result = $this->db->query($query);
-		//return $result['num'];
-
-		
-		if($result->num_rows() <= 0)
-		{  
-			$response=array(
-				'status'	=>	0,
-				'status_message' =>'No any Feature added !!!'
-			);
-			return $response;
-		}
-		else
-		{
-			$response=$result->result_array();
-			return $response;
-		}
-	}
-	//----------------get roles for features ends--------------------------//
-
+	
 	
 }
 ?>

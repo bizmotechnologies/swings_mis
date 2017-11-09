@@ -6,7 +6,7 @@ class Settings_api extends REST_Controller
 {
 	public function __construct(){
 		parent::__construct();
-		$this->load->model('settings_model');
+		$this->load->model('admin_model/settings_model');
 		date_default_timezone_set('Asia/Kolkata');	//set Kuwait's timezone
 	}
 

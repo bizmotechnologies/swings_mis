@@ -14,7 +14,7 @@ class Manage_users extends CI_Controller
 		
 		$data['all_features']=Manage_users::show_feature();
 		$data['all_roles']=Manage_users::show_roles();
-		$data['all_users']=Manage_users::show_users();
+		$data['all_users']=Manage_users::show_users();	//---------get all users
 
 		$this->load->view('includes/navigation.php');
 		$this->load->view('admin/manage_users.php',$data);		
@@ -24,6 +24,7 @@ class Manage_users extends CI_Controller
 	public function add_user(){
 		extract($_POST);
 
+		//---------------if any of the role is not selected, then return this--------//
 		if($user_role=='0'){
 			echo '<div class="alert alert-danger">
 			<strong>Select Appropriate Role first !!!</strong> 
@@ -148,37 +149,8 @@ class Manage_users extends CI_Controller
 		$response_json = curl_exec($ch);
 		curl_close($ch);
 		$response=json_decode($response_json, true);		
-		
-		// //API processing end
-		// if($response['status']==0){
-		// 	$data['updateFeature_set']='<div class="alert alert-danger">
-		// 	<strong>'.$response['status_message'].'</strong> 
-		// 	</div>
-		// 	<script>
-		// 	window.setTimeout(function() {
-		// 		$(".alert").fadeTo(500, 0).slideUp(500, function(){
-		// 			$(this).remove(); 
-		// 		});
-		// 	}, 1000);
-		// 	</script>			
-		// 	';				
-			
-		// }
-		// else{
-		// 	$data['updateFeature_set']='<div class="alert alert-success">
-		// 	<strong>'.$response['status_message'].'</strong> 
-		// 	</div>
-		// 	<script>
-		// 	window.setTimeout(function() {
-		// 		$(".alert").fadeTo(500, 0).slideUp(500, function(){
-		// 			$(this).remove(); 
-		// 		});
-		// 	}, 1000);
-		// 	</script>			
-		// 	';				
-			
-		// }			
-		redirect('manage_users');	
+				
+		redirect('admin/manage_users');	
 	}
 // ---------------------function ends----------------------------------//
 

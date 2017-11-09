@@ -52,12 +52,13 @@ error_reporting(E_ERROR | E_PARSE);
           <div class="w3-col l12 w3-label"><label>Roles: </label></div>
           <?php 
           if(isset($all_roles['status'])){
+            //------if no roles are added then print this----//
             echo ' <span class="w3-text-red"><b>'.$all_roles['status_message'].'</b></span> ';                    
           }
           else{
             foreach ($all_roles as $key) { 
               $active="";
-
+              //-------------set all roles in tiles--------//
               echo '
               <div class="w3-padding w3-red w3-round w3-margin-right w3-margin-bottom w3-small w3-card-2" style="display: inline-block">
               <a class="btn w3-tiny w3-right" title="delete" onClick="delRole('.$key['role_id'].')" style="padding:0;margin:0"><i class="fa fa-remove"></i></a>
@@ -106,6 +107,8 @@ error_reporting(E_ERROR | E_PARSE);
                   echo ' <tr class="w3-text-red"><td colspan="5" class="text-center"><b>'.$all_features['status_message'].'</b></td></tr> ';                    
                 }
                 else{
+
+                  //----------print all features if present in db
                   foreach ($all_features as $key) { 
                     $feature_roles=json_decode($key['roles']);
 
@@ -119,6 +122,7 @@ error_reporting(E_ERROR | E_PARSE);
                       echo ' <span class="w3-text-red"><b>'.$all_roles['status_message'].'</b></span> ';
                     }
                     else{
+                      //-----------show all roles along with selected ones in checkbox ----------//
                       foreach ($all_roles as $roles) { 
                         $checked="";
                         if(in_array($roles['role_id'], $feature_roles)){$checked="checked";}
@@ -136,7 +140,9 @@ error_reporting(E_ERROR | E_PARSE);
                     </td>
                     </tr> 
 
-                    <!-- Modal -->
+
+                    <!------------- Modal to update feature -------------->
+
                     <div id="editFeature_'.$key['feature_id'].'" class="modal fade " role="dialog">
                     <div class="modal-dialog modal-md">
                     <!-- Modal content-->
@@ -146,7 +152,7 @@ error_reporting(E_ERROR | E_PARSE);
                     <h4 class="modal-title w3-xlarge w3-text-red">Edit <span class="w3-medium">'.$key['feature_title'].'</span></h4>
                     </div>
                     <div class="modal-body">
-                    <form method="POST" action="'.base_url().'General_settings/edit_feature">
+                    <form method="POST" action="'.base_url().'admin/general_settings/edit_feature">
                     <input type="hidden" name="editfeature_id" value="'.$key['feature_id'].'">
                     <label>Feature Title: <br></label>
                     <input class="form-control" type="text" name="editfeature_title" placeholder="Enter Feature Title here." value="'.$key['feature_title'].'" required>
@@ -177,7 +183,7 @@ error_reporting(E_ERROR | E_PARSE);
                     </div>
                     </div>
                     </div>
-                    <!--modal end-->                  
+                    <!-------------modal end------------------->                  
                     ';                               
                     $srno++;
                   }
@@ -254,7 +260,7 @@ error_reporting(E_ERROR | E_PARSE);
 
      $.ajax({
        type: "POST",
-       url: "<?php echo base_url(); ?>General_settings/add_feature",
+       url: "<?php echo base_url(); ?>admin/general_settings/add_feature",
        data: dataString,
            return: false,  //stop the actual form post !important!
 
@@ -284,7 +290,7 @@ error_reporting(E_ERROR | E_PARSE);
         confirm: function () {
           var dataS = 'feature_id='+ id;
           $.ajax({
-            url:"<?php echo base_url(); ?>General_settings/del_feature", 
+            url:"<?php echo base_url(); ?>admin/general_settings/del_feature", 
             type: "POST", 
             data: dataS,
             cache: false,
@@ -313,7 +319,7 @@ error_reporting(E_ERROR | E_PARSE);
      
      $.ajax({
        type: "POST",
-       url: "<?php echo base_url(); ?>Manage_roles/add_role",
+       url: "<?php echo base_url(); ?>admin/manage_roles/add_role",
        data: dataString,
            return: false,  //stop the actual form post !important!
 
@@ -340,7 +346,7 @@ error_reporting(E_ERROR | E_PARSE);
         confirm: function () {
           var dataS = 'role_id='+id;
           $.ajax({
-            url:"<?php echo base_url(); ?>Manage_roles/del_role", 
+            url:"<?php echo base_url(); ?>admin/manage_roles/del_role", 
             type: "POST", 
             data: dataS,
             cache: false,

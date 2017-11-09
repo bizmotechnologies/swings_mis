@@ -6,7 +6,7 @@ class User_api extends REST_Controller
 {
 	public function __construct(){
 		parent::__construct();
-		$this->load->model('user_model');
+		$this->load->model('admin_model/user_model');
 		date_default_timezone_set('Asia/Kolkata');	//set Kuwait's timezone
 	}
 

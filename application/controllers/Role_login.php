@@ -7,21 +7,14 @@ class Role_login extends CI_Controller
 	public function __construct(){
 		parent::__construct();	
 
-		//$this->load->model('DbSetup_model')	;
-		//$this->DbSetup_model->createDbSchema();	
+		//---------uncomment this to load db automatically---------------//
+		// $this->load->model('DbSetup_model')	;
+		// $this->DbSetup_model->createDbSchema();		
 	}
 
 	public function index(){
-		// $this->load->model('admin_settings');
-		// $data['all_category']=$this->admin_settings->getAllCategory();//get all category to seacrh items
-
-		// $this->load->model('search_result');
-		// $data['all_recentItems']=$this->search_result->getAllitems_reverse();//get all recent items
-
-		// $this->load->model('item_model');
-		// $data['topCategories']=$this->item_model->getTopCategory();//get TOP Popular Categories
-		// $data['popularItems']=$this->item_model->popularItems();//get 10 popular items
-		$data['all_roles']=Role_login::show_roles();
+		
+		$data['all_roles']=Role_login::show_roles();	//---get all roles
 		$this->load->view('pages/index.php',$data);
 		
 	}
@@ -29,6 +22,7 @@ class Role_login extends CI_Controller
 	public function login_auth(){
 		extract($_POST);
 
+		//---------------if any of the role is not selected, then return this--------//
 		if($login_role=='0'){
 			echo '<div class="alert alert-danger">
 			<strong>Select Appropriate Role first !!!</strong> 
@@ -70,6 +64,7 @@ class Role_login extends CI_Controller
 			
 		}
 		else{
+			//----create session array--------//
 			$session_data= array(
  				'user_id'  => $response['user_id'],
  				'user_name' => $response['user_name'],
@@ -88,7 +83,7 @@ class Role_login extends CI_Controller
 				$(".alert").fadeTo(500, 0).slideUp(500, function(){
 					$(this).remove(); 
 				});
-				window.location.href="'.base_url().'admin_dashboard";
+				window.location.href="'.base_url().'admin/admin_dashboard";
 			}, 1000);
 			</script>
 			';						

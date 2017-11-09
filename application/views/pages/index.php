@@ -1,5 +1,5 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed'); 
-//error_reporting(E_ERROR | E_PARSE);
+error_reporting(E_ERROR | E_PARSE);
 
 ?>
 <!DOCTYPE html>
@@ -56,6 +56,7 @@
 </div> <!-- /container -->
 <div class="col-lg-4"></div>
 
+<!--  script to submit login form  -->
 <script>
  $(function(){
    $("#login_form").submit(function(){
@@ -79,5 +80,7 @@
        });
  });
 </script>
+<!-- script end -->
+
 </body>
 </html>

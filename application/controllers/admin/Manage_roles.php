@@ -6,8 +6,7 @@ class Manage_roles extends CI_Controller
 {
 	public function __construct(){
 		parent::__construct();
-		// $this->load->model('DbSetup_model')	;
-		// $this->DbSetup_model->createDbSchema();	
+		
 	}
 
 	public function index(){

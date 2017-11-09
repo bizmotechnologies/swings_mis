@@ -19,16 +19,7 @@ class Admin_dashboard extends CI_Controller
 	}
 
 	public function index(){
-		// $this->load->model('admin_settings');
-		// $data['all_category']=$this->admin_settings->getAllCategory();//get all category to seacrh items
-
-		// $this->load->model('search_result');
-		// $data['all_recentItems']=$this->search_result->getAllitems_reverse();//get all recent items
-
-		// $this->load->model('item_model');
-		// $data['topCategories']=$this->item_model->getTopCategory();//get TOP Popular Categories
-		// $data['popularItems']=$this->item_model->popularItems();//get 10 popular items
-		
+				
 		$this->load->view('includes/navigation.php');
 		$this->load->view('admin/admin_dash.php');
 		
@@ -92,42 +83,7 @@ class Admin_dashboard extends CI_Controller
 			';				
 			
 		}	
-		// //if status returned is 0 then signin failed, if 1 then redirect to account page
- 	// 	if($response['status']==0){
- 	// 		$data['account_registered']=$response['status_message'];
- 	// 		$this->load->model('item_model');
-		// 	$data['topCategories']=$this->item_model->getTopCategory();//get TOP Popular Categories
-
- 	// 		$this->load->view('includes/header.php');
- 	// 		//$this->load->view('pages/guest_subheader.php');
- 	// 		$this->load->view('pages/member_signup.php',$data);
- 	// 		$this->load->view('includes/footer.php',$data);			
-
- 	// 	}
- 	// 	else{
- 	// 		$session_data= array(
- 	// 			'email_id'  => $response['email_id'],
- 	// 			'is_logged' => $response['is_logged'],
- 	// 			'unique_id'=>$response['unique_id'],
- 	// 			'user_name'=>$response['user_name']
- 	// 		);
-
-		// 	//start session of user if login success
- 	// 		$this->session->set_userdata($session_data);
-		// 	$unique_id=$session_data['unique_id'];	//get unique_id of user
-		// 	$username=$session_data['user_name'];	//get unique_id of user
-
-		// 	//if unique_id is created then user has inserted his all details
-		// 	//and if not created, then redirect user to edit-details page
-		// 	if($unique_id=='' || $username==''){									
-		// 		redirect('edit_account');
-		// 	}
-		// 	else{				
-		// 		redirect('user_home');
-		// 	}
-
-		// }
-		// //if-else stmt end
+		
 	}
 
 	// ---------------function to show all role------------------------//

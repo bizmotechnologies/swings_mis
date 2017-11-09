@@ -1,5 +1,5 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed'); 
-//error_reporting(E_ERROR | E_PARSE);
+error_reporting(E_ERROR | E_PARSE);
 
 ?>
 <!DOCTYPE html>
@@ -80,7 +80,7 @@
      
      $.ajax({
        type: "POST",
-       url: "<?php echo base_url(); ?>Manage_roles/add_role",
+       url: "<?php echo base_url(); ?>admin/manage_roles/add_role",
        data: dataString,
            return: false,  //stop the actual form post !important!
 
@@ -107,7 +107,7 @@
         confirm: function () {
           var dataS = 'role_id='+id;
           $.ajax({
-            url:"<?php echo base_url(); ?>Manage_roles/del_role", 
+            url:"<?php echo base_url(); ?>admin/manage_roles/del_role", 
             type: "POST", 
             data: dataS,
             cache: false,

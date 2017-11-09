@@ -1,5 +1,5 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed'); 
-//error_reporting(E_ERROR | E_PARSE);
+error_reporting(E_ERROR | E_PARSE);
 
 ?>
 <!DOCTYPE html>
@@ -97,13 +97,14 @@
                 <span class="w3-jumbo"><i class="fa fa-vcard"></i></span>
                 </div>
                 <div class="w3-col l8 s8 w3-padding-left w3-padding-top">
+
                 <table class="w3-margin-top">
                 <tr>
                 <td><span class="w3-tiny w3-label">Username:</span></td>
                 <td>&nbsp;<span><b>'.$key['user_name'].'</b></span></td>
                 </tr>
-
                 </table>
+
                 <div class="w3-col l12">
                 <span><i>'.$key['user_roleName'].'</i></span>
                 </div>
@@ -115,7 +116,7 @@
                 </div>
                 </div>
 
-                <!-- Modal -->
+                <!---------------- Modal to edit user------------>
                 <div id="editUser_'.$key['user_id'].'" class="modal fade " role="dialog">
                 <div class="modal-dialog modal-md">
                 <!-- Modal content-->
@@ -125,7 +126,7 @@
                 <h4 class="modal-title w3-xlarge w3-text-red">Edit User Details</h4>
                 </div>
                 <div class="modal-body">
-                <form method="POST" action="'.base_url().'Manage_users/edit_user">
+                <form method="POST" action="'.base_url().'admin/manage_users/edit_user">
                 <input type="hidden" name="edituser_id" value="'.$key['user_id'].'">
                 <label>Username: <br></label>
                 <input class="form-control w3-margin-bottom" type="text" name="edit_userName" id="edit_userName" placeholder="eg. ABC, XYZ,etc." value="'.$key['user_name'].'" required>
@@ -157,7 +158,7 @@
                 </div>
                 </div>
                 </div>
-                <!--modal end-->  
+                <!--------------------modal end------------------------->  
                 ';
 
               }
@@ -182,7 +183,7 @@
 
     $.ajax({
      type: "POST",
-     url: "<?php echo base_url(); ?>Manage_users/add_user",
+     url: "<?php echo base_url(); ?>admin/manage_users/add_user",
      data: dataString,
            return: false,  //stop the actual form post !important!
 
@@ -210,7 +211,7 @@
         confirm: function () {
           var dataS = 'user_id='+ id;
           $.ajax({
-            url:"<?php echo base_url(); ?>Manage_users/del_user", 
+            url:"<?php echo base_url(); ?>admin/manage_users/del_user", 
             type: "POST", 
             data: dataS,
             cache: false,
