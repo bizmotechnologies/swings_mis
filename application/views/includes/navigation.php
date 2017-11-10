@@ -25,27 +25,38 @@ $user_name=$this->session->userdata('user_name');
       <center><img class="img img-responsive" title="Seal Wings logo" src="<?php echo base_url(); ?>css/logos/login.jpg" width="180px" height="auto"></center>
       <hr>
     </div> -->
-    <a href="#" class="w3-bar-item w3-button w3-padding-16 w3-hide-large w3-dark-grey w3-hover-black" onclick="w3_close()" title="close menu"><i class="fa fa-remove fa-fw"></i>&nbsp; Close</a>
-
-    <a href="<?php echo base_url(); ?>admin/admin_dashboard" class="w3-bar-item w3-hover-text-orange w3-padding w3-center">
-      <div class="w3-col l12"><i class="w3-large fa fa-dashboard fa-fw"></i></div>
-      <div class="w3-col l12 w3-wide w3-small" style="letter-spacing: 2px">Dashboard<br><br></div>      
+    <a href="#" class="w3-bar-item w3-button w3-padding-16 w3-hide-large w3-dark-grey w3-hover-black" onclick="w3_close()" title="close menu  <div class="clear"></div>"><i class="fa fa-remove fa-fw"></i>&nbsp; Close
     </a>
 
-    <a href="<?php echo base_url(); ?>admin/manage_users" class="w3-bar-item w3-hover-text-orange w3-padding w3-center">
-      <div class="w3-col l12"><i class="w3-large fa fa-users fa-fw"></i></div>
-      <div class="w3-col l12 w3-wide w3-small" style="letter-spacing: 2px">Manage Users<br><br></div>      
+    <a href="<?php echo base_url(); ?>admin/admin_dashboard" class="w3-bar-item w3-hover-text-orange w3-padding w3-center">
+      <div class="w3-col l12"><i class="w3-xlarge fa fa-user-secret fa-fw"></i></div>
+      <div class="w3-col l12 w3-wide w3-small" style="letter-spacing: 2px">Admin<br><br></div>      
+      <div class="clear"></div>
+    </a>
+
+    <a href="<?php echo base_url(); ?>sales_enquiry/enquiry_dashboard" class="w3-bar-item w3-hover-text-orange w3-padding w3-center">
+      <div class="w3-col l12"><i class="w3-xlarge fa fa-assistive-listening-systems fa-fw"></i></div>
+      <div class="w3-col l12 w3-wide w3-small" style="letter-spacing: 2px">Sales Enquiry<br><br></div>      
+      <div class="clear"></div>
+    </a>
+
+     <a href="<?php echo base_url(); ?>admin/manage_users" class="w3-bar-item w3-hover-text-orange w3-padding w3-center">
+      <div class="w3-col l12"><i class="w3-xlarge fa fa-money fa-fw"></i></div>
+      <div class="w3-col l12 w3-wide w3-small" style="letter-spacing: 2px">Accountant<br><br></div>      
+      <div class="clear"></div>
     </a>
 
     <a href="<?php echo base_url(); ?>orders/manage_quotations" class="w3-bar-item w3-hover-text-orange w3-padding w3-center">
-      <div class="w3-col l12"><i class="w3-large fa fa-file-text fa-fw"></i></div>
-      <div class="w3-col l12 w3-wide w3-small" style="letter-spacing: 2px">Manage Quotations<br><br></div>     
+      <div class="w3-col l12"><i class="w3-xlarge fa fa-product-hunt fa-fw"></i></div>
+      <div class="w3-col l12 w3-wide w3-small" style="letter-spacing: 2px">Production<br><br></div>     
+      <div class="clear"></div>
     </a>
 
-    <a href="<?php echo base_url(); ?>role_login/logout" class="w3-bar-item w3-hover-text-orange w3-padding w3-center">
-      <div class="w3-col l12"><i class="w3-large fa fa-lock fa-fw"></i></div>
-      <div class="w3-col l12 w3-wide w3-small" style="letter-spacing: 2px">Logout<br><br></div>      
-    </a>    
+    <a href="<?php echo base_url(); ?>orders/manage_quotations" class="w3-bar-item w3-hover-text-orange w3-padding w3-center">
+      <div class="w3-col l12"><i class="w3-xlarge fa fa-dropbox fa-fw"></i></div>
+      <div class="w3-col l12 w3-wide w3-small" style="letter-spacing: 2px">Inventory<br><br></div>     
+      <div class="clear"></div>
+    </a>       
 
   </div>
 </nav>
@@ -61,9 +72,9 @@ $user_name=$this->session->userdata('user_name');
       <span class="w3-button w3-right w3-medium w3-hover-none">Welcome, <strong><?php echo $user_name; ?></strong></span>
     </div>
     <div class="w3-col l2">
-      <div class="w3-right">
-        <a href="<?php echo base_url(); ?>admin/general_settings" class="w3-button w3-padding-small"><i class="fa fa-cog"></i></a>        
-        <a href="#" class="w3-button w3-padding-small"><i class="fa fa-user"></i></a>
+      <div class="w3-right">        
+        <a href="#" class="w3-button w3-padding-small"><i class="fa fa-user"></i></a>           
+        <a href="<?php echo base_url(); ?>role_login/logout" title="Logout user" class="w3-button w3-padding-small"><i class="fa  fa-sign-out"></i></a> 
       </div>
     </div>
 

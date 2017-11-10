@@ -1,8 +1,8 @@
 <?php 
 if(!defined('BASEPATH')) exit('No direct script access allowed');
 
-//Swings admin dashboard
-class Admin_dashboard extends CI_Controller
+//Swings Enquiry_dashboard
+class Enquiry_dashboard extends CI_Controller
 {
 	public function __construct(){
 		parent::__construct();
@@ -21,7 +21,7 @@ class Admin_dashboard extends CI_Controller
 	public function index(){
 				
 		$this->load->view('includes/navigation.php');
-		$this->load->view('admin/admin_dash.php');
+		$this->load->view('sales/enquiry_dash.php');
 		
 	}		
 	

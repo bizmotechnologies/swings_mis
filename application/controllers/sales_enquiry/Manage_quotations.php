@@ -12,9 +12,10 @@ class Manage_quotations extends CI_Controller
 		
 		$data['all_products']=Manage_quotations::show_products();
 		$data['all_roles']=Manage_quotations::show_roles();
+		$data['all_customer']=Manage_quotations::show_customer();
 
 		$this->load->view('includes/navigation.php');
-		$this->load->view('pages/manage_quotations.php',$data);		
+		$this->load->view('sales/manage_quotations.php',$data);		
 	}
 	
 	// ---------------function to show all products------------------------//
@@ -23,6 +24,24 @@ class Manage_quotations extends CI_Controller
 		//Connection establishment, processing of data and response from REST API
 		$path=base_url();
 		$url = $path.'api/ManageProducts_api/all_product';		
+		$ch = curl_init($url);
+		curl_setopt($ch, CURLOPT_HTTPGET, true);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		$response_json = curl_exec($ch);
+		curl_close($ch);
+		$response=json_decode($response_json, true);
+		return $response;	
+
+		
+	}
+// ---------------------function ends----------------------------------//
+
+	// ---------------function to show all products------------------------//
+	public function show_customer(){
+		
+		//Connection establishment, processing of data and response from REST API
+		$path=base_url();
+		$url = $path.'api/ManageProducts_api/all_customer';		
 		$ch = curl_init($url);
 		curl_setopt($ch, CURLOPT_HTTPGET, true);
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
