@@ -1,0 +1,160 @@
+<?php
+class ManageMaterial_model extends CI_Model{
+
+	public function getrecord($data){ /* this  function is used for material records  */
+		extract($data);
+		$query = "SELECT * FROM materials WHERE material_id = '$Select_material_id'";
+		$result =$this->db->query($query);
+		if($result->num_rows()>=0){  
+			$response=array(
+				'status' => 1,
+				'status_message' => $result->result_array());
+		}
+		else{
+			$response=array(
+				'status' => 0,
+				'status_message' => 'No records found');
+		}
+		
+		return $response;
+
+	}/*fun ends here*/
+
+// this function is used to save materials///////////
+	
+	public function saveMaterial( $data ){
+		extract($data);
+		$mat_code=0;
+		$mat_codenew=0;
+		$code=0;
+		$material_code=0;
+		$material_codenew = 0;
+		$mat_code= $inputmaterial_name[0];
+		$mat_codenew= $inputmaterial_name[1];
+		$var= $mat_code.$mat_codenew;
+		$code = strtoupper($var) ;
+		$material_codenew = uniqid(); 
+		$material_code = $code.'_'.$material_codenew;
+		$doller=0;
+		$conversion_rate = 0;
+		$currency = $Select_Currency;
+		switch($currency){
+			case "doller":
+			$conversion_rate = $input_priceFor_material * 65.39;
+			break;
+			case "euro":
+			$conversion_rate = $input_priceFor_material * 76.28;
+			break;
+			case "pound":
+			$conversion_rate = $input_priceFor_material * 86.26;
+			break;
+		}
+
+		$sql = "INSERT INTO materials
+		(material_name,material_code,conversion_rate,material_innerdimention,
+			material_outerdimention,pricepermm,currency) 
+VALUES ('$inputmaterial_name','$material_code', '$conversion_rate','$inputmaterial_InnerDimention',
+	'$inputmaterial_OuterDimention','$input_priceFor_material','$Select_Currency')";
+$result =$this->db->query($sql);
+
+if($result){  
+	$response=array(
+		'status' => 1,
+		'status_message' =>'Records Inserted Successfully..!');
+}
+else{
+	$response=array(
+		'status' => 0,
+		'status_message' => 'Records Not Inserted Successfully...!');
+}
+
+return $response;
+
+}
+
+// Ending function savematerial /////////////
+
+
+//---- this function is used to show the material wise table of material--
+public function getcategory(){
+	$query = $this->db->get('materials');
+	return $query->result();
+
+}
+	//------this getcategory function ends here-----------
+
+
+			// this fun is used for update material details---------------------
+public function updateRecord($data){
+	extract($data);
+		//print_r($data);die();
+	$mat_code=0;
+	$mat_codenew=0;
+	$code=0;
+	$material_code=0;
+	$material_codenew = 0;
+	$mat_code= $updated_materialname[0];
+	$mat_codenew= $updated_materialname[1];
+	$var= $mat_code.$mat_codenew;
+	$code = strtoupper($var) ;
+	$material_codenew = uniqid(); 
+	$material_code = $code.'_'.$material_codenew;
+
+	$doller=0;
+	$conversion_rate = 0;
+	$currency = $Select_UpdatedCurrency;
+	switch($currency){
+		case "doller":
+		$conversion_rate = $updated_costpermm * 65.39;
+		break;
+		case "euro":
+		$conversion_rate = $updated_costpermm * 76.28;
+		break;
+		case "pound":
+		$conversion_rate = $updated_costpermm * 86.26;
+		break;
+	}
+
+	$sqlupdate = "UPDATE materials SET material_name = '$updated_materialname',
+	material_innerdimention = '$updated_materialID',
+	material_outerdimention = '$updated_materialOD',
+	pricepermm ='$updated_costpermm', material_code = '$material_code',
+	conversion_rate ='$conversion_rate' WHERE material_id='$new_material_id'";		
+//echo $sqlupdate ; die();
+	$resultupdate =$this->db->query($sqlupdate);
+
+	$value= 'Records Updated Successfully';
+			//return $value;
+	return redirect('Manage_materials');
+
+}
+
+// this update material details function ends here-----------------
+
+public function deleteRecord($data){  /* delete function starts here */
+
+	extract($data);
+				//print_r($data);
+	$sqldelete = "DELETE FROM materials WHERE material_id='$material_id'";
+
+	$resultdelete =$this->db->query($sqldelete);
+
+	if($resultdelete){  
+		$response=array(
+			'status' => 1,
+			'status_message' =>'Records Deleted Successfully..!');
+	}
+	else{
+		$response=array(
+			'status' => 0,
+			'status_message' => 'Records Not Deleted...!');
+	}
+	
+	return $response;
+}  /* delete  function ends here*/
+
+
+
+
+}
+?>
