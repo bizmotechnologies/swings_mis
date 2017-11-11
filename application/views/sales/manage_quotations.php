@@ -36,9 +36,18 @@ error_reporting(E_ERROR | E_PARSE);
       <div class="w3-col l12 w3-padding w3-small">
         <form id="raiseQuote_form">
           <div class="w3-col l12 w3-margin-bottom">
-            <div class="w3-col l6 w3-padding">
+            <div class="w3-col l12 w3-padding">
+              <label>Customer List:</label>
+              <select class="form-control">
+                <option value="0">Select customer</option>
+              </select>
+              <div class="w3-col l12">
+                <span class="w3-small w3-right w3-text-red w3-label"><i class="fa fa-plus"></i> Add Customer</span>
+              </div>
+            </div>
+            <div class="w3-col l8 w3-padding">
               <label>Product List:</label>
-              <select class="form-control" id="product_id" name="product_id" onchange="getProduct_details()">
+              <select class="form-control" id="product_id" name="product_id">
                 <option value="0">Select product</option>
                 <?php 
              if(isset($all_products['status'])){
@@ -51,16 +60,21 @@ error_reporting(E_ERROR | E_PARSE);
              }
           ?>
               </select>
+              <div class="w3-col l12">
+                <span class="w3-small w3-right w3-text-red w3-label"><i class="fa fa-plus"></i> Add Product</span>
+              </div>
             </div>
-            <div class="w3-col l6 w3-padding">
-              <label>Customer List:</label>
-              <select class="form-control">
-                <option value="0">Select customer</option>
-              </select>
+            <div class="w3-col l4 w3-padding">
+              <label>Cut :</label>
+              <input class="form-control" type="number" id="quote_cut" name="quote_cut" placeholder="Cut" required>
             </div>
           </div>
 
-          <div id="product_specs"></div>
+          <div id="product_specs">
+            <div class="w3-col l12 w3-padding">
+                <button type="button" class="w3-right btn w3-blue" id="get_productSpecs_btn">Get Specifications</button>
+            </div>
+          </div>
         </form>
       </div>
     </div>
@@ -75,10 +89,11 @@ error_reporting(E_ERROR | E_PARSE);
 </div>
 
 <!-- script to Populate product specification when product is selected -->
-<script>
+<!-- <script>
 function getProduct_details(){
 
   dataString ='product_id='+$("#product_id").val();
+     $("#product_specs").html('<center><img width="70%" height="auto" src="<?php echo base_url(); ?>css/logos/page_spinner3.gif" /></center>');
 
     $.ajax({
       type: "POST",
@@ -91,8 +106,36 @@ function getProduct_details(){
     });
 
 }
-</script>
+</script> -->
 <!-- script ends -->
 
+<!-- script to get product specifications and calculated price -->
+<script>
+    $(document).ready(function() {
+
+      $('#get_productSpecs_btn').click(function() {
+
+        var product_id = $('#product_id').val(); //where #table could be an input with the name of the table you want to truncate
+        var cut_value = $('#quote_cut').val(); //where #table could be an input with the name of the table you want to truncate
+
+        //$("#product_specs").html('<center><img width="70%" height="auto" src="<?php echo base_url(); ?>css/logos/page_spinner3.gif" /></center>');
+
+        $.ajax({
+          type: "POST",
+          url: "<?php echo base_url(); ?>sales_enquiry/manage_quotations/productDetails",
+          data: 'product_id='+ product_id +'&cut_value='+ cut_value,
+          cache: false,
+          success: function(response) {
+            $('#product_specs').html(response);
+          },
+          error: function(xhr, textStatus, errorThrown) {
+           alert('request failed'+errorThrown);
+          }
+        });
+
+    });
+    });
+  </script>
+<!-- script ends -->
 </body>
 </html>

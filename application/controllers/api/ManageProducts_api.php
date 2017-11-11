@@ -7,6 +7,7 @@ class ManageProducts_api extends REST_Controller
 	public function __construct(){
 		parent::__construct();
 		$this->load->model('inventory_model/ManageProducts_model');
+		$this->load->model('sales_model/Enquiry_model');
 		date_default_timezone_set('Asia/Kolkata');	//set Kuwait's timezone
 	}
 
@@ -28,6 +29,16 @@ class ManageProducts_api extends REST_Controller
 		return $this->response($result);			
 	}
 	//---------------------GET PARTICULAR PRODUCTS END------------------------------//	
+
+	// -----------------------GET PRODUCT QUOTATION API----------------------//
+	//-------------------------------------------------------------//
+	public function productQuotation_get(){
+		$product_id=$_GET['product_id'];
+		$cut_value=$_GET['cut_value'];
+		$result = $this->Enquiry_model->getProduct_Quotation($product_id,$cut_value);
+		return $this->response($result);			
+	}
+	//---------------------GET PRODUCT QUOTATION END------------------------------//
 
 
 }

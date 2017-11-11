@@ -37,7 +37,7 @@ class ManageProducts_model extends CI_Model{
 		{  
 			$response=array(
 				'status'	=>	0,
-				'status_message' =>'Product is not defined yet!!!'
+				'status_message' =>'Product not found!!!'
 			);
 			return $response;
 		}

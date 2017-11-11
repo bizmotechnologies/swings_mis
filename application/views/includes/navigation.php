@@ -15,7 +15,6 @@ $user_name=$this->session->userdata('user_name');
   <!-- <script type="text/javascript" src="assets/css/alert/jquery-confirm.js"></script> -->
 </head>
 <body class="w3-white">
-<?php echo base64_decode('MTIzNDU2'); ?>
   <!-- Sidebar/menu -->
   <nav class="w3-sidebar w3-collapse w3-black w3-animate-left w3-white" style="z-index:2px;width:120px;" id="navigation"><br>
 
