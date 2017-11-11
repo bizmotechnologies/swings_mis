@@ -1,6 +1,31 @@
-<?php include("header.php") ?><!-- header file -->
+<?php defined('BASEPATH') OR exit('No direct script access allowed'); 
+//error_reporting(E_ERROR | E_PARSE);
 
-<div class=" container w3-light-grey w3-padding"><!--container starts here  -->
+?>
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Generate Quotations</title>
+  <link rel="stylesheet" href="<?php echo base_url(); ?>css/bootstrap/bootstrap.min.css">
+  <link rel="stylesheet" href="<?php echo base_url(); ?>css/font awesome/font-awesome.min.css">
+  <link rel="stylesheet" href="<?php echo base_url(); ?>css/font awesome/font-awesome.css">
+  <link rel="stylesheet" href="<?php echo base_url(); ?>css/w3.css">
+<!-- <link rel="stylesheet" href="assets/css/alert/jquery-confirm.css">
+--><script type="text/javascript" src="<?php echo base_url(); ?>css/bootstrap/jquery-3.1.1.js"></script>
+<script type="text/javascript" src="<?php echo base_url(); ?>css/bootstrap/bootstrap.min.js"></script>
+<!-- <script type="text/javascript" src="assets/css/alert/jquery-confirm.js"></script>
+--></head>
+<body class="w3-light-grey">
+
+  <!-- !PAGE CONTENT! -->
+  <div class="w3-main" style="margin-left:120px;">
+
+    <!-- Header -->
+    <header class="w3-container" >
+      <h5><b><i class="fa fa-files-o"></i> Manage Quotations</b></h5>
+    </header>
+<div class=" container"><!--container starts here  -->
   <div class="w3-right">
     <?php echo anchor("Add_customers", 'Back&nbsp;To&nbsp;Customer', ['class' => 'btn btn-primary']);?>
   </div>
@@ -21,7 +46,7 @@
         </tr>
         <tbody><!-- table body for showing table values which showing customer details -->
           <?php
-  	//print_r($details); 
+    //print_r($details); 
           $count=1;
           if($details['status']==0)
           {
@@ -248,7 +273,6 @@ else
 
   </div>
 </div>
-<?php include("footer.php") ?><!-- footer file -->
 
 <!-- script for reload page when modal is closed  -->
 <script>
@@ -257,5 +281,5 @@ else
  });
  </script>
  <!-- script for reload page when modal is closed  -->
-
+</div>
 
