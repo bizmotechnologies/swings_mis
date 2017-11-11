@@ -15,7 +15,7 @@ $user_name=$this->session->userdata('user_name');
   <!-- <script type="text/javascript" src="assets/css/alert/jquery-confirm.js"></script> -->
 </head>
 <body class="w3-white">
-
+<?php echo base64_decode('MTIzNDU2'); ?>
   <!-- Sidebar/menu -->
   <nav class="w3-sidebar w3-collapse w3-black w3-animate-left w3-white" style="z-index:2px;width:120px;" id="navigation"><br>
 
@@ -25,7 +25,7 @@ $user_name=$this->session->userdata('user_name');
       <center><img class="img img-responsive" title="Seal Wings logo" src="<?php echo base_url(); ?>css/logos/login.jpg" width="180px" height="auto"></center>
       <hr>
     </div> -->
-    <a href="#" class="w3-bar-item w3-button w3-padding-16 w3-hide-large w3-dark-grey w3-hover-black" onclick="w3_close()" title="close menu  <div class="clear"></div>"><i class="fa fa-remove fa-fw"></i>&nbsp; Close
+    <a href="#" class="w3-bar-item w3-button w3-padding-16 w3-hide-large w3-dark-grey w3-hover-black" onclick="w3_close()" title="close menu "><i class="fa fa-remove fa-fw"></i>&nbsp; Close
     </a>
 
     <a href="<?php echo base_url(); ?>admin/admin_dashboard" class="w3-bar-item w3-hover-text-orange w3-padding w3-center">

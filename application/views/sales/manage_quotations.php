@@ -36,7 +36,7 @@ error_reporting(E_ERROR | E_PARSE);
       <div class="w3-col l12 w3-padding w3-small">
         <form id="raiseQuote_form">
           <div class="w3-col l12 w3-margin-bottom">
-            <div class="w3-col l6 w3-padding-right">
+            <div class="w3-col l6 w3-padding">
               <label>Product List:</label>
               <select class="form-control" id="product_id" name="product_id" onchange="getProduct_details()">
                 <option value="0">Select product</option>
@@ -52,7 +52,7 @@ error_reporting(E_ERROR | E_PARSE);
           ?>
               </select>
             </div>
-            <div class="w3-col l6 w3-padding-left">
+            <div class="w3-col l6 w3-padding">
               <label>Customer List:</label>
               <select class="form-control">
                 <option value="0">Select customer</option>
@@ -82,7 +82,7 @@ function getProduct_details(){
 
     $.ajax({
       type: "POST",
-      url: "<?php echo base_url(); ?>orders/manage_quotations/productDetails",
+      url: "<?php echo base_url(); ?>sales_enquiry/manage_quotations/productDetails",
       data: dataString,
       cache: false,
       success: function(data){
