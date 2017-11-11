@@ -30,15 +30,25 @@ class ManageProducts_api extends REST_Controller
 	}
 	//---------------------GET PARTICULAR PRODUCTS END------------------------------//	
 
-	// -----------------------GET PRODUCT QUOTATION API----------------------//
+	// -----------------------GET PRODUCT COST API----------------------//
 	//-------------------------------------------------------------//
-	public function productQuotation_get(){
+	public function productCosting_get(){
 		$product_id=$_GET['product_id'];
 		$cut_value=$_GET['cut_value'];
-		$result = $this->Enquiry_model->getProduct_Quotation($product_id,$cut_value);
+		$result = $this->Enquiry_model->getProduct_Costing($product_id,$cut_value);
 		return $this->response($result);			
 	}
-	//---------------------GET PRODUCT QUOTATION END------------------------------//
+	//---------------------GET PRODUCT COST END------------------------------//
+
+	// -----------------------ADD PRODUCT IN QUOTATION API----------------------//
+	//-------------------------------------------------------------//
+	public function add_ToQuotation_post(){
+		$data=$_POST;		
+print_r($data);die();
+		$result = $this->Enquiry_model->add_ToQuotation($data);
+		return $this->response($result);			
+	}
+	//---------------------ADD PRODUCT IN QUOTATION END------------------------------//
 
 
 }

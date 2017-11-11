@@ -48,7 +48,6 @@ class ManageProducts_model extends CI_Model{
 		}
 	}
 	//----------------get particular products ends--------------------------//
-
 	
 }
 ?>

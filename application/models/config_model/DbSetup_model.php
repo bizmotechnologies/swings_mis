@@ -5,6 +5,7 @@ class DbSetup_model extends CI_Model{
 
 	public function __construct(){}
 
+	//----------function to auto load databse and tables if not exist------------------//
 	public function createDbSchema(){		
 
 		if($this->load->dbforge())
@@ -18,5 +19,18 @@ class DbSetup_model extends CI_Model{
 		}
 
 	}
+	//---------------------function ends---------------//
+
+
+	//----------function to get next auto increment value of primary key in particular table------------------//
+	public function get_AutoIncrement($table_schema,$table_name){		
+
+		$sql="SELECT AUTO_INCREMENT FROM information_schema.tables WHERE Table_SCHEMA = '$table_schema' AND table_name = '$table_name' ";
+  		$result =$this->db->query($sql);
+
+  		$response=$result->result_array();
+  		return $response[0]['AUTO_INCREMENT'];
+	}
+	//---------------------function ends---------------//
 }
 ?>
