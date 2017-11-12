@@ -12,7 +12,8 @@ class Manage_quotations extends CI_Controller
 		
 		$data['all_products']=Manage_quotations::show_products();
 		$data['all_customer']=Manage_quotations::show_customer();
-		
+		$data['all_liveQuotations']=Manage_quotations::show_liveQuotation();
+
 		$this->load->view('includes/navigation.php');
 		$this->load->view('sales/manage_quotations.php',$data);		
 	}
@@ -30,6 +31,42 @@ class Manage_quotations extends CI_Controller
 		curl_close($ch);
 		$response=json_decode($response_json, true);
 		return $response;	
+
+		
+	}
+// ---------------------function ends----------------------------------//
+
+	// ---------------function to show all live quotations------------------------//
+	public function show_liveQuotation(){
+		
+		//Connection establishment, processing of data and response from REST API
+		$path=base_url();
+		$url = $path.'api/manageQuotations_api/all_liveQuotations';		
+		$ch = curl_init($url);
+		curl_setopt($ch, CURLOPT_HTTPGET, true);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		$response_json = curl_exec($ch);
+		curl_close($ch);
+		$response=json_decode($response_json, true);
+		return $response;	
+
+		
+	}
+// ---------------------function ends----------------------------------//
+
+	// ---------------function to show quotation details------------------------//
+	public function quotationDetails(){
+		$sub_quotationID=$_POST['sub_quotationID'];
+		//Connection establishment, processing of data and response from REST API
+		$path=base_url();
+		$url = $path.'api/manageQuotations_api/quotationDetails?sub_quotationID='.$sub_quotationID;		
+		$ch = curl_init($url);
+		curl_setopt($ch, CURLOPT_HTTPGET, true);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		$response_json = curl_exec($ch);
+		curl_close($ch);
+		$response=json_decode($response_json, true);
+		print_r($response_json);	
 
 		
 	}
@@ -142,14 +179,14 @@ class Manage_quotations extends CI_Controller
 		else{
 			echo '
 			<label>Live Quotations:</label>
-			<select name="live_quotation" id="live_quotation" class="form-control w3-margin-bottom">
+			<select name="quotation_id" id="quotation_id" class="form-control w3-margin-bottom">
 			<option class="w3-red" value="0">Select quotation to revise</option>';
 			
 			foreach ($response['status_message'] as $key) {
 				echo '<option class="" value="'.$key['quotation_id'].'">Quotation No.#Q'.$key['quotation_id'].'- dated:'.$key['dated'].'</option>';
 			}
 			echo '</select>';	
-					
+
 			
 		}			
 		
@@ -161,10 +198,35 @@ class Manage_quotations extends CI_Controller
 
 		extract($_POST);
 		$data=$_POST;
-		print_r($data);die();
-		//Connection establishment, processing of data and response from REST API
+
+		//Connection establishment, processing of data and response from REST API	
 		$path=base_url();
-		$url = $path.'api/ManageProducts_api/add_ToQuotation';	
+		$url="";
+		if (isset($revise_quoteBtn)) {
+			if (!isset($quotation_id)) {
+				//----------------------if no quotation is associated to customer------------//
+				echo '
+				<h4 class="w3-text-red"><i class="fa  fa-info-circle"></i> ALERT</h4>
+				<label class="w3-text-grey w3-label w3-small">
+				<strong>There is no any quotation associated to this customer. </strong> 
+				</label>';
+				die();
+			}
+			elseif($quotation_id=='0'){
+				//-----------------check quotation selected or not-------------//
+				echo '
+				<h4 class="w3-text-red"><i class="fa fa-warning"></i> WARNING</h4>
+				<label class="w3-text-grey w3-label w3-small">
+				<strong>Select appropriate Quotation for the respective customer. </strong> 
+				</label>';
+				die();
+			}
+			$url = $path.'api/ManageProducts_api/add_revisedQuotation';			
+		}
+		else{
+			$url = $path.'api/ManageProducts_api/add_ToQuotation';
+		}
+
 		$ch = curl_init($url);
 		curl_setopt($ch, CURLOPT_POST, true);
 		curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
@@ -172,7 +234,6 @@ class Manage_quotations extends CI_Controller
 		$response_json = curl_exec($ch);
 		curl_close($ch);
 		$response=json_decode($response_json, true);
-		print_r($response_json);die();		
 		//API processing end
 
 		if($response['status']==0){
@@ -187,7 +248,7 @@ class Manage_quotations extends CI_Controller
 			}, 1000);
 			</script>			
 			';	
-			
+
 		}
 		else{
 			echo '<div class="alert alert-success">
@@ -201,8 +262,9 @@ class Manage_quotations extends CI_Controller
 			}, 1000);
 			</script>			
 			';				
-			
-		}					
+
+		}	
+
 		
 	}
 // ---------------------function ends----------------------------------//	

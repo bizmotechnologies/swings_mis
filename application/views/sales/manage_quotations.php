@@ -12,13 +12,12 @@
   <link rel="stylesheet" href="<?php echo base_url(); ?>css/font awesome/font-awesome.css">
   <link rel="stylesheet" href="<?php echo base_url(); ?>css/w3.css">
   <link href="<?php echo base_url(); ?>css/bootstrap/bootstrap-toggle.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="assets/css/alert/jquery-confirm.css">
+  <link rel="stylesheet" href="<?php echo base_url(); ?>css/alert/jquery-confirm.css">
 
   <script type="text/javascript" src="<?php echo base_url(); ?>css/bootstrap/jquery-3.1.1.js"></script>
   <script type="text/javascript" src="<?php echo base_url(); ?>css/bootstrap/bootstrap.min.js"></script>
   <script src="<?php echo base_url(); ?>css/bootstrap/bootstrap-toggle.min.js"></script>
-
-  <script type="text/javascript" src="assets/css/alert/jquery-confirm.js"></script>
+  <script type="text/javascript" src="<?php echo base_url(); ?>css/alert/jquery-confirm.js"></script>
 </head>
 <body class="w3-light-grey">
 
@@ -51,7 +50,7 @@
                   <option class="w3-red" value="0">Select customer</option>
                   <?php 
                   if(isset($all_customer['status'])==0){
-                    echo '<option>'.$all_products['status_message'].'</option>';                    
+                    echo '<option>'.$all_customer['status_message'].'</option>';                    
                   }
                   else{
                     foreach ($all_customer['status_message'] as $key) {                  
@@ -59,60 +58,76 @@
                    }
                  }
                  ?>
-                </select>
-                <div class="w3-col l12">
-                  <span class="w3-small w3-right w3-text-red w3-label"><i class="fa fa-plus"></i> Add Customer</span>
-                </div>
-              </div>
-              <div class="w3-col l12 w3-padding" id="revise_quoteDiv" style="display: none"></div>
-              <div class="w3-col l8 w3-padding">
-                <label>Product List:</label>
-                <select class="form-control" id="product_id" name="product_id" >
-                  <option value="0">Select product</option>
-                  <?php 
-                  if(isset($all_products['status'])){
-                    echo '<option>'.$all_products['status_message'].'</option>';                    
-                  }
-                  else{
-                    foreach ($all_products as $key) {                  
-                     echo '<option value="'.$key['product_id'].'">'.$key['product_name'].'</option>';
-                   }
-                 }
-                 ?>
                </select>
                <div class="w3-col l12">
-                <span class="w3-small w3-right w3-text-red w3-label"><i class="fa fa-plus"></i> Add Product</span>
+                <a href="<?php echo base_url(); ?>inventory/add_customers"><span class="w3-tiny w3-right w3-text-red w3-label"><i class="fa fa-plus"></i> Add Customer</span></a>
               </div>
             </div>
-            <div class="w3-col l4 w3-padding">
-              <label>Cut :</label>
-              <input class="form-control" type="number" id="quote_cut" name="quote_cut" placeholder="Cut" required>
-            </div>
-            <div class="w3-col l12 w3-padding">
-              <button type="button" class="w3-right btn w3-blue" id="get_productSpecs_btn">Get Specifications</button>
+            <div class="w3-col l12 w3-padding" id="revise_quoteDiv" style="display: none"></div>
+            <div class="w3-col l8 w3-padding">
+              <label>Product List:</label>
+              <select class="form-control" id="product_id" name="product_id" >
+                <option value="0">Select product</option>
+                <?php 
+                if(isset($all_products['status'])){
+                  echo '<option>'.$all_products['status_message'].'</option>';                    
+                }
+                else{
+                  foreach ($all_products as $key) {                  
+                   echo '<option value="'.$key['product_id'].'">'.$key['product_name'].'</option>';
+                 }
+               }
+               ?>
+             </select>
+             <div class="w3-col l12">
+              <a href="<?php echo base_url(); ?>inventory/manage_products/add_products"><span class="w3-tiny w3-right w3-text-red w3-label"><i class="fa fa-plus"></i> Add Product</span></a>
             </div>
           </div>
-
-          <div id="product_specs">
-
+          <div class="w3-col l4 w3-padding">
+            <label>Cut :</label>
+            <input class="form-control" type="number" id="quote_cut" name="quote_cut" placeholder="Cut" required>
           </div>
-        </form>
-      </div>
-    </div>
-    <div class="w3-col l6">
-      <header class="w3-container" >
-        <h6><b><i class="fa fa-file-text"></i> Quotation Details</b></h6>
-        <span class="w3-small"></span>
-      </header>
-      <div class="w3-col l12">
-        <?php print_r($all_liveQuotations); ?>
-        <div class="w3-col l12" id="quotation_detailsDIV">
+          <div class="w3-col l12 ">
+            <a class="w3-right btn w3-small w3-text-blue" id="get_productSpecs_btn"><b><i class="fa fa-chevron-circle-down"></i> Get Specifications</b></a>
+          </div>
+        </div>
+
+        <div id="product_specs">
 
         </div>
-      </div>
+      </form>
     </div>
-  </div><div id="Input_MaterialStock"></div>
-  <!-- End page content -->
+  </div>
+  <div class="w3-col l6">
+    <header class="w3-container" >
+      <h6><b><i class="fa fa-file-text"></i> Quotation Details</b></h6>
+      <span class="w3-small"></span>
+    </header>
+    <div class="w3-col l12 w3-small">
+      <div class="w3-col l12 w3-padding">
+        <label>Live Quotations List:</label>
+        <select name="quotation_ToSend" id="quotation_ToSend" class="form-control">
+          <option class="w3-red" value="0">Select quotation</option>
+          <?php 
+          if(isset($all_liveQuotations['status'])==0){
+            echo '<option>'.$all_liveQuotations['status_message'].'</option>';                    
+          }
+          else{
+            foreach ($all_liveQuotations['status_message'] as $key) {                  
+             echo '<option value="'.$key['sub_quotation_id'].'">Quotation No.#Q'.$key['quotation_id'].'/'.$key['sub_quotation_id'].'- dated:'.$key['dated'].'</option>';
+           }
+         }
+         ?>
+       </select>
+
+     </div>
+     <div class="w3-col l12" id="quotation_detailsDIV">
+
+     </div>
+   </div>
+ </div>
+</div><div id="Input_MaterialStock"></div>
+<!-- End page content -->
 </div>
 
 <!-- script to get product specifications and calculated price -->
@@ -157,7 +172,8 @@
 
            success: function(data)
            {
-             $("#quotation_detailsDIV").html(data);                                     
+            $.alert(data);
+             //$("#quotation_detailsDIV").html(data);                                     
            }
 
          });
@@ -179,13 +195,12 @@
 <!-- script ends -->
 
 <!-- script to get customer specific live quotations when customer is selected -->
-<!-- script to get product specifications and calculated price -->
 <script>
   $(document).ready(function() {
     $('#customer_name').change(function() {
 
         var customer_name = $('#customer_name').val(); //customer name value
-       alert(customer_name);
+        
         $.ajax({
           type: "POST",
           url: "<?php echo base_url(); ?>sales_enquiry/manage_quotations/getCustomer_quotations",
@@ -203,6 +218,30 @@
   });
 </script>
 <!-- script ends -->
+
+<!-- script to get customer specific live quotations when customer is selected -->
+<script>
+  $(document).ready(function() {
+    $('#quotation_ToSend').change(function() {
+
+        var quotation_ToSend = $('#quotation_ToSend').val(); //customer name value
+        alert(quotation_ToSend);
+        $.ajax({
+          type: "POST",
+          url: "<?php echo base_url(); ?>sales_enquiry/manage_quotations/quotationDetails",
+          data: 'sub_quotationID='+ quotation_ToSend,
+          cache: false,
+          success: function(response) {
+          $("#quotation_detailsDIV").html(response); 
+          },
+          error: function(xhr, textStatus, errorThrown) {
+           alert('request failed'+errorThrown);
+         }
+       });
+
+      });
+  });
+</script>
 <!-- script ends -->
 </body>
 </html>

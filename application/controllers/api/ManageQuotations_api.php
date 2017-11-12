@@ -19,23 +19,23 @@ class ManageQuotations_api extends REST_Controller
 	}
 	//---------------------GET CUSTOMER'S QUOTATIONS END------------------------------//
 
-	// -----------------------GET ALL ROLE API----------------------//
+	// -----------------------GET ALL LIVE QUOTATIONS API----------------------//
 	//-------------------------------------------------------------//
-	public function getCustomerDetails_get(){
-		$result = $this->ManageCustomer_model->getCustomerDetails();
+	public function all_liveQuotations_get(){
+		$result = $this->Enquiry_model->getlive_Quotations();
 		return $this->response($result);			
 	}
-	//---------------------GET ALL ROLE END------------------------------//
+	//---------------------GET ALL LIVE QUOTATIONS END------------------------------//
 
 	
-	// -----------------------DELETE ROLE API----------------------//
+	// -----------------------GET QUOTATIONS DETAILS API----------------------//
 	//-------------------------------------------------------------//
-	public function Update_CustomerDetails_post(){
-		$data = $_POST;
-		$result = $this->ManageCustomer_model->Update_CustomerDetails($data);
+	public function quotationDetails_get(){
+		$sub_quotationID = $_GET['sub_quotationID'];
+		$result = $this->Enquiry_model->getQuotation_details($sub_quotationID);
 		return $this->response($result);			
 	}
-	//---------------------DELETE ROLE END------------------------------//
+	//---------------------GET QUOTATIONS DETAILS END------------------------------//
 
 // -----------------------DELETE CUSTOMER API----------------------//
 	//-------------------------------------------------------------//

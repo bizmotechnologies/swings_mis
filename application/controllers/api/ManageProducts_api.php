@@ -51,6 +51,18 @@ class ManageProducts_api extends REST_Controller
 	}
 	//---------------------ADD PRODUCT IN QUOTATION END------------------------------//
 
+
+	// -----------------------ADD PRODUCT IN REVISED QUOTATION API----------------------//
+	//-------------------------------------------------------------//
+	public function add_revisedQuotation_post(){
+		$data=$_POST;		
+//print_r($data);die();
+		$result = $this->Enquiry_model->add_revisedQuotation($data);
+		return $this->response($result);			
+	}
+	//---------------------ADD PRODUCT IN REVISED QUOTATION END------------------------------//
+
+
 // -----------------------ADD PRODUCT IN QUOTATION API----------------------//
 	//-------------------------------------------------------------//
 	public function save_Products_post(){
