@@ -1,9 +1,37 @@
-<?php include("header.php"); ?><!-- header file -->
+<?php defined('BASEPATH') OR exit('No direct script access allowed'); 
+//error_reporting(E_ERROR | E_PARSE);
+
+?>
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Generate Quotations</title>
+  <link rel="stylesheet" href="<?php echo base_url(); ?>css/bootstrap/bootstrap.min.css">
+  <link rel="stylesheet" href="<?php echo base_url(); ?>css/font awesome/font-awesome.min.css">
+  <link rel="stylesheet" href="<?php echo base_url(); ?>css/font awesome/font-awesome.css">
+  <link rel="stylesheet" href="<?php echo base_url(); ?>css/w3.css">
+<!-- <link rel="stylesheet" href="assets/css/alert/jquery-confirm.css">
+--><script type="text/javascript" src="<?php echo base_url(); ?>css/bootstrap/jquery-3.1.1.js"></script>
+<script type="text/javascript" src="<?php echo base_url(); ?>css/bootstrap/bootstrap.min.js"></script>
+<!-- <script type="text/javascript" src="assets/css/alert/jquery-confirm.js"></script>-->
+  <script type="text/javascript" src="<?php echo base_url(); ?>css/country/country.js"></script>
+
+</head>
+<body class="w3-light-grey">
+
+  <!-- !PAGE CONTENT! -->
+  <div class="w3-main" style="margin-left:120px;">
+
+    <!-- Header -->
+    <header class="w3-container" >
+      <h5><b><i class="fa fa-users"></i> Manage Customers</b></h5>
+    </header>
 
 <div class="container">
 	<div class="col-lg-9">
     <div class="col-lg-1">
-      <?php echo anchor("Manage_products", 'Back&nbsp;To&nbsp;Products', ['class' => 'btn btn-primary']);?><!-- anchor for redirect to manage product -->
+      <?php echo anchor("inventory/Manage_products", 'Back&nbsp;To&nbsp;Products', ['class' => 'btn btn-primary']);?><!-- anchor for redirect to manage product -->
     </div><br><br>
     <br>
     <form class="w3-small" method="POST" action="" id="addProducts_Form" name="addProducts_Form">
@@ -90,7 +118,7 @@
           <div class="w3-margin-bottom w3-col l12 w3-small" id="addProducts_err"></div><!-- div for showing error and success message -->
         </div>
 
-        <?php include("footer.php"); ?>
+        </div>
         <!-- this script is used for showing add more rows functionality -->
         <script>
         var rowCount = 1;
@@ -105,7 +133,6 @@
           jQuery('#rowCount' + removeNum).remove();
 
         }  
-
         </script>
         <!-- this script is used for showing add more rows functionality ends here -->
 
@@ -116,7 +143,7 @@
            dataString = $("#addProducts_Form").serialize();
            $.ajax({
              type: "POST",
-             url: "<?php echo base_url(); ?>Manage_products/save_Products",
+             url: "<?php echo base_url(); ?>inventory/Manage_products/save_Products",
              data: dataString,
            return: false,  //stop the actual form post !important!
            success: function(data)
@@ -135,7 +162,7 @@
 
           $.ajax({
             type: "POST",
-            url: "<?php echo base_url(); ?>Manage_products/showmaterialInfo",
+            url: "<?php echo base_url(); ?>inventory/Manage_products/showmaterialInfo",
             data: dataString,
             cache: false,
             success: function(data){

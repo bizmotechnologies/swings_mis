@@ -3,12 +3,11 @@ class MaterialStock_Management extends CI_controller{
 
 public function index(){
 
-  $this->load->model('MaterialStockManagement_model');
+  $this->load->model('inventory_model/MaterialStockManagement_model');
   $response['All_Material'] = $this->MaterialStockManagement_model->GetMaterialDetails();// this fun shows that the select material values
-  //print_r($response); die();
   $response['details'] = $this->MaterialStockManagement_model->Getreceived_Stock(); 
-        //print_r($response);
-  $this->load->view('materialstock_management', $response);
+  $this->load->view('includes/navigation');
+  $this->load->view('inventory/stock/materialstock_management', $response);
 
 	}
 
@@ -16,7 +15,7 @@ public function Save_StockMaterial_Info(){ // this fun for add stock by vender t
 	extract($_POST);
       //print_r($_POST);die();
     $data = $_POST;
-	$this->load->model('MaterialStockManagement_model');
+	$this->load->model('inventory_model/MaterialStockManagement_model');
     $response = $this->MaterialStockManagement_model->Save_StockMaterial_Info($data);
 
     if($response['status'] == 0){
@@ -52,7 +51,7 @@ public function Update_UpdatedStockMaterial_Info(){  /* this update fun is used 
 
     extract($_POST);
     $data = $_POST;
-    $this->load->model('MaterialStockManagement_model');
+    $this->load->model('inventory_model/MaterialStockManagement_model');
     $response = $this->MaterialStockManagement_model->Update_UpdatedStockMaterial_Info($data);
     //print_r($response);
     if($response['status'] == 0)
@@ -71,9 +70,9 @@ public function DeleteStockDetails(){   /*this is the fun for delete stock detai
   extract($_GET);
      // print_r($_GET);die();
   $data = $_GET;
-  $this->load->model('MaterialStockManagement_model');  
+  $this->load->model('inventory_model/MaterialStockManagement_model');  
   $records = $this->MaterialStockManagement_model->DeleteStockDetails($data);
-    redirect('MaterialStock_Management');
+    redirect('inventory/MaterialStock_Management');
 
 }/*this fun for delete stock details ends here*/
 
@@ -82,7 +81,7 @@ public function ShowMaterialStock(){   /* this show material stock fun is used t
 	extract($_POST);
       //print_r($_POST);die();
     $data = $_POST;
-    $this->load->model('MaterialStockManagement_model');
+    $this->load->model('inventory_model/MaterialStockManagement_model');
     $response = $this->MaterialStockManagement_model->showMaterial($data);
     //print_r($response);
     if($response['status'] == 0)

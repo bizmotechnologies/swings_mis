@@ -96,10 +96,9 @@ public function DeleteVendorDetails($data){ /*this fun for delete vendor details
       'status' => 0,
       'status_message' => 'Records Not Deleted Successfully...!');
   }
-
   return $response;
-
-}/*delete fun ends here*/
+}
+/*delete fun ends here*/
 
 
 

@@ -40,7 +40,7 @@ public function index(){
         $data = $_GET;
         $this->load->model('inventory_model/ManageCustomer_model');  
         $response = $this->ManageCustomer_model->DeleteCustomerDetails($data);
-        redirect('Manage_customers');      
+        redirect('inventory/Manage_customers');      
 	}/*fun ends here*/
 
 }

@@ -1,16 +1,45 @@
-<?php include("header.php") ?><!-- header file -->
+<?php defined('BASEPATH') OR exit('No direct script access allowed'); 
+//error_reporting(E_ERROR | E_PARSE);
+
+?>
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Generate Quotations</title>
+  <link rel="stylesheet" href="<?php echo base_url(); ?>css/bootstrap/bootstrap.min.css">
+  <link rel="stylesheet" href="<?php echo base_url(); ?>css/font awesome/font-awesome.min.css">
+  <link rel="stylesheet" href="<?php echo base_url(); ?>css/font awesome/font-awesome.css">
+  <link rel="stylesheet" href="<?php echo base_url(); ?>css/w3.css">
+<!-- <link rel="stylesheet" href="assets/css/alert/jquery-confirm.css">
+--><script type="text/javascript" src="<?php echo base_url(); ?>css/bootstrap/jquery-3.1.1.js"></script>
+<script type="text/javascript" src="<?php echo base_url(); ?>css/bootstrap/bootstrap.min.js"></script>
+<!-- <script type="text/javascript" src="assets/css/alert/jquery-confirm.js"></script>-->
+  <script type="text/javascript" src="<?php echo base_url(); ?>css/country/country.js"></script>
+
+</head>
+<body class="w3-light-grey">
+
+  <!-- !PAGE CONTENT! -->
+  <div class="w3-main" style="margin-left:120px;">
+
+    <!-- Header -->
+    <header class="w3-container" >
+      <h5><b><i class="fa fa-users"></i> Manage Customers</b></h5>
+    </header>
+
 <div class="container"><!-- container starts here -->
 
   <div class="row">
     <div class="col-lg-1">
-      <a class="btn btn-primary" href="<?php echo base_url();?>Manage_materials">Materials</a> <!-- anchor for material managements -->
+      <a class="btn btn-primary" href="<?php echo base_url();?>inventory/Manage_materials">Materials</a> <!-- anchor for material managements -->
     </div>
     <br><br><br>
   </div>
 
   <div class="row">
     <div class="col-lg-1">
-      <?php echo anchor("Manage_products/add_products", 'Add&nbsp;Products', ['class' => 'btn btn-primary']);?><!-- anchor for redirecting to add material page  -->
+      <?php echo anchor("inventory/Manage_products/add_products", 'Add&nbsp;Products', ['class' => 'btn btn-primary']);?><!-- anchor for redirecting to add material page  -->
     </div>
   </div><br>
 
@@ -41,7 +70,7 @@
           <td class="text-center">'.$productdata['status_message'][$i]['OD'].'</td>
           <td class="text-center">'.$productdata['status_message'][$i]['thickness'].'</td>
           <td class="text-center"><a class="btn w3-medium" title="UpdateProduct" data-toggle="modal" data-target="#updateMenu_'.$productdata['status_message'][$i]['product_id'].'" style="padding:0"><i class="fa fa-edit"></i></a>
-          <a class="btn w3-medium" title="DeleteProduct" href="'.base_url().'Manage_products/DeleteRecord?Product_id='.$productdata['status_message'][$i]['product_id'].'" style="padding:0"><i class="fa fa-trash"></i></a>
+          <a class="btn w3-medium" title="DeleteProduct" href="'.base_url().'inventory/Manage_products/DeleteRecord?Product_id='.$productdata['status_message'][$i]['product_id'].'" style="padding:0"><i class="fa fa-trash"></i></a>
           <!-- Modal -->
           <div id="updateMenu_'.$productdata['status_message'][$i]['product_id'].'" class="modal fade " role="dialog">
           <div class="modal-dialog ">
@@ -52,7 +81,7 @@
           <h4 class="modal-title w3-xxlarge w3-text-red">Update</h4>
           </div>
           <div class="modal-body">
-          <form method="POST" action="'.base_url().'Manage_products/UpdateRecord">
+          <form method="POST" action="'.base_url().'inventory/Manage_products/UpdateRecord">
           <div class="">
           <input type="hidden" class="" id="new_Product_id" name="new_Product_id" value="'.$productdata['status_message'][$i]['product_id'].'">
           </div><br>
@@ -105,8 +134,7 @@
 </div> 
 
 
-<?php include("footer.php"); ?><!-- footer file -->
-
+<div>
 <!-- this script is used for showing material product association functionality -->
 <script>
 function Show_Material_Product_Association(){
@@ -114,7 +142,7 @@ function Show_Material_Product_Association(){
 
   $.ajax({
     type: "POST",
-    url: "<?php echo base_url(); ?>Manage_products/Show_Material_Product_Association",
+    url: "<?php echo base_url(); ?>inventory/Manage_products/Show_Material_Product_Association",
     data: dataString,
     cache: false,
     success: function(data){
@@ -133,7 +161,7 @@ $(function(){
    dataString = $("#input_Productcategory").val();  
    $.ajax({
      type: "POST",
-     url: "<?php echo base_url(); ?>Manage_products/addProductCategory",
+     url: "<?php echo base_url(); ?>inventory/Manage_products/addProductCategory",
      data: 
      {
       input_Productcategory:dataString
@@ -158,7 +186,7 @@ $(function(){
 
    $.ajax({
     type: "POST",
-    url: "<?php echo base_url(); ?>Manage_products/DeleteProduct",
+    url: "<?php echo base_url(); ?>inventory/Manage_products/DeleteProduct",
     data: dataString,
     cache: false,
     success: function(data){
@@ -178,7 +206,7 @@ function ShowProductsTable(){
 
   $.ajax({
     type: "POST",
-    url: "<?php echo base_url(); ?>Manage_products/ShowProductsTable",
+    url: "<?php echo base_url(); ?>inventory/Manage_products/ShowProductsTable",
     data: dataString,
     cache: false,
     success: function(data){
@@ -197,7 +225,7 @@ $(function(){
     //alert(dataString);
     $.ajax({
      type: "POST",
-     url: "<?php echo base_url(); ?>Manage_products/Save_Material_product_assoc",
+     url: "<?php echo base_url(); ?>inventory/Manage_products/Save_Material_product_assoc",
      data: dataString,
            return: false,  //stop the actual form post !important!
            success: function(data)

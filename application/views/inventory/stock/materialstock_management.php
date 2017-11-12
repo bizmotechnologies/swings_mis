@@ -1,4 +1,32 @@
- <?php include("header.php");?><!-- header file -->
+<?php defined('BASEPATH') OR exit('No direct script access allowed'); 
+//error_reporting(E_ERROR | E_PARSE);
+
+?>
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Generate Quotations</title>
+  <link rel="stylesheet" href="<?php echo base_url(); ?>css/bootstrap/bootstrap.min.css">
+  <link rel="stylesheet" href="<?php echo base_url(); ?>css/font awesome/font-awesome.min.css">
+  <link rel="stylesheet" href="<?php echo base_url(); ?>css/font awesome/font-awesome.css">
+  <link rel="stylesheet" href="<?php echo base_url(); ?>css/w3.css">
+<!-- <link rel="stylesheet" href="assets/css/alert/jquery-confirm.css">
+--><script type="text/javascript" src="<?php echo base_url(); ?>css/bootstrap/jquery-3.1.1.js"></script>
+<script type="text/javascript" src="<?php echo base_url(); ?>css/bootstrap/bootstrap.min.js"></script>
+<!-- <script type="text/javascript" src="assets/css/alert/jquery-confirm.js"></script>-->
+  <script type="text/javascript" src="<?php echo base_url(); ?>css/country/country.js"></script>
+
+</head>
+<body class="w3-light-grey">
+
+  <!-- !PAGE CONTENT! -->
+  <div class="w3-main" style="margin-left:120px;">
+
+    <!-- Header -->
+    <header class="w3-container" >
+      <h5><b><i class="fa fa-users"></i> Manage Customers</b></h5>
+    </header>
 
  <div id="exTab1" class="container"> <!-- container for tab -->
   <div><b>Material Stock Management</b></div><br>
@@ -58,7 +86,7 @@
                       <td class="text-center">'.$details['status_message'][$i]['vendor'].'</td>
                       <td class="text-center">'.$details['status_message'][$i]['accepted_date'].'</td>
                       <td class="text-center"><a class="btn  w3-medium" title="UpdateCustomer" data-toggle="modal" data-target="#myModalnew_'.$details['status_message'][$i]['received_stock_id'].'" style="padding:0"><i class="fa fa-edit"></i></a>
-                      <a class="btn  w3-medium " title="DeleteCustomer" href="'.base_url().'MaterialStock_Management/DeleteStockDetails?Receivedstock_id='.$details['status_message'][$i]['received_stock_id'].'" style="padding:0"><i class="fa fa-close"></i></a>
+                      <a class="btn  w3-medium " title="DeleteCustomer" href="'.base_url().'inventory/MaterialStock_Management/DeleteStockDetails?Receivedstock_id='.$details['status_message'][$i]['received_stock_id'].'" style="padding:0"><i class="fa fa-close"></i></a>
 
                       <!-- Modal  starts here-->
 
@@ -145,7 +173,7 @@
                   //alert(dataString);
                          $.ajax({
                            type: "POST",
-                           url: "'.base_url().'MaterialStock_Management/Update_UpdatedStockMaterial_Info",
+                           url: "'.base_url().'inventory/MaterialStock_Management/Update_UpdatedStockMaterial_Info",
                            data: dataString,
                            return: false,  
 
@@ -388,7 +416,7 @@ else
 </div><!-- container for tab -->
 
 
-<?php include("footer.php");?><!-- footer ends here -->
+</div><!-- div for main container -->
 <script >
 /*this script is used for save stock material information*/
 $(function(){
@@ -397,7 +425,7 @@ $(function(){
     //alert(dataString);
     $.ajax({
      type: "POST",
-     url: "<?php echo base_url(); ?>MaterialStock_Management/Save_StockMaterial_Info",
+     url: "<?php echo base_url(); ?>inventory/MaterialStock_Management/Save_StockMaterial_Info",
      data: dataString,
            return: false,  //stop the actual form post !important!
 
@@ -422,7 +450,7 @@ function ShowMaterialStock(){
 
   $.ajax({
     type: "POST",
-    url: "<?php echo base_url(); ?>MaterialStock_Management/ShowMaterialStock",
+    url: "<?php echo base_url(); ?>inventory/MaterialStock_Management/ShowMaterialStock",
     data: dataString,
     cache: false,
     success: function(data){

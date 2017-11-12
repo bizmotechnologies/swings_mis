@@ -1,13 +1,32 @@
- <?php include("header.php");?><!-- header file  -->
+<?php defined('BASEPATH') OR exit('No direct script access allowed'); 
+//error_reporting(E_ERROR | E_PARSE);
 
- <script type="text/javascript">
- /*script for showing country and state*/
- $(document).ready(function () {
-  print_country("Select_VendorCountry");
-});
+?>
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Generate Quotations</title>
+  <link rel="stylesheet" href="<?php echo base_url(); ?>css/bootstrap/bootstrap.min.css">
+  <link rel="stylesheet" href="<?php echo base_url(); ?>css/font awesome/font-awesome.min.css">
+  <link rel="stylesheet" href="<?php echo base_url(); ?>css/font awesome/font-awesome.css">
+  <link rel="stylesheet" href="<?php echo base_url(); ?>css/w3.css">
+<!-- <link rel="stylesheet" href="assets/css/alert/jquery-confirm.css">
+--><script type="text/javascript" src="<?php echo base_url(); ?>css/bootstrap/jquery-3.1.1.js"></script>
+<script type="text/javascript" src="<?php echo base_url(); ?>css/bootstrap/bootstrap.min.js"></script>
+<!-- <script type="text/javascript" src="assets/css/alert/jquery-confirm.js"></script>-->
+  <script type="text/javascript" src="<?php echo base_url(); ?>css/country/country.js"></script>
 
- /*script for showing country and state*/
- </script>
+</head>
+<body class="w3-light-grey">
+
+  <!-- !PAGE CONTENT! -->
+  <div class="w3-main" style="margin-left:120px;">
+
+    <!-- Header -->
+    <header class="w3-container" >
+      <h5><b><i class="fa fa-users"></i> Manage Customers</b></h5>
+    </header>
 
  <div class=" container w3-padding"> <!-- container starts here -->
   <div><b>Vendor Management</b></div><br>
@@ -45,7 +64,7 @@
                 <td class="text-center">'.$details['status_message'][$i]['vendor_shopaddress'].'</td>
                 <td class="text-center">'.$details['status_message'][$i]['contact_no_one'].'</td>
                 <td class="text-center"><a class="btn w3-blue w3-medium w3-padding-small" title="UpdateVendor" data-toggle="modal" data-target="#UpdatemyModal_'.$details['status_message'][$i]['vendor_id'].'" style="padding:0"><i class="fa fa-edit"></i></a>
-                <a class="btn w3-red w3-medium w3-padding-small" title="DeleteVendor" href="'.base_url().'Vendor_Management/DeleteVendorDetails?Vendor_id='.$details['status_message'][$i]['vendor_id'].'" style="padding:0"><i class="fa fa-close"></i></a>
+                <a class="btn w3-red w3-medium w3-padding-small" title="DeleteVendor" href="'.base_url().'inventory/Vendor_Management/DeleteVendorDetails?Vendor_id='.$details['status_message'][$i]['vendor_id'].'" style="padding:0"><i class="fa fa-close"></i></a>
 
                 <script type="text/javascript">
                 <!-- script is for showing country for select state  -->
@@ -67,7 +86,7 @@
 
          $.ajax({
            type: "POST",
-           url: "'.base_url().'Vendor_Management/Update_VendorDetails",
+           url: "'.base_url().'inventory/Vendor_Management/Update_VendorDetails",
            data: dataString,
            return: false,
 
@@ -393,8 +412,8 @@ else
                             </div>
                           </div>
                         </div>
-                        <?php include("footer.php");?><!-- footer file -->
 
+                      </div><!-- main container -->
                         <!-- Modal -->
                         <div id="myModal" class="modal fade" role="dialog">
                           <div class="modal-dialog">
@@ -416,38 +435,38 @@ else
                           </div>
                         </div><!-- modal ends here -->
 
-                        <script>
+
+<script type="text/javascript">
+                        /*script for showing country and state*/
+          $(document).ready(function () {
+          print_country("Select_VendorCountry");
+           });
+              /*script for showing country and state*/
+</script>
+<script>
                         /*this script is used for submit fun to add vendor details*/
-                        $(function(){
-                         $("#VendorDetailsForm").submit(function(){
-                           dataString = $("#VendorDetailsForm").serialize();
-
-                           $.ajax({
-                             type: "POST",
-                             url: "<?php echo base_url();?>Vendor_Management/save_VendorDetails",
-                             data: dataString,
-           return: false,  //stop the actual form post !important!
-
-           success: function(data)
-           {
-
-            $("#addVendorInformation_err").html(data);                         
-
-          }
-
-        });
-
-         return false;  //stop the actual form post !important!
-
-       });
-                       });
-                        /*this script is used for submit fun to add vendor details*/
-                        </script>
-
-                        <!-- This script is used to reload the page when popup close -->
-                        <script>
-                        $('#myModal').on('hidden.bs.modal', function () {
-                          location.reload();
-                        });
-                        </script>
-<!-- This script is used to reload the page when popup close -->
+        $(function(){
+          $("#VendorDetailsForm").submit(function(){
+        dataString = $("#VendorDetailsForm").serialize();
+       $.ajax({
+       type: "POST",
+       url: "<?php echo base_url();?>inventory/Vendor_Management/save_VendorDetails",
+        data: dataString,
+         return: false,  //stop the actual form post !important!
+          success: function(data)
+          {
+          $("#addVendorInformation_err").html(data);                         
+         }
+      });
+       return false;  //stop the actual form post !important!
+     });
+    });
+                          /*this script is used for submit fun to add vendor details*/
+    </script>
+                          <!-- This script is used to reload the page when popup close -->
+    <script>
+    $('#myModal').on('hidden.bs.modal', function () {
+      location.reload();
+    });
+    </script>
+  <!-- This script is used to reload the page when popup close -->

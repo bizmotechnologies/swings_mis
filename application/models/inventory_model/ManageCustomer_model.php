@@ -1,4 +1,6 @@
 <?php
+if(!defined('BASEPATH')) exit('No direct script access allowed');
+
 	class ManageCustomer_model extends CI_Model{
 
 public function getCustomerDetails(){  /*this fun is used to get customer deatails*/

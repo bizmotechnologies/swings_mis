@@ -1,12 +1,14 @@
 <?php
+if(!defined('BASEPATH')) exit('No direct script access allowed');
+
 class ManageProduct_model extends CI_Model{
 
 	public function getProductcategory(){  /*this function is used to get product category*/
 
 		$query = $this->db->get('product_category');
 		return $query->result();
-
-	}/*this function is used to get product category ends here*/
+	}
+	/*this function is used to get product category ends here*/
 
 	public function showmaterialInfo($data){ /* this fun is used to get material data*/
 
@@ -29,14 +31,11 @@ class ManageProduct_model extends CI_Model{
 					);
 				$info[] = $newarr;
 			}
-			
-			{
-				$response=json_encode($info);
-			}
+			$response=json_encode($info);
 		}
 		return $response;
-
-	}/* this fun is ends here */
+	}
+	/*---------------- this fun is ends here --------------------------------*/
 
 	public function Show_Material_Product_Association($data){   /* this function is used to show material product association*/
 
@@ -56,16 +55,13 @@ class ManageProduct_model extends CI_Model{
 				'status' => 0,
 				'status_message' => $result->result_array());
 		}
-		
 		return $response;
-
-	}/* show material product association ends here */
+	}
+	/* show material product association ends here */
 
 	public function Save_Material_product_assoc($data){  /* this fun is used to save material product association */
-	//print_r($data); die();
 		extract($data);
 		$material_name=ManageProduct_model::getMaterialdata($SelectMaterial_id);
-	//print_r($material_name); die();
 		$sqlnew="INSERT INTO product_material_assoc (product_id, material_id,material_name) 
 		values ('$SelectProduct_id','$SelectMaterial_id','$material_name')";
 		$resultnew =$this->db->query($sqlnew);
@@ -84,19 +80,14 @@ class ManageProduct_model extends CI_Model{
 				'status' => 0,
 				'status_message' => $result->result_array());
 		}
-		
 		return $response;
-
 	}/*material product association ends here */
 
 	public function DeleteMaterialProductAssoc($data){ /*this fun is used to delete mae=terila product assocition */
 
 		extract($data);
-		//print_r($data);die();
 		$sqldelete = "DELETE FROM product_material_assoc WHERE product_material_assoc_id='$product_material_assoc_id'";
-
 		$resultdelete =$this->db->query($sqldelete);
-
 		if($resultdelete){  
 			$response=array(
 				'status' => 1,
@@ -107,7 +98,6 @@ class ManageProduct_model extends CI_Model{
 				'status' => 0,
 				'status_message' => 'Records Not Deleted Successfully...!');
 		}
-		
 		return $response;
 		/*  function ends here*/
 	}
@@ -121,10 +111,9 @@ class ManageProduct_model extends CI_Model{
 		foreach ($resultnew->result_array() as $row) {
 			$material_name = $row['material_name'];
 		}
-		
 		return $material_name; 
-
-	}  /*fun ends here*/
+	}  
+	/*-----------------fun ends here----------------------*/
 
 	public function getMaterialId(){  /* this fun is used to get material information */
 
@@ -206,7 +195,7 @@ class ManageProduct_model extends CI_Model{
 	public function save_Products($data){  /*this fun is for save product information*/
 		extract($data);
 
-		$sql="SELECT  AUTO_INCREMENT FROM information_schema.tables WHERE Table_SCHEMA = 'sealwing' AND table_name = 'products' ";
+		$sql="SELECT  AUTO_INCREMENT FROM information_schema.tables WHERE Table_SCHEMA = 'swing_db' AND table_name = 'products' ";
 		$resultnew =$this->db->query($sql);
 
 		$Product_id="";

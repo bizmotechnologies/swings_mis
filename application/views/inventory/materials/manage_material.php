@@ -1,12 +1,41 @@
-<?php include("header.php") ?><!-- header file -->
+<?php defined('BASEPATH') OR exit('No direct script access allowed'); 
+//error_reporting(E_ERROR | E_PARSE);
+
+?>
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Generate Quotations</title>
+  <link rel="stylesheet" href="<?php echo base_url(); ?>css/bootstrap/bootstrap.min.css">
+  <link rel="stylesheet" href="<?php echo base_url(); ?>css/font awesome/font-awesome.min.css">
+  <link rel="stylesheet" href="<?php echo base_url(); ?>css/font awesome/font-awesome.css">
+  <link rel="stylesheet" href="<?php echo base_url(); ?>css/w3.css">
+<!-- <link rel="stylesheet" href="assets/css/alert/jquery-confirm.css">
+--><script type="text/javascript" src="<?php echo base_url(); ?>css/bootstrap/jquery-3.1.1.js"></script>
+<script type="text/javascript" src="<?php echo base_url(); ?>css/bootstrap/bootstrap.min.js"></script>
+<!-- <script type="text/javascript" src="assets/css/alert/jquery-confirm.js"></script>-->
+  <script type="text/javascript" src="<?php echo base_url(); ?>css/country/country.js"></script>
+
+</head>
+<body class="w3-light-grey">
+
+  <!-- !PAGE CONTENT! -->
+  <div class="w3-main" style="margin-left:120px;">
+
+    <!-- Header -->
+    <header class="w3-container" >
+      <h5><b><i class="fa fa-users"></i> Manage Materials</b></h5>
+    </header>
+
 <div class="container"><!-- container starts here -->
   <div class="row col-lg-2">
-    <a class="btn btn-primary" href="<?php echo base_url();?>Manage_products">Products</a>
+    <a class="btn btn-primary" href="<?php echo base_url();?>inventory/manage_products">Products</a>
   </div><br><br><br>
 
   <div class="row">
     <div class="col-lg-2">
-      <?php echo anchor("Manage_materials/add_material", 'Add&nbsp;Material', ['class' => 'btn btn-primary']);?><!-- anchor for add material -->
+      <?php echo anchor("inventory/Manage_materials/add_material", 'Add&nbsp;Material', ['class' => 'btn btn-primary']);?><!-- anchor for add material -->
     </div>
     <div class="col-lg-1" style="padding-top;"> 
       <label for="sel1" class="control-label">Materials:</label>    
@@ -32,8 +61,7 @@
 
 </div>
 
-<?php include("footer.php"); ?>
-
+</div>
 <!-- this script function is used to save categories of materials -->
 
 <script>
@@ -42,7 +70,7 @@ $(function(){
    dataString = $("#input_category").val();  
    $.ajax({
      type: "POST",
-     url: "<?php echo base_url(); ?>Manage_materials/addCategory",
+     url: "<?php echo base_url(); ?>inventory/Manage_materials/addCategory",
      data: 
      {
       input_category:dataString
@@ -71,7 +99,7 @@ function showmaterialtable(){
 
   $.ajax({
     type: "POST",
-    url: "<?php echo base_url(); ?>Manage_materials/Showmaterialtable",
+    url: "<?php echo base_url(); ?>inventory/Manage_materials/Showmaterialtable",
     data: dataString,
     cache: false,
     success: function(data){

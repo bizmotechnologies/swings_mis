@@ -14,8 +14,10 @@
 <!-- <link rel="stylesheet" href="assets/css/alert/jquery-confirm.css">
 --><script type="text/javascript" src="<?php echo base_url(); ?>css/bootstrap/jquery-3.1.1.js"></script>
 <script type="text/javascript" src="<?php echo base_url(); ?>css/bootstrap/bootstrap.min.js"></script>
-<!-- <script type="text/javascript" src="assets/css/alert/jquery-confirm.js"></script>
---></head>
+<!-- <script type="text/javascript" src="assets/css/alert/jquery-confirm.js"></script>-->
+  <script type="text/javascript" src="<?php echo base_url(); ?>css/country/country.js"></script>
+
+</head>
 <body class="w3-light-grey">
 
   <!-- !PAGE CONTENT! -->
@@ -23,15 +25,15 @@
 
     <!-- Header -->
     <header class="w3-container" >
-      <h5><b><i class="fa fa-files-o"></i> Manage Quotations</b></h5>
+      <h5><b><i class="fa fa-users"></i> Manage Customers</b></h5>
     </header>
 <div class=" container"><!--container starts here  -->
   <div class="w3-right">
-    <?php echo anchor("Add_customers", 'Back&nbsp;To&nbsp;Customer', ['class' => 'btn btn-primary']);?>
+    <?php echo anchor("inventory/add_customers", 'Back&nbsp;To&nbsp;Customer', ['class' => 'btn btn-primary']);?>
   </div>
 </div><br><!--container ends here  -->
-<div class="container w3-light-grey" style="border:thin"><!-- container starts here -->
- <div class="w3-light-grey">
+<div class="container" style="border:thin"><!-- container starts here -->
+ <div class="">
 
   <div>
     <div class="w3-margin-right" id="Show_CustomerDetails" name="Show_CustomerDetails">
@@ -59,7 +61,7 @@
               <td class="text-center">'.$details['status_message'][$i]['contact_no1'].'</td>
               <td class="text-center">'.$details['status_message'][$i]['joining_date'].'</td>
               <td class="text-center"><a class="btn w3-blue w3-medium w3-padding-small" title="UpdateCustomer" data-toggle="modal" data-target="#myModal_'.$details['status_message'][$i]['cust_id'].'" style="padding:0"><i class="fa fa-edit"></i></a>
-              <a class="btn w3-red w3-medium w3-padding-small" title="DeleteCustomer" href="'.base_url().'Manage_customers/DeleteCustomerDetails?Customer_id='.$details['status_message'][$i]['cust_id'].'" style="padding:0"><i class="fa fa-close"></i></a>
+              <a class="btn w3-red w3-medium w3-padding-small" title="DeleteCustomer" href="'.base_url().'inventory/Manage_customers/DeleteCustomerDetails?Customer_id='.$details['status_message'][$i]['cust_id'].'" style="padding:0"><i class="fa fa-close"></i></a>
 
               <script type="text/javascript">
               <!-- script is for showing country for select state  -->
@@ -81,7 +83,7 @@ $(function(){
 
    $.ajax({
      type: "POST",
-     url: "'.base_url().'Manage_customers/Update_CustomerDetails",
+     url: "'.base_url().'inventory/Manage_customers/Update_CustomerDetails",
      data: dataString,
            return: false,  //stop the actual form post !important!
 
@@ -118,7 +120,7 @@ $(function(){
 <div class="w3-center">
 <input type="hidden" class="" id="new_Cust_id" name="new_Cust_id" value="'.$details['status_message'][$i]['cust_id'].'">
 </div>
-<div class="w3-dark-grey">Personal Details</div><br>
+<div class="">Personal Details</div><br>
 <div class="row">
 
 <div class="col-lg-2">
@@ -177,7 +179,7 @@ $(function(){
 </div>
 </div>
 
-<div class="w3-dark-grey">Bank Details</div><br>
+<div class="">Bank Details</div><br>
 
 <div class="row">
 <div class="col-lg-2">

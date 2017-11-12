@@ -1,23 +1,46 @@
-<?php include("header.php") ?>
-<!-- This function is used for print country -->
-<script type="text/javascript">
- $(document).ready(function () {
-        print_country("Select_Country");
-    });
-</script>
+<?php defined('BASEPATH') OR exit('No direct script access allowed'); 
+//error_reporting(E_ERROR | E_PARSE);
+
+?>
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Generate Quotations</title>
+  <link rel="stylesheet" href="<?php echo base_url(); ?>css/bootstrap/bootstrap.min.css">
+  <link rel="stylesheet" href="<?php echo base_url(); ?>css/font awesome/font-awesome.min.css">
+  <link rel="stylesheet" href="<?php echo base_url(); ?>css/font awesome/font-awesome.css">
+  <link rel="stylesheet" href="<?php echo base_url(); ?>css/w3.css">
+<!-- <link rel="stylesheet" href="assets/css/alert/jquery-confirm.css">
+--><script type="text/javascript" src="<?php echo base_url(); ?>css/bootstrap/jquery-3.1.1.js"></script>
+<script type="text/javascript" src="<?php echo base_url(); ?>css/bootstrap/bootstrap.min.js"></script>
+<script type="text/javascript" src="<?php echo base_url(); ?>css/country/country.js"></script>
+
+<!-- <script type="text/javascript" src="assets/css/alert/jquery-confirm.js"></script>
+--></head>
+<body class="w3-light-grey">
+
+  <!-- !PAGE CONTENT! -->
+  <div class="w3-main" style="margin-left:120px;">
+
+    <!-- Header -->
+    <header class="w3-container" >
+      <h5><b><i class="fa fa-users"></i> Manage Customers</b></h5>
+    </header>
+
 <!-- This function is used for print country -->
 
-<div class=" container w3-light-grey w3-padding">
+<div class=" container">
   <div class="w3-right">
-      <?php echo anchor("Manage_customers", 'Show&nbsp;Customer&nbsp;Details', ['class' => 'btn btn-primary']);?>
+      <?php echo anchor("inventory/Manage_customers", 'Show&nbsp;Customer&nbsp;Details', ['class' => 'btn btn-primary']);?>
   </div>
 </div>
 
-<div class="container w3-light-grey" style="border:thin"> <!-- container starts here -->
+<div class="container" style="border:thin"> <!-- container starts here -->
 
-<div class="w3-light-grey">
+<div class="">
 <form method="POST" action="" id="customerDetailsForm" name="customerDetailsForm"><!-- form Starts here -->
-	<div class="w3-dark-grey">Personal Details</div><br>
+	<div class="">Personal Details</div><br>
  <div class="row">
     <div class="col-lg-2">
 		<label for="CustomerName" class="control-label">Customer&nbsp;Name:</label></div>
@@ -71,7 +94,7 @@
     </div>
 </div>
 
-<div class="w3-dark-grey">Bank Details</div><br>
+<div class="">Bank Details</div><br>
 <div class="row">
 <div class="col-lg-2">
 		<label for="BankName" class="control-label">Bank&nbsp;Name:</label></div>
@@ -143,7 +166,13 @@
   </div>
 </div>
 
-<?php include("footer.php") ?>
+</div>
+<!-- This function is used for print country -->
+<script type="text/javascript">
+ $(document).ready(function () {
+        print_country("Select_Country");
+    });
+</script>
 <!-- This script is used to reload the page when popup close -->
 <script>
   $('#myModal').on('hidden.bs.modal', function () {
@@ -159,7 +188,7 @@ $(function(){
      dataString = $("#customerDetailsForm").serialize();
      $.ajax({
        type: "POST",
-       url: "<?php echo base_url();?>Add_customers/save_CustomerDetails",
+       url: "<?php echo base_url();?>inventory/Add_customers/save_CustomerDetails",
        data: dataString,
            return: false,  //stop the actual form post !important!
            success: function(data)

@@ -3,9 +3,11 @@ class Vendor_Management extends CI_controller{
 
 public function index(){
  
- $this->load->model('VendorManagement_model');
+ $this->load->model('inventory_model/VendorManagement_model');
  $response['details'] = $this->VendorManagement_model->GetAllVendorDetails();
- $this->load->view('vendor_management', $response);
+ $this->load->view('includes/navigation');
+ $this->load->view('inventory/vendor/vendor_management', $response);
+
 
 }
 
@@ -14,7 +16,7 @@ public function save_VendorDetails(){  /*this fun for saving all vendor details*
 	extract($_POST);
 	$data = $_POST;
     //print_r($data); die();
-	$this->load->model('VendorManagement_model');
+	$this->load->model('inventory_model/VendorManagement_model');
 	$response = $this->VendorManagement_model->save_VendorDetails( $data ); 
 
 	if($response['status'] == 0){
@@ -50,7 +52,7 @@ public function Update_VendorDetails(){  /*this fun is used to update vendor det
 	extract($_POST);
 	$data = $_POST;
 	//print_r($data); die();
-      $this->load->model('VendorManagement_model');
+      $this->load->model('inventory_model/VendorManagement_model');
       $response = $this->VendorManagement_model->Update_VendorDetails( $data );
       //print_r($response['status_message']);die();
        if($response['status'] == 0)
@@ -68,9 +70,9 @@ public function DeleteVendorDetails(){/*fun for delete vendor info*/
 
 		extract($_GET);
         $data = $_GET;
-        $this->load->model('VendorManagement_model');  
+        $this->load->model('inventory_model/VendorManagement_model');  
         $response = $this->VendorManagement_model->DeleteVendorDetails($data);
-        redirect('Vendor_Management');      
+        redirect('inventory/Vendor_Management');      
 	  }/*fun ends here*/
 
 }

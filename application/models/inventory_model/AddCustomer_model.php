@@ -1,4 +1,6 @@
 <?php
+if(!defined('BASEPATH')) exit('No direct script access allowed');
+
 class AddCustomer_model extends CI_Model{
 
 public function save_CustomerDetails($data){  /* this fun is used for save customer details*/

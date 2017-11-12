@@ -1,4 +1,6 @@
 <?php
+if(!defined('BASEPATH')) exit('No direct script access allowed');
+
 class ManageMaterial_model extends CI_Model{
 
 	public function getrecord($data){ /* this  function is used for material records  */
@@ -15,15 +17,14 @@ class ManageMaterial_model extends CI_Model{
 				'status' => 0,
 				'status_message' => 'No records found');
 		}
-		
 		return $response;
-
 	}/*fun ends here*/
 
 // this function is used to save materials///////////
 	
 	public function saveMaterial( $data ){
 		extract($data);
+		print_r($data);
 		$mat_code=0;
 		$mat_codenew=0;
 		$code=0;
@@ -39,37 +40,37 @@ class ManageMaterial_model extends CI_Model{
 		$conversion_rate = 0;
 		$currency = $Select_Currency;
 		switch($currency){
-			case "doller":
-			$conversion_rate = $input_priceFor_material * 65.39;
+			case "dollar":
+			$conversion_rate = $input_priceFor_material * $Currency_amount;
 			break;
 			case "euro":
-			$conversion_rate = $input_priceFor_material * 76.28;
+			$conversion_rate = $input_priceFor_material * $Currency_amount;
 			break;
 			case "pound":
-			$conversion_rate = $input_priceFor_material * 86.26;
+			$conversion_rate = $input_priceFor_material * $Currency_amount;
 			break;
 		}
 
 		$sql = "INSERT INTO materials
 		(material_name,material_code,conversion_rate,material_innerdimention,
-			material_outerdimention,pricepermm,currency) 
-VALUES ('$inputmaterial_name','$material_code', '$conversion_rate','$inputmaterial_InnerDimention',
-	'$inputmaterial_OuterDimention','$input_priceFor_material','$Select_Currency')";
-$result =$this->db->query($sql);
+			material_outerdimention,pricepermm,currency,Currency_amount) 
+        VALUES ('$inputmaterial_name','$material_code', '$conversion_rate','$inputmaterial_InnerDimention',
+	   '$inputmaterial_OuterDimention','$input_priceFor_material','$Select_Currency','$Currency_amount')";
+		echo $sql; die();
+        $result =$this->db->query($sql);
 
 if($result){  
 	$response=array(
 		'status' => 1,
 		'status_message' =>'Records Inserted Successfully..!');
 }
-else{
+else
+{
 	$response=array(
 		'status' => 0,
 		'status_message' => 'Records Not Inserted Successfully...!');
 }
-
 return $response;
-
 }
 
 // Ending function savematerial /////////////
@@ -79,12 +80,12 @@ return $response;
 public function getcategory(){
 	$query = $this->db->get('materials');
 	return $query->result();
-
 }
 	//------this getcategory function ends here-----------
 
 
-			// this fun is used for update material details---------------------
+// this fun is used for update material details---------------------
+
 public function updateRecord($data){
 	extract($data);
 		//print_r($data);die();
@@ -104,14 +105,14 @@ public function updateRecord($data){
 	$conversion_rate = 0;
 	$currency = $Select_UpdatedCurrency;
 	switch($currency){
-		case "doller":
-		$conversion_rate = $updated_costpermm * 65.39;
+		case "dollar":
+		$conversion_rate = $updated_costpermm * $UpdatedCurrency_amount;
 		break;
 		case "euro":
-		$conversion_rate = $updated_costpermm * 76.28;
+		$conversion_rate = $updated_costpermm * $UpdatedCurrency_amount;
 		break;
 		case "pound":
-		$conversion_rate = $updated_costpermm * 86.26;
+		$conversion_rate = $updated_costpermm * $UpdatedCurrency_amount;
 		break;
 	}
 
@@ -119,13 +120,13 @@ public function updateRecord($data){
 	material_innerdimention = '$updated_materialID',
 	material_outerdimention = '$updated_materialOD',
 	pricepermm ='$updated_costpermm', material_code = '$material_code',
-	conversion_rate ='$conversion_rate' WHERE material_id='$new_material_id'";		
+	conversion_rate ='$conversion_rate', Currency_amount = '$UpdatedCurrency_amount' WHERE material_id='$new_material_id'";		
 //echo $sqlupdate ; die();
 	$resultupdate =$this->db->query($sqlupdate);
 
 	$value= 'Records Updated Successfully';
 			//return $value;
-	return redirect('Manage_materials');
+	return redirect('inventory/manage_materials');
 
 }
 
