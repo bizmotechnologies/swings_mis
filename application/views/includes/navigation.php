@@ -39,7 +39,7 @@ $user_name=$this->session->userdata('user_name');
       <div class="clear"></div>
     </a>
 
-     <a href="<?php echo base_url(); ?>admin/manage_users" class="w3-bar-item w3-hover-text-orange w3-padding w3-center">
+    <!--  <a href="<?php echo base_url(); ?>admin/manage_users" class="w3-bar-item w3-hover-text-orange w3-padding w3-center">
       <div class="w3-col l12"><i class="w3-xlarge fa fa-money fa-fw"></i></div>
       <div class="w3-col l12 w3-wide w3-small" style="letter-spacing: 2px">Accountant<br><br></div>      
       <div class="clear"></div>
@@ -49,9 +49,9 @@ $user_name=$this->session->userdata('user_name');
       <div class="w3-col l12"><i class="w3-xlarge fa fa-product-hunt fa-fw"></i></div>
       <div class="w3-col l12 w3-wide w3-small" style="letter-spacing: 2px">Production<br><br></div>     
       <div class="clear"></div>
-    </a>
+    </a> -->
 
-    <a href="<?php echo base_url(); ?>orders/manage_quotations" class="w3-bar-item w3-hover-text-orange w3-padding w3-center">
+    <a href="<?php echo base_url(); ?>inventory/inventory_dash" class="w3-bar-item w3-hover-text-orange w3-padding w3-center">
       <div class="w3-col l12"><i class="w3-xlarge fa fa-dropbox fa-fw"></i></div>
       <div class="w3-col l12 w3-wide w3-small" style="letter-spacing: 2px">Inventory<br><br></div>     
       <div class="clear"></div>
