@@ -56,7 +56,7 @@ class Enquiry_model extends CI_Model{
 				$material = $this->ManageMaterials_model->getMaterial_details($response[$i]['material_id']);
 
 				for ($j=0; $j < count($material) ; $j++) {
-					$material_price=((($cut_value + $product_thickness) * 2.65) * $material[$j]['material_price'] );
+					$material_price=((($cut_value + $product_thickness) * 2.65) * $material[$j]['pricepermm'] );
 					$product_price=$product_price + $material_price;
 				}
 				

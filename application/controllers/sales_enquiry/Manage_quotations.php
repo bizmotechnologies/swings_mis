@@ -68,7 +68,7 @@ class Manage_quotations extends CI_Controller
 		$response_json = curl_exec($ch);
 		curl_close($ch);
 		$response=json_decode($response_json, true);
-		//echo $response_json;die();	
+		
 		//API processing END
 
 		if($response['status']==0){
@@ -139,7 +139,7 @@ class Manage_quotations extends CI_Controller
 
 		extract($_POST);
 		$data=$_POST;
-
+print_r($data);die();
 		//Connection establishment, processing of data and response from REST API
 		$path=base_url();
 		$url = $path.'api/ManageProducts_api/add_ToQuotation';	

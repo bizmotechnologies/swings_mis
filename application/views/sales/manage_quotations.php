@@ -11,11 +11,15 @@
   <link rel="stylesheet" href="<?php echo base_url(); ?>css/font awesome/font-awesome.min.css">
   <link rel="stylesheet" href="<?php echo base_url(); ?>css/font awesome/font-awesome.css">
   <link rel="stylesheet" href="<?php echo base_url(); ?>css/w3.css">
-<!-- <link rel="stylesheet" href="assets/css/alert/jquery-confirm.css">
---><script type="text/javascript" src="<?php echo base_url(); ?>css/bootstrap/jquery-3.1.1.js"></script>
-<script type="text/javascript" src="<?php echo base_url(); ?>css/bootstrap/bootstrap.min.js"></script>
-<!-- <script type="text/javascript" src="assets/css/alert/jquery-confirm.js"></script>
---></head>
+  <link href="<?php echo base_url(); ?>css/bootstrap/bootstrap-toggle.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/alert/jquery-confirm.css">
+
+  <script type="text/javascript" src="<?php echo base_url(); ?>css/bootstrap/jquery-3.1.1.js"></script>
+  <script type="text/javascript" src="<?php echo base_url(); ?>css/bootstrap/bootstrap.min.js"></script>
+  <script src="<?php echo base_url(); ?>css/bootstrap/bootstrap-toggle.min.js"></script>
+
+  <script type="text/javascript" src="assets/css/alert/jquery-confirm.js"></script>
+</head>
 <body class="w3-light-grey">
 
   <!-- !PAGE CONTENT! -->
@@ -29,21 +33,32 @@
     <div class="w3-container">
       <div class="w3-col l6">
         <header class="w3-container" >
-          <h6><b><i class="fa fa-hand-o-up"></i> Raise New Quotation</b></h6>
+          <h6><b><i class="fa fa-hand-o-up"></i> Raise Quotation</b></h6>
           <span class="w3-small"></span>
         </header>
 
         <div class="w3-col l12 w3-padding w3-small">
           <form id="raiseQuote_form">
+            <div class="w3-right checkbox w3-padding-right">
+              <label title="Toggle the switch to revise old quotation">
+                <input name="revise_quoteBtn" data-onstyle="danger" data-size="mini" id="revise_quoteBtn" type="checkbox" data-toggle="toggle" data-on="Revise Old" data-off="New" value="1">
+              </label>
+            </div>
             <div class="w3-col l12 w3-margin-bottom">
-              <div class="w3-col l12 w3-padding">
+              <div class="w3-col l12 w3-padding" id="new_quoteDiv">
                 <label>Customer List:</label>
-                <select class="form-control">
-                  <option value="0">Select customer</option>
+                <select name="new_customer" id="new_customer" class="form-control">
+                  <option class="w3-red" value="0">Select customer</option>
                 </select>
                 <div class="w3-col l12">
                   <span class="w3-small w3-right w3-text-red w3-label"><i class="fa fa-plus"></i> Add Customer</span>
                 </div>
+              </div>
+              <div class="w3-col l12 w3-padding" id="revise_quoteDiv" style="display: none;">                
+                <label>Live Quotations:</label>
+                <select name="revise_quotation" id="revise_quotation" class="form-control">
+                  <option class="w3-red" value="0">Select quotation to revise</option>
+                </select>               
               </div>
               <div class="w3-col l8 w3-padding">
                 <label>Product List:</label>
@@ -74,7 +89,7 @@
           </div>
 
           <div id="product_specs">
-            
+
           </div>
         </form>
       </div>
@@ -86,7 +101,7 @@
       </header>
       <div class="w3-col l12">
         <div class="w3-col l12" id="quotation_detailsDIV">
-          
+
         </div>
       </div>
     </div>
@@ -102,7 +117,7 @@
         var product_id = $('#product_id').val(); //where #table could be an input with the name of the table you want to truncate
         var cut_value = $('#quote_cut').val(); //where #table could be an input with the name of the table you want to truncate
 
-        //$("#product_specs").html('<center><img width="70%" height="auto" src="<?php echo base_url(); ?>css/logos/page_spinner3.gif" /></center>');
+        $("#product_specs").html('<center><img width="70%" height="auto" src="<?php echo base_url(); ?>css/logos/page_spinner3.gif" /></center>');
 
         $.ajax({
           type: "POST",
@@ -127,7 +142,7 @@
  $(function(){
    $("#raiseQuote_form").submit(function(){
      dataString = $("#raiseQuote_form").serialize();
-     
+
      $.ajax({
        type: "POST",
        url: "<?php echo base_url(); ?>sales_enquiry/manage_quotations/generate_quotation",
@@ -146,5 +161,14 @@
  });
 </script>
 <!-- script ends here -->
+
+
+<script>
+  $(function() {
+    $('#revise_quoteBtn').change(function() {
+      $("#revise_quoteDiv").toggle();
+    })
+  })
+</script>
 </body>
 </html>
