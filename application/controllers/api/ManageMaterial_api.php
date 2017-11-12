@@ -10,40 +10,40 @@ class ManageMaterial_api extends REST_Controller
 	}
 
 	
-	// -----------------------ADD FEATURE API----------------------//
+	// ----------------------- SAVE MATERIAL API----------------------//
 	//-------------------------------------------------------------//
 	public function saveMaterial_post(){
 		$data = $_POST;
 		$response = $this->ManageMaterial_model->saveMaterial( $data );
 		return $this->response($response);			
 	}
-	//---------------------ADD FEATURE END------------------------------//
+	//---------------------SAVE MATERIAL API END------------------------------//
 
-	// -----------------------GET ALL FEATURE API----------------------//
-	//-------------------------------------------------------------//
+	// -----------------------GET ALL MATERIAL INFO API-----------------------------//
+	//------------------------------------------------------------------------//
 	public function getrecord_get(){
 		$result = $this->ManageMaterial_model->getrecord();
 		return $this->response($result);			
 	}
-	//---------------------GET ALL FEATURE END------------------------------//
+	//---------------------GET ALL MATERIAL INFO END------------------------------//
 
-	// -----------------------EDIT FEATURE API----------------------//
+	// -----------------------EDIT MATERIAL RECORD API----------------------//
 	//-------------------------------------------------------------//
 	public function updateRecord_post(){
 		$data = $_POST;
         $new= $this->ManageMaterial_model->updateRecord( $data );
 		return $this->response($new);			
 	}
-	//---------------------EDIT FEATURE END------------------------------//
+	//---------------------EDIT MATERIAL END------------------------------//
 
-	// -----------------------DELETE FEATURE API----------------------//
+	// -----------------------DELETE MATERIAL API----------------------//
 	//-------------------------------------------------------------//
 	public function deleteRecord_get(){
 		$data = $_GET;
 		$response= $this->ManageMaterial_model->deleteRecord( $data );
 		return $this->response($response);			
 	}
-	//---------------------DELETE FEATURE END------------------------------//
+	//---------------------DELETE MATERIAL END------------------------------//
 
 
 }

@@ -12,7 +12,7 @@ public function save_CustomerDetails(){  /*this fun is used to save customer dea
 
 	    extract($_POST);
       $data = $_POST;
-        $path=base_url();
+        $path=base_url();                                                   /*this code is for web service AND api for saave customer details*/
         $url = $path.'api/ManageCustomer_api/save_CustomerDetails';  
         //echo $url;  
         $ch = curl_init($url);

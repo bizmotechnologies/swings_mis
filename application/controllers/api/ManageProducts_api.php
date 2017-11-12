@@ -60,17 +60,17 @@ class ManageProducts_api extends REST_Controller
 	}
 	//---------------------ADD PRODUCT IN QUOTATION END------------------------------//
 
-	// -----------------------GET material data of id AND Od API----------------------//
+	// -----------------------GET ALL MATERIAL INFORMATION API----------------------//
 	//-------------------------------------------------------------//
 	public function showmaterialInfo_get(){
 		$SelectNew_Material_id_1 = $_GET['SelectNew_Material_id_1'];
 		$response = $this->ManageProduct_model->showmaterialInfo($SelectNew_Material_id_1);
 		return $this->response($response);			
 	}
-	//---------------------GET material data of id AND Od  END------------------------------//
+	//---------------------GET ALL MATERIAL INFO  END------------------------------//
 
 
-// -----------------------GET show all the records of products API----------------------//
+// -----------------------GET PRODUCT RECORDS API----------------------//
 	//-------------------------------------------------------------//
 	public function getProduct_Records_get(){
 		$response = $this->ManageProduct_model->getProduct_Records();

@@ -10,38 +10,38 @@ class ManageVendor_api extends REST_Controller
 	}
 
 	
-	// -----------------------ADD CUSTOMER API----------------------//
+	// -----------------------ADD VENDERS INFO API----------------------//
 	//-------------------------------------------------------------//
-	public function save_CustomerDetails_post(){
+	public function save_VendorDetails_post(){
 		$data = $_POST;
-		$result = $this->AddCustomer_model->save_CustomerDetails($data);
+		$result = $this->VendorManagement_model->save_VendorDetails($data);
 		return $this->response($result);			
 	}
-	//---------------------ADD CUSTOMER END------------------------------//
+	//---------------------ADD VENDERS INFO END------------------------------//
 
-	// -----------------------GET ALL ROLE API----------------------//
+	// -----------------------GET ALL VENDOR DETAILS API----------------------//
 	//-------------------------------------------------------------//
-	public function getCustomerDetails_get(){
-		$result = $this->ManageCustomer_model->getCustomerDetails();
-		return $this->response($result);			
+	public function GetAllVendorDetails_get(){
+		$response = $this->VendorManagement_model->GetAllVendorDetails();
+		return $this->response($response);			
 	}
-	//---------------------GET ALL ROLE END------------------------------//
+	//---------------------GET ALL VENDOR DETAILS END------------------------------//
 
 	
-	// -----------------------DELETE ROLE API----------------------//
+	// -----------------------UPDATE VENDERS API----------------------//
 	//-------------------------------------------------------------//
-	public function Update_CustomerDetails_post(){
+	public function Update_VendorDetails_post(){
 		$data = $_POST;
-		$result = $this->ManageCustomer_model->Update_CustomerDetails($data);
+		$result = $this->VendorManagement_model->Update_VendorDetails($data);
 		return $this->response($result);			
 	}
-	//---------------------DELETE ROLE END------------------------------//
+	//---------------------UPDATE ROLE END------------------------------//
 
 // -----------------------DELETE CUSTOMER API----------------------//
 	//-------------------------------------------------------------//
-	public function DeleteCustomerDetails_get(){
+	public function DeleteVendorDetails_get(){
 		$data = $_GET;
-		$response= $this->ManageCustomer_model->DeleteCustomerDetails( $data );
+		$response= $this->VendorManagement_model->DeleteVendorDetails( $data );
 		return $this->response($response);			
 	}
 	//---------------------DELETE CUSTOMER END------------------------------//

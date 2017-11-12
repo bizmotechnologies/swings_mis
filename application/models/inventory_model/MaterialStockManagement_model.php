@@ -3,16 +3,49 @@
 
 		public function GetMaterialDetails(){  /*this fun is used to get material details*/
 
-			$query = $this->db->get('materials');
-			return $query->result();
+			$query = "SELECT * FROM materials";
+			$result =$this->db->query($query);
+			if($result->num_rows()<=0){  
+				$response=array(
+					'status' => 1,
+					'status_message' =>''	);
+			}
+			else{
+				$response=array(
+					'status' => 0,
+					'status_message' => $result->result_array());
+			}
+
+			return $response;
 
 		} 
 		/*this getmaterialdeaails fun ends here*/
 
+		public function GetVendorsDetails(){
+
+			$query = "SELECT * FROM vendor_details";
+			$result =$this->db->query($query);
+			if($result->num_rows()<=0){  
+				$response=array(
+					'status' => 1,
+					'status_message' =>''	);
+			}
+			else{
+				$response=array(
+					'status' => 0,
+					'status_message' => $result->result_array());
+			}
+
+			return $response;
+		}
+
 		public function Update_UpdatedStockMaterial_Info($data){ /*this fun is used to update material info*/
 
 			extract($data);
-			$sql = "UPDATE received_stock SET stock_id = '$Updated_MaterialStock_ID', stock_od = '$Updated_MaterialStock_OD',length = '$Updated_MaterialLength', quantity = '$Updated_MaterialNewQuantity', purchase_price = '$Update_StockMaterialPrice',
+
+			$sql = "UPDATE received_stock SET stock_id = '$Updated_MaterialStock_ID',
+		    stock_od = '$Updated_MaterialStock_OD',length = '$Updated_MaterialLength',
+		    quantity = '$Updated_MaterialNewQuantity', purchase_price = '$Update_StockMaterialPrice',
 			purchase_discount = '$Update_StockMaterialDiscount' WHERE received_stock_id = '$Receivedstock_id'";
 			    //echo $sql; die();
 			$resultUpadate =$this->db->query($sql);
@@ -29,9 +62,9 @@
 			}
 			return $response;
 		}
-		/*update stock material info fun is ends here*/
+/*----------------------update stock material info fun is ends here--------------------------------*/
 
-		public function DeleteStockDetails($data){   /*this fun for delete stock details*/
+		public function DeleteStockDetails($data){   /*-------------------this fun for delete stock details---------------------*/
 
 			extract($data);
 			$sqldelete = "DELETE FROM received_stock WHERE received_stock_id = '$Receivedstock_id'";
@@ -50,10 +83,10 @@
 			}
 			return $response;
 		}  
-		 /*delete stock details fun ends here*/
+		 /*---------------delete stock details fun ends here--------------------------------------*/
 
-		public function Getreceived_Stock(){   /* this getreceived stock fun is used to get alll stock details*/
-			$query = "SELECT * FROM received_stock";
+		public function Get_Purchase_Stock(){   /* this getreceived stock fun is used to get alll stock details*/
+			$query = "SELECT * FROM purchase_productstock";
 			$result =$this->db->query($query);
 			if($result->num_rows()<=0){  
 				$response=array(
@@ -68,7 +101,7 @@
 
 			return $response;
 		}
-		/*this getreceivedstock ends here*/
+		/*--------------------------this getreceivedstock ends here-------------------------------------*/
 
 		public function Save_StockMaterial_Info($data){  /*this fun for save stock details*/
 

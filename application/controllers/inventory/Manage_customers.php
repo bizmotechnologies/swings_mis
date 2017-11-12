@@ -10,7 +10,7 @@ public function index(){
         $this->load->view('inventory/customer/manage_customer', $response);
 
 	}
-
+              /*----------------this fun is used to show all customer info in tables-----------------------------*/
 public function  getCustomerDetails(){
 
         $path=base_url();
@@ -23,7 +23,11 @@ public function  getCustomerDetails(){
         $response=json_decode($response_json, true);
         return $response;
 }
-	public function Update_CustomerDetails(){/*fun for update customer deatils*/
+        /*------------------------------fun for show customer details ends here-------------------------------*/
+
+        /*------------------------------fun for update customer details-------------------------------*/
+
+	public function Update_CustomerDetails(){
 
 	    extract($_POST);
       $data = $_POST;
@@ -47,8 +51,11 @@ public function  getCustomerDetails(){
       	      	echo $response['status_message'];
        }
 
+}
+        /*------------------------------fun for update customer details-------------------------------*/
 
-	}/*update customer ends here*/
+
+      /*------------------------------fun for delete customer details-------------------------------*/
 
 	public function DeleteCustomerDetails(){/*fun for delete customer*/
 
@@ -66,7 +73,9 @@ public function  getCustomerDetails(){
 
             //print_r($response_json);die();
         redirect('inventory/Manage_customers');      
-	}/*fun ends here*/
+	}
+
+          /*------------------------------fun for delete customer details-------------------------------*/
 
 }
 ?>

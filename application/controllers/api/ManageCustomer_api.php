@@ -20,23 +20,23 @@ class ManageCustomer_api extends REST_Controller
 	}
 	//---------------------ADD CUSTOMER END------------------------------//
 
-	// -----------------------GET ALL ROLE API----------------------//
+	// -----------------------GET ALL CUSTOMER DETAILS API----------------------//
 	//-------------------------------------------------------------//
 	public function getCustomerDetails_get(){
 		$result = $this->ManageCustomer_model->getCustomerDetails();
 		return $this->response($result);			
 	}
-	//---------------------GET ALL ROLE END------------------------------//
+	//---------------------GET ALL CUSTOMER END------------------------------//
 
 	
-	// -----------------------DELETE ROLE API----------------------//
-	//-------------------------------------------------------------//
+	// -----------------------UPDATE DETAILS FOR CUSTOMER API----------------------//
+	//-----------------------------	--------------------------------//
 	public function Update_CustomerDetails_post(){
 		$data = $_POST;
 		$result = $this->ManageCustomer_model->Update_CustomerDetails($data);
 		return $this->response($result);			
 	}
-	//---------------------DELETE ROLE END------------------------------//
+	//---------------------UPDATE CUSTOMER DETAILS END------------------------------//
 
 // -----------------------DELETE CUSTOMER API----------------------//
 	//-------------------------------------------------------------//

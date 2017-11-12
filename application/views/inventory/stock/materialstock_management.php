@@ -11,15 +11,12 @@
   <link rel="stylesheet" href="<?php echo base_url(); ?>css/font awesome/font-awesome.min.css">
   <link rel="stylesheet" href="<?php echo base_url(); ?>css/font awesome/font-awesome.css">
   <link rel="stylesheet" href="<?php echo base_url(); ?>css/w3.css">
-<!-- <link rel="stylesheet" href="assets/css/alert/jquery-confirm.css">
---><script type="text/javascript" src="<?php echo base_url(); ?>css/bootstrap/jquery-3.1.1.js"></script>
+<script type="text/javascript" src="<?php echo base_url(); ?>css/bootstrap/jquery-3.1.1.js"></script>
 <script type="text/javascript" src="<?php echo base_url(); ?>css/bootstrap/bootstrap.min.js"></script>
-<!-- <script type="text/javascript" src="assets/css/alert/jquery-confirm.js"></script>-->
   <script type="text/javascript" src="<?php echo base_url(); ?>css/country/country.js"></script>
 
 </head>
 <body class="w3-light-grey">
-
   <!-- !PAGE CONTENT! -->
   <div class="w3-main" style="margin-left:120px;">
 
@@ -170,13 +167,11 @@
                       $(function(){
                        $("#Update_Manage_MaterialForm_'.$details['status_message'][$i]['received_stock_id'].'").submit(function(){
                          dataString = $("#Update_Manage_MaterialForm_'.$details['status_message'][$i]['received_stock_id'].'").serialize();
-                  //alert(dataString);
                          $.ajax({
                            type: "POST",
                            url: "'.base_url().'inventory/MaterialStock_Management/Update_UpdatedStockMaterial_Info",
                            data: dataString,
                            return: false,  
-
                            success: function(data)
                            {
                             location.reload();
@@ -184,9 +179,7 @@
                           }
 
                         });
-
  return false;  
-
 });
 });
  /* update script ends here  */
@@ -217,7 +210,7 @@ else
 </div><!-- table container ends here -->
 
 <!-- Modal -->
-<div id="myModal" class="modal fade" role="dialog"><!-- modal starts here for add materials stocks -->
+<div id="myModal" class="modal fade" role="dialog"><!-- modal starts here for add Raw  materials stocks -->
   <div class="modal-dialog ">
     <!-- Modal content-->
     <div class="modal-content">
@@ -226,25 +219,20 @@ else
         <div>Manage Stock Material</div>
       </div>
       <div class="modal-body ">
-        <form method="POST" action="" id="Manage_MaterialForm" name="Manage_MaterialForm">
+        <div class="container">
+        <form method="POST" action="" id="Manage_RawMaterialForm" name="Manage_RawMaterialForm">
 
           <div class="row">
             <div class="col-lg-2">
-              <label>Stock:</label>
-            </div>
-            <div class="col-lg-4">
-             <input type="text" name="Input_MaterialStock" id="Input_MaterialStock" class="form-control" placeholder="Material Stock" step="0.01" required><br>
-           </div>
-           <div class="col-lg-2">
-            <label>Select Material: </label> 
+            <label>Select Material:</label> 
           </div>
-          <div class="col-lg-4">                   
-            <select class="form-control" name="Select_Materials_Id" id="Select_Materials_Id" onchange="ShowMaterialStock();" required> <!-- this is for showing material stocks quantity -->
+          <div class="col-lg-3">                   
+            <select class="form-control" name="Select_RawMaterials_Id" id="Select_RawMaterials_Id" onchange="ShowMaterialStock();" required> <!-- this is for showing material stocks quantity -->
               <option>Select Material:</option>
               <?php  foreach ($All_Material as $result ) { ?>
               <option value='<?php echo $result->material_id; ?>' ><?php echo $result->material_name;?></option>
               <?php } ?>
-            </select>
+            </select><br>
           </div>
         </div>
 
@@ -252,14 +240,17 @@ else
           <div class="col-lg-2">
             <label>ID:</label>
           </div>
-          <div class="col-lg-4">
-           <input type="number" name="Input_MaterialStock_ID" id="Input_MaterialStock_ID" class="form-control" placeholder="Material ID" step="0.01" required><br>
+          <div class="col-lg-3">
+           <input type="number" name="Input_RawMaterialStock_ID" id="Input_RawMaterialStock_ID" class="form-control" placeholder="Material ID" step="0.01" required><br>
          </div>
+       </div>
+
+       <div class="row">
          <div class="col-lg-2">
           <label>OD:</label>
         </div>
-        <div class="col-lg-4">
-         <input type="number" name="Input_MaterialStock_OD" id="Input_MaterialStock_OD" class="form-control" placeholder="Material OD" step="0.01" required><br>
+        <div class="col-lg-3">
+         <input type="number" name="Input_RawMaterialStock_OD" id="Input_RawMaterialStock_OD" class="form-control" placeholder="Material OD" step="0.01" required><br>
        </div>
      </div>
      
@@ -267,14 +258,17 @@ else
       <div class="col-lg-2">
         <label>Length:</label>
       </div>
-      <div class="col-lg-4">
-       <input type="number" name="Input_MaterialLength" id="Input_MaterialLength" class="form-control" placeholder="Material Length" step="0.01" required><br>
+      <div class="col-lg-3">
+       <input type="number" name="Input_RawMaterialLength" id="Input_RawMaterialLength" class="form-control" placeholder="Material Length" step="0.01" required><br>
      </div>
+   </div>
+
+<div class="row">
      <div class="col-lg-2">
       <label>Quantity:</label>
     </div>
-    <div class="col-lg-4">
-     <input type="number" name="Input_MaterialNewQuantity" id="Input_MaterialNewQuantity" class="form-control" placeholder="Material Quantity" step="0.01" required><br>
+    <div class="col-lg-3">
+     <input type="number" name="Input_RawMaterialNewQuantity" id="Input_RawMaterialNewQuantity" class="form-control" placeholder="Material Quantity" step="0.01" required><br>
    </div>      
  </div>
 
@@ -282,23 +276,30 @@ else
   <div class="col-lg-2">
     <label>Select Vendor: </label> 
   </div> 
-  <div class="col-lg-4">                   
-   <input type="text" name="Select_StockVenders" id="Select_StockVenders" class="form-control" placeholder="Material Vendors" required><br>
- </div>
-</div><br>
+  <div class="col-lg-3">
+  <select class="form-control" name="Select_RawVendors_Id" id="Select_RawVendors_Id" required>                   
+      <option>Select Material:</option>
+      <?php  foreach ($All_Material as $result ) { ?>
+      <option value='<?php echo $result->material_id; ?>' ><?php echo $result->material_name;?></option>
+      <?php } ?> </div>
+    </select>
+    </div>
+  </div><br>
 
-<div class="w3-right">
- <button type="submit" class="btn btn-primary">Save Stock</button></div><br><br>
+<div class="row col-lg-offset-3">
+ <button type="submit" class="btn btn-primary">Save Stock</button>
+<button type="reset" class="btn btn-default">Reset</button>
+</div><br><br>
  <div class="w3-margin-bottom w3-col l12 w3-small" id="addProducts_err"></div><br><br><br>
+</div>
 </form><!-- form ends here -->
 
 </div>  
 </div>
 </div>
 </div>
-</div><!-- tab div ends here -->
-
-
+</div>
+<!--____________________________________ tab div 1 ends here_________________________________________ -->
 
 <div class="tab-pane" id="PurchasedProducts">  <!-- tab 2 starts here -->
 
@@ -352,7 +353,10 @@ else
     </div>
   </div>
 
-</div><!-- tab 2 ends here -->
+</div><!--tab 2 ends here -->
+<!-- ____________________________the tab 2 ends here____________________ -->
+
+<!--_______________________________ tab 3 starts here_____________________________________________ -->
 
 <div class="tab-pane" id="FinishedProducts"><!-- tab 3 starts here -->
 
@@ -406,17 +410,17 @@ else
     </div>
   </div>
 
-</div><!-- tab 3 div ends here -->
+</div>
+<!-- ___________________________tab 3 div ends here__________________________________ -->
 
 </div><!-- tab containt ends here -->
 
 </div><!-- tab containt div ends here -->
 
-
 </div><!-- container for tab -->
 
-
-</div><!-- div for main container -->
+</div>
+<!--_______________________ div for main container____________________________ -->
 <script >
 /*this script is used for save stock material information*/
 $(function(){

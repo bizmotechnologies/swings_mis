@@ -28,8 +28,7 @@
       <h5><b><i class="fa fa-users"></i> Vendor Management</b></h5>
     </header>
 
- <div class=" container w3-padding"> <!-- container starts here -->
-  <div><b>Vendor Management</b></div><br>
+ <div class=" container"> <!-- container starts here -->
   <div class="w3-left">
     <button type="button" class="btn btn-info" data-toggle="modal" data-target="#Add_Vendors">Add Vendors</button><br> <!-- showing the add vendor popup -->
   </div><br><br>
@@ -52,7 +51,7 @@
           <tbody><!-- table showing parts starts here -->
             <?php
             $count=1;
-            if($details['status']==0)
+            if($details['status']==1)
             {
               for($i = 0; $i < count($details['status_message']); $i++)
               { 
@@ -123,7 +122,6 @@
  <div class="w3-center">
  <input type="hidden" class="" id="new_Vendor_id" name="new_Vendor_id" value="'.$details['status_message'][$i]['vendor_id'].'">
  </div>
- <div class="w3-dark-grey">Personal Details</div><br>
  <div class="row">
 
  <div class="col-lg-2">
@@ -197,8 +195,6 @@
  <input type="number" name="Updated_VendorContactNo_two" id="Updated_VendorContactNo_two" class="form-control" value="'.$details['status_message'][$i]['contact_no_two'].'" placeholder="vendor Contact No2" minlength="10" required><br>
  </div>
  </div>
-
- <div class="w3-dark-grey">Bank Details</div><br>
 
  <div class="row">
  <div class="col-lg-2">
@@ -283,7 +279,6 @@ else
       </div>
       <div class="modal-body">
         <form method="POST" action="" id="VendorDetailsForm" name="VendorDetailsForm"><!-- form starts here -->
-          <div class="w3-dark-grey">Shop Details</div><br>
 
           <div class="row">
             <div class="col-lg-2">
@@ -356,8 +351,6 @@ else
                             <input type="number" name="Input_VendorContactNo_two" id="Input_VendorContactNo_two" class="form-control" placeholder="Vendor Contact No2" minlength="10" required><br>
                           </div>
                         </div>
-
-                        <div class="w3-dark-grey">Bank Details</div><br>
 
                         <div class="row">
                           <div class="col-lg-2">

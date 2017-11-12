@@ -8,7 +8,7 @@ class Manage_materials extends CI_controller{
         $this->load->view('includes/navigation');
 		$this->load->view('inventory/materials/manage_material', $data);
 	}
-//----this function is used to update material details-----
+//----this function is used to update material details-----//
 	public function Update(){
 			extract($_POST);
 			$data = $_POST;
@@ -27,7 +27,7 @@ class Manage_materials extends CI_controller{
 
 				
 	}
-	//---------------this function is used to update material details
+	//---------------this function is used to update material details---------------//
 
 public function add_material(){
     $this->load->view('includes/navigation');
@@ -48,7 +48,7 @@ public function getrecord(){
         $response=json_decode($response_json, true);
         return $response;
 
-}
+}//----------------this fun is for get total info of materials---------------//
 
 
 	public function saveMaterial(){

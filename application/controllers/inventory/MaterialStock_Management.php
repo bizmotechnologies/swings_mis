@@ -4,12 +4,59 @@ class MaterialStock_Management extends CI_controller{
 public function index(){
 
   $this->load->model('inventory_model/MaterialStockManagement_model');
-  $response['All_Material'] = $this->MaterialStockManagement_model->GetMaterialDetails();// this fun shows that the select material values
-  $response['details'] = $this->MaterialStockManagement_model->Getreceived_Stock(); 
+  $response['All_Material'] =MaterialStock_Management::GetMaterialDetails();// this fun shows that the select material values
+  $response['vendors'] =MaterialStock_Management::GetVendorsDetails();// this fun shows that the select material values
+  $response['details'] =MaterialStock_Management::Get_Purchase_Stock();// this fun shows that the select material values
+
   $this->load->view('includes/navigation');
   $this->load->view('inventory/stock/materialstock_management', $response);
 
 	}
+/*--------------this fun for geting all material information -----------------------*/
+  public function GetMaterialDetails(){
+
+      $path=base_url();
+        $url = $path.'api/MaterialStockManagement_api/GetMaterialDetails';        
+        $ch = curl_init($url);
+        curl_setopt($ch, CURLOPT_HTTPGET, true);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $response_json = curl_exec($ch);
+        curl_close($ch);
+        $response=json_decode($response_json, true);
+        return $response;
+
+  }/*--------------this fun for geting all material information -----------------------*/
+
+/*--------------this fun for geting all Vendor information -----------------------*/
+
+  public function GetVendorsDetails(){
+
+    $path=base_url();
+        $url = $path.'api/MaterialStockManagement_api/GetVendorsDetails';        
+        $ch = curl_init($url);
+        curl_setopt($ch, CURLOPT_HTTPGET, true);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $response_json = curl_exec($ch);
+        curl_close($ch);
+        $response=json_decode($response_json, true);
+        return $response;
+  }/*--------------this fun for geting all material information -----------------------*/
+
+/*--------------this fun for geting all Purchased product information -----------------------*/
+
+  public function Get_Purchase_Stock(){
+
+    $path=base_url();
+        $url = $path.'api/MaterialStockManagement_api/Get_Purchase_Stock';        
+        $ch = curl_init($url);
+        curl_setopt($ch, CURLOPT_HTTPGET, true);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $response_json = curl_exec($ch);
+        curl_close($ch);
+        $response=json_decode($response_json, true);
+        return $response;
+  }/*--------------this fun for geting all purchased product information -----------------------*/
+
 
 public function Save_StockMaterial_Info(){ // this fun for add stock by vender to stocks
 	extract($_POST);
