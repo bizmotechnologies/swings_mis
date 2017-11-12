@@ -12,8 +12,7 @@ class ManageProduct_model extends CI_Model{
 
 	public function showmaterialInfo($data){ /* this fun is used to get material data*/
 
-		extract($data);
-		$sqlselect = "SELECT * FROM materials WHERE material_id = '$SelectNew_Material_id_1'";
+		$sqlselect = "SELECT * FROM materials WHERE material_id = '$data'";
 		$result =$this->db->query($sqlselect);
 
 		if($result->num_rows()<=0){  
@@ -148,53 +147,15 @@ class ManageProduct_model extends CI_Model{
 
 	}/*fun ends here*/
 
-	public function addProductCategory($data){   /*this fun for add category of product*/
-
-		extract($data);
-		$sqlnew="INSERT INTO product_category(product_category_name) values ('$input_Productcategory')";
-		$resultnew =$this->db->query($sqlnew);
-
-		if($resultnew){  
-			$response=array(
-				'status' => 1,
-				'status_message' =>'Records Inserted Successfully..!');
-		}
-		else{
-			$response=array(
-				'status' => 0,
-				'status_message' => 'Records Not Inserted Successfully...!');
-		}
 		
-		return $response;
-
-	} /* function addcategory ends here*/
-
-	public function DeleteProduct($data){  /* this fun for delete products*/
-
-		extract($data);
-
-		$sqldelete = "DELETE FROM product_category WHERE product_category_id='$Select_Product_category_id'";
-
-		$resultdelete =$this->db->query($sqldelete);
-
-		if($resultdelete){  
-			$response=array(
-				'status' => 1,
-				'status_message' =>'Records Deleted Successfully..!');
-		}
-		else{
-			$response=array(
-				'status' => 0,
-				'status_message' => 'Records Not Deleted Successfully...!');
-		}
-		
-		return $response;
-	}  /*delete product fun ends here*/
-
-
 	public function save_Products($data){  /*this fun is for save product information*/
 		extract($data);
 
+		$ID_val = json_decode($ID_val);
+		$SelectNew_Material_id = json_decode($SelectNew_Material_id);
+		$OD_val = json_decode($OD_val);
+		
+		
 		$sql="SELECT  AUTO_INCREMENT FROM information_schema.tables WHERE Table_SCHEMA = 'swing_db' AND table_name = 'products' ";
 		$resultnew =$this->db->query($sql);
 
@@ -225,19 +186,16 @@ class ManageProduct_model extends CI_Model{
 			$full['material_id'][$k]=$value;
 			$k++;
 		}
-		
-		for ($i=0; $i < count($full); $i++) { 
+		for ($i=0; $i < count($full['ID']); $i++) { 
 			$ID = $full['ID'][$i];
-			$OD= $full['OD'][$i];
+			$OD = $full['OD'][$i];
 			$material_id = $full['material_id'][$i].' ';
 
 			$sqlforproductAssociation = " INSERT INTO product_material_assoc(product_id, material_id, material_innerdimention, material_outerdimention) 
 			VALUES ('$Product_id','$material_id','$ID', '$OD')";
-
 			$resultnew =$this->db->query($sqlforproductAssociation);  /*this code is for insert multiple rows to db ends here*/
 
-		}
-		
+		}		
 		$mat_code=0;
 		$mat_codenew=0;
 		$code=0;
@@ -278,12 +236,21 @@ class ManageProduct_model extends CI_Model{
 
 		$resultdelete =$this->db->query($sqldelete);
 
-		if($resultdelete){
-			echo "<script>alert('Menu Item Deleted');
-			window.location.href='".base_url()."Manage_products';</script>";
-		}
+	if($this->db->affected_rows()>=1){  
+		$response=array(
+			'status' => 1,
+			'status_message' =>'Records Deleted Successfully..!');
+	}
+	else{
+		$response=array(
+			'status' => 0,
+			'status_message' => 'Records Not Deleted...!');
+	}
+	
+	return $response;
 
-	}/*delete product fun ends here*/
+	}
+	/*delete product fun ends here*/
 
 	public function UpdateProductRecord($data){  /*this fun is used for to update records for product*/
 

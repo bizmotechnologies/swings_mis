@@ -14,7 +14,7 @@ public function save_CustomerDetails($data){  /* this fun is used for save custo
 		'$Input_ContactNo_one','$Input_ContactNo_two','$Input_Bank_name',
 		'$Input_Bank_Address','$Input_Bank_AccNo','$Input_Bank_IFSC_Code',
 		'$Input_Bank_MICR_Code','$Input_PAN_No',now())";
-
+//echo $sqlnew;die();
 		$resultnew =$this->db->query($sqlnew);
 
 		if($resultnew){  
@@ -27,7 +27,7 @@ public function save_CustomerDetails($data){  /* this fun is used for save custo
     				'status' => 0,
     				'status_message' => 'Records Not Inserted Successfully...!');
   						}
- 
+ 		//print_r($response);
 		return $response;
 
 }

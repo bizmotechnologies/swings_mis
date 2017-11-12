@@ -6,7 +6,7 @@
 <html>
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Generate Quotations</title>
+  <title>Vendor Management</title>
   <link rel="stylesheet" href="<?php echo base_url(); ?>css/bootstrap/bootstrap.min.css">
   <link rel="stylesheet" href="<?php echo base_url(); ?>css/font awesome/font-awesome.min.css">
   <link rel="stylesheet" href="<?php echo base_url(); ?>css/font awesome/font-awesome.css">
@@ -25,7 +25,7 @@
 
     <!-- Header -->
     <header class="w3-container" >
-      <h5><b><i class="fa fa-users"></i> Manage Customers</b></h5>
+      <h5><b><i class="fa fa-users"></i> Vendor Management</b></h5>
     </header>
 
  <div class=" container w3-padding"> <!-- container starts here -->

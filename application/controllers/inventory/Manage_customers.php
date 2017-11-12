@@ -5,26 +5,42 @@ public function index(){
 
 	    $this->load->model('inventory_model/ManageCustomer_model');	
 
-        $response['details'] = $this->ManageCustomer_model->getCustomerDetails(); /*fun for get customer detais*/
-        //print_r($response);
+        $response['details']=Manage_customers::getCustomerDetails();     //-------show all materials
         $this->load->view('includes/navigation');
         $this->load->view('inventory/customer/manage_customer', $response);
 
 	}
 
+public function  getCustomerDetails(){
+
+        $path=base_url();
+        $url = $path.'api/ManageCustomer_api/getCustomerDetails';        
+        $ch = curl_init($url);
+        curl_setopt($ch, CURLOPT_HTTPGET, true);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $response_json = curl_exec($ch);
+        curl_close($ch);
+        $response=json_decode($response_json, true);
+        return $response;
+}
 	public function Update_CustomerDetails(){/*fun for update customer deatils*/
 
-	  extract($_POST);
-      //print_r($_POST);die();
+	    extract($_POST);
       $data = $_POST;
-      $this->load->model('inventory_model/ManageCustomer_model');
-      $response = $this->ManageCustomer_model->Update_CustomerDetails( $data );
-      //print_r($response['status_message']);die();
+
+      $path=base_url();
+        $url = $path.'api/ManageCustomer_api/Update_CustomerDetails';
+        $ch = curl_init($url);
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $response_json = curl_exec($ch);
+        curl_close($ch);
+        $response=json_decode($response_json, true);
+        //print_r($response_json);die();
        if($response['status'] == 0)
        {
-
       	        echo $response['status_message'];
-                //print_r($response['status_message']);
        }
        else
        {
@@ -36,10 +52,19 @@ public function index(){
 
 	public function DeleteCustomerDetails(){/*fun for delete customer*/
 
-		extract($_GET);
+		    extract($_GET);
         $data = $_GET;
-        $this->load->model('inventory_model/ManageCustomer_model');  
-        $response = $this->ManageCustomer_model->DeleteCustomerDetails($data);
+
+        $path=base_url();
+            $url = $path.'api/ManageCustomer_api/DeleteCustomerDetails?Customer_id='.$Customer_id;        
+            $ch = curl_init($url);
+            curl_setopt($ch, CURLOPT_HTTPGET, true);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            $response_json = curl_exec($ch);
+            curl_close($ch);
+            $response=json_decode($response_json, true);
+
+            //print_r($response_json);die();
         redirect('inventory/Manage_customers');      
 	}/*fun ends here*/
 

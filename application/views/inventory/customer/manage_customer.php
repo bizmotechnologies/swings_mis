@@ -6,7 +6,7 @@
 <html>
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Generate Quotations</title>
+  <title>Manage Customer</title>
   <link rel="stylesheet" href="<?php echo base_url(); ?>css/bootstrap/bootstrap.min.css">
   <link rel="stylesheet" href="<?php echo base_url(); ?>css/font awesome/font-awesome.min.css">
   <link rel="stylesheet" href="<?php echo base_url(); ?>css/font awesome/font-awesome.css">

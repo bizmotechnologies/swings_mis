@@ -6,7 +6,7 @@
 <html>
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Generate Quotations</title>
+  <title>Manage Products</title>
   <link rel="stylesheet" href="<?php echo base_url(); ?>css/bootstrap/bootstrap.min.css">
   <link rel="stylesheet" href="<?php echo base_url(); ?>css/font awesome/font-awesome.min.css">
   <link rel="stylesheet" href="<?php echo base_url(); ?>css/font awesome/font-awesome.css">
@@ -25,21 +25,17 @@
 
     <!-- Header -->
     <header class="w3-container" >
-      <h5><b><i class="fa fa-users"></i> Manage Customers</b></h5>
-    </header>
+      <h5><b><i class="fa fa-users"></i> Manage Products</b></h5>
+    </header><br>
 
 <div class="container"><!-- container starts here -->
 
   <div class="row">
     <div class="col-lg-1">
-      <a class="btn btn-primary" href="<?php echo base_url();?>inventory/Manage_materials">Materials</a> <!-- anchor for material managements -->
-    </div>
-    <br><br><br>
-  </div>
-
-  <div class="row">
-    <div class="col-lg-1">
       <?php echo anchor("inventory/Manage_products/add_products", 'Add&nbsp;Products', ['class' => 'btn btn-primary']);?><!-- anchor for redirecting to add material page  -->
+    </div>
+    <div class="w3-right">
+      <a class="btn btn-primary" href="<?php echo base_url();?>inventory/Manage_materials">Materials</a> <!-- anchor for material managements -->
     </div>
   </div><br>
 
@@ -47,9 +43,9 @@
     <div><span id="input_category_span"></span></div><!-- this div is used for showing messages for operations -->
   </div>
 
-  
+  <div class="row">
   <div class="container" id="Show_productmaterialAssociationnew" name="Show_productmaterialAssociation" style="max-height: 400px; overflow-y: scroll;"><!-- this div showing the table of material and product association -->
-    <table class="table table-bordered">
+    <table class="table table-striped">
       <tr >
         <th class="text-center">SR. No</th>
         <th class="text-center">Product&nbsp;name</th> 
@@ -64,7 +60,7 @@
         if($productdata['status']==0){
          for($i = 0; $i < count($productdata['status_message']); $i++) { 
           echo'<tr>
-          <td class="text-center">'.$count.'</td>
+          <td class="text-center">'.$count.'.</td>
           <td class="text-center">'.$productdata['status_message'][$i]['product_name'].'</td>
           <td class="text-center">'.$productdata['status_message'][$i]['ID'].'</td>
           <td class="text-center">'.$productdata['status_message'][$i]['OD'].'</td>
@@ -132,7 +128,7 @@
     </tbody>
   </table>
 </div> 
-
+</div>
 
 <div>
 <!-- this script is used for showing material product association functionality -->

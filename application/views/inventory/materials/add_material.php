@@ -6,7 +6,7 @@
 <html>
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Generate Quotations</title>
+  <title>Add Material</title>
   <link rel="stylesheet" href="<?php echo base_url(); ?>css/bootstrap/bootstrap.min.css">
   <link rel="stylesheet" href="<?php echo base_url(); ?>css/font awesome/font-awesome.min.css">
   <link rel="stylesheet" href="<?php echo base_url(); ?>css/font awesome/font-awesome.css">
@@ -69,7 +69,7 @@
       </div>
        <div class="col-lg-2">
          <select class="form-control getmaterialdetails" name="Select_Currency" id="Select_Currency"  required>
-                <option value="0">Currency </option>
+                <option class="w3-red" value="0">Currency </option>
                 <option value="dollar">Dollar</option>
                 <option value="euro">Euro</option>
                 <option value="pound">Pound</option>
@@ -120,7 +120,6 @@ $(function(){
            }
          });
          return false;  //stop the actual form post !important!
-
        });
  });
 </script>

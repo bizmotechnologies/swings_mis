@@ -6,7 +6,7 @@
 <html>
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Generate Quotations</title>
+  <title>Add Customer</title>
   <link rel="stylesheet" href="<?php echo base_url(); ?>css/bootstrap/bootstrap.min.css">
   <link rel="stylesheet" href="<?php echo base_url(); ?>css/font awesome/font-awesome.min.css">
   <link rel="stylesheet" href="<?php echo base_url(); ?>css/font awesome/font-awesome.css">
@@ -25,22 +25,21 @@
 
     <!-- Header -->
     <header class="w3-container" >
-      <h5><b><i class="fa fa-users"></i> Manage Customers</b></h5>
-    </header>
+      <h5><b><i class="fa fa-users"></i> Add Customer</b></h5>
+    </header><br>
 
 <!-- This function is used for print country -->
 
 <div class=" container">
-  <div class="w3-right">
+  <div class="w3-left">
       <?php echo anchor("inventory/Manage_customers", 'Show&nbsp;Customer&nbsp;Details', ['class' => 'btn btn-primary']);?>
   </div>
-</div>
+</div><br>
 
-<div class="container" style="border:thin"> <!-- container starts here -->
+<div class="container"> <!-- container starts here -->
 
 <div class="">
 <form method="POST" action="" id="customerDetailsForm" name="customerDetailsForm"><!-- form Starts here -->
-	<div class="">Personal Details</div><br>
  <div class="row">
     <div class="col-lg-2">
 		<label for="CustomerName" class="control-label">Customer&nbsp;Name:</label></div>
@@ -94,7 +93,6 @@
     </div>
 </div>
 
-<div class="">Bank Details</div><br>
 <div class="row">
 <div class="col-lg-2">
 		<label for="BankName" class="control-label">Bank&nbsp;Name:</label></div>

@@ -8,7 +8,8 @@ class ManageProducts_api extends REST_Controller
 		parent::__construct();
 		$this->load->model('inventory_model/ManageProducts_model');
 		$this->load->model('sales_model/Enquiry_model');
-		date_default_timezone_set('Asia/Kolkata');	//set Kuwait's timezone
+		$this->load->model('inventory_model/ManageProduct_model');
+
 	}
 
 
@@ -44,11 +45,54 @@ class ManageProducts_api extends REST_Controller
 	//-------------------------------------------------------------//
 	public function add_ToQuotation_post(){
 		$data=$_POST;		
-print_r($data);die();
+//print_r($data);die();
 		$result = $this->Enquiry_model->add_ToQuotation($data);
 		return $this->response($result);			
 	}
 	//---------------------ADD PRODUCT IN QUOTATION END------------------------------//
 
+// -----------------------ADD PRODUCT IN QUOTATION API----------------------//
+	//-------------------------------------------------------------//
+	public function save_Products_post(){
+		$data=$_POST;		
+		$response = $this->ManageProduct_model->save_Products($data);
+		return $this->response($response);			
+	}
+	//---------------------ADD PRODUCT IN QUOTATION END------------------------------//
+
+	// -----------------------GET material data of id AND Od API----------------------//
+	//-------------------------------------------------------------//
+	public function showmaterialInfo_get(){
+		$SelectNew_Material_id_1 = $_GET['SelectNew_Material_id_1'];
+		$response = $this->ManageProduct_model->showmaterialInfo($SelectNew_Material_id_1);
+		return $this->response($response);			
+	}
+	//---------------------GET material data of id AND Od  END------------------------------//
+
+
+// -----------------------GET show all the records of products API----------------------//
+	//-------------------------------------------------------------//
+	public function getProduct_Records_get(){
+		$response = $this->ManageProduct_model->getProduct_Records();
+		return $this->response($response);			
+	}
+	//---------------------GET PRODUCT RECORDS END------------------------------//
+
+// -----------------------GET DELETE PRODUCT RECORD API----------------------//
+	//-------------------------------------------------------------//
+	public function DeleteRecord_get(){
+		$data = $_GET;
+		$response = $this->ManageProduct_model->DeleteRecord($data);     
+		return $this->response($response);			
+	}
+	//---------------------GET PRODUCT RECORDS END------------------------------//
+// -----------------------GET UPDATE PRODUCT RECORD API----------------------//
+	//-------------------------------------------------------------//
+	public function UpdateProductRecord_post(){
+		$data = $_POST;
+		$response = $this->ManageProduct_model->UpdateProductRecord($data);     
+		return $this->response($response);			
+	}
+	//---------------------GET PRODUCT UPDATE RECORDS END------------------------------//
 
 }

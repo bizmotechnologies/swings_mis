@@ -10,12 +10,19 @@ public function index(){/*this fun for indexing to add the view*/
 
 public function save_CustomerDetails(){  /*this fun is used to save customer deatails*/
 
-	  extract($_POST);
-      //print_r($_POST);die();
+	    extract($_POST);
       $data = $_POST;
-      $this->load->model('inventory_model/AddCustomer_model');
-      $response = $this->AddCustomer_model->save_CustomerDetails( $data );
-
+        $path=base_url();
+        $url = $path.'api/ManageCustomer_api/save_CustomerDetails';  
+        //echo $url;  
+        $ch = curl_init($url);
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $response_json = curl_exec($ch);
+        curl_close($ch);
+        $response=json_decode($response_json, true);
+//print_r($response_json);die();
       if($response['status'] == 0){
 
       	        echo $response['status_message'];

@@ -3,9 +3,8 @@ if(!defined('BASEPATH')) exit('No direct script access allowed');
 
 class ManageMaterial_model extends CI_Model{
 
-	public function getrecord($data){ /* this  function is used for material records  */
-		extract($data);
-		$query = "SELECT * FROM materials WHERE material_id = '$Select_material_id'";
+	public function getrecord(){ /* this  function is used for material records  */
+		$query = "SELECT * FROM materials";
 		$result =$this->db->query($query);
 		if($result->num_rows()>=0){  
 			$response=array(
@@ -24,7 +23,7 @@ class ManageMaterial_model extends CI_Model{
 	
 	public function saveMaterial( $data ){
 		extract($data);
-		print_r($data);
+
 		$mat_code=0;
 		$mat_codenew=0;
 		$code=0;
@@ -39,6 +38,7 @@ class ManageMaterial_model extends CI_Model{
 		$doller=0;
 		$conversion_rate = 0;
 		$currency = $Select_Currency;
+
 		switch($currency){
 			case "dollar":
 			$conversion_rate = $input_priceFor_material * $Currency_amount;
@@ -56,7 +56,7 @@ class ManageMaterial_model extends CI_Model{
 			material_outerdimention,pricepermm,currency,Currency_amount) 
         VALUES ('$inputmaterial_name','$material_code', '$conversion_rate','$inputmaterial_InnerDimention',
 	   '$inputmaterial_OuterDimention','$input_priceFor_material','$Select_Currency','$Currency_amount')";
-		echo $sql; die();
+		//echo $sql; die();
         $result =$this->db->query($sql);
 
 if($result){  
@@ -74,15 +74,6 @@ return $response;
 }
 
 // Ending function savematerial /////////////
-
-
-//---- this function is used to show the material wise table of material--
-public function getcategory(){
-	$query = $this->db->get('materials');
-	return $query->result();
-}
-	//------this getcategory function ends here-----------
-
 
 // this fun is used for update material details---------------------
 
@@ -120,27 +111,33 @@ public function updateRecord($data){
 	material_innerdimention = '$updated_materialID',
 	material_outerdimention = '$updated_materialOD',
 	pricepermm ='$updated_costpermm', material_code = '$material_code',
-	conversion_rate ='$conversion_rate', Currency_amount = '$UpdatedCurrency_amount' WHERE material_id='$new_material_id'";		
+	conversion_rate ='$conversion_rate', Currency_amount = '$UpdatedCurrency_amount', currency = '$currency' WHERE material_id='$new_material_id'";		
 //echo $sqlupdate ; die();
 	$resultupdate =$this->db->query($sqlupdate);
 
-	$value= 'Records Updated Successfully';
-			//return $value;
-	return redirect('inventory/manage_materials');
+	if($resultupdate){  
+				$response=array(
+					'status' => 1,
+					'status_message' =>'Records Updated Successfully..!');
+			}
+			else{
+				$response=array(
+					'status' => 0,
+					'status_message' => 'Records Not Updated Successfully...!');
+			}
+		return $response;
 
 }
 
 // this update material details function ends here-----------------
 
 public function deleteRecord($data){  /* delete function starts here */
-
 	extract($data);
-				//print_r($data);
 	$sqldelete = "DELETE FROM materials WHERE material_id='$material_id'";
 
 	$resultdelete =$this->db->query($sqldelete);
 
-	if($resultdelete){  
+	if($this->db->affected_rows()>=1){  
 		$response=array(
 			'status' => 1,
 			'status_message' =>'Records Deleted Successfully..!');

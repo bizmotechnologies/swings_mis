@@ -6,7 +6,7 @@
 <html>
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Generate Quotations</title>
+  <title>Add Products</title>
   <link rel="stylesheet" href="<?php echo base_url(); ?>css/bootstrap/bootstrap.min.css">
   <link rel="stylesheet" href="<?php echo base_url(); ?>css/font awesome/font-awesome.min.css">
   <link rel="stylesheet" href="<?php echo base_url(); ?>css/font awesome/font-awesome.css">
@@ -25,8 +25,8 @@
 
     <!-- Header -->
     <header class="w3-container" >
-      <h5><b><i class="fa fa-users"></i> Manage Customers</b></h5>
-    </header>
+      <h5><b><i class="fa fa-users"></i> Add Products</b></h5>
+    </header><br>
 
 <div class="container">
 	<div class="col-lg-9">
@@ -159,14 +159,13 @@
         function showmaterialInfo(fieldnum){  /*this function is used for show total material information*/
 
           dataString ='SelectNew_Material_id_1='+$("#SelectNew_Material_id_"+fieldnum).val();
-
           $.ajax({
             type: "POST",
             url: "<?php echo base_url(); ?>inventory/Manage_products/showmaterialInfo",
             data: dataString,
             cache: false,
             success: function(data){
-             nota = JSON.parse(data);
+            nota = JSON.parse(data);
              $('#ID_val_'+ fieldnum).val(nota[0].material_innerdimention);
              $('#OD_val_'+ fieldnum).val(nota[0].material_outerdimention);
            }
