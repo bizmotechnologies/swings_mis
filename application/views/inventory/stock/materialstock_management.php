@@ -56,38 +56,30 @@
                   <th class="text-center">Material&nbsp;Name</th>  
                   <th class="text-center">ID</th>              
                   <th class="text-center">OD</th>              
-                  <th class="text-center">Length</th>              
-                  <th class="text-center">Purchase&nbsp;Discount</th>
-                  <th class="text-center">Purchase&nbsp;Price</th>              
-                  <th class="text-center">Material&nbsp;Quantity</th> 
-                  <th class="text-center">Vender</th>                         
-                  <th class="text-center">Accepted&nbsp;Date</th>              
+                  <th class="text-center">Available&nbsp;Length</th>              
+                  <th class="text-center">Quantity</th>
                   <th class="text-center">Actions</th>                                           
                 </tr>
                 <tbody><!-- table body starts here -->
                   <?php
                   $count=1;
-                  if($details['status']==0)
+                  if($details['status']==1)
                   {
                     for($i = 0; $i < count($details['status_message']); $i++)
                     { 
                       echo '<tr class="text-center">
-                      <td class="text-center">'.$count.'</td>
+                      <td class="text-center">'.$count.'.</td>
                       <td class="text-center">'.$details['status_message'][$i]['material_name'].'</td>
-                      <td class="text-center">'.$details['status_message'][$i]['stock_id'].'</td>
-                      <td class="text-center">'.$details['status_message'][$i]['stock_od'].'</td>
-                      <td class="text-center">'.$details['status_message'][$i]['length'].'</td>
-                      <td class="text-center">'.$details['status_message'][$i]['quantity'].'</td>
-                      <td class="text-center">'.$details['status_message'][$i]['purchase_price'].'</td>
-                      <td class="text-center">'.$details['status_message'][$i]['purchase_discount'].'</td>
-                      <td class="text-center">'.$details['status_message'][$i]['vendor'].'</td>
-                      <td class="text-center">'.$details['status_message'][$i]['accepted_date'].'</td>
-                      <td class="text-center"><a class="btn  w3-medium" title="UpdateCustomer" data-toggle="modal" data-target="#myModalnew_'.$details['status_message'][$i]['received_stock_id'].'" style="padding:0"><i class="fa fa-edit"></i></a>
-                      <a class="btn  w3-medium " title="DeleteCustomer" href="'.base_url().'inventory/MaterialStock_Management/DeleteStockDetails?Receivedstock_id='.$details['status_message'][$i]['received_stock_id'].'" style="padding:0"><i class="fa fa-close"></i></a>
+                      <td class="text-center">'.$details['status_message'][$i]['raw_ID'].'</td>
+                      <td class="text-center">'.$details['status_message'][$i]['raw_OD'].'</td>
+                      <td class="text-center">'.$details['status_message'][$i]['avail_length'].'</td>
+                      <td class="text-center">'.$details['status_message'][$i]['raw_quantity'].'</td>
+                      <td class="text-center"><a class="btn w3-blue w3-medium w3-padding-small" title="UpdateCustomer" data-toggle="modal" data-target="#myModalnew_'.$details['status_message'][$i]['rawmaterial_id'].'" style="padding:0"><i class="fa fa-edit"></i></a>
+                      <a class="btn w3-red w3-medium w3-padding-small" title="DeleteCustomer" href="'.base_url().'inventory/MaterialStock_Management/DeleteRawMaterialStockDetails?rawmaterial_id='.$details['status_message'][$i]['rawmaterial_id'].'" style="padding:0"><i class="fa fa-close"></i></a>
 
                       <!-- Modal  starts here-->
 
-                      <div id="myModalnew_'.$details['status_message'][$i]['received_stock_id'].'" class="modal fade" role="dialog">
+                      <div id="myModalnew_'.$details['status_message'][$i]['rawmaterial_id'].'" class="modal fade" role="dialog">
                       <div class="modal-dialog">
 
                       <!-- Modal content-->
@@ -97,14 +89,30 @@
                       <div>Manage Stock Material</div>
                       </div>
                       <div class="modal-body w3-light-grey">   
-                      <form method="POST" action="" id="Update_Manage_MaterialForm_'.$details['status_message'][$i]['received_stock_id'].'" name="Update_Manage_MaterialForm_'.$details['status_message'][$i]['received_stock_id'].'">
-                      <input type="hidden" name="Receivedstock_id" id="Receivedstock_id_'.$details['status_message'][$i]['received_stock_id'].'" value="'.$details['status_message'][$i]['received_stock_id'].'">
+                      <form method="POST" action="" id="Update_Manage_MaterialForm_'.$details['status_message'][$i]['rawmaterial_id'].'" name="Update_Manage_MaterialForm_'.$details['status_message'][$i]['rawmaterial_id'].'">
+                      <input type="hidden" name="rawmaterial_id" id="rawmaterial_id'.$details['status_message'][$i]['rawmaterial_id'].'" value="'.$details['status_message'][$i]['rawmaterial_id'].'">
+                      <div class="row">
+                      <div class="col-lg-3">
+                      <label>Select Material</label> 
+                      </div>
+                        <div class="col-lg-6">                   
+                          <select class="form-control" name="Select_RawMaterials_Id" id="Select_RawMaterials_Id" required> <!-- this is for showing material stocks quantity -->
+                           <option>Select Material</option>';
+                          foreach ($All_Material as $result ) { 
+                             echo '<option value="'.$result['material_id'].'"'; 
+                           if($details['status_message'][$i]['material_id'] == $result['material_id']){ echo 'selected';} echo '>'.$result['material_name'].'</option>';
+
+                              } 
+                          echo '</select><br>
+                         </div>
+                       </div>
+
                       <div class="row">
                       <div class="col-lg-3">
                       <label>ID:</label>
                       </div>
                       <div class="col-lg-6">
-                      <input type="number" name="Updated_MaterialStock_ID" id="Updated_MaterialStock_ID" class="form-control" placeholder="Material ID" step="0.01" value="'.$details['status_message'][$i]['stock_id'].'" required><br>
+                      <input type="number" name="Updated_MaterialStock_ID" id="Updated_MaterialStock_ID" class="form-control" placeholder="Material ID" step="0.01" value="'.$details['status_message'][$i]['raw_ID'].'" required><br>
                       </div>
                       </div>
 
@@ -113,7 +121,7 @@
                       <label>OD:</label>
                       </div>
                       <div class="col-lg-6">
-                      <input type="number" name="Updated_MaterialStock_OD" id="Updated_MaterialStock_OD" class="form-control" placeholder="Material OD" step="0.01" value="'.$details['status_message'][$i]['stock_od'].'" required><br>
+                      <input type="number" name="Updated_MaterialStock_OD" id="Updated_MaterialStock_OD" class="form-control" placeholder="Material OD" step="0.01" value="'.$details['status_message'][$i]['raw_OD'].'" required><br>
                       </div>
                       </div>
 
@@ -122,7 +130,7 @@
                       <label>Length:</label>
                       </div>
                       <div class="col-lg-6">
-                      <input type="number" name="Updated_MaterialLength" id="Updated_MaterialLength" class="form-control" placeholder="Material Length" step="0.01" value="'.$details['status_message'][$i]['length'].'" required><br>
+                      <input type="number" name="Updated_MaterialLength" id="Updated_MaterialLength" class="form-control" placeholder="Material Length" step="0.01" value="'.$details['status_message'][$i]['avail_length'].'" required><br>
                       </div>          
                       </div>
 
@@ -131,27 +139,24 @@
                       <label>Quantity:</label>
                       </div>
                       <div class="col-lg-6">
-                      <input type="number" name="Updated_MaterialNewQuantity" id="Updated_MaterialNewQuantity" class="form-control" placeholder="Material Quantity" value="'.$details['status_message'][$i]['quantity'].'" step="0.01" required><br>
+                      <input type="number" name="Updated_MaterialNewQuantity" id="Updated_MaterialNewQuantity" class="form-control" placeholder="Material Quantity" value="'.$details['status_message'][$i]['raw_quantity'].'" step="0.01" required><br>
                       </div>
                       </div>
 
                       <div class="row">
                       <div class="col-lg-3">
-                      <label>Purchase Price<span class="w3-tiny">(per&nbsp;unit)</span>:</label>
+                      <label>Select Material</label> 
                       </div>
-                      <div class="col-lg-6">
-                      <input type="number" name="Update_StockMaterialPrice" id="Update_StockMaterialPrice" class="form-control" placeholder="Material Price" value="'.$details['status_message'][$i]['purchase_price'].'" step="0.01" required><br>
-                      </div>
-                      </div>
-
-                      <div class="row">
-                      <div class="col-lg-3">
-                      <label>Purchase Discount:</label>
-                      </div>
-                      <div class="col-lg-6">
-                      <input type="number" name="Update_StockMaterialDiscount" id="Update_StockMaterialDiscount" class="form-control" placeholder="Material Discount" value="'.$details['status_message'][$i]['purchase_discount'].'" step="0.01" required><br>
-                      </div>            
-                      </div>
+                        <div class="col-lg-6">                   
+                          <select class="form-control" name="Select_RawVendor_Id" id="Select_RawVendor_Id" required> <!-- this is for showing material stocks quantity -->
+                           <option>Select Material</option>';
+                          foreach ($vendors as $result ) { 
+                             echo '<option value="'.$result['vendor_id'].'"'; 
+                             if($details['status_message'][$i]['vendor_id'] == $result['vendor_id']){ echo 'selected';} echo '>'.$result['vendor_name'].'</option>';
+                              } 
+                          echo '</select><br>
+                         </div>
+                       </div>
 
                       <div class="w3-right">
                       <button type="submit" class="btn btn-primary">Save Stock</button></div><br><br>
@@ -162,35 +167,36 @@
                       </div>
                       </div>
                       
-                      <script >
-                      /* this script is used to update material info */
-                      $(function(){
-                       $("#Update_Manage_MaterialForm_'.$details['status_message'][$i]['received_stock_id'].'").submit(function(){
-                         dataString = $("#Update_Manage_MaterialForm_'.$details['status_message'][$i]['received_stock_id'].'").serialize();
-                         $.ajax({
-                           type: "POST",
-                           url: "'.base_url().'inventory/MaterialStock_Management/Update_UpdatedStockMaterial_Info",
-                           data: dataString,
-                           return: false,  
-                           success: function(data)
-                           {
-                            location.reload();
-                            $("#Updatestock_errnew").html(data);
-                          }
-
-                        });
+            <script>
+            /* this script is used to update material info */
+            $(function(){
+             $("#Update_Manage_MaterialForm_'.$details['status_message'][$i]['rawmaterial_id'].'").submit(function(){
+               dataString = $("#Update_Manage_MaterialForm_'.$details['status_message'][$i]['rawmaterial_id'].'").serialize();
+               $.ajax({
+                 type: "POST",
+                 url: "'.base_url().'inventory/MaterialStock_Management/Update_UpdatedRawStockMaterial_Info",
+                 data: dataString,
+                 return: false,  
+                 success: function(data)
+                 {
+                  $("#Updatestock_errnew").html(data);
+                     location.reload();
+                  }
+                });
  return false;  
 });
 });
  /* update script ends here  */
  </script>   
+
  <script>   
  /* this script is used to reload page when close modal*/
- $(\'#myModal_'.$details['status_message'][$i]['received_stock_id'].'\').on(\'hidden.bs.modal\', function () {
+ $("#myModal_'.$details['status_message'][$i]['rawmaterial_id'].'").on("hidden.bs.modal", function () {
    location.reload();
  });
  /* this script is used to reload page when close modal*/
  </script>
+ 
 
  </td>
  </tr>';
@@ -227,10 +233,10 @@ else
             <label>Select Material:</label> 
           </div>
           <div class="col-lg-3">                   
-            <select class="form-control" name="Select_RawMaterials_Id" id="Select_RawMaterials_Id" onchange="ShowMaterialStock();" required> <!-- this is for showing material stocks quantity -->
+            <select class="form-control" name="Select_RawMaterials_Id" id="Select_RawMaterials_Id" required> <!-- this is for showing material stocks quantity -->
               <option>Select Material:</option>
-              <?php  foreach ($All_Material as $result ) { ?>
-              <option value='<?php echo $result->material_id; ?>' ><?php echo $result->material_name;?></option>
+              <?php   foreach ($All_Material as $result ) { ?>
+              <option value='<?php echo $result['material_id']; ?>' ><?php echo $result['material_name'];?></option>
               <?php } ?>
             </select><br>
           </div>
@@ -278,9 +284,9 @@ else
   </div> 
   <div class="col-lg-3">
   <select class="form-control" name="Select_RawVendors_Id" id="Select_RawVendors_Id" required>                   
-      <option>Select Material:</option>
-      <?php  foreach ($All_Material as $result ) { ?>
-      <option value='<?php echo $result->material_id; ?>' ><?php echo $result->material_name;?></option>
+      <option>Select Vendor:</option>
+      <?php  foreach ($vendors as $result ) { ?>
+      <option value='<?php echo $result['vendor_id']; ?>' ><?php echo $result['vendor_name'];?></option>
       <?php } ?> </div>
     </select>
     </div>
@@ -298,7 +304,7 @@ else
 </div>
 </div>
 </div>
-</div>
+</div><!-- modal ends here -->
 <!--____________________________________ tab div 1 ends here_________________________________________ -->
 
 <div class="tab-pane" id="PurchasedProducts">  <!-- tab 2 starts here -->
@@ -334,24 +340,97 @@ else
     </div>
   </div><!-- table container ends here -->
   <!-- Modal -->
-  <div id="ModalFor_purchasedProduct" class="modal fade" role="dialog">
-    <div class="modal-dialog">
-      <!-- Modal content-->
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Modal Header</h4>
-        </div>
-        <div class="modal-body">
-          <p>Some text in the modal.</p>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        </div>
+ 
+<!-- Modal -->
+<div id="ModalFor_purchasedProduct" class="modal fade" role="dialog"><!-- modal starts here for add Raw  materials stocks -->
+  <div class="modal-dialog ">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <div>Manage Stock Material</div>
       </div>
+      <div class="modal-body ">
+        <div class="container">
+        <form method="POST" action="" id="Manage_RawMaterialForm" name="Manage_RawMaterialForm">
 
+          <div class="row">
+            <div class="col-lg-2">
+            <label>Select Product:</label> 
+          </div>
+          <div class="col-lg-3">                   
+            <select class="form-control" name="Select_RawMaterials_Id" id="Select_RawMaterials_Id" required> <!-- this is for showing material stocks quantity -->
+              <option>Select Material</option>
+              <?php   foreach ($All_Material as $result ) { ?>
+              <option value='<?php echo $result['material_id']; ?>' ><?php echo $result['material_name'];?></option>
+              <?php } ?>
+            </select><br>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-lg-2">
+            <label>ID:</label>
+          </div>
+          <div class="col-lg-3">
+           <input type="number" name="Input_RawMaterialStock_ID" id="Input_RawMaterialStock_ID" class="form-control" placeholder="Material ID" step="0.01" required><br>
+         </div>
+       </div>
+
+       <div class="row">
+         <div class="col-lg-2">
+          <label>OD:</label>
+        </div>
+        <div class="col-lg-3">
+         <input type="number" name="Input_RawMaterialStock_OD" id="Input_RawMaterialStock_OD" class="form-control" placeholder="Material OD" step="0.01" required><br>
+       </div>
+     </div>
+     
+     <div class="row">
+      <div class="col-lg-2">
+        <label>Length:</label>
+      </div>
+      <div class="col-lg-3">
+       <input type="number" name="Input_RawMaterialLength" id="Input_RawMaterialLength" class="form-control" placeholder="Material Length" step="0.01" required><br>
+     </div>
+   </div>
+
+<div class="row">
+     <div class="col-lg-2">
+      <label>Quantity:</label>
     </div>
-  </div>
+    <div class="col-lg-3">
+     <input type="number" name="Input_RawMaterialNewQuantity" id="Input_RawMaterialNewQuantity" class="form-control" placeholder="Material Quantity" step="0.01" required><br>
+   </div>      
+ </div>
+
+ <div class="row">
+  <div class="col-lg-2">
+    <label>Select Vendor: </label> 
+  </div> 
+  <div class="col-lg-3">
+  <select class="form-control" name="Select_RawVendors_Id" id="Select_RawVendors_Id" required>                   
+      <option>Select Vendor:</option>
+      <?php  foreach ($vendors as $result ) { ?>
+      <option value='<?php echo $result['vendor_id']; ?>' ><?php echo $result['vendor_name'];?></option>
+      <?php } ?> </div>
+    </select>
+    </div>
+  </div><br>
+
+<div class="row col-lg-offset-3">
+ <button type="submit" class="btn btn-primary">Save Stock</button>
+<button type="reset" class="btn btn-default">Reset</button>
+</div><br><br>
+ <div class="w3-margin-bottom w3-col l12 w3-small" id="addProducts_err"></div><br><br><br>
+</div>
+</form><!-- form ends here -->
+
+</div>  
+</div>
+</div>
+</div>
+</div><!-- modal ends here -->
 
 </div><!--tab 2 ends here -->
 <!-- ____________________________the tab 2 ends here____________________ -->
@@ -466,3 +545,31 @@ function ShowMaterialStock(){
 }
 /*this function is used for show total material stocks quantity*/
 </script>  
+<SCRIPT>
+
+$(function(){
+ $("#Manage_RawMaterialForm").submit(function(){
+   dataString = $("#Manage_RawMaterialForm").serialize();
+    //alert(dataString);
+    $.ajax({
+     type: "POST",
+     url: "<?php echo base_url(); ?>inventory/MaterialStock_Management/Save_RawStockMaterial_Info",
+     data: dataString,
+           return: false,  //stop the actual form post !important!
+           success: function(data)
+           {
+            $("#addProducts_err").html(data);
+          }
+        });
+         return false;  //stop the actual form post !important!
+       });
+});
+</SCRIPT>
+
+<script>   
+ /* this script is used to reload page when close modal*/
+ $('#myModal_'.$details['status_message'][$i]['received_stock_id'].'').on('hidden.bs.modal', function () {
+   location.reload();
+ });
+ /* this script is used to reload page when close modal*/
+ </script>

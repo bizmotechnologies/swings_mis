@@ -8,8 +8,6 @@ class ManageMaterial_api extends REST_Controller
 		parent::__construct();
 		$this->load->model('inventory_model/ManageMaterial_model');
 	}
-
-	
 	// ----------------------- SAVE MATERIAL API----------------------//
 	//-------------------------------------------------------------//
 	public function saveMaterial_post(){
@@ -37,7 +35,6 @@ class ManageMaterial_api extends REST_Controller
 	//---------------------EDIT MATERIAL END------------------------------//
 
 	// -----------------------DELETE MATERIAL API----------------------//
-	//-------------------------------------------------------------//
 	public function deleteRecord_get(){
 		$data = $_GET;
 		$response= $this->ManageMaterial_model->deleteRecord( $data );

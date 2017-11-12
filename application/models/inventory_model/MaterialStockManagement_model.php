@@ -7,12 +7,30 @@
 			$result =$this->db->query($query);
 			if($result->num_rows()<=0){  
 				$response=array(
-					'status' => 1,
+					'status' => 0,
+					'status_message' =>''	);
+			}
+			else{
+				$response=$result->result_array();
+			}
+
+			return $response;
+
+		} 
+		/*this getmaterialdeaails fun ends here*/
+
+		public function GetRawMaterialInfoDetails(){  /*this fun is used to get material details*/
+
+			$query = "SELECT * FROM raw_materialstock";
+			$result =$this->db->query($query);
+			if($result->num_rows()<=0){  
+				$response=array(
+					'status' => 0,
 					'status_message' =>''	);
 			}
 			else{
 				$response=array(
-					'status' => 0,
+					'status' => 1,
 					'status_message' => $result->result_array());
 			}
 
@@ -27,26 +45,101 @@
 			$result =$this->db->query($query);
 			if($result->num_rows()<=0){  
 				$response=array(
-					'status' => 1,
+					'status' => 0,
 					'status_message' =>''	);
 			}
 			else{
-				$response=array(
-					'status' => 0,
-					'status_message' => $result->result_array());
+				$response= $result->result_array();
 			}
 
 			return $response;
 		}
 
-		public function Update_UpdatedStockMaterial_Info($data){ /*this fun is used to update material info*/
+
+		public function GetProductsName(){
+
+			$query = "SELECT * FROM products";
+			$result =$this->db->query($query);
+			if($result->num_rows()<=0){  
+				$response=array(
+					'status' => 0,
+					'status_message' =>''	);
+			}
+			else{
+				$response= $result->result_array();
+			}
+
+			return $response;
+		}
+
+
+//---------------------------this fun Starts here for delete raw material----------------------------------------------\\
+
+		public function DeleteRawMaterialStockDetails($data){
+			extract($data);
+			//print_r($data);die();
+			$sqldelete = "DELETE FROM raw_materialstock WHERE rawmaterial_id = '$rawmaterial_id'";
+
+			$resultdelete =$this->db->query($sqldelete);
+
+			if($resultdelete){  
+				$response=array(
+					'status' => 1,
+					'status_message' =>'Records Deleted Successfully..!');
+			}
+			else{
+				$response=array(
+					'status' => 0,
+					'status_message' => 'Records Not Deleted Successfully...!');
+			}
+			return $response;
+
+		}
+//---------------------------this fun ends here for delete raw material----------------------------------------------\\
+
+		public function Save_RawStockMaterial_Info($data){
+			extract($data);
+
+			$this->load->model('inventory_model/ManageProduct_model');
+			$material_name = $this->ManageProduct_model->getMaterialdata($Select_RawMaterials_Id);
+
+			$sqlnew="INSERT INTO raw_materialstock(material_id,vendor_id,
+				material_name,raw_ID,raw_OD,
+				avail_length,raw_quantity,
+				accepted_date) 
+	        values ('$Select_RawMaterials_Id','$Select_RawVendors_Id',
+	        	'$material_name','$Input_RawMaterialStock_ID',
+	        	'$Input_RawMaterialStock_OD','$Input_RawMaterialLength','$Input_RawMaterialNewQuantity',now())";
+	//echo $sqlnew;die();
+	$resultnew =$this->db->query($sqlnew);
+
+	if($resultnew){  
+		$response=array(
+			'status' => 1,
+			'status_message' =>'Records Inserted Successfully..!');
+	}
+	else{
+		$response=array(
+			'status' => 0,
+			'status_message' => 'Records Not Inserted Successfully...!');
+	}
+	return $response;
+
+}
+/*----------------------update stock material info fun is Starts here--------------------------------*/
+
+		public function Update_UpdatedRawStockMaterial_Info($data){ /*this fun is used to update material info*/
 
 			extract($data);
 
-			$sql = "UPDATE received_stock SET stock_id = '$Updated_MaterialStock_ID',
-		    stock_od = '$Updated_MaterialStock_OD',length = '$Updated_MaterialLength',
-		    quantity = '$Updated_MaterialNewQuantity', purchase_price = '$Update_StockMaterialPrice',
-			purchase_discount = '$Update_StockMaterialDiscount' WHERE received_stock_id = '$Receivedstock_id'";
+			$this->load->model('inventory_model/ManageProduct_model');
+			$material_name = $this->ManageProduct_model->getMaterialdata($Select_RawMaterials_Id);
+
+			$sql = "UPDATE raw_materialstock SET rawmaterial_id = '$rawmaterial_id',
+			material_id = '$Select_RawMaterials_Id', vendor_id = '$Select_RawVendor_Id',
+			material_name = '$material_name', raw_ID = '$Updated_MaterialStock_OD',
+			raw_OD = '$Updated_MaterialStock_OD',avail_length = '$Updated_MaterialLength',
+		    raw_quantity = '$Updated_MaterialNewQuantity' WHERE rawmaterial_id = '$rawmaterial_id'";
 			    //echo $sql; die();
 			$resultUpadate =$this->db->query($sql);
 
