@@ -47,19 +47,24 @@
             <div class="w3-col l12 w3-margin-bottom">
               <div class="w3-col l12 w3-padding" id="new_quoteDiv">
                 <label>Customer List:</label>
-                <select name="new_customer" id="new_customer" class="form-control">
+                <select name="customer_name" id="customer_name" class="form-control">
                   <option class="w3-red" value="0">Select customer</option>
+                  <?php 
+                  if(isset($all_customer['status'])==0){
+                    echo '<option>'.$all_products['status_message'].'</option>';                    
+                  }
+                  else{
+                    foreach ($all_customer['status_message'] as $key) {                  
+                     echo '<option value="'.$key['cust_id'].'">'.$key['customer_name'].' <i class="w3-tiny">('.$key['customer_email'].')</i></option>';
+                   }
+                 }
+                 ?>
                 </select>
                 <div class="w3-col l12">
                   <span class="w3-small w3-right w3-text-red w3-label"><i class="fa fa-plus"></i> Add Customer</span>
                 </div>
               </div>
-              <div class="w3-col l12 w3-padding" id="revise_quoteDiv" style="display: none;">                
-                <label>Live Quotations:</label>
-                <select name="revise_quotation" id="revise_quotation" class="form-control">
-                  <option class="w3-red" value="0">Select quotation to revise</option>
-                </select>               
-              </div>
+              <div class="w3-col l12 w3-padding" id="revise_quoteDiv" style="display: none"></div>
               <div class="w3-col l8 w3-padding">
                 <label>Product List:</label>
                 <select class="form-control" id="product_id" name="product_id" >
@@ -100,6 +105,7 @@
         <span class="w3-small"></span>
       </header>
       <div class="w3-col l12">
+        <?php print_r($all_liveQuotations); ?>
         <div class="w3-col l12" id="quotation_detailsDIV">
 
         </div>
@@ -162,7 +168,7 @@
 </script>
 <!-- script ends here -->
 
-
+<!-- script to toggle i.e.hide/show revise and new quotation div -->
 <script>
   $(function() {
     $('#revise_quoteBtn').change(function() {
@@ -170,5 +176,33 @@
     })
   })
 </script>
+<!-- script ends -->
+
+<!-- script to get customer specific live quotations when customer is selected -->
+<!-- script to get product specifications and calculated price -->
+<script>
+  $(document).ready(function() {
+    $('#customer_name').change(function() {
+
+        var customer_name = $('#customer_name').val(); //customer name value
+       alert(customer_name);
+        $.ajax({
+          type: "POST",
+          url: "<?php echo base_url(); ?>sales_enquiry/manage_quotations/getCustomer_quotations",
+          data: 'customer_name='+ customer_name,
+          cache: false,
+          success: function(response) {
+            $('#revise_quoteDiv').html(response);
+          },
+          error: function(xhr, textStatus, errorThrown) {
+           alert('request failed'+errorThrown);
+         }
+       });
+
+      });
+  });
+</script>
+<!-- script ends -->
+<!-- script ends -->
 </body>
 </html>

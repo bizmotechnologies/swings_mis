@@ -11,9 +11,8 @@ class Manage_quotations extends CI_Controller
 	public function index(){
 		
 		$data['all_products']=Manage_quotations::show_products();
-		$data['all_roles']=Manage_quotations::show_roles();
 		$data['all_customer']=Manage_quotations::show_customer();
-
+		
 		$this->load->view('includes/navigation.php');
 		$this->load->view('sales/manage_quotations.php',$data);		
 	}
@@ -41,7 +40,7 @@ class Manage_quotations extends CI_Controller
 		
 		//Connection establishment, processing of data and response from REST API
 		$path=base_url();
-		$url = $path.'api/ManageProducts_api/all_customer';		
+		$url = $path.'api/ManageCustomer_api/getCustomerDetails';		
 		$ch = curl_init($url);
 		curl_setopt($ch, CURLOPT_HTTPGET, true);
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -117,19 +116,42 @@ class Manage_quotations extends CI_Controller
 	}
 // ---------------------function ends----------------------------------//
 
-	// ---------------function to show all role------------------------//
-	public function show_roles(){
+
+	// ---------------function to show all live quotations of customer------------------------//
+	public function getCustomer_quotations(){
+		extract($_POST);
 		
 		//Connection establishment, processing of data and response from REST API
 		$path=base_url();
-		$url = $path.'api/manageRoles_api/all_role';		
+		$url = $path.'api/manageQuotations_api/getCustomer_quotations?cust_id='.$_POST['customer_name'];		
 		$ch = curl_init($url);
 		curl_setopt($ch, CURLOPT_HTTPGET, true);
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 		$response_json = curl_exec($ch);
 		curl_close($ch);
 		$response=json_decode($response_json, true);
-		return $response;		
+		//API ends here
+
+		if($response['status']==0){
+			echo '<div class="alert alert-danger">
+			<strong>'.$response['status_message'].'</strong> 
+			</div>						
+			';	
+			
+		}
+		else{
+			echo '
+			<label>Live Quotations:</label>
+			<select name="live_quotation" id="live_quotation" class="form-control w3-margin-bottom">
+			<option class="w3-red" value="0">Select quotation to revise</option>';
+			
+			foreach ($response['status_message'] as $key) {
+				echo '<option class="" value="'.$key['quotation_id'].'">Quotation No.#Q'.$key['quotation_id'].'- dated:'.$key['dated'].'</option>';
+			}
+			echo '</select>';	
+					
+			
+		}			
 		
 	}
 // ---------------------function ends----------------------------------//	
@@ -139,7 +161,7 @@ class Manage_quotations extends CI_Controller
 
 		extract($_POST);
 		$data=$_POST;
-print_r($data);die();
+		print_r($data);die();
 		//Connection establishment, processing of data and response from REST API
 		$path=base_url();
 		$url = $path.'api/ManageProducts_api/add_ToQuotation';	

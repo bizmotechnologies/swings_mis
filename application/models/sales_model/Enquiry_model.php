@@ -26,6 +26,71 @@ class Enquiry_model extends CI_Model{
 	// }
 	// //----------------get all products ends--------------------------//
 
+	//---------------get all live quotations of customer model-------------//
+	function getQuotations($customer_id)
+	{
+		$query="SELECT * FROM quotation_master WHERE customer_id='$customer_id' AND current_status='0'";
+		$result = $this->db->query($query);
+		//return $result['num'];
+
+		if($result->num_rows() <= 0)
+		{  
+			$response=array(
+				'status'	=>	0,
+				'status_message' =>'There is no any quotation associated with this customer'
+			);
+			return $response;
+		}
+		else
+		{
+			$response=$result->result_array();
+			// $live_subquotation=array();
+			// foreach ($response as $key) {
+			// 	$live_subquotation[]=Enquiry_model::getLive_subquotation($key['quotation_id']);
+			// }
+			
+			$quotations=array(
+				'status'	=>	1,
+				'status_message' =>$response//json_encode($live_subquotation)
+			);
+			return $quotations;
+		}
+	}
+	//----------------get all live quotations of customer ends--------------------------//
+
+	//---------------get live subquotation of quotation master table model-------------//
+	function getLive_subquotation($quotation_id)
+	{
+		$query="SELECT * FROM quotation_master WHERE quotation_id='$quotation_id'";
+		$result = $this->db->query($query);
+		//return $result['num'];
+
+		$response=$result->result_array();
+		$sub_quotationsJSON="";
+		$dated="";
+		foreach ($response as $key) {
+			$sub_quotationsJSON=$key['sub_quotations'];
+			$dated=$key['dated'];
+		}
+
+		$sub_quotations=json_decode($sub_quotationsJSON,true);		
+		$live_quotation="";
+
+		foreach ($sub_quotations as $key) {
+			
+			if ($key['status']==TRUE) {
+				$live_quotation=$key['sub_quotation'];
+			}
+		}
+		$sub_quoteARR=array(
+			'live_subQuote'	=>	$live_quotation,
+			'live_Quote'	=>	$quotation_id,
+			'dated'	=>	$dated
+		);
+		return $sub_quoteARR;
+	}
+	//----------------get live subquotation of quotation master table ends--------------------------//
+
 	//---------------get particular product costing model-------------//
 	function getProduct_Costing($product_id,$cut_value)
 	{
