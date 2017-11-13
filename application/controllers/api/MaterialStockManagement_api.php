@@ -79,6 +79,28 @@ class MaterialStockManagement_api extends REST_Controller
 		return $this->response($result);
 	}
 	//---------------------Update RAW MATERIALS ----------------------------------------------//
+//-----------------------------------THIS FUN FOR GET VENDOR DETAILS---------------------------------------------------/
+
+    public function GetProductsName_get(){
+		$result = $this->MaterialStockManagement_model->GetProductsName();
+		return $this->response($result);
+	}
+//-----------------------------------THIS FUN FOR GET VENDOR DETAILS---------------------------------------------------/
+	
+//--------------------------------------PURCHASE PRODUCT API STARTS HERE-----------------------------------------------/
+//--------------------------------------FUN For save Purchased Productss-----------------------------------------------/
+
+public function Save_PurchasedProduct_Info_post(){
+		$data = $_POST;
+		$response = $this->MaterialStockManagement_model->Save_PurchasedProduct_Info($data);
+		return $this->response($response);
+}
+//--------------------------------------FUN For save Purchased Productss-----------------------------------------------/
+
+public function GetPurchaseProductsName_get(){
+	$result = $this->MaterialStockManagement_model->GetPurchaseProductsName();
+		return $this->response($result);
+}
 
 
 }

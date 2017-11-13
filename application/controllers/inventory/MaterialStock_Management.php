@@ -7,10 +7,83 @@ public function index(){
   $response['vendors'] =MaterialStock_Management::GetVendorsDetails();// this fun shows that the select material values
   $response['values'] =MaterialStock_Management::Get_Purchase_Stock();// this fun shows that the select material values
   $response['details'] =MaterialStock_Management::GetRawMaterialInfoDetails();// this fun shows that the select material values
+  $response['product'] =MaterialStock_Management::GetProductsName();
+  $response['Purchased']=MaterialStock_Management::GetPurchaseProductsName();
   $this->load->view('includes/navigation');
   $this->load->view('inventory/stock/materialstock_management', $response);
 
 	}
+
+
+
+public function Save_PurchasedProduct_Info(){
+
+        extract($_POST);
+        $data = $_POST;
+        //print_r($data);
+        $path=base_url();
+        $url = $path.'api/MaterialStockManagement_api/Save_PurchasedProduct_Info';    
+        $ch = curl_init($url);
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $response_json = curl_exec($ch);
+        curl_close($ch);
+        $response=json_decode($response_json, true);
+        //print_r($response_json);die();
+
+       if($response['status'] == 0){
+       echo'<div class="alert alert-danger w3-margin" style="text-align: center;">
+            <strong>'.$response['status_message'].'</strong> 
+            </div>
+            <script>
+            window.setTimeout(function() {
+             $(".alert").fadeTo(500, 0).slideUp(500, function(){
+              $(this).remove(); 
+             });
+            }, 1000);
+            </script>';
+          }else{
+            echo'<div class="alert alert-success w3-margin" style="text-align: center;">
+            <strong>'.$response['status_message'].'</strong> 
+            </div>
+            <script>
+            window.setTimeout(function() {
+             $(".alert").fadeTo(500, 0).slideUp(500, function(){
+              $(this).remove(); 
+             });
+            }, 1000);
+            </script>';
+
+          }
+
+}
+
+public function GetPurchaseProductsName(){
+  $path=base_url();
+        $url = $path.'api/MaterialStockManagement_api/GetPurchaseProductsName';        
+        $ch = curl_init($url);
+        curl_setopt($ch, CURLOPT_HTTPGET, true);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $response_json = curl_exec($ch);
+        curl_close($ch);
+        $response=json_decode($response_json, true);
+
+        return $response;
+}
+
+public function GetProductsName(){
+  $path=base_url();
+        $url = $path.'api/MaterialStockManagement_api/GetProductsName';        
+        $ch = curl_init($url);
+        curl_setopt($ch, CURLOPT_HTTPGET, true);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $response_json = curl_exec($ch);
+        curl_close($ch);
+        $response=json_decode($response_json, true);
+
+        return $response;
+}
 
 /*--------------this fun for geting all material information -----------------------*/
   public function GetRawMaterialInfoDetails(){
