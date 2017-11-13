@@ -54,8 +54,16 @@ class Enquiry_model extends CI_Model{
 			$quotation_details=Enquiry_model::getQuotation($response[0]['quotation_id']);
 			//-----------------------Quotation fields end-----------------------//	
 
+			//----------------------Get Customer name------------------//
+			$customer_details="";
+			$this->load->model('inventory_model/ManageCustomer_model');
+			$customer_details=$this->ManageCustomer_model->getCustomerBy_ID($quotation_details[0]['customer_id']);
+			//-----------------------Customer fields end-----------------------//	
+
 			$response[0]['quotation_customer']= $quotation_details[0]['customer_id'];
 			$response[0]['quotation_created']= $quotation_details[0]['dated'];
+			$response[0]['customer_name']= $customer_details[0]['customer_name'];
+			$response[0]['customer_email']= $customer_details[0]['customer_email'];
 			return $response;
 		}
 	}

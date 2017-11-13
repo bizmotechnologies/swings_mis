@@ -64,7 +64,7 @@
               </div>
             </div>
             <div class="w3-col l12 w3-padding" id="revise_quoteDiv" style="display: none"></div>
-            <div class="w3-col l8 w3-padding">
+            <div class="w3-col l6 w3-padding">
               <label>Product List:</label>
               <select class="form-control" id="product_id" name="product_id" >
                 <option value="0">Select product</option>
@@ -83,12 +83,13 @@
               <a href="<?php echo base_url(); ?>inventory/manage_products/add_products"><span class="w3-tiny w3-right w3-text-red w3-label"><i class="fa fa-plus"></i> Add Product</span></a>
             </div>
           </div>
-          <div class="w3-col l4 w3-padding">
+          <div class="w3-col l2 w3-padding">
             <label>Cut :</label>
             <input class="form-control" type="number" id="quote_cut" name="quote_cut" placeholder="Cut" required>
           </div>
-          <div class="w3-col l12 ">
-            <a class="w3-right btn w3-small w3-text-blue" id="get_productSpecs_btn"><b><i class="fa fa-chevron-circle-down"></i> Get Specifications</b></a>
+          <div class="w3-col l4 w3-padding ">
+            <br>
+            <a class="btn w3-small w3-text-blue" id="get_productSpecs_btn"><b><i class="fa fa-chevron-circle-down"></i> Get Specifications</b></a>
           </div>
         </div>
 
@@ -121,11 +122,12 @@
        </select>
 
      </div>
-     <div class="w3-col l12" id="quotation_detailsDIV">
+     <div class="w3-col l12 " id="quotation_detailsDIV">
 
      </div>
-   </div>
+     
  </div>
+</div>
 </div><div id="Input_MaterialStock"></div>
 <!-- End page content -->
 </div>
@@ -225,14 +227,14 @@
     $('#quotation_ToSend').change(function() {
 
         var quotation_ToSend = $('#quotation_ToSend').val(); //customer name value
-        alert(quotation_ToSend);
+        
         $.ajax({
           type: "POST",
           url: "<?php echo base_url(); ?>sales_enquiry/manage_quotations/quotationDetails",
           data: 'sub_quotationID='+ quotation_ToSend,
           cache: false,
           success: function(response) {
-          $("#quotation_detailsDIV").html(response); 
+            $("#quotation_detailsDIV").html(response); 
           },
           error: function(xhr, textStatus, errorThrown) {
            alert('request failed'+errorThrown);

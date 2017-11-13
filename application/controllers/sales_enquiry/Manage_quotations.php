@@ -66,8 +66,60 @@ class Manage_quotations extends CI_Controller
 		$response_json = curl_exec($ch);
 		curl_close($ch);
 		$response=json_decode($response_json, true);
-		print_r($response_json);	
-
+		
+		if(isset($response['status'])){
+			echo '
+			<div class="w3-col l12 alert alert-danger w3-center w3-margin-bottom">
+			<span class="w3-medium w3-text-red">'.$response['status_message'].'</span>
+			</div>';
+		}
+		else{
+		echo '
+		<div class="w3-col l12 w3-padding">
+      <div class="w3-col l12 w3-card-2 w3-padding">
+        <div class="w3-col l12 w3-margin-bottom">
+          <label class="w3-label w3-text-blue">QUOTATION NO:</label>
+         <span class="w3-text-grey">Quotation No.#Q'.$response[0]['quotation_id'].'/'.$response[0]['sub_quotation_id'].'</span>
+       </div>
+       <div class="w3-col l12 w3-margin-bottom">
+        <label class="w3-label w3-text-blue">QUOTATION FOR:</label>
+         <span class="w3-text-grey">'.$response[0]['customer_name'].'</span>
+         <span class="w3-text-grey"> <i>['.$response[0]['customer_email'].']</i></span>
+       </div>
+       <div class="w3-col l12 w3-margin-bottom">
+         <span class="w3-left w3-text-grey"> created on: '.$response[0]['quotation_created'].'</span>
+         <span class="w3-right w3-text-grey"> revised on: '.$response[0]['dated'].'</span>
+       </div>
+       <div class="w3-col l12">
+        <label class="w3-label w3-text-blue">PRODUCTS ARE:</label>
+         <table class="table table-striped table-responsive w3-text-grey">
+          <thead>
+            <tr>
+              <th>Product Name</th>
+              <th>ID/OD</th>
+              <th>Thickness</th>
+              <th>Price</th>
+            
+            </tr>
+          </thead>
+           <tbody>';
+           foreach (json_decode($response[0]['products'],true) as $key) {
+           	echo '
+           	<tr>
+               <td>Product Name 1</td>                 
+               <td>'.$key['ID'].'/'.$key['OD'].'</td>                 
+               <td>'.$key['thickness'].'</td>                 
+               <td>'.$key['price'].' <i class="fa fa-rupee"></i></td>                 
+             </tr>
+           	';
+           }
+             
+           echo '</tbody>
+         </table>
+       </div>
+     </div>
+   </div>';	
+}
 		
 	}
 // ---------------------function ends----------------------------------//
@@ -218,6 +270,15 @@ class Manage_quotations extends CI_Controller
 				<h4 class="w3-text-red"><i class="fa fa-warning"></i> WARNING</h4>
 				<label class="w3-text-grey w3-label w3-small">
 				<strong>Select appropriate Quotation for the respective customer. </strong> 
+				</label>';
+				die();
+			}
+			elseif($customer_name=='0'){
+				//-----------------check customer selected or not-------------//
+				echo '
+				<h4 class="w3-text-red"><i class="fa fa-warning"></i> WARNING</h4>
+				<label class="w3-text-grey w3-label w3-small">
+				<strong>Select Customer first. </strong> 
 				</label>';
 				die();
 			}
