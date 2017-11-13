@@ -96,6 +96,8 @@
         <div id="product_specs">
 
         </div>
+        <div id="more"></div>
+        <button type="btn" id="moreBTN">ADD</button>
       </form>
     </div>
   </div>
@@ -227,7 +229,7 @@
     $('#quotation_ToSend').change(function() {
 
         var quotation_ToSend = $('#quotation_ToSend').val(); //customer name value
-        
+           
         $.ajax({
           type: "POST",
           url: "<?php echo base_url(); ?>sales_enquiry/manage_quotations/quotationDetails",
@@ -243,6 +245,34 @@
 
       });
   });
+</script>
+<!-- script ends -->
+
+<script>
+  $(document).ready(function() {
+    var max_fields=4;
+    var wrapper         = $("#more"); 
+    var add_button      = $("#moreBTN"); 
+
+    var x = 1; 
+    $(add_button).click(function(e){ 
+      e.preventDefault();
+      if(x < max_fields){ 
+        x++; 
+            $(wrapper).append('<label>Product List:</label><select class="form-control" id="product_id" name="product_id" ><option value="0">Select product</option><?php if(isset($all_products['status'])){echo '<option>'.$all_products['status_message'].'</option>';}else{foreach ($all_products as $key) {echo '<option value="'.$key['product_id'].'">'.$key['product_name'].'</option>';}}?></select><div class="w3-col l12"><a href="<?php echo base_url(); ?>inventory/manage_products/add_products"><span class="w3-tiny w3-right w3-text-red w3-label"><i class="fa fa-plus"></i> Add Product</span></a></div></div><div class="w3-col l2 w3-padding"><label>Cut :</label><input class="form-control" type="number" id="quote_cut" name="quote_cut" placeholder="Cut" required></div><div class="w3-col l4 w3-padding "><br><a class="btn w3-small w3-text-blue" id="get_productSpecs_btn"><b><i class="fa fa-chevron-circle-down"></i> Get Specifications</b></a></div></div><div id="product_specs"></div>'); //add input box
+            
+        }
+        else
+        {
+          alert('You Reached the limits')   //alert when added more than 4 input fields
+        }
+    });
+
+    $(wrapper).on("click",".delete", function(e){ 
+      e.preventDefault(); $(this).parent('div').remove(); x--;
+    })
+  });
+  
 </script>
 <!-- script ends -->
 </body>
