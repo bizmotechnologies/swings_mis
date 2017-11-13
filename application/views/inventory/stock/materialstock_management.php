@@ -42,7 +42,7 @@
 
           <div class=" container w3-padding"><!-- container starts here -->
             <div class="w3-left">
-              <button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal">Manage Raw Material</button><br>
+              <button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal">Add Raw Material</button><br>
             </div><br><br>
           </div><br><!-- container ends here -->
 
@@ -347,7 +347,7 @@ else
                           <td class="text-center">'.$Purchased['status_message'][$i]['quantity'].'</td>
                           <td class="text-center">'.$Purchased['status_message'][$i]['purchase_price'].'</td>
                           <td class="text-center"><a class="btn w3-blue w3-medium w3-padding-small" title="UpdateCustomer" data-toggle="modal" data-target="#myModalnew_'.$Purchased['status_message'][$i]['purchased_product_id'].'" style="padding:0"><i class="fa fa-edit"></i></a>
-                          <a class="btn w3-red w3-medium w3-padding-small" title="DeleteCustomer" href="'.base_url().'inventory/MaterialStock_Management/DeleteRawMaterialStockDetails?purchased_product_id='.$Purchased['status_message'][$i]['purchased_product_id'].'" style="padding:0"><i class="fa fa-close"></i></a>
+                          <a class="btn w3-red w3-medium w3-padding-small" title="DeleteCustomer" href="'.base_url().'inventory/MaterialStock_Management/DeletePurchasedStockDetails?purchased_product_id='.$Purchased['status_message'][$i]['purchased_product_id'].'" style="padding:0"><i class="fa fa-close"></i></a>
 
                           <!-- Modal  starts here-->
 
@@ -368,7 +368,7 @@ else
                           <label>Select Product:</label> 
                           </div>
                           <div class="col-lg-6">                   
-                          <select class="form-control" name="Select_UpdatedPurchased_Id_'.$Purchased['status_message'][$i]['purchased_product_id'].'" id="Select_UpdatedPurchased_Id_'.$Purchased['status_message'][$i]['purchased_product_id'].'" required> <!-- this is for showing material stocks quantity -->
+                          <select class="form-control" name="Select_UpdatedPurchased_Id" id="Select_UpdatedPurchased_Id_'.$Purchased['status_message'][$i]['purchased_product_id'].'" required> <!-- this is for showing material stocks quantity -->
                           <option value="0">Select Product</option>';
                           foreach ($product as $result ) { 
                            echo '<option value="'.$result['product_id'].'"'; 
@@ -450,7 +450,7 @@ else
 
                          <div class="row">
                          <div class="col-lg-3">
-                         <label>price in <i class="fa fa-rupee"></i>:</label>
+                         <label>Currency price in <i class="fa fa-rupee"></i>:</label>
                          </div>
                          <div class="col-lg-6">
                          <input type="number" name="Input_UpdatedPurchased_Price" id="Input_Purchased_Price" class="form-control" value="'.$Purchased['status_message'][$i]['price_in_rs'].'" placeholder="product prize in rs" step="0.01" required><br>
@@ -469,7 +469,7 @@ else
 
                          <div class="w3-right">
                          <button type="submit" class="btn btn-primary">Save Stock</button></div><br><br>
-                         <div class="w3-margin-bottom w3-col l12 w3-small" id="Updatestock_errnew"></div><br><br><br>
+                         <div class="w3-margin-bottom w3-col l12 w3-small w3-center" id="Updatestock_errnew_'.$Purchased['status_message'][$i]['purchased_product_id'].'"></div><br><br><br>
                          </form>
                          </div> 
                          </div>
@@ -488,7 +488,7 @@ else
                                return: false,  
                                success: function(data)
                                {
-                                $("#Updatestock_errnew").html(data);
+                                $("#Updatestock_errnew_'.$Purchased['status_message'][$i]['purchased_product_id'].'").html(data);
                                 location.reload();
                               }
                             });
@@ -501,7 +501,7 @@ return false;
 <script>   
 /* this script is used to reload page when close modal*/
 $("#myModal_'.$Purchased['status_message'][$i]['purchased_product_id'].'").on("hidden.bs.modal", function () {
- location.reload();
+  location.reload();
 });
 /* this script is used to reload page when close modal*/
 </script>
@@ -672,16 +672,148 @@ else
           <table class="table table-bordered table-responsive" >            <!-- table starts here -->
             <tr >
               <th class="text-center">SR. No</th>
-              <th class="text-center">Material&nbsp;Name</th>  
+              <th class="text-center">Product&nbsp;Name</th>  
               <th class="text-center">ID</th>              
               <th class="text-center">OD</th>              
               <th class="text-center">Length</th>              
-              <th class="text-center">Purchase&nbsp;Discount</th>
-              <th class="text-center">Vender</th>                         
-              <th class="text-center">Accepted&nbsp;Date</th>              
+              <th class="text-center">Quantity</th>         
               <th class="text-center">Actions</th>                                           
             </tr>
             <tbody><!-- table body starts here -->
+
+              <?php
+                      $count=1;
+                      if($Finished['status']==1)
+                      {//print_r($Purchased['status_message']);
+                        for($i = 0; $i < count($Finished['status_message']); $i++)
+                        { 
+                          echo '<tr class="text-center">
+                          <td class="text-center">'.$count.'.</td>
+                          <td class="text-center">'.$Finished['status_message'][$i]['product_name'].'</td>
+                          <td class="text-center">'.$Finished['status_message'][$i]['fproduct_ID'].'</td>
+                          <td class="text-center">'.$Finished['status_message'][$i]['fproduct_OD'].'</td>
+                          <td class="text-center">'.$Finished['status_message'][$i]['fproduct_length'].'</td>
+                          <td class="text-center">'.$Finished['status_message'][$i]['fproduct_quantity'].'</td>
+                          <td class="text-center"><a class="btn w3-blue w3-medium w3-padding-small" title="UpdateCustomer" data-toggle="modal" data-target="#myModalnew_'.$Finished['status_message'][$i]['finished_product_id'].'" style="padding:0"><i class="fa fa-edit"></i></a>
+                          <a class="btn w3-red w3-medium w3-padding-small" title="DeleteCustomer" href="'.base_url().'inventory/MaterialStock_Management/DeleteFinishedProductDetails?finished_product_id='.$Finished['status_message'][$i]['finished_product_id'].'" style="padding:0"><i class="fa fa-close"></i></a>
+
+                          <!-- Modal  starts here-->
+
+                          <div id="myModalnew_'.$Finished['status_message'][$i]['finished_product_id'].'" class="modal fade" role="dialog">
+                          <div class="modal-dialog">
+
+                          <!-- Modal content-->
+                          <div class="modal-content">
+                          <div class="modal-header">
+                          <button type="button" class="close" data-dismiss="modal">&times;</button>
+                          <div>Manage Stock Material</div>
+                          </div>
+                          <div class="modal-body w3-light-grey">   
+                          <form method="POST" action="" id="Update_Finished_ProductForm_'.$Finished['status_message'][$i]['finished_product_id'].'" name="Update_Finished_ProductForm_'.$Finished['status_message'][$i]['finished_product_id'].'">
+                          <input type="hidden" name="finished_product_id" id="finished_product_id_'.$Finished['status_message'][$i]['finished_product_id'].'" value="'.$Finished['status_message'][$i]['finished_product_id'].'">
+                          <div class="row">
+                          <div class="col-lg-3">
+                          <label>Select Product:</label> 
+                          </div>
+                          <div class="col-lg-6">                   
+                          <select class="form-control" name="Select_UpdatedFinished_product_Id" id="Select_UpdatedFinished_product_Id_'.$Finished['status_message'][$i]['finished_product_id'].'" required> <!-- this is for showing material stocks quantity -->
+                          <option value="0">Select Product</option>';
+                          foreach ($product as $result ) { 
+                           echo '<option value="'.$result['product_id'].'"'; 
+                           if($Finished['status_message'][$i]['product_id'] == $result['product_id']){ echo 'selected';} echo '>'.$result['product_name'].'</option>';
+
+                         } 
+                         echo '</select><br>
+                         </div>
+                         </div>
+
+                         <div class="row">
+                         <div class="col-lg-3">
+                         <label>ID:</label>
+                         </div>
+                         <div class="col-lg-6">
+                         <input type="number" name="Updated_FinishedProduct_ID" id="Updated_FinishedProduct_ID" class="form-control" placeholder="Product ID" step="0.01" value="'.$Finished['status_message'][$i]['fproduct_ID'].'" required><br>
+                         </div>
+                         </div>
+
+                         <div class="row">
+                         <div class="col-lg-3">
+                         <label>OD:</label>
+                         </div>
+                         <div class="col-lg-6">
+                         <input type="number" name="Updated_FinishedProduct_OD" id="Updated_FinishedProduct_OD" class="form-control" placeholder="Material OD" step="0.01" value="'.$Finished['status_message'][$i]['fproduct_OD'].'" required><br>
+                         </div>
+                         </div>
+
+                         <div class="row">
+                         <div class="col-lg-3">
+                         <label>Length:</label>
+                         </div>
+                         <div class="col-lg-6">
+                         <input type="number" name="Updated_FinishedProductLength" id="Updated_FinishedProductLength" class="form-control" placeholder="Material Length" step="0.01" value="'.$Finished['status_message'][$i]['fproduct_length'].'" required><br>
+                         </div>          
+                         </div>
+
+                         <div class="row">
+                         <div class="col-lg-3">
+                         <label>Quantity:</label>
+                         </div>
+                         <div class="col-lg-6">
+                         <input type="number" name="Updated_FinishedProductQuantity" id="Updated_FinishedProductQuantity" class="form-control" placeholder="Material Quantity" value="'.$Finished['status_message'][$i]['fproduct_quantity'].'" step="0.01" required><br>
+                         </div>
+                         </div>
+
+
+                         <div class="w3-right">
+                         <button type="submit" class="btn btn-primary">Save Stock</button></div><br><br>
+                         <div class="w3-margin-bottom w3-col l12 w3-small w3-center" id="Updatestock_errnew_'.$Finished['status_message'][$i]['finished_product_id'].'"></div><br><br><br>
+                         </form>
+                         </div> 
+                         </div>
+                         </div>
+                         </div>
+
+                         <script>
+                         /* this script is used to update material info */
+                         $(function(){
+                           $("#Update_Finished_ProductForm_'.$Finished['status_message'][$i]['finished_product_id'].'").submit(function(){
+                             dataString = $("#Update_Finished_ProductForm_'.$Finished['status_message'][$i]['finished_product_id'].'").serialize();
+                             $.ajax({
+                               type: "POST",
+                               url: "'.base_url().'inventory/MaterialStock_Management/Update_Finishedproducts_Info",
+                               data: dataString,
+                               return: false,  
+                               success: function(data)
+                               {
+                                $("#Updatestock_errnew_'.$Finished['status_message'][$i]['finished_product_id'].'").html(data);
+                                location.reload();
+                              }
+                            });
+return false;  
+});
+});
+/* update script ends here  */
+</script>   
+
+<script>   
+/* this script is used to reload page when close modal*/
+$("#myModal_'.$Finished['status_message'][$i]['finished_product_id'].'").on("hidden.bs.modal", function () {
+  location.reload();
+});
+/* this script is used to reload page when close modal*/
+</script>
+
+
+</td>
+</tr>';
+$count++;
+}
+}
+else
+{
+  echo'<tr><td style="text-align: center;" colspan = "7">No Records Found...!</td></tr>';
+}
+?>
 
             </tbody><!-- table body close here -->
           </table><!-- table closed here -->
@@ -696,14 +828,73 @@ else
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Modal Header</h4>
+          <h4 class="modal-title">Finished Product</h4>
         </div>
         <div class="modal-body">
-          <p>Some text in the modal.</p>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        </div>
+        <form method="POST" action="" id="Manage_FinishedProductForm" name="Manage_FinishedProductForm">
+
+          <div class="row">
+            <div class="col-lg-3 col-lg-offset-1">
+              <label>Select Product:</label> 
+            </div>
+            <div class="col-lg-5 ">                   
+              <select class="form-control" name="Select_PurchasedProduct_Id" id="Select_PurchasedProduct_Id" required> <!-- this is for showing material stocks quantity -->
+                <option>Select Product</option>
+                <?php   foreach ($product as $result ) { ?>
+                <option value='<?php echo $result['product_id']; ?>' ><?php echo $result['product_name'];?></option>
+                <?php } ?>
+              </select><br>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-lg-3 col-lg-offset-1">
+              <label >ID:</label>
+            </div>
+            <div class="col-lg-5">
+              <input type="number" name="Input_Finished_Product_ID" id="Input_Finished_Product_ID" class="form-control" placeholder="product ID" step="0.01" required><br>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-lg-3 col-lg-offset-1">
+              <label >OD:</label>
+            </div>
+            <div class="col-lg-5">
+              <input type="number" name="Input_Finished_Product_OD" id="Input_Finished_Product_OD" class="form-control" placeholder="product ID" step="0.01" required><br>
+            </div>
+          </div>
+
+           <div class="row">
+            <div class="col-lg-3 col-lg-offset-1">
+              <label>Thickness:</label>
+            </div>
+            <div class="col-lg-5">
+              <input type="number" name="Input_Finished_Product_Thickness" id="Input_Finished_Product_Thickness" class="form-control" placeholder="product ID" step="0.01" required><br>
+            </div>
+          </div>
+
+           <div class="row">
+            <div class="col-lg-3 col-lg-offset-1">
+              <label>Quantity:</label>
+            </div>
+            <div class="col-lg-5">
+              <input type="number" name="Input_Finished_Product_Quantity" id="Input_Finished_Product_Quantity" class="form-control" placeholder="product ID" step="0.01" required><br>
+            </div>
+
+          </div>
+
+          <center>
+           <button type="submit" class="btn btn-primary">Save Stock</button>
+           <button type="reset" class="btn btn-default">Reset</button>
+          </center>
+            
+         <br><br>
+         <div class="w3-margin-bottom w3-col l12 w3-small" id="addFinishedproducts_err"></div><br><br><br>
+
+       </form>
+       </div><!-- modal Body -->
+       
       </div>
 
     </div>
@@ -720,32 +911,7 @@ else
 
 </div>
 <!--_______________________ div for main container____________________________ -->
-<script >
-/*this script is used for save stock material information*/
-/*$(function(){
- $("#Manage_MaterialForm").submit(function(){
-   dataString = $("#Manage_MaterialForm").serialize();
-    //alert(dataString);
-    $.ajax({
-     type: "POST",
-     url: "<?php echo base_url(); ?>inventory/MaterialStock_Management/Save_StockMaterial_Info",
-     data: dataString,
-           return: false,  //stop the actual form post !important!
 
-           success: function(data)
-           {
-            //alert(data);
-            $("#addProducts_err").html(data);
-          }
-
-        });
-
-         return false;  //stop the actual form post !important!
-
-       });
-});*/
-/*this script is used for save stock material information*/
-</script>
 <script>  /* this function is used for show total material stocks quantity*/
 function ShowMaterialStock(){
 
@@ -785,14 +951,6 @@ $(function(){
        });
 });
 </SCRIPT>
-
-<script>   
-/* this script is used to reload page when close modal*/
-// $("#myModal_".$details['status_message'][$i]['received_stock_id']."").on('hidden.bs.modal', function () {
-//  location.reload();
-// });
-/* this script is used to reload page when close modal*/
-</script>
 <SCRIPT >
 $(function(){
  $("#Manage_PurchasedProductForm").submit(function(){
@@ -807,6 +965,26 @@ $(function(){
            {
             //alert(data);
             $("#addpurchaseproducts_err").html(data);
+          }
+        });
+         return false;  //stop the actual form post !important!
+       });
+});
+</SCRIPT>
+<SCRIPT >
+$(function(){
+ $("#Manage_FinishedProductForm").submit(function(){
+   dataString = $("#Manage_FinishedProductForm").serialize();
+   // alert(dataString);
+    $.ajax({
+     type: "POST",
+     url: "<?php echo base_url(); ?>inventory/MaterialStock_Management/Save_FinishedProduct_Info",
+     data: dataString,
+           return: false,  //stop the actual form post !important!
+           success: function(data)
+           {
+            //alert(data);
+            $("#addFinishedproducts_err").html(data);
           }
         });
          return false;  //stop the actual form post !important!

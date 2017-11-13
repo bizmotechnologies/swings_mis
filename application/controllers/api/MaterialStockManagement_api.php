@@ -102,5 +102,39 @@ public function GetPurchaseProductsName_get(){
 		return $this->response($result);
 }
 
+public function Update_purchasedproducts_Info_post(){
+
+        $data = $_POST;
+		$result = $this->MaterialStockManagement_model->Update_purchasedproducts_Info($data);
+		return $this->response($result);
+}
+ 
+public function DeletePurchasedStockDetails_get(){
+
+	    $data = $_GET;
+		$response= $this->MaterialStockManagement_model->DeletePurchasedStockDetails( $data );
+		return $this->response($response);
+}
+
+public function Save_FinishedProduct_Info_post(){
+		$data = $_POST;
+		$response = $this->MaterialStockManagement_model->Save_FinishedProduct_Info($data);
+		return $this->response($response);
+
+}
+public function GetFinishedInformationDetails_get(){
+	$result = $this->MaterialStockManagement_model->GetFinishedInformationDetails();
+		return $this->response($result);
+}
+public function Update_Finishedproducts_Info_post(){
+	$data = $_POST;
+		$result = $this->MaterialStockManagement_model->Update_Finishedproducts_Info($data);
+		return $this->response($result);
+}
+public function DeleteFinishedProductDetails_get(){
+	 $data = $_GET;
+		$response= $this->MaterialStockManagement_model->DeleteFinishedProductDetails( $data );
+		return $this->response($response);
+}
 
 }
