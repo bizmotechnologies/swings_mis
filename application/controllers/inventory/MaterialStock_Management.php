@@ -31,7 +31,6 @@ public function Save_PurchasedProduct_Info(){
         $response_json = curl_exec($ch);
         curl_close($ch);
         $response=json_decode($response_json, true);
-        //print_r($response_json);die();
 
        if($response['status'] == 0){
        echo'<div class="alert alert-danger w3-margin" style="text-align: center;">
@@ -41,6 +40,7 @@ public function Save_PurchasedProduct_Info(){
             window.setTimeout(function() {
              $(".alert").fadeTo(500, 0).slideUp(500, function(){
               $(this).remove(); 
+              location.reload();
              });
             }, 1000);
             </script>';
@@ -52,6 +52,7 @@ public function Save_PurchasedProduct_Info(){
             window.setTimeout(function() {
              $(".alert").fadeTo(500, 0).slideUp(500, function(){
               $(this).remove(); 
+            location.reload();
              });
             }, 1000);
             </script>';
@@ -186,6 +187,7 @@ public function Save_RawStockMaterial_Info(){
             window.setTimeout(function() {
              $(".alert").fadeTo(500, 0).slideUp(500, function(){
               $(this).remove(); 
+                          location.reload();
              });
             }, 1000);
             </script>';
@@ -196,7 +198,8 @@ public function Save_RawStockMaterial_Info(){
             <script>
             window.setTimeout(function() {
              $(".alert").fadeTo(500, 0).slideUp(500, function(){
-              $(this).remove(); 
+              $(this).remove();
+                          location.reload(); 
              });
             }, 1000);
             </script>';
@@ -248,6 +251,7 @@ public function Update_Finishedproducts_Info(){
             window.setTimeout(function() {
              $(".alert").fadeTo(500, 0).slideUp(500, function(){
               $(this).remove(); 
+            location.reload();
              });
             }, 1000);
             </script>';
@@ -258,7 +262,8 @@ public function Update_Finishedproducts_Info(){
             <script>
             window.setTimeout(function() {
              $(".alert").fadeTo(500, 0).slideUp(500, function(){
-              $(this).remove(); 
+              $(this).remove();
+            location.reload();          
              });
             }, 1000);
             </script>';
@@ -290,6 +295,7 @@ public function Update_UpdatedRawStockMaterial_Info(){
             window.setTimeout(function() {
              $(".alert").fadeTo(500, 0).slideUp(500, function(){
               $(this).remove(); 
+            location.reload();              
              });
             }, 1000);
             </script>';
@@ -301,6 +307,7 @@ public function Update_UpdatedRawStockMaterial_Info(){
             window.setTimeout(function() {
              $(".alert").fadeTo(500, 0).slideUp(500, function(){
               $(this).remove(); 
+            location.reload();              
              });
             }, 1000);
             </script>';
@@ -333,6 +340,7 @@ public function Update_purchasedproducts_Info(){
             window.setTimeout(function() {
              $(".alert").fadeTo(500, 0).slideUp(500, function(){
               $(this).remove(); 
+            location.reload();              
              });
             }, 1000);
             </script>';
@@ -344,6 +352,7 @@ public function Update_purchasedproducts_Info(){
             window.setTimeout(function() {
              $(".alert").fadeTo(500, 0).slideUp(500, function(){
               $(this).remove(); 
+            location.reload();              
              });
             }, 1000);
             </script>';
@@ -424,6 +433,7 @@ public function Save_FinishedProduct_Info(){
             window.setTimeout(function() {
              $(".alert").fadeTo(500, 0).slideUp(500, function(){
               $(this).remove(); 
+            location.reload();              
              });
             }, 1000);
             </script>';
@@ -435,6 +445,7 @@ public function Save_FinishedProduct_Info(){
             window.setTimeout(function() {
              $(".alert").fadeTo(500, 0).slideUp(500, function(){
               $(this).remove(); 
+            location.reload();              
              });
             }, 1000);
             </script>';

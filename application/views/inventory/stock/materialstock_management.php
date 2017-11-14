@@ -225,7 +225,6 @@ else
         <div>Manage Stock Material</div>
       </div>
       <div class="modal-body ">
-        <div class="container">
           <form method="POST" action="" id="Manage_RawMaterialForm" name="Manage_RawMaterialForm">
 
             <div class="row">
@@ -300,7 +299,6 @@ else
  </div>
 </form><!-- form ends here -->
 
-</div>  
 </div>
 </div>
 </div>
@@ -534,14 +532,13 @@ else
           <h4 class="modal-title">Add Purchased Products</h4>
         </div>
         <div class="modal-body">
-          <div class="container">
             <form method="POST" action="" id="Manage_PurchasedProductForm" name="Manage_PurchasedProductForm">
 
               <div class="row">
-                <div class="col-lg-2">
+                <div class="col-lg-3">
                   <label>Select Product:</label> 
                 </div>
-                <div class="col-lg-4">                   
+                <div class="col-lg-6">                   
                   <select class="form-control" name="Select_PurchasedProduct_Id" id="Select_PurchasedProduct_Id" required> <!-- this is for showing material stocks quantity -->
                     <option>Select Product</option>
                     <?php   foreach ($product as $result ) { ?>
@@ -552,10 +549,10 @@ else
               </div>
 
                 <div class="row">
-                 <div class="col-lg-2">
+                 <div class="col-lg-3">
                    <label>Select Vendor: </label> 
                  </div> 
-                 <div class="col-lg-4">
+                 <div class="col-lg-6">
                    <select class="form-control" name="Select_PurchasedVendors_Id" id="Select_PurchasedVendors_Id" required>                   
                      <option>Select Vendor:</option>
                      <?php  foreach ($vendors as $result ) { ?>
@@ -566,48 +563,48 @@ else
                </div><br>
 
               <div class="row">
-                <div class="col-lg-2">
+                <div class="col-lg-3">
                   <label>ID:</label>
                 </div>
-                <div class="col-lg-4">
+                <div class="col-lg-6">
                  <input type="number" name="Input_PurchasedProductStock_ID" id="Input_PurchasedProductStock_ID" class="form-control" placeholder="product ID" step="0.01" required><br>
                </div>
              </div>
 
              <div class="row">
-               <div class="col-lg-2">
+               <div class="col-lg-3">
                 <label>OD:</label>
               </div>
-              <div class="col-lg-4">
+              <div class="col-lg-6">
                <input type="number" name="Input_ProductStock_OD" id="Input_ProductStock_OD" class="form-control" placeholder="product OD" step="0.01" required><br>
              </div>
            </div>
 
            <div class="row">
-            <div class="col-lg-2">
+            <div class="col-lg-3">
               <label>Length:</label>
             </div>
-            <div class="col-lg-4">
+            <div class="col-lg-6">
              <input type="number" name="Input_PurchasedLength" id="Input_PurchasedLength" class="form-control" placeholder="product Length" step="0.01" required><br>
            </div>
          </div>
 
            <div class="row">
-            <div class="col-lg-2">
+            <div class="col-lg-3">
               <label>Quantity:</label>
             </div>
-            <div class="col-lg-4">
+            <div class="col-lg-6">
              <input type="number" name="Input_Purchased_quantity" id="Input_Purchased_quantity" class="form-control" placeholder="product Length" step="0.01" required><br>
            </div>
          </div>
 
          <div class="row">
-          <div class="col-lg-2">
+          <div class="col-lg-3">
             <label for="price" class="control-label w3-medium">Price<span class="w3-tiny">(cost/mm)</span>:</label></div>
-            <div class="col-lg-2">
+            <div class="col-lg-3">
               <input type="number" name="input_priceForPurchase" id="input_priceForPurchase" class="form-control" placeholder="Product Price" step="0.01" required>
             </div>
-            <div class="col-lg-2">
+            <div class="col-lg-3">
              <select class="form-control" name="Select_purchasedCurrency" id="Select_purchasedCurrency"  required>
               <option class="w3-red" value="0">Currency </option>
               <option value="dollar">Dollar</option>
@@ -619,33 +616,31 @@ else
         </div><br>
 
           <div class="row">
-            <div class="col-lg-2">
+            <div class="col-lg-3">
               <label>price in <i class="fa fa-rupee"></i>:</label>
             </div>
-            <div class="col-lg-4">
+            <div class="col-lg-6">
              <input type="number" name="Input_Purchased_Price" id="Input_Purchased_Price" class="form-control" placeholder="product Length" step="0.01" required><br>
            </div>
          </div>
 
         <div class="row">
-            <div class="col-lg-2">
+            <div class="col-lg-3">
               <label>Discount:</label>
             </div>
-            <div class="col-lg-4">
+            <div class="col-lg-6">
              <input type="number" name="Input_PurchasedDiscount" id="Input_PurchasedDiscount" class="form-control" placeholder="product Length" step="0.01" required><br>
            </div>
          </div>
         <br>
 
-      <div class="row col-lg-offset-3">
+      <center>
        <button type="submit" class="btn btn-primary">Save Stock</button>
        <button type="reset" class="btn btn-default">Reset</button>
-     </div><br><br>
+     </center><br><br>
      <div class="w3-margin-bottom w3-col l12 w3-small" id="addpurchaseproducts_err"></div><br><br><br>
    </div>
  </form><!-- form ends here -->
-
-</div>
 
 </div>
 

@@ -1,7 +1,7 @@
 	<?php
 	class MaterialStockManagement_model extends CI_Model{
-
-		public function GetMaterialDetails(){  /*this fun is used to get material details*/
+/*this fun is used to get material details*/
+		public function GetMaterialDetails(){  
 
 			$query = "SELECT * FROM materials";
 			$result =$this->db->query($query);
@@ -164,12 +164,46 @@ public function GetPurchaseProductsName(){
 }
 /*----------------------update stock material info fun is Starts here--------------------------------*/
 
+/*----------------------Save Finished products info fun is Starts here--------------------------------*/
+
+public function Save_FinishedProduct_Info($data){
+
+	extract($_POST);
+	$data = $_POST;
+	//print_r($data);
+	$product_name=MaterialStockManagement_model::getproductdata($Select_PurchasedProduct_Id);
+	//print_r($product_name);
+	$sqlnew="INSERT INTO finished_products(product_id,product_name,
+		fproduct_ID,fproduct_OD,
+		fproduct_length,fproduct_quantity,accepted_date) 
+	    VALUES ('$Select_PurchasedProduct_Id','$product_name',
+		'$Input_Finished_Product_ID','$Input_Finished_Product_OD',
+		'$Input_Finished_Product_Thickness','$Input_Finished_Product_Quantity',now())";
+	//echo $sqlnew;die();
+	$resultnew =$this->db->query($sqlnew);
+
+	if($resultnew){  
+		$response=array(
+			'status' => 1,
+			'status_message' =>'Records Inserted Successfully..!');
+	}
+	else{
+		$response=array(
+			'status' => 0,
+			'status_message' => 'Records Not Inserted Successfully...!');
+	}
+	return $response;
+
+}
+/*----------------------Save Finished Product info fun is Starts here--------------------------------*/
+
+/*----------------------Save purcshase Product info fun is Starts here--------------------------------*/
 
 public function Save_PurchasedProduct_Info($data){
 
 	extract($_POST);
 	$data = $_POST;
-	print_r($data);
+
 	$product_name=MaterialStockManagement_model::getproductdata($Select_PurchasedProduct_Id);
 	//print_r($product_name);
 	$sqlnew="INSERT INTO purchase_productstock(product_id,product_name,
@@ -291,38 +325,18 @@ public function DeleteFinishedProductDetails($data){
 
 }
 
-public function DeleteStockDetails($data){   /*-------------------this fun for delete stock details---------------------*/
-
-	extract($data);
-	$sqldelete = "DELETE FROM received_stock WHERE received_stock_id = '$Receivedstock_id'";
-
-	$resultdelete =$this->db->query($sqldelete);
-
-	if($resultdelete){  
-		$response=array(
-			'status' => 1,
-			'status_message' =>'Records Deleted Successfully..!');
-	}
-	else{
-		$response=array(
-			'status' => 0,
-			'status_message' => 'Records Not Deleted Successfully...!');
-	}
-	return $response;
-}  
-/*---------------delete stock details fun ends here--------------------------------------*/
-
-public function Get_Purchase_Stock(){   /* this getreceived stock fun is used to get alll stock details*/
+/*---------------------------- this getreceived stock fun is used to get alll stock details----------------------------*/
+public function Get_Purchase_Stock(){   
 	$query = "SELECT * FROM purchase_productstock";
 	$result =$this->db->query($query);
 	if($result->num_rows()<=0){  
 		$response=array(
-			'status' => 1,
+			'status' => 0,
 			'status_message' =>''	);
 	}
 	else{
 		$response=array(
-			'status' => 0,
+			'status' => 1,
 			'status_message' => $result->result_array());
 	}
 
@@ -399,35 +413,6 @@ public function Update_purchasedproducts_Info($data){
 
 }
 
-public function Save_FinishedProduct_Info($data){
-
-	extract($_POST);
-	$data = $_POST;
-	//print_r($data);
-	$product_name=MaterialStockManagement_model::getproductdata($Select_PurchasedProduct_Id);
-	//print_r($product_name);
-	$sqlnew="INSERT INTO finished_products(product_id,product_name,
-		fproduct_ID,fproduct_OD,
-		fproduct_length,fproduct_quantity,accepted_date) 
-	    VALUES ('$Select_PurchasedProduct_Id','$product_name',
-		'$Input_Finished_Product_ID','$Input_Finished_Product_OD',
-		'$Input_Finished_Product_Thickness','$Input_Finished_Product_Quantity',now())";
-	//echo $sqlnew;die();
-	$resultnew =$this->db->query($sqlnew);
-
-	if($resultnew){  
-		$response=array(
-			'status' => 1,
-			'status_message' =>'Records Inserted Successfully..!');
-	}
-	else{
-		$response=array(
-			'status' => 0,
-			'status_message' => 'Records Not Inserted Successfully...!');
-	}
-	return $response;
-
-}
 
 public function DeletePurchasedStockDetails($data){
 extract($data);
@@ -449,7 +434,9 @@ extract($data);
 			return $response;
 
 }
-public function showMaterial($data){   /*this fun is used to get instock quantity for materials*/
+/*---------*/
+/*-----------------------------this fun is used to get instock quantity for materials----------------------------------*/
+public function showMaterial($data){   
 
 	extract($data);
 			//print_r($data);die();
