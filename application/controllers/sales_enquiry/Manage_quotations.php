@@ -16,6 +16,7 @@ class Manage_quotations extends CI_Controller
 
 		$this->load->view('includes/navigation.php');
 		$this->load->view('sales/manage_quotations.php',$data);		
+		//$this->load->view('sales/demo.php',$data);		
 	}
 	
 	// ---------------function to show all products------------------------//
@@ -36,9 +37,78 @@ class Manage_quotations extends CI_Controller
 	}
 // ---------------------function ends----------------------------------//
 
+	// ---------------function to add products to session------------------------//
+	public function addProducts_toSession(){		
+		extract($_POST);
+		
+		$product_session=$this->session->userdata('product_session');
+
+		$product_array=json_decode($product_session,true);
+
+		//Connection establishment, processing of data and response from REST API
+		$path=base_url();
+		$url = $path.'api/manageProducts_api/productDetails?product_id='.$product_id;		
+		$ch = curl_init($url);
+		curl_setopt($ch, CURLOPT_HTTPGET, true);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		$response_json = curl_exec($ch);
+		curl_close($ch);
+		$response=json_decode($response_json, true);
+		
+		$product_name="";
+		foreach ($response as $key) {
+			$product_name=$key['product_name'];
+		}
+
+		//----create session array--------//
+		$session_data= array(
+			'product_id'  => $product_id,
+			'product_name'  => $product_name,
+			'cut_value' => $cut_value,
+			'quote_ID'=>$quote_ID,
+			'quote_OD'=>$quote_OD,
+			'quote_thickness'=>$quote_thickness,
+			'quote_price'=>$quote_price,
+			'quote_tolerance'=>$quote_tolerance
+		);
+		$product_array[]=$session_data;
+		$product_session=json_encode($product_array);
+		$this->session->set_userdata('product_session',$product_session);
+		$newproduct_session=$this->session->userdata('product_session');
+		//print_r(json_decode($newproduct_session,true));
+
+		 $count=1;
+		 echo ' <table class="table table-striped" >';
+                foreach ((json_decode($newproduct_session,true)) as $key) {
+                  
+                  echo '
+                  <tr>
+                  <td>
+                  <span class="w3-padding-left"><b>'.$count.'. '.$key['product_name'].'</b></span>                 
+                  </td>
+                  </tr>
+                  ';
+                  $count++;
+                }
+                echo '<table>
+                <a href="'.base_url().'sales_enquiry/manage_quotations/clearSession" class="w3-button w3-right w3-margin-right w3-margin-bottom"><i class="fa fa-refresh"></i> Clear</a>
+                ';
+		
+	}
+// ---------------------function ends----------------------------------//
+
+	// ---------------function to delete products from session------------------------//
+	public function clearSession(){		
+		$this->session->set_userdata('product_session','cleared');
+		$this->session->unset_userdata(array("product_session"=>""));
+    	//$this->session->sess_destroy();
+    	redirect('sales_enquiry/manage_quotations');
+	}
+// ---------------------function ends----------------------------------//
+
 	// ---------------function to show all live quotations------------------------//
 	public function show_liveQuotation(){
-		
+
 		//Connection establishment, processing of data and response from REST API
 		$path=base_url();
 		$url = $path.'api/manageQuotations_api/all_liveQuotations';		
@@ -50,7 +120,7 @@ class Manage_quotations extends CI_Controller
 		$response=json_decode($response_json, true);
 		return $response;	
 
-		
+
 	}
 // ---------------------function ends----------------------------------//
 
@@ -66,7 +136,7 @@ class Manage_quotations extends CI_Controller
 		$response_json = curl_exec($ch);
 		curl_close($ch);
 		$response=json_decode($response_json, true);
-		
+
 		if(isset($response['status'])){
 			echo '
 			<div class="w3-col l12 alert alert-danger w3-center w3-margin-bottom">
@@ -74,59 +144,65 @@ class Manage_quotations extends CI_Controller
 			</div>';
 		}
 		else{
-		echo '
-		<div class="w3-col l12 w3-padding">
-      <div class="w3-col l12 w3-card-2 w3-padding">
-        <div class="w3-col l12 w3-margin-bottom">
-          <label class="w3-label w3-text-blue">QUOTATION NO:</label>
-         <span class="w3-text-grey">Quotation No.#Q'.$response[0]['quotation_id'].'/'.$response[0]['sub_quotation_id'].'</span>
-       </div>
-       <div class="w3-col l12 w3-margin-bottom">
-        <label class="w3-label w3-text-blue">QUOTATION FOR:</label>
-         <span class="w3-text-grey">'.$response[0]['customer_name'].'</span>
-         <span class="w3-text-grey"> <i>['.$response[0]['customer_email'].']</i></span>
-       </div>
-       <div class="w3-col l12 w3-margin-bottom">
-         <span class="w3-left w3-text-grey"> created on: '.$response[0]['quotation_created'].'</span>
-         <span class="w3-right w3-text-grey"> revised on: '.$response[0]['dated'].'</span>
-       </div>
-       <div class="w3-col l12">
-        <label class="w3-label w3-text-blue">PRODUCTS ARE:</label>
-         <table class="table table-striped table-responsive w3-text-grey">
-          <thead>
-            <tr>
-              <th>Product Name</th>
-              <th>ID/OD</th>
-              <th>Thickness</th>
-              <th>Price</th>
-            
-            </tr>
-          </thead>
-           <tbody>';
-           foreach (json_decode($response[0]['products'],true) as $key) {
-           	echo '
-           	<tr>
-               <td>Product Name 1</td>                 
-               <td>'.$key['ID'].'/'.$key['OD'].'</td>                 
-               <td>'.$key['thickness'].'</td>                 
-               <td>'.$key['price'].' <i class="fa fa-rupee"></i></td>                 
-             </tr>
-           	';
-           }
-             
-           echo '</tbody>
-         </table>
-       </div>
-     </div>
-   </div>';	
-}
-		
+			echo '
+			<div class="w3-col l12 w3-padding">
+			<div class="w3-col l12 w3-card-2 w3-padding">
+			<div class="w3-col l12 w3-margin-bottom">
+			<label class="w3-label w3-text-blue">QUOTATION NO:</label>
+			<span class="w3-text-grey">Quotation No.#Q'.$response[0]['quotation_id'].'/'.$response[0]['sub_quotation_id'].'</span>
+			</div>
+			<div class="w3-col l12 w3-margin-bottom">
+			<label class="w3-label w3-text-blue">QUOTATION FOR:</label>
+			<span class="w3-text-grey">'.$response[0]['customer_name'].'</span>
+			<span class="w3-text-grey"> <i>['.$response[0]['customer_email'].']</i></span>
+			</div>
+			<div class="w3-col l12 w3-margin-bottom">
+			<span class="w3-left w3-text-grey"> created on: '.$response[0]['quotation_created'].'</span>
+			<span class="w3-right w3-text-grey"> revised on: '.$response[0]['dated'].'</span>
+			</div>
+			<div class="w3-col l12">
+			<label class="w3-label w3-text-blue">PRODUCTS ARE:</label>
+			<table class="table table-striped table-responsive w3-text-grey">
+			<thead>
+			<tr>
+			<th class="text-center">Product Name</th>
+			<th class="text-center">ID/OD</th>
+			<th class="text-center">Thickness</th>
+			<th class="text-center">Price</th>
+
+			</tr>
+			</thead>
+			<tbody>';
+			foreach (json_decode($response[0]['products'],true) as $key) {
+				
+				echo '
+				<tr>
+				<td class="text-center">'.$key['product_name'].'</td>                 
+				<td class="text-center">'.$key['quote_ID'].'/'.$key['quote_OD'].'</td>                 
+				<td class="text-center">'.$key['quote_thickness'].'</td>                 
+				<td class="text-center">'.$key['quote_price'].' <i class="fa fa-rupee"></i></td>                 
+				</tr>
+				';
+			}
+
+			echo '</tbody>
+			</table>
+			<div class="w3-col l12">
+			<a href="#" class="w3-button w3-red w3-left">Send to Client</a>
+			<a href="#" class="w3-button w3-red w3-right">Proceed to PO</a>
+			</div>
+			
+			</div>
+			</div>
+			</div>';	
+		}
+
 	}
 // ---------------------function ends----------------------------------//
 
 	// ---------------function to show all products------------------------//
 	public function show_customer(){
-		
+
 		//Connection establishment, processing of data and response from REST API
 		$path=base_url();
 		$url = $path.'api/ManageCustomer_api/getCustomerDetails';		
@@ -138,7 +214,7 @@ class Manage_quotations extends CI_Controller
 		$response=json_decode($response_json, true);
 		return $response;	
 
-		
+
 	}
 // ---------------------function ends----------------------------------//
 
@@ -156,7 +232,7 @@ class Manage_quotations extends CI_Controller
 		$response_json = curl_exec($ch);
 		curl_close($ch);
 		$response=json_decode($response_json, true);
-		
+
 		//API processing END
 
 		if($response['status']==0){
@@ -194,14 +270,14 @@ class Manage_quotations extends CI_Controller
 			<input class="form-control" type="number" id="quote_tolerance" name="quote_tolerance" placeholder="Tolerance rate" required>
 			</div>
 			<div class="w3-col l4 w3-padding-large">
-			<button type="submit" class="w3-right btn w3-blue w3-margin-top">Add to Quotation</button>
+			<button type="button" id="addProduct_toQuote" name="addProduct_toQuote" onclick="addProducts();" class="w3-right btn w3-blue w3-margin-top">Add Product</button>
 			</div>
 
 			</div>
 			'	;
 
 		}	
-		
+
 	}
 // ---------------------function ends----------------------------------//
 
@@ -209,7 +285,7 @@ class Manage_quotations extends CI_Controller
 	// ---------------function to show all live quotations of customer------------------------//
 	public function getCustomer_quotations(){
 		extract($_POST);
-		
+
 		//Connection establishment, processing of data and response from REST API
 		$path=base_url();
 		$url = $path.'api/manageQuotations_api/getCustomer_quotations?cust_id='.$_POST['customer_name'];		
@@ -226,22 +302,22 @@ class Manage_quotations extends CI_Controller
 			<strong>'.$response['status_message'].'</strong> 
 			</div>						
 			';	
-			
+
 		}
 		else{
 			echo '
 			<label>Live Quotations:</label>
 			<select name="quotation_id" id="quotation_id" class="form-control w3-margin-bottom">
 			<option class="w3-red" value="0">Select quotation to revise</option>';
-			
+
 			foreach ($response['status_message'] as $key) {
 				echo '<option class="" value="'.$key['quotation_id'].'">Quotation No.#Q'.$key['quotation_id'].'- dated:'.$key['dated'].'</option>';
 			}
 			echo '</select>';	
 
-			
+
 		}			
-		
+
 	}
 // ---------------------function ends----------------------------------//	
 
@@ -250,6 +326,7 @@ class Manage_quotations extends CI_Controller
 
 		extract($_POST);
 		$data=$_POST;
+				$product_session=$this->session->userdata('product_session');
 
 		//Connection establishment, processing of data and response from REST API	
 		$path=base_url();
@@ -264,7 +341,7 @@ class Manage_quotations extends CI_Controller
 				</label>';
 				die();
 			}
-			elseif($quotation_id=='0'){
+			if($quotation_id=='0'){
 				//-----------------check quotation selected or not-------------//
 				echo '
 				<h4 class="w3-text-red"><i class="fa fa-warning"></i> WARNING</h4>
@@ -273,7 +350,7 @@ class Manage_quotations extends CI_Controller
 				</label>';
 				die();
 			}
-			elseif($customer_name=='0'){
+			if($customer_name == 0){
 				//-----------------check customer selected or not-------------//
 				echo '
 				<h4 class="w3-text-red"><i class="fa fa-warning"></i> WARNING</h4>
@@ -282,12 +359,33 @@ class Manage_quotations extends CI_Controller
 				</label>';
 				die();
 			}
+			
 			$url = $path.'api/ManageProducts_api/add_revisedQuotation';			
 		}
 		else{
 			$url = $path.'api/ManageProducts_api/add_ToQuotation';
 		}
 
+		if($customer_name == 0){
+				//-----------------check customer selected or not-------------//
+			echo '
+			<h4 class="w3-text-red"><i class="fa fa-warning"></i> WARNING</h4>
+			<label class="w3-text-grey w3-label w3-small">
+			<strong>Select Customer first. </strong> 
+			</label>';
+			die();
+		}
+		if ($product_session == '') {
+				//----------------------if no quotation is associated to customer------------//
+				echo '
+				<h4 class="w3-text-red"><i class="fa  fa-info-circle"></i> ALERT</h4>
+				<label class="w3-text-grey w3-label w3-small">
+				<strong>Click "Add Product" button before raising quotation. </strong> 
+				</label>';
+				die();
+			}
+
+		$data['products']=$product_session;
 		$ch = curl_init($url);
 		curl_setopt($ch, CURLOPT_POST, true);
 		curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
@@ -309,6 +407,8 @@ class Manage_quotations extends CI_Controller
 			}, 1000);
 			</script>			
 			';	
+			$sessionClear=Manage_quotations::clearSession();
+
 
 		}
 		else{
@@ -322,14 +422,16 @@ class Manage_quotations extends CI_Controller
 				});
 			}, 1000);
 			</script>			
-			';				
+			';	
+			$sessionClear=Manage_quotations::clearSession();
+			
 
 		}	
 
-		
+
 	}
 // ---------------------function ends----------------------------------//	
 
-	
+
 }
 ?>

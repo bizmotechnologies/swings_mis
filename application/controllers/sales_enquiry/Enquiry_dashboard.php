@@ -19,7 +19,8 @@ class Enquiry_dashboard extends CI_Controller
 	}
 
 	public function index(){
-				
+		//$this->session->set_userdata('product_session','cleared');	//started product session
+
 		$this->load->view('includes/navigation.php');
 		$this->load->view('sales/enquiry_dash.php');
 		

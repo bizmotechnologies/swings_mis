@@ -57,7 +57,7 @@
       <tbody id="Show_product_Wise_Association" name="Show_product_Wise_Association" >
         <?php                                            /*this code is used to show products list in the table*/
         $count=1;
-        if($productdata['status']==0){
+        if($productdata['status']==1){
          for($i = 0; $i < count($productdata['status_message']); $i++) { 
           echo'<tr>
           <td class="text-center">'.$count.'.</td>

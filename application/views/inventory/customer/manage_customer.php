@@ -50,7 +50,7 @@
           <?php
     //print_r($details); 
           $count=1;
-          if($details['status']==0)
+          if($details['status']==1)
           {
             for($i = 0; $i < count($details['status_message']); $i++)
             { 

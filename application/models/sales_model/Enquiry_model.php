@@ -213,27 +213,12 @@ class Enquiry_model extends CI_Model{
 	function add_ToQuotation($data)
 	{
 		extract($data);
+
 		//-----------------------get autoincrement values--------------------//
 		$this->load->model('config_model/DbSetup_model');
 		$quotation_masterTable_id = $this->DbSetup_model->get_AutoIncrement('swing_db','quotation_master');
 		$sub_quotationTable_id = $this->DbSetup_model->get_AutoIncrement('swing_db','sub_quotation');
 		//------------------------------end---------------------------------//
-
-
-		//----------------------Generate Subquotation fields------------------//
-		$product=array();
-		$product[]=array(
-			'product_id'	=>	$product_id,
-			'ID'	=>	$quote_ID,
-			'OD'	=>	$quote_OD,
-			'thickness'	=>	$quote_thickness,
-			'cut'	=>	$quote_cut,
-			'tolerance'	=>	$quote_tolerance,
-			'price'	=>	$quote_price
-		);
-		$productJSON=json_encode($product);
-		//-----------------------Subquotation fields end-----------------------//
-
 
 		//----------------------Generate Quotation fields------------------//
 		$sub_quotations=array();
@@ -245,10 +230,10 @@ class Enquiry_model extends CI_Model{
 		//-----------------------Quotation fields end-----------------------//
 
 		//------------------------Insert data into subquotation and quotation master tables---------------------//
-		$insert_intoSubquotation="INSERT INTO sub_quotation(quotation_id,products,current_status,dated,time_at) VALUES ('$quotation_masterTable_id','$productJSON','0',NOW(),NOW())";
+		$insert_intoSubquotation="INSERT INTO sub_quotation(quotation_id,products,current_status,dated,time_at) VALUES ('$quotation_masterTable_id','$products','0',NOW(),NOW())";
 
 		if($this->db->query($insert_intoSubquotation)){
-			$insert_intoMaster="INSERT INTO quotation_master(customer_id,sub_quotations,current_status,dated,time_at) VALUES ('1','$sub_quotationJSON','0',NOW(),NOW())";
+			$insert_intoMaster="INSERT INTO quotation_master(customer_id,sub_quotations,current_status,dated,time_at) VALUES ('$customer_name','$sub_quotationJSON','0',NOW(),NOW())";
 			$result =$this->db->query($insert_intoMaster);
 		}
 		//-----------------------------------insert query end--------------------------------------------------//
@@ -256,6 +241,8 @@ class Enquiry_model extends CI_Model{
 		//sql query to insert new role
 		if($result)
 		{  
+			$this->session->unset_userdata(array("product_session"=>""));
+    		//$this->session->sess_destroy();
 			$response=array(
 				'status' => 1,
 				'status_message' =>'Quotation Added.<br>'
@@ -284,28 +271,13 @@ class Enquiry_model extends CI_Model{
 		$sub_quotationTable_id = $this->DbSetup_model->get_AutoIncrement('swing_db','sub_quotation');
 		//------------------------------end---------------------------------//
 
-
-		//----------------------Generate Subquotation fields------------------//
-		$product=array();
-		$product[]=array(
-			'product_id'	=>	$product_id,
-			'ID'	=>	$quote_ID,
-			'OD'	=>	$quote_OD,
-			'thickness'	=>	$quote_thickness,
-			'cut'	=>	$quote_cut,
-			'tolerance'	=>	$quote_tolerance,
-			'price'	=>	$quote_price
-		);
-		$productJSON=json_encode($product);
-		//-----------------------Subquotation fields end-----------------------//
-
 		//----------------------Generate Quotation fields------------------//
 		$sub_quotationJSON="";
 		$sub_quotationJSON=Enquiry_model::getLive_subquotation($quotation_id,$sub_quotationTable_id);
 		//-----------------------Quotation fields end-----------------------//
 
 		//------------------------Insert data into subquotation and update subquotations in quotation master tables---------------------//
-		$insert_intoSubquotation="INSERT INTO sub_quotation(quotation_id,products,current_status,dated,time_at) VALUES ('$quotation_id','$productJSON','0',NOW(),NOW())";
+		$insert_intoSubquotation="INSERT INTO sub_quotation(quotation_id,products,current_status,dated,time_at) VALUES ('$quotation_id','$products','0',NOW(),NOW())";
 		$result=0;
 		if($this->db->query($insert_intoSubquotation)){
 			
@@ -319,6 +291,8 @@ class Enquiry_model extends CI_Model{
 		//sql query to insert new role
 		if($result==1)
 		{  
+			$this->session->unset_userdata(array("product_session"=>""));
+    		//$this->session->sess_destroy();
 			$response=array(
 				'status' => 1,
 				'status_message' =>'Quotation Added.<br>'
