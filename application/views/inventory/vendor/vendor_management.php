@@ -19,15 +19,13 @@
 
 </head>
 <body class="w3-light-grey">
-
   <!-- !PAGE CONTENT! -->
   <div class="w3-main" style="margin-left:120px;">
-
     <!-- Header -->
     <header class="w3-container" >
       <h5><b><i class="fa fa-users"></i> Vendor Management</b></h5>
     </header>
-
+    
  <div class=" container"> <!-- container starts here -->
   <div class="w3-left">
     <button type="button" class="btn btn-info" data-toggle="modal" data-target="#Add_Vendors">Add Vendors</button><br> <!-- showing the add vendor popup -->
@@ -187,12 +185,12 @@
  <div class="col-lg-2">
  <label for="contactNo1" class="control-label">Contact&nbsp;No1:</label></div>
  <div class="col-lg-4">
- <input type="number" name="Updated_VendorContactNo_one" id="Updated_VendorContactNo_one" class="form-control" value="'.$details['status_message'][$i]['contact_no_one'].'" placeholder="vendor Contact No1" minlength="10" required><br>
+ <input type="tel" name="Updated_VendorContactNo_one" id="Updated_VendorContactNo_one" class="form-control" value="'.$details['status_message'][$i]['contact_no_one'].'" placeholder="vendor Contact No1" min="0" minlength="10" required><br>
  </div>
  <div class="col-lg-2">
  <label for="contactNo2" class="control-label">Contact&nbsp;No2:</label></div>
  <div class="col-lg-4">
- <input type="number" name="Updated_VendorContactNo_two" id="Updated_VendorContactNo_two" class="form-control" value="'.$details['status_message'][$i]['contact_no_two'].'" placeholder="vendor Contact No2" minlength="10" required><br>
+ <input type="tel" name="Updated_VendorContactNo_two" id="Updated_VendorContactNo_two" class="form-control" value="'.$details['status_message'][$i]['contact_no_two'].'" placeholder="vendor Contact No2" min="0" minlength="10" required><br>
  </div>
  </div>
 

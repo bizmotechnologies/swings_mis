@@ -1,4 +1,6 @@
 <?php
+error_reporting(E_ERROR | E_PARSE);
+
 class MaterialStock_Management extends CI_controller{
 
 public function index(){
@@ -114,7 +116,8 @@ public function GetProductsName(){
 
         return $response;
 
-  }/*--------------this fun for geting all material information -----------------------*/
+  }
+  /*--------------this fun for geting all material information -----------------------*/
 
 /*--------------this fun for geting all material information -----------------------*/
   public function GetMaterialDetails(){
@@ -178,7 +181,7 @@ public function Save_RawStockMaterial_Info(){
         $response_json = curl_exec($ch);
         curl_close($ch);
         $response=json_decode($response_json, true);
-
+        print_r($response_json);die();
        if($response['status'] == 0){
        echo'<div class="alert alert-danger w3-margin" style="text-align: center;">
             <strong>'.$response['status_message'].'</strong> 

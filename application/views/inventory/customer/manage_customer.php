@@ -169,12 +169,12 @@ $(function(){
 <div class="col-lg-2">
 <label for="contactNo1" class="control-label">Contact&nbsp;No1:</label></div>
 <div class="col-lg-4">
-<input type="number" name="Updated_ContactNo_one" id="Updated_ContactNo_one" class="form-control" value="'.$details['status_message'][$i]['contact_no1'].'" placeholder="Customer Contact No1" minlength="10" required><br>
+<input type="tel" name="Updated_ContactNo_one" id="Updated_ContactNo_one" class="form-control" value="'.$details['status_message'][$i]['contact_no1'].'" placeholder="Customer Contact No1" min="0" minlength="10" required><br>
 </div>
 <div class="col-lg-2">
 <label for="contactNo2" class="control-label">Contact&nbsp;No2:</label></div>
 <div class="col-lg-4">
-<input type="number" name="Updated_ContactNo_two" id="Updated_ContactNo_two" class="form-control" value="'.$details['status_message'][$i]['contact_no2'].'" placeholder="Customer Contact No2" minlength="10" required><br>
+<input type="tel" name="Updated_ContactNo_two" id="Updated_ContactNo_two" class="form-control" value="'.$details['status_message'][$i]['contact_no2'].'" placeholder="Customer Contact No2" min="0" minlength="10" required><br>
 </div>
 </div>
 

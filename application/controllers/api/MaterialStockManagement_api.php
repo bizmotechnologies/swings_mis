@@ -88,19 +88,21 @@ class MaterialStockManagement_api extends REST_Controller
 //-----------------------------------THIS FUN FOR GET VENDOR DETAILS---------------------------------------------------/
 	
 //--------------------------------------PURCHASE PRODUCT API STARTS HERE-----------------------------------------------/
-//--------------------------------------FUN For save Purchased Productss-----------------------------------------------/
+//--------------------------------------FUN SAVE PURCHSE PRODUCTS-----------------------------------------------/
 
 public function Save_PurchasedProduct_Info_post(){
 		$data = $_POST;
 		$response = $this->MaterialStockManagement_model->Save_PurchasedProduct_Info($data);
 		return $this->response($response);
 }
-//--------------------------------------FUN For save Purchased Productss-----------------------------------------------/
-
+//--------------------------------------FUN SAVE PURCHASED PRODUCTS-----------------------------------------------/
+//--------------------------------------FUN GET PURCHASED PRODUCTS INFORMATION-----------------------------------------------/
 public function GetPurchaseProductsName_get(){
 	$result = $this->MaterialStockManagement_model->GetPurchaseProductsName();
 		return $this->response($result);
 }
+//--------------------------------------FUN GET PURCHASED PRODUCTS INFO ENDS HERE-----------------------------------------------/
+
 
 public function Update_purchasedproducts_Info_post(){
 
