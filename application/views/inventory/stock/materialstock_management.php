@@ -228,10 +228,10 @@ else
           <form method="POST" action="" id="Manage_RawMaterialForm" name="Manage_RawMaterialForm">
 
             <div class="row">
-              <div class="col-lg-2">
+              <div class="col-lg-3">
                 <label>Select Material:</label> 
               </div>
-              <div class="col-lg-3">                   
+              <div class="col-lg-6">                   
                 <select class="form-control" name="Select_RawMaterials_Id" id="Select_RawMaterials_Id" required> <!-- this is for showing material stocks quantity -->
                   <option>Select Material:</option>
                   <?php   foreach ($All_Material as $result ) { ?>
@@ -242,46 +242,46 @@ else
             </div>
 
             <div class="row">
-              <div class="col-lg-2">
+              <div class="col-lg-3">
                 <label>ID:</label>
               </div>
-              <div class="col-lg-3">
+              <div class="col-lg-6">
                <input type="number" name="Input_RawMaterialStock_ID" id="Input_RawMaterialStock_ID" class="form-control" placeholder="Material ID" step="0.01" required><br>
              </div>
            </div>
 
            <div class="row">
-             <div class="col-lg-2">
+             <div class="col-lg-3">
               <label>OD:</label>
             </div>
-            <div class="col-lg-3">
+            <div class="col-lg-6">
              <input type="number" name="Input_RawMaterialStock_OD" id="Input_RawMaterialStock_OD" class="form-control" placeholder="Material OD" step="0.01" required><br>
            </div>
          </div>
 
          <div class="row">
-          <div class="col-lg-2">
+          <div class="col-lg-3">
             <label>Length:</label>
           </div>
-          <div class="col-lg-3">
+          <div class="col-lg-6">
            <input type="number" name="Input_RawMaterialLength" id="Input_RawMaterialLength" class="form-control" placeholder="Material Length" step="0.01" required><br>
          </div>
        </div>
 
        <div class="row">
-         <div class="col-lg-2">
+         <div class="col-lg-3">
           <label>Quantity:</label>
         </div>
-        <div class="col-lg-3">
+        <div class="col-lg-6">
          <input type="number" name="Input_RawMaterialNewQuantity" id="Input_RawMaterialNewQuantity" class="form-control" placeholder="Material Quantity" step="0.01" required><br>
        </div>      
      </div>
 
      <div class="row">
-      <div class="col-lg-2">
+      <div class="col-lg-3">
         <label>Select Vendor: </label> 
       </div> 
-      <div class="col-lg-3">
+      <div class="col-lg-6">
         <select class="form-control" name="Select_RawVendors_Id" id="Select_RawVendors_Id" required>                   
           <option>Select Vendor:</option>
           <?php  foreach ($vendors as $result ) { ?>
@@ -291,10 +291,10 @@ else
       </div>
     </div><br>
 
-    <div class="row col-lg-offset-3">
+    <center>
      <button type="submit" class="btn btn-primary">Save Stock</button>
      <button type="reset" class="btn btn-default">Reset</button>
-   </div><br><br>
+   </center><br><br>
    <div class="w3-margin-bottom w3-col l12 w3-small" id="addProducts_err"></div><br><br><br>
  </div>
 </form><!-- form ends here -->
