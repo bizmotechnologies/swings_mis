@@ -39,9 +39,9 @@ error_reporting(E_ERROR | E_PARSE);
         <div class="w3-col l12 w3-padding w3-small">
           <form id="raiseQuote_form">
             <div class="w3-right checkbox w3-padding-right">
-              <label title="Toggle the switch to revise old quotation">
-                <input name="revise_quoteBtn" data-onstyle="danger" data-size="mini" id="revise_quoteBtn" type="checkbox" data-toggle="toggle" data-on="Revise Old" data-off="New" value="1">
-              </label>
+              <label title="Toggle the switch to raise new OR revise old quotation" class="">
+                <input name="revise_quoteBtn" data-onstyle="danger" data-size="mini" id="revise_quoteBtn" type="checkbox" data-toggle="toggle" data-on="Revise Old" data-off="Raise New" value="1">
+              </label>                           
             </div>
             <div class="w3-col l12 w3-margin-bottom">
               <div class="w3-col l12 w3-padding" id="new_quoteDiv">
@@ -127,14 +127,14 @@ error_reporting(E_ERROR | E_PARSE);
 
 
               echo '</table>
-              <a href="'.base_url().'sales_enquiry/manage_quotations/clearSession" class="w3-button w3-right w3-margin-right w3-margin-bottom"><i class="fa fa-refresh"></i> Clear</a>
+              <a href="'.base_url().'sales_enquiry/manage_quotations/clearSession" class="w3-button w3-right w3-margin-right w3-margin-bottom" title="Clear product list"><i class="fa fa-refresh"></i> Clear</a>
               ';
             } ?>
           </div>
           <div class="col-lg-3"></div>
         </div>
         <div class="w3-col l12 w3-center w3-padding-large">
-          <button type="submit" class=" btn-sm btn-block btn w3-blue w3-margin-top" >Raise Quotation</button>
+          <button type="submit" title="Raise Quotation" class=" btn-sm btn-block btn w3-blue w3-margin-top" >Raise Quotation</button>
         </div>
         <!-- <div id="more"></div>
           <button type="btn" id="moreBTN">ADD</button> -->
@@ -148,7 +148,8 @@ error_reporting(E_ERROR | E_PARSE);
       </header>
       <div class="w3-col l12 w3-small">
         <div class="w3-col l12 w3-padding">
-          <label>Live Quotations List:</label>
+          <label>Live Quotations List:</label><br>
+          <span class="w3-tiny w3-text-red">* Select Quotation Number to view its details.</span>
           <select name="quotation_ToSend" id="quotation_ToSend" class="form-control">
             <option class="w3-red" value="0">Select quotation</option>
             <?php 
@@ -204,6 +205,11 @@ error_reporting(E_ERROR | E_PARSE);
         var quote_price = $('#quote_price').val(); //product price value
         var quote_tolerance = $('#quote_tolerance').val(); //product tolerance value
 
+        if(quote_ID==''||quote_OD==''||quote_thickness==''||quote_price==''||quote_tolerance==''){
+          msg='<h4 class="w3-text-red"><i class="fa  fa-info-circle"></i> WARNING</h4><label class="w3-text-grey w3-label w3-small">       <strong>Please fill all the specifications of product. </strong></label>';
+          $.alert(msg);
+          return false;
+        }
         var data = {
           product_id:product_id,
           cut_value:cut_value,
@@ -221,6 +227,12 @@ error_reporting(E_ERROR | E_PARSE);
           cache: false,
           success: function(response) {
             $('#all_productSession').html(response);
+
+            $('#quote_ID').val('');
+            $('#quote_OD').val(''); 
+            $('#quote_thickness').val(''); 
+            $('#quote_price').val('');
+            $('#quote_tolerance').val(''); 
           },
           error: function(xhr, textStatus, errorThrown) {
            alert('request failed'+errorThrown);
@@ -258,7 +270,7 @@ error_reporting(E_ERROR | E_PARSE);
     </script>
     <!-- script ends -->
 
-    <!--     script to add role     -->
+    <!--     script to raise quotation   -->
     <script>
      $(function(){
        $("#raiseQuote_form").submit(function(){
@@ -272,9 +284,8 @@ error_reporting(E_ERROR | E_PARSE);
 
            success: function(data)
            {
-            $.alert(data);
-           // location.reload();
-             //$("#quotation_detailsDIV").html(data);                                     
+
+           location.reload();
            }
 
          });

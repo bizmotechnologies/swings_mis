@@ -1,37 +1,50 @@
 <?php
 class Add_customers extends CI_controller{
 
-public function index(){/*this fun for indexing to add the view*/
+  public function __construct(){
+    parent::__construct();  
+    //start session   
+    $user_id=$this->session->userdata('user_id');
+    $user_name=$this->session->userdata('user_name');
+    $privilege=$this->session->userdata('privilege');
+    
+    //check session variable set or not, otherwise logout
+    if(($user_id=='') || ($user_name=='') || ($privilege=='')){
+      redirect('role_login');
+    }   
+  }
 
-        $this->load->model('inventory_model/AddCustomer_model');
-        $this->load->view('includes/navigation');
-        $this->load->view('inventory/customer/add_customer');
-	}
+  public function index(){/*this fun for indexing to add the view*/
 
-public function save_CustomerDetails(){  /*this fun is used to save customer deatails*/
+    $this->load->model('inventory_model/AddCustomer_model');
+    $this->load->view('includes/navigation');
+    $this->load->view('inventory/customer/add_customer');
+  }
 
-	    extract($_POST);
-      $data = $_POST;
-        $path=base_url();                                                   /*this code is for web service AND api for saave customer details*/
-        $url = $path.'api/ManageCustomer_api/save_CustomerDetails';  
+  public function save_CustomerDetails(){  /*this fun is used to save customer deatails*/
+
+   extract($_POST);
+   $data = $_POST;
+   $path=base_url();                                                   /*this code is for web service AND api for saave customer details*/
+   $url = $path.'api/ManageCustomer_api/save_CustomerDetails';  
         //echo $url;  
-        $ch = curl_init($url);
-        curl_setopt($ch, CURLOPT_POST, true);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        $response_json = curl_exec($ch);
-        curl_close($ch);
-        $response=json_decode($response_json, true);
+   $ch = curl_init($url);
+   curl_setopt($ch, CURLOPT_POST, true);
+   curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+   curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+   $response_json = curl_exec($ch);
+   curl_close($ch);
+   $response=json_decode($response_json, true);
 //print_r($response_json);die();
-      if($response['status'] == 0){
+   if($response['status'] == 0){
 
-      	        echo $response['status_message'];
-      }
-      else{
-      	        echo $response['status_message'];
-      }
+     echo $response['status_message'];
+   }
+   else{
+     echo $response['status_message'];
+   }
 
-}/*fun ends here*/
-	
+ }/*fun ends here*/
+ 
 }
 ?>

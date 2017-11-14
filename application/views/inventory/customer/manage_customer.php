@@ -120,7 +120,6 @@ $(function(){
 <div class="w3-center">
 <input type="hidden" class="" id="new_Cust_id" name="new_Cust_id" value="'.$details['status_message'][$i]['cust_id'].'">
 </div>
-<div class="">Personal Details</div><br>
 <div class="row">
 
 <div class="col-lg-2">
@@ -179,7 +178,6 @@ $(function(){
 </div>
 </div>
 
-<div class="">Bank Details</div><br>
 
 <div class="row">
 <div class="col-lg-2">

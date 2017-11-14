@@ -1,6 +1,19 @@
 <?php
 class Manage_products extends CI_controller{
 
+  public function __construct(){
+    parent::__construct();  
+    //start session   
+    $user_id=$this->session->userdata('user_id');
+    $user_name=$this->session->userdata('user_name');
+    $privilege=$this->session->userdata('privilege');
+    
+    //check session variable set or not, otherwise logout
+    if(($user_id=='') || ($user_name=='') || ($privilege=='')){
+      redirect('role_login');
+    }   
+  }
+
   public function index(){
 
    $this->load->model('inventory_model/ManageProduct_model');	
@@ -109,7 +122,7 @@ public function save_Products(){/* this fun for add products*/
       'OD_val' => json_encode($test),
       'SelectNew_Material_id' => json_encode($val) 
       //-------json format as ['role-1','role-2',...]
-      );
+    );
     $path=base_url();
     $url = $path.'api/ManageProducts_api/save_Products';  
     $ch = curl_init($url);
@@ -129,21 +142,21 @@ public function save_Products(){/* this fun for add products*/
        $(".alert").fadeTo(500, 0).slideUp(500, function(){
         $(this).remove(); 
       });
-location.reload();
-}, 1000);
-</script>';
-}else{
-  echo'<div class="alert alert-success w3-margin" style="text-align: center;">
-  <strong>'.$response['status_message'].'</strong> 
-  </div>
-  <script>
-  window.setTimeout(function() {
-   $(".alert").fadeTo(500, 0).slideUp(500, function(){
-    $(this).remove(); 
-  });
-location.reload();
-}, 1000);
-</script>';
+      location.reload();
+    }, 1000);
+    </script>';
+  }else{
+    echo'<div class="alert alert-success w3-margin" style="text-align: center;">
+    <strong>'.$response['status_message'].'</strong> 
+    </div>
+    <script>
+    window.setTimeout(function() {
+     $(".alert").fadeTo(500, 0).slideUp(500, function(){
+      $(this).remove(); 
+    });
+    location.reload();
+  }, 1000);
+  </script>';
 
 }
 }/*fun ends here*/
@@ -160,7 +173,7 @@ public function DeleteProduct(){/* this fun for delete product*/
    $(".alert").fadeTo(500, 0).slideUp(500, function(){
     $(this).remove(); 
   });
-location.reload();
+  location.reload();
 }, 1000);
 </script>';        
 }/*delete product ends here*/

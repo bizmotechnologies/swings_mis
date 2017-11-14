@@ -5,7 +5,16 @@ if(!defined('BASEPATH')) exit('No direct script access allowed');
 class Manage_quotations extends CI_Controller
 {
 	public function __construct(){
-		parent::__construct();			
+		parent::__construct();	
+		//start session		
+		$user_id=$this->session->userdata('user_id');
+		$user_name=$this->session->userdata('user_name');
+		$privilege=$this->session->userdata('privilege');
+		
+		//check session variable set or not, otherwise logout
+		if(($user_id=='') || ($user_name=='') || ($privilege=='')){
+			redirect('role_login');
+		}		
 	}
 
 	public function index(){
@@ -77,22 +86,22 @@ class Manage_quotations extends CI_Controller
 		$newproduct_session=$this->session->userdata('product_session');
 		//print_r(json_decode($newproduct_session,true));
 
-		 $count=1;
-		 echo ' <table class="table table-striped" >';
-                foreach ((json_decode($newproduct_session,true)) as $key) {
-                  
-                  echo '
-                  <tr>
-                  <td>
-                  <span class="w3-padding-left"><b>'.$count.'. '.$key['product_name'].'</b></span>                 
-                  </td>
-                  </tr>
-                  ';
-                  $count++;
-                }
-                echo '<table>
-                <a href="'.base_url().'sales_enquiry/manage_quotations/clearSession" class="w3-button w3-right w3-margin-right w3-margin-bottom"><i class="fa fa-refresh"></i> Clear</a>
-                ';
+		$count=1;
+		echo ' <table class="table table-striped" >';
+		foreach ((json_decode($newproduct_session,true)) as $key) {
+			
+			echo '
+			<tr>
+			<td>
+			<span class="w3-padding-left"><b>'.$count.'. '.$key['product_name'].'</b></span>                 
+			</td>
+			</tr>
+			';
+			$count++;
+		}
+		echo '<table>
+		<a href="'.base_url().'sales_enquiry/manage_quotations/clearSession" class="w3-button w3-right w3-margin-right w3-margin-bottom"><i class="fa fa-refresh"></i> Clear</a>
+		';
 		
 	}
 // ---------------------function ends----------------------------------//
@@ -102,7 +111,7 @@ class Manage_quotations extends CI_Controller
 		$this->session->set_userdata('product_session','cleared');
 		$this->session->unset_userdata(array("product_session"=>""));
     	//$this->session->sess_destroy();
-    	redirect('sales_enquiry/manage_quotations');
+		redirect('sales_enquiry/manage_quotations');
 	}
 // ---------------------function ends----------------------------------//
 
@@ -326,7 +335,7 @@ class Manage_quotations extends CI_Controller
 
 		extract($_POST);
 		$data=$_POST;
-				$product_session=$this->session->userdata('product_session');
+		$product_session=$this->session->userdata('product_session');
 
 		//Connection establishment, processing of data and response from REST API	
 		$path=base_url();
@@ -377,13 +386,13 @@ class Manage_quotations extends CI_Controller
 		}
 		if ($product_session == '') {
 				//----------------------if no quotation is associated to customer------------//
-				echo '
-				<h4 class="w3-text-red"><i class="fa  fa-info-circle"></i> ALERT</h4>
-				<label class="w3-text-grey w3-label w3-small">
-				<strong>Click "Add Product" button before raising quotation. </strong> 
-				</label>';
-				die();
-			}
+			echo '
+			<h4 class="w3-text-red"><i class="fa  fa-info-circle"></i> ALERT</h4>
+			<label class="w3-text-grey w3-label w3-small">
+			<strong>Click "Add Product" button before raising quotation. </strong> 
+			</label>';
+			die();
+		}
 
 		$data['products']=$product_session;
 		$ch = curl_init($url);
