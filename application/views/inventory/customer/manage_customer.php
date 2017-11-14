@@ -29,7 +29,7 @@
     </header>
 <div class=" container"><!--container starts here  -->
   <div class="w3-right">
-    <?php echo anchor("inventory/add_customers", 'Back&nbsp;To&nbsp;Customer', ['class' => 'btn btn-primary']);?>
+    <?php echo anchor("inventory/add_customers", 'Add&nbsp;Customer', ['class' => 'btn btn-primary']);?>
   </div>
 </div><br><!--container ends here  -->
 <div class="container" style="border:thin"><!-- container starts here -->
