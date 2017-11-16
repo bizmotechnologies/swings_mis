@@ -48,10 +48,10 @@ class Manage_materials extends CI_controller{
 }
 //--- this function is used to save material details------
 //----------this fun for toget material details-----------------------------
-public function getrecord(){
+public function getMaterialrecord(){
 
     $path=base_url();
-    $url = $path.'api/ManageMaterial_api/getrecord';        
+    $url = $path.'api/ManageMaterial_api/getMaterialrecord';        
     $ch = curl_init($url);
     curl_setopt($ch, CURLOPT_HTTPGET, true);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -67,14 +67,6 @@ public function saveMaterial(){
  extract($_POST);
  $data = $_POST;
 
- if($Select_Currency == '0'){
-    echo '<div class="alert alert-danger" style="text-align: center;">
-    <strong>Select Currency first !!!</strong> 
-    </div>          
-    ';  
-    die();
-}
-
 $path=base_url();
 $url = $path.'api/ManageMaterial_api/saveMaterial';    
 $ch = curl_init($url);
@@ -84,7 +76,6 @@ curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 $response_json = curl_exec($ch);
 curl_close($ch);
 $response=json_decode($response_json, true);
-       // print_r($response_json);die();
 if($response['status'] == 0){
     echo'<div class="alert alert-danger w3-margin" style="text-align: center;">
     <strong>'.$response['status_message'].'</strong> 
