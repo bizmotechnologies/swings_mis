@@ -110,7 +110,7 @@ public function Update_purchasedproducts_Info_post(){
 		$result = $this->MaterialStockManagement_model->Update_purchasedproducts_Info($data);
 		return $this->response($result);
 }
- 
+//---------------------- 
 public function DeletePurchasedStockDetails_get(){
 
 	    $data = $_GET;

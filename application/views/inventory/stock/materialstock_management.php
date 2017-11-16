@@ -27,7 +27,7 @@ error_reporting(E_ERROR | E_PARSE);
 
     <div id="exTab1" class="container"> <!-- container for tab -->
       <div><b>Material Stock Management</b></div><br>
-      <ul  class="nav nav-pills">
+      <ul  class="nav nav-tabs">
         <li class="active"><a  href="#RawMaterialStock" data-toggle="tab">Raw Material Stock</a>
         </li>
         <li><a href="#PurchasedProducts" data-toggle="tab">Purchased Products Stock</a>
@@ -49,7 +49,7 @@ error_reporting(E_ERROR | E_PARSE);
           <div class="container w3-padding"><!-- table container -->
             <div class="">
               <div>
-                <div class="w3-margin-right" id="ShowAcceptedStockDetails" name="ShowAcceptedStockDetails">
+                <div class="w3-margin-right" id="ShowRaw_products" name="ShowRaw_products" style="max-height: 400px; overflow: scroll;">
                   <table class="table table-bordered table-responsive" >            <!-- table starts here -->
                     <tr >
                       <th class="text-center">SR. No</th>
@@ -316,7 +316,7 @@ else
   <div class="container w3-padding"><!-- table container -->
     <div class="">
       <div>
-        <div class="w3-margin-right" id="ShowAcceptedStockDetails" name="ShowAcceptedStockDetails">
+        <div class="w3-margin-right" id="ShowPurchasedProduct" name="ShowPurchasedProduct" style="max-height: 400px; overflow: scroll;">
           <table class="table table-bordered table-responsive" >            <!-- table starts here -->
             <tr >
               <th class="text-center">SR. No</th>
@@ -663,7 +663,7 @@ else
   <div class="container w3-padding"><!-- table container -->
     <div class="">
       <div>
-        <div class="w3-margin-right" id="ShowAcceptedStockDetails" name="ShowAcceptedStockDetails">
+        <div class="w3-margin-right" id="ShowFinishedProduct" name="ShowFinishedProduct" style="max-height: 350px; overflow: scroll;">
           <table class="table table-bordered table-responsive" >            <!-- table starts here -->
             <tr >
               <th class="text-center">SR. No</th>

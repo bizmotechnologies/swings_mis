@@ -153,7 +153,7 @@ error_reporting(E_ERROR | E_PARSE);
 				$avail_length=$result->result_array();
 				$updated_length = $avail_length[0]['avail_length'];
 			    
-			    $updated_length = ($Input_RawMaterialLength + $updated_length);
+			    $updated_length = (($Input_RawMaterialLength * $Input_RawMaterialNewQuantity) + $updated_length);
 				if($result->num_rows()==0){ 
 
 				$sqlnew="INSERT INTO raw_materialstock(material_id,vendor_id,
