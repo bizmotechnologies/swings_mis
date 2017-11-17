@@ -15,7 +15,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         --><script type="text/javascript" src="<?php echo base_url(); ?>css/bootstrap/jquery-3.1.1.js"></script>
         <script type="text/javascript" src="<?php echo base_url(); ?>css/bootstrap/bootstrap.min.js"></script>
         <!-- <script type="text/javascript" src="assets/css/alert/jquery-confirm.js"></script>-->
-        <script type="text/javascript" src="<?php echo base_url(); ?>css/country/country.js"></script>
+        <script type="text/javascript" src="<?php echo base_url(); ?>css/js/inventory/vendor_management.js"></script>
 
     </head>
     <body class="w3-light-grey">
@@ -51,28 +51,22 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                     $count = 1;
                                     if ($details['status'] == 1) {
                                         for ($i = 0; $i < count($details['status_message']); $i++) {
+                                            $email_arr = json_decode($details['status_message'][$i]['vendor_email'], TRUE);
                                             echo '<tr class="text-center">
                 <td class="text-center">' . $count . '</td>
                 <td class="text-center">' . $details['status_message'][$i]['vendor_name'] . '</td>
-                <td class="text-center">' . $details['status_message'][$i]['vendor_email'] . '</td>
+                <td class="text-center">';
+                                            for ($key = 0; $key < count($email_arr); $key++) {
+                                                echo $email_arr[$key] . '<br>';
+                                            }
+                                            echo '</td>
                 <td class="text-center">' . $details['status_message'][$i]['vendor_shopname'] . '</td>
                 <td class="text-center">' . $details['status_message'][$i]['vendor_shopaddress'] . '</td>
                 <td class="text-center">' . $details['status_message'][$i]['contact_no_one'] . '</td>
                 <td class="text-center"><a class="btn w3-blue w3-medium w3-padding-small" title="UpdateVendor" data-toggle="modal" data-target="#UpdatemyModal_' . $details['status_message'][$i]['vendor_id'] . '" style="padding:0"><i class="fa fa-edit"></i></a>
                 <a class="btn w3-red w3-medium w3-padding-small" title="DeleteVendor" href="' . base_url() . 'inventory/Vendor_Management/DeleteVendorDetails?Vendor_id=' . $details['status_message'][$i]['vendor_id'] . '" style="padding:0"><i class="fa fa-close"></i></a>
 
-                <script type="text/javascript">
-                <!-- script is for showing country for select state  -->
-
-                $(document).ready(function () {
-
-                  print_country("SelectVendorUpdated_Country_' . $details['status_message'][$i]['vendor_id'] . '");
-              //console.log(print_country);
-                });
- <!-- script is for showing country for select state  -->
-     </script>
-
-     <script>
+                     <script>
      /*this script is used to update Vendor details*/
 
      $(function(){
@@ -99,7 +93,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     });
     });
      /*this script is used to update customer details ends here*/
-     </script>  
+     </script>
+    
 
 
 
@@ -110,135 +105,131 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  <div class="modal-content">
  <div class="modal-header">
  <button type="button" class="close" data-dismiss="modal">&times;</button>
- <h4 class="modal-title" id="msg_headernew">Vendor Details</h4>
+ <h4 class="modal-title" id="msg_headernew">Update Vendor Details</h4>
  </div>
- <div class="modal-body">
+ <div class="modal-body w3-small">
 
  <form method="POST" action="" id="VendorDetailsUpdatedForm_' . $details['status_message'][$i]['vendor_id'] . '" name="VendorDetailsUpdatedForm_' . $details['status_message'][$i]['vendor_id'] . '">
  <div class="w3-center">
  <input type="hidden" class="" id="new_Vendor_id" name="new_Vendor_id" value="' . $details['status_message'][$i]['vendor_id'] . '">
  </div>
- <div class="row">
+                               <div class="col-lg-12">
+                                        <div class="col-lg-6">
+                                            <table>
+                                                <tr>
+                                                    <td>
+                                                        <label for="CustomerName" class="control-label w3-right w3-padding-right">Vendor&nbsp;Name:</label>
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" name="Updated_VendorName" id="Updated_VendorName" class="form-control" placeholder="Vendor Name" value="' . $details['status_message'][$i]['vendor_name'] . '" required><br>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <label for="Shop name" class="control-label w3-right w3-padding-right">ShopName:</label>
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" name="Updated_VendorShopName" id="Updated_VendorShopName" class="form-control" value="' . $details['status_message'][$i]['vendor_shopname'] . '" placeholder="Vendor Shop Name" required><br>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <label for="shopAddress" class="control-label w3-right w3-padding-right">Shop&nbsp;Address:</label>
+                                                    </td>
+                                                    <td>
+                                                        <textarea name="Updated_VendorShopAddress" rows="5" id="Updated_VendorShopAddress" class="form-control" value="" placeholder="Vendor Shop Address" required>' . $details['status_message'][$i]['vendor_shopaddress'] . '</textarea><br>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <label for="ContactNo1" class="control-label w3-right w3-padding-right">Contact&nbsp;No1:</label>
+                                                    </td>
+                                                    <td>
+                                                        <input type="tel" name="Updated_VendorContactNo_one" id="Updated_VendorContactNo_one" class="form-control" value="' . $details['status_message'][$i]['contact_no_one'] . '" placeholder="Vendor Contact No1" minlength="10" required><br>
+                                                    </td>
+                                                <tr>
+                                                    <td>
+                                                    <label for="ContactNo2" class="control-label w3-right w3-padding-right">Contact&nbsp;No2:</label>
+                                                    </td>
+                                                    <td>
+                                                    <input type="tel" name="Updated_VendorContactNo_two" id="Updated_VendorContactNo_two" class="form-control" value="' . $details['status_message'][$i]['contact_no_two'] . '" placeholder="Vendor Contact No2" minlength="10" required><br>
+                                                    </td>
+                                                </tr>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="w3-col l12">
+                                                <div class="w3-col l3 w3-margin-right">
+                                                    <label for="VendorEmail" class="control-label w3-right">Vendor&nbsp;Email:</label>
+                                                </div>
+                                                <div class="w3-col l7">
+                                                    <div id="added_row">';
+                                            for ($key = 0; $key < count($email_arr); $key++) {
+                                                echo '<input type="email" name="Updated_VendorEmail[]" id="Updated_VendorEmail" class="form-control w3-margin-bottom" value="' . $email_arr[$key] . '" placeholder="Vendor Email">';
+                                            }
+                                            echo'</div>
+                                                </div>
+                                            </div>
+                                            <table>
+                                                <tr>
+                                                    <td><label for="landingCost" class="control-label w3-right w3-padding-right">Landing Cost:</label></td>
+                                                    <td><input type="number" name="Updated_VendorLandingCost" id="Updated_VendorLandingCost" class="form-control" value="' . $details['status_message'][$i]['vendor_landing_cost'] . '" placeholder="Vendor Landing Cost" step="0.01" required><br></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><label for="Discount" class="control-label w3-right w3-padding-right">Discount:</label></td>
+                                                    <td><input type="number" name="Updated_Discount" id="Updated_Discount" class="form-control" value="' . $details['status_message'][$i]['vendor_discount'] . '" placeholder="Vendor Discount" step="0.01" required><br></td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </div>
 
- <div class="col-lg-2">
- <label for="customerName" class="control-label">Vendor&nbsp;Name:</label></div>
- <div class="col-lg-4">
- <input type="text" name="Updated_VendorName" id="Updated_VendorName" class="form-control" placeholder="Vendor Name" value="' . $details['status_message'][$i]['vendor_name'] . '" required><br>
- </div>
+                                    <div class="col-lg-12">
+                                        <hr>
+                                        <div class="col-lg-6">
+                                            <table class="w3-margin-left">
+                                                <tr>
+                                                    <td><label for="BankName" class="control-label w3-right w3-padding-right">Bank&nbsp;Name:</label></td>
+                                                    <td><input type="text" name="Updated_VendorBank_name" id="Updated_VendorBank_name" class="form-control" value="' . $details['status_message'][$i]['vendorbank_name'] . '" placeholder="Vendors Bank Name" required><br></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><label for="BankAccNo" class="control-label w3-right w3-padding-right">Account.No:</label></td>
+                                                    <td><input type="text" name="Updated_VendorBank_AccNo" id="Updated_VendorBank_AccNo" class="form-control" value="' . $details['status_message'][$i]['vendor_accno'] . '" placeholder="Vendor Account No" required><br></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><label for="MICRCode" class="control-label w3-right w3-padding-right">MICR&nbsp;Code:</label></td>
+                                                    <td><input type="text" name="UpdatedVendor_Bank_MICR_Code" id="UpdatedVendor_Bank_MICR_Code" class="form-control" value="' . $details['status_message'][$i]['vendor_micr_no'] . '" placeholder="Vendor MICR Code" required><br></td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <table>
+                                                <tr>
+                                                    <td><label for="BankAddress" class="control-label w3-right w3-padding-right">Bank&nbsp;Address:</label></td>
+                                                    <td><input type="text" name="Updated_VendorBank_Address" id="Updated_VendorBank_Address" class="form-control" value="' . $details['status_message'][$i]['vendorbank_address'] . '" placeholder="Vendors Bank Address" required><br></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><label for="IFSCCode" class="control-label w3-right w3-padding-right">IFSC&nbsp;Code:</label></td>
+                                                    <td><input type="text" name="UpdatedVendor_Bank_IFSC_Code" id="UpdatedVendor_Bank_IFSC_Code" class="form-control" value="' . $details['status_message'][$i]['vendor_ifsc_no'] . '" placeholder="Vendor IFSC Code" required><br></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><label for="PANNo" class="control-label w3-right w3-padding-right">PAN&nbsp;NO:</label></td>
+                                                    <td><input type="text" name="VendorUpdated_PAN_No" id="VendorUpdated_PAN_No" class="form-control" value="' . $details['status_message'][$i]['vendor_pan_no'] . '" placeholder="Vendor PAN No" required><br></td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </div>
 
- <div class="col-lg-2">
- <label for="customerEmail" class="control-label">Vendor&nbsp;Email:</label></div>
- <div class="col-lg-4">
- <input type="email" name="Updated_VendorEmail" id="Updated_VendorEmail" class="form-control" placeholder="Vendor Email" value="' . $details['status_message'][$i]['vendor_email'] . '" required><br>
- </div>
+                                    <div class="w3-margin-top">
+                                        <center>
+                                            <button type="submit" class="btn btn-primary" >Submit</button>
+                                            <button type="reset" class="btn btn-default" >Reset</button>
+                                        </center>
+                                    </div>
+                                    <div class="row" id="addVendorInformation_err" name="addVendorInformation_err"></div>
+                               
 
- </div>
-
- <div class="row">
-
- <div class="col-lg-2">
- <label for="customerName" class="control-label">ShopName:</label></div>
- <div class="col-lg-4">
- <input type="text" name="Updated_VendorShopName" id="Updated_VendorShopName" class="form-control" placeholder="Vendor ShopName" value="' . $details['status_message'][$i]['vendor_shopname'] . '" required><br>
- </div>
-
- <div class="col-lg-2">
- <label for="customerEmail" class="control-label">ShopAddress:</label></div>
- <div class="col-lg-4">
- <input type="text" name="Updated_VendorShopAddress" id="Updated_VendorShopAddress" class="form-control" placeholder="Vendor ShopAddress" value="' . $details['status_message'][$i]['vendor_shopaddress'] . '" required><br>
- </div>
-
- </div>
-
-
- <div class="row">
-
- <div class="col-lg-2">
- <label for="country" class="control-label">Country:</label></div>
- <div class="col-lg-4">
- <select class="form-control" name="SelectVendorUpdated_Country" id="SelectVendorUpdated_Country_' . $details['status_message'][$i]['vendor_id'] . '" onchange ="print_state(\'SelectUpdatedVendor_State_' . $details['status_message'][$i]['vendor_id'] . '\', this.selectedIndex);" required>
- <option> Select Country</option>
- </select><br>
- </div>
-
- <div class="col-lg-2">
- <label for="state" class="control-label">State:</label></div>
- <div class="col-lg-4">
- <select class="form-control" name="SelectUpdatedVendor_State" id="SelectUpdatedVendor_State_' . $details['status_message'][$i]['vendor_id'] . '" required>
- <option>Select State</option>
- </select><br>
- </div>
-
- </div>
-
- <div class="row">
- <div class="col-lg-2">
- <label for="city" class="control-label">City:</label></div>
- <div class="col-lg-4">
- <input type="text" name="UpdateVendor_City" id="UpdateVendor_City" class="form-control" placeholder="Vendor City" value="' . $details['status_message'][$i]['vendor_city'] . '" required><br>
- </div>
- </div>
-
- <div class="row">
- <div class="col-lg-2">
- <label for="contactNo1" class="control-label">Contact&nbsp;No1:</label></div>
- <div class="col-lg-4">
- <input type="tel" name="Updated_VendorContactNo_one" id="Updated_VendorContactNo_one" class="form-control" value="' . $details['status_message'][$i]['contact_no_one'] . '" placeholder="vendor Contact No1" min="0" minlength="10" required><br>
- </div>
- <div class="col-lg-2">
- <label for="contactNo2" class="control-label">Contact&nbsp;No2:</label></div>
- <div class="col-lg-4">
- <input type="tel" name="Updated_VendorContactNo_two" id="Updated_VendorContactNo_two" class="form-control" value="' . $details['status_message'][$i]['contact_no_two'] . '" placeholder="vendor Contact No2" min="0" minlength="10" required><br>
- </div>
- </div>
-
- <div class="row">
- <div class="col-lg-2">
- <label for="bankName" class="control-label">Bank&nbsp;Name:</label></div>
- <div class="col-lg-4">
- <input type="text" name="Updated_VendorBank_name" id="Updated_VendorBank_name" class="form-control" value="' . $details['status_message'][$i]['vendorbank_name'] . '" placeholder="Vendor Bank Name" required><br>
- </div>
- <div class="col-lg-2">
- <label for="bankAddress" class="control-label">Bank&nbsp;Address:</label></div>
- <div class="col-lg-4">
- <input type="text" name="Updated_VendorBank_Address" id="Updated_VendorBank_Address" class="form-control" value="' . $details['status_message'][$i]['vendorbank_address'] . '" placeholder="Vendor Bank Address" required><br>
- </div>
- </div>
-
- <div class="row">
- <div class="col-lg-2">
- <label for="bankAccno" class="control-label">Bank&nbsp;Account.No:</label></div>
- <div class="col-lg-4">
- <input type="text" name="Updated_VendorBank_AccNo" id="Updated_VendorBank_AccNo" class="form-control" value="' . $details['status_message'][$i]['vendor_accno'] . '" placeholder="Vendor Account No" required><br>
- </div>
- <div class="col-lg-2">
- <label for="ifscNo" class="control-label">IFSC&nbsp;Code:</label></div>
- <div class="col-lg-4">
- <input type="text" name="UpdatedVendor_Bank_IFSC_Code" id="UpdatedVendor_Bank_IFSC_Code" class="form-control" value="' . $details['status_message'][$i]['vendor_ifsc_no'] . '" placeholder="Vendor IFSC Code" required><br>
- </div>
- </div>
-
-
- <div class="row">
- <div class="col-lg-2">
- <label for="micrNo" class="control-label">MICR&nbsp;Code:</label></div>
- <div class="col-lg-4">
- <input type="text" name="UpdatedVendor_Bank_MICR_Code" id="UpdatedVendor_Bank_MICR_Code" class="form-control" value="' . $details['status_message'][$i]['vendor_micr_no'] . '" placeholder="Vendor MICR Code" required><br>
- </div>
- <div class="col-lg-2">
- <label for="panNo" class="control-label">PAN&nbsp;NO:</label></div>
- <div class="col-lg-4">
- <input type="text" name="VendorUpdated_PAN_No" id="VendorUpdated_PAN_No" class="form-control" placeholder="Vendor PAN No" value="' . $details['status_message'][$i]['vendor_pan_no'] . '" required><br>
- </div>
- </div>
-
- <div class="row col-lg-3 col-lg-offset-8">
- <button type="submit" class="btn btn-primary w3-padding w3-right" style="margin: 10px;">Update</button>
- </div><br>
- <div><br>
- </div>
- </div>
- </form>
+</form>
 
  </div>
 
@@ -275,125 +266,113 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <div class="w3-padding">
                                 <form method="POST" action="" id="VendorDetailsForm" name="VendorDetailsForm"><!-- form starts here -->
 
-                                    <div class="row">
-                                        <div class="col-lg-2 w3-padding-left">
-                                            <label for="CustomerName" class="control-label w3-right">Vendor&nbsp;Name:</label></div>
-                                        <div class="col-lg-4 w3-padding-left">
-                                            <input type="text" name="Input_VendorName" id="Input_CustomerName" class="form-control" placeholder="Vendor Name" required><br>
+
+                                    <div class="col-lg-12">
+                                        <div class="col-lg-6">
+                                            <table>
+                                                <tr>
+                                                    <td>
+                                                        <label for="CustomerName" class="control-label w3-right w3-padding-right">Vendor&nbsp;Name:</label>
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" name="Input_VendorName" id="Input_CustomerName" class="form-control" placeholder="Vendor Name" required><br>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <label for="Shop name" class="control-label w3-right w3-padding-right">ShopName:</label>
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" name="Input_VendorShopName" id="Input_VendorShopName" class="form-control" placeholder="Vendor Shop Name" required><br>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <label for="shopAddress" class="control-label w3-right w3-padding-right">Shop&nbsp;Address:</label>
+                                                    </td>
+                                                    <td>
+                                                        <textarea name="Input_VendorShopAddress" rows="5" id="Input_VendorShopAddress" class="form-control" placeholder="Vendor Shop Address" required></textarea><br>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <label for="ContactNo1" class="control-label w3-right w3-padding-right">Contact&nbsp;No1:</label>
+                                                    </td>
+                                                    <td>
+                                                        <input type="tel" name="Input_VendorContactNo_one" id="Input_VendorContactNo_one" class="form-control" placeholder="Vendor Contact No1" minlength="10" required><br>
+                                                    </td>
+                                                <tr>
+                                                    <td><label for="ContactNo2" class="control-label w3-right w3-padding-right">Contact&nbsp;No2:</label></td>
+                                                    <td><input type="tel" name="Input_VendorContactNo_two" id="Input_VendorContactNo_two" class="form-control" placeholder="Vendor Contact No2" minlength="10" required><br></td>
+                                                </tr>
+                                                </tr>
+                                            </table>
                                         </div>
-
-                                        <div class="col-lg-2 w3-padding-left">
-                                            <label for="CustomerEmail" class="control-label w3-right">Vendor&nbsp;Email:</label></div>
-                                        <div class="col-lg-4 w3-padding-left">
-                                            <input type="email" name="Input_VendorEmail[]" id="Input_VendorEmail" class="form-control" placeholder="Vendor Email" required>
-                                            <div id="added_row"></div>
-                                                
-                                            <span><a  id="add_row" class="btn btn-default pull-left btn add-more w3-margin w3-right" onclick="addMoreRows();">+Add</a></span>               
-                                        </div>
-                                    </div>
-
-
-                                    <div class="row">
-
-                                        <div class="col-lg-2 w3-padding-left">
-                                            <label for="Country" class="control-label w3-right">ShopName:</label></div>
-                                        <div class="col-lg-4 w3-padding-left">
-                                            <input type="text" name="Input_VendorShopName" id="Input_VendorShopName" class="form-control" placeholder="Vendor Shop Name" required><br>
-                                        </div>
-
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="col-lg-2 w3-padding-left">
-                                            <label for="State" class="control-label w3-right">Shop&nbsp;Address:</label></div>
-                                        <div class="col-lg-4 w3-padding-left">
-                                            <textarea name="Input_VendorShopAddress" rows="5" id="Input_VendorShopAddress" class="form-control" placeholder="Vendor Shop Address" required></textarea><br>
-                                        </div>
-                                    </div>
-                                    <!--                                    <div class="row">
-                                    
-                                                                            <div class="col-lg-2 w3-padding-left">
-                                                                                <label for="Country" class="control-label w3-right">Country:</label></div>
-                                                                            <div class="col-lg-4 w3-padding-left">
-                                                                                <select class="form-control" name="Select_VendorCountry" id="Select_VendorCountry" onchange ="print_state('Select_VendorState', this.selectedIndex);">
-                                                                                    <option>Select Country</option>
-                                                                                </select><br>
-                                                                            </div>
-                                    
-                                                                            <div class="col-lg-2 w3-padding-left">
-                                                                                <label for="State" class="control-label w3-right">State:</label></div>
-                                                                            <div class="col-lg-4 w3-padding-left">
-                                                                                <select class="form-control" name="Select_VendorState" id="Select_VendorState">
-                                                                                    <option>Select State</option>
-                                                                                </select><br>
-                                                                            </div>
-                                    
-                                                                        </div>
-                                    
-                                                                        <div class="row">
-                                                                            <div class="col-lg-2 w3-padding-left">
-                                                                                <label for="City" class="control-label w3-right">City:</label></div>
-                                                                            <div class="col-lg-4 w3-padding-left">
-                                                                                <input type="text" name="Input_VendorCity" id="Input_VendorCity" class="form-control" placeholder="Vendor City" required><br>
-                                                                            </div>
-                                                                        </div>-->
-
-                                    <div class="row">
-                                        <div class="col-lg-2 w3-padding-left">
-                                            <label for="ContactNo1" class="control-label w3-right">Contact&nbsp;No1:</label></div>
-                                        <div class="col-lg-4 w3-padding-left">
-                                            <input type="number" name="Input_VendorContactNo_one" id="Input_VendorContactNo_one" class="form-control" placeholder="Vendor Contact No1" minlength="10" required><br>
-                                        </div>
-                                        <div class="col-lg-2 w3-padding-left">
-                                            <label for="ContactNo2" class="control-label w3-right">Contact&nbsp;No2:</label></div>
-                                        <div class="col-lg-4 w3-padding-left">
-                                            <input type="number" name="Input_VendorContactNo_two" id="Input_VendorContactNo_two" class="form-control" placeholder="Vendor Contact No2" minlength="10" required><br>
+                                        <div class="col-lg-6">
+                                            <div class="w3-col l12">
+                                                <div class="w3-col l3 w3-margin-right">
+                                                    <label for="CustomerEmail" class="control-label w3-right">Vendor&nbsp;Email:</label>
+                                                </div>
+                                                <div class="w3-col l7">
+                                                    <input type="email" name="Input_VendorEmail[]" id="Input_VendorEmail" class="form-control" placeholder="Vendor Email" required>
+                                                    <div id="added_row"></div>
+                                                    <span><a  id="add_row" class="btn add-more w3-text-red w3-right">+Add</a></span>
+                                                </div>
+                                            </div>
+                                            <table>
+                                                <tr>
+                                                    <td><label for="landingCost" class="control-label w3-right w3-padding-right">Landing Cost:</label></td>
+                                                    <td><input type="number" name="Input_VendorLandingCost" id="Input_VendorLandingCost" class="form-control" placeholder="Vendor Landing Cost" step="0.01" required><br></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><label for="Discount" class="control-label w3-right w3-padding-right">Discount:</label></td>
+                                                    <td><input type="number" name="Input_Discount" id="Input_Discount" class="form-control" placeholder="Vendor Discount" step="0.01" required><br></td>
+                                                </tr>
+                                            </table>
                                         </div>
                                     </div>
 
-                                    <div class="row">
-                                        <div class="col-lg-2 w3-padding-left">
-                                            <label for="BankName" class="control-label w3-right">Bank&nbsp;Name:</label></div>
-                                        <div class="col-lg-4 w3-padding-left">
-                                            <input type="text" name="Input_VendorsBank_name" id="Input_VendorsBank_name" class="form-control" placeholder="Vendors Bank Name" required><br>
+                                    <div class="col-lg-12">
+                                        <hr>
+                                        <div class="col-lg-6">
+                                            <table class="w3-margin-left">
+                                                <tr>
+                                                    <td><label for="BankName" class="control-label w3-right w3-padding-right">Bank&nbsp;Name:</label></td>
+                                                    <td><input type="text" name="Input_VendorsBank_name" id="Input_VendorsBank_name" class="form-control" placeholder="Vendors Bank Name" required><br></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><label for="BankAccNo" class="control-label w3-right w3-padding-right">Account.No:</label></td>
+                                                    <td><input type="text" name="Input_VendorBank_AccNo" id="Input_VendorBank_AccNo" class="form-control" placeholder="Vendor Account No" required><br></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><label for="MICRCode" class="control-label w3-right w3-padding-right">MICR&nbsp;Code:</label></td>
+                                                    <td><input type="text" name="Input_VendorBank_MICR_Code" id="Input_VendorBank_MICR_Code" class="form-control" placeholder="Vendor MICR Code" required><br></td>
+                                                </tr>
+                                            </table>
                                         </div>
-                                        <div class="col-lg-2 w3-padding-left">
-                                            <label for="BankAddress" class="control-label w3-right">Bank&nbsp;Address:</label></div>
-                                        <div class="col-lg-4 w3-padding-left">
-                                            <input type="text" name="Input_VendorBank_Address" id="Input_VendorBank_Address" class="form-control" placeholder="Vendors Bank Address" required><br>
-                                        </div>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="col-lg-2 w3-padding-left">
-                                            <label for="BankAccNo" class="control-label w3-right">Account.No:</label></div>
-                                        <div class="col-lg-4 w3-padding-left">
-                                            <input type="text" name="Input_VendorBank_AccNo" id="Input_VendorBank_AccNo" class="form-control" placeholder="Vendor Account No" required><br>
-                                        </div>
-                                        <div class="col-lg-2 w3-padding-left">
-                                            <label for="IFSCCode" class="control-label w3-right">IFSC&nbsp;Code:</label></div>
-                                        <div class="col-lg-4 w3-padding-left">
-                                            <input type="text" name="Input_VendorBank_IFSC_Code" id="Input_VendorBank_IFSC_Code" class="form-control" placeholder="Vendor IFSC Code" required><br>
-                                        </div>
-                                    </div>
-
-
-                                    <div class="row">
-                                        <div class="col-lg-2 w3-padding-left">
-                                            <label for="MICRCode" class="control-label w3-right">MICR&nbsp;Code:</label></div>
-                                        <div class="col-lg-4 w3-padding-left">
-                                            <input type="text" name="Input_VendorBank_MICR_Code" id="Input_VendorBank_MICR_Code" class="form-control" placeholder="Vendor MICR Code" required><br>
-                                        </div>
-                                        <div class="col-lg-2 w3-padding-left">
-                                            <label for="PANNo" class="control-label w3-right">PAN&nbsp;NO:</label></div>
-                                        <div class="col-lg-4 w3-padding-left">
-                                            <input type="text" name="Input_VendorPAN_No" id="Input_VendorPAN_No" class="form-control" placeholder="Vendor PAN No" required><br>
+                                        <div class="col-lg-6">
+                                            <table>
+                                                <tr>
+                                                    <td><label for="BankAddress" class="control-label w3-right w3-padding-right">Bank&nbsp;Address:</label></td>
+                                                    <td><input type="text" name="Input_VendorBank_Address" id="Input_VendorBank_Address" class="form-control" placeholder="Vendors Bank Address" required><br></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><label for="IFSCCode" class="control-label w3-right w3-padding-right">IFSC&nbsp;Code:</label></td>
+                                                    <td><input type="text" name="Input_VendorBank_IFSC_Code" id="Input_VendorBank_IFSC_Code" class="form-control" placeholder="Vendor IFSC Code" required><br></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><label for="PANNo" class="control-label w3-right w3-padding-right">PAN&nbsp;NO:</label></td>
+                                                    <td><input type="text" name="Input_VendorPAN_No" id="Input_VendorPAN_No" class="form-control" placeholder="Vendor PAN No" required><br></td>
+                                                </tr>
+                                            </table>
                                         </div>
                                     </div>
 
-                                    <div class="row">
-                                        <center> <button type="submit" class="btn btn-primary w3-padding w3-center" style="margin: 10px;">Submit</button>
-                                            <button type="reset" class="btn btn-default w3-padding w3-center" style="margin: 10px;">Reset</button></center>
+                                    <div class="w3-margin-top">
+                                        <center>
+                                            <button type="submit" class="btn btn-primary" >Submit</button>
+                                            <button type="reset" class="btn btn-default" >Reset</button>
+                                        </center>
                                     </div>
                                     <div class="row" id="addVendorInformation_err" name="addVendorInformation_err"></div>
                                 </form>
@@ -420,67 +399,29 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <div id="updateVendordetails_err" name="updateVendordetails_err"></div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" onclick= "window.location.reload();" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" onclick="location.reload();" class="btn btn-default" data-dismiss="modal">Close</button>
                 </div>
             </div>
 
         </div>
     </div><!-- modal ends here -->
-
-
     <script type="text/javascript">
         /*script for showing country and state*/
-        $(document).ready(function () {
-            print_country("Select_VendorCountry");
-        });
+//        $(document).ready(function () {
+//            print_country("Select_VendorCountry");
+//        });
         /*script for showing country and state*/
     </script>
-    <script>
-        /*this script is used for submit fun to add vendor details*/
-        $(function () {
-            $("#VendorDetailsForm").submit(function () {
-                dataString = $("#VendorDetailsForm").serialize();
-                $.ajax({
-                    type: "POST",
-                    url: "<?php echo base_url(); ?>inventory/Vendor_Management/save_VendorDetails",
-                    data: dataString,
-                    return: false, //stop the actual form post !important!
-                    success: function (data)
-                    {
-                        $("#addVendorInformation_err").html(data);
-                    }
-                });
-                return false;  //stop the actual form post !important!
-            });
-        });
-        /*this script is used for submit fun to add vendor details*/
-    </script>
     <!-- This script is used to reload the page when popup close -->
     <script>
-        $('#myModal').on('hidden.bs.modal', function () {
-            location.reload();
-        });
+//        $('#myModal').on('hidden.bs.modal', function () {
+//            location.reload();
+//        });
     </script>
     <!-- This script is used to reload the page when popup close -->
-    <script>
-        var rowCount = 1;
-        function addMoreRows() {
-            rowCount++;
-
-            var recRow = '<td><input value="" id="Input_VendorEmail' + rowCount + '" name="Input_VendorEmail[]"  type="text" placeholder="ID"  class="form-control input-md"></td><td><a href="javascript:void(0);" onclick="removeRow(' + rowCount + ');">Delete</a></td>';
-
-            jQuery('#addedRows').append(recRow);
-        }
-        function removeRow(removeNum) {
-            jQuery('#rowCount' + removeNum).remove();
-
-        }
-    </script>
-
-
     <script>
         $(document).ready(function () {
-            var max_fields = 5;
+            var max_fields = 4;
             var wrapper = $("#added_row");
             var add_button = $("#add_row");
 
@@ -489,7 +430,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 e.preventDefault();
                 if (x < max_fields) {
                     x++;
-                    $(wrapper).append('<div class="w3-margin-bottom"><a href="#" class="delete w3-text-grey w3-right fa fa-remove" title="Delete table"></a><input type="email" name="Input_VendorEmail[]" id="Input_VendorEmail" class="form-control" placeholder="Vendor Email" required></div>'); //add input box
+                    $(wrapper).append('<div class=""><a href="#" class="delete w3-text-grey w3-right fa fa-remove" title="Delete email field"></a><input type="email" name="Input_VendorEmail[]" id="Input_VendorEmail" class="form-control" placeholder="Vendor Email" required></div>'); //add input box
 
                 } else
                 {
