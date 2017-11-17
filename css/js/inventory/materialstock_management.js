@@ -1,4 +1,8 @@
 var base_url = 'http://localhost/swings_mis/';
+
+
+
+//this fun is for add material information-----------------------
 $(function () {
     $("#Add_material_form").submit(function () {
         dataString = $("#Add_material_form").serialize();
@@ -13,15 +17,13 @@ $(function () {
                 $("#addMaterial_err").html(data);
             }
         });
-        return false;  //stop the actual form post !important!
+        return false; //stop the actual form post !important!
     });
 });
-
 /* this function is used for show total material stocks quantity*/
 function ShowMaterialStock() {
 
     dataString = 'Select_Materials_Id=' + $("#Select_Materials_Id").val();
-
     $.ajax({
         type: "POST",
         url: base_url + "inventory/MaterialStock_Management/ShowMaterialStock",
@@ -32,7 +34,6 @@ function ShowMaterialStock() {
             $('#Input_MaterialStock').val(data);
         }
     });
-
 }
 /*this function is used for show total material stocks quantity*/
 
@@ -48,10 +49,11 @@ $(function () {
             return: false, //stop the actual form post !important!
             success: function (data)
             {
+                //alert(data);
                 $("#addProducts_err").html(data);
             }
         });
-        return false;  //stop the actual form post !important!
+        return false; //stop the actual form post !important!
     });
 });
 //this fun is used to add raw material ends here----------------------------------//
@@ -73,7 +75,7 @@ $(function () {
                 $("#addpurchaseproducts_err").html(data);
             }
         });
-        return false;  //stop the actual form post !important!
+        return false; //stop the actual form post !important!
     });
 });
 //this fun is used to add Purchased material ends here----------------------------------//
@@ -109,5 +111,4 @@ function Delete_material() {
             location.reload();
         }
     });
-
 }

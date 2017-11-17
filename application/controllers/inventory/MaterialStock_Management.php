@@ -18,6 +18,23 @@ class MaterialStock_Management extends CI_controller {
         $this->load->view('inventory/stock/materialstock_management', $response);
     }
 
+//this fun is used to get all prices from price list---------------------------------------    
+    public function GetPriceFromPriceList() {
+        extract($_POST);
+        $data = $_POST;
+
+        $path = base_url();
+        $url = $path . 'api/MaterialStockManagement_api/GetPriceFromPriceList';
+        $ch = curl_init($url);
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $response_json = curl_exec($ch);
+        curl_close($ch);
+        $response = json_decode($response_json, true);
+        echo $response;
+    }
+
 //----------------this fun is for get total info of materials---------------//
 
     public function getMaterialrecord() {
@@ -40,7 +57,8 @@ class MaterialStock_Management extends CI_controller {
 
         extract($_POST);
         $data = $_POST;
-        //print_r($data);
+
+
         $path = base_url();
         $url = $path . 'api/MaterialStockManagement_api/Save_PurchasedProduct_Info';
         $ch = curl_init($url);
@@ -208,6 +226,12 @@ class MaterialStock_Management extends CI_controller {
         extract($_POST);
         $data = $_POST;
         //print_r($data);
+        $price = $Input_RawMaterialPrice;
+        if (isset($checkPrice)) {
+            $price = $Input_RawMaterialPriceFrom_Pricelist;
+        }
+        $data['price'] = $price;
+
         $path = base_url();
         $url = $path . 'api/MaterialStockManagement_api/Save_RawStockMaterial_Info';
         $ch = curl_init($url);
@@ -217,8 +241,7 @@ class MaterialStock_Management extends CI_controller {
         $response_json = curl_exec($ch);
         curl_close($ch);
         $response = json_decode($response_json, true);
-        print_r($response_json);
-        die();
+
         if ($response['status'] == 0) {
             echo'<div class="alert alert-danger w3-margin" style="text-align: center;">
             <strong>' . $response['status_message'] . '</strong> 
