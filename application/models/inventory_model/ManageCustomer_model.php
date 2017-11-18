@@ -1,33 +1,63 @@
 <?php
-if(!defined('BASEPATH')) exit('No direct script access allowed');
 
-class ManageCustomer_model extends CI_Model{
+if (!defined('BASEPATH'))
+    exit('No direct script access allowed');
 
-  public function getCustomerDetails(){  /*this fun is used to get customer deatails*/
+class ManageCustomer_model extends CI_Model {
 
-   $sqlselect="SELECT * FROM customer_details WHERE visible = '1'";
+    public function getCustomerDetails() { /* this fun is used to get customer deatails */
 
-   $result =$this->db->query($sqlselect);
+        $sqlselect = "SELECT * FROM customer_details WHERE visible = '1'";
 
-   if($result->num_rows()<=0){  
-     $response=array(
-       'status' => 0,
-       'status_message' =>'No Records Found.'	);
-   }
-   else{
-    $response=array(
-      'status' => 1,
-      'status_message' => $result->result_array());
-  }
-  return $response;
+        $result = $this->db->query($sqlselect);
 
+        if ($result->num_rows() <= 0) {
+            $response = array(
+                'status' => 0,
+                'status_message' => 'No Records Found.');
+        } else {
+            $response = array(
+                'status' => 1,
+                'status_message' => $result->result_array());
+        }
+        return $response;
+    }
 
-}/*ends here*/
+    /* ends here */
 
-public function Update_CustomerDetails($data){  /*this fun is used to  update customer details*/
-  extract($data);
+    public function save_CustomerDetails($data) { /* this fun is used for save customer details */
 
-  $sql = "UPDATE customer_details SET customer_name = '$Updated_CustomerName',
+        extract($data);
+        //print_r($data); die();
+        $sqlnew = "INSERT INTO customer_details(customer_name,customer_email,"
+                . "customer_address,contact,bank_name,bank_address,"
+                . "account_no,IFSC_no,MICR_no,PAN_no,joining_date) "
+                . "values ('$Input_CustomerName','$Input_CustomerEmail','$Input_CustomerAddress',"
+                . "'$contact','$Input_Bank_name','$Input_Bank_Address',"
+                . "'$Input_Bank_AccNo','$Input_Bank_IFSC_Code','$Input_Bank_MICR_Code',"
+                . "'$Input_PAN_No',now())";
+//echo $sqlnew;die();
+        $resultnew = $this->db->query($sqlnew);
+
+        if ($resultnew) {
+            $response = array(
+                'status' => 1,
+                'status_message' => 'Records Inserted Successfully..!');
+        } else {
+            $response = array(
+                'status' => 0,
+                'status_message' => 'Records Not Inserted Successfully...!');
+        }
+        //print_r($response);
+        return $response;
+    }
+
+    /* save customer fun ends here */
+
+    public function Update_CustomerDetails($data) { /* this fun is used to  update customer details */
+        extract($data);
+
+        $sql = "UPDATE customer_details SET customer_name = '$Updated_CustomerName',
   customer_email = '$Updated_CustomerEmail',country = '$SelectUpdated_Country',
   state = '$SelectUpdated_State',city = '$Update_City',
   contact_no1 = '$Updated_ContactNo_one',contact_no2 = '$Updated_ContactNo_two',
@@ -35,66 +65,62 @@ public function Update_CustomerDetails($data){  /*this fun is used to  update cu
   account_no = '$Updated_Bank_AccNo' , IFSC_no = '$Updated_Bank_IFSC_Code' ,
   MICR_no = '$Updated_Bank_MICR_Code' ,PAN_no = '$Updated_PAN_No' WHERE cust_id ='$new_Cust_id'";
         //echo $sql; die();
-  $resultUpadateCustomerDetails =$this->db->query($sql);
+        $resultUpadateCustomerDetails = $this->db->query($sql);
 
-  if($resultUpadateCustomerDetails){  
-    $response=array(
-      'status' => 1,
-      'status_message' =>'Records Updated Successfully..!');
-  }
-  else{
-    $response=array(
-      'status' => 0,
-      'status_message' => 'Records Not Updated Successfully...!');
-  }
-  return $response;
+        if ($resultUpadateCustomerDetails) {
+            $response = array(
+                'status' => 1,
+                'status_message' => 'Records Updated Successfully..!');
+        } else {
+            $response = array(
+                'status' => 0,
+                'status_message' => 'Records Not Updated Successfully...!');
+        }
+        return $response;
+    }
 
+    /* update customer details ends here */
 
-}/*update customer details ends here*/
+    public function DeleteCustomerDetails($data) { /* this fun for delete customer details */
 
-public function DeleteCustomerDetails($data){ /*this fun for delete customer details */
+        extract($data);
+        //print_r($data);die();
+        $sqldelete = "UPDATE customer_details SET visible = '0' WHERE cust_id = '$Customer_id'";
 
-  extract($data);
-    //print_r($data);die();
-  $sqldelete = "UPDATE customer_details SET visible = '0' WHERE cust_id = '$Customer_id'";
+        $resultdelete = $this->db->query($sqldelete);
 
-  $resultdelete =$this->db->query($sqldelete);
+        if ($resultdelete) {
+            $response = array(
+                'status' => 1,
+                'status_message' => 'Records Deleted Successfully..!');
+        } else {
+            $response = array(
+                'status' => 0,
+                'status_message' => 'Records Not Deleted Successfully...!');
+        }
 
-  if($resultdelete){  
-    $response=array(
-      'status' => 1,
-      'status_message' =>'Records Deleted Successfully..!');
-  }
-  else{
-    $response=array(
-      'status' => 0,
-      'status_message' => 'Records Not Deleted Successfully...!');
-  }
+        return $response;
+    }
 
-  return $response;
+    /* delete fun ends here */
 
-}/*delete fun ends here*/
+    public function getCustomerBy_ID($customer_id) { /* this fun is used to get customer deatails */
 
+        $sqlselect = "SELECT * FROM customer_details WHERE cust_id = '$customer_id'";
 
-public function getCustomerBy_ID($customer_id){  /*this fun is used to get customer deatails*/
+        $result = $this->db->query($sqlselect);
 
-  $sqlselect="SELECT * FROM customer_details WHERE cust_id = '$customer_id'";
+        if ($result->num_rows() <= 0) {
+            $response = array(
+                'status' => 0,
+                'status_message' => 'No Records Found.');
+        } else {
+            $response = $result->result_array();
+        }
+        return $response;
+    }
 
-  $result =$this->db->query($sqlselect);
-
-  if($result->num_rows()<=0){  
-    $response=array(
-      'status' => 0,
-      'status_message' =>'No Records Found.'  );
-  }
-  else{
-    $response=$result->result_array();
-      
-  }
-  return $response;
-
-
-}/*ends here*/
-
+    /* ends here */
 }
+
 ?>

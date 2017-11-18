@@ -6,7 +6,6 @@ class ManageCustomer_api extends REST_Controller
 {
 	public function __construct(){
 		parent::__construct();
-		$this->load->model('inventory_model/AddCustomer_model');
 		$this->load->model('inventory_model/ManageCustomer_model');
 	}
 
@@ -15,7 +14,7 @@ class ManageCustomer_api extends REST_Controller
 	//-------------------------------------------------------------//
 	public function save_CustomerDetails_post(){
 		$data = $_POST;
-		$result = $this->AddCustomer_model->save_CustomerDetails($data);
+		$result = $this->ManageCustomer_model->save_CustomerDetails($data);
 		return $this->response($result);			
 	}
 	//---------------------ADD CUSTOMER END------------------------------//

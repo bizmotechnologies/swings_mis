@@ -15,7 +15,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         --><script type="text/javascript" src="<?php echo base_url(); ?>css/bootstrap/jquery-3.1.1.js"></script>
         <script type="text/javascript" src="<?php echo base_url(); ?>css/bootstrap/bootstrap.min.js"></script>
         <!-- <script type="text/javascript" src="assets/css/alert/jquery-confirm.js"></script>-->
-        <script type="text/javascript" src="<?php echo base_url(); ?>css/country/country.js"></script>
+        <script type="text/javascript" src="<?php echo base_url(); ?>css/js/inventory/manage_customer.js"></script>
 
     </head>
     <body class="w3-light-grey">
@@ -42,7 +42,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                     <th class="text-center">SR. No</th>
                                     <th class="text-center">Customer&nbsp;Name</th>              
                                     <th class="text-center">Customer&nbsp;Email</th>              
-                                    <th class="text-center">Contact&nbsp;No</th>              
+                                    <th class="text-center">Customer&nbsp;Address</th>              
                                     <th class="text-center">Joining&nbsp;Date</th> 
                                     <th class="text-center">Actions</th>                                           
                                 </tr>
@@ -52,11 +52,18 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                     $count = 1;
                                     if ($details['status'] == 1) {
                                         for ($i = 0; $i < count($details['status_message']); $i++) {
+                                            $email_arr = json_decode($details['status_message'][$i]['customer_email'], TRUE);
+                                            $contact = json_decode($details['status_message'][$i]['contact'], TRUE);
+
                                             echo '<tr class="text-center">
               <td class="text-center">' . $count . '</td>
               <td class="text-center">' . $details['status_message'][$i]['customer_name'] . '</td>
-              <td class="text-center">' . $details['status_message'][$i]['customer_email'] . '</td>
-              <td class="text-center">' . $details['status_message'][$i]['contact_no1'] . '</td>
+              <td class="text-center">';
+                                            for ($key = 0; $key < count($email_arr); $key++) {
+                                                echo $email_arr[$key] . '<br>';
+                                            }
+                                            echo '</td>
+              <td class="text-center">' . $details['status_message'][$i]['customer_address'] . '</td>
               <td class="text-center">' . $details['status_message'][$i]['joining_date'] . '</td>
               <td class="text-center"><a class="btn w3-blue w3-medium w3-padding-small" title="UpdateCustomer" data-toggle="modal" data-target="#myModal_' . $details['status_message'][$i]['cust_id'] . '" style="padding:0"><i class="fa fa-edit"></i></a>
               <a class="btn w3-red w3-medium w3-padding-small" title="DeleteCustomer" href="' . base_url() . 'inventory/Manage_customers/DeleteCustomerDetails?Customer_id=' . $details['status_message'][$i]['cust_id'] . '" style="padding:0"><i class="fa fa-close"></i></a>
@@ -118,113 +125,112 @@ $(function(){
 <div class="w3-center">
 <input type="hidden" class="" id="new_Cust_id" name="new_Cust_id" value="' . $details['status_message'][$i]['cust_id'] . '">
 </div>
-<div class="row">
+<div class="col-lg-12">
+                                        <div class="col-lg-6">
+                                            <table class="">
+                                                <tr>
+                                                    <td>
+                                                        <label for="CustomerName" class="control-label w3-right w3-padding-right">Customer Name:</label>
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" name="Input_CustomerName" id="Input_CustomerName" value="' . $details['status_message'][$i]['customer_name'] . '" class="form-control" placeholder="Customer Name" required><br>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <label for="CustomerAddress" class="control-label w3-right w3-padding-right">Customer Address:</label>
+                                                    </td>
+                                                    <td>
+                                                        <textarea name="Input_CustomerAddress" rows="5" id="Input_CustomerAddress" value="" class="form-control" placeholder="Customer Address" required>' . $details['status_message'][$i]['customer_address'] . '</textarea><br>
+                                                    </td>
+                                                </tr>
 
-<div class="col-lg-2">
-<label for="customerName" class="control-label">Customer&nbsp;Name:</label></div>
-<div class="col-lg-4">
-<input type="text" name="Updated_CustomerName" id="Updated_CustomerName" class="form-control" placeholder="Customer Name" value="' . $details['status_message'][$i]['customer_name'] . '" required><br>
-</div>
+                                            </table>
+                                            <div class="w3-col l12" style="margin-left: 36px">
+                                                <div class="w3-col l3 w3-margin-right ">
+                                                    <label for="CustomerEmail" class="control-label w3-right">Customer&nbsp;Email:</label>
+                                                </div>
+                                                <div class="w3-col l7">
+                                                    <div id="added_row">';
+                                            for ($key = 0; $key < count($email_arr); $key++) {
+                                                echo '<input type="email" name="Updated_CustomerEmail[]" id="Updated_CustomerEmail" class="form-control w3-margin-bottom" value="' . $email_arr[$key] . '" placeholder="Vendor Email">';
+                                            }
+                                            echo'</div>
+                                                </div>
+                                            </div>
+                                        </div>
 
-<div class="col-lg-2">
-<label for="customerEmail" class="control-label">Customer&nbsp;Email:</label></div>
-<div class="col-lg-4">
-<input type="email" name="Updated_CustomerEmail" id="Updated_CustomerEmail" class="form-control" placeholder="Customer Email" value="' . $details['status_message'][$i]['customer_email'] . '" required><br>
-</div>
+                                        <div class="col-lg-6">
+                                            <div class="w3-col l12">
+                                               
+                                                <div id="added_Newrow">';
+                                            foreach ($contact as $key) {
+                                                echo'<div class="w3-col 12l">
+                                                    <div class="w3-col l3 w3-margin-right w3-padding-left">
+                                                    <label for="ContactPerson" class="control-label w3-right">Contact&nbsp;Person:</label>
+                                                </div>
+                                                <div class="w3-col l7 w3-margin-bottom">
+                                                    <input type="tel" name="Input_ContactPerson[]" id="Input_ContactPerson" value="' . $key['contact_person'] . '" class="form-control" placeholder="Customer Persone Name" required>
+                                                </div>
+                                                <div class="w3-col l3 w3-margin-right w3-padding-left">
+                                                    <label for="ContactNo" class="control-label w3-right">Contact&nbsp;No:</label>
+                                                </div>
+                                                <div class="w3-col l7">
+                                                    <input type="tel" name="Input_ContactNo_one[]" id="Input_ContactNo_one" value="' . $key['contact_number'] . '" class="form-control" placeholder="Customer Contact No" required>
+                                                </div>
+                                                </div><br>';
+                                            }
+                                            echo'</div>
+                                                <span><a  id="add_Newrow" class="btn add-more w3-text-blue w3-right">+Add</a></span>
+                                            </div>
+                                        </div>
+                                    </div>
 
-</div>
+                                    <div class="col-lg-12">
+                                        <hr>
+                                        <div class="col-lg-6">
 
+                                            <table class="w3-margin-left">
+                                                <tr>
+                                                    <td><label for="BankName" class="control-label w3-right w3-padding-right">Bank&nbsp;Name:</label></td>
+                                                    <td><input type="text" name="Input_Bank_name" id="Input_Bank_name" value="' . $details['status_message'][$i]['bank_name'] . '" class="form-control" placeholder="Customers Bank Name" required><br></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><label for="BankAccNo" class="control-label w3-right w3-padding-right">Account.No:</label></td>
+                                                    <td><input type="text" name="Input_Bank_AccNo" id="Input_Bank_AccNo" value="' . $details['status_message'][$i]['account_no'] . '" class="form-control" placeholder="Customer Account No" required><br></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><label for="MICRCode" class="control-label w3-right w3-padding-right">MICR&nbsp;Code:</label></td>
+                                                    <td><input type="text" name="Input_Bank_MICR_Code" id="Input_Bank_MICR_Code" value="' . $details['status_message'][$i]['MICR_no'] . '" class="form-control" placeholder="Customer MICR Code" required><br></td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <table>
+                                                <tr>
+                                                    <td><label for="BankAddress" class="control-label w3-right w3-padding-right">Bank&nbsp;Address:</label></td>
+                                                    <td><input type="text" name="Input_Bank_Address" id="Input_Bank_Address" value="' . $details['status_message'][$i]['bank_address'] . '" class="form-control" placeholder="Customers Bank Address" required><br></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><label for="IFSCCode" class="control-label w3-right w3-padding-right">IFSC&nbsp;Code:</label></td>
+                                                    <td><input type="text" name="Input_Bank_IFSC_Code" id="Input_Bank_IFSC_Code" value="' . $details['status_message'][$i]['IFSC_no'] . '" class="form-control" placeholder="Customer IFSC Code" required><br></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><label for="PANNo" class="control-label w3-right w3-padding-right">PAN&nbsp;NO:</label></td>
+                                                    <td><input type="text" name="Input_PAN_No" id="Input_PAN_No" class="form-control" value="' . $details['status_message'][$i]['PAN_no'] . '" placeholder="Customer PAN No" required><br></td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </div>
 
-<div class="row">
-
-<div class="col-lg-2">
-<label for="country" class="control-label">Country:</label></div>
-<div class="col-lg-4">
-<select class="form-control" name="SelectUpdated_Country" id="SelectUpdated_Country_' . $details['status_message'][$i]['cust_id'] . '" onchange ="print_state(\'SelectUpdated_State_' . $details['status_message'][$i]['cust_id'] . '\', this.selectedIndex);" required>
-<option> Select Country</option>
-</select><br>
-</div>
-
-<div class="col-lg-2">
-<label for="state" class="control-label">State:</label></div>
-<div class="col-lg-4">
-<select class="form-control" name="SelectUpdated_State" id="SelectUpdated_State_' . $details['status_message'][$i]['cust_id'] . '" required>
-<option>Select State</option>
-</select><br>
-</div>
-
-</div>
-
-<div class="row">
-<div class="col-lg-2">
-<label for="city" class="control-label">City:</label></div>
-<div class="col-lg-4">
-<input type="text" name="Update_City" id="Input_City" class="form-control" placeholder="Customer City" value="' . $details['status_message'][$i]['city'] . '" required><br>
-</div>
-</div>
-
-<div class="row">
-<div class="col-lg-2">
-<label for="contactNo1" class="control-label">Contact&nbsp;No1:</label></div>
-<div class="col-lg-4">
-<input type="tel" name="Updated_ContactNo_one" id="Updated_ContactNo_one" class="form-control" value="' . $details['status_message'][$i]['contact_no1'] . '" placeholder="Customer Contact No1" min="0" minlength="10" required><br>
-</div>
-<div class="col-lg-2">
-<label for="contactNo2" class="control-label">Contact&nbsp;No2:</label></div>
-<div class="col-lg-4">
-<input type="tel" name="Updated_ContactNo_two" id="Updated_ContactNo_two" class="form-control" value="' . $details['status_message'][$i]['contact_no2'] . '" placeholder="Customer Contact No2" min="0" minlength="10" required><br>
-</div>
-</div>
-
-
-<div class="row">
-<div class="col-lg-2">
-<label for="bankName" class="control-label">Bank&nbsp;Name:</label></div>
-<div class="col-lg-4">
-<input type="text" name="Updated_Bank_name" id="Updated_Bank_name" class="form-control" value="' . $details['status_message'][$i]['bank_name'] . '" placeholder="Customer Bank Name" required><br>
-</div>
-<div class="col-lg-2">
-<label for="bankAddress" class="control-label">Bank&nbsp;Address:</label></div>
-<div class="col-lg-4">
-<input type="text" name="Updated_Bank_Address" id="Updated_Bank_Address" class="form-control" value="' . $details['status_message'][$i]['bank_address'] . '" placeholder="Customer Bank Address" required><br>
-</div>
-</div>
-
-<div class="row">
-<div class="col-lg-2">
-<label for="bankAccno" class="control-label">Bank&nbsp;Account.No:</label></div>
-<div class="col-lg-4">
-<input type="text" name="Updated_Bank_AccNo" id="Updated_Bank_AccNo" class="form-control" value="' . $details['status_message'][$i]['account_no'] . '" placeholder="Customer Account No" required><br>
-</div>
-<div class="col-lg-2">
-<label for="ifscNo" class="control-label">IFSC&nbsp;Code:</label></div>
-<div class="col-lg-4">
-<input type="text" name="Updated_Bank_IFSC_Code" id="Updated_Bank_IFSC_Code" class="form-control" value="' . $details['status_message'][$i]['IFSC_no'] . '" placeholder="Customer IFSC Code" required><br>
-</div>
-</div>
-
-
-<div class="row">
-<div class="col-lg-2">
-<label for="micrNo" class="control-label">MICR&nbsp;Code:</label></div>
-<div class="col-lg-4">
-<input type="text" name="Updated_Bank_MICR_Code" id="Updated_Bank_MICR_Code" class="form-control" value="' . $details['status_message'][$i]['MICR_no'] . '" placeholder="Customer MICR Code" required><br>
-</div>
-<div class="col-lg-2">
-<label for="panNo" class="control-label">PAN&nbsp;NO:</label></div>
-<div class="col-lg-4">
-<input type="text" name="Updated_PAN_No" id="Updated_PAN_No" class="form-control" placeholder="Customer PAN No" value="' . $details['status_message'][$i]['PAN_no'] . '" required><br>
-</div>
-</div>
-
-<div class="row col-lg-3 col-lg-offset-8">
-<button type="submit" class="btn btn-primary w3-padding w3-right" style="margin: 10px;">Update</button>
-</div><br>
-<div><br>
-<div id="addProducts_errnew" name="addProducts_errnew">
-</div>
-</div>
-</form>
+                                    <div class="w3-margin-top">
+                                        <center>
+                                            <button type="submit" class="btn btn-primary" >Submit</button>
+                                            <button type="reset" class="btn btn-default" >Reset</button>
+                                        </center>
+                                    </div>
+                                    <div class="row" id="addCustomerInformation_err" name="addCustomerInformation_err"></div>
+                                </form>
 
 </div>
 
@@ -261,7 +267,7 @@ $(function(){
                         </div>
                         <div class="modal-body w3-small">
                             <div class="w3-padding">
-                                <form method="POST" action="" id="VendorDetailsForm" name="VendorDetailsForm"><!-- form starts here -->
+                                <form method="POST" action="" id="customerDetailsForm" name="customerDetailsForm"><!-- form starts here -->
                                     <div class="col-lg-12">
                                         <div class="col-lg-6">
                                             <table class="">
@@ -270,7 +276,7 @@ $(function(){
                                                         <label for="CustomerName" class="control-label w3-right w3-padding-right">Customer Name:</label>
                                                     </td>
                                                     <td>
-                                                        <input type="text" name="Input_CustomerName" id="Input_CustomerName" class="form-control" placeholder="Vendor Name" required><br>
+                                                        <input type="text" name="Input_CustomerName" id="Input_CustomerName" class="form-control" placeholder="Customer Name" required><br>
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -278,7 +284,7 @@ $(function(){
                                                         <label for="CustomerAddress" class="control-label w3-right w3-padding-right">Customer Address:</label>
                                                     </td>
                                                     <td>
-                                                        <textarea name="Input_CustomerAddress" rows="5" id="Input_CustomerAddress" class="form-control" placeholder="Vendor Shop Address" required></textarea><br>
+                                                        <textarea name="Input_CustomerAddress" rows="5" id="Input_CustomerAddress" class="form-control" placeholder="Customer Address" required></textarea><br>
                                                     </td>
                                                 </tr>
 
@@ -288,32 +294,30 @@ $(function(){
                                                     <label for="CustomerEmail" class="control-label w3-right">Customer&nbsp;Email:</label>
                                                 </div>
                                                 <div class="w3-col l7">
-                                                    <input type="email" name="Input_CustomerEmail[]" id="Input_CustomerEmail" class="form-control" placeholder="Vendor Email" required>
+                                                    <input type="email" name="Input_CustomerEmail[]" id="Input_CustomerEmail" class="form-control" placeholder="Customer Email" required>
                                                     <div id="added_row"></div>
                                                     <span><a  id="add_row" class="btn add-more w3-text-blue w3-right">+Add</a></span>
                                                 </div>
                                             </div>
                                         </div>
+
                                         <div class="col-lg-6">
                                             <div class="w3-col l12">
                                                 <div class="w3-col l3 w3-margin-right ">
-                                                    <label for="ContactPerson" class="control-label w3-right">Person:</label>
+                                                    <label for="ContactPerson" class="control-label w3-right">Contact&nbsp;Person:</label>
                                                 </div>
                                                 <div class="w3-col l7 w3-margin-bottom">
-                                                    <input type="tel" name="Input_ContactPersone[]" id="Input_ContactPersone" class="form-control" placeholder="Vendor Email" required>
+                                                    <input type="tel" name="Input_ContactPerson[]" id="Input_ContactPerson" class="form-control" placeholder="Customer Persone Name" required>
                                                 </div>
                                                 <div class="w3-col l3 w3-margin-right">
                                                     <label for="ContactNo" class="control-label w3-right">Contact&nbsp;No:</label>
                                                 </div>
                                                 <div class="w3-col l7">
-                                                    <input type="tel" name="Input_ContactNo_one[]" id="Input_ContactNo_one" class="form-control" placeholder="Vendor Email" required>
+                                                    <input type="tel" name="Input_ContactNo_one[]" id="Input_ContactNo_one" class="form-control" placeholder="Customer Contact No" required>
                                                 </div>
                                                 <div id="added_Newrow"></div>
                                                 <span><a  id="add_Newrow" class="btn add-more w3-text-blue w3-right">+Add</a></span>
-
                                             </div>
-
-
                                         </div>
                                     </div>
 
@@ -324,15 +328,15 @@ $(function(){
                                             <table class="w3-margin-left">
                                                 <tr>
                                                     <td><label for="BankName" class="control-label w3-right w3-padding-right">Bank&nbsp;Name:</label></td>
-                                                    <td><input type="text" name="Input_VendorsBank_name" id="Input_VendorsBank_name" class="form-control" placeholder="Vendors Bank Name" required><br></td>
+                                                    <td><input type="text" name="Input_Bank_name" id="Input_Bank_name" class="form-control" placeholder="Customers Bank Name" required><br></td>
                                                 </tr>
                                                 <tr>
                                                     <td><label for="BankAccNo" class="control-label w3-right w3-padding-right">Account.No:</label></td>
-                                                    <td><input type="text" name="Input_VendorBank_AccNo" id="Input_VendorBank_AccNo" class="form-control" placeholder="Vendor Account No" required><br></td>
+                                                    <td><input type="text" name="Input_Bank_AccNo" id="Input_Bank_AccNo" class="form-control" placeholder="Customer Account No" required><br></td>
                                                 </tr>
                                                 <tr>
                                                     <td><label for="MICRCode" class="control-label w3-right w3-padding-right">MICR&nbsp;Code:</label></td>
-                                                    <td><input type="text" name="Input_VendorBank_MICR_Code" id="Input_VendorBank_MICR_Code" class="form-control" placeholder="Vendor MICR Code" required><br></td>
+                                                    <td><input type="text" name="Input_Bank_MICR_Code" id="Input_Bank_MICR_Code" class="form-control" placeholder="Customer MICR Code" required><br></td>
                                                 </tr>
                                             </table>
                                         </div>
@@ -340,15 +344,15 @@ $(function(){
                                             <table>
                                                 <tr>
                                                     <td><label for="BankAddress" class="control-label w3-right w3-padding-right">Bank&nbsp;Address:</label></td>
-                                                    <td><input type="text" name="Input_VendorBank_Address" id="Input_VendorBank_Address" class="form-control" placeholder="Vendors Bank Address" required><br></td>
+                                                    <td><input type="text" name="Input_Bank_Address" id="Input_Bank_Address" class="form-control" placeholder="Customers Bank Address" required><br></td>
                                                 </tr>
                                                 <tr>
                                                     <td><label for="IFSCCode" class="control-label w3-right w3-padding-right">IFSC&nbsp;Code:</label></td>
-                                                    <td><input type="text" name="Input_VendorBank_IFSC_Code" id="Input_VendorBank_IFSC_Code" class="form-control" placeholder="Vendor IFSC Code" required><br></td>
+                                                    <td><input type="text" name="Input_Bank_IFSC_Code" id="Input_Bank_IFSC_Code" class="form-control" placeholder="Customer IFSC Code" required><br></td>
                                                 </tr>
                                                 <tr>
                                                     <td><label for="PANNo" class="control-label w3-right w3-padding-right">PAN&nbsp;NO:</label></td>
-                                                    <td><input type="text" name="Input_VendorPAN_No" id="Input_VendorPAN_No" class="form-control" placeholder="Vendor PAN No" required><br></td>
+                                                    <td><input type="text" name="Input_PAN_No" id="Input_PAN_No" class="form-control" placeholder="Customer PAN No" required><br></td>
                                                 </tr>
                                             </table>
                                         </div>
@@ -360,13 +364,11 @@ $(function(){
                                             <button type="reset" class="btn btn-default" >Reset</button>
                                         </center>
                                     </div>
-                                    <div class="row" id="addCustomerInformation_err" name="addVendorInformation_err"></div>
+                                    <div class="row" id="addCustomerInformation_err" name="addCustomerInformation_err"></div>
                                 </form>
                             </div>
                         </div>
-                        <div class="modal-footer">
-                            <button type="button" onclick= "window.location.reload();" class="btn btn-default" data-dismiss="modal">Close</button>
-                        </div>
+
                     </div>
 
                 </div>
@@ -386,7 +388,7 @@ $(function(){
                             <div id="addProducts_err" name="addProducts_err"></div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" onclick= "window.location.reload();" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button type="button"  class="btn btn-default" data-dismiss="modal">Close</button>
                         </div>
                     </div>
                 </div>
@@ -394,16 +396,37 @@ $(function(){
 
         </div>
 
+        <!-- Modal -->
+        <div id="myModalnew" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <div class="modal-title" id="msg_header"></div>
+                    </div>
+                    <div class="modal-body">
+                        <div id="addCustomers_err" name="addCustomers_err"></div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" onclick="window.location.reload();" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
         <!-- script for reload page when modal is closed  -->
         <script>
-            $('#myModal').on('hidden.bs.modal', function () {
-                location.reload();
-            });
+//            $('#myModal').on('hidden.bs.modal', function () {
+//                location.reload();
+//            });
         </script>
         <!-- script for reload page when modal is closed  -->
         <script>
             $(document).ready(function () {
-                var max_fields = 4;
+                var max_fields = 3;
                 var wrapper = $("#added_row");
                 var add_button = $("#add_row");
 
@@ -412,7 +435,7 @@ $(function(){
                     e.preventDefault();
                     if (x < max_fields) {
                         x++;
-                        $(wrapper).append('<div class=""><a href="#" class="delete w3-text-grey w3-right fa fa-remove" title="Delete email field"></a><input type="email" name="Input_VendorEmail[]" id="Input_VendorEmail" class="form-control" placeholder="Vendor Email" required></div>'); //add input box
+                        $(wrapper).append('<div class=""><a href="#" class="delete w3-text-grey w3-right fa fa-remove" title="Delete email field"></a><input type="email" name="Input_CustomerEmail[]" id="Input_CustomerEmail" class="form-control" placeholder="Customer Email" required></div>'); //add input box
 
                     } else
                     {
@@ -438,7 +461,7 @@ $(function(){
                     e.preventDefault();
                     if (x < max_fields) {
                         x++;
-                        $(wrapper).append('<div class="w3-col l12 w3-margin-top"><a href="#" class="delete w3-text-grey w3-right fa fa-remove" title="Delete Contact field"></a><div class="w3-col l3 w3-margin-right "><label for="ContactPerson" class="control-label w3-right">Person '+x+':</label></div><div class="w3-col l7 w3-margin-bottom"><input type="tel" name="Input_ContactPersone[]" id="Input_ContactPersone" class="form-control" placeholder="Vendor Email" required></div><div class="w3-col l3 w3-margin-right"><label for="ContactNo" class="control-label w3-right">Contact&nbsp;No '+x+':</label></div><div class="w3-col l7"><input type="tel" name="Input_ContactNo_one[]" id="Input_ContactNo_one" class="form-control" placeholder="Vendor Email" required></div></div><br>'); //add input box
+                        $(wrapper).append('<div class="w3-col l12 w3-margin-top"><a href="#" class="delete w3-text-grey w3-right fa fa-remove" title="Delete Contact field"></a><div class="w3-col l3 w3-margin-right "><label for="ContactPerson" class="control-label w3-right">Person ' + x + ':</label></div><div class="w3-col l7 w3-margin-bottom"><input type="tel" name="Input_ContactPerson[]" id="Input_ContactPerson" class="form-control" placeholder="Customer Contact Person" required></div><div class="w3-col l3 w3-margin-right"><label for="ContactNo" class="control-label w3-right">Contact&nbsp;No ' + x + ':</label></div><div class="w3-col l7"><input type="tel" name="Input_ContactNo_one[]" id="Input_ContactNo_one" class="form-control" placeholder="Customer Contact No" required></div></div><br>'); //add input box
 
                     } else
                     {
