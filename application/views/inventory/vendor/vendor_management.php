@@ -275,7 +275,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                         <label for="CustomerName" class="control-label w3-right w3-padding-right">Vendor&nbsp;Name:</label>
                                                     </td>
                                                     <td>
-                                                        <input type="text" name="Input_VendorName" id="Input_CustomerName" class="form-control" placeholder="Vendor Name" required><br>
+                                                        <input type="text" name="Input_VendorName" id="Input_VendorName" class="form-control" placeholder="Vendor Name" required><br>
                                                     </td>
                                                 </tr>
                                                 <tr>
