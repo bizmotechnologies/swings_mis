@@ -22,13 +22,50 @@ class ManageMaterial_model extends CI_Model {
 
     /* fun ends here */
 
+    public function getRawMaterialInfo() { /* this  function is used for material records  */
+        $query = "SELECT * FROM raw_materialstock";
+        $result = $this->db->query($query);
+        if ($result->num_rows() >= 0) {
+            $response = array(
+                'status' => 1,
+                'status_message' => $result->result_array());
+        } else {
+            $response = array(
+                'status' => 0,
+                'status_message' => 'No records found');
+        }
+        return $response;
+    }
+
+    /* fun ends here */
+
+ //----this fun is used to get all raw material information-----//
+ public function GetMaterilaInformation($data){
+     extract($data);
+     $query = "SELECT * FROM raw_materialstock WHERE material_id = ".$material_id;
+        $result = $this->db->query($query);
+        if ($result->num_rows() > 0) {
+            $response = array(
+                'status' => 1,
+                'status_message' => $result->result_array());
+        } else {
+            $response = array(
+                'status' => 0,
+                'status_message' => 'No records found');
+        }
+        return $response;
+    
+ }
+ //----this fun is used to get all raw material information ends here-----//
+    
+    
 // this function is used to save materials///////////
     public function saveMaterial($data) {
         extract($data);
         //print_r($data);
         $sql = "INSERT INTO materials
 		(material_name,material_color) 
-        VALUES ('".strtoupper($material_nameForStock)."','".strtoupper($materialColor_ForStock)."')";
+        VALUES ('" . strtoupper($material_nameForStock) . "','" . strtoupper($materialColor_ForStock) . "')";
         //echo $sql; die();
         $result = $this->db->query($sql);
 

@@ -10,6 +10,7 @@ class ManageMaterial_api extends REST_Controller {
         parent::__construct();
         $this->load->model('inventory_model/ManageMaterial_model');
     }
+
     // ----------------------- SAVE MATERIAL API----------------------//
     //-------------------------------------------------------------//
     public function saveMaterial_post() {
@@ -17,6 +18,7 @@ class ManageMaterial_api extends REST_Controller {
         $response = $this->ManageMaterial_model->saveMaterial($data);
         return $this->response($response);
     }
+
     //---------------------SAVE MATERIAL API END------------------------------//
     // -----------------------GET ALL MATERIAL INFO API-----------------------------//
     //------------------------------------------------------------------------//
@@ -24,6 +26,7 @@ class ManageMaterial_api extends REST_Controller {
         $result = $this->ManageMaterial_model->getMaterialrecord();
         return $this->response($result);
     }
+
     //---------------------GET ALL MATERIAL INFO END------------------------------//
     // -----------------------EDIT MATERIAL RECORD API----------------------//
     //-------------------------------------------------------------//
@@ -32,6 +35,7 @@ class ManageMaterial_api extends REST_Controller {
         $new = $this->ManageMaterial_model->updateRecord($data);
         return $this->response($new);
     }
+
     //---------------------EDIT MATERIAL END------------------------------//
     // -----------------------DELETE MATERIAL API----------------------//
     public function deleteRecord_get() {
@@ -39,5 +43,22 @@ class ManageMaterial_api extends REST_Controller {
         $response = $this->ManageMaterial_model->deleteRecord($data);
         return $this->response($response);
     }
+
     //---------------------DELETE MATERIAL END------------------------------//
+    // -----------------------GET ALL MATERIAL INFO API-----------------------------//
+    //------------------------------------------------------------------------//
+    public function getRawMaterialInfo_get() {
+        $result = $this->ManageMaterial_model->getRawMaterialInfo();
+        return $this->response($result);
+    }
+
+    //---------------------GET ALL MATERIAL INFO END------------------------------//
+    //-----this fun is used to get material info----------------------------//
+    public function GetMaterilaInformation_get() {
+        $data = $_GET;
+        $result = $this->ManageMaterial_model->GetMaterilaInformation($data);
+        return $this->response($result);
+    }
+
+    //-----this fun is used to get material info----------------------------//
 }
