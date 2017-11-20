@@ -108,7 +108,7 @@ $(function(){
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal">&times;</button>
-<h4 class="modal-title" id="msg_headernew">Customer Details</h4>
+<h4 class="modal-title w3-xlarge" id="msg_headernew">Customer Details</h4>
 </div>
 <div class="modal-body"> 
 
@@ -215,11 +215,9 @@ $(function(){
                                         </div>
                                     </div>
 
-                                    <div class="w3-margin-top">
-                                        <center>
-                                            <button type="submit" class="btn btn-primary" >Submit</button>
-                                            <button type="reset" class="btn btn-default" >Reset</button>
-                                        </center>
+                                    <div class="w3-margin-top w3-right">
+                                    
+                                            <button type="submit" class="btn btn-primary w3-margin-top" >Update Customer</button>
                                     </div>
                                     <div class="row" id="addCustomerInformation_err" name="addCustomerInformation_err"></div>
 </div>                                
@@ -256,7 +254,7 @@ $(function(){
                     <div class="modal-content">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <div>Add Customer Information</div>
+                            <div class="w3-xlarge w3-center">Add Customer Information</div>
                         </div>
                         <div class="modal-body w3-small">
                             <div class="w3-padding">
@@ -353,6 +351,7 @@ $(function(){
 
                                     <div class="w3-margin-top">
                                         <center>
+                                            <br>
                                             <button type="submit" class="btn btn-primary" >Submit</button>
                                             <button type="reset" class="btn btn-default" >Reset</button>
                                         </center>

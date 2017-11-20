@@ -48,11 +48,11 @@ error_reporting(E_ERROR | E_PARSE);
 
                                 <div class="w3-col l3 w3-padding-left w3-padding-bottom">
                                     <label class="w3-label">Material Name:</label>
-                                    <input type="text" placeholder="Material Name" class="form-control" style="text-transform:uppercase;" id="material_nameForStock" name="material_nameForStock">
+                                    <input type="text" placeholder="Material Name" class="form-control" style="text-transform:uppercase;" id="material_nameForStock" name="material_nameForStock" required>
                                 </div>
                                 <div class="w3-col l3 w3-padding-left w3-padding-bottom">
                                     <label class="w3-label">Material Color:</label>
-                                    <input type="text" autocomplete="off"  placeholder="Material Color" class="form-control" style="text-transform:uppercase;" id="materialColor_ForStock" name="materialColor_ForStock">
+                                    <input type="text" autocomplete="off"  placeholder="Material Color" class="form-control" style="text-transform:uppercase;" id="materialColor_ForStock" name="materialColor_ForStock" required>
                                 </div>
 
                                 <div class="w3-col l1 w3-padding-top w3-padding-left w3-padding-right ">
@@ -69,7 +69,7 @@ error_reporting(E_ERROR | E_PARSE);
                                         <?php } ?>
                                     </select>
                                     <span class="input-group-btn">
-                                        <button class="btn btn-secondary w3-blue" type="button" onclick="Delete_material();"><i class="fa fa-trash"></i></button>
+                                        <button class="btn btn-secondary w3-blue" type="button" title="Delete Material" onclick="Delete_material();"><i class="fa fa-trash"></i></button>
                                     </span>
                                 </div>
                             </div>
@@ -113,7 +113,7 @@ error_reporting(E_ERROR | E_PARSE);
                           <td class="text-center">' . $details['status_message'][$i]['raw_OD'] . '</td>
                           <td class="text-center">' . $details['status_message'][$i]['avail_length'] . '</td>
                           <td class="text-center">' . $details['status_message'][$i]['raw_quantity'] . '</td>
-                          <td class="text-center"><a class="btn w3-red w3-medium w3-padding-small" title="DeleteCustomer" href="' . base_url() . 'inventory/MaterialStock_Management/DeleteRawMaterialStockDetails?rawmaterial_id=' . $details['status_message'][$i]['rawmaterial_id'] . '" style="padding:0"><i class="fa fa-close"></i></a>
+                          <td class="text-center"><a class="btn w3-red w3-medium w3-padding-small" title="Delete Raw Material" href="' . base_url() . 'inventory/MaterialStock_Management/DeleteRawMaterialStockDetails?rawmaterial_id=' . $details['status_message'][$i]['rawmaterial_id'] . '" style="padding:0"><i class="fa fa-close"></i></a>
 
                           <!-- Modal  starts here-->
 
@@ -541,7 +541,7 @@ $("#myModal_' . $details['status_message'][$i]['rawmaterial_id'] . '").on("hidde
                          </div>
                          </div>
 
-
+                         <br>
                          <div class="w3-right">
                          <button type="submit" class="btn btn-primary">Save Stock</button></div><br><br>
                          <div class="w3-margin-bottom w3-col l12 w3-small w3-center" id="Updatestock_errnew_' . $Purchased['status_message'][$i]['purchased_product_id'] . '"></div><br><br><br>

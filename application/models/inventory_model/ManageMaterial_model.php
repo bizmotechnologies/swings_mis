@@ -28,7 +28,7 @@ class ManageMaterial_model extends CI_Model {
         //print_r($data);
         $sql = "INSERT INTO materials
 		(material_name,material_color) 
-        VALUES ('$material_nameForStock','$materialColor_ForStock')";
+        VALUES ('".strtoupper($material_nameForStock)."','".strtoupper($materialColor_ForStock)."')";
         //echo $sql; die();
         $result = $this->db->query($sql);
 

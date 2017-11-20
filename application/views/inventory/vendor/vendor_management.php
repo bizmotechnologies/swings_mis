@@ -41,8 +41,8 @@ error_reporting(E_ERROR | E_PARSE);
                                     <th class="text-center">SR. No</th>
                                     <th class="text-center">Vendor&nbsp;Name</th>  
                                     <th class="text-center">Vendor&nbsp;Email</th>              
-                                    <th class="text-center">ShopName</th>              
-                                    <th class="text-center">Address</th>              
+                                    <th class="text-center">Shop Name</th>              
+                                    <th class="text-center">Shop Address</th>              
                                     <th class="text-center">Contact&nbsp;No</th>          
                                     <th class="text-center">Actions</th>                                           
                                 </tr>
@@ -105,7 +105,7 @@ error_reporting(E_ERROR | E_PARSE);
  <div class="modal-content">
  <div class="modal-header">
  <button type="button" class="close" data-dismiss="modal">&times;</button>
- <h4 class="modal-title" id="msg_headernew">Update Vendor Details</h4>
+ <h4 class="modal-title w3-xlarge" id="msg_headernew">Update Vendor Details</h4>
  </div>
  <div class="modal-body w3-small">
 
@@ -220,11 +220,8 @@ error_reporting(E_ERROR | E_PARSE);
                                         </div>
                                     </div>
 
-                                    <div class="w3-margin-top">
-                                        <center>
-                                            <button type="submit" class="btn btn-primary" >Submit</button>
-                                            <button type="reset" class="btn btn-default" >Reset</button>
-                                        </center>
+                                    <div class="w3-margin-top w3-right">
+                                            <button type="submit" class="btn btn-primary" >Update Vendor</button>
                                     </div>
                                     <div class="row" id="addVendorInformation_err" name="addVendorInformation_err"></div>
                                
