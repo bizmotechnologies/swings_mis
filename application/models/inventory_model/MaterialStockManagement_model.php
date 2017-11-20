@@ -166,11 +166,11 @@ class MaterialStockManagement_model extends CI_Model {
         $material_name = $this->ManageProduct_model->getMaterialdata($Select_RawMaterials);
 
         $sqlnew = "INSERT INTO raw_materialstock(material_id,vendor_id,material_name,raw_ID,"
-                . "raw_OD,avail_length,raw_quantity,material_price,accepted_date)"
+                . "raw_OD,avail_length,raw_quantity,material_price,tolerance,accepted_date)"
                 . " values ('$Select_RawMaterials','$Select_RawVendors_Id',"
                 . "'$material_name','$Input_RawMaterialStock_ID',"
                 . "'$Input_RawMaterialStock_OD','$Input_RawMaterialLength',"
-                . "'$Input_RawMaterialNewQuantity','$price',now())";
+                . "'$Input_RawMaterialNewQuantity','$price','$Input_RawMaterialTolerance',now())";
         //echo $sqlnew;die();
         $resultnew = $this->db->query($sqlnew);
 
@@ -283,7 +283,7 @@ class MaterialStockManagement_model extends CI_Model {
 		material_id = '$Select_RawMaterials_Id', vendor_id = '$Select_RawVendor_Id',
 		material_name = '$material_name', raw_ID = '$Updated_MaterialStock_OD',
 		raw_OD = '$Updated_MaterialStock_OD',avail_length = '$Updated_MaterialLength',
-		raw_quantity = '$Updated_MaterialNewQuantity' WHERE rawmaterial_id = '$rawmaterial_id'";
+		raw_quantity = '$Updated_MaterialNewQuantity',tolerance ='$Updated_RawMaterialTolerance' WHERE rawmaterial_id = '$rawmaterial_id'";
         //echo $sql; die();
         $resultUpadate = $this->db->query($sql);
 

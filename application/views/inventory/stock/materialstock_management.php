@@ -98,6 +98,8 @@ error_reporting(E_ERROR | E_PARSE);
                                                 <th class="text-center">ID</th>              
                                                 <th class="text-center">OD</th>              
                                                 <th class="text-center">Available&nbsp;Length</th>              
+                                                <th class="text-center">Tolerance</th>
+                                                <th class="text-center">Price/Unit</th>
                                                 <th class="text-center">Quantity</th>
                                                 <th class="text-center">Actions</th>                                           
                                             </tr>
@@ -112,6 +114,8 @@ error_reporting(E_ERROR | E_PARSE);
                           <td class="text-center">' . $details['status_message'][$i]['raw_ID'] . '</td>
                           <td class="text-center">' . $details['status_message'][$i]['raw_OD'] . '</td>
                           <td class="text-center">' . $details['status_message'][$i]['avail_length'] . '</td>
+                          <td class="text-center">' . $details['status_message'][$i]['tolerance'] . '</td>
+                          <td class="text-center">' . $details['status_message'][$i]['material_price'] . ' <i class="fa fa-rupee"></i></td>
                           <td class="text-center">' . $details['status_message'][$i]['raw_quantity'] . '</td>
                           <td class="text-center"><a class="btn w3-red w3-medium w3-padding-small" title="Delete Raw Material" href="' . base_url() . 'inventory/MaterialStock_Management/DeleteRawMaterialStockDetails?rawmaterial_id=' . $details['status_message'][$i]['rawmaterial_id'] . '" style="padding:0"><i class="fa fa-close"></i></a>
 
@@ -184,7 +188,7 @@ error_reporting(E_ERROR | E_PARSE);
 
                          <div class="row">
                          <div class="col-lg-3">
-                         <label>Select Material</label> 
+                         <label>Select Vendor</label> 
                          </div>
                          <div class="col-lg-6">                   
                          <select class="form-control" name="Select_RawVendor_Id" id="Select_RawVendor_Id" required> <!-- this is for showing material stocks quantity -->
@@ -329,6 +333,15 @@ $("#myModal_' . $details['status_message'][$i]['rawmaterial_id'] . '").on("hidde
                                                     <input type="number" name="Input_RawMaterialNewQuantity" id="Input_RawMaterialNewQuantity" class="form-control" placeholder="Material Quantity" step="0.01" required><br>
                                                 </div>      
                                             </div>
+                                            
+                                            <div class="row">
+                                                <div class="col-lg-3">
+                                                    <label class="padding-left">Tolerance:</label>
+                                                </div>
+                                                <div class="col-lg-6">
+                                                    <input type="number" name="Input_RawMaterialTolerance" id="Input_RawMaterialTolerance" class="form-control" placeholder="Material Tolerance" step="0.01" required><br>
+                                                </div>      
+                                            </div>
 
                                             <div class="row">
                                                 <div class="col-lg-6">
@@ -341,7 +354,7 @@ $("#myModal_' . $details['status_message'][$i]['rawmaterial_id'] . '").on("hidde
                                                     <label class="padding-left">Price:</label>
                                                 </div>
                                                 <div class="col-lg-6">
-                                                    <input type="number" name="Input_RawMaterialPrice" id="Input_RawMaterialPrice" class="form-control" placeholder="Material Quantity" step="0.01" ><br>
+                                                    <input type="number" name="Input_RawMaterialPrice" id="Input_RawMaterialPrice" class="form-control" placeholder="Material Price" step="0.01" ><br>
                                                 </div>      
                                             </div>
                                             <br>
@@ -351,7 +364,7 @@ $("#myModal_' . $details['status_message'][$i]['rawmaterial_id'] . '").on("hidde
                                                     <label class="padding-left">Fetched&nbsp;Price:</label>
                                                 </div>
                                                 <div class="col-lg-6">
-                                                    <input type="number" name="Input_RawMaterialPriceFrom_Pricelist" id="Input_RawMaterialPriceFrom_Pricelist" class="form-control" placeholder="Material Quantity" step="0.01" ><br>
+                                                    <input type="number" name="Input_RawMaterialPriceFrom_Pricelist" id="Input_RawMaterialPriceFrom_Pricelist" class="form-control" placeholder="Material Price" step="0.01" ><br>
                                                 </div>      
                                             </div>
 
