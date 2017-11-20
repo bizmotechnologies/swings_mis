@@ -34,13 +34,6 @@ error_reporting(E_ERROR | E_PARSE);
           </div>
         </a>
 
-        <a class="btn w3-col l2  w3-round-xxlarge w3-card-4 w3-center w3-hover-light-blue w3-red w3-padding-16 w3-margin-right w3-margin-bottom" href="<?php echo base_url(); ?>inventory/manage_materials">
-          <div class="w3-col l12"><i class="fa fa-delicious w3-xxxlarge"></i></div>
-          <div class="w3-col l12"><br>
-            <span class="w3-small">Manage Materials</span>
-          </div>
-        </a>
-
         <a class="btn w3-col l2  w3-round-xxlarge w3-card-4 w3-center w3-hover-light-blue w3-red w3-padding-16 w3-margin-right w3-margin-bottom" href="<?php echo base_url(); ?>inventory/materialStock_Management">
           <div class="w3-col l12"><i class="fa fa-cubes w3-xxxlarge"></i></div>
           <div class="w3-col l12"><br>

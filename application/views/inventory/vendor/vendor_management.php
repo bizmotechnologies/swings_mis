@@ -1,6 +1,6 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-//error_reporting(E_ERROR | E_PARSE);
+error_reporting(E_ERROR | E_PARSE);
 ?>
 <!DOCTYPE html>
 <html>
@@ -11,10 +11,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <link rel="stylesheet" href="<?php echo base_url(); ?>css/font awesome/font-awesome.min.css">
         <link rel="stylesheet" href="<?php echo base_url(); ?>css/font awesome/font-awesome.css">
         <link rel="stylesheet" href="<?php echo base_url(); ?>css/w3.css">
-        <!-- <link rel="stylesheet" href="assets/css/alert/jquery-confirm.css">
-        --><script type="text/javascript" src="<?php echo base_url(); ?>css/bootstrap/jquery-3.1.1.js"></script>
+        <link rel="stylesheet" href="<?php echo base_url(); ?>css/alert/jquery-confirm.css">
+       <script type="text/javascript" src="<?php echo base_url(); ?>css/bootstrap/jquery-3.1.1.js"></script>
         <script type="text/javascript" src="<?php echo base_url(); ?>css/bootstrap/bootstrap.min.js"></script>
-        <!-- <script type="text/javascript" src="assets/css/alert/jquery-confirm.js"></script>-->
+         <script type="text/javascript" src="<?php echo base_url(); ?>css/alert/jquery-confirm.js"></script>
         <script type="text/javascript" src="<?php echo base_url(); ?>css/js/inventory/vendor_management.js"></script>
 
     </head>
@@ -164,7 +164,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                     <label for="VendorEmail" class="control-label w3-right">Vendor&nbsp;Email:</label>
                                                 </div>
                                                 <div class="w3-col l7">
-                                                    <div id="added_row">';
+                                                    <div id="added_rowUpdated">';
                                             for ($key = 0; $key < count($email_arr); $key++) {
                                                 echo '<input type="email" name="Updated_VendorEmail[]" id="Updated_VendorEmail" class="form-control w3-margin-bottom" value="' . $email_arr[$key] . '" placeholder="Vendor Email">';
                                             }
@@ -260,7 +260,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <div class="modal-content">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <div>Add Vendor Information</div>
+                            <div class="w3-xlarge w3-center">Add Vendor Information</div>
                         </div>
                         <div class="modal-body w3-small">
                             <div class="w3-padding">
@@ -434,7 +434,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
                 } else
                 {
-                    alert('You Reached the limits')		//alert when added more than 4 input fields
+                    $.alert('You Reached the maximum limit of 4')		//alert when added more than 4 input fields
                 }
             });
 
