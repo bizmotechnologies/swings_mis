@@ -23,27 +23,27 @@ error_reporting(E_ERROR | E_PARSE);
 
             <!-- Header -->
             <header class="w3-container" >
-                <h5><b><i class="fa fa-users"></i> Manage Stocks</b></h5>
+                <h5><b><i class="fa fa-cubes"></i> Manage Stocks</b></h5>
             </header>
 
             <div id="exTab1" class="container"> <!-- container for tab -->
-                <div><b>Material Stock Management</b></div><br>
+                <br>
                 <ul  class="nav nav-tabs">
                     <li class="active"><a  href="#RawMaterialStock" data-toggle="tab">Raw Material Stock</a>
                     </li>
-                    <li><a href="#PurchasedProducts" data-toggle="tab">Purchased Products Stock</a>
+<!--                    <li><a href="#PurchasedProducts" data-toggle="tab">Purchased Products Stock</a>
                     </li>
                     <li><a href="#FinishedProducts" data-toggle="tab">Finished Product Stock</a>
-                    </li>
+                    </li>-->
                 </ul>
 
                 <div class="tab-content clearfix"><br><!-- tab containt starts -->
 
                     <div class="tab-pane active" id="RawMaterialStock">  <!-- tab for Raw material starts here -->
 
-                        <div class="col-lg-12"><label>Manage Material</label>
+                        <div class="col-lg-12"><label>Add new Material</label>
                         </div>
-                        <div class="w3-col l12 w3-margin-top">
+                        <div class="w3-col l12 w3-margin-top w3-small">
                             <form id="Add_material_form">
 
                                 <div class="w3-col l3 w3-padding-left w3-padding-bottom">
@@ -78,15 +78,20 @@ error_reporting(E_ERROR | E_PARSE);
                         </div><br>
                         <div class="w3-col l12 w3-padding"><!-- table container -->
                             <hr>
-                            <div>
-                                <div><!-- container starts here -->
-                                    <div class="w3-left">
+                            
+                            <div class="">
+
+                                <div class=" w3-col l12"><!-- container starts here -->
+                                                                                                                <div class="w3-col l12"><label>Manage Raw Material</label></div><br>
+
+                                    <div class="w3-left w3-margin-top">
+
                                         <button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal">Add Raw Material</button><br>
-                                    </div><br><br>
+                                    </div>
                                 </div><br><!-- container ends here -->
-                                <div>
-                                    <div class="w3-margin-right" id="ShowRaw_products" name="ShowRaw_products" style="max-height: 400px; overflow: scroll;">
-                                        <table class="table table-bordered table-responsive" >            <!-- table starts here -->
+                                <div class="w3-col l12 w3-margin-top">
+                                    <div class="" id="ShowRaw_products" name="ShowRaw_products" style="max-height: 400px; overflow: scroll;">
+                                        <table class="table table-bordered table-responsive w3-small" >            <!-- table starts here -->
                                             <tr >
                                                 <th class="text-center">SR. No</th>
                                                 <th class="text-center">Material&nbsp;Name</th>  
@@ -108,8 +113,7 @@ error_reporting(E_ERROR | E_PARSE);
                           <td class="text-center">' . $details['status_message'][$i]['raw_OD'] . '</td>
                           <td class="text-center">' . $details['status_message'][$i]['avail_length'] . '</td>
                           <td class="text-center">' . $details['status_message'][$i]['raw_quantity'] . '</td>
-                          <td class="text-center"><a class="btn w3-blue w3-medium w3-padding-small" title="UpdateCustomer" data-toggle="modal" data-target="#myModalnew_' . $details['status_message'][$i]['rawmaterial_id'] . '" style="padding:0"><i class="fa fa-edit"></i></a>
-                          <a class="btn w3-red w3-medium w3-padding-small" title="DeleteCustomer" href="' . base_url() . 'inventory/MaterialStock_Management/DeleteRawMaterialStockDetails?rawmaterial_id=' . $details['status_message'][$i]['rawmaterial_id'] . '" style="padding:0"><i class="fa fa-close"></i></a>
+                          <td class="text-center"><a class="btn w3-red w3-medium w3-padding-small" title="DeleteCustomer" href="' . base_url() . 'inventory/MaterialStock_Management/DeleteRawMaterialStockDetails?rawmaterial_id=' . $details['status_message'][$i]['rawmaterial_id'] . '" style="padding:0"><i class="fa fa-close"></i></a>
 
                           <!-- Modal  starts here-->
 
@@ -257,11 +261,11 @@ $("#myModal_' . $details['status_message'][$i]['rawmaterial_id'] . '").on("hidde
                                 <div class="modal-content">
                                     <div class="modal-header">
                                         <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                        <div>Manage Stock Material</div>
+                                        <div class="w3-xlarge w3-center">Add Raw Materials</div>
                                     </div>
-                                    <div class="modal-body ">
+                                    <div class="modal-body w3-small">
                                         <form method="POST" action="" id="Manage_RawMaterialForm" name="Manage_RawMaterialForm">
-
+                                            <div class="w3-padding-left col-lg-offset-1">
                                             <div class="row">
                                                 <div class="col-lg-3">
                                                     <label class="padding-left">Select&nbsp;Material:</label> 
@@ -356,7 +360,7 @@ $("#myModal_' . $details['status_message'][$i]['rawmaterial_id'] . '").on("hidde
                                                 <button type="reset" class="btn btn-default">Reset</button>
                                             </center><br><br>
                                             <div class="w3-margin-bottom w3-col l12 w3-small" id="addProducts_err"></div><br><br><br>
-
+                                            </div>
                                         </form><!-- form ends here -->
                                     </div>
                                 </div>

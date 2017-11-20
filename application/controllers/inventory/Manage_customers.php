@@ -99,7 +99,31 @@ class Manage_customers extends CI_controller {
 
         extract($_POST);
         $data = $_POST;
-
+        
+        $emailArr = array();
+        foreach ($Updated_CustomerEmail as $key) {
+            $emailArr[] = $key;  //---------create array of roles to store in feature table
+        }
+        $contactno = array();
+        foreach ($Updated_ContactNo_one as $value) {
+            $contactno[] = $value;
+        }
+        $contactperson = array();
+        foreach ($Updated_ContactPerson as $name) {
+            $contactperson[] = $name;
+        }
+        $contact_arr=array();
+        for($i=0;$i<count($contactno);$i++){
+        $contact=array(
+            'contact_person'    => $contactperson[$i],
+            'contact_number'    => $contactno[$i]
+        );
+        $contact_arr[]=$contact;
+        }
+//        print_r(json_encode($contact_arr));die();
+        $data['Updated_CustomerEmail'] = json_encode($emailArr);
+        $data['contact'] = json_encode($contact_arr);
+        //print_r($data); die();
         $path = base_url();
         $url = $path . 'api/ManageCustomer_api/Update_CustomerDetails';
         $ch = curl_init($url);

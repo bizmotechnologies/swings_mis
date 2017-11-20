@@ -11,7 +11,7 @@ var base_url = 'http://localhost/swings_mis/';
 $(function () {
     $("#customerDetailsForm").submit(function () {
         dataString = $("#customerDetailsForm").serialize();
-                alert('njgn');
+                //alert('njgn');
 
         $.ajax({
             type: "POST",

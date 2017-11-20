@@ -58,9 +58,7 @@ class ManageCustomer_model extends CI_Model {
         extract($data);
 
         $sql = "UPDATE customer_details SET customer_name = '$Updated_CustomerName',
-  customer_email = '$Updated_CustomerEmail',country = '$SelectUpdated_Country',
-  state = '$SelectUpdated_State',city = '$Update_City',
-  contact_no1 = '$Updated_ContactNo_one',contact_no2 = '$Updated_ContactNo_two',
+  customer_email = '$Updated_CustomerEmail',customer_address = '$Updated_CustomerAddress',contact = '$contact',
   bank_name = '$Updated_Bank_name' ,bank_address = '$Updated_Bank_Address' ,
   account_no = '$Updated_Bank_AccNo' , IFSC_no = '$Updated_Bank_IFSC_Code' ,
   MICR_no = '$Updated_Bank_MICR_Code' ,PAN_no = '$Updated_PAN_No' WHERE cust_id ='$new_Cust_id'";

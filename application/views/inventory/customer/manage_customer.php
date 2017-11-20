@@ -68,16 +68,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               <td class="text-center"><a class="btn w3-blue w3-medium w3-padding-small" title="UpdateCustomer" data-toggle="modal" data-target="#myModal_' . $details['status_message'][$i]['cust_id'] . '" style="padding:0"><i class="fa fa-edit"></i></a>
               <a class="btn w3-red w3-medium w3-padding-small" title="DeleteCustomer" href="' . base_url() . 'inventory/Manage_customers/DeleteCustomerDetails?Customer_id=' . $details['status_message'][$i]['cust_id'] . '" style="padding:0"><i class="fa fa-close"></i></a>
 
-              <script type="text/javascript">
-              <!-- script is for showing country for select state  -->
-
-              $(document).ready(function () {
-
-                print_country("SelectUpdated_Country_' . $details['status_message'][$i]['cust_id'] . '");
-              //console.log(print_country);
-              });
-              <!-- script is for showing country for select state  -->
-</script>
+              
 
 <script>
 /*this script is used to update customer details*/
@@ -125,6 +116,7 @@ $(function(){
 <div class="w3-center">
 <input type="hidden" class="" id="new_Cust_id" name="new_Cust_id" value="' . $details['status_message'][$i]['cust_id'] . '">
 </div>
+<div class="w3-small">
 <div class="col-lg-12">
                                         <div class="col-lg-6">
                                             <table class="">
@@ -133,7 +125,7 @@ $(function(){
                                                         <label for="CustomerName" class="control-label w3-right w3-padding-right">Customer Name:</label>
                                                     </td>
                                                     <td>
-                                                        <input type="text" name="Input_CustomerName" id="Input_CustomerName" value="' . $details['status_message'][$i]['customer_name'] . '" class="form-control" placeholder="Customer Name" required><br>
+                                                        <input type="text" name="Updated_CustomerName" id="Updated_CustomerName" value="' . $details['status_message'][$i]['customer_name'] . '" class="form-control" placeholder="Customer Name" required><br>
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -141,7 +133,7 @@ $(function(){
                                                         <label for="CustomerAddress" class="control-label w3-right w3-padding-right">Customer Address:</label>
                                                     </td>
                                                     <td>
-                                                        <textarea name="Input_CustomerAddress" rows="5" id="Input_CustomerAddress" value="" class="form-control" placeholder="Customer Address" required>' . $details['status_message'][$i]['customer_address'] . '</textarea><br>
+                                                        <textarea name="Updated_CustomerAddress" rows="5" id="Updated_CustomerAddress" value="" class="form-control" placeholder="Customer Address" required>' . $details['status_message'][$i]['customer_address'] . '</textarea><br>
                                                     </td>
                                                 </tr>
 
@@ -151,7 +143,7 @@ $(function(){
                                                     <label for="CustomerEmail" class="control-label w3-right">Customer&nbsp;Email:</label>
                                                 </div>
                                                 <div class="w3-col l7">
-                                                    <div id="added_row">';
+                                                    <div id="added_rowUpdated">';
                                             for ($key = 0; $key < count($email_arr); $key++) {
                                                 echo '<input type="email" name="Updated_CustomerEmail[]" id="Updated_CustomerEmail" class="form-control w3-margin-bottom" value="' . $email_arr[$key] . '" placeholder="Vendor Email">';
                                             }
@@ -163,25 +155,25 @@ $(function(){
                                         <div class="col-lg-6">
                                             <div class="w3-col l12">
                                                
-                                                <div id="added_Newrow">';
+                                                <div id="added_NewrowUpdated" class="w3-col l12">';
                                             foreach ($contact as $key) {
-                                                echo'<div class="w3-col 12l">
+                                                echo'
+                                                    <div class="w3-col l12 w3-margin-bottom">
                                                     <div class="w3-col l3 w3-margin-right w3-padding-left">
                                                     <label for="ContactPerson" class="control-label w3-right">Contact&nbsp;Person:</label>
                                                 </div>
                                                 <div class="w3-col l7 w3-margin-bottom">
-                                                    <input type="tel" name="Input_ContactPerson[]" id="Input_ContactPerson" value="' . $key['contact_person'] . '" class="form-control" placeholder="Customer Persone Name" required>
+                                                    <input type="tel" name="Updated_ContactPerson[]" id="Updated_ContactPerson" value="' . $key['contact_person'] . '" class="form-control" placeholder="Customer Persone Name" required>
                                                 </div>
                                                 <div class="w3-col l3 w3-margin-right w3-padding-left">
                                                     <label for="ContactNo" class="control-label w3-right">Contact&nbsp;No:</label>
                                                 </div>
                                                 <div class="w3-col l7">
-                                                    <input type="tel" name="Input_ContactNo_one[]" id="Input_ContactNo_one" value="' . $key['contact_number'] . '" class="form-control" placeholder="Customer Contact No" required>
+                                                    <input type="tel" name="Updated_ContactNo_one[]" id="Updated_ContactNo_one" value="' . $key['contact_number'] . '" class="form-control" placeholder="Customer Contact No" required>
                                                 </div>
                                                 </div><br>';
                                             }
                                             echo'</div>
-                                                <span><a  id="add_Newrow" class="btn add-more w3-text-blue w3-right">+Add</a></span>
                                             </div>
                                         </div>
                                     </div>
@@ -193,15 +185,15 @@ $(function(){
                                             <table class="w3-margin-left">
                                                 <tr>
                                                     <td><label for="BankName" class="control-label w3-right w3-padding-right">Bank&nbsp;Name:</label></td>
-                                                    <td><input type="text" name="Input_Bank_name" id="Input_Bank_name" value="' . $details['status_message'][$i]['bank_name'] . '" class="form-control" placeholder="Customers Bank Name" required><br></td>
+                                                    <td><input type="text" name="Updated_Bank_name" id="Updated_Bank_name" value="' . $details['status_message'][$i]['bank_name'] . '" class="form-control" placeholder="Customers Bank Name" required><br></td>
                                                 </tr>
                                                 <tr>
                                                     <td><label for="BankAccNo" class="control-label w3-right w3-padding-right">Account.No:</label></td>
-                                                    <td><input type="text" name="Input_Bank_AccNo" id="Input_Bank_AccNo" value="' . $details['status_message'][$i]['account_no'] . '" class="form-control" placeholder="Customer Account No" required><br></td>
+                                                    <td><input type="text" name="Updated_Bank_AccNo" id="Updated_Bank_AccNo" value="' . $details['status_message'][$i]['account_no'] . '" class="form-control" placeholder="Customer Account No" required><br></td>
                                                 </tr>
                                                 <tr>
                                                     <td><label for="MICRCode" class="control-label w3-right w3-padding-right">MICR&nbsp;Code:</label></td>
-                                                    <td><input type="text" name="Input_Bank_MICR_Code" id="Input_Bank_MICR_Code" value="' . $details['status_message'][$i]['MICR_no'] . '" class="form-control" placeholder="Customer MICR Code" required><br></td>
+                                                    <td><input type="text" name="Updated_Bank_MICR_Code" id="Updated_Bank_MICR_Code" value="' . $details['status_message'][$i]['MICR_no'] . '" class="form-control" placeholder="Customer MICR Code" required><br></td>
                                                 </tr>
                                             </table>
                                         </div>
@@ -209,15 +201,15 @@ $(function(){
                                             <table>
                                                 <tr>
                                                     <td><label for="BankAddress" class="control-label w3-right w3-padding-right">Bank&nbsp;Address:</label></td>
-                                                    <td><input type="text" name="Input_Bank_Address" id="Input_Bank_Address" value="' . $details['status_message'][$i]['bank_address'] . '" class="form-control" placeholder="Customers Bank Address" required><br></td>
+                                                    <td><input type="text" name="Updated_Bank_Address" id="Updated_Bank_Address" value="' . $details['status_message'][$i]['bank_address'] . '" class="form-control" placeholder="Customers Bank Address" required><br></td>
                                                 </tr>
                                                 <tr>
                                                     <td><label for="IFSCCode" class="control-label w3-right w3-padding-right">IFSC&nbsp;Code:</label></td>
-                                                    <td><input type="text" name="Input_Bank_IFSC_Code" id="Input_Bank_IFSC_Code" value="' . $details['status_message'][$i]['IFSC_no'] . '" class="form-control" placeholder="Customer IFSC Code" required><br></td>
+                                                    <td><input type="text" name="Updated_Bank_IFSC_Code" id="Updated_Bank_IFSC_Code" value="' . $details['status_message'][$i]['IFSC_no'] . '" class="form-control" placeholder="Customer IFSC Code" required><br></td>
                                                 </tr>
                                                 <tr>
                                                     <td><label for="PANNo" class="control-label w3-right w3-padding-right">PAN&nbsp;NO:</label></td>
-                                                    <td><input type="text" name="Input_PAN_No" id="Input_PAN_No" class="form-control" value="' . $details['status_message'][$i]['PAN_no'] . '" placeholder="Customer PAN No" required><br></td>
+                                                    <td><input type="text" name="Updated_PAN_No" id="Updated_PAN_No" class="form-control" value="' . $details['status_message'][$i]['PAN_no'] . '" placeholder="Customer PAN No" required><br></td>
                                                 </tr>
                                             </table>
                                         </div>
@@ -230,7 +222,8 @@ $(function(){
                                         </center>
                                     </div>
                                     <div class="row" id="addCustomerInformation_err" name="addCustomerInformation_err"></div>
-                                </form>
+</div>                                
+</form>
 
 </div>
 
@@ -388,7 +381,7 @@ $(function(){
                             <div id="addProducts_err" name="addProducts_err"></div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button"  class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button type="button" onclick="window.location.reload();" class="btn btn-default" data-dismiss="modal">Close</button>
                         </div>
                     </div>
                 </div>
@@ -439,7 +432,7 @@ $(function(){
 
                     } else
                     {
-                        alert('You Reached the limits')		//alert when added more than 4 input fields
+                        alert('You Reached the limits');		//alert when added more than 4 input fields
                     }
                 });
 
@@ -465,7 +458,7 @@ $(function(){
 
                     } else
                     {
-                        alert('You Reached the limits')		//alert when added more than 4 input fields
+                        alert('You Reached the limits');	//alert when added more than 4 input fields
                     }
                 });
                 $(wrapper).on("click", ".delete", function (e) {
