@@ -30,7 +30,7 @@ error_reporting(E_ERROR | E_PARSE);
 
     <!-- Manage Roles div -->
     <div class="w3-row-padding w3-margin-bottom ">
-      <div class="w3-col l12 w3-light-grey w3-padding">
+      <div class="w3-col l12 w3-padding">
         <header class="w3-container" >
           <h6><b><i class="fa fa-address-book"></i> Manage Roles</b></h6>
           <span class="w3-small"></span>
@@ -72,8 +72,10 @@ error_reporting(E_ERROR | E_PARSE);
       </div>
     </div>
     <!-- manage roles div end -->
+
     <div class="w3-row-padding w3-margin-bottom ">
-      <div class="w3-col l12 w3-light-grey">
+      <hr>
+      <div class="w3-col l6 w3-border-right">
         <header class="w3-container" >
           <h6><b><i class="fa fa-bookmark-o"></i> Manage Features</b></h6>
           <span class="w3-small">To assign certain permissions to certain roles, we need to add the features first.</span>
@@ -89,12 +91,11 @@ error_reporting(E_ERROR | E_PARSE);
             ?>
           </div>
           <div style="overflow-x: scroll;"> 
-            <table class="table table-striped table-bordered table-responsive w3-small" >
+            <table class="table table-striped table-responsive w3-small" >
               <thead>
                 <tr>
                   <th>SrNo.</th>
                   <th>Feature Name</th>
-                  <th>Feature Description</th>
                   <th>Assigned To (Roles);</th>
                   <th>Action</th>
                 </tr>
@@ -116,7 +117,6 @@ error_reporting(E_ERROR | E_PARSE);
                     <tr>
                     <td>'.$srno.'.</td>
                     <td>'.$key['feature_title'].'</td>
-                    <td>'.$key['feature_description'].'</td>
                     <td>';
                     if(isset($all_roles['status'])){
                       echo ' <span class="w3-text-red"><b>'.$all_roles['status_message'].'</b></span> ';
@@ -196,6 +196,7 @@ error_reporting(E_ERROR | E_PARSE);
           </div>
         </div>
 
+
         <!-- shift table modal Start -->
         <div id="addFeature" class="modal fade " role="dialog">
           <div class="modal-dialog modal-sm">
@@ -237,6 +238,17 @@ error_reporting(E_ERROR | E_PARSE);
           </div>
         </div>
         <!--   shift table modal end -->
+      </div>
+
+      <div class="w3-col l6 ">
+
+        <header class="w3-container" >
+          <h6><b><i class="fa fa-calculator"></i> Customize Calculating Parameters</b></h6>
+          <span class="w3-small">Customize the parameters needed in various calculations and generating quotations.</span>
+        </header>
+
+        <div class="w3-padding"></div>
+        
       </div>
     </div>
 
@@ -351,12 +363,12 @@ error_reporting(E_ERROR | E_PARSE);
             data: dataS,
             cache: false,
             success:function(html){  
-           $.alert(html);                
-              setTimeout(function() {
-                window.location.reload();
-              }, 1000);
-            }
-          });
+             $.alert(html);                
+             setTimeout(function() {
+              window.location.reload();
+            }, 1000);
+           }
+         });
         },
         cancel: function () {}
       }

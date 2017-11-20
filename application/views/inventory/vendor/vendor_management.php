@@ -431,7 +431,7 @@ error_reporting(E_ERROR | E_PARSE);
 
                 } else
                 {
-                    $.alert('You Reached the maximum limit of 4')		//alert when added more than 4 input fields
+                    $.alert('<label class="w3-label w3-text-red"><i class="fa fa-warning w3-xxlarge"></i> You Reached the maximum limit of adding 4 fields</label>')		//alert when added more than 4 input fields
                 }
             });
 

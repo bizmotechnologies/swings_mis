@@ -1,6 +1,6 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-//error_reporting(E_ERROR | E_PARSE);
+error_reporting(E_ERROR | E_PARSE);
 ?>
 <!DOCTYPE html>
 <html>
@@ -11,10 +11,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <link rel="stylesheet" href="<?php echo base_url(); ?>css/font awesome/font-awesome.min.css">
         <link rel="stylesheet" href="<?php echo base_url(); ?>css/font awesome/font-awesome.css">
         <link rel="stylesheet" href="<?php echo base_url(); ?>css/w3.css">
-        <!-- <link rel="stylesheet" href="assets/css/alert/jquery-confirm.css">
-        --><script type="text/javascript" src="<?php echo base_url(); ?>css/bootstrap/jquery-3.1.1.js"></script>
+        <link rel="stylesheet" href="<?php echo base_url(); ?>css/alert/jquery-confirm.css">
+       <script type="text/javascript" src="<?php echo base_url(); ?>css/bootstrap/jquery-3.1.1.js"></script>
         <script type="text/javascript" src="<?php echo base_url(); ?>css/bootstrap/bootstrap.min.js"></script>
-        <!-- <script type="text/javascript" src="assets/css/alert/jquery-confirm.js"></script>-->
+         <script type="text/javascript" src="<?php echo base_url(); ?>css/alert/jquery-confirm.js"></script>
         <script type="text/javascript" src="<?php echo base_url(); ?>css/js/inventory/manage_customer.js"></script>
 
     </head>
@@ -85,7 +85,7 @@ $(function(){
 
            success: function(data)
            {
-            $("#msg_header").text(\'Message\');
+            $("#msg_header").text();
             $("#msg_span").css({\'color\': "black"});
             $("#addProducts_err").html(data);                         
             $(\'#myModal\').modal(\'show\');                         
@@ -431,7 +431,7 @@ $(function(){
 
                     } else
                     {
-                        alert('You Reached the limits');		//alert when added more than 4 input fields
+                        $.alert('<label class="w3-label w3-text-red"><i class="fa fa-warning w3-xxlarge"></i> You Reached the maximum limit of adding 3 fields</label>');		//alert when added more than 4 input fields
                     }
                 });
 
@@ -457,7 +457,7 @@ $(function(){
 
                     } else
                     {
-                        alert('You Reached the limits');	//alert when added more than 4 input fields
+                        $.alert('<label class="w3-label w3-text-red"><i class="fa fa-warning w3-xxlarge"></i> You Reached the maximum limit of adding 3 fields</label>');	//alert when added more than 4 input fields
                     }
                 });
                 $(wrapper).on("click", ".delete", function (e) {
