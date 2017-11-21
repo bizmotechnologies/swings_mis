@@ -3,31 +3,42 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-// This script is used to save customers information -->
+// This script is used to save profile information -->
 
-$(function () {
-    $("#customerDetailsForm").submit(function () {
-        dataString = $("#customerDetailsForm").serialize();
-                //alert('njgn');
-
+$(document).ready(function (e){
+    $("#addProfile_form").on('submit',(function(e){
+        e.preventDefault();
         $.ajax({
+            url: BASE_URL + "inventory/Manage_profiles/addProfile",
             type: "POST",
-            url: BASE_URL + "inventory/Manage_customers/save_CustomerDetails",
-            data: dataString,
-            return: false, //stop the actual form post !important!
-            success: function (data)
-            {
-                $("#msg_header").text('Message');
-                $("#msg_span").css({'color': "black"});
-                $("#addCustomers_err").html(data);
-                $('#myModalnew').modal('show');
-            }
+            data:  new FormData(this),
+            contentType: false,
+            cache: false,
+            processData:false,
+            success: function(data){
+                $.alert(data);
+            },
+            error: function(){}             
         });
-        return false;  //stop the actual form post !important!
+    }));
+});
+//- This script is used to save profile information -->
+
+
+// ----function to preview selected image for profile------//
+function readURL(input) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+
+        reader.onload = function (e) {
+            $('#profile_imagePreview').attr('src', e.target.result);
+        }
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+$(function () {
+    $("#profile_image").change(function(){
+        readURL(this);
     });
 });
-
-//- This script is used to save customers information -->
-
-
-// ----function to 
+// ------------function preview image end------------------//

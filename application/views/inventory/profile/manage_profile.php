@@ -39,33 +39,37 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         </header>
 
         <div class="w3-col l12 w3-padding w3-small">
-          <form id="addProfile_form" enctype="multipart">
+          <form id="addProfile_form" enctype="multipart/form-data">
             <div class="w3-col l6 w3-margin-bottom">
               <div class="w3-col l6 w3-padding-right">
-                <label class="w3-label">Profile Name:</label>
-                <input type="text" class="form-control" name="profile_name" id="profile_name" placeholder="Eg. S101, C20, etc." required>
+                <label class="w3-label w3-text-black">Profile Name:</label>
+                <input type="text" class="w3-input" name="profile_name" id="profile_name" placeholder="Eg. S101, C20, etc." required>
               </div>
               <div class="w3-col l6 w3-padding-right">
-                <label class="w3-label">Product Description:</label>
-                <input type="text" class="form-control" name="prod_description" id="prod_description" placeholder="Eg. Piston seal, Rod seal, etc." required>
+                <label class="w3-label w3-text-black">Product Description:</label>
+                <input type="text" class="w3-input" name="prod_description" id="prod_description" placeholder="Eg. Piston seal, Rod seal, etc." required>
               </div>
             </div>
-            <div class="w3-col l6 w3-margin-bottom">
-              <div class="w3-col l6">
-                <label class="w3-label">Profile Image:</label>
-                <input type="file" name="profile_image[]" id="profile_image_1" class="w3-input w3-padding-tiny"> 
+            <div class="w3-col l12 w3-margin-bottom">
+              <div class="w3-col l3 w3-padding-top w3-padding-right">
+                <label class="w3-label w3-text-black w3-margin-top">Profile Image:</label>
+                <input type="file" name="profile_image" id="profile_image" class="w3-input w3-padding-tiny"> 
               </div>
-              <div class="w3-col l6 w3-padding-left">
-                <img src="" width="150px" height="150px" class="w3-grey">
+              <div class="w3-col l4 w3-left">
+                <img src="" width="180px" id="profile_imagePreview" height="180px" alt="Product Profile Image will be displayed here once chosen. Image size is:(180px * 180px)" class=" w3-centerimg img-thumbnail">
               </div>
             </div>
 
             <!-- material div start -->
-            <div class="w3-col l12 w3-margin-bottom">
-              <div class="w3-col l12">
+            <div class="w3-col l12 w3-margin-bottom w3-margin-top">
+
+              <header class="w3-col l12" >
+                <span class="w3-small"><b><i class="fa fa-cubes"></i> Associated Materials :</b></span>
+              </header>
+              <div class="w3-col l12 w3-margin-top">
                 <div class="w3-col l2 w3-padding-right">
                   <label class="w3-label">Material:</label>
-                  <input list="Materialinfo" type="text" class="form-control" name="material_name[]" id="material_name" placeholder="Type material name" onchange="GetMaterilaInformation();" required>
+                  <input list="Materialinfo" type="text" class="w3-input" name="material_name[]" id="material_name" placeholder="Type material name" onchange="GetMaterilaInformation();" required>
                   <datalist id="Materialinfo">
                     <?php foreach($info['status_message'] as $result) { ?>
                     <option data-value="<?php echo $result['material_id']; ?>" value="<?php echo $result['material_name']; ?>"><?php echo $result['material_name']; ?></option>
@@ -75,25 +79,25 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <div class="w3-col l3 ">
                   <div class="w3-col l4 s4 w3-padding-right">
                     <label class="w3-label">ID:</label>
-                    <input type="number" min="0" step="0.01" class="form-control" name="material_ID[]" id="material_ID" placeholder="ID"  required>
+                    <input type="number" min="0" step="0.01" class="w3-input" name="material_ID[]" id="material_ID" placeholder="ID"  required>
                   </div>
                   <div class="w3-col l4 s4 w3-padding-right">
                     <label class="w3-label">OD:</label>
-                    <input type="number" min="0" step="0.01" class="form-control" name="material_OD[]" id="material_OD" placeholder="OD" required>
+                    <input type="number" min="0" step="0.01" class="w3-input" name="material_OD[]" id="material_OD" placeholder="OD" required>
                   </div>
                   <div class="w3-col l4 s4 w3-padding-right">
                     <label class="w3-label">Length:</label>
-                    <input type="number" min="0" step="0.01" class="form-control" name="material_length[]" id="material_length" placeholder="Length" required>
+                    <input type="number" min="0" step="0.01" class="w3-input" name="material_length[]" id="material_length" placeholder="Length" required>
                   </div>
                 </div>
                 <div class="w3-col l1 s6 w3-padding-right">
                   <label class="w3-label">Quantity:</label>
-                  <input type="number" min="1" class="form-control" name="material_quantity[]" id="material_quantity" placeholder="quantity" required>
+                  <input type="number" min="1" class="w3-input" name="material_quantity[]" id="material_quantity" placeholder="quantity" required>
                 </div>
                 <div class="w3-col l6 w3-padding-right">
                   <div class="w3-col l6 w3-padding-left">
                     <label class="w3-label">Material Image:</label>
-                    <input type="file" name="material_image[]" id="material_image_1" class="w3-input w3-padding-tiny">                
+                    <input type="file" name="material_image[]" id="material_image" class="w3-input w3-padding-tiny">                
                   </div>
 
                   <div class="w3-col l6">
@@ -105,6 +109,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             </div>
             <div id="added_newMaterial" class="w3-col l12"></div>
             <!-- material div end -->
+            <div class="w3-col l12 ">
+              <button type="submit" title="click add profile to add product profile" class="w3-margin w3-button w3-right w3-red">Add Profile</button>
+            </div>
           </form>
         </div>
 
@@ -133,7 +140,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <div class="w3-col l12">\n\
             <div class="w3-col l2 w3-padding-right">\n\
             <label class="w3-label">Material:</label>\n\
-            <input list="Materialinfo" type="text" class="form-control" name="material_name[]" id="material_name" placeholder="Type material name" onchange="GetMaterilaInformation();" required>\n\
+            <input list="Materialinfo" type="text" class="w3-input" name="material_name[]" id="material_name" placeholder="Type material name" onchange="GetMaterilaInformation();" required>\n\
             <datalist id="Materialinfo">\n\
             <option data-value="" value=""></option>\n\
             </datalist>\n\
@@ -141,18 +148,18 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <div class="w3-col l3 ">\n\
             <div class="w3-col l4 s4 w3-padding-right">\n\
             <label class="w3-label">ID:</label>\n\
-            <input type="number" min="0" step="0.01" class="form-control" name="material_ID[]" id="material_ID" placeholder="ID" required></div>\n\
+            <input type="number" min="0" step="0.01" class="w3-input" name="material_ID[]" id="material_ID" placeholder="ID" required></div>\n\
             <div class="w3-col l4 s4 w3-padding-right">\n\
             <label class="w3-label">OD:</label>\n\
-            <input type="number" min="0" step="0.01" class="form-control" name="material_OD[]" id="material_OD" placeholder="OD" required></div>\n\
+            <input type="number" min="0" step="0.01" class="w3-input" name="material_OD[]" id="material_OD" placeholder="OD" required></div>\n\
             <div class="w3-col l4 s4 w3-padding-right">\n\
             <label class="w3-label">Length:</label>\n\
-            <input type="number" min="0" step="0.01" class="form-control" name="material_length[]" id="material_length"\n\ placeholder="Length" required>\n\
+            <input type="number" min="0" step="0.01" class="w3-input" name="material_length[]" id="material_length"\n\ placeholder="Length" required>\n\
             </div>\n\
             </div>\n\
             <div class="w3-col l1 s6 w3-padding-right">\n\
             <label class="w3-label">Quantity:</label>\n\
-            <input type="number" min="1" class="form-control" name="material_quantity[]" id="material_quantity" placeholder="quantity"\n\ required>\n\
+            <input type="number" min="1" class="w3-input" name="material_quantity[]" id="material_quantity" placeholder="quantity"\n\ required>\n\
             </div>\n\
             <div class="w3-col l6 w3-padding-right">\n\
             <div class="w3-col l6 w3-padding-left">\n\
@@ -176,9 +183,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         x--;
       })
     });
-
   </script>
   <!-- script to add more material end -->
+
+
 </body>
 </html>
 
