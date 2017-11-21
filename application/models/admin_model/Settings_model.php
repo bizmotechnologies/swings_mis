@@ -129,6 +129,61 @@ class Settings_model extends CI_Model{
 	}
 	//----------------get roles for features ends--------------------------//
 
-	
+
+	//---------------get all settings model-------------//
+	function getAll_settings()
+	{
+		$query="SELECT * FROM customize_settings";
+		$result = $this->db->query($query);
+		//return $result['num'];
+		
+		if($result->num_rows() <= 0)
+		{  
+			$response=array(
+				'status'	=>	0,
+				'status_message' =>'No any Setting found !!!'
+			);
+			return $response;
+		}
+		else
+		{
+			$response=$result->result_array();
+			return $response;
+		}
+	}
+	//----------------get all settings ends--------------------------//
+
+	//---------------edit calculating parameters model-------------//
+	function update_calcParams($data)
+	{
+		extract($data);
+		
+		$query_cut="UPDATE customize_settings SET setting_value='$cut_value' WHERE setting_name='cut_value' ";
+		$result_cut =$this->db->query($query_cut);
+
+		$query_landing="UPDATE customize_settings SET setting_value='$landing_value' WHERE setting_name='landing_value' ";
+		$result_landing =$this->db->query($query_landing);
+
+		$query_profit="UPDATE customize_settings SET setting_value='$profit_margin' WHERE setting_name='profit_margin' ";
+		$result_profit =$this->db->query($query_profit);
+		
+		
+		if($result_cut && $result_profit && $result_landing){
+			$response=array(
+				'status'	=>	1,
+				'status_message'	=>	'Updated successfully'
+			);
+			return $response;
+		}
+		else{
+			$response=array(
+				'status'	=>	0,
+				'status_message'	=>	'Updation failed'
+			);
+			
+			return $response;
+		}
+	}
+	//----------------edit calculating parameters ends--------------------------//
 }
 ?>

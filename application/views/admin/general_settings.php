@@ -246,14 +246,72 @@ error_reporting(E_ERROR | E_PARSE);
           <h6><b><i class="fa fa-calculator"></i> Customize Calculating Parameters</b></h6>
           <span class="w3-small">Customize the parameters needed in various calculations and generating quotations.</span>
         </header>
+        <?php 
+        $cut_value=0;
+        $profit_margin=0;
+        $landing_value=0;
+        $euro_cost=0;
 
-        <div class="w3-padding"></div>
-        
+        foreach ($all_settings as $key) {
+
+         switch ($key['setting_name']) {
+          case 'cut_value':
+            $cut_value=$key['setting_value'];
+          break;
+
+          case 'landing_value':
+            $landing_value=$key['setting_value'];
+          break;
+
+          case 'profit_margin':
+            $profit_margin=$key['setting_value'];
+          break;
+
+          case 'euro_cost':
+            $euro_cost=$key['setting_value'];
+          break;
+          
+          default:
+            # code...
+          break;
+        }
+      }
+
+      ?>
+      <div class="w3-padding w3-small">
+        <form id="calculation_form">
+          <div class="w3-col l12 w3-margin-top ">
+            <div class="w3-col l6 w3-padding-right">
+              <label>Cut Value (in mm):</label>
+              <input type="number" name="cut_value" class="form-control" placeholder="cut value in mm" id="cut_value" value="<?php echo $cut_value ?>" min="0" required>
+            </div>
+            <div class="w3-col l6 w3-padding-right">
+              <label>Profit Margin (in %):</label>
+              <input type="number" name="profit_margin" class="form-control" placeholder="profit margin in percentage" value="<?php echo $profit_margin ?>" id="profit_margin" min="0" step="0.01" required>
+            </div>
+          </div>
+          <div class="w3-col l12 w3-margin-top ">
+            <div class="w3-col l6 w3-padding-right">
+              <label>Landing Cost :</label>
+              <input type="number" name="landing_value" class="form-control" placeholder="landing cost " step="0.01" id="landing_value" value="<?php echo $landing_value ?>" min="0" required>
+            </div>
+            <div class="w3-col l6 w3-padding-right">
+              <label>Rupees/Euro (<i class="fa fa-rupee"></i>/<i class="fa fa-euro"></i>):</label>
+              <input type="number" name="euro_cost" class="form-control" placeholder="rupees/euro cost" value="<?php echo $euro_cost ?>" id="euro_cost" min="0" step="0.01" required>
+            </div>
+          </div>
+          <div class="w3-col l12 ">
+            <button type="submit" class=" w3-right w3-margin-top w3-margin-right btn btn-primary" id="calculateBTN" name="calculateBTN">Save Parameters</button>
+          </div>
+          <div id="parameter_msg" class="w3-col l12 w3-margin-top"></div>
+        </form>
       </div>
-    </div>
 
-    <!-- End page content -->
+    </div>
   </div>
+
+  <!-- End page content -->
+</div>
 
 <!--  Script to reload page when add feature modal closes............................
 --> 
@@ -281,6 +339,32 @@ error_reporting(E_ERROR | E_PARSE);
              $("#add_feature_msg").html(data); 
              $('#feature_description').val('');                        
              $('#feature_title').val('');                        
+           }
+
+         });
+
+         return false;  //stop the actual form post !important!
+
+       });
+ });
+</script>
+<!-- script ends here -->
+
+<!--  script to update calculation parameters   -->
+<script>
+  $(function(){
+   $("#calculation_form").submit(function(){
+     dataString = $("#calculation_form").serialize();
+
+     $.ajax({
+       type: "POST",
+       url: "<?php echo base_url(); ?>admin/general_settings/update_calcParams",
+       data: dataString,
+           return: false,  //stop the actual form post !important!
+
+           success: function(data)
+           {
+             $("#parameter_msg").html(data);                                    
            }
 
          });

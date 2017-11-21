@@ -26,7 +26,16 @@ class Settings_api extends REST_Controller
 		$result = $this->settings_model->getAll_feature();
 		return $this->response($result);			
 	}
-	//---------------------GET ALL FEATURE END------------------------------//
+	//---------------------GET ALL SETTINGS END------------------------------//
+
+	// -----------------------GET ALL FEATURE API----------------------//
+	//-------------------------------------------------------------//
+	public function all_settings_get(){
+		$result = $this->settings_model->getAll_settings();
+		return $this->response($result);			
+	}
+	//---------------------GET ALL SETTINGS END------------------------------//
+
 
 	// -----------------------EDIT FEATURE API----------------------//
 	//-------------------------------------------------------------//
@@ -36,6 +45,16 @@ class Settings_api extends REST_Controller
 		return $this->response($result);			
 	}
 	//---------------------EDIT FEATURE END------------------------------//
+
+	// -----------------------EDIT SETTINGS API----------------------//
+	//-------------------------------------------------------------//
+	public function update_calcParams_post(){
+		$data = $_POST;
+		$result = $this->settings_model->update_calcParams($data);
+		return $this->response($result);			
+	}
+	//---------------------EDIT SETTINGS END------------------------------//
+
 
 	// -----------------------DELETE FEATURE API----------------------//
 	//-------------------------------------------------------------//
