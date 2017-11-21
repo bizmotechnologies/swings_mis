@@ -92,7 +92,7 @@ class Manage_materials extends CI_controller {
     function GetMaterilaInformation() { //this api is used for to get all info of raw materials 
         extract($_POST);
         $data = $_POST;
-        //print_r($data);
+        print_r($data);
         $path = base_url();
         $url = $path . 'api/ManageMaterial_api/GetMaterilaInformation?material_id=';
         $ch = curl_init($url);
