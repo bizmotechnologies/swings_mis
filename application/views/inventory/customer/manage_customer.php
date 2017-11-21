@@ -15,6 +15,7 @@ error_reporting(E_ERROR | E_PARSE);
     <script type="text/javascript" src="<?php echo base_url(); ?>css/bootstrap/jquery-3.1.1.js"></script>
     <script type="text/javascript" src="<?php echo base_url(); ?>css/bootstrap/bootstrap.min.js"></script>
     <script type="text/javascript" src="<?php echo base_url(); ?>css/alert/jquery-confirm.js"></script>
+    <script type="text/javascript" src="<?php echo base_url(); ?>css/js/config.js"></script>
     <script type="text/javascript" src="<?php echo base_url(); ?>css/js/inventory/manage_customer.js"></script>
 
 </head>
