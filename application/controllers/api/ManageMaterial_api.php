@@ -69,4 +69,12 @@ class ManageMaterial_api extends REST_Controller {
     }
 
 //--------this fun is used to get material info-----------------------------------------//
+    //-------------this fun is used to get material base price calculation--------------//
+    public function GetMaterialBasePrice_post() {
+        $data = $_POST;
+        $response = $this->ManageMaterial_model->GetMaterialBasePrice($data);
+        return $this->response($response);
+    }
+
+    //-------------this fun is used to get material base price calculation--------------//
 }

@@ -22,7 +22,82 @@ class ManageMaterial_model extends CI_Model {
 
     /* fun ends here */
 
-    public function getRawMaterialInfo() { /* this  function is used for material records  */
+//-----this fun is used to get material base price calculations-------------//
+    public function GetMaterialBasePrice($data) {
+        extract($data);
+        $material_price = ManageMaterial_model::getmaterialPriceforcalculation($Materialinfo, $MaterialID, $MaterialOD, $MaterialLength);
+        $customizevalue = ManageMaterial_model::getcustomizedvalueforCalculation();
+        $setting_value = json_decode($customizevalue, TRUE);
+        //print_r($setting_value);
+        $cut_value = 0;
+        $profit_margin =0;
+        $single_cost = 0;
+            $cut_value = $setting_value['cut_value'];
+            $profit_margin = $setting_value['profit_margin'];
+        
+        $single_cost = $material_price * ($profit_margin * ($cut_value + $MaterialLength));
+        return $single_cost;
+    }
+
+//-----this fun is used to get material base price calculations-------------//
+
+    public function getmaterialPriceforcalculation($Materialinfo, $MaterialID, $MaterialOD, $MaterialLength) {
+        $sql = "SELECT material_price FROM raw_materialstock WHERE material_id = '$Materialinfo' "
+                . "AND raw_ID = '$MaterialID' AND raw_OD ='$MaterialOD' AND avail_length = '$MaterialLength'";
+
+        $result = $this->db->query($sql);
+        $material_price = '0.00';
+
+        foreach ($result->result_array() as $row) {
+            $material_price = $row['material_price'];
+        }
+        return $material_price;
+    }
+
+    public function getcustomizedvalueforCalculation() {
+        $query = "SELECT * FROM customize_settings";
+        $result = $this->db->query($query);
+        $cut_value = 0;
+        $profit_margin = 0;
+        $landing_value = 0;
+        $euro_cost = 0;
+        $arrnew = array();
+        foreach ($result->result_array() as $key) {
+            switch ($key['setting_name']) {
+                case 'cut_value':
+                    $cut_value = $key['setting_value'];
+                    break;
+
+                case 'landing_value':
+                    $landing_value = $key['setting_value'];
+                    break;
+
+                case 'profit_margin':
+                    $profit_margin = $key['setting_value'];
+                    break;
+
+                case 'euro_cost':
+                    $euro_cost = $key['setting_value'];
+                    break;
+
+                default:
+                    # code...
+                    break;
+            }
+        }
+        $arrnew = array(
+            'cut_value' => $cut_value,
+            'profit_margin' => $profit_margin,
+            'landing_value' => $landing_value,
+            'euro_cost' => $euro_cost,
+        );
+        $customizevalue = json_encode($arrnew);
+        return $customizevalue;
+    }
+
+    /* this  function is used for material records  */
+
+    public function getRawMaterialInfo() {
         $query = "SELECT * FROM raw_materialstock";
         $result = $this->db->query($query);
         if ($result->num_rows() >= 0) {
