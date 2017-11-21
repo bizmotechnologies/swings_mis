@@ -39,10 +39,10 @@ class ManageMaterial_model extends CI_Model {
 
     /* fun ends here */
 
- //----this fun is used to get all raw material information-----//
- public function GetMaterilaInformation($data){
-     extract($data);
-     $query = "SELECT * FROM raw_materialstock WHERE material_id = ".$material_id;
+    //----this fun is used to get all raw material information-----//
+    public function GetMaterilaInformation($data) {
+        extract($data);
+        $query = "SELECT * FROM raw_materialstock WHERE material_id = " . $material_id;
         $result = $this->db->query($query);
         if ($result->num_rows() > 0) {
             $response = array(
@@ -54,11 +54,35 @@ class ManageMaterial_model extends CI_Model {
                 'status_message' => 'No records found');
         }
         return $response;
-    
- }
- //----this fun is used to get all raw material information ends here-----//
-    
-    
+    }
+
+    //----this fun is used to get all raw material information ends here-----//
+//------this fun is used to get all material inforation-----------------//
+    public function GetMaterialInformation_ForEnquiry($data) { /* this fun is used to get material data */
+
+        $sqlselect = "SELECT * FROM raw_materialstock WHERE material_id = '$data'";
+        $result = $this->db->query($sqlselect);
+
+        if ($result->num_rows() <= 0) {
+            $response = array(
+                'status' => 0,
+                'status_message' => 'No Records Found.');
+        } else {
+            $info = array();
+            foreach ($result->result_array() as $key) {
+                $newarr = array(
+                    'raw_ID' => $key['raw_ID'],
+                    'raw_OD' => $key['raw_OD'],
+                    'avail_length' => $key['avail_length']
+                );
+                $info[] = $newarr;
+            }
+            $response = json_encode($info);
+        }
+        return $response;
+    }
+
+    //------this fun is used to get all material inforation-----------------//
 // this function is used to save materials///////////
     public function saveMaterial($data) {
         extract($data);

@@ -24,6 +24,23 @@ class Manage_materials extends CI_controller {
         $this->load->view('inventory/materials/manage_material', $data);
     }
 
+    //--------this fun is uded to get all values of material----------// 
+    public function GetMaterialInformation_ForEnquiry() {
+        extract($_POST);
+        //print_r($_POST);
+        $path = base_url();
+        $url = $path . 'api/ManageMaterial_api/GetMaterialInformation_ForEnquiry?Select_material_1=' . $Materialinfo;
+        $ch = curl_init($url);
+        curl_setopt($ch, CURLOPT_HTTPGET, true);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $response_json = curl_exec($ch);
+        curl_close($ch);
+        $response = json_decode($response_json, true);
+       print_r($response);
+        //echo ($response_json);
+    }
+
+    //--------this fun is uded to get all values of material----------// 
 //    -----------this fun is show fetched material info page
     public function fetchmaterial_details() {
         $data['info'] = Manage_materials::getRawMaterialInfo();     //-------show all Raw materials

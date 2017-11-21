@@ -25,84 +25,76 @@ error_reporting(E_ERROR | E_PARSE);
                 <h5><b><i class="fa fa-cubes"></i> Manage Stocks</b></h5>
             </header>
             <form method="POST" action="" id="Manage_RawMaterialForm" name="Manage_RawMaterialForm">
-                <div class="w3-padding">
-                    <div class="row w3-small w3-padding-left">
-                        <div class="col-lg-3">
-                            <label class="padding-left">Select&nbsp;Material:</label> 
-                        </div>
-                        <div class="col-lg-4">  
-                            <input list="Materialinfo" id="Select_material" name="Select_material" class="form-control" required type="text" placeholder="Select Material" onchange="GetMaterilaInformation();">                                         
-                            <datalist id="Materialinfo">
-                                <?php foreach ($info['status_message'] as $result) { ?>
-                                    <option data-value="<?php echo $result['material_id']; ?>" value='<?php echo $result['material_name']; ?>'><?php echo $result['material_name']; ?></option>
-                                <?php } ?>
-                            </datalist><br>
-                        </div>
-                    </div>
 
-                    <div class="w3-col l12 w3-small w3-padding">
-                        <div class="w3-col l2">
-                            <label >MATERIAL</label> 
-                            <input list="Materialinfo" id="Select_material" name="Select_material" class="form-control" required type="text" placeholder="Material" onchange="GetMaterilaInformation();">                                         
-                            <datalist id="Materialinfo">
-                                <?php foreach ($info['status_message'] as $result) { ?>
-                                    <option data-value="<?php echo $result['material_id']; ?>" value='<?php echo $result['material_name']; ?>'><?php echo $result['material_name']; ?></option>
-                                <?php } ?>
+                <div class="w3-col l12 w3-small w3-padding">
+                    <div class="w3-col l2">
+                        <label >MATERIAL</label> 
+                        <input list="Materialinfo" id="Select_material_1" name="Select_material[]" class="form-control" required type="text" placeholder="Material" onchange="GetMaterialInformation_ForEnquiry(1);">                                         
+                        <datalist id="Materialinfo">
+                            <?php foreach ($info['status_message'] as $result) { ?>
+                                <option data-value="<?php echo $result['material_id']; ?>" value='<?php echo $result['material_name']; ?>'><?php echo $result['material_name']; ?></option>
+                            <?php } ?>
+                        </datalist>
+                    </div>
+                    <div class="w3-col l3">
+                        <div class="w3-col l4 s4 w3-padding-left">
+                            <label>ID</label> 
+                            <input list="MaterialID" id="Select_ID_1" name="Select_ID[]" class="form-control" required type="text" placeholder="ID">                                         
+                            <datalist id="MaterialID">
+
                             </datalist>
                         </div>
-                        <div class="w3-col l3">
-                            <div class="w3-col l4 s4 w3-padding-left">
-                                <label>ID</label> 
-                                <input list="MaterialID" id="Select_ID" name="Select_ID" class="form-control" required type="text" placeholder="ID">                                         
-                                <datalist id="MaterialID">
+                        <div class="w3-col l4 s4 w3-padding-left">
+                            <label >OD</label> 
+                            <input list="MaterialOD" id="Select_OD_1" name="Select_OD[]" class="form-control" required type="text" placeholder="OD">                                         
+                            <datalist id="MaterialOD">
 
-                                </datalist>
-                            </div>
-                            <div class="w3-col l4 s4 w3-padding-left">
-                                <label >OD</label> 
-                                <input list="MaterialOD" id="Select_OD" name="Select_OD" class="form-control" required type="text" placeholder="OD">                                         
-                                <datalist id="MaterialOD">
-
-                                </datalist>
-                            </div>
-                            <div class="w3-col l4 s4 w3-padding-left">
-                                <label >LENGTH</label> 
-                                <input list="MaterialLength" id="Select_Length" name="Select_Length" class="form-control" required type="text" placeholder="Length">                                         
-                                <datalist id="MaterialLength">
-
-                                </datalist>
-                            </div>
+                            </datalist>
                         </div>
+                        <div class="w3-col l4 s4 w3-padding-left">
+                            <label >LENGTH</label> 
+                            <input list="MaterialLength" id="Select_Length_1" name="Select_Length[]" class="form-control" required type="text" placeholder="Length">                                         
+                            <datalist id="MaterialLength">
 
-                        <div class="w3-col l1 w3-padding-left">
-                            <label>BASE PRICE</label> 
-                            <input id="base_Price" name="base_Price" class="form-control" required type="number" placeholder="Base Price">                                         
+                            </datalist>
                         </div>
-
-                        <div class="w3-col l1 w3-padding-left">
-                            <label>QUANTITY</label> 
-                            <input id="select_Quantity" name="select_Quantity" class="form-control" required type="number" placeholder="Quantity">                                         
-                        </div>
-
-                        <div class="w3-col l1 w3-padding-left">
-                            <label>FINAL&nbsp;PRICE</label> 
-                            <input id="final_Price" name="final_Price" class="form-control" required type="number" placeholder="Final Price">                                         
-                        </div>
-
                     </div>
 
-                    <div class="w3-col l12">
-                        <div id="added_row" class="w3-small w3-col l12"></div>
+                    <div class="w3-col l1 w3-padding-left">
+                        <label>BASE PRICE</label> 
+                        <input id="base_Price_1" name="base_Price[]" class="form-control" min="0" required type="number" placeholder="Base Price">                                         
+                    </div>
+
+                    <div class="w3-col l1 w3-padding-left">
+                        <label>QUANTITY</label> 
+                        <input id="select_Quantity_1" name="select_Quantity[]" class="form-control" min="0" required type="number" placeholder="Quantity">                                         
+                    </div>
+
+                    <div class="w3-col l1 w3-padding-left">
+                        <label>DISCOUNT</label> 
+                        <input id="discount_1" name="discount[]" class="form-control" required type="number" min="0" placeholder="Discount %.">                                         
+                    </div>
+
+                    <div class="w3-col l1 w3-padding-left">
+                        <label>FINAL&nbsp;PRICE</label> 
+                        <input id="final_Price_1" name="final_Price[]" class="form-control" required type="number" min="0" placeholder="Final Price">                                         
+                    </div>
+                    <div class="w3-col l1">
                         <span><a  id="add_row" class="btn add-more w3-text-blue w3-right">+Add</a></span>
                     </div>
-
                 </div>
+
+                <div class="w3-col l12">
+                    <div id="added_row" class="w3-small w3-col l12"></div>
+                </div>
+
+                <!--                </div>-->
             </form>
 
 
             <script>
                 $(document).ready(function () {
-                    var max_fields = 4;
+                    var max_fields = 15;
                     var wrapper = $("#added_row");
                     var add_button = $("#add_row");
                     var x = 1;
@@ -113,47 +105,51 @@ error_reporting(E_ERROR | E_PARSE);
                             $(wrapper).append('<div class="w3-margin-bottom w3-col l12 w3-padding-left">\n\
 <div class="w3-col l2">\n\
 <label>MATERIAL</label>\n\
-<input list="Materialinfo" id="Select_material" name="Select_material" class="form-control" required type="text" placeholder="Material" onchange="GetMaterilaInformation();">\n\
+<input list="Materialinfo" id="Select_material_' + x + '" name="Select_material[]" class="form-control" required type="text" placeholder="Material" onchange="GetMaterialInformation_ForEnquiry(' + x + ');">\n\
 <datalist id="Materialinfo">\n\
 <?php foreach ($info['status_message'] as $result) { ?><option data-value="<?php echo $result['material_id']; ?>" value="<?php echo $result['material_name']; ?>"><?php echo $result['material_name']; ?></option><?php } ?></datalist>\n\
 </div>\n\
 <div class="w3-col l3">\n\
 <div class="w3-col l4 s4 w3-padding-left">\n\
 <label>ID</label>\n\
-<input list="MaterialID" id="Select_ID" name="Select_ID" class="form-control" required type="text" placeholder="ID">\n\
+<input list="MaterialID" id="Select_ID_' + x + '" name="Select_ID[]" class="form-control" required type="text" placeholder="ID">\n\
 <datalist id="MaterialID">\n\
 </datalist>\n\
 </div>\n\
 <div class="w3-col l4 s4 w3-padding-left">\n\
 <label >OD</label>\n\
-<input list="MaterialOD" id="Select_OD" name="Select_OD" class="form-control" required type="text" placeholder="OD">\n\
+<input list="MaterialOD" id="Select_OD_' + x + '" name="Select_OD[]" class="form-control" required type="text" placeholder="OD">\n\
 <datalist id="MaterialOD">\n\
 </datalist>\n\
 </div>\n\
 <div class="w3-col l4 s4 w3-padding-left">\n\
 <label>LENGTH</label>\n\
-<input list="MaterialLength" id="Select_Length" name="Select_Length" class="form-control" required type="text" placeholder="Length">\n\
+<input list="MaterialLength" id="Select_Length_' + x + '" name="Select_Length[]" class="form-control" required type="text" placeholder="Length">\n\
 <datalist id="MaterialLength">\n\
 </datalist>\n\
 </div>\n\
 </div>\n\
 <div class="w3-col l1 w3-padding-left">\n\
 <label>BASE PRICE</label>\n\
-<input id="base_Price" name="base_Price" class="form-control" required type="number" placeholder="Base Price"></div>\n\
+<input id="base_Price_' + x + '" name="base_Price[]" class="form-control" min="0" required type="number" placeholder="Base Price"></div>\n\
 <div class="w3-col l1 w3-padding-left">\n\
 <label>QUANTITY</label>\n\
-<input id="select_Quantity" name="select_Quantity" class="form-control" required type="number" placeholder="Quantity">\n\
+<input id="select_Quantity_' + x + '" name="select_Quantity[]" class="form-control" min="0" required type="number" placeholder="Quantity">\n\
+</div>\n\
+<div class="w3-col l1 w3-padding-left">\n\
+<label>DISCOUNT</label>\n\
+<input id="discount_' + x + '" name="discount[]" class="form-control" required min="0" type="number" placeholder="Discount">\n\
 </div>\n\
 <div class="w3-col l1 w3-padding-left">\n\
 <label>FINAL&nbsp;PRICE</label>\n\
-<input id="final_Price" name="final_Price" class="form-control" required type="number" placeholder="Final Price">\n\
+<input id="final_Price_' + x + '" name="final_Price[]" class="form-control" min="0" required type="number" placeholder="Final Price">\n\
 </div>\n\
-<div class="w3-col l1 w3-padding-left"><a href="#" class="delete w3-text-grey w3-left fa fa-remove" title="Delete email field"></a></div>\n\
+<a href="#" class="delete w3-text-grey w3-margin-left w3-left fa fa-remove" title="Delete field"></a>\n\
 </div>'); //add input box
 
                         } else
                         {
-                            $.alert('<label class="w3-label w3-text-red"><i class="fa fa-warning w3-xxlarge"></i> You Reached the maximum limit of adding 4 fields</label>');		//alert when added more than 4 input fields
+                            alert(' You Reached the maximum limit of adding 15 fields.');		//alert when added more than 4 input fields
                         }
                     });
 
@@ -169,7 +165,7 @@ error_reporting(E_ERROR | E_PARSE);
             <!-- this script is used for showing add more rows functionality ends here -->
             <script>
                 function GetMaterilaInformation() {
-                    Materialinfo = $('#Materialinfo [value="' + $('#Select_material').val() + '"]').data('value');
+                    Materialinfo = $('#Materialinfo [value="' + $('#Select_material_1').val() + '"]').data('value');
                     //alert(Materialinfo);
                     datas = {
                         materialinfo: Materialinfo
@@ -182,6 +178,34 @@ error_reporting(E_ERROR | E_PARSE);
                         success: function (data) {
                             alert(data);
                             //$('#Show_producttable').html(data);
+                        }
+                    });
+                }
+            </script>
+            <script>
+                function GetMaterialInformation_ForEnquiry(fieldnum) {
+                    Materialinfo = $('#Materialinfo [value="' + $('#Select_material_1').val() + '"]').data('value');
+                    alert(Materialinfo);
+                    Materialinfo = {
+                        Materialinfo: Materialinfo
+                    };
+                    $.ajax({
+                        type: "POST",
+                        url: "<?php echo base_url(); ?>inventory/Manage_materials/GetMaterialInformation_ForEnquiry",
+                        data: Materialinfo,
+                        cache: false,
+                        success: function (data) {
+                            nota = JSON.parse(data);
+                            //alert(data);
+                            var str = '';
+                            for (var i = 0; i < nota.length; i++) {
+
+                                str += "<option data-value='" + nota[i].raw_ID + "' value='" + nota[i].raw_ID + "'>" + nota[i].raw_ID + "</option>";
+                                $('#MaterialOD [value="' + $('#Select_OD_' + fieldnum).val(nota[i].raw_OD) + '"]').data('value');
+                                $('#MaterialLength [value="' + $('#Select_Length_' + fieldnum).val(nota[i].avail_length) + '"]').data('value');
+                            }
+                            $("#MaterialID").empty();
+                            $("#MaterialID").append(str);
                         }
                     });
                 }
