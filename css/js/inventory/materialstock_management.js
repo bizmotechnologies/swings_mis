@@ -1,6 +1,3 @@
-var base_url = 'http://localhost/swings_mis/';
-
-
 
 //this fun is for add material information-----------------------
 $(function () {
@@ -9,7 +6,7 @@ $(function () {
         //alert(dataString);
         $.ajax({
             type: "POST",
-            url: base_url + "inventory/Manage_materials/saveMaterial",
+            url: BASE_URL + "inventory/Manage_materials/saveMaterial",
             data: dataString,
             return: false, //stop the actual form post !important!
             success: function (data)
@@ -26,7 +23,7 @@ function ShowMaterialStock() {
     dataString = 'Select_Materials_Id=' + $("#Select_Materials_Id").val();
     $.ajax({
         type: "POST",
-        url: base_url + "inventory/MaterialStock_Management/ShowMaterialStock",
+        url: BASE_URL + "inventory/MaterialStock_Management/ShowMaterialStock",
         data: dataString,
         cache: false,
         success: function (data) {
@@ -44,7 +41,7 @@ $(function () {
         //alert(dataString);
         $.ajax({
             type: "POST",
-            url: base_url + "inventory/MaterialStock_Management/Save_RawStockMaterial_Info",
+            url: BASE_URL + "inventory/MaterialStock_Management/Save_RawStockMaterial_Info",
             data: dataString,
             return: false, //stop the actual form post !important!
             success: function (data)
@@ -66,7 +63,7 @@ $(function () {
         // alert(dataString);
         $.ajax({
             type: "POST",
-            url: base_url + "inventory/MaterialStock_Management/Save_PurchasedProduct_Info",
+            url: BASE_URL + "inventory/MaterialStock_Management/Save_PurchasedProduct_Info",
             data: dataString,
             return: false, //stop the actual form post !important!
             success: function (data)
@@ -104,7 +101,7 @@ function Delete_material() {
     dataString = 'Select_NewMaterials_Id=' + $("#Select_NewMaterials_Id").val();
     $.ajax({
         type: "POST",
-        url: base_url + "inventory/MaterialStock_Management/Delete",
+        url: BASE_URL + "inventory/MaterialStock_Management/Delete",
         data: dataString,
         cache: false,
         success: function (data) {

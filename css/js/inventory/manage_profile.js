@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 // This script is used to save customers information -->
 
 $(function () {
@@ -29,3 +28,6 @@ $(function () {
 });
 
 //- This script is used to save customers information -->
+
+
+// ----function to 
