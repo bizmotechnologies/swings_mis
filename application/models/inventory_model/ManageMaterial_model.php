@@ -8,7 +8,7 @@ class ManageMaterial_model extends CI_Model {
     public function getMaterialrecord() { /* this  function is used for material records  */
         $query = "SELECT * FROM materials";
         $result = $this->db->query($query);
-        if ($result->num_rows() >= 0) {
+        if ($result->num_rows() > 0) {
             $response = array(
                 'status' => 1,
                 'status_message' => $result->result_array());
@@ -22,11 +22,60 @@ class ManageMaterial_model extends CI_Model {
 
     /* fun ends here */
 
+//------this fun is used to get all customers details-----------//
+    public function GetCustomersDetails() {
+        $query = "SELECT * FROM customer_details";
+        $result = $this->db->query($query);
+        if ($result->num_rows() > 0) {
+            $response = array(
+                'status' => 1,
+                'status_message' => $result->result_array());
+        } else {
+            $response = array(
+                'status' => 0,
+                'status_message' => 'No records found');
+        }
+        return $response;
+    }
+
+//------this fun is used to get all customers details-----------//
+    //------this fun is used to get all informaion of product profile
+    public function GetProductProfileDetails() {
+        $query = "SELECT * FROM product_profile";
+        $result = $this->db->query($query);
+        if ($result->num_rows() > 0) {
+            $response = array(
+                'status' => 1,
+                'status_message' => $result->result_array());
+        } else {
+            $response = array(
+                'status' => 0,
+                'status_message' => 'No records found');
+        }
+        return $response;
+    }
+
 //-----------this fun is used to get material Final price for calaculation-------//
+    //-----this fun is udsed to get tube history for customer-----------//
+    public function GetTubeHistoryForInquiry($Customer_id, $Profile_id) {
+        $query = "SELECT * FROM quotation_master WHERE cust_id = '$Customer_id' AND profile_id = '$Profile_id'";
+        $result = $this->db->query($query);
+        if ($result->num_rows() > 0) {
+            $response = array(
+                'status' => 1,
+                'status_message' => 'records found..!');
+        } else {
+            $response = array(
+                'status' => 0,
+                'status_message' => 'No records found');
+        }
+        return $response;
+    }
+
+    //-----this fun is udsed to get tube history for customer-----------//
 //    public function GetFinalriceForMaterialCalculation($data) {
 //        extract($data);
 //    }
-
 //-----this fun is used to get material base price calculations-------------//
     public function GetMaterialBasePrice($data) {
         extract($data);
