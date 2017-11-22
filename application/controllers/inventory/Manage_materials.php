@@ -45,7 +45,7 @@ class Manage_materials extends CI_controller {
     public function GetMaterialBasePrice() {
         extract($_POST);
         $data = $_POST;
-        print_r($data);die();
+        print_r($data);
         $path = base_url();
         $url = $path . 'api/ManageMaterial_api/GetMaterialBasePrice';
         $ch = curl_init($url);
