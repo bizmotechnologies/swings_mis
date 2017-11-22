@@ -1,4 +1,6 @@
 <?php
+error_reporting(E_ERROR | E_PARSE);
+
 class Manage_profiles extends CI_controller{
 
   public function __construct(){
@@ -17,7 +19,7 @@ class Manage_profiles extends CI_controller{
   }
 
   public function index(){
-   $data['info'] = Manage_profiles::getMaterialrecord();     //-------show all Raw materials
+   $data['all_materials'] = Manage_profiles::getMaterialrecord();     //-------show all Raw materials
    $this->load->model('inventory_model/ManageProfile_model');	
    $this->load->view('includes/navigation');
    $this->load->view('inventory/profile/manage_profile',$data);
@@ -61,7 +63,7 @@ public function addProfile() {
       echo '<label class="w3-small w3-label w3-text-red"><i class="fa fa-warning w3-xxlarge"></i> Image size for material '.$material_name[$i].' exceeds size limit of 1MB. Upload image having size less than 1MB</label>';
       die();
     }
-    if($_FILES['profile_image']['size'][$i] > 1048576){ //for profile image
+    if($_FILES['profile_image']['size'] > 1048576){ //for profile image
       echo '<label class="w3-small w3-label w3-text-red"><i class="fa fa-warning w3-xxlarge"></i> Profile Image size exceeds size limit of 1MB. Upload image having size less than 1MB</label>';
       die();
     }
@@ -136,7 +138,7 @@ public function addProfile() {
 
   $data['material_associated']=json_encode($material_Arr);
   $data['profile_image']=($profileImg_path);
-  print_r($data);die();
+  
   $path = base_url();                                                   // this code is for web service AND api for save profile 
   $url = $path . 'api/ManageProfile_api/save_Profile';
   $ch = curl_init($url);
@@ -146,13 +148,31 @@ public function addProfile() {
   $response_json = curl_exec($ch);
   curl_close($ch);
   $response = json_decode($response_json, true);
-  print_r($response_json);die();
-
+  
   if ($response['status'] == 0) {
-
-    echo $response['status_message'];
+    echo '<div class="alert alert-danger">
+      <strong>'.$response['status_message'].'</strong> 
+      </div>
+      <script>
+      window.setTimeout(function() {
+        $(".alert").fadeTo(500, 0).slideUp(500, function(){
+          $(this).remove(); 
+        });
+        location.reload();
+      }, 1000);
+      </script>';
   } else {
-    echo $response['status_message'];
+    echo '<div class="alert alert-danger">
+      <strong>'.$response['status_message'].'</strong> 
+      </div>
+      <script>
+      window.setTimeout(function() {
+        $(".alert").fadeTo(500, 0).slideUp(500, function(){
+          $(this).remove(); 
+        });
+        location.reload();
+      }, 1000);
+      </script>';
   }
 }
 

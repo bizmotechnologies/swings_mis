@@ -12,14 +12,14 @@ class ManageProfile_api extends REST_Controller
 	}
 
 
-	// -----------------------GET ALL PRODUCTS API----------------------//
+	// -----------------------GET ALL PROFILES API----------------------//
 	//-------------------------------------------------------------//
 	public function all_profile_get(){
 
 		$result = $this->ManageProfile_model->getAll_profile();
 		return $this->response($result);			
 	}
-	//---------------------GET ALL PRODUCTS END------------------------------//
+	//---------------------GET ALL PROFILES END------------------------------//
 
 	// -----------------------GET PARTICULAR PRODUCTS API----------------------//
 	//-------------------------------------------------------------//
