@@ -116,7 +116,7 @@ error_reporting(E_ERROR | E_PARSE);
                     MaterialOD = $('#MaterialOD_' + fieldnum + ' [value="' + $('#Select_OD_' + fieldnum).val() + '"]').data('value');
                     MaterialLength = $('#MaterialLength_' + fieldnum + ' [value="' + $('#Select_Length_' + fieldnum).val() + '"]').data('value');
 
-                    //alert(Materialinfo);
+                    alert(Materialinfo);
                     $.ajax({
                         type: "POST",
                         url: "<?php echo base_url(); ?>inventory/Manage_materials/GetMaterialBasePrice",
@@ -129,7 +129,7 @@ error_reporting(E_ERROR | E_PARSE);
                         return: false, //stop the actual form post !important!
                         success: function (data)
                         {
-                            //alert(data);
+                            alert(data);
 //                            $("#msg_header").text();
 //                            $("#msg_span").css({'color': "black"});
 //                            $("#addMaterials_err").html(data);

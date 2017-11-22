@@ -22,6 +22,11 @@ class ManageMaterial_model extends CI_Model {
 
     /* fun ends here */
 
+//-----------this fun is used to get material Final price for calaculation-------//
+//    public function GetFinalriceForMaterialCalculation($data) {
+//        extract($data);
+//    }
+
 //-----this fun is used to get material base price calculations-------------//
     public function GetMaterialBasePrice($data) {
         extract($data);
@@ -30,12 +35,13 @@ class ManageMaterial_model extends CI_Model {
         $setting_value = json_decode($customizevalue, TRUE);
         //print_r($setting_value);
         $cut_value = 0;
-        $profit_margin =0;
+        $profit_margin = 0;
         $single_cost = 0;
-            $cut_value = $setting_value['cut_value'];
-            $profit_margin = $setting_value['profit_margin'];
-        
+        $cut_value = $setting_value['cut_value'];
+        $profit_margin = $setting_value['profit_margin'];
+
         $single_cost = $material_price * ($profit_margin * ($cut_value + $MaterialLength));
+
         return $single_cost;
     }
 
@@ -47,12 +53,20 @@ class ManageMaterial_model extends CI_Model {
 
         $result = $this->db->query($sql);
         $material_price = '0.00';
-
-        foreach ($result->result_array() as $row) {
-            $material_price = $row['material_price'];
+        if ($result->num_rows() <= 0) {
+            $response = array(
+                'status' => 0,
+                'status_message' => 'No Records Found.');
+        } else {
+            foreach ($result->result_array() as $row) {
+                $material_price = $row['material_price'];
+            }
         }
         return $material_price;
     }
+
+//-----this fun is used to get material base price calculations-------------//
+//-----this fun is used to get material base price calculations-------------//
 
     public function getcustomizedvalueforCalculation() {
         $query = "SELECT * FROM customize_settings";
