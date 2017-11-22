@@ -25,7 +25,26 @@ error_reporting(E_ERROR | E_PARSE);
                 <h5><b><i class="fa fa-cubes"></i> Manage Stocks</b></h5>
             </header>
             <form method="POST" action="" id="Manage_RawMaterialForm" name="Manage_RawMaterialForm">
-
+                <div class="w3-col l12 w3-padding">
+                    <div class="w3-col l4">
+                        <label >Customers</label> 
+                        <input list="Customers" id="Select_Customers" name="Select_Customers" class="form-control" required type="text" placeholder="Customers" onchange="GetTubeHistoryForInquiry();">                                         
+                        <datalist id="Customers">
+                            <?php foreach ($customers['status_message'] as $result) { ?>
+                                <option data-value="<?php echo $result['cust_id']; ?>" value='<?php echo $result['customer_name']; ?>'></option>
+                            <?php } ?>
+                        </datalist>
+                    </div>
+                    <div class="w3-col l4 w3-padding-left">
+                        <label >Profiles</label> 
+                        <input list="Profiles" id="Select_Profiles" name="Select_Profiles" class="form-control" required type="text" placeholder="Profiles" onchange="GetTubeHistoryForInquiry();">                                         
+                        <datalist id="Profiles">
+                            <?php foreach ($profiles['status_message'] as $result) { ?>
+                                <option data-value="<?php echo $result['profile_id']; ?>" value='<?php echo $result['profile_name']; ?>'></option>
+                            <?php } ?>
+                        </datalist>
+                    </div>
+                </div><br>
                 <div class="w3-col l12 w3-small w3-padding">
                     <div class="w3-col l2">
                         <label >MATERIAL</label> 
@@ -62,7 +81,7 @@ error_reporting(E_ERROR | E_PARSE);
 
                     <div class="w3-col l1 w3-padding-left">
                         <label>BASE PRICE</label> 
-                        <input id="base_Price_1" name="base_Price[]" class="form-control" min="0" required type="number" placeholder="Base Price">                                         
+                        <input id="base_Price_1" name="base_Price[]" class="form-control" min="0" required type="number" placeholder="Base Price" onkeyup="GetMaterialBasePrice(1);">                                         
                     </div>
 
                     <div class="w3-col l1 w3-padding-left">
@@ -109,6 +128,27 @@ error_reporting(E_ERROR | E_PARSE);
 
                 </div>
             </div>
+            <script>
+                function GetTubeHistoryForInquiry() {
+                    Customer_id = $('#Customers [value="' + $('#Select_Customers').val() + '"]').data('value');
+                    Profile_id = $('#Profiles [value="' + $('#Select_Profiles').val() + '"]').data('value');
+                    //alert(Materialinfo);
+
+                    $.ajax({
+                        type: "POST",
+                        url: "<?php echo base_url(); ?>inventory/Manage_materials/GetTubeHistoryForInquiry",
+                        data: {
+                            Customer_id: Customer_id,
+                            Profile_id: Profile_id
+                        },
+                        cache: false,
+                        success: function (data) {
+                            alert(data);
+                            //$('#Show_producttable').html(data);
+                        }
+                    });
+                }
+            </script>
             <SCRIPT >
                 function GetMaterialBasePrice(fieldnum) {
                     Materialinfo = $('#Materialinfo_' + fieldnum + ' [value="' + $('#Select_material_' + fieldnum).val() + '"]').data('value');
@@ -118,30 +158,25 @@ error_reporting(E_ERROR | E_PARSE);
 
                     alert(Materialinfo);
                     $.ajax({
-                        type: "POST",
-                        url: "<?php echo base_url(); ?>inventory/Manage_materials/GetMaterialBasePrice",
-                        data: {
-                            Materialinfo: Materialinfo,
-                            MaterialID: MaterialID,
-                            MaterialOD: MaterialOD,
-                            MaterialLength: MaterialLength
-                        },
-                        return: false, //stop the actual form post !important!
-                        success: function (data)
-                        {
-                            alert(data);
+                    type: "POST",
+                            url: "<?php echo base_url(); ?>inventory/Manage_materials/GetMaterialBasePrice",
+                            data:
+                            return: false, //stop the actual form post !important!
+                            success: function (data)
+                            {
+                            //alert(data);
 //                            $("#msg_header").text();
 //                            $("#msg_span").css({'color': "black"});
 //                            $("#addMaterials_err").html(data);
 //                            $('#myModalnew').modal('show');
                             $('#base_Price_' + fieldnum).val(data);
-                        }
+                            }
                     });
-                }
+                    }
             </SCRIPT>
 
             <script>
-                $(document).ready(function () {
+                    $(document).ready(function () {
                     var max_fields = 15;
                     var wrapper = $("#added_row");
                     var add_button = $("#add_row");
@@ -205,7 +240,8 @@ error_reporting(E_ERROR | E_PARSE);
                         $(this).parent('div').remove();
                         x--;
                     });
-                });
+                }
+                );
             </script>
 
             <!-- this script is used for showing add more rows functionality ends here -->
