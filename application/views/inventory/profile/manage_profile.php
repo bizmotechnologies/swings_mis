@@ -72,7 +72,7 @@ error_reporting(E_ERROR | E_PARSE);
             <div class="w3-col l12 w3-margin-top">
               <div class="w3-col l2 w3-padding-right">
                 <label class="w3-label">Material:</label>
-                <input list="Materialinfo" type="text" class="w3-input" name="material_name[]" id="material_name" placeholder="Type material name" onchange="GetMaterilaInformation();" required>
+                <input list="Materialinfo" type="text" class="w3-input" name="material_name[]" id="material_name" placeholder="Type material name" required>
                 <datalist id="Materialinfo">
                   <?php foreach($all_materials['status_message'] as $result) { ?>
                   <option data-value="<?php echo $result['material_id']; ?>" value="<?php echo $result['material_name']; ?>"><?php echo $result['material_name']; ?></option>
