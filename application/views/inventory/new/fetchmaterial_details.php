@@ -1,6 +1,6 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-error_reporting(E_ERROR | E_PARSE);
+//error_reporting(E_ERROR | E_PARSE);
 ?>
 <!DOCTYPE html>
 <html>
@@ -81,7 +81,7 @@ error_reporting(E_ERROR | E_PARSE);
 
                     <div class="w3-col l1 w3-padding-left">
                         <label>BASE PRICE</label> 
-                        <input id="base_Price_1" name="base_Price[]" class="form-control" min="0" required type="number" placeholder="Base Price" onkeyup="GetMaterialBasePrice(1);">                                         
+                        <input id="base_Price_1" name="base_Price[]" class="form-control" min="0" required type="number" placeholder="Base Price" onkeypress="GetMaterialBasePrice(1);">                                         
                     </div>
 
                     <div class="w3-col l1 w3-padding-left">
@@ -151,6 +151,11 @@ error_reporting(E_ERROR | E_PARSE);
             </script>
             <SCRIPT >
                 function GetMaterialBasePrice(fieldnum) {
+                    var Materialinfo=0;
+                    var MaterialID=0;
+                    var MaterialOD=0;
+                    var MaterialLength=0;
+                    
                     Materialinfo = $('#Materialinfo_' + fieldnum + ' [value="' + $('#Select_material_' + fieldnum).val() + '"]').data('value');
                     MaterialID = $('#MaterialID_' + fieldnum + ' [value="' + $('#Select_ID_' + fieldnum).val() + '"]').data('value');
                     MaterialOD = $('#MaterialOD_' + fieldnum + ' [value="' + $('#Select_OD_' + fieldnum).val() + '"]').data('value');

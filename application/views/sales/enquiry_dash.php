@@ -27,6 +27,13 @@ error_reporting(E_ERROR | E_PARSE);
 
     <div class="w3-row-padding w3-margin-bottom">
       <div class="w3-col l12">
+        <a class="btn w3-col l2  w3-round-xxlarge w3-card-4 w3-center w3-hover-light-blue w3-red w3-padding-16 w3-margin-right w3-margin-bottom" href="<?php echo base_url(); ?>sales_enquiry/manage_enquiries">
+          <div class="w3-col l12"><i class="fa fa-copy w3-xxxlarge"></i></div> 
+          <div class="w3-col l12"><br>
+            <span class="w3-small">Manage Enquiries</span>
+          </div>
+        </a>
+
         <a class="btn w3-col l2  w3-round-xxlarge w3-card-4 w3-center w3-hover-light-blue w3-red w3-padding-16 w3-margin-right w3-margin-bottom" href="<?php echo base_url(); ?>sales_enquiry/manage_quotations">
           <div class="w3-col l12"><i class="fa fa-copy w3-xxxlarge"></i></div> 
           <div class="w3-col l12"><br>
