@@ -162,7 +162,7 @@ public function addProfile() {
       }, 1000);
       </script>';
   } else {
-    echo '<div class="alert alert-danger">
+    echo '<div class="alert alert-success">
       <strong>'.$response['status_message'].'</strong> 
       </div>
       <script>

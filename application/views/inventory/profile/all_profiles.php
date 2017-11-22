@@ -34,16 +34,21 @@ error_reporting(E_ERROR | E_PARSE);
      <span class="w3-label w3-right w3-margin-right"><a href="<?php echo base_url(); ?>inventory/manage_profiles" class="btn w3-blue w3-small"><b><i class="fa fa-plus"></i> Add Profile</b></a></span>
    </div>
 
-   <div class="w3-col l12">
+   <div class="w3-col l12 w3-padding-small">
     <?php  
+    if($all_profiles['status']!=0){
     foreach ($all_profiles['status_message'] as $key) {
    
     echo '<div class="w3-col l1 w3-red w3-card-2 w3-round w3-padding-tiny w3-text-white" style="margin:5px">
       <div class=" profile_pic img-thumbnail" style="background-image:url(\''.base_url().$key['profile_image'].'\')"></div>
       <div class="w3-col l12 w3-center"><span class="w3-small">'.$key['profile_name'].'</span></div>
     </div>';
-
-    } ?>   
+}
+    }
+    else{
+      echo '<div class="w3-col l12"><label class="w3-center w3-text-red">'.$all_profiles['status_message'].'</label></div>';
+    }
+    ?>   
   </div>
 </div>
 
