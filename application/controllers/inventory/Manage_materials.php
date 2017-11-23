@@ -45,7 +45,7 @@ class Manage_materials extends CI_controller {
     public function GetMaterialBasePrice() {
         extract($_POST);
         $data = $_POST;
-        print_r($data);die();
+        // print_r($data);die();
         $path = base_url();
         $url = $path . 'api/ManageMaterial_api/GetMaterialBasePrice';
         $ch = curl_init($url);
@@ -55,30 +55,12 @@ class Manage_materials extends CI_controller {
         $response_json = curl_exec($ch);
         curl_close($ch);
         $response = json_decode($response_json, true);
-        echo $response_json;
+        echo $response;
         //print_r($response_json);
     }
 
 //    -----------this fun is show fetched material info page
-//--------this fun is used to get final price for material-------//
-    public function GetFinalriceForMaterialCalculation() {
-        extract($_POST);
-        $data = $_POST;
-        print_r($data);
-        $path = base_url();
-        $url = $path . 'api/ManageMaterial_api/GetFinalriceForMaterialCalculation';
-        $ch = curl_init($url);
-        curl_setopt($ch, CURLOPT_POST, true);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        $response_json = curl_exec($ch);
-        curl_close($ch);
-        $response = json_decode($response_json, true);
-        //print_r($response_json);
-        echo $response;
-    }
 
-//--------this fun is used to get final price for material-------//
 
     public function fetchmaterial_details() {
         $data['info'] = Manage_materials::getRawMaterialInfo();     //-------show all Raw materials

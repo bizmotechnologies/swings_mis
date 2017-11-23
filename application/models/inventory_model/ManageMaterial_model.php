@@ -103,7 +103,7 @@ class ManageMaterial_model extends CI_Model {
         $result = $this->db->query($sql);
         $material_price = '0.00';
         if ($result->num_rows() <= 0) {
-            $response = array(
+            $material_price = array(
                 'status' => 0,
                 'status_message' => 'No Records Found.');
         } else {

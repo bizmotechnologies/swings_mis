@@ -13,7 +13,7 @@ error_reporting(E_ERROR | E_PARSE);
         <link rel="stylesheet" href="<?php echo base_url(); ?>css/w3.css">
         <script type="text/javascript" src="<?php echo base_url(); ?>css/bootstrap/jquery-3.1.1.js"></script>
         <script type="text/javascript" src="<?php echo base_url(); ?>css/bootstrap/bootstrap.min.js"></script>
-        <script type="text/javascript" src="<?php echo base_url(); ?>css/country/country.js"></script>
+        <script type="text/javascript" src="<?php echo base_url(); ?>css/js/config.js"></script>
 
     </head>
     <body class="w3-light-grey">
@@ -45,7 +45,7 @@ error_reporting(E_ERROR | E_PARSE);
                         </datalist>
                     </div>
                 </div><br>
-                <div class="w3-col l12 w3-small w3-padding">
+                <div class="w3-col l12 w3-tiny w3-padding">
                     <div class="w3-col l2">
                         <label >MATERIAL</label> 
                         <input list="Materialinfo_1" id="Select_material_1" name="Select_material[]" class="form-control" required type="text" placeholder="Material" onchange="GetMaterialInformation_ForEnquiry(1);">                                         
@@ -58,21 +58,21 @@ error_reporting(E_ERROR | E_PARSE);
                     <div class="w3-col l3">
                         <div class="w3-col l4 s4 w3-padding-left">
                             <label>ID</label> 
-                            <input list="MaterialID_1" id="Select_ID_1" name="Select_ID[]" class="form-control" required type="text" min="0" placeholder="ID" onkeyup="GetMaterialBasePrice(1);">                                         
+                            <input list="MaterialID_1" id="Select_ID_1" name="Select_ID[]" class="form-control" required type="text" min="0" placeholder="ID" >                                         
                             <datalist id="MaterialID_1">
 
                             </datalist>
                         </div>
                         <div class="w3-col l4 s4 w3-padding-left">
                             <label>OD</label> 
-                            <input list="MaterialOD_1" id="Select_OD_1" name="Select_OD[]" class="form-control" required type="text" min="0" placeholder="OD" onkeyup="GetMaterialBasePrice(1);">                                         
+                            <input list="MaterialOD_1" id="Select_OD_1" name="Select_OD[]" class="form-control" required type="text" min="0" placeholder="OD" >                                         
                             <datalist id="MaterialOD_1">
 
                             </datalist>
                         </div>
                         <div class="w3-col l4 s4 w3-padding-left">
                             <label>LENGTH</label> 
-                            <input list="MaterialLength_1" id="Select_Length_1" name="Select_Length[]" class="form-control" required type="text" min="0" placeholder="Length" onkeyup="GetMaterialBasePrice(1);">                                         
+                            <input list="MaterialLength_1" id="Select_Length_1" name="Select_Length[]" class="form-control" required type="text" min="0" placeholder="Length" >                                         
                             <datalist id="MaterialLength_1">
 
                             </datalist>
@@ -81,24 +81,24 @@ error_reporting(E_ERROR | E_PARSE);
 
                     <div class="w3-col l1 w3-padding-left">
                         <label>BASE PRICE</label> 
-                        <input id="base_Price_1" name="base_Price[]" class="form-control" min="0" required type="number" placeholder="Base Price">                                         
+                        <input id="base_Price_1" name="base_Price[]" class="form-control" min="0" step="0.01" required type="number" placeholder="Base Price"  onfocus="GetMaterialBasePrice(1);">                                         
                     </div>
 
                     <div class="w3-col l1 w3-padding-left">
                         <label>QUANTITY</label> 
-                        <input id="select_Quantity_1" name="select_Quantity[]" class="form-control" min="0" required type="number" placeholder="Quantity">                                         
+                        <input id="select_Quantity_1" name="select_Quantity[]" class="form-control" min="0" required type="number" placeholder="Quantity" onkeypress="GetFinalriceForMaterialCalculation(1);">                                         
                     </div>
 
                     <div class="w3-col l1 w3-padding-left">
-                        <label>DISCOUNT</label> 
-                        <input id="discount_1" name="discount[]" class="form-control" required type="number" min="0" placeholder="Discount %.">                                         
+                        <label>DISCOUNT(%)</label> 
+                        <input id="discount_1" name="discount[]" class="form-control" required type="number" min="0" step="0.01" placeholder="Discount %." onkeypress="GetFinalriceForMaterialCalculation(1);">                                         
                     </div>
 
                     <div class="w3-col l1 w3-padding-left">
                         <label>FINAL&nbsp;PRICE</label> 
-                        <input id="final_Price_1" name="final_Price[]" class="form-control" required type="number" min="0" placeholder="Final Price">                                         
+                        <input id="final_Price_1" name="final_Price[]" class="form-control" required type="number" min="0" step="0.01" placeholder="Final Price" onfocus="GetFinalriceForMaterialCalculation(1);">                                         
                     </div>
-                    <div class="w3-col l1">
+                    <div class="w3-col l1 w3-margin-top">
                         <span><a  id="add_row" class="btn add-more w3-text-blue w3-right">+Add</a></span>
                     </div>
                 </div>
@@ -129,10 +129,32 @@ error_reporting(E_ERROR | E_PARSE);
                 </div>
             </div>
             <script>
+                function GetFinalriceForMaterialCalculation(fieldnum) {
+                    //alert('hii');
+                    finalprice = '0';
+                    //quantity = '0';
+                    //discount = '0';
+                    quantity = $("#select_Quantity_" + fieldnum).val();
+                    discount = $("#discount_" + fieldnum).val();
+                    baseprice = $("#base_Price_" + fieldnum).val();
+                    
+                                      
+                    if (discount !== '' || quantity !== '') {
+                        if (discount === '') {
+                            
+                        }
+                        finalprice = ((parseInt(baseprice) * parseInt(quantity)) - ((parseInt(discount) / 100) * (parseInt(baseprice) * parseInt(quantity))));
+                    } else {
+                        finalprice = baseprice;
+                    }
+                    $("#final_Price_" + fieldnum).val(finalprice);
+
+                }
+            </script>
+            <script>
                 function GetTubeHistoryForInquiry() {
                     Customer_id = $('#Customers [value="' + $('#Select_Customers').val() + '"]').data('value');
                     Profile_id = $('#Profiles [value="' + $('#Select_Profiles').val() + '"]').data('value');
-                    //alert(Materialinfo);
 
                     $.ajax({
                         type: "POST",
@@ -151,32 +173,36 @@ error_reporting(E_ERROR | E_PARSE);
             </script>
             <SCRIPT >
                 function GetMaterialBasePrice(fieldnum) {
+                    Materialinfo = 0;
+                    MaterialID = 0;
+                    MaterialOD = 0;
+                    MaterialLength = 0;
                     Materialinfo = $('#Materialinfo_' + fieldnum + ' [value="' + $('#Select_material_' + fieldnum).val() + '"]').data('value');
                     MaterialID = $('#MaterialID_' + fieldnum + ' [value="' + $('#Select_ID_' + fieldnum).val() + '"]').data('value');
                     MaterialOD = $('#MaterialOD_' + fieldnum + ' [value="' + $('#Select_OD_' + fieldnum).val() + '"]').data('value');
                     MaterialLength = $('#MaterialLength_' + fieldnum + ' [value="' + $('#Select_Length_' + fieldnum).val() + '"]').data('value');
 
-                    alert(Materialinfo);
                     $.ajax({
-                    type: "POST",
-                            url: "<?php echo base_url(); ?>inventory/Manage_materials/GetMaterialBasePrice",
-                            data:
-                            return: false, //stop the actual form post !important!
-                            success: function (data)
-                            {
-                            //alert(data);
-//                            $("#msg_header").text();
-//                            $("#msg_span").css({'color': "black"});
-//                            $("#addMaterials_err").html(data);
-//                            $('#myModalnew').modal('show');
+                        type: "POST",
+                        url: "<?php echo base_url(); ?>inventory/Manage_materials/GetMaterialBasePrice",
+                        data: {
+                            Materialinfo: Materialinfo,
+                            MaterialID: MaterialID,
+                            MaterialOD: MaterialOD,
+                            MaterialLength: MaterialLength
+                        },
+                        return: false, //stop the actual form post !important!
+                        success: function (data)
+                        {
+//                            $("#base_Price_" + fieldnum).empty();
                             $('#base_Price_' + fieldnum).val(data);
-                            }
+                        }
                     });
-                    }
+                }
             </SCRIPT>
 
             <script>
-                    $(document).ready(function () {
+                $(document).ready(function () {
                     var max_fields = 15;
                     var wrapper = $("#added_row");
                     var add_button = $("#add_row");
@@ -185,7 +211,7 @@ error_reporting(E_ERROR | E_PARSE);
                         e.preventDefault();
                         if (x < max_fields) {
                             x++;
-                            $(wrapper).append('<div class="w3-margin-bottom w3-col l12 w3-padding-left">\n\
+                            $(wrapper).append('<div class="w3-margin-bottom w3-col l12 w3-tiny w3-padding-left">\n\
 <div class="w3-col l2">\n\
 <label>MATERIAL</label>\n\
 <input list="Materialinfo_' + x + '" id="Select_material_' + x + '" name="Select_material[]" class="form-control" required type="text" placeholder="Material" onchange="GetMaterialInformation_ForEnquiry(' + x + ');">\n\
