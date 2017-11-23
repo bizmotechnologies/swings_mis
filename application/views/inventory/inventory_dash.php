@@ -30,7 +30,7 @@ error_reporting(E_ERROR | E_PARSE);
         <a class="btn w3-col l2  w3-round-xxlarge w3-card-4 w3-center w3-hover-light-blue w3-red w3-padding-16 w3-margin-right w3-margin-bottom" href="<?php echo base_url(); ?>inventory/manage_profiles">
           <div class="w3-col l12"><i class="fa fa-pinterest w3-xxxlarge"></i></div> 
           <div class="w3-col l12"><br>
-            <span class="w3-small">Manage Products</span>
+            <span class="w3-small">Manage Profiles</span>
           </div>
         </a>
 
