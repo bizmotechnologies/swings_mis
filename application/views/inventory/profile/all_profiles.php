@@ -81,7 +81,7 @@ error_reporting(E_ERROR | E_PARSE);
         </div>
         <div class="w3-col l12">
         <div class="w3-col l12"><label class="w3-medium"><i class="fa fa-cubes"></i> Materials Associated</label></div>     
-        <div class="w3-col l12">';
+        <div class="w3-col l12 w3-margin-left w3-padding-left">';
 
         foreach (json_decode($key['material_associated'],TRUE) as $mat) { 
           echo '
