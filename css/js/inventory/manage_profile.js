@@ -6,8 +6,8 @@
 // This script is used to save profile information -->
 
 $(document).ready(function (e){
-    $("#addProfile_form").on('submit',(function(e){
-        e.preventDefault();
+    $("#addProfile_form").on('submit',(function(e){       
+        e.preventDefault();        
         $.ajax({
             url: BASE_URL + "inventory/Manage_profiles/addProfile",
             type: "POST",
@@ -42,3 +42,5 @@ $(function () {
     });
 });
 // ------------function preview image end------------------//
+
+

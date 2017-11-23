@@ -43,12 +43,11 @@ class Manage_profiles extends CI_controller{
 //----------------this fun get material details end---------------//
 
 
- //----------this function to save product profile-----------------------------
-
+ //----------this function to save product profile-----------------------------//
 public function addProfile() { 
   extract($_POST);
   $data = $_POST;
-
+ print_r($data);die();
   $material_Arr=array();  //material_image array
   $allowed_types=['gif','jpg','png','jpeg','JPG','GIF','JPEG','PNG'];
   $extension_profile='';
@@ -105,7 +104,7 @@ public function addProfile() {
     if(!empty($_FILES['material_image']['name'])){
       $extension = pathinfo($_FILES['material_image']['name'][$i], PATHINFO_EXTENSION);
 
-      $_FILES['userFile']['name'] = $profile_name.'_'.$material_name[$i].'_'.$material_ID[$i].'-'.$material_OD[$i].'.'.$extension;
+      $_FILES['userFile']['name'] = $profile_name.'_'.$material_name[$i].'_'.$ID_quantity[$i].'-'.$OD_quantity[$i].'.'.$extension;
       $_FILES['userFile']['type'] = $_FILES['material_image']['type'][$i];
       $_FILES['userFile']['tmp_name'] = $_FILES['material_image']['tmp_name'][$i];
       $_FILES['userFile']['error'] = $_FILES['material_image']['error'][$i];
@@ -126,13 +125,13 @@ public function addProfile() {
     }
 
     $material_Arr[]=array(
+      'material_id' =>  $material_id[$i],
       'material_name' =>  $material_name[$i],
-      'material_ID' =>  $material_ID[$i],
-      'material_OD' =>  $material_OD[$i],
-      'material_length' =>  $material_length[$i],
+      'ID_quantity' =>  $ID_quantity[$i],
+      'OD_quantity' =>  $OD_quantity[$i],
+      'length_quantity' =>  $length_quantity[$i],
       'material_quantity' =>  $material_quantity[$i],
       'material_image' =>  $imagePath
-
     );
   }
 
@@ -175,8 +174,7 @@ public function addProfile() {
       </script>';
   }
 }
-
-    //----------------this fun is to save profile details end---------------//
+//----------------this fun is to save profile details end---------------//
 
 
 
