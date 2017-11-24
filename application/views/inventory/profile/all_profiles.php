@@ -37,16 +37,87 @@ error_reporting(E_ERROR | E_PARSE);
    <div class="w3-col l12 w3-padding-small">
     <?php  
     if($all_profiles['status']!=0){
-    foreach ($all_profiles['status_message'] as $key) {
-   
-    echo '<div class="w3-col l1 w3-red w3-card-2 w3-round w3-padding-tiny w3-text-white" style="margin:5px">
-      <div class=" profile_pic img-thumbnail" style="background-image:url(\''.base_url().$key['profile_image'].'\')"></div>
-      <div class="w3-col l12 w3-center"><span class="w3-small">'.$key['profile_name'].'</span></div>
-    </div>';
-}
+      foreach ($all_profiles['status_message'] as $key) {
+
+        echo '
+        <div class="w3-col l1 s3 m3 w3-red w3-card-2 w3-round w3-padding-tiny w3-text-white w3-hover-opacity" style="margin:5px">
+        <a class="btn w3-col l12" data-toggle="modal" data-target="#view_profile_'.$key['profile_id'].'" style="margin:0;padding:0">
+        <div class=" profile_pic img-thumbnail" style="background-image:url(\''.base_url().$key['profile_image'].'\')"></div>
+        <div class="w3-col l12 w3-center"><hr style="margin:0;padding:0"><span class="w3-small">'.$key['profile_name'].'</span></div>
+        </a>
+        </div>';
+
+        echo '
+        <!-- Modal to show profile details-->
+        <div id="view_profile_'.$key['profile_id'].'" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">                
+        <div class="modal-body">
+        <div class="row w3-padding-small w3-small">
+        <div class="w3-col l12">
+        <div class="w3-col l12"><label class="w3-medium"><i class="fa fa-pinterest"></i> Profile details</label></div>
+        <div class="w3-col l7">
+        <div class="w3-col l12">
+        <div class="w3-col l7">
+        <span class="w3-right w3-tiny">Profile Name:</span>
+        </div>
+        <div class="w3-col l5 w3-padding-left">
+        <span><b>'.$key['profile_name'].'</b></span>
+        </div>
+        </div>
+        <div class="w3-col l12">
+        <div class="w3-col l7">
+        <span class="w3-right w3-tiny">Product Description:</span>
+        </div>
+        <div class="w3-col l5 w3-padding-left">
+        <span><b>'.$key['product_description'].'</b></span>
+        </div>
+        </div>                          
+        </div>
+        <div class="w3-col l5">
+        <div class="w3-padding-tiny profile_picLg img-thumbnail" style="background-image:url(\''.base_url().$key['profile_image'].'\')"></div>       
+        </div>
+        </div>
+        <div class="w3-col l12">
+        <div class="w3-col l12"><label class="w3-medium"><i class="fa fa-cubes"></i> Materials Associated</label></div>     
+        <div class="w3-col l12 w3-margin-left w3-padding-left">';
+
+        foreach (json_decode($key['material_associated'],TRUE) as $mat) { 
+          echo '
+          <table class="table">
+          <tbody>
+          <tr>
+          <td>
+          <div class="w3-padding-tiny profile_pic img-thumbnail" style="background-image:url(\''.base_url().$mat['material_image'].'\')"></div>
+          </td>
+          <td>
+          <div class="w3-col l12">
+          <div class="w3-col l12"><span class="w3-tiny">Material Name:</span> <b>'.$mat['material_name'].'</b></div>
+          <div class="w3-col l12"><span class="w3-tiny">Total ID Units Needed:</span> <b>'.$mat['ID_quantity'].'</b></div>
+          <div class="w3-col l12"><span class="w3-tiny">Total OD Units Needed Name:</span> <b>'.$mat['OD_quantity'].'</b></div>
+          <div class="w3-col l12"><span class="w3-tiny">Total Length Units Needed:</span> <b>'.$mat['length_quantity'].'</b></div>
+          <div class="w3-col l12"><span class="w3-tiny">Total Units of Material:</span> <b>'.$mat['material_quantity'].'</b></div>
+          </div>
+          </td>
+          </tr>
+          </tbody>
+          </table>';
+        }
+        echo '
+        </div>      
+        </div>
+        </div>        
+        </div>
+        </div>
+        </div>
+        </div>
+        <!-- modal ends here -->
+        ';
+      }
     }
     else{
-      echo '<div class="w3-col l12"><label class="w3-center w3-text-red">'.$all_profiles['status_message'].'</label></div>';
+      echo '<div class="w3-col l12 alert alert-warning"><label class="w3-center w3-text-red w3-margin-left">'.$all_profiles['status_message'].'</label></div>';
     }
     ?>   
   </div>

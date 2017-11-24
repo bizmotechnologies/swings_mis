@@ -11,7 +11,15 @@ body {
 
 .profile_pic{
 	width: 100px;
-	height: 100px;
+	height: 80px;
+	background-size: contain;
+	background-position: center;
+	background-repeat: no-repeat;
+}
+
+.profile_picLg{
+	width: 150px;
+	height: 130px;
 	background-size: contain;
 	background-position: center;
 	background-repeat: no-repeat;

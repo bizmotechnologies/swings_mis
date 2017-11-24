@@ -54,5 +54,7 @@ class ManageProfile_model extends CI_Model{
     /* ends here */
 	//------------------function ends-------------------------//
 
+	
+
 }
 ?>
