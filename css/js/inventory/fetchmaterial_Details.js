@@ -63,7 +63,7 @@ $(document).ready(function () {
     });
 });
 
-function GetFinalriceForMaterialCalculation(fieldnum) {
+function GetFinalPriceForMaterialCalculation(fieldnum) {
     //alert('hii');
     finalprice = '0';
     //quantity = '0';

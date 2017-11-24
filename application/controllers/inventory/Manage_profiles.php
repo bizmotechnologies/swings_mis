@@ -47,7 +47,7 @@ class Manage_profiles extends CI_controller{
 public function addProfile() { 
   extract($_POST);
   $data = $_POST;
- print_r($data);die();
+
   $material_Arr=array();  //material_image array
   $allowed_types=['gif','jpg','png','jpeg','JPG','GIF','JPEG','PNG'];
   $extension_profile='';
