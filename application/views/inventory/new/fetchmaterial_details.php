@@ -27,7 +27,7 @@ error_reporting(E_ERROR | E_PARSE);
             </header>
             <div class="col-lg-12"><label>Add New Enquiry</label>
             </div>
-            <form method="POST" action="" id="Manage_EnquiryForm" name="Manage_EnquiryForm">
+            <form method="POST" action="<?php echo base_url();?>inventory/Manage_materials/Add_MultipleProduct" id="Manage_EnquiryForm" name="Manage_EnquiryForm">
 
                 <div class="w3-col l12 w3-margin-top w3-small">
                     <div class="w3-col l12 w3-padding">
@@ -79,7 +79,7 @@ error_reporting(E_ERROR | E_PARSE);
 
                             <div class="w3-col l10 w3-left">
                                 <div class="input-group ">
-                                    <input type="checkbox" name="checkHousing_1" id="checkHousing_1" value=""><b>  Housing(Seal&nbsp;kit&nbsp;for&nbsp;Hydraulic&nbsp;70&nbsp;MM,&nbsp;Rod&nbsp;50&nbsp;MM&nbsp;–&nbsp;15&nbsp;Sets.)</b>
+                                    <input type="checkbox" name="checkHousing[]" id="checkHousing_1" value=""><b>  Housing(Seal&nbsp;kit&nbsp;for&nbsp;Hydraulic&nbsp;70&nbsp;MM,&nbsp;Rod&nbsp;50&nbsp;MM&nbsp;–&nbsp;15&nbsp;Sets.)</b>
                                 </div>
                             </div>
 

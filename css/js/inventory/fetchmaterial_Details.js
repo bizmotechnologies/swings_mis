@@ -1,23 +1,23 @@
-$(function () {
-    $("#Manage_EnquiryForm").submit(function () {
-        dataString = $("#Manage_EnquiryForm").serialize();
-
-        $.ajax({
-            type: "POST",
-            url: BASE_URL + "inventory/Manage_materials/save_ProductEnquiry",
-            data: dataString,
-            return: false, //stop the actual form post !important!
-            success: function (data)
-            {
-                $("#msg_header").text('Message');
-                $("#msg_span").css({'color': "black"});
-                $("#addMaterials_err").html(data);
-                $('#myModalnew').modal('show');
-            }
-        });
-        return false;  //stop the actual form post !important!
-    });
-});
+//$(function () {
+//    $("#Manage_EnquiryForm").submit(function () {
+//        dataString = $("#Manage_EnquiryForm").serialize();
+//
+//        $.ajax({
+//            type: "POST",
+//            url: BASE_URL + "inventory/Manage_materials/",
+//            data: dataString,
+//            return: false, //stop the actual form post !important!
+//            success: function (data)
+//            {
+//                $("#msg_header").text('Message');
+//                $("#msg_span").css({'color': "black"});
+//                $("#addMaterials_err").html(data);
+//                $('#myModalnew').modal('show');
+//            }
+//        });
+//        return false;  //stop the actual form post !important!
+//    });
+//});
 function GetMaterilaInformation() {
     Materialinfo = $('#Materialinfo [value="' + $('#Select_material_1').val() + '"]').data('value');
     //alert(Materialinfo);

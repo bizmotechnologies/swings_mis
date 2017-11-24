@@ -16,22 +16,76 @@ class Manage_materials extends CI_controller {
     }
 
     public function index() {
-        //$this->load->helper('url');
+
         $this->load->model('inventory_model/ManageMaterial_model');
         $data['details'] = Manage_materials::getMaterialrecord();     //-------show all materials
         $this->load->view('includes/navigation');
         $this->load->view('inventory/materials/manage_material', $data);
     }
 
-    //---------this fun is used to show product information---------------//
-    public function save_ProductEnquiry() {
+    //---------this fun is used to add multiple products---------------//
+    public function Add_MultipleProduct() {
         extract($_POST);
         $data = $_POST;
         print_r($data);
+        $Set_QuantityforHousingChecked = 0;
+        $Set_QuantityforHousingChecked = 0;
+
+        if (isset($Set_QuantityforHousingChecked)) {
+            $Set_QuantityforHousingChecked = 1;
+        }
+        if (isset($Set_QuantityforHousingChecked)) {
+            $Set_QuantityforHousing = $Set_QuantityforHousingChecked;
+        }
+        $material_Arr = array();
+        $profile_arr = array();
+        //print_r($data);
+        for ($i = 0; $i < count($Select_material); $i++) {
+            $ID_arr = array();
+            $OD_arr = array();
+            $Length_arr = array();
+            foreach ($Select_ID[$i] as $ID) {
+                $ID_arr[] = $ID;
+            }
+            foreach ($Select_OD[$i] as $OD) {
+                $OD_arr[] = $OD;
+            }
+            foreach ($Length_arr[$i] as $Length) {
+                $Length_arr[] = $Length;
+            }
+
+            $material_Arr[] = array(
+                'material_id' => $Select_material[$i],
+                'Select_ID' => json_encode($ID_arr),
+                'Select_OD' => json_encode($OD_arr),
+                'Select_Length' => json_encode($Length_arr),
+                'base_Price' => $base_Price[$i],
+                'select_Quantity' => $select_Quantity[$i],
+                'discount' => $discount[$i],
+                'final_Price' => $final_Price[$i]
+            );
+        }
+        $profile_arr[] = array(
+            'customer_id' => $Customers,
+            'product_name' => $product_nameForEnquiry,
+            'profile_id' => $Select_Profiles,
+            'housing_status' => $Set_QuantityforHousingChecked,
+            'profile_description' => $profie_DescriptionForHousingChecked,
+            'housing_setQuantity' => $Set_QuantityforHousing,
+            'Prod_ID' => $ID_forHousingChecked,
+            'Prod_OD' => $OD_forHousingChecked,
+            'Prod_length' => $LENGTH_forHousingChecked,
+            'material_associated' => json_encode($material_Arr),
+            'product_quantity' => $Product_Quantity,
+            'product_price' => $TotalProduct_Price
+        );
+
+        echo json_encode($profile_arr);
+        print_r($profile_arr);
         
     }
 
-    //---------this fun is used to show product information---------------//
+    //---------this fun is used to add multiple products---------------//
     //--------this fun is uded to get all values of material----------// 
     public function GetMaterialInformation_ForEnquiry() {
         extract($_POST);
