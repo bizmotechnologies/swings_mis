@@ -53,7 +53,7 @@ error_reporting(E_ERROR | E_PARSE);
                             <div class="w3-col l3 w3-left">
                                 <div class="input-group">
                                     <label>Product Name:</label>
-                                    <input type="text" placeholder="Product Name" class="form-control" style="text-transform:uppercase;" id="product_nameForEnquiry" name="product_nameForEnquiry" required>
+                                    <input type="text" placeholder="Product Name" class="form-control" style="text-transform:uppercase;" id="product_nameForEnquiry_1" name="product_nameForEnquiry[]" required>
                                 </div>
                             </div>
 
@@ -64,8 +64,8 @@ error_reporting(E_ERROR | E_PARSE);
                             <div class="w3-col l3 w3-left">
                                 <div class="input-group">
                                     <label>Profile Name:</label> 
-                                    <input list="Profiles" id="Select_Profiles" name="Select_Profiles" class="form-control" required type="text" placeholder="Select Profile Name">                                         
-                                    <datalist id="Profiles">
+                                    <input list="Profiles_1" id="Select_Profiles_1" name="Select_Profiles[]" class="form-control" required type="text" placeholder="Select Profile Name">                                         
+                                    <datalist id="Profiles_1">
                                         <?php foreach ($profiles['status_message'] as $result) { ?>
                                             <option data-value="<?php echo $result['profile_id']; ?>" value='<?php echo $result['profile_name']; ?>'></option>
                                         <?php } ?>
@@ -79,7 +79,7 @@ error_reporting(E_ERROR | E_PARSE);
 
                             <div class="w3-col l10 w3-left">
                                 <div class="input-group ">
-                                    <input type="checkbox" name="checkHousing" id="checkHousing" value=""><b>  Housing(Seal&nbsp;kit&nbsp;for&nbsp;Hydraulic&nbsp;70&nbsp;MM,&nbsp;Rod&nbsp;50&nbsp;MM&nbsp;–&nbsp;15&nbsp;Sets.)</b>
+                                    <input type="checkbox" name="checkHousing_1" id="checkHousing_1" value=""><b>  Housing(Seal&nbsp;kit&nbsp;for&nbsp;Hydraulic&nbsp;70&nbsp;MM,&nbsp;Rod&nbsp;50&nbsp;MM&nbsp;–&nbsp;15&nbsp;Sets.)</b>
                                 </div>
                             </div>
 
@@ -90,7 +90,7 @@ error_reporting(E_ERROR | E_PARSE);
 
                                 <div class="w3-col l6">
                                     <label>Profile Description:</label>
-                                    <input type="text" placeholder="Profile Description(Ex.Piston Seal, Rod Seal .etc.)" class="form-control" style="text-transform:uppercase;" id="profie_DescriptionForHousingUnchecked" name="profie_DescriptionForHousingUnchecked" required></div>
+                                    <input type="text" placeholder="Profile Description(Ex.Piston Seal, Rod Seal .etc.)" class="form-control" style="text-transform:uppercase;" id="profie_DescriptionForHousingUnchecked_1" name="profie_DescriptionForHousingUnchecked[]" required></div>
                             </div>
 
                             <div class="w3-col l12 w3-padding">
@@ -98,19 +98,19 @@ error_reporting(E_ERROR | E_PARSE);
                                 <div class="w3-col l4 s4">
                                     <div class="input-group">
                                         <label>ID:</label>
-                                        <input type="number" placeholder="ID" class="form-control" style="text-transform:uppercase;" id="ID_forHousingUnckecked" name="ID_forHousingUnckecked" required>
+                                        <input type="number" placeholder="ID" class="form-control" style="text-transform:uppercase;" id="ID_forHousingUnckecked_1" name="ID_forHousingUnckecked[]" required>
                                     </div>
                                 </div>
                                 <div class="w3-col l4 s4 w3-padding-left">
                                     <div class="input-group">
                                         <label>OD:</label>
-                                        <input type="number" placeholder="OD" class="form-control" style="text-transform:uppercase;" id="OD_forHousingUnckecked" name="OD_forHousingUnckecked" required>
+                                        <input type="number" placeholder="OD" class="form-control" style="text-transform:uppercase;" id="OD_forHousingUnckecked_1" name="OD_forHousingUnckecked[]" required>
                                     </div>
                                 </div>
                                 <div class="w3-col l4 s4 w3-padding-left">
                                     <div class="input-group">
                                         <label>LENGTH:</label>
-                                        <input type="number" placeholder="LENGTH" class="form-control" style="text-transform:uppercase;" id="LENGTH_forHousingUnckecked" name="LENGTH_forHousingUnckecked" required>
+                                        <input type="number" placeholder="LENGTH" class="form-control" style="text-transform:uppercase;" id="LENGTH_forHousingUnckecked_1" name="LENGTH_forHousingUnckecked[]" required>
                                     </div>
                                 </div>
 
@@ -174,26 +174,26 @@ error_reporting(E_ERROR | E_PARSE);
                                 <input id="final_Price_1" name="final_Price[]" class="form-control" required type="number" min="0" step="0.01" placeholder="Final Price" onfocus="GetFinalriceForMaterialCalculation(1);">                                         
                             </div>
                             <div class="w3-col l3 w3-margin-top">
-                                <span><a  id="add_row" class="btn add-more w3-text-blue w3-right">+Add More Material</a></span>
+                                <span><a  id="add_row_1" class="btn add-more w3-text-blue w3-right">+Add More Material</a></span>
                             </div>
                         </div><br><br>
 
                         <div class="w3-col l12">
-                            <div id="added_row" class="w3-small w3-col l12"></div>
+                            <div id="added_row_1" class="w3-small w3-col l12"></div>
                         </div>
 
                         <div class="w3-col l12 w3-small w3-margin-top w3-margin-bottom">
 
                             <div class="w3-col l4 w3-padding-left">
                                 <label>QUANTITY</label> 
-                                <input id="Product_Quantity" name="Product_Quantity[]" class="form-control" required type="number" min="0" step="0.01" placeholder="Product Quantity" onfocus="GetFinalriceForMaterialCalculation(1);">                                         
+                                <input id="Product_Quantity_1" name="Product_Quantity[]" class="form-control" required type="number" min="0" step="0.01" placeholder="Product Quantity" onfocus="GetFinalriceForMaterialCalculation(1);">                                         
                             </div>
                             <div class="w3-col l4 w3-padding-left">
                                 <label>Total Product Price</label> 
-                                <input id="TotalProduct_Price" name="TotalProduct_Price[]" class="form-control" required type="number" min="0" step="0.01" placeholder="Product Quantity" onfocus="GetFinalriceForMaterialCalculation(1);">                                         
+                                <input id="TotalProduct_Price_1" name="TotalProduct_Price[]" class="form-control" required type="number" min="0" step="0.01" placeholder="Product Quantity" onfocus="GetFinalriceForMaterialCalculation(1);">                                         
                             </div>
                             <div class="w3-col l4 w3-padding-left">
-                                <a id="add_product" title="Click Add Product To Enquiry" class="btn add-more w3-text-blue w3-right">+Add More Product</a>
+                                <a id="add_product_1" title="Click Add Product To Enquiry" class="btn add-more w3-text-blue w3-right">+Add More Product</a>
                             </div> 
 
                         </div>
@@ -202,7 +202,7 @@ error_reporting(E_ERROR | E_PARSE);
 
                 </div><!-- main div closed here-->
                 <div class="w3-col l12 ">
-                    <div id="ADD_Product" class="w3-small w3-col l12"></div>
+                    <div id="ADD_Product_1" class="w3-small w3-col l12"></div>
                 </div>
             </form><br><br><br>
             <!-- Modal -->
@@ -227,14 +227,13 @@ error_reporting(E_ERROR | E_PARSE);
 
 
 
-<!--            <div class="w3-col l12 w3-padding"><hr><div class="w3-col l3 w3-left"><div class="input-group"><label>Product Name:</label><input type="text" placeholder="Product Name" class="form-control" style="text-transform:uppercase;" id="product_nameForEnquiry" name="product_nameForEnquiry" required></div></div></div><div class="w3-col l12 w3-padding"><hr><div class="w3-col l3 w3-left"><div class="input-group"><label>Profile Name:</label><input list="Profiles" id="Select_Profiles" name="Select_Profiles" class="form-control" required type="text" placeholder="Select Profile Name"><datalist id="Profiles"><?php foreach ($profiles['status_message'] as $result) { ?><option data-value="<?php echo $result['profile_id']; ?>" value='<?php echo $result['profile_name']; ?>'></option><?php } ?></datalist></div></div></div><div class="w3-col l12 w3-light-grey w3-padding"><div class="w3-col l10 w3-left"><div class="input-group "><input type="checkbox" name="checkHousing" id="checkHousing" value=""><b>  Housing(Seal&nbsp;kit&nbsp;for&nbsp;Hydraulic&nbsp;70&nbsp;MM,&nbsp;Rod&nbsp;50&nbsp;MM&nbsp;–&nbsp;15&nbsp;Sets.)</b></div></div></div><div class="w3-light-grey" id="housing_statusforChecked"><div class="w3-col l12 w3-padding"><div class="w3-col l6"><label>Profile Description:</label><input type="text" placeholder="Profile Description(Ex.Piston Seal, Rod Seal .etc.)" class="form-control" style="text-transform:uppercase;" id="profie_DescriptionForHousingUnchecked" name="profie_DescriptionForHousingUnchecked" required></div></div><div class="w3-col l12 w3-padding"><div class="w3-col l4 s4"><div class="input-group"><label>ID:</label><input type="number" placeholder="ID" class="form-control" style="text-transform:uppercase;" id="ID_forHousingUnckecked" name="ID_forHousingUnckecked" required></div></div><div class="w3-col l4 s4 w3-padding-left"><div class="input-group"><label>OD:</label><input type="number" placeholder="OD" class="form-control" style="text-transform:uppercase;" id="OD_forHousingUnckecked" name="OD_forHousingUnckecked" required></div></div><div class="w3-col l4 s4 w3-padding-left"><div class="input-group"><label>LENGTH:</label><input type="number" placeholder="LENGTH" class="form-control" style="text-transform:uppercase;" id="LENGTH_forHousingUnckecked" name="LENGTH_forHousingUnckecked" required></div></div></div></div><div class="w3-col l12" id="addMaterial_err"></div><br><hr><div class="w3-col l12 w3-tiny w3-padding w3-border-top w3-margin-top w3-margin-bottom"><div class="w3-col l2"><label >MATERIAL</label><input list="Materialinfo_1" id="Select_material_1" name="Select_material[]" class="form-control" required type="text" placeholder="Material" onchange="GetMaterialInformation_ForEnquiry(1);"><datalist id="Materialinfo_1"><?php foreach ($info['status_message'] as $result) { ?><option data-value="<?php echo $result['material_id']; ?>" value='<?php echo $result['material_name']; ?>'><?php echo $result['material_name']; ?></option><?php } ?></datalist></div><div class="w3-col l3"><div class="w3-col l4 s4 w3-padding-left"><label>ID</label><input list="MaterialID_1" id="Select_ID_1" name="Select_ID[]" class="form-control" required type="text" min="0" placeholder="ID" ><datalist id="MaterialID_1"></datalist></div><div class="w3-col l4 s4 w3-padding-left"><label>OD</label><input list="MaterialOD_1" id="Select_OD_1" name="Select_OD[]" class="form-control" required type="text" min="0" placeholder="OD" ><datalist id="MaterialOD_1"></datalist></div><div class="w3-col l4 s4 w3-padding-left"><label>LENGTH</label><input list="MaterialLength_1" id="Select_Length_1" name="Select_Length[]" class="form-control" required type="text" min="0" placeholder="Length" ><datalist id="MaterialLength_1"></datalist></div></div><div class="w3-col l1 w3-padding-left"><label>BASE PRICE</label> <input id="base_Price_1" name="base_Price[]" class="form-control" min="0" step="0.01" required type="number" placeholder="Base Price"  onfocus="GetMaterialBasePrice(1);"></div><div class="w3-col l1 w3-padding-left"><label>QUANTITY</label><input id="select_Quantity_1" name="select_Quantity[]" class="form-control" min="0" required type="number" placeholder="Quantity" onkeypress="GetFinalPriceForMaterialCalculation(1);"></div><div class="w3-col l1 w3-padding-left"><label>DISCOUNT(%)</label><input id="discount_1" name="discount[]" class="form-control" required type="number" min="0" step="0.01" placeholder="Discount %." onkeypress="GetFinalPriceForMaterialCalculation(1);"></div><div class="w3-col l1 w3-padding-left"><label>FINAL&nbsp;PRICE</label><input id="final_Price_1" name="final_Price[]" class="form-control" required type="number" min="0" step="0.01" placeholder="Final Price" onfocus="GetFinalPriceForMaterialCalculation(1);"></div><div class="w3-col l3 w3-margin-top"><span><a  id="add_row" class="btn add-more w3-text-blue w3-right">+Add More Material</a></span></div></div><br><br><div class="w3-col l12"><div id="added_row" class="w3-small w3-col l12"></div></div><div class="w3-col l12 w3-small w3-margin-top w3-margin-bottom"><div class="w3-col l4 w3-padding-left"><label>QUANTITY</label><input id="Product_Quantity" name="Product_Quantity[]" class="form-control" required type="number" min="0" step="0.01" placeholder="Product Quantity" onfocus="GetFinalPriceForMaterialCalculation(1);"></div><div class="w3-col l4 w3-padding-left"><label>Total Product Price</label><input id="TotalProduct_Price" name="TotalProduct_Price[]" class="form-control" required type="number" min="0" step="0.01" placeholder="Product Quantity" onfocus="GetFinalPriceForMaterialCalculation(1);"></div><div class="w3-col l4 w3-padding-left"><a id="add_product" title="Click Add Product To Enquiry" class="w3-margin btn w3-text-blue w3-right">+Add More Product</a></div></div>-->
 
             <script>
                 $(document).ready(function () {
                     var max_fields = 15;
-                    var wrapper = $("#added_row");
-                    var add_button = $("#add_row");
                     var x = 1;
+                    var wrapper = $("#added_row_" + x);
+                    var add_button = $("#add_row_" + x);
                     $(add_button).click(function (e) {
                         e.preventDefault();
                         if (x < max_fields) {
@@ -302,44 +301,25 @@ error_reporting(E_ERROR | E_PARSE);
             <script>
                 $(document).ready(function () {
                     var max_fields = 5;
-                    var wrapper = $("#ADD_Product");
-                    var add_button = $("#add_product");
                     var x = 1;
+                    var wrapper = $("#ADD_Product_" + x);
+                    var add_button = $("#add_product_" + x);
                     $(add_button).click(function (e) {
-                    e.preventDefault();
-                            if (x < max_fields) {
-                    x++;
-                            $(wrapper).append('<div><div class="w3-col l12 w3-padding"><hr>\n\
-                <div class="w3-col l3 w3-left">\n\
-<div class="input-group">\n\
-<label>Product Name:</label>\n\
-<input type="text" placeholder="Product Name" class="form-control" style="text-transform:uppercase;" id="product_nameForEnquiry" name="product_nameForEnquiry" required>\n\
-</div>\n\
-</div>\n\
-</div>\n\
-<div class="w3-col l12 w3-padding"><hr>\n\
-<div class="w3-col l3 w3-left"><div class="input-group">\n\
-<label>Profile Name:</label>\n\
-<input list="Profiles" id="Select_Profiles" name="Select_Profiles" class="form-control" required type="text" placeholder="Select Profile Name">\n\
-<datalist id="Profiles">\n\
-    <?php foreach ($profiles['status_message'] as $result) { ?><option data-value="<?php echo $result['profile_id']; ?>" value='<?php echo $result['profile_name']; ?>'></option><?php } ?></datalist>\n\
-</div>\n\
-</div>\n\
-</div>\n\
-<div class="w3-col l12 w3-light-grey w3-padding">\n\
-<div class="w3-col l10 w3-left"><div class="input-group">\n\
-<input type="checkbox" name="checkHousing" id="checkHousing" value=""><b>  Housing(Seal&nbsp;kit&nbsp;for&nbsp;Hydraulic&nbsp;70&nbsp;MM,&nbsp;Rod&nbsp;50&nbsp;MM&nbsp;–&nbsp;15&nbsp;Sets.)</b></div></div></div><div class="w3-light-grey" id="housing_statusforChecked"><div class="w3-col l12 w3-padding"><div class="w3-col l6"><label>Profile Description:</label><input type="text" placeholder="Profile Description(Ex.Piston Seal, Rod Seal .etc.)" class="form-control" style="text-transform:uppercase;" id="profie_DescriptionForHousingUnchecked" name="profie_DescriptionForHousingUnchecked" required></div></div><div class="w3-col l12 w3-padding"><div class="w3-col l4 s4"><div class="input-group"><label>ID:</label><input type="number" placeholder="ID" class="form-control" style="text-transform:uppercase;" id="ID_forHousingUnckecked" name="ID_forHousingUnckecked" required></div></div><div class="w3-col l4 s4 w3-padding-left"><div class="input-group"><label>OD:</label><input type="number" placeholder="OD" class="form-control" style="text-transform:uppercase;" id="OD_forHousingUnckecked" name="OD_forHousingUnckecked" required></div></div><div class="w3-col l4 s4 w3-padding-left"><div class="input-group"><label>LENGTH:</label><input type="number" placeholder="LENGTH" class="form-control" style="text-transform:uppercase;" id="LENGTH_forHousingUnckecked" name="LENGTH_forHousingUnckecked" required></div></div></div></div><div class="w3-col l12" id="addMaterial_err"></div><br><hr><div class="w3-col l12 w3-tiny w3-padding w3-border-top w3-margin-top w3-margin-bottom"><div class="w3-col l2"><label >MATERIAL</label><input list="Materialinfo_1" id="Select_material_1" name="Select_material[]" class="form-control" required type="text" placeholder="Material" onchange="GetMaterialInformation_ForEnquiry(1);"><datalist id="Materialinfo_1"><?php foreach ($info['status_message'] as $result) { ?><option data-value="<?php echo $result['material_id']; ?>" value='<?php echo $result['material_name']; ?>'><?php echo $result['material_name']; ?></option><?php } ?></datalist></div><div class="w3-col l3"><div class="w3-col l4 s4 w3-padding-left"><label>ID</label><input list="MaterialID_1" id="Select_ID_1" name="Select_ID[]" class="form-control" required type="text" min="0" placeholder="ID" ><datalist id="MaterialID_1"></datalist></div><div class="w3-col l4 s4 w3-padding-left"><label>OD</label><input list="MaterialOD_1" id="Select_OD_1" name="Select_OD[]" class="form-control" required type="text" min="0" placeholder="OD" ><datalist id="MaterialOD_1"></datalist></div><div class="w3-col l4 s4 w3-padding-left"><label>LENGTH</label><input list="MaterialLength_1" id="Select_Length_1" name="Select_Length[]" class="form-control" required type="text" min="0" placeholder="Length" ><datalist id="MaterialLength_1"></datalist></div></div><div class="w3-col l1 w3-padding-left"><label>BASE PRICE</label> <input id="base_Price_1" name="base_Price[]" class="form-control" min="0" step="0.01" required type="number" placeholder="Base Price"  onfocus="GetMaterialBasePrice(1);"></div><div class="w3-col l1 w3-padding-left"><label>QUANTITY</label><input id="select_Quantity_1" name="select_Quantity[]" class="form-control" min="0" required type="number" placeholder="Quantity" onkeypress="GetFinalriceForMaterialCalculation(1);"></div><div class="w3-col l1 w3-padding-left"><label>DISCOUNT(%)</label><input id="discount_1" name="discount[]" class="form-control" required type="number" min="0" step="0.01" placeholder="Discount %." onkeypress="GetFinalriceForMaterialCalculation(1);"></div><div class="w3-col l1 w3-padding-left"><label>FINAL&nbsp;PRICE</label><input id="final_Price_1" name="final_Price[]" class="form-control" required type="number" min="0" step="0.01" placeholder="Final Price" onfocus="GetFinalriceForMaterialCalculation(1);"></div><div class="w3-col l3 w3-margin-top"><span><a  id="add_row" class="btn add-more w3-text-blue w3-right">+Add More Material</a></span></div></div><br><br><div class="w3-col l12"><div id="added_row" class="w3-small w3-col l12"></div></div><div class="w3-col l12 w3-small w3-margin-top w3-margin-bottom"><div class="w3-col l4 w3-padding-left"><label>QUANTITY</label><input id="Product_Quantity" name="Product_Quantity[]" class="form-control" required type="number" min="0" step="0.01" placeholder="Product Quantity" onfocus="GetFinalriceForMaterialCalculation(1);"></div><div class="w3-col l4 w3-padding-left"><label>Total Product Price</label><input id="TotalProduct_Price" name="TotalProduct_Price[]" class="form-control" required type="number" min="0" step="0.01" placeholder="Product Quantity" onfocus="GetFinalriceForMaterialCalculation(1);"></div><div class="w3-col l4 w3-padding-left"><a id="add_product" title="Click Add Product To Enquiry" class="w3-margin btn w3-text-blue w3-right">+Add More Product</a></div></div></div>'); //add input box
+                        e.preventDefault();
+                        if (x < max_fields) {
+                            x++;
+                            $(wrapper).append('<div><div class="w3-col l12 w3-padding"><hr><div class="w3-col l3 w3-left"><div class="input-group"><label>Product Name:</label><input type="text" placeholder="Product Name" class="form-control" style="text-transform:uppercase;" id="product_nameForEnquiry_' + x + '" name="product_nameForEnquiry[]" required></div></div></div><div class="w3-col l12 w3-padding"><hr><div class="w3-col l3 w3-left"><div class="input-group"><label>Profile Name:</label><input list="Profiles_' + x + '" id="Select_Profiles_' + x + '" name="Select_Profiles[]" class="form-control" required type="text" placeholder="Select Profile Name"><datalist id="Profiles_' + x + '"><?php foreach ($profiles['status_message'] as $result) { ?><option data-value="<?php echo $result['profile_id']; ?>" value='<?php echo $result['profile_name']; ?>'></option><?php } ?></datalist></div></div></div><div class="w3-col l12 w3-light-grey w3-padding"><div class="w3-col l10 w3-left"><div class="input-group "><input type="checkbox" name="checkHousing[]" id="checkHousing_' + x + '" value=""><b>  Housing(Seal&nbsp;kit&nbsp;for&nbsp;Hydraulic&nbsp;70&nbsp;MM,&nbsp;Rod&nbsp;50&nbsp;MM&nbsp;–&nbsp;15&nbsp;Sets.)</b></div></div></div><div class="w3-light-grey" id="housing_statusforChecked_' + x + '"><div class="w3-col l12 w3-padding"><div class="w3-col l6"><label>Profile Description:</label><input type="text" placeholder="Profile Description(Ex.Piston Seal, Rod Seal .etc.)" class="form-control" style="text-transform:uppercase;" id="profie_DescriptionForHousingUnchecked_' + x + '" name="profie_DescriptionForHousingUnchecked[]" required></div></div><div class="w3-col l12 w3-padding"><div class="w3-col l4 s4"><div class="input-group"><label>ID:</label><input type="number" placeholder="ID" class="form-control" style="text-transform:uppercase;" id="ID_forHousingUnckecked_' + x + '" name="ID_forHousingUnckecked[]" required></div></div><div class="w3-col l4 s4 w3-padding-left"><div class="input-group"><label>OD:</label><input type="number" placeholder="OD" class="form-control" style="text-transform:uppercase;" id="OD_forHousingUnckecked_' + x + '" name="OD_forHousingUnckecked[]" required></div></div><div class="w3-col l4 s4 w3-padding-left"><div class="input-group"><label>LENGTH:</label><input type="number" placeholder="LENGTH" class="form-control" style="text-transform:uppercase;" id="LENGTH_forHousingUnckecked_' + x + '" name="LENGTH_forHousingUnckecked[]" required></div></div></div></div><div class="w3-col l12" id="addMaterial_err"></div><br><hr><div class="w3-col l12 w3-tiny w3-padding w3-border-top w3-margin-top w3-margin-bottom"><div class="w3-col l2"><label >MATERIAL</label><input list="Materialinfo_' + x + '" id="Select_material_' + x + '" name="Select_material[]" class="form-control" required type="text" placeholder="Material" onchange="GetMaterialInformation_ForEnquiry(' + x + ');"><datalist id="Materialinfo_' + x + '"><?php foreach ($info['status_message'] as $result) { ?><option data-value="<?php echo $result['material_id']; ?>" value='<?php echo $result['material_name']; ?>'><?php echo $result['material_name']; ?></option><?php } ?></datalist></div><div class="w3-col l3"><div class="w3-col l4 s4 w3-padding-left"><label>ID</label><input list="MaterialID_' + x + '" id="Select_ID_' + x + '" name="Select_ID[]" class="form-control" required type="text" min="0" placeholder="ID" ><datalist id="MaterialID_' + x + '"></datalist></div><div class="w3-col l4 s4 w3-padding-left"><label>OD</label><input list="MaterialOD_' + x + '" id="Select_OD_' + x + '" name="Select_OD[]" class="form-control" required type="text" min="0" placeholder="OD" ><datalist id="MaterialOD_' + x + '"></datalist></div><div class="w3-col l4 s4 w3-padding-left"><label>LENGTH</label><input list="MaterialLength_' + x + '" id="Select_Length_' + x + '" name="Select_Length[]" class="form-control" required type="text" min="0" placeholder="Length" ><datalist id="MaterialLength_' + x + '"></datalist></div></div><div class="w3-col l1 w3-padding-left"><label>BASE PRICE</label> <input id="base_Price_' + x + '" name="base_Price[]" class="form-control" min="0" step="0.01" required type="number" placeholder="Base Price"  onfocus="GetMaterialBasePrice(' + x + ');"></div><div class="w3-col l1 w3-padding-left"><label>QUANTITY</label><input id="select_Quantity_' + x + '" name="select_Quantity[]" class="form-control" min="0" required type="number" placeholder="Quantity" onkeypress="GetFinalPriceForMaterialCalculation(' + x + ');"></div><div class="w3-col l1 w3-padding-left"><label>DISCOUNT(%)</label><input id="discount_' + x + '" name="discount[]" class="form-control" required type="number" min="0" step="0.01" placeholder="Discount %." onkeypress="GetFinalPriceForMaterialCalculation(' + x + ');"></div><div class="w3-col l1 w3-padding-left"><label>FINAL&nbsp;PRICE</label><input id="final_Price_' + x + '" name="final_Price[]" class="form-control" required type="number" min="0" step="0.01" placeholder="Final Price" onfocus="GetFinalPriceForMaterialCalculation(' + x + ');"></div><div class="w3-col l3 w3-margin-top"><span><a  id="add_row_' + x + '" class="btn add-more w3-text-blue w3-right">+Add More Material</a></span></div></div><br><br><div class="w3-col l12"><div id="added_row_' + x + '" class="w3-small w3-col l12"></div></div><div class="w3-col l12 w3-small w3-margin-top w3-margin-bottom"><div class="w3-col l4 w3-padding-left"><label>QUANTITY</label><input id="Product_Quantity_' + x + '" name="Product_Quantity[]" class="form-control" required type="number" min="0" step="0.01" placeholder="Product Quantity" onfocus="GetFinalPriceForMaterialCalculation(' + x + ');"></div><div class="w3-col l4 w3-padding-left"><label>Total Product Price</label><input id="TotalProduct_Price_' + x + '" name="TotalProduct_Price[]" class="form-control" required type="number" min="0" step="0.01" placeholder="Product Quantity" onfocus="GetFinalPriceForMaterialCalculation(' + x + ');"></div><div class="w3-col l4 w3-padding-left"><a id="add_product_' + x + '" title="Click Add Product To Enquiry" class="w3-margin btn w3-text-blue w3-right">+Add More Product</a></div></div></div>'); //add input box
 
-                    } else
-                    {
-                        alert(' You Reached the maximum limit of adding 15 fields.'); //alert when added more than 4 input fields
-                    }
-                });
-                $(wrapper).on("click", ".delete", function (e) {
-                e.preventDefault();
+                        } else
+                        {
+                            alert(' You Reached the maximum limit of adding 15 fields.'); //alert when added more than 4 input fields
+                        }
+                    });
+                    $(wrapper).on("click", ".delete", function (e) {
+                        e.preventDefault();
                         $(this).parent('div').remove();
                         x--;
-                });
+                    });
                 }
                 );
             </script>
