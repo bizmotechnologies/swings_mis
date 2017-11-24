@@ -1,3 +1,23 @@
+$(function () {
+    $("#Manage_EnquiryForm").submit(function () {
+        dataString = $("#Manage_EnquiryForm").serialize();
+
+        $.ajax({
+            type: "POST",
+            url: BASE_URL + "inventory/Manage_materials/save_ProductEnquiry",
+            data: dataString,
+            return: false, //stop the actual form post !important!
+            success: function (data)
+            {
+                $("#msg_header").text('Message');
+                $("#msg_span").css({'color': "black"});
+                $("#addMaterials_err").html(data);
+                $('#myModalnew').modal('show');
+            }
+        });
+        return false;  //stop the actual form post !important!
+    });
+});
 function GetMaterilaInformation() {
     Materialinfo = $('#Materialinfo [value="' + $('#Select_material_1').val() + '"]').data('value');
     //alert(Materialinfo);
@@ -48,9 +68,9 @@ function GetMaterialInformation_ForEnquiry(fieldnum) {
 }
 
 $(document).ready(function () {
-    var wrapper = $("#housing_statusforChecked");
+    var wrapper = $("#housing_statusforChecked_1");
     var x = 1;
-    $('#checkHousing').on('change', function (e) {
+    $('#checkHousing_1').on('change', function (e) {
         e.preventDefault();
         if (this.checked) {
             x++;

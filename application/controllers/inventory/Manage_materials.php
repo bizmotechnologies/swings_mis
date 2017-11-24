@@ -19,11 +19,19 @@ class Manage_materials extends CI_controller {
         //$this->load->helper('url');
         $this->load->model('inventory_model/ManageMaterial_model');
         $data['details'] = Manage_materials::getMaterialrecord();     //-------show all materials
-
         $this->load->view('includes/navigation');
         $this->load->view('inventory/materials/manage_material', $data);
     }
 
+    //---------this fun is used to show product information---------------//
+    public function save_ProductEnquiry() {
+        extract($_POST);
+        $data = $_POST;
+        print_r($data);
+        
+    }
+
+    //---------this fun is used to show product information---------------//
     //--------this fun is uded to get all values of material----------// 
     public function GetMaterialInformation_ForEnquiry() {
         extract($_POST);
