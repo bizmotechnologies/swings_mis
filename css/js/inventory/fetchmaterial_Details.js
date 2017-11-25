@@ -71,7 +71,7 @@ $(document).ready(function () {
     var wrapper = $("#housing_statusforChecked_1");
     var x = 1;
     $('#checkHousing_1').on('change', function (e) {
-        e.preventDefault();
+        //e.preventDefault();
         if (this.checked) {
             x++;
             $(wrapper).html('<div class="w3-col l12 w3-padding"><div class="w3-col l6"><label>Profile Description:</label><input type="text" placeholder="Profile Description(Ex.Piston Seal, Rod Seal .etc.)" class="form-control" style="text-transform:uppercase;" id="profile_DescriptionForHousingChecked" name="profile_DescriptionForHousingChecked" required></div></div><div class="w3-col l12 w3-padding"><div class="w3-col l3 s3"><div class="input-group"><label>ID:</label><input type="number" placeholder="ID" class="form-control" style="text-transform:uppercase;" id="ID_forHousingChecked" name="ID_forHousingChecked" required></div></div><div class="w3-col l3 s3 w3-padding-left"><div class="input-group"><label>OD:</label><input type="number" placeholder="OD" class="form-control" style="text-transform:uppercase;" id="OD_forHousingChecked" name="OD_forHousingChecked" required></div></div><div class="w3-col l3 s3 w3-padding-left"><div class="input-group"><label>LENGTH:</label><input type="number" placeholder="LENGTH" class="form-control" style="text-transform:uppercase;" id="LENGTH_forHousingChecked" name="LENGTH_forHousingChecked" required></div></div><div class="w3-col l3 s3 w3-padding-left"><div class="input-group"><label>QUANTITY:</label><input type="number" placeholder="QUANTITY" class="form-control" style="text-transform:uppercase;" id="Set_QuantityforHousingChecked" name="Set_QuantityforHousingChecked" required></div></div></div>');
@@ -82,7 +82,18 @@ $(document).ready(function () {
         }
     });
 });
+$(document).ready(function () {
+    var wrapper = $("#housing_statusforChecked_1");
+var x = 1;
+        if ($('#checkHousing_1').is(':checked')) {
+        x++;
+        $(wrapper).html('<div class="w3-col l12 w3-padding"><div class="w3-col l6"><label>Profile Description:</label><input type="text" placeholder="Profile Description(Ex.Piston Seal, Rod Seal .etc.)" class="form-control" style="text-transform:uppercase;" id="profile_DescriptionForHousingChecked" name="profile_DescriptionForHousingChecked" required></div></div><div class="w3-col l12 w3-padding"><div class="w3-col l3 s3"><div class="input-group"><label>ID:</label><input type="number" placeholder="ID" class="form-control" style="text-transform:uppercase;" id="ID_forHousingChecked" name="ID_forHousingChecked" required></div></div><div class="w3-col l3 s3 w3-padding-left"><div class="input-group"><label>OD:</label><input type="number" placeholder="OD" class="form-control" style="text-transform:uppercase;" id="OD_forHousingChecked" name="OD_forHousingChecked" required></div></div><div class="w3-col l3 s3 w3-padding-left"><div class="input-group"><label>LENGTH:</label><input type="number" placeholder="LENGTH" class="form-control" style="text-transform:uppercase;" id="LENGTH_forHousingChecked" name="LENGTH_forHousingChecked" required></div></div><div class="w3-col l3 s3 w3-padding-left"><div class="input-group"><label>QUANTITY:</label><input type="number" placeholder="QUANTITY" class="form-control" style="text-transform:uppercase;" id="Set_QuantityforHousingChecked" name="Set_QuantityforHousingChecked" required></div></div></div>');
 
+    } else {
+        $(wrapper).html('<div class="w3-col l12 w3-padding"><div class="w3-col l6"><label>Profile Description:</label><input type="text" placeholder="Profile Description(Ex.Piston Seal, Rod Seal .etc.)" class="form-control" style="text-transform:uppercase;" id="profile_DescriptionForHousingUnchecked" name="profile_DescriptionForHousingUnchecked" required></div></div><div class="w3-col l12 w3-padding"><div class="w3-col l4 s4"><div class="input-group"><label>ID:</label><input type="number" placeholder="ID" class="form-control" style="text-transform:uppercase;" id="ID_forHousingUnckecked" name="ID_forHousingUnckecked" required></div></div><div class="w3-col l4 s4 w3-padding-left"><div class="input-group"><label>OD:</label><input type="number" placeholder="OD" class="form-control" style="text-transform:uppercase;" id="OD_forHousingUnckecked" name="OD_forHousingUnckecked" required></div></div><div class="w3-col l4 s4 w3-padding-left"><div class="input-group"><label>LENGTH:</label><input type="number" placeholder="LENGTH" class="form-control" style="text-transform:uppercase;" id="LENGTH_forHousingUnckecked" name="LENGTH_forHousingUnckecked" required></div></div></div>'); //add input box
+
+    }
+});
 function GetFinalPriceForMaterialCalculation(fieldnum) {
     //alert('hii');
     finalprice = '0';

@@ -88,7 +88,6 @@ class Manage_materials extends CI_controller {
                    //print_r(json_encode($material_Arr));
 
         $profile_arr[] = array(
-            'customer_id' => $Select_Customers,
             'product_name' => $product_nameForEnquiry[$prod],
             'profile_id' => $Select_Profiles[$prod],
             'housing_status' => $housing_status,
@@ -107,7 +106,6 @@ else{
     $Select_Profiles='';
 }
 $profile_arr[count($Select_Profiles)] = array(
-            'customer_id' => '',
             'product_name' => '',
             'profile_id' => '',
             'housing_status' => 0,
@@ -116,13 +114,21 @@ $profile_arr[count($Select_Profiles)] = array(
             'Prod_ID' => '',
             'Prod_OD' => '',
             'Prod_length' => '',
-            'material_associated' => '',
+            'material_associated' => array(
+                'material_id' => '',
+                'Select_ID' => '',
+                'Select_OD' => '',
+                'Select_Length' => '',
+                'base_Price' => '',
+                'select_Quantity' => '',
+                'discount' => '',
+                'final_Price' => ''),
             'product_quantity' => '',
             'product_price' => ''
         );
 
        return json_encode($profile_arr);
-        //print_r($profile_arr);
+        //print_r(json_encode($profile_arr));
         
     }
 
@@ -167,6 +173,7 @@ $profile_arr[count($Select_Profiles)] = array(
 
     public function fetchmaterial_details() {
         $data['info'] = Manage_materials::getRawMaterialInfo();     //-------show all Raw materials
+        $data['materials'] = Manage_materials::getMaterialrecord();     //-------show all Raw materials
         $data['customers'] = Manage_materials::GetCustomersDetails();     //-------show all Customers
         $data['profiles'] = Manage_materials::GetProductProfileDetails();     //-------show all Product Profile
         $data['multiple_divs'] = Manage_materials::Add_MultipleProduct($_POST);     //-------show all materials
