@@ -20,14 +20,14 @@ error_reporting(E_ERROR | E_PARSE);
     <body class="w3-light-grey">
         <!-- !PAGE CONTENT! -->
         <div class="w3-main" style="margin-left:120px;">
-
+<?php print_r(json_decode($multiple_divs,true)); ?>
             <!-- Header -->
             <header class="w3-container" >
                 <h5><b><i class="fa fa-cubes"></i> Manage Enquiry</b></h5>
             </header>
             <div class="col-lg-12"><label>Add New Enquiry</label>
             </div>
-            <form method="POST" action="<?php echo base_url();?>inventory/Manage_materials/Add_MultipleProduct" id="Manage_EnquiryForm" name="Manage_EnquiryForm">
+            <form method="POST" action="<?php echo base_url();?>inventory/Manage_materials/fetchmaterial_details" id="Manage_EnquiryForm" name="Manage_EnquiryForm">
 
                 <div class="w3-col l12 w3-margin-top w3-small">
                     <div class="w3-col l12 w3-padding">
@@ -90,7 +90,7 @@ error_reporting(E_ERROR | E_PARSE);
 
                                 <div class="w3-col l6">
                                     <label>Profile Description:</label>
-                                    <input type="text" placeholder="Profile Description(Ex.Piston Seal, Rod Seal .etc.)" class="form-control" style="text-transform:uppercase;" id="profie_DescriptionForHousingUnchecked_1" name="profie_DescriptionForHousingUnchecked[]" required></div>
+                                    <input type="text" placeholder="Profile Description(Ex.Piston Seal, Rod Seal .etc.)" class="form-control" style="text-transform:uppercase;" id="profile_DescriptionForHousingUnchecked_1" name="profile_DescriptionForHousingUnchecked[]" required></div>
                             </div>
 
                             <div class="w3-col l12 w3-padding">

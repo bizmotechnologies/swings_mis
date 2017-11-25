@@ -24,64 +24,99 @@ class Manage_materials extends CI_controller {
     }
 
     //---------this fun is used to add multiple products---------------//
-    public function Add_MultipleProduct() {
-        extract($_POST);
-        $data = $_POST;
-        print_r($data);
-        $Set_QuantityforHousingChecked = 0;
-        $Set_QuantityforHousingChecked = 0;
-
-        if (isset($Set_QuantityforHousingChecked)) {
-            $Set_QuantityforHousingChecked = 1;
-        }
-        if (isset($Set_QuantityforHousingChecked)) {
-            $Set_QuantityforHousing = $Set_QuantityforHousingChecked;
-        }
+    public function Add_MultipleProduct($data) {
+        extract($data);
+        //print_r($data);
+        $Set_QuantityforHousing= 0;
+        $housing_status = 0;
+        $Prod_ID = 0;
+        $Prod_OD = 0;
+        $Prod_length = 0;
+        $Prod_description = '';
+        $product_arr=array();
         $material_Arr = array();
         $profile_arr = array();
+
+        for ($prod=0; $prod < count($Select_Profiles); $prod++) { 
+            
+        if (isset($checkHousing[$prod])) {
+            $housing_status = 1;
+            $Set_QuantityforHousing = $Set_QuantityforHousingChecked[$prod];
+            
+            $Prod_ID = $ID_forHousingChecked[$prod];
+            $Prod_OD = $OD_forHousingChecked[$prod];
+            $Prod_length = $LENGTH_forHousingChecked[$prod];
+            $Prod_description = $profile_DescriptionForHousingChecked[$prod];
+        }
+        else{
+            $housing_status = 0;
+            $Set_QuantityforHousing= 0;
+            $Prod_ID = $ID_forHousingUnckecked[$prod];
+            $Prod_OD = $OD_forHousingUnckecked[$prod];
+            $Prod_length = $LENGTH_forHousingUnckecked[$prod];
+            $Prod_description = $profile_DescriptionForHousingUnchecked[$prod];
+        }
+        
+        
         //print_r($data);
         for ($i = 0; $i < count($Select_material); $i++) {
             $ID_arr = array();
             $OD_arr = array();
             $Length_arr = array();
-            foreach ($Select_ID[$i] as $ID) {
+            foreach ($Select_ID as $ID) {
                 $ID_arr[] = $ID;
             }
-            foreach ($Select_OD[$i] as $OD) {
+            foreach ($Select_OD as $OD) {
                 $OD_arr[] = $OD;
             }
-            foreach ($Length_arr[$i] as $Length) {
+            foreach ($Select_Length as $Length) {
                 $Length_arr[] = $Length;
             }
 
             $material_Arr[] = array(
                 'material_id' => $Select_material[$i],
-                'Select_ID' => json_encode($ID_arr),
-                'Select_OD' => json_encode($OD_arr),
-                'Select_Length' => json_encode($Length_arr),
+                'Select_ID' => $ID_arr,
+                'Select_OD' => $OD_arr,
+                'Select_Length' => $Length_arr,
                 'base_Price' => $base_Price[$i],
                 'select_Quantity' => $select_Quantity[$i],
                 'discount' => $discount[$i],
                 'final_Price' => $final_Price[$i]
             );
         }
-        $profile_arr[] = array(
-            'customer_id' => $Customers,
-            'product_name' => $product_nameForEnquiry,
-            'profile_id' => $Select_Profiles,
-            'housing_status' => $Set_QuantityforHousingChecked,
-            'profile_description' => $profie_DescriptionForHousingChecked,
-            'housing_setQuantity' => $Set_QuantityforHousing,
-            'Prod_ID' => $ID_forHousingChecked,
-            'Prod_OD' => $OD_forHousingChecked,
-            'Prod_length' => $LENGTH_forHousingChecked,
-            'material_associated' => json_encode($material_Arr),
-            'product_quantity' => $Product_Quantity,
-            'product_price' => $TotalProduct_Price
-        );
+                   //print_r(json_encode($material_Arr));
 
-        echo json_encode($profile_arr);
-        print_r($profile_arr);
+        $profile_arr[] = array(
+            'customer_id' => $Select_Customers,
+            'product_name' => $product_nameForEnquiry[$prod],
+            'profile_id' => $Select_Profiles[$prod],
+            'housing_status' => $housing_status,
+            'profile_description' => $Prod_description,
+            'housing_setQuantity' => $Set_QuantityforHousing[$prod],
+            'Prod_ID' => $Prod_ID[$prod],
+            'Prod_OD' => $Prod_OD[$prod],
+            'Prod_length' => $Prod_length[$prod],
+            'material_associated' => $material_Arr,
+            'product_quantity' => $Product_Quantity[$prod],
+            'product_price' => $TotalProduct_Price[$prod]
+        );
+}
+$profile_arr[count($Select_Profiles)] = array(
+            'customer_id' => '',
+            'product_name' => '',
+            'profile_id' => '',
+            'housing_status' => 0,
+            'profile_description' => '',
+            'housing_setQuantity' => 0,
+            'Prod_ID' => '',
+            'Prod_OD' => '',
+            'Prod_length' => '',
+            'material_associated' => '',
+            'product_quantity' => '',
+            'product_price' => ''
+        );
+       return json_encode($profile_arr);
+        //print_r($profile_arr);
         
     }
 
@@ -128,6 +163,7 @@ class Manage_materials extends CI_controller {
         $data['info'] = Manage_materials::getRawMaterialInfo();     //-------show all Raw materials
         $data['customers'] = Manage_materials::GetCustomersDetails();     //-------show all Customers
         $data['profiles'] = Manage_materials::GetProductProfileDetails();     //-------show all Product Profile
+        $data['multiple_divs'] = Manage_materials::Add_MultipleProduct($_POST);     //-------show all materials
         $this->load->view('includes/navigation');
         $this->load->view('inventory/new/fetchmaterial_details', $data);
     }
