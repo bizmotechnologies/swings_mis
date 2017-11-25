@@ -37,6 +37,7 @@ class Manage_materials extends CI_controller {
         $material_Arr = array();
         $profile_arr = array();
 
+        if(isset($Select_Profiles)){
         for ($prod=0; $prod < count($Select_Profiles); $prod++) { 
             
         if (isset($checkHousing[$prod])) {
@@ -101,6 +102,10 @@ class Manage_materials extends CI_controller {
             'product_price' => $TotalProduct_Price[$prod]
         );
 }
+}
+else{
+    $Select_Profiles='';
+}
 $profile_arr[count($Select_Profiles)] = array(
             'customer_id' => '',
             'product_name' => '',
@@ -115,6 +120,7 @@ $profile_arr[count($Select_Profiles)] = array(
             'product_quantity' => '',
             'product_price' => ''
         );
+
        return json_encode($profile_arr);
         //print_r($profile_arr);
         

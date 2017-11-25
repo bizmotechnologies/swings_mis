@@ -251,7 +251,7 @@ error_reporting(E_ERROR | E_PARSE);
         <div class="w3-col l3">\n\
         <div class="w3-col l4 s4 w3-padding-left">\n\
         <label>ID</label>\n\
-        <input list="MaterialID_' + x + '" id="Select_ID_' + x + '" name="Select_ID[]" class="form-control" required type="text" placeholder="ID">\n\
+        <input list="MaterialID_' + x + '" id="Select_ID_'+ x + '" name="Select_ID[]" class="form-control" required type="text" placeholder="ID">\n\
         <datalist id="MaterialID_' + x + '">\n\
         </datalist>\n\
         </div>\n\
