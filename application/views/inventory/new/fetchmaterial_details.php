@@ -96,7 +96,7 @@ error_reporting(E_ERROR | E_PARSE);
 
                                     <div class="w3-col l6">
                                         <label>Profile Description:</label>
-                                        <input type="text" value="<?php echo $div['$profile_description']; ?>" placeholder="Profile Description(Ex.Piston Seal, Rod Seal .etc.)" class="form-control" style="text-transform:uppercase;" id="profile_DescriptionForHousingUnchecked_1" name="profile_DescriptionForHousingUnchecked[]" required></div>
+                                        <input type="text" value="<?php echo $div['profile_description']; ?>" placeholder="Profile Description(Ex.Piston Seal, Rod Seal .etc.)" class="form-control" style="text-transform:uppercase;" id="profile_DescriptionForHousingUnchecked_1" name="profile_DescriptionForHousingUnchecked[]" required></div>
                                 </div>
 
                                 <div class="w3-col l12 w3-padding">
@@ -211,11 +211,11 @@ error_reporting(E_ERROR | E_PARSE);
 
                                 <div class="w3-col l4 w3-padding-left">
                                     <label>QUANTITY</label> 
-                                    <input id="Product_Quantity_1" name="Product_Quantity[]" value="<?php echo $product_quantity[$i];?>" class="form-control" required type="number" min="0" step="0.01" placeholder="Product Quantity">                                         
+                                    <input id="Product_Quantity_1" name="Product_Quantity[]" value="<?php echo $div['product_quantity'];?>" class="form-control" required type="number" min="0" step="0.01" placeholder="Product Quantity">                                         
                                 </div>
                                 <div class="w3-col l4 w3-padding-left">
                                     <label>Total Product Price</label> 
-                                    <input id="TotalProduct_Price_1" name="TotalProduct_Price[]" value="<?php echo $product_price[$i];?>" class="form-control" required type="number" min="0" step="0.01" placeholder="Product Quantity">                                         
+                                    <input id="TotalProduct_Price_1" name="TotalProduct_Price[]" value="<?php echo $div['product_price'];?>" class="form-control" required type="number" min="0" step="0.01" placeholder="Product Quantity">                                         
                                 </div>
                                 <div class="w3-col l4 w3-padding-left w3-margin-top w3-padding-top">
                                     <a id="add_product_1" title="Click Add Product To Enquiry" class="btn add-more w3-text-blue w3-margin-right w3-right ">+Add More Product</a>
@@ -229,6 +229,36 @@ error_reporting(E_ERROR | E_PARSE);
                     <div class="w3-col l12 ">
                         <div id="ADD_Product_1" class="w3-small w3-col l12"></div>
                     </div>
+                    <script>
+                        $(document).ready(function () {
+    var wrapper = $("#housing_statusforChecked_1");
+    var x = 1;
+    
+    $('#checkHousing_1').on('change', function (e) {
+        //e.preventDefault();
+        if (this.checked) {
+            x++;
+            $(wrapper).html('<div class="w3-col l12 w3-padding"><div class="w3-col l6"><label>Profile Description:</label><input type="text" placeholder="Profile Description(Ex.Piston Seal, Rod Seal .etc.)" class="form-control" style="text-transform:uppercase;" id="profile_DescriptionForHousingChecked" name="profile_DescriptionForHousingChecked" required></div></div><div class="w3-col l12 w3-padding"><div class="w3-col l3 s3"><div class="input-group"><label>ID:</label><input type="number" placeholder="ID" class="form-control" style="text-transform:uppercase;" id="ID_forHousingChecked" name="ID_forHousingChecked" required></div></div><div class="w3-col l3 s3 w3-padding-left"><div class="input-group"><label>OD:</label><input type="number" placeholder="OD" class="form-control" style="text-transform:uppercase;" id="OD_forHousingChecked" name="OD_forHousingChecked" required></div></div><div class="w3-col l3 s3 w3-padding-left"><div class="input-group"><label>LENGTH:</label><input type="number" placeholder="LENGTH" class="form-control" style="text-transform:uppercase;" id="LENGTH_forHousingChecked" name="LENGTH_forHousingChecked" required></div></div><div class="w3-col l3 s3 w3-padding-left"><div class="input-group"><label>QUANTITY:</label><input type="number" placeholder="QUANTITY" class="form-control" style="text-transform:uppercase;" id="Set_QuantityforHousingChecked" name="Set_QuantityforHousingChecked" required></div></div></div>');
+
+        } else {
+            $(wrapper).html('<div class="w3-col l12 w3-padding"><div class="w3-col l6"><label>Profile Description:</label><input type="text" placeholder="Profile Description(Ex.Piston Seal, Rod Seal .etc.)" class="form-control" style="text-transform:uppercase;" id="profile_DescriptionForHousingUnchecked" name="profile_DescriptionForHousingUnchecked" required></div></div><div class="w3-col l12 w3-padding"><div class="w3-col l4 s4"><div class="input-group"><label>ID:</label><input type="number" placeholder="ID" class="form-control" style="text-transform:uppercase;" id="ID_forHousingUnckecked" name="ID_forHousingUnckecked" required></div></div><div class="w3-col l4 s4 w3-padding-left"><div class="input-group"><label>OD:</label><input type="number" placeholder="OD" class="form-control" style="text-transform:uppercase;" id="OD_forHousingUnckecked" name="OD_forHousingUnckecked" required></div></div><div class="w3-col l4 s4 w3-padding-left"><div class="input-group"><label>LENGTH:</label><input type="number" placeholder="LENGTH" class="form-control" style="text-transform:uppercase;" id="LENGTH_forHousingUnckecked" name="LENGTH_forHousingUnckecked" required></div></div></div>'); //add input box
+
+        }
+    });
+});
+$(document).ready(function () {
+    var wrapper = $("#housing_statusforChecked_1");
+var x = 1;
+        if ($('#checkHousing_1').is(':checked')) {
+        x++;
+        $(wrapper).html('<div class="w3-col l12 w3-padding"><div class="w3-col l6"><label>Profile Description:</label><input type="text" placeholder="Profile Description(Ex.Piston Seal, Rod Seal .etc.)" class="form-control" value="<?php echo $div['profile_description']; ?>" style="text-transform:uppercase;" id="profile_DescriptionForHousingChecked" name="profile_DescriptionForHousingChecked" required></div></div><div class="w3-col l12 w3-padding"><div class="w3-col l3 s3"><div class="input-group"><label>ID:</label><input type="number" placeholder="ID" value="<?php echo $div['Prod_ID']; ?>" class="form-control" style="text-transform:uppercase;" id="ID_forHousingChecked" name="ID_forHousingChecked" required></div></div><div class="w3-col l3 s3 w3-padding-left"><div class="input-group"><label>OD:</label><input type="number" placeholder="OD" class="form-control" style="text-transform:uppercase;" id="OD_forHousingChecked" name="OD_forHousingChecked" required></div></div><div class="w3-col l3 s3 w3-padding-left"><div class="input-group"><label>LENGTH:</label><input type="number" placeholder="LENGTH" class="form-control" style="text-transform:uppercase;" id="LENGTH_forHousingChecked" name="LENGTH_forHousingChecked" required></div></div><div class="w3-col l3 s3 w3-padding-left"><div class="input-group"><label>QUANTITY:</label><input type="number" placeholder="QUANTITY" class="form-control" style="text-transform:uppercase;" id="Set_QuantityforHousingChecked" name="Set_QuantityforHousingChecked" required></div></div></div>');
+
+    } else {
+        $(wrapper).html('<div class="w3-col l12 w3-padding"><div class="w3-col l6"><label>Profile Description:</label><input type="text" placeholder="Profile Description(Ex.Piston Seal, Rod Seal .etc.)" class="form-control" value="<?php echo $div['profile_description']; ?>" style="text-transform:uppercase;" id="profile_DescriptionForHousingUnchecked" name="profile_DescriptionForHousingUnchecked" required></div></div><div class="w3-col l12 w3-padding"><div class="w3-col l4 s4"><div class="input-group"><label>ID:</label><input type="number" value="<?php echo $div['Prod_ID']; ?>" placeholder="ID" class="form-control" style="text-transform:uppercase;" id="ID_forHousingUnckecked" name="ID_forHousingUnckecked" required></div></div><div class="w3-col l4 s4 w3-padding-left"><div class="input-group"><label>OD:</label><input value="<?php echo $div['Prod_OD']; ?>" type="number" placeholder="OD" class="form-control" style="text-transform:uppercase;" id="OD_forHousingUnckecked" name="OD_forHousingUnckecked" required></div></div><div class="w3-col l4 s4 w3-padding-left"><div class="input-group"><label>LENGTH:</label><input type="number" placeholder="LENGTH" class="form-control" style="text-transform:uppercase;" id="LENGTH_forHousingUnckecked" name="LENGTH_forHousingUnckecked" required></div></div></div>'); //add input box
+
+    }
+});
+                    </script>
                     <?php } ?>
                     <div class="w3-right w3-margin-right">
                         <button type="submit" class="btn btn-info">Add Product</button>
