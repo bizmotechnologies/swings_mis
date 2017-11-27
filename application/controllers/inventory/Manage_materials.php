@@ -42,20 +42,20 @@ class Manage_materials extends CI_controller {
             
         if (isset($checkHousing[$prod])) {
             $housing_status = 1;
-            $Set_QuantityforHousing = $Set_QuantityforHousingChecked[$prod];
+            $Set_QuantityforHousing = $Set_QuantityforHousingChecked;
             
-            $Prod_ID = $ID_forHousingChecked[$prod];
-            $Prod_OD = $OD_forHousingChecked[$prod];
-            $Prod_length = $LENGTH_forHousingChecked[$prod];
-            $Prod_description = $profile_DescriptionForHousingChecked[$prod];
+            $Prod_ID = $ID_forHousingChecked;
+            $Prod_OD = $OD_forHousingChecked;
+            $Prod_length = $LENGTH_forHousingChecked;
+            $Prod_description = $profile_DescriptionForHousingChecked;
         }
         else{
             $housing_status = 0;
             $Set_QuantityforHousing= 0;
-            $Prod_ID = $ID_forHousingUnckecked[$prod];
-            $Prod_OD = $OD_forHousingUnckecked[$prod];
-            $Prod_length = $LENGTH_forHousingUnckecked[$prod];
-            $Prod_description = $profile_DescriptionForHousingUnchecked[$prod];
+            $Prod_ID = $ID_forHousingUnckecked;
+            $Prod_OD = $OD_forHousingUnckecked;
+            $Prod_length = $LENGTH_forHousingUnckecked;
+            $Prod_description = $profile_DescriptionForHousingUnchecked;
         }
         
         
@@ -88,6 +88,7 @@ class Manage_materials extends CI_controller {
                    //print_r(json_encode($material_Arr));
 
         $profile_arr[] = array(
+            'customer_name' => $Select_Customers,
             'product_name' => $product_nameForEnquiry[$prod],
             'profile_id' => $Select_Profiles[$prod],
             'housing_status' => $housing_status,
@@ -181,6 +182,15 @@ $profile_arr[count($Select_Profiles)] = array(
         $this->load->view('inventory/new/fetchmaterial_details', $data);
     }
 
+        public function demo() {
+        $data['info'] = Manage_materials::getRawMaterialInfo();     //-------show all Raw materials
+        $data['materials'] = Manage_materials::getMaterialrecord();     //-------show all Raw materials
+        $data['customers'] = Manage_materials::GetCustomersDetails();     //-------show all Customers
+        $data['profiles'] = Manage_materials::GetProductProfileDetails();     //-------show all Product Profile
+        $data['multiple_divs'] = Manage_materials::Add_MultipleProduct($_POST);     //-------show all materials
+        $this->load->view('includes/navigation');
+        $this->load->view('inventory/new/demo', $data);
+    }
 //    -----------this fun is show fetched material info page
     //---------this fun is used to get tube history for customer------------
     public function GetTubeHistoryForInquiry() {

@@ -31,11 +31,21 @@ error_reporting(E_ERROR | E_PARSE);
 
                 <div class="w3-col l12 w3-margin-top w3-small">
                     <div class="w3-col l12 w3-padding">
+                     <?php    $multipleDiv_arr= json_decode($multiple_divs,true);
+                    //print_r($multipleDiv_arr);
+                    $cust_name = '';
+                    foreach ($multipleDiv_arr as $div) { 
+                        print_r($div['customer_name']);
+                      //  $cust_name = $div['customer_name'];
+                    }
+                    print_r($cust_name);
+                    ?>
+                         
 
                         <div class="w3-col l3 w3-left">
                             <div class="input-group w3-padding-top">
                                 <label>Customer Name:</label> 
-                                <input list="Customers" id="Select_Customers" name="Select_Customers" class="form-control" required type="text" placeholder="Customer Name">                                         
+                                <input list="Customers" id="Select_Customers" name="Select_Customers" value="<?php echo $cust_name; ?>" class="form-control" required type="text" placeholder="Customer Name">                                         
                                 <datalist id="Customers">
                                     <?php foreach ($customers['status_message'] as $result) { ?>
                                         <option data-value="<?php echo $result['cust_id']; ?>" value='<?php echo $result['customer_name']; ?>'></option>
@@ -43,12 +53,11 @@ error_reporting(E_ERROR | E_PARSE);
                                 </datalist>
                             </div>
                         </div>
-
                     </div>
                     <?php
                     $count = 1;
                     $multipleDiv_arr= json_decode($multiple_divs,true);
-                    print_r($multipleDiv_arr);
+                    //print_r($multipleDiv_arr);
                     foreach ($multipleDiv_arr as $div) {  
                         $count++; 
                         ?>
@@ -85,18 +94,18 @@ error_reporting(E_ERROR | E_PARSE);
 
                                 <div class="w3-col l10 w3-left">
                                     <div class="input-group ">
-                                        <input type="checkbox" name="checkHousing[]" id="checkHousing_1" <?php if($housing_status == 1){ echo checked;}?> ><b>  Housing(EX. Seal&nbsp;kit&nbsp;for&nbsp;Hydraulic&nbsp;70&nbsp;MM,&nbsp;Rod&nbsp;50&nbsp;MM&nbsp;–&nbsp;15&nbsp;Sets.)</b>
+                                        <input type="checkbox" name="checkHousing[]" id="checkHousing_<?php echo $count; ?>" <?php if($housing_status == 1){ echo checked;}?> ><b>  Housing(EX. Seal&nbsp;kit&nbsp;for&nbsp;Hydraulic&nbsp;70&nbsp;MM,&nbsp;Rod&nbsp;50&nbsp;MM&nbsp;–&nbsp;15&nbsp;Sets.)</b>
                                     </div>
                                 </div>
 
                             </div><!-- this div is used to show housing div-->
 
-                            <div class="w3-light-grey" id="housing_statusforChecked_1"> <!--this div is used to show the div of housing value for housing is not checked-->
+                            <div class="w3-light-grey" id="housing_statusforChecked_<?php echo $count; ?>"> <!--this div is used to show the div of housing value for housing is not checked-->
                                 <div class="w3-col l12 w3-padding">
 
                                     <div class="w3-col l6">
                                         <label>Profile Description:</label>
-                                        <input type="text" value="<?php echo $div['profile_description']; ?>" placeholder="Profile Description(Ex.Piston Seal, Rod Seal .etc.)" class="form-control" style="text-transform:uppercase;" id="profile_DescriptionForHousingUnchecked_1" name="profile_DescriptionForHousingUnchecked[]" required></div>
+                                        <input type="text" value="<?php echo $div['profile_description']; ?>" placeholder="Profile Description(Ex.Piston Seal, Rod Seal .etc.)" class="form-control" style="text-transform:uppercase;" id="profile_DescriptionForHousingUnchecked_<?php echo $count; ?>" name="profile_DescriptionForHousingUnchecked[]" required></div>
                                 </div>
 
                                 <div class="w3-col l12 w3-padding">
@@ -104,19 +113,19 @@ error_reporting(E_ERROR | E_PARSE);
                                     <div class="w3-col l4 s4">
                                         <div class="input-group">
                                             <label>ID:</label>
-                                            <input type="number" placeholder="ID" class="form-control" value="<?php echo $div['Prod_ID']; ?>" style="text-transform:uppercase;" id="ID_forHousingUnckecked_1" name="ID_forHousingUnckecked[]" required>
+                                            <input type="number" placeholder="ID" class="form-control" value="<?php echo $div['Prod_ID']; ?>" style="text-transform:uppercase;" id="ID_forHousingUnckecked_<?php echo $count; ?>" name="ID_forHousingUnckecked[]" required>
                                         </div>
                                     </div>
                                     <div class="w3-col l4 s4 w3-padding-left">
                                         <div class="input-group">
                                             <label>OD:</label>
-                                            <input type="number" placeholder="OD" class="form-control" value="<?php echo $div['Prod_OD']; ?>" style="text-transform:uppercase;" id="OD_forHousingUnckecked_1" name="OD_forHousingUnckecked[]" required>
+                                            <input type="number" placeholder="OD" class="form-control" value="<?php echo $div['Prod_OD']; ?>" style="text-transform:uppercase;" id="OD_forHousingUnckecked_<?php echo $count; ?>" name="OD_forHousingUnckecked[]" required>
                                         </div>
                                     </div>
                                     <div class="w3-col l4 s4 w3-padding-left">
                                         <div class="input-group">
                                             <label>LENGTH:</label>
-                                            <input type="number" placeholder="LENGTH" class="form-control" value="<?php echo $div['Prod_LENGTH']; ?>" style="text-transform:uppercase;" id="LENGTH_forHousingUnckecked_1" name="LENGTH_forHousingUnckecked[]" required>
+                                            <input type="number" placeholder="LENGTH" class="form-control" value="<?php echo $div['Prod_LENGTH']; ?>" style="text-transform:uppercase;" id="LENGTH_forHousingUnckecked_<?php echo $count; ?>" name="LENGTH_forHousingUnckecked[]" required>
                                         </div>
                                     </div>
 
@@ -231,30 +240,30 @@ error_reporting(E_ERROR | E_PARSE);
                     </div>
                     <script>
                         $(document).ready(function () {
-    var wrapper = $("#housing_statusforChecked_1");
+    var wrapper = $("#housing_statusforChecked_<?php echo $count; ?>");
     var x = 1;
     
-    $('#checkHousing_1').on('change', function (e) {
+    $('#checkHousing_<?php echo $count; ?>').on('change', function (e) {
         //e.preventDefault();
         if (this.checked) {
             x++;
-            $(wrapper).html('<div class="w3-col l12 w3-padding"><div class="w3-col l6"><label>Profile Description:</label><input type="text" placeholder="Profile Description(Ex.Piston Seal, Rod Seal .etc.)" class="form-control" style="text-transform:uppercase;" id="profile_DescriptionForHousingChecked" name="profile_DescriptionForHousingChecked" required></div></div><div class="w3-col l12 w3-padding"><div class="w3-col l3 s3"><div class="input-group"><label>ID:</label><input type="number" placeholder="ID" class="form-control" style="text-transform:uppercase;" id="ID_forHousingChecked" name="ID_forHousingChecked" required></div></div><div class="w3-col l3 s3 w3-padding-left"><div class="input-group"><label>OD:</label><input type="number" placeholder="OD" class="form-control" style="text-transform:uppercase;" id="OD_forHousingChecked" name="OD_forHousingChecked" required></div></div><div class="w3-col l3 s3 w3-padding-left"><div class="input-group"><label>LENGTH:</label><input type="number" placeholder="LENGTH" class="form-control" style="text-transform:uppercase;" id="LENGTH_forHousingChecked" name="LENGTH_forHousingChecked" required></div></div><div class="w3-col l3 s3 w3-padding-left"><div class="input-group"><label>QUANTITY:</label><input type="number" placeholder="QUANTITY" class="form-control" style="text-transform:uppercase;" id="Set_QuantityforHousingChecked" name="Set_QuantityforHousingChecked" required></div></div></div>');
+            $(wrapper).html('<div class="w3-col l12 w3-padding"><div class="w3-col l6"><label>Profile Description:</label><input type="text" placeholder="Profile Description(Ex.Piston Seal, Rod Seal .etc.)" class="form-control" style="text-transform:uppercase;" id="profile_DescriptionForHousingChecked_<?php echo $count; ?>" name="profile_DescriptionForHousingChecked[]" required></div></div><div class="w3-col l12 w3-padding"><div class="w3-col l3 s3"><div class="input-group"><label>ID:</label><input type="number" placeholder="ID" class="form-control" style="text-transform:uppercase;" id="ID_forHousingChecked_<?php echo $count; ?>" name="ID_forHousingChecked[]" required></div></div><div class="w3-col l3 s3 w3-padding-left"><div class="input-group"><label>OD:</label><input type="number" placeholder="OD" class="form-control" style="text-transform:uppercase;" id="OD_forHousingChecked_<?php echo $count; ?>" name="OD_forHousingChecked[]" required></div></div><div class="w3-col l3 s3 w3-padding-left"><div class="input-group"><label>LENGTH:</label><input type="number" placeholder="LENGTH" class="form-control" style="text-transform:uppercase;" id="LENGTH_forHousingChecked_<?php echo $count; ?>" name="LENGTH_forHousingChecked[]" required></div></div><div class="w3-col l3 s3 w3-padding-left"><div class="input-group"><label>QUANTITY:</label><input type="number" placeholder="QUANTITY" class="form-control" style="text-transform:uppercase;" id="Set_QuantityforHousingChecked_<?php echo $count; ?>" name="Set_QuantityforHousingChecked[]" required></div></div></div>');
 
         } else {
-            $(wrapper).html('<div class="w3-col l12 w3-padding"><div class="w3-col l6"><label>Profile Description:</label><input type="text" placeholder="Profile Description(Ex.Piston Seal, Rod Seal .etc.)" class="form-control" style="text-transform:uppercase;" id="profile_DescriptionForHousingUnchecked" name="profile_DescriptionForHousingUnchecked" required></div></div><div class="w3-col l12 w3-padding"><div class="w3-col l4 s4"><div class="input-group"><label>ID:</label><input type="number" placeholder="ID" class="form-control" style="text-transform:uppercase;" id="ID_forHousingUnckecked" name="ID_forHousingUnckecked" required></div></div><div class="w3-col l4 s4 w3-padding-left"><div class="input-group"><label>OD:</label><input type="number" placeholder="OD" class="form-control" style="text-transform:uppercase;" id="OD_forHousingUnckecked" name="OD_forHousingUnckecked" required></div></div><div class="w3-col l4 s4 w3-padding-left"><div class="input-group"><label>LENGTH:</label><input type="number" placeholder="LENGTH" class="form-control" style="text-transform:uppercase;" id="LENGTH_forHousingUnckecked" name="LENGTH_forHousingUnckecked" required></div></div></div>'); //add input box
+            $(wrapper).html('<div class="w3-col l12 w3-padding"><div class="w3-col l6"><label>Profile Description:</label><input type="text" placeholder="Profile Description(Ex.Piston Seal, Rod Seal .etc.)" class="form-control" style="text-transform:uppercase;" id="profile_DescriptionForHousingUnchecked_<?php echo $count; ?>" name="profile_DescriptionForHousingUnchecked[]" required></div></div><div class="w3-col l12 w3-padding"><div class="w3-col l4 s4"><div class="input-group"><label>ID:</label><input type="number" placeholder="ID" class="form-control" style="text-transform:uppercase;" id="ID_forHousingUnckecked_<?php echo $count; ?>" name="ID_forHousingUnckecked[]" required></div></div><div class="w3-col l4 s4 w3-padding-left"><div class="input-group"><label>OD:</label><input type="number" placeholder="OD" class="form-control" style="text-transform:uppercase;" id="OD_forHousingUnckecked_<?php echo $count; ?>" name="OD_forHousingUnckecked[]" required></div></div><div class="w3-col l4 s4 w3-padding-left"><div class="input-group"><label>LENGTH:</label><input type="number" placeholder="LENGTH" class="form-control" style="text-transform:uppercase;" id="LENGTH_forHousingUnckecked_<?php echo $count; ?>" name="LENGTH_forHousingUnckecked[]" required></div></div></div>'); //add input box
 
         }
     });
 });
 $(document).ready(function () {
-    var wrapper = $("#housing_statusforChecked_1");
+    var wrapper = $("#housing_statusforChecked_<?php echo $count; ?>");
 var x = 1;
-        if ($('#checkHousing_1').is(':checked')) {
+        if ($('#checkHousing_<?php echo $count; ?>').is(':checked')) {
         x++;
-        $(wrapper).html('<div class="w3-col l12 w3-padding"><div class="w3-col l6"><label>Profile Description:</label><input type="text" placeholder="Profile Description(Ex.Piston Seal, Rod Seal .etc.)" class="form-control" value="<?php echo $div['profile_description']; ?>" style="text-transform:uppercase;" id="profile_DescriptionForHousingChecked" name="profile_DescriptionForHousingChecked" required></div></div><div class="w3-col l12 w3-padding"><div class="w3-col l3 s3"><div class="input-group"><label>ID:</label><input type="number" placeholder="ID" value="<?php echo $div['Prod_ID']; ?>" class="form-control" style="text-transform:uppercase;" id="ID_forHousingChecked" name="ID_forHousingChecked" required></div></div><div class="w3-col l3 s3 w3-padding-left"><div class="input-group"><label>OD:</label><input type="number" placeholder="OD" class="form-control" style="text-transform:uppercase;" id="OD_forHousingChecked" name="OD_forHousingChecked" required></div></div><div class="w3-col l3 s3 w3-padding-left"><div class="input-group"><label>LENGTH:</label><input type="number" placeholder="LENGTH" class="form-control" style="text-transform:uppercase;" id="LENGTH_forHousingChecked" name="LENGTH_forHousingChecked" required></div></div><div class="w3-col l3 s3 w3-padding-left"><div class="input-group"><label>QUANTITY:</label><input type="number" placeholder="QUANTITY" class="form-control" style="text-transform:uppercase;" id="Set_QuantityforHousingChecked" name="Set_QuantityforHousingChecked" required></div></div></div>');
+            $(wrapper).html('<div class="w3-col l12 w3-padding"><div class="w3-col l6"><label>Profile Description:</label><input type="text" placeholder="Profile Description(Ex.Piston Seal, Rod Seal .etc.)" class="form-control" style="text-transform:uppercase;" id="profile_DescriptionForHousingChecked_<?php echo $count; ?>" name="profile_DescriptionForHousingChecked[]" value="<?php echo $div['profile_description']; ?>" required></div></div><div class="w3-col l12 w3-padding"><div class="w3-col l3 s3"><div class="input-group"><label>ID:</label><input type="number" placeholder="ID" class="form-control" style="text-transform:uppercase;" id="ID_forHousingChecked_<?php echo $count; ?>" name="ID_forHousingChecked[]" value="<?php echo $div['Prod_ID']; ?>" required></div></div><div class="w3-col l3 s3 w3-padding-left"><div class="input-group"><label>OD:</label><input type="number" placeholder="OD" class="form-control" style="text-transform:uppercase;" id="OD_forHousingChecked_<?php echo $count; ?>" name="OD_forHousingChecked[]" value="<?php echo $div['Prod_OD']; ?>" required></div></div><div class="w3-col l3 s3 w3-padding-left"><div class="input-group"><label>LENGTH:</label><input type="number" placeholder="LENGTH" class="form-control" style="text-transform:uppercase;" id="LENGTH_forHousingChecked_<?php echo $count; ?>" name="LENGTH_forHousingChecked[]" value="<?php echo $div['Prod_length']; ?>" required></div></div><div class="w3-col l3 s3 w3-padding-left"><div class="input-group"><label>QUANTITY:</label><input type="number" placeholder="QUANTITY" class="form-control" style="text-transform:uppercase;" id="Set_QuantityforHousingChecked_<?php echo $count; ?>" name="Set_QuantityforHousingChecked[]" value="<?php echo $div['Set_QuantityforHousing']; ?>" required></div></div></div>');
 
     } else {
-        $(wrapper).html('<div class="w3-col l12 w3-padding"><div class="w3-col l6"><label>Profile Description:</label><input type="text" placeholder="Profile Description(Ex.Piston Seal, Rod Seal .etc.)" class="form-control" value="<?php echo $div['profile_description']; ?>" style="text-transform:uppercase;" id="profile_DescriptionForHousingUnchecked" name="profile_DescriptionForHousingUnchecked" required></div></div><div class="w3-col l12 w3-padding"><div class="w3-col l4 s4"><div class="input-group"><label>ID:</label><input type="number" value="<?php echo $div['Prod_ID']; ?>" placeholder="ID" class="form-control" style="text-transform:uppercase;" id="ID_forHousingUnckecked" name="ID_forHousingUnckecked" required></div></div><div class="w3-col l4 s4 w3-padding-left"><div class="input-group"><label>OD:</label><input value="<?php echo $div['Prod_OD']; ?>" type="number" placeholder="OD" class="form-control" style="text-transform:uppercase;" id="OD_forHousingUnckecked" name="OD_forHousingUnckecked" required></div></div><div class="w3-col l4 s4 w3-padding-left"><div class="input-group"><label>LENGTH:</label><input type="number" placeholder="LENGTH" class="form-control" style="text-transform:uppercase;" id="LENGTH_forHousingUnckecked" name="LENGTH_forHousingUnckecked" required></div></div></div>'); //add input box
+            $(wrapper).html('<div class="w3-col l12 w3-padding"><div class="w3-col l6"><label>Profile Description:</label><input type="text" placeholder="Profile Description(Ex.Piston Seal, Rod Seal .etc.)" class="form-control" style="text-transform:uppercase;" id="profile_DescriptionForHousingUnchecked_<?php echo $count; ?>" name="profile_DescriptionForHousingUnchecked[]" value="<?php echo $div['profile_description']; ?>" required></div></div><div class="w3-col l12 w3-padding"><div class="w3-col l4 s4"><div class="input-group"><label>ID:</label><input type="number" placeholder="ID" class="form-control" style="text-transform:uppercase;" id="ID_forHousingUnckecked_<?php echo $count; ?>" name="ID_forHousingUnckecked[]" value="<?php echo $div['Prod_ID']; ?>" required></div></div><div class="w3-col l4 s4 w3-padding-left"><div class="input-group"><label>OD:</label><input type="number" placeholder="OD" class="form-control" style="text-transform:uppercase;" id="OD_forHousingUnckecked_<?php echo $count; ?>" name="OD_forHousingUnckecked[]" value="<?php echo $div['Prod_OD']; ?>" required></div></div><div class="w3-col l4 s4 w3-padding-left"><div class="input-group"><label>LENGTH:</label><input type="number" placeholder="LENGTH" class="form-control" style="text-transform:uppercase;" id="LENGTH_forHousingUnckecked_<?php echo $count; ?>" name="LENGTH_forHousingUnckecked[]" value="<?php echo $div['Prod_length']; ?>" required></div></div></div>'); //add input box
 
     }
 });
