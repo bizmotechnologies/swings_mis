@@ -18,72 +18,95 @@ error_reporting(E_ERROR | E_PARSE);
         <script>
             var currparent = 1;
             var currchild = 1;
-            function getChildDivHtml(id) {
-                return '<div class="w3-col l12 w3-padding"" id="Product' + currparent + '">Product ' + currparent + '\n\
-<div class="w3-col l12 w3-padding">\n\
+            function getChildDivHtml(id) {// this code is used for add div to parent div on click fun
+                return '<div class="w3-col l12 w3-padding-left" id="Product_' + currparent + '"><div class="w3-col l12 w3-padding-left w3-light-grey">Product_' + currparent + '</div>\n\
+<div class="w3-col l12 w3-padding w3-small">\n\
 \n\
 <div class="w3-col l3 w3-left">\n\
 <div class="input-group">\n\
 <label>Product Name:</label>\n\
-<input type="text" placeholder="Product Name" value="" class="form-control" style="text-transform:uppercase;" id="product_nameForEnquiry_1" name="product_nameForEnquiry[]" required>\n\
+<input type="text" placeholder="Product Name" value="" class="form-control" style="text-transform:uppercase;" id="product_nameForEnquiry_' + currparent + '" name="product_nameForEnquiry[]" required>\n\
 </div>\n\
 </div>\n\
 \n\
 </div>\n\
+\n\<div class="w3-col l12 w3-padding w3-small">\n\
+<hr>\n\
+<div class="w3-col l3 w3-left">\n\
+<div class="input-group">\n\
+<label>Profile Name:</label>\n\
+<input list="Profiles_' + currparent + '" id="Select_Profiles_' + currparent + '" name="Select_Profiles[]" value="<?php echo $div['profile_id']; ?>" class="form-control" required type="text" placeholder="Select Profile Name">\n\
+<datalist id="Profiles_' + currparent + '">\n\
+<?php foreach ($profiles['status_message'] as $result) { ?><option data-value="<?php echo $result['profile_id']; ?>" value="<?php echo $result['profile_name']; ?>"></option><?php } ?></datalist>\n\
+</div>\n\
+</div>\n\
+</div>\n\
 \n\
-<div class="w3-col l12 w3-light-grey w3-padding">\n\
+<div class="w3-col l12 w3-light-grey w3-padding w3-small">\n\
 \n\
 <div class="w3-col l10 w3-left">\n\
 <div class="input-group ">\n\
-<input type="checkbox" id="checkHousing_1" onchange="GetHousingValue();"><b>  Housing(EX. Seal&nbsp;kit&nbsp;for&nbsp;Hydraulic&nbsp;70&nbsp;MM,&nbsp;Rod&nbsp;50&nbsp;MM&nbsp;–&nbsp;15&nbsp;Sets.)</b>\n\
+<input type="checkbox" id="checkHousing_' + currparent + '" onclick="GetHousingValue(' + currparent + ');"><b>  Housing(EX. Seal&nbsp;kit&nbsp;for&nbsp;Hydraulic&nbsp;70&nbsp;MM,&nbsp;Rod&nbsp;50&nbsp;MM&nbsp;–&nbsp;15&nbsp;Sets.)</b>\n\
 </div>\n\
 </div>\n\
 </div>\n\
 \n\
-<div class="w3-light-grey" id="housing_statusforChecked_1">\n\
+<div class="w3-light-grey" id="housing_statusforChecked_' + currparent + '">\n\
 \n\
-<div class="w3-col l12 w3-padding">\n\
+<div class="w3-col l12 w3-padding w3-small">\n\
 <div class="w3-col l6">\n\
 <label>Profile Description:</label>\n\
-<input type="text" value="" placeholder="Profile Description(Ex.Piston Seal, Rod Seal .etc.)" class="form-control" style="text-transform:uppercase;" id="profile_DescriptionForHousingUnchecked_1" name="profile_DescriptionForHousingUnchecked[]" required>\n\
+<input type="text" value="" placeholder="Profile Description(Ex.Piston Seal, Rod Seal .etc.)" class="form-control" style="text-transform:uppercase;" id="profile_DescriptionForHousingUnchecked_' + currparent + '" name="profile_DescriptionForHousingUnchecked[]" required>\n\
 </div>\n\
 </div>\n\
-<div class="w3-col l12 w3-padding">\n\
+<div class="w3-col l12 w3-padding w3-small">\n\
 \n\
 <div class="w3-col l4 s4">\n\
 <div class="input-group">\n\
 <label>ID:</label>\n\
-<input type="number" placeholder="ID" class="form-control" value="" style="text-transform:uppercase;" id="ID_forHousingUnckecked_1" name="ID_forHousingUnckecked[]" required>\n\
+<input type="number" placeholder="ID" class="form-control" value="" style="text-transform:uppercase;" id="ID_forHousingUnckecked_' + currparent + '" name="ID_forHousingUnckecked[]" required>\n\
 </div>\n\
 </div>\n\
 \n\
 <div class="w3-col l4 s4 w3-padding-left">\n\
 <div class="input-group">\n\
 <label>OD:</label>\n\
-<input type="number" placeholder="OD" class="form-control" value="" style="text-transform:uppercase;" id="OD_forHousingUnckecked_1" name="OD_forHousingUnckecked[]" required>\n\
+<input type="number" placeholder="OD" class="form-control" value="" style="text-transform:uppercase;" id="OD_forHousingUnckecked_' + currparent + '" name="OD_forHousingUnckecked[]" required>\n\
 </div>\n\
 </div>\n\
 \n\
 <div class="w3-col l4 s4 w3-padding-left">\n\
 <div class="input-group">\n\
 <label>LENGTH:</label>\n\
-<input type="number" placeholder="LENGTH" class="form-control" value="" style="text-transform:uppercase;" id="LENGTH_forHousingUnckecked_1" name="LENGTH_forHousingUnckecked[]" required>\n\
+<input type="number" placeholder="LENGTH" class="form-control" value="" style="text-transform:uppercase;" id="LENGTH_forHousingUnckecked_' + currparent + '" name="LENGTH_forHousingUnckecked[]" required>\n\
 </div>\n\
 </div>\n\
 \n\
 </div>\n\
 </div>\n\
-\n\
-</div>';
+\n\<div class="w3-col l12 w3-padding-left w3-margin-top w3-margin-bottom">\n\
+<button class="btn-add-siblings">Add Material</button>\n\
+</div>\n\
+</div>\n\
+<div class="w3-col l12 w3-padding-left w3-margin-top w3-margin-bottom w3-small">\n\
+<div class="w3-col l4 w3-padding-left">\n\
+<label>QUANTITY</label>\n\
+<input id="Product_Quantity_1" name="Product_Quantity[]" value="<?php echo $div['product_quantity']; ?>" class="form-control" required type="number" min="0" step="0.01" placeholder="Product Quantity">\n\
+</div>\n\
+<div class="w3-col l4 w3-padding-left">\n\
+<label>Total Product Price</label>\n\
+<input id="TotalProduct_Price_1" name="TotalProduct_Price[]" value="<?php echo $div['product_price']; ?>" class="form-control" required type="number" min="0" step="0.01" placeholder="Product Quantity">\n\
+</div>\n\
+</div>';// this code is used for add div to parent div on click fun
             }
-            $(document).ready(function () {
+            $(document).ready(function () {// this fun is used for add above code to parent div on click fun
                 $('#btn-add-product').on('click', function () {
                     $('div#parent').append(getChildDivHtml(currparent));
                     currparent++;
-                });
+                });// this fun is used for add above code to parent div on click fun
 
-                $('div#parent').on('click', '.btn-add-siblings', function () {
-                    $(this).parent().append('<div class="w3-col l12 w3-tiny">\n\
+                $('div#parent').on('click', '.btn-add-siblings', function () {// this fun is used for add materials to parent div on click fun
+                    $(this).parent().append('<div class="w3-col l12 w3-tiny w3-margin-top">\n\
             <div class="w3-col l2 ">\n\
 <label >MATERIAL</label>\n\
 <input list="Materialinfo_' + currchild + '" value="<?php echo $material_id; ?>" id="Select_material_' + currchild + '" name="Select_material[]" class="form-control" required type="text" placeholder="Material" onchange="GetMaterialInformation_ForEnquiry(' + currchild + ');">\n\
@@ -122,30 +145,87 @@ error_reporting(E_ERROR | E_PARSE);
 <label>FINAL&nbsp;PRICE</label>\n\
 <input id="final_Price_' + currchild + '" name="final_Price[]" <?php echo $final_Price; ?> class="form-control" required type="number" min="0" step="0.01" placeholder="Final Price" onfocus="GetFinalPriceForMaterialCalculation(' + currchild + ');">\n\
 </div>\n\<a href="#" class="delete w3-text-grey w3-margin-left w3-left fa fa-remove" title="Delete field"></a>\n\
-</div>');
+</div>');// this fun is used for add materials to parent div on click fun
                     currchild++;
                 });
-                $('div#parent').on("click", ".delete", function (e) {
+                $('div#parent').on("click", ".delete", function (e) {// this fun is used for remove materials from parent div on click fun
                     e.preventDefault();
                     $(this).parent('div').remove();
                     x--;
-                });
+                });// this fun is used for remove materials from parent div on click fun
             });
 
 
         </script>
         <script>
-            function GetHousingValue() {
-                var wrapper = $("#housing_statusforChecked_1");
+            function GetHousingValue(currentparent) {// this fun is used for show housing div on checkbox of housing
+                //alert('hiii');
+                var wrapper = $("#housing_statusforChecked_" + currentparent);
                 var x = 1;
-                var housing = $('#checkHousing_1');
-                //e.preventDefault();
-                if (housing.checked) {
+                var check_status = document.getElementById("checkHousing_" + currentparent).checked;
+                if (check_status) {
                     x++;
-                    $(wrapper).html('<div class="w3-col l12 w3-padding"><div class="w3-col l6"><label>Profile Description:</label><input type="text" placeholder="Profile Description(Ex.Piston Seal, Rod Seal .etc.)" class="form-control" style="text-transform:uppercase;" id="profile_DescriptionForHousingChecked_1" name="profile_DescriptionForHousingChecked[]" required></div></div><div class="w3-col l12 w3-padding"><div class="w3-col l3 s3"><div class="input-group"><label>ID:</label><input type="number" placeholder="ID" class="form-control" style="text-transform:uppercase;" id="ID_forHousingChecked_1" name="ID_forHousingChecked[]" required></div></div><div class="w3-col l3 s3 w3-padding-left"><div class="input-group"><label>OD:</label><input type="number" placeholder="OD" class="form-control" style="text-transform:uppercase;" id="OD_forHousingChecked_1" name="OD_forHousingChecked[]" required></div></div><div class="w3-col l3 s3 w3-padding-left"><div class="input-group"><label>LENGTH:</label><input type="number" placeholder="LENGTH" class="form-control" style="text-transform:uppercase;" id="LENGTH_forHousingChecked_1" name="LENGTH_forHousingChecked[]" required></div></div><div class="w3-col l3 s3 w3-padding-left"><div class="input-group"><label>QUANTITY:</label><input type="number" placeholder="QUANTITY" class="form-control" style="text-transform:uppercase;" id="Set_QuantityforHousingChecked_1" name="Set_QuantityforHousingChecked[]" required></div></div></div>');
+// this fun is used for show housing div on checkbox of housing
+                    $(wrapper).html('<div class="w3-col l12 w3-padding w3-small">\n\
+<div class="w3-col l6">\n\
+<label>Profile Description:</label>\n\
+<input type="text" placeholder="Profile Description(Ex.Piston Seal, Rod Seal .etc.)" class="form-control" style="text-transform:uppercase;" id="profile_DescriptionForHousingChecked_' + currentparent + '" name="profile_DescriptionForHousingChecked[]" required>\n\
+</div>\n\
+</div>\n\
+<div class="w3-col l12 w3-padding w3-small">\n\
+<div class="w3-col l3 s3">\n\
+<div class="input-group">\n\
+<label>ID:</label>\n\
+<input type="number" placeholder="ID" class="form-control" style="text-transform:uppercase;" id="ID_forHousingChecked_' + currentparent + '" name="ID_forHousingChecked[]" required>\n\
+</div>\n\
+</div>\n\
+<div class="w3-col l3 s3 w3-padding-left">\n\
+<div class="input-group">\n\
+<label>OD:</label>\n\
+<input type="number" placeholder="OD" class="form-control" style="text-transform:uppercase;" id="OD_forHousingChecked_' + currentparent + '" name="OD_forHousingChecked[]" required>\n\
+</div>\n\
+</div>\n\
+<div class="w3-col l3 s3 w3-padding-left">\n\
+<div class="input-group">\n\
+<label>LENGTH:</label>\n\
+<input type="number" placeholder="LENGTH" class="form-control" style="text-transform:uppercase;" id="LENGTH_forHousingChecked_' + currentparent + '" name="LENGTH_forHousingChecked[]" required>\n\
+</div>\n\
+</div>\n\
+<div class="w3-col l3 s3 w3-padding-left">\n\
+<div class="input-group">\n\
+<label>QUANTITY:</label>\n\
+<input type="number" placeholder="QUANTITY" class="form-control" style="text-transform:uppercase;" id="Set_QuantityforHousingChecked_' + currentparent + '" name="Set_QuantityforHousingChecked[]" required>\n\
+</div>\n\
+</div>\n\
+</div>');
 
-                } else {
-                    $(wrapper).html('<div class="w3-col l12 w3-padding"><div class="w3-col l6"><label>Profile Description:</label><input type="text" placeholder="Profile Description(Ex.Piston Seal, Rod Seal .etc.)" class="form-control" style="text-transform:uppercase;" id="profile_DescriptionForHousingUnchecked_1" name="profile_DescriptionForHousingUnchecked[]" required></div></div><div class="w3-col l12 w3-padding"><div class="w3-col l4 s4"><div class="input-group"><label>ID:</label><input type="number" placeholder="ID" class="form-control" style="text-transform:uppercase;" id="ID_forHousingUnckecked_1" name="ID_forHousingUnckecked[]" required></div></div><div class="w3-col l4 s4 w3-padding-left"><div class="input-group"><label>OD:</label><input type="number" placeholder="OD" class="form-control" style="text-transform:uppercase;" id="OD_forHousingUnckecked_1" name="OD_forHousingUnckecked[]" required></div></div><div class="w3-col l4 s4 w3-padding-left"><div class="input-group"><label>LENGTH:</label><input type="number" placeholder="LENGTH" class="form-control" style="text-transform:uppercase;" id="LENGTH_forHousingUnckecked_1" name="LENGTH_forHousingUnckecked[]" required></div></div></div>'); //add input box
+                } else {// this fun is used for show housing div on checkbox of housing
+                    $(wrapper).html('<div class="w3-col l12 w3-padding w3-small">\n\
+<div class="w3-col l6">\n\
+<label>Profile Description:</label>\n\
+<input type="text" placeholder="Profile Description(Ex.Piston Seal, Rod Seal .etc.)" class="form-control" style="text-transform:uppercase;" id="profile_DescriptionForHousingUnchecked_' + currentparent + '" name="profile_DescriptionForHousingUnchecked[]" required>\n\
+</div>\n\
+</div>\n\
+<div class="w3-col l12 w3-padding w3-small">\n\
+<div class="w3-col l4 s4">\n\
+<div class="input-group">\n\
+<label>ID:</label>\n\
+<input type="number" placeholder="ID" class="form-control" style="text-transform:uppercase;" id="ID_forHousingUnckecked_' + currentparent + '" name="ID_forHousingUnckecked[]" required>\n\
+</div>\n\
+</div>\n\
+<div class="w3-col l4 s4 w3-padding-left">\n\
+<div class="input-group">\n\
+<label>OD:</label>\n\
+<input type="number" placeholder="OD" class="form-control" style="text-transform:uppercase;" id="OD_forHousingUnckecked_' + currentparent + '" name="OD_forHousingUnckecked[]" required>\n\
+</div>\n\
+</div>\n\
+<div class="w3-col l4 s4 w3-padding-left">\n\
+<div class="input-group">\n\
+<label>LENGTH:</label>\n\
+<input type="number" placeholder="LENGTH" class="form-control" style="text-transform:uppercase;" id="LENGTH_forHousingUnckecked_' + currentparent + '" name="LENGTH_forHousingUnckecked[]" required>\n\
+</div>\n\
+</div>\n\
+</div>'); // this fun is used for show housing div on checkbox of housing
 
                 }
             }
@@ -157,14 +237,56 @@ error_reporting(E_ERROR | E_PARSE);
             <header class="w3-container" >
                 <h5><b><i class="fa fa-cubes"></i> Manage Enquiry</b></h5>
             </header>
-            <div class="col-lg-12"><label>Add New Enquiry</label>
+            <div class="w3-col l12 w3-padding-left">
+                <div class="w3-col l12 w3-padding-left w3-small">
+                    <label>Add New Enquiry</label>
+                </div>
+                <div class="w3-col l12 w3-padding">
+                    <button id="btn-add-product">Add New Product </button>
+                </div>
             </div>
-            <div class="col-lg-12 w3-border">
-                <button id="btn-add-product">Add New Product </button>
-            </div>
-            <div class="col-lg-12 w3-border" id="parent">
+            <form method="POST" action="<?php echo base_url(); ?>inventory/Manage_materials/SaveProductsForEnquiry" id="Manage_EnquiryForm" name="Manage_EnquiryForm">
+                <div class="w3-col l12 w3-border-top" id="parent"><!--this div for customer for to quotation-->
+                    <div class="w3-col l12 w3-padding w3-small">
+                        <div class="w3-col l3 w3-padding-left">
+                            <div class="input-group w3-padding-top">
+                                <label>Customer Name:</label> 
+                                <input list="Customers" id="Select_Customers" name="Select_Customers" value="<?php echo $cust_name; ?>" class="form-control" required type="text" placeholder="Customer Name">                                         
+                                <datalist id="Customers">
+                                    <?php foreach ($customers['status_message'] as $result) { ?>
+                                        <option data-value="<?php echo $result['cust_id']; ?>" value='<?php echo $result['customer_name']; ?>'></option>
+                                    <?php } ?>
+                                </datalist>
+                            </div>
+                        </div>
+                    </div>
+                </div><!--this div for customer for to quotation-->
+                <div class="w3-col l12"><!--this div for button for add product to quotation-->
+                    <button type="submit" class="btn btn-info w3-right">Add Product</button>
+                </div>  <!--this div for button for add product to quotation-->
+            </form>
+        </div>
 
+        <!-- Modal -->
+        <div id="myModalnew" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <div class="modal-title" id="msg_header"></div>
+                    </div>
+                    <div class="modal-body">
+                        <div id="addMaterials_err" name="addMaterials_err"></div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button"  class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
             </div>
         </div>
+
+
     </body>
 </html>

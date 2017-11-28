@@ -27,86 +27,84 @@ class Manage_materials extends CI_controller {
     public function Add_MultipleProduct($data) {
         extract($data);
         //print_r($data);
-        $Set_QuantityforHousing= 0;
+        $Set_QuantityforHousing = 0;
         $housing_status = 0;
         $Prod_ID = 0;
         $Prod_OD = 0;
         $Prod_length = 0;
         $Prod_description = '';
-        $product_arr=array();
+        $product_arr = array();
         $material_Arr = array();
         $profile_arr = array();
 
-        if(isset($Select_Profiles)){
-        for ($prod=0; $prod < count($Select_Profiles); $prod++) { 
-            
-        if (isset($checkHousing[$prod])) {
-            $housing_status = 1;
-            $Set_QuantityforHousing = $Set_QuantityforHousingChecked;
-            
-            $Prod_ID = $ID_forHousingChecked;
-            $Prod_OD = $OD_forHousingChecked;
-            $Prod_length = $LENGTH_forHousingChecked;
-            $Prod_description = $profile_DescriptionForHousingChecked;
-        }
-        else{
-            $housing_status = 0;
-            $Set_QuantityforHousing= 0;
-            $Prod_ID = $ID_forHousingUnckecked;
-            $Prod_OD = $OD_forHousingUnckecked;
-            $Prod_length = $LENGTH_forHousingUnckecked;
-            $Prod_description = $profile_DescriptionForHousingUnchecked;
-        }
-        
-        
-        //print_r($data);
-        for ($i = 0; $i < count($Select_material); $i++) {
-            $ID_arr = array();
-            $OD_arr = array();
-            $Length_arr = array();
-            foreach ($Select_ID as $ID) {
-                $ID_arr[] = $ID;
-            }
-            foreach ($Select_OD as $OD) {
-                $OD_arr[] = $OD;
-            }
-            foreach ($Select_Length as $Length) {
-                $Length_arr[] = $Length;
-            }
+        if (isset($Select_Profiles)) {
+            for ($prod = 0; $prod < count($Select_Profiles); $prod++) {
 
-            $material_Arr[] = array(
-                'material_id' => $Select_material[$i],
-                'Select_ID' => $ID_arr,
-                'Select_OD' => $OD_arr,
-                'Select_Length' => $Length_arr,
-                'base_Price' => $base_Price[$i],
-                'select_Quantity' => $select_Quantity[$i],
-                'discount' => $discount[$i],
-                'final_Price' => $final_Price[$i]
-            );
-        }
-                   //print_r(json_encode($material_Arr));
+                if (isset($checkHousing[$prod])) {
+                    $housing_status = 1;
+                    $Set_QuantityforHousing = $Set_QuantityforHousingChecked;
 
-        $profile_arr[] = array(
-            'customer_name' => $Select_Customers,
-            'product_name' => $product_nameForEnquiry[$prod],
-            'profile_id' => $Select_Profiles[$prod],
-            'housing_status' => $housing_status,
-            'profile_description' => $Prod_description,
-            'housing_setQuantity' => $Set_QuantityforHousing[$prod],
-            'Prod_ID' => $Prod_ID[$prod],
-            'Prod_OD' => $Prod_OD[$prod],
-            'Prod_length' => $Prod_length[$prod],
-            'material_associated' => $material_Arr,
-            'product_quantity' => $Product_Quantity[$prod],
-            'product_price' => $TotalProduct_Price[$prod]
-        );
-}
-}
-else{
-    $Select_Profiles='';
-}
-$profile_arr[count($Select_Profiles)] = array(
+                    $Prod_ID = $ID_forHousingChecked;
+                    $Prod_OD = $OD_forHousingChecked;
+                    $Prod_length = $LENGTH_forHousingChecked;
+                    $Prod_description = $profile_DescriptionForHousingChecked;
+                } else {
+                    $housing_status = 0;
+                    $Set_QuantityforHousing = 0;
+                    $Prod_ID = $ID_forHousingUnckecked;
+                    $Prod_OD = $OD_forHousingUnckecked;
+                    $Prod_length = $LENGTH_forHousingUnckecked;
+                    $Prod_description = $profile_DescriptionForHousingUnchecked;
+                }
+
+
+                //print_r($data);
+                for ($i = 0; $i < count($Select_material); $i++) {
+                    $ID_arr = array();
+                    $OD_arr = array();
+                    $Length_arr = array();
+                    foreach ($Select_ID as $ID) {
+                        $ID_arr[] = $ID;
+                    }
+                    foreach ($Select_OD as $OD) {
+                        $OD_arr[] = $OD;
+                    }
+                    foreach ($Select_Length as $Length) {
+                        $Length_arr[] = $Length;
+                    }
+
+                    $material_Arr[] = array(
+                        'material_id' => $Select_material[$i],
+                        'Select_ID' => $ID_arr,
+                        'Select_OD' => $OD_arr,
+                        'Select_Length' => $Length_arr,
+                        'base_Price' => $base_Price[$i],
+                        'select_Quantity' => $select_Quantity[$i],
+                        'discount' => $discount[$i],
+                        'final_Price' => $final_Price[$i]
+                    );
+                }
+                //print_r(json_encode($material_Arr));
+
+                $profile_arr[] = array(
+                    'customer_name' => $Select_Customers,
+                    'product_name' => $product_nameForEnquiry[$prod],
+                    'profile_id' => $Select_Profiles[$prod],
+                    'housing_status' => $housing_status,
+                    'profile_description' => $Prod_description,
+                    'housing_setQuantity' => $Set_QuantityforHousing[$prod],
+                    'Prod_ID' => $Prod_ID[$prod],
+                    'Prod_OD' => $Prod_OD[$prod],
+                    'Prod_length' => $Prod_length[$prod],
+                    'material_associated' => $material_Arr,
+                    'product_quantity' => $Product_Quantity[$prod],
+                    'product_price' => $TotalProduct_Price[$prod]
+                );
+            }
+        } else {
+            $Select_Profiles = '';
+        }
+        $profile_arr[count($Select_Profiles)] = array(
             'product_name' => '',
             'profile_id' => '',
             'housing_status' => 0,
@@ -128,9 +126,8 @@ $profile_arr[count($Select_Profiles)] = array(
             'product_price' => ''
         );
 
-       return json_encode($profile_arr);
+        return json_encode($profile_arr);
         //print_r(json_encode($profile_arr));
-        
     }
 
     //---------this fun is used to add multiple products---------------//
@@ -151,6 +148,21 @@ $profile_arr[count($Select_Profiles)] = array(
     }
 
     //--------this fun is uded to get all values of material----------// 
+    public function SaveProductsForEnquiry() {
+        extract($_POST);
+        $data = $_POST;
+         print_r($data);die();
+        $path = base_url();
+        $url = $path . 'api/ManageMaterial_api/SaveProductsForEnquiry';
+        $ch = curl_init($url);
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $response_json = curl_exec($ch);
+        curl_close($ch);
+        $response = json_decode($response_json, true);
+    }
+
 //------------this fun is used to get calculation of material base price-------------//
     public function GetMaterialBasePrice() {
         extract($_POST);
@@ -182,7 +194,7 @@ $profile_arr[count($Select_Profiles)] = array(
         $this->load->view('inventory/new/fetchmaterial_details', $data);
     }
 
-        public function demo() {
+    public function demo() {
         $data['info'] = Manage_materials::getRawMaterialInfo();     //-------show all Raw materials
         $data['materials'] = Manage_materials::getMaterialrecord();     //-------show all Raw materials
         $data['customers'] = Manage_materials::GetCustomersDetails();     //-------show all Customers
@@ -191,6 +203,7 @@ $profile_arr[count($Select_Profiles)] = array(
         $this->load->view('includes/navigation');
         $this->load->view('inventory/new/demo', $data);
     }
+
 //    -----------this fun is show fetched material info page
     //---------this fun is used to get tube history for customer------------
     public function GetTubeHistoryForInquiry() {
