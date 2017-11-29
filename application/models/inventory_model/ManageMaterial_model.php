@@ -22,6 +22,21 @@ class ManageMaterial_model extends CI_Model {
 
     /* fun ends here */
 
+    public function GetProfileInformation($Profiles) {
+        $query = "SELECT * FROM product_profile WHERE profile_id = '$Profiles'";
+        $result = $this->db->query($query);
+        if ($result->num_rows() > 0) {
+            $response = array(
+                'status' => 1,
+                'status_message' => $result->result_array());
+        } else {
+            $response = array(
+                'status' => 0,
+                'status_message' => 'No records found');
+        }
+        return $response;
+    }
+
 //------this fun is used to get all customers details-----------//
     public function GetCustomersDetails() {
         $query = "SELECT * FROM customer_details";

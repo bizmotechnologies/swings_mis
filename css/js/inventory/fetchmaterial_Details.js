@@ -19,6 +19,8 @@ $(function () {
         return false;  //stop the actual form post !important!
     });
 });
+
+
 function GetMaterilaInformation() {
     Materialinfo = $('#Materialinfo [value="' + $('#Select_material_1').val() + '"]').data('value');
     //alert(Materialinfo);

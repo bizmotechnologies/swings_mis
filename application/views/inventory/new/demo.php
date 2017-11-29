@@ -35,9 +35,9 @@ error_reporting(E_ERROR | E_PARSE);
 <div class="w3-col l3 w3-left">\n\
 <div class="input-group">\n\
 <label>Profile Name:</label>\n\
-<input list="Profiles_' + currparent + '" id="Select_Profiles_' + currparent + '" name="Select_Profiles[]" value="<?php echo $div['profile_id']; ?>" class="form-control" required type="text" placeholder="Select Profile Name">\n\
+<input list="Profiles_' + currparent + '" id="Select_Profiles_' + currparent + '" name="Select_Profiles[]" value="<?php echo $div['profile_id']; ?>" class="form-control" required type="text" placeholder="Select Profile Name" onchange="GetProfileInformation(' + currparent + ');">\n\
 <datalist id="Profiles_' + currparent + '">\n\
-<?php foreach ($profiles['status_message'] as $result) { ?><option data-value="<?php echo $result['profile_id']; ?>" value="<?php echo $result['profile_name']; ?>"></option><?php } ?></datalist>\n\
+<?php foreach ($profileinfo['status_message'] as $result) { ?><option data-value="<?php echo $result['profile_id']; ?>" value="<?php echo $result['profile_name']; ?>"></option><?php } ?></datalist>\n\
 </div>\n\
 </div>\n\
 </div>\n\
@@ -84,8 +84,7 @@ error_reporting(E_ERROR | E_PARSE);
 \n\
 </div>\n\
 </div>\n\
-\n\<div class="w3-col l12 w3-padding-left w3-margin-top w3-margin-bottom">\n\
-<button class="btn-add-siblings">Add Material</button>\n\
+\n\<div class="w3-col l12 w3-padding-left w3-margin-top w3-margin-bottom" id="MaterialDiv">\n\
 </div>\n\
 </div>\n\
 <div class="w3-col l12 w3-padding-left w3-margin-top w3-margin-bottom w3-small">\n\
@@ -230,6 +229,25 @@ error_reporting(E_ERROR | E_PARSE);
                 }
             }
         </script>
+        <script>
+            function GetProfileInformation(rownum) {
+                Profiles = $('#Profiles_' + rownum + ' [value="' + $('#Select_Profiles_' + rownum).val() + '"]').data('value');
+                alert(Profiles);
+
+                $.ajax({
+                    type: "POST",
+                    url: "<?php echo base_url(); ?>inventory/Manage_materials/GetProfileInformation",
+                    data: {
+                        Profiles: Profiles
+                    },
+                    cache: false,
+                    success: function (data) {
+                        //alert(data);
+                        $('#MaterialDiv').html(data);
+                    }
+                });
+            }
+        </script>
     </head>
     <body class="w3-light-grey">
         <div class="w3-main" style="margin-left:120px;">
@@ -286,7 +304,9 @@ error_reporting(E_ERROR | E_PARSE);
                 </div>
             </div>
         </div>
-
+<!--\n\<div class="w3-col l12 w3-padding-left w3-margin-top w3-margin-bottom">\n\
+<button class="btn-add-siblings">Add Material</button>\n\
+</div>\n\-->
 
     </body>
 </html>

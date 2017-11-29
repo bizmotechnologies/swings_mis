@@ -77,7 +77,6 @@ class ManageMaterial_api extends REST_Controller {
     }
 
     //-------------this fun is used to get material base price calculation--------------//
-
     //---------this fun is used to get customers details-------------------------//
     public function GetCustomersDetails_get() {
         $result = $this->ManageMaterial_model->GetCustomersDetails();
@@ -96,9 +95,15 @@ class ManageMaterial_api extends REST_Controller {
     public function GetTubeHistoryForInquiry_get() {
         $Customer_id = $_GET['Customer_id'];
         $Profile_id = $_GET['Profile_id'];
-        $response = $this->ManageMaterial_model->GetTubeHistoryForInquiry($Customer_id,$Profile_id);
+        $response = $this->ManageMaterial_model->GetTubeHistoryForInquiry($Customer_id, $Profile_id);
         return $this->response($response);
     }
 
     //------------this fun is used to get tube history for customers previous product----//
+    public function GetProfileInformation_get() {
+        $Profiles = $_GET['Profiles'];
+        $response = $this->ManageMaterial_model->GetProfileInformation($Profiles);
+        return $this->response($response);
+    }
+
 }
