@@ -130,7 +130,8 @@ class ManageMaterial_model extends CI_Model {
     }
 
 //-----this fun is used to get material base price calculations-------------//
-//-----this fun is used to get material base price calculations-------------//
+
+//-----this fun is used to get customized values for  calculations-------------//
 
     public function getcustomizedvalueforCalculation() {
         $query = "SELECT * FROM customize_settings";
@@ -252,12 +253,11 @@ class ManageMaterial_model extends CI_Model {
     }
     //---------------------------END-----------------------------------------//
 
-    //------this fun is used to get all material inforation-----------------//
 // this function is used to save materials///////////
     public function saveMaterial($data) {
         extract($data);
         
-        $checkMaterial=ManageMaterial_model::checkMaterial_exist($material_nameForStock);
+        $checkMaterial=ManageMaterial_model::checkMaterial_exist($material_nameForStock);//---------check if material already exist or not
 
         if($checkMaterial){
         $sql = "INSERT INTO materials
@@ -285,11 +285,13 @@ class ManageMaterial_model extends CI_Model {
     }
 
 // Ending function savematerial /////////////
+
+
 // this fun is used for update material details---------------------
 
     public function updateRecord($data) {
         extract($data);
-        //print_r($data);die();
+
         $mat_code = 0;
         $mat_codenew = 0;
         $code = 0;
