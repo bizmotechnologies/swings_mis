@@ -64,21 +64,21 @@ error_reporting(E_ERROR | E_PARSE);
 <div class="w3-col l4 s4">\n\
 <div class="input-group">\n\
 <label>ID:</label>\n\
-<input type="number" placeholder="ID" class="form-control" value="" style="text-transform:uppercase;" id="ID_forHousingUnckecked_' + currparent + '" name="ID_forHousingUnckecked[]" required>\n\
+<input type="number" placeholder="ID" min="0" class="form-control" value="" style="text-transform:uppercase;" id="ID_forHousingUnckecked_' + currparent + '" name="ID_forHousingUnckecked[]" required>\n\
 </div>\n\
 </div>\n\
 \n\
 <div class="w3-col l4 s4 w3-padding-left">\n\
 <div class="input-group">\n\
 <label>OD:</label>\n\
-<input type="number" placeholder="OD" class="form-control" value="" style="text-transform:uppercase;" id="OD_forHousingUnckecked_' + currparent + '" name="OD_forHousingUnckecked[]" required>\n\
+<input type="number" placeholder="OD" min="0" class="form-control" value="" style="text-transform:uppercase;" id="OD_forHousingUnckecked_' + currparent + '" name="OD_forHousingUnckecked[]" required>\n\
 </div>\n\
 </div>\n\
 \n\
 <div class="w3-col l4 s4 w3-padding-left">\n\
 <div class="input-group">\n\
 <label>LENGTH:</label>\n\
-<input type="number" placeholder="LENGTH" class="form-control" value="" style="text-transform:uppercase;" id="LENGTH_forHousingUnckecked_' + currparent + '" name="LENGTH_forHousingUnckecked[]" required>\n\
+<input type="number" placeholder="LENGTH" min="0" class="form-control" value="" style="text-transform:uppercase;" id="LENGTH_forHousingUnckecked_' + currparent + '" name="LENGTH_forHousingUnckecked[]" required>\n\
 </div>\n\
 </div>\n\
 \n\
@@ -181,19 +181,19 @@ error_reporting(E_ERROR | E_PARSE);
 <div class="w3-col l3 s3 w3-padding-left">\n\
 <div class="input-group">\n\
 <label>OD:</label>\n\
-<input type="number" placeholder="OD" class="form-control" style="text-transform:uppercase;" id="OD_forHousingChecked_' + currentparent + '" name="OD_forHousingChecked[]" required>\n\
+<input type="number" placeholder="OD" min="0" class="form-control" style="text-transform:uppercase;" id="OD_forHousingChecked_' + currentparent + '" name="OD_forHousingChecked[]" required>\n\
 </div>\n\
 </div>\n\
 <div class="w3-col l3 s3 w3-padding-left">\n\
 <div class="input-group">\n\
 <label>LENGTH:</label>\n\
-<input type="number" placeholder="LENGTH" class="form-control" style="text-transform:uppercase;" id="LENGTH_forHousingChecked_' + currentparent + '" name="LENGTH_forHousingChecked[]" required>\n\
+<input type="number" placeholder="LENGTH" min="0" class="form-control" style="text-transform:uppercase;" id="LENGTH_forHousingChecked_' + currentparent + '" name="LENGTH_forHousingChecked[]" required>\n\
 </div>\n\
 </div>\n\
 <div class="w3-col l3 s3 w3-padding-left">\n\
 <div class="input-group">\n\
 <label>QUANTITY:</label>\n\
-<input type="number" placeholder="QUANTITY" class="form-control" style="text-transform:uppercase;" id="Set_QuantityforHousingChecked_' + currentparent + '" name="Set_QuantityforHousingChecked[]" required>\n\
+<input type="number" placeholder="QUANTITY" min="0" class="form-control" style="text-transform:uppercase;" id="Set_QuantityforHousingChecked_' + currentparent + '" name="Set_QuantityforHousingChecked[]" required>\n\
 </div>\n\
 </div>\n\
 </div>');
@@ -209,19 +209,19 @@ error_reporting(E_ERROR | E_PARSE);
 <div class="w3-col l4 s4">\n\
 <div class="input-group">\n\
 <label>ID:</label>\n\
-<input type="number" placeholder="ID" class="form-control" style="text-transform:uppercase;" id="ID_forHousingUnckecked_' + currentparent + '" name="ID_forHousingUnckecked[]" required>\n\
+<input type="number" placeholder="ID" min="0" class="form-control" style="text-transform:uppercase;" id="ID_forHousingUnckecked_' + currentparent + '" name="ID_forHousingUnckecked[]" required>\n\
 </div>\n\
 </div>\n\
 <div class="w3-col l4 s4 w3-padding-left">\n\
 <div class="input-group">\n\
 <label>OD:</label>\n\
-<input type="number" placeholder="OD" class="form-control" style="text-transform:uppercase;" id="OD_forHousingUnckecked_' + currentparent + '" name="OD_forHousingUnckecked[]" required>\n\
+<input type="number" placeholder="OD" min="0" class="form-control" style="text-transform:uppercase;" id="OD_forHousingUnckecked_' + currentparent + '" name="OD_forHousingUnckecked[]" required>\n\
 </div>\n\
 </div>\n\
 <div class="w3-col l4 s4 w3-padding-left">\n\
 <div class="input-group">\n\
 <label>LENGTH:</label>\n\
-<input type="number" placeholder="LENGTH" class="form-control" style="text-transform:uppercase;" id="LENGTH_forHousingUnckecked_' + currentparent + '" name="LENGTH_forHousingUnckecked[]" required>\n\
+<input type="number" placeholder="LENGTH" min="0" class="form-control" style="text-transform:uppercase;" id="LENGTH_forHousingUnckecked_' + currentparent + '" name="LENGTH_forHousingUnckecked[]" required>\n\
 </div>\n\
 </div>\n\
 </div>'); // this fun is used for show housing div on checkbox of housing

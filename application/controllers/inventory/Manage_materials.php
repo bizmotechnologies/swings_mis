@@ -151,6 +151,7 @@ class Manage_materials extends CI_controller {
 //--------this fun is used to get all information of Profile----------// 
     public function GetProfileInformation() {
         $profileinfo = Manage_materials::GetProductProfileDetails();     //-------show all Product Profile
+        $materials = Manage_materials::getMaterialrecord();     //-------show all Raw materials
 
         extract($_POST);
         $path = base_url();
@@ -161,21 +162,20 @@ class Manage_materials extends CI_controller {
         $response_json = curl_exec($ch);
         curl_close($ch);
         $response = json_decode($response_json, true);
-        print_r($response['status_message']);
+        //print_r($response['status_message']);
         if ($response['status'] == 1) {
             for ($i = 0; $i < count($response['status_message']); $i++) {
                 $material_associated = json_decode($response['status_message'][$i]['material_associated'], TRUE);
-                foreach ($material_associated as $key) {
+                $count = 1;
 
+                foreach ($material_associated as $key) {
                     echo'<div class="w3-col l12 w3-tiny w3-margin-top">
             <div class="w3-col l2 ">';
                     echo'<label>MATERIAL</label>';
-                    echo'<input list="Materialinfo" value="' . $key['material_name'] . '" id="Select_material" name="Select_material[]" class="form-control" required type="text" placeholder="Material" onchange="GetMaterialInformation_ForEnquiry(' . $i . ');>';
-
-                    echo'<datalist id="Materialinfo">';
-                    foreach ($profileinfo['status_message'] as $result) {
-                        echo'<option data-value = "' . $result['profile_id'] . '" value = "' . $result['profile_name'] . '" >';
-                        echo'</option>';
+                    echo'<input list="Materialinfo_' . $count . '" value="' . $key['material_name'] . '" id="Select_material_' . $count . '" name="Select_material[]" class="form-control" required type="text" placeholder="Material" onchange="GetMaterialInformation_ForEnquiry(' . $count . ');>';
+                    echo'<datalist id="Materialinfo_' . $count . '">';
+                    foreach ($materials['status_message'] as $result) {
+                        echo'<option data-value = "' . $result['material_id'] . '" value = "' . $result['material_name'] . '"></option>';
                     }
                     echo'</datalist>
 </div>
@@ -183,27 +183,45 @@ class Manage_materials extends CI_controller {
     <div class="w3-col l4 s4 w3-padding-left">';
                     for ($j = 0; $j < $key['ID_quantity']; $j++) {
                         echo'<label>ID</label>
-        <input list="MaterialID" value="" id="Select_ID" name="Select_ID[]" class="form-control" required type="text" min="0" placeholder="ID" >
-        <datalist id="MaterialID">
+        <input list="MaterialID_' . $count . '_' . $j . '" value="" id="Select_ID_' . $count . '_' . $j . '" name="Select_ID[]" class="form-control" required type="text" min="0" placeholder="ID" >
+        <datalist id="MaterialID_' . $count . '_' . $j . '">
         </datalist>';
                     }
                     echo'</div>
     <div class="w3-col l4 s4 w3-padding-left">';
-                    for ($j = 0; $j < $key['OD_quantity']; $j++) {
+                    for ($k = 0; $k < $key['OD_quantity']; $k++) {
                         echo'<label>OD</label>
-        <input list="MaterialOD" value="" id="Select_OD" name="Select_OD[]" class="form-control" required type="text" min="0" placeholder="OD" >
-        <datalist id="MaterialOD">
+        <input list="MaterialOD_' . $count . '_' . $k . '" value="" id="Select_OD_' . $count . '_' . $k . '" name="Select_OD[]" class="form-control" required type="text" min="0" placeholder="OD" >
+        <datalist id="MaterialOD_' . $count . '_' . $k . '">
         </datalist>';
                     }
                     echo'</div>
     <div class="w3-col l4 s4 w3-padding-left">';
-                    for ($j = 0; $j < $key['length_quantity']; $j++) {
+                    for ($l = 0; $l < $key['length_quantity']; $l++) {
                         echo'<label>LENGTH</label>
-        <input list="MaterialLength" value="" id="Select_Length" name="Select_Length[]" class="form-control" required type="text" min="0" placeholder="Length" >
-        <datalist id="MaterialLength">
+        <input list="MaterialLength_' . $count . '_' . $l . '" value="" id="Select_Length_' . $count . '_' . $l . '" name="Select_Length[]" class="form-control" required type="text" min="0" placeholder="Length" >
+        <datalist id="MaterialLength_' . $count . '_' . $l . '">
         </datalist>';
                     }
-                    echo'</div></div></div>';
+                    echo'</div>
+                        </div>
+<div class="w3-col l1 w3-padding-left">
+<label>BASE PRICE</label><input id="base_Price_' . $count . '" name="base_Price[]" value="" class="form-control" min="0" step="0.01" required type="number" placeholder="Base Price"  onfocus="GetMaterialBasePrice(' . $count . ');">
+</div>
+<div class="w3-col l1 w3-padding-left">
+<label>QUANTITY</label>
+<input id="select_Quantity_' . $count . '" name="select_Quantity[]" value="" class="form-control" min="0" required type="number" placeholder="Quantity" onkeypress="GetFinalPriceForMaterialCalculation(' . $count . ');">
+</div>
+<div class="w3-col l1 w3-padding-left">
+<label>DISCOUNT(%)</label>
+<input id="discount_' . $count . '" name="discount[]" class="form-control" required type="number" min="0" step="0.01" placeholder="Discount %." onkeypress="GetFinalPriceForMaterialCalculation(' . $count . ');">
+</div>
+<div class="w3-col l1 w3-padding-left">
+<label>FINAL&nbsp;PRICE</label>
+<input id="final_Price_' . $count . '" name="final_Price[]" class="form-control" required type="number" min="0" step="0.01" placeholder="Final Price" onfocus="GetFinalPriceForMaterialCalculation(' . $count . ');">
+</div>
+</div>';
+                    $count++;
                 }
             }
         }
@@ -244,8 +262,20 @@ class Manage_materials extends CI_controller {
     }
 
 //    -----------this fun is show fetched material info page
+//---this fun is used to get base price from raw material 
+    public function GetRawMaterialBasePriceForEnquiry() {
+        $path = base_url();
+        $url = $path . 'api/ManageMaterial_api/GetRawMaterialBasePriceForEnquiry?material_id = ' . $material_id . '&Material_ID = ' . $Material_ID . '&Material_OD =' . $Material_OD . '$Material_LENGTH =' . $Material_LENGTH;
+        $ch = curl_init($url);
+        curl_setopt($ch, CURLOPT_HTTPGET, true);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $response_json = curl_exec($ch);
+        curl_close($ch);
+        $response = json_decode($response_json, true);
+        print_r($response);
+    }
 
-
+//---this fun is used to get base price from raw material 
     public function fetchmaterial_details() {
         $data['info'] = Manage_materials::getRawMaterialInfo();     //-------show all Raw materials
         $data['materials'] = Manage_materials::getMaterialrecord();     //-------show all Raw materials
@@ -450,4 +480,5 @@ window.location.reload();
 
 // ---- this function is used to delete material details-------
 }
+
 ?>

@@ -119,6 +119,7 @@ function GetMaterialBasePrice(fieldnum) {
     MaterialID = $('#MaterialID_' + fieldnum + ' [value="' + $('#Select_ID_' + fieldnum).val() + '"]').data('value');
     MaterialOD = $('#MaterialOD_' + fieldnum + ' [value="' + $('#Select_OD_' + fieldnum).val() + '"]').data('value');
     MaterialLength = $('#MaterialLength_' + fieldnum + ' [value="' + $('#Select_Length_' + fieldnum).val() + '"]').data('value');
+    alert(Materialinfo);
     $.ajax({
         type: "POST",
         url: BASE_URL + "inventory/Manage_materials/GetMaterialBasePrice",
