@@ -235,11 +235,31 @@ class ManageMaterial_model extends CI_Model {
         return $response;
     }
 
+
+    //-----------------------function to check whether material name already exists------------------//
+    function checkMaterial_exist($material_name)
+    {
+        $query = null;
+        $query = $this->db->get_where('materials', array(//making selection
+            'material_name' => $material_name
+        ));     
+        
+        if ($query->num_rows() > 0) {
+            return 0;           
+        } else {
+            return 1;           
+        }
+    }
+    //---------------------------END-----------------------------------------//
+
     //------this fun is used to get all material inforation-----------------//
 // this function is used to save materials///////////
     public function saveMaterial($data) {
         extract($data);
-        //print_r($data);
+        
+        $checkMaterial=ManageMaterial_model::checkMaterial_exist($material_nameForStock);
+
+        if($checkMaterial){
         $sql = "INSERT INTO materials
 		(material_name,material_color) 
         VALUES ('" . strtoupper($material_nameForStock) . "','" . strtoupper($materialColor_ForStock) . "')";
@@ -249,12 +269,18 @@ class ManageMaterial_model extends CI_Model {
         if ($result) {
             $response = array(
                 'status' => 1,
-                'status_message' => 'Records Inserted Successfully..!');
+                'status_message' => 'Material Inserted Successfully..!');
         } else {
             $response = array(
                 'status' => 0,
-                'status_message' => 'Records Not Inserted Successfully...!');
+                'status_message' => 'Material Not Inserted Successfully...!');
         }
+    }
+    else{
+         $response = array(
+                'status' => 0,
+                'status_message' => 'Material Name already exists. Try Different...!');
+    }
         return $response;
     }
 
