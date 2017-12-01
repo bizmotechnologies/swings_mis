@@ -175,7 +175,6 @@ class ManageMaterial_model extends CI_Model {
     }
 
     /* this  function is used for material records  */
-
     public function getRawMaterialInfo() {
         $query = "SELECT * FROM raw_materialstock";
         $result = $this->db->query($query);
