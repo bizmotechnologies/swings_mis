@@ -20,17 +20,15 @@ class Manage_enquiry extends CI_controller {
     }
 
 //---this fun is used to get base price from raw material 
-    public function GetRawMaterialBasePriceForEnquiry() {
-        $Material_id = 30;
-        $MaterialID = array("20", "20", "20", "20", "20", "20");
-        $MaterialOD = array("20", "20", "20", "5", "20", "20");
-        $MaterialLENGTH = array("1", "1", "1", "5", "4", "7");
+    public function getBest_tube() {
+        extract($_POST);
+        //print_r($_POST);die();
         $Material_ID = min($MaterialID);
         $Material_OD = max($MaterialOD);
-        $Material_LENGTH = max($MaterialLENGTH);
+        $Material_LENGTH = max($MaterialLength);
         
         $path = base_url();
-        $url = $path.'api/ManageEnquiry_api/GetRawMaterialBasePriceForEnquiry?material_id='.$Material_id.'&Material_ID='.$Material_ID.'&Material_OD='.$Material_OD.'&Material_LENGTH='.$Material_LENGTH;
+        $url = $path.'api/ManageEnquiry_api/GetRawMaterialBasePriceForEnquiry?material_id='.$Materialinfo.'&Material_ID='.$Material_ID.'&Material_OD='.$Material_OD.'&Material_LENGTH='.$Material_LENGTH;
         $ch = curl_init($url);
         curl_setopt($ch, CURLOPT_HTTPGET, true);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);

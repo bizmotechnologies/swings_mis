@@ -84,7 +84,7 @@ error_reporting(E_ERROR | E_PARSE);
 \n\
 </div>\n\
 </div>\n\
-\n\<div class="w3-col l12 w3-padding-left w3-margin-top w3-margin-bottom" id="MaterialDiv">\n\
+\n\<div class="w3-col l12 w3-padding-left w3-border w3-margin-top w3-margin-bottom" id="MaterialDiv_' + currparent + '">\n\
 </div>\n\
 </div>\n\
 <div class="w3-col l12 w3-padding-left w3-margin-top w3-margin-bottom w3-small">\n\
@@ -307,6 +307,54 @@ error_reporting(E_ERROR | E_PARSE);
 <!--\n\<div class="w3-col l12 w3-padding-left w3-margin-top w3-margin-bottom">\n\
 <button class="btn-add-siblings">Add Material</button>\n\
 </div>\n\-->
+<script>
+    //------------get best tube-------------
+function getBest_tube(fieldnum) {
+    alert(fieldnum);
+    Materialinfo = 0;
+    MaterialID = 0;
+    MaterialOD = 0;
+    MaterialLength = 0;
+    Materialinfo = $('#Materialinfo_' + fieldnum + ' [value="' + $('#Select_material_' + fieldnum).val() + '"]').data('value');
 
+    var MaterialID = [];
+    var MaterialOD = [];
+    var MaterialLength = [];
+
+        $("input[name='Select_ID[]']").each(function ()
+        {
+            MaterialID.push($(this).val());
+        });
+
+        $("input[name='Select_OD[]']").each(function ()
+        {
+            MaterialOD.push($(this).val());
+        });
+
+        $("input[name='Select_Length[]']").each(function ()
+        {
+            MaterialLength.push($(this).val());
+        });
+    
+    $.ajax({
+        type: "POST",
+        url: BASE_URL + "inventory/Manage_enquiry/getBest_tube",
+        data: {
+            Materialinfo: Materialinfo,
+            MaterialID: MaterialID,
+            MaterialOD: MaterialOD,
+            MaterialLength: MaterialLength
+        },
+        return: false, //stop the actual form post !important!
+        success: function (data)
+        {
+            alert(data);
+            //                            $("#base_Price_" + fieldnum).empty();
+            //$('#base_Price_' + fieldnum).val(data);
+        }
+    })
+}
+//--------------get best tube end-----------------------
+</script>
     </body>
 </html>
