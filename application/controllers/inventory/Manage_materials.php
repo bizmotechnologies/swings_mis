@@ -172,11 +172,11 @@ class Manage_materials extends CI_controller {
                     echo'<div class="w3-col l12 w3-tiny w3-margin-top">
             <div class="w3-col l2 ">';
                     echo'<label>MATERIAL</label>';
-                    echo'<input list="Materialinfo_' . $count . '" value="' . $key['material_name'] . '" id="Select_material_' . $count . '" name="Select_material[]" class="form-control" required type="text" placeholder="Material" onchange="GetMaterialInformation_ForEnquiry(' . $count . ');>';
+                    echo'<input autocomplete="off" list="Materialinfo_'.$count.'" value="'.$key['material_name'].'" id="Select_material_'.$count.'" name="Select_material[]" class="form-control" required type="text" placeholder="Material" onchange="GetMaterialInformation_ForEnquiry('.$count.');">';
                    
-                    echo'<datalist id="Materialinfo_' . $count . '">';
+                    echo'<datalist id="Materialinfo_'.$count.'">';
                     foreach ($materials['status_message'] as $result) {
-                        echo'<option data-value = "' . $result['material_id'] . '" value = "' . $result['material_name'] . '"></option>';
+                        echo'<option data-value = "'.$result['material_id'].'" value = "'.$result['material_name'].'"></option>';
                     }
                     echo'</datalist>
 </div>
@@ -184,42 +184,42 @@ class Manage_materials extends CI_controller {
     <div class="w3-col l4 s4 w3-padding-left">';
                     for ($j = 0; $j < $key['ID_quantity']; $j++) {
                         echo'<label>ID</label>
-        <input list="MaterialID_' . $count . '_' . $j . '" value="" id="Select_ID_' . $count . '_' . $j . '" name="Select_ID[]" class="form-control" required type="text" min="0" placeholder="ID" >
-        <datalist id="MaterialID_' . $count . '_' . $j . '">
+        <input list="MaterialID_'.$count.'_'.$j.'" value="" id="Select_ID_'.$count.'_'.$j.'" name="Select_ID[]" class="form-control" required type="text" min="0" placeholder="ID" >
+        <datalist id="MaterialID_'.$count.'_'.$j.'">
         </datalist>';
                     }
                     echo'</div>
     <div class="w3-col l4 s4 w3-padding-left">';
                     for ($k = 0; $k < $key['OD_quantity']; $k++) {
                         echo'<label>OD</label>
-        <input list="MaterialOD_' . $count . '_' . $k . '" value="" id="Select_OD_' . $count . '_' . $k . '" name="Select_OD[]" class="form-control" required type="text" min="0" placeholder="OD" >
-        <datalist id="MaterialOD_' . $count . '_' . $k . '">
+        <input list="MaterialOD_'.$count.'_'.$k.'" value="" id="Select_OD_'.$count.'_'.$k.'" name="Select_OD[]" class="form-control" required type="text" min="0" placeholder="OD" >
+        <datalist id="MaterialOD_'.$count.'_'.$k.'">
         </datalist>';
                     }
                     echo'</div>
     <div class="w3-col l4 s4 w3-padding-left">';
                     for ($l = 0; $l < $key['length_quantity']; $l++) {
                         echo'<label>LENGTH</label>
-        <input list="MaterialLength_' . $count . '_' . $l . '" value="" id="Select_Length_' . $count . '_' . $l . '" name="Select_Length[]" class="form-control" required type="text" min="0" placeholder="Length" >
-        <datalist id="MaterialLength_' . $count . '_' . $l . '">
+        <input list="MaterialLength_'.$count.'_'.$l.'" value="" id="Select_Length_'.$count.'_'.$l.'" name="Select_Length[]" class="form-control" required type="text" min="0" placeholder="Length" >
+        <datalist id="MaterialLength_'.$count.'_'.$l.'">
         </datalist>';
                     }
                     echo'</div>
                         </div>
 <div class="w3-col l1 w3-padding-left">
-<label>BASE PRICE</label><input id="base_Price_' . $count . '" name="base_Price[]" value="" class="form-control" min="0" step="0.01" required type="number" placeholder="Base Price"  onfocus="GetMaterialBasePrice(' . $count . ');">
+<label>BASE PRICE</label><input id="base_Price_'.$count.'" name="base_Price[]" value="" class="form-control" min="0" step="0.01" required type="number" placeholder="Base Price"  onfocus="GetMaterialBasePrice('.$count.');">
 </div>
 <div class="w3-col l1 w3-padding-left">
 <label>QUANTITY</label>
-<input id="select_Quantity_' . $count . '" name="select_Quantity[]" value="" class="form-control" min="0" required type="number" placeholder="Quantity" onkeypress="GetFinalPriceForMaterialCalculation(' . $count . ');">
+<input id="select_Quantity_'.$count.'" name="select_Quantity[]" value="" class="form-control" min="0" required type="number" placeholder="Quantity" onkeypress="GetFinalPriceForMaterialCalculation('.$count.');">
 </div>
 <div class="w3-col l1 w3-padding-left">
 <label>DISCOUNT(%)</label>
-<input id="discount_' . $count . '" name="discount[]" class="form-control" required type="number" min="0" step="0.01" placeholder="Discount %." onkeypress="GetFinalPriceForMaterialCalculation(' . $count . ');">
+<input id="discount_'.$count.'" name="discount[]" class="form-control" required type="number" min="0" step="0.01" placeholder="Discount %." onkeypress="GetFinalPriceForMaterialCalculation('.$count.');">
 </div>
 <div class="w3-col l1 w3-padding-left">
 <label>FINAL&nbsp;PRICE</label>
-<input id="final_Price_' . $count . '" name="final_Price[]" class="form-control" required type="number" min="0" step="0.01" placeholder="Final Price" onfocus="GetFinalPriceForMaterialCalculation(' . $count . ');">
+<input id="final_Price_'.$count.'" name="final_Price[]" class="form-control" required type="number" min="0" step="0.01" placeholder="Final Price" onfocus="GetFinalPriceForMaterialCalculation('.$count.');">
 </div>
 </div>';
                     $count++;
