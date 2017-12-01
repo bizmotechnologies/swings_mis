@@ -265,8 +265,12 @@ class Manage_materials extends CI_controller {
 //    -----------this fun is show fetched material info page
 //---this fun is used to get base price from raw material 
     public function GetRawMaterialBasePriceForEnquiry() {
+        $Material_id = 0;
+        $Material_ID = array("10","20","20","11","20","20");
+        $Material_OD = array("20","20","20","5","20","20");
+        $Material_LENGTH = array("","","","","","");
         $path = base_url();
-        $url = $path . 'api/ManageMaterial_api/GetRawMaterialBasePriceForEnquiry?material_id = ' . $material_id . '&Material_ID = ' . $Material_ID . '&Material_OD =' . $Material_OD . '$Material_LENGTH =' . $Material_LENGTH;
+        $url = $path . 'api/ManageMaterial_api/GetRawMaterialBasePriceForEnquiry?material_id = ' . $Material_id . '&Material_ID = ' . $Material_ID . '&Material_OD =' . $Material_OD . '&Material_LENGTH =' . $Material_LENGTH;
         $ch = curl_init($url);
         curl_setopt($ch, CURLOPT_HTTPGET, true);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
