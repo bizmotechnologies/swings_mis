@@ -173,6 +173,7 @@ class Manage_materials extends CI_controller {
             <div class="w3-col l2 ">';
                     echo'<label>MATERIAL</label>';
                     echo'<input list="Materialinfo_' . $count . '" value="' . $key['material_name'] . '" id="Select_material_' . $count . '" name="Select_material[]" class="form-control" required type="text" placeholder="Material" onchange="GetMaterialInformation_ForEnquiry(' . $count . ');>';
+                   
                     echo'<datalist id="Materialinfo_' . $count . '">';
                     foreach ($materials['status_message'] as $result) {
                         echo'<option data-value = "' . $result['material_id'] . '" value = "' . $result['material_name'] . '"></option>';
