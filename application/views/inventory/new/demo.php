@@ -232,7 +232,7 @@ error_reporting(E_ERROR | E_PARSE);
         <script>
             function GetProfileInformation(rownum) {
                 Profiles = $('#Profiles_' + rownum + ' [value="' + $('#Select_Profiles_' + rownum).val() + '"]').data('value');
-                alert(Profiles);
+                //alert(Profiles);
 
                 $.ajax({
                     type: "POST",
@@ -243,7 +243,7 @@ error_reporting(E_ERROR | E_PARSE);
                     cache: false,
                     success: function (data) {
                         //alert(data);
-                        $('#MaterialDiv').html(data);
+                        $('#MaterialDiv_'+rownum).html(data);
                     }
                 });
             }
@@ -310,7 +310,7 @@ error_reporting(E_ERROR | E_PARSE);
 <script>
     //------------get best tube-------------
 function getBest_tube(fieldnum) {
-    alert(fieldnum);
+
     Materialinfo = 0;
     MaterialID = 0;
     MaterialOD = 0;
@@ -321,21 +321,21 @@ function getBest_tube(fieldnum) {
     var MaterialOD = [];
     var MaterialLength = [];
 
-        $("input[name='Select_ID[]']").each(function ()
+        $('#Div_no_'+fieldnum+' input[name="Select_ID[]"]').each(function ()
         {
             MaterialID.push($(this).val());
         });
 
-        $("input[name='Select_OD[]']").each(function ()
+        $("#Div_no_"+fieldnum+" input[name='Select_OD[]']").each(function ()
         {
             MaterialOD.push($(this).val());
         });
 
-        $("input[name='Select_Length[]']").each(function ()
+        $("#Div_no_"+fieldnum+" input[name='Select_Length[]']").each(function ()
         {
             MaterialLength.push($(this).val());
         });
-    
+
     $.ajax({
         type: "POST",
         url: BASE_URL + "inventory/Manage_enquiry/getBest_tube",
@@ -348,9 +348,7 @@ function getBest_tube(fieldnum) {
         return: false, //stop the actual form post !important!
         success: function (data)
         {
-            alert(data);
-            //                            $("#base_Price_" + fieldnum).empty();
-            //$('#base_Price_' + fieldnum).val(data);
+           $('#bestTube_' + fieldnum).val(data);
         }
     })
 }

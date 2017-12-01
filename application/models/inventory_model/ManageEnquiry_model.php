@@ -5,7 +5,7 @@ if (!defined('BASEPATH'))
 
 class ManageEnquiry_model extends CI_Model {
 
-    public function GetRawMaterialBasePriceForEnquiry($material_id, $Material_ID, $Material_OD, $Material_LENGTH) {
+    public function getBest_tube($material_id, $Material_ID, $Material_OD, $Material_LENGTH) {
         $criteriaForTube = ManageEnquiry_model::CheckCriteriaForCalculatedTube($material_id, $Material_ID, $Material_OD, $Material_LENGTH);
 
         return ($criteriaForTube);
@@ -63,7 +63,7 @@ class ManageEnquiry_model extends CI_Model {
             if (in_array(0, $criteria)) {
                 $response = array(
                     'status' => 0,
-                    'status_message' => 'Tube not found'
+                    'value' => 'N/A'
                 );
                 unset($criteria);
             } else {
@@ -71,7 +71,7 @@ class ManageEnquiry_model extends CI_Model {
                 //echo $length_avail;                
                     $response = array(
                         'status' => 1,
-                        'status_message' => $rawMaterial_ID.'-'.$rawMaterial_OD
+                        'value' => $rawMaterial_ID.'/'.$rawMaterial_OD
                     );  
                     unset($criteria);
                     break;
@@ -79,7 +79,7 @@ class ManageEnquiry_model extends CI_Model {
             
             
         }
-        return json_encode($response);
+        return ($response);
     }
 
 }

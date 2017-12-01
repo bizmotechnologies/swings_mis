@@ -169,11 +169,11 @@ class Manage_materials extends CI_controller {
                 $count = 1;
 
                 foreach ($material_associated as $key) {
-                    echo'<div class="w3-col l12 w3-tiny w3-margin-top">
+                    echo'<div class="w3-col l12 w3-tiny w3-margin-top" id="Div_no_'.$count.'">
                     <div class="w3-col l2">';
                     echo'<label>MATERIAL</label>';
                     echo'<input autocomplete="off" list="Materialinfo_'.$count.'" value="'.$key['material_name'].'" id="Select_material_'.$count.'" name="Select_material[]" class="form-control" required type="text" placeholder="Material" onchange="GetMaterialInformation_ForEnquiry('.$count.');">';
-                    
+
                     echo'<datalist id="Materialinfo_'.$count.'">';
                     foreach ($materials['status_message'] as $result) {
                         echo'<option data-value = "'.$result['material_id'].'" value = "'.$result['material_name'].'"></option>';
@@ -197,7 +197,7 @@ class Manage_materials extends CI_controller {
                         </datalist>';
                     }
                     echo'</div>
-                    <div class="w3-col l4 s4 w3-padding-left">';
+                    <div class="w3-col l4 s4 w3-padding-left" >';
                     for ($l = 0; $l < $key['length_quantity']; $l++) {
                         echo'<label>LENGTH</label>
                         <input list="MaterialLength_'.$count.'_'.$l.'" value="" id="Select_Length_'.$count.'_'.$l.'" name="Select_Length[]" class="form-control" required type="text" min="0" placeholder="Length" >
@@ -224,6 +224,10 @@ class Manage_materials extends CI_controller {
                     <div class="w3-col l1 w3-padding-left">
                     <label>FINAL&nbsp;PRICE</label>
                     <input id="final_Price_'.$count.'" name="final_Price[]" class="form-control" required type="number" min="0" step="0.01" placeholder="Final Price" onfocus="GetFinalPriceForMaterialCalculation('.$count.');">
+                    </div>
+
+                    <div class="w3-col l12" id="best_tubeError_'.$count.'">
+                    
                     </div>
                     </div>
 
