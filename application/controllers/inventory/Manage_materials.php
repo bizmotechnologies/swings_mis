@@ -155,7 +155,7 @@ class Manage_materials extends CI_controller {
 
         extract($_POST);
         $path = base_url();
-        $url = $path . 'api/ManageMaterial_api/GetProfileInformation?Profiles=' . $Profiles;
+        $url = $path . 'api/ManageMaterial_api/GetProfileInformation?Profiles='.$Profiles;
         $ch = curl_init($url);
         curl_setopt($ch, CURLOPT_HTTPGET, true);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -295,7 +295,7 @@ class Manage_materials extends CI_controller {
         $data['info'] = Manage_materials::getRawMaterialInfo();     //-------show all Raw materials
         $data['materials'] = Manage_materials::getMaterialrecord();     //-------show all Raw materials
         $data['customers'] = Manage_materials::GetCustomersDetails();     //-------show all Customers
-        $data['profileinfo'] = Manage_materials::GetProductProfileDetails();     //-------show all Product Profile
+        $data['profileinfo'] = Manage_materials::GetProductProfileDetails(); //-------show all Product Profile
         $data['multiple_divs'] = Manage_materials::Add_MultipleProduct($_POST);     //-------show all materials
         $this->load->view('includes/navigation');
         $this->load->view('inventory/new/demo', $data);
