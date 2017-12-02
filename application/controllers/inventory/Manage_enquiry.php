@@ -43,13 +43,14 @@ class Manage_enquiry extends CI_controller {
 //------------this fun is used to get calculation of material base price-------------//
     public function GetMaterialBasePrice() {
         extract($_POST);
-        //print_r($_POST);die();
-        $Material_ID = min($MaterialID);
-        $Material_OD = max($MaterialOD);
+        //print_r($_POST);
+        $materialID_OD = explode("/", $bestTube);
+        $Material_ID = $materialID_OD[0];
+        $Material_OD = $materialID_OD[1];
         $Material_LENGTH = max($MaterialLength);
 
         $path = base_url();
-        $url = $path . 'api/ManageEnquiry_api/getBestTube?material_id='.$Materialinfo . '&Material_ID=' . $Material_ID . '&Material_OD=' . $Material_OD . '&Material_LENGTH=' . $Material_LENGTH;
+        $url = $path . 'api/ManageEnquiry_api/GetMaterialBasePrice?material_id='.$Materialinfo.'&Material_ID='.$Material_ID.'&Material_OD='.$Material_OD.'&Material_LENGTH='.$Material_LENGTH;
         $ch = curl_init($url);
         curl_setopt($ch, CURLOPT_HTTPGET, true);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -57,7 +58,7 @@ class Manage_enquiry extends CI_controller {
         curl_close($ch);
         $response = json_decode($response_json, true);
 
-        echo $response;
+        print_r($response);
     }
 
 //    -----------this fun is show fetched material info page

@@ -21,9 +21,12 @@ class ManageEnquiry_api extends REST_Controller {
     }
 
     //-------------this fun is used to get material base price calculation--------------//
-    public function GetMaterialBasePrice_post() {
-        $data = $_POST;
-        $response = $this->ManageEnquiry_model->GetMaterialBasePrice($data);
+    public function GetMaterialBasePrice_get() {
+        $material_id = $_GET['material_id'];
+        $Material_ID = $_GET['Material_ID'];
+        $Material_OD = $_GET['Material_OD'];
+        $Material_LENGTH = $_GET['Material_LENGTH'];
+        $response = $this->ManageEnquiry_model->GetMaterialBasePrice();
         return $this->response($response);
     }
 

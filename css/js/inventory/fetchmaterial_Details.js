@@ -1,7 +1,7 @@
 $(function () {
     $("#Manage_EnquiryForm").submit(function () {
         dataString = $("#Manage_EnquiryForm").serialize();
-        alert(dataString);
+        //alert(dataString);
         $.ajax({
             type: "POST",
             url: BASE_URL + "inventory/Manage_materials/SaveProductsForEnquiry",
@@ -112,31 +112,31 @@ function GetTubeHistoryForInquiry() {
     });
 }
 
-function GetMaterialBasePrice(fieldnum) {
-    Materialinfo = 0;
-    MaterialLength = 0;
-    Materialinfo = $('#Materialinfo_' + fieldnum + ' [value="' + $('#Select_material_' + fieldnum).val() + '"]').data('value');
-    $("#Div_no_" + fieldnum + " input[name='Select_Length[]']").each(function ()
-    {
-        MaterialLength.push($(this).val());
-    });
-    bestTube = $('bestTube_' + fieldnum).val();
-
-    $.ajax({
-        type: "POST",
-        url: BASE_URL + "inventory/Manage_enquiry/GetMaterialBasePrice",
-        data: {
-            Materialinfo: Materialinfo,
-            MaterialLength: MaterialLength,
-            bestTube: bestTube 
-
-        },
-        return: false, //stop the actual form post !important!
-        success: function (data)
-        {
-            //                            $("#base_Price_" + fieldnum).empty();
-            $('#base_Price_' + fieldnum).val(data);
-        }
-    });
-}
+//function GetMaterialBasePrice(fieldnum) {
+//    Materialinfo = 0;
+//    MaterialLength = 0;
+//    Materialinfo = $('#Materialinfo_' + fieldnum + ' [value="' + $('#Select_material_' + fieldnum).val() + '"]').data('value');
+//    $("#Div_no_" + fieldnum + " input[name='Select_Length[]']").each(function ()
+//    {
+//        MaterialLength.push($(this).val());
+//    });
+//    bestTube = $('bestTube_' + fieldnum).val();
+//
+//    $.ajax({
+//        type: "POST",
+//        url: BASE_URL + "inventory/Manage_enquiry/GetMaterialBasePrice",
+//        data: {
+//            Materialinfo: Materialinfo,
+//            MaterialLength: MaterialLength,
+//            bestTube: bestTube 
+//
+//        },
+//        return: false, //stop the actual form post !important!
+//        success: function (data)
+//        {
+//            //                            $("#base_Price_" + fieldnum).empty();
+//            $('#base_Price_' + fieldnum).val(data);
+//        }
+//    });
+//}
 

@@ -354,5 +354,38 @@ function getBest_tube(fieldnum) {
 }
 //--------------get best tube end-----------------------
 </script>
+<script>
+function GetMaterialBasePrice(fieldnum) {
+    Materialinfo = 0;
+    MaterialLength = 0;
+    Materialinfo = $('#Materialinfo_'+fieldnum+' [value="' + $('#Select_material_'+fieldnum).val() + '"]').data('value');
+    //alert(Materialinfo);
+        var MaterialLength = [];
+        $("#Div_no_"+ fieldnum+" input[name='Select_Length[]']").each(function ()
+    {
+        MaterialLength.push($(this).val());
+    });
+    bestTube = $('#bestTube_'+fieldnum).val();
+    //alert(bestTube);
+    $.ajax({
+        type: "POST",
+        url: BASE_URL + "inventory/Manage_enquiry/GetMaterialBasePrice",
+        data: {
+            Materialinfo: Materialinfo,
+            MaterialLength: MaterialLength,
+            bestTube: bestTube 
+
+        },
+        return: false, //stop the actual form post !important!
+        success: function (data)
+        {
+            alert(data);
+            //                            $("#base_Price_" + fieldnum).empty();
+            $('#base_Price_' + fieldnum).val(data);
+        }
+    });
+}
+
+</script>
     </body>
 </html>
