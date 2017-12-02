@@ -19,8 +19,9 @@ error_reporting(E_ERROR | E_PARSE);
         var currparent = 1;
         var currchild = 1;
             function getChildDivHtml(id) {// this code is used for add div to parent div on click fun
-                return '<div class="w3-col l12 w3-padding-left" id="Product_' + currparent + '">\n\
-                <div class="w3-col l12 w3-padding-left w3-light-grey">Product_' + currparent + '</div>\n\
+                return '<div class="w3-card-2 w3-margin w3-round-xlarge w3-col l12 w3-padding">\n\
+                <div class="w3-col l12 " id="Product_' + currparent + '">\n\
+                <div class="w3-col l12 w3-padding-left"><label class="w3-round w3-margin-top w3-medium w3-label w3-black w3-padding">Product ' + currparent + '</label></div>\n\
                 <div class="w3-col l12 w3-padding w3-small">\n\
                 \n\
                 <div class="w3-col l3 w3-left">\n\
@@ -85,10 +86,10 @@ error_reporting(E_ERROR | E_PARSE);
                 \n\
                 </div>\n\
                 </div>\n\
-                \n\<div class="w3-col l12 w3-padding-left w3-margin-top w3-margin-bottom" id="MaterialDiv_' + currparent + '">\n\
+                \n\<div class="w3-col l12 w3-padding-left w3-margin-top w3-margin-bottom w3-light-grey" id="MaterialDiv_' + currparent + '">\n\
                 </div>\n\
                 </div>\n\
-                <div class="w3-col l12 w3-padding-left w3-margin-top w3-margin-bottom w3-small">\n\
+                <div class="w3-col l12 w3-margin-top w3-margin-bottom w3-small">\n\
                 <div class="w3-col l4 w3-padding-left">\n\
                 <label>QUANTITY</label>\n\
                 <input id="Product_Quantity_1" name="Product_Quantity[]" value="<?php echo $div['product_quantity']; ?>" class="form-control" required type="number" min="0" step="0.01" placeholder="Product Quantity">\n\
@@ -97,7 +98,7 @@ error_reporting(E_ERROR | E_PARSE);
                 <label>Total Product Price</label>\n\
                 <input id="TotalProduct_Price_1" name="TotalProduct_Price[]" value="<?php echo $div['product_price']; ?>" class="form-control" required type="number" min="0" step="0.01" placeholder="Product Quantity">\n\
                 </div>\n\
-</div>';// this code is used for add div to parent div on click fun
+</div></div>';// this code is used for add div to parent div on click fun
 }
             $(document).ready(function () {// this fun is used for add above code to parent div on click fun
                 $('#btn-add-product').on('click', function () {

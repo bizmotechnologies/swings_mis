@@ -210,7 +210,7 @@ class Manage_materials extends CI_controller {
                     <label>BEST TUBE</label>&nbsp;<a class="btn w3-red" style="padding:0 2px 0 2px;" onclick="getBest_tube('.$count.');"><i class="fa fa-refresh w3-small"></i></a>
                     <input id="bestTube_'.$count.'" name="best_tube[]" value="" class="form-control" required type="text" placeholder="ID/OD" readonly>
                     </div>
-                    <div class="w3-col l1 w3-padding-left">
+                    <div class="w3-col l2 w3-padding-left">
                     <label>BASE PRICE</label><input id="base_Price_'.$count.'" name="base_Price[]" value="" class="form-control" min="0" step="0.01" required type="number" placeholder="Base Price"  onfocus="GetMaterialBasePrice('.$count.');">
                     </div>
                     <div class="w3-col l1 w3-padding-left">
