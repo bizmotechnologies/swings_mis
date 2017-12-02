@@ -6,7 +6,7 @@ error_reporting(E_ERROR | E_PARSE);
 <html>
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Manage Stock</title>
+        <title>Raise Enquiry</title>
         <link rel="stylesheet" href="<?php echo base_url(); ?>css/bootstrap/bootstrap.min.css">
         <link rel="stylesheet" href="<?php echo base_url(); ?>css/font awesome/font-awesome.min.css">
         <link rel="stylesheet" href="<?php echo base_url(); ?>css/font awesome/font-awesome.css">
@@ -84,7 +84,7 @@ error_reporting(E_ERROR | E_PARSE);
 \n\
 </div>\n\
 </div>\n\
-\n\<div class="w3-col l12 w3-padding-left w3-border w3-margin-top w3-margin-bottom" id="MaterialDiv_' + currparent + '">\n\
+\n\<div class="w3-col l12 w3-padding-left w3-margin-top w3-margin-bottom" id="MaterialDiv_' + currparent + '">\n\
 </div>\n\
 </div>\n\
 <div class="w3-col l12 w3-padding-left w3-margin-top w3-margin-bottom w3-small">\n\

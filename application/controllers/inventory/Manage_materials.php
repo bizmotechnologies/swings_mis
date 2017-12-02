@@ -301,7 +301,7 @@ class Manage_materials extends CI_controller {
         $this->load->view('inventory/new/fetchmaterial_details', $data);
     }
 
-    public function demo() {
+    public function raise_enquiry() {
         $data['info'] = Manage_materials::getRawMaterialInfo();     //-------show all Raw materials
         $data['materials'] = Manage_materials::getMaterialrecord();     //-------show all Raw materials
         $data['customers'] = Manage_materials::GetCustomersDetails();     //-------show all Customers
