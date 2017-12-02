@@ -23,7 +23,7 @@ class Manage_enquiry extends CI_controller {
     public function getBest_tube() {
         extract($_POST);
         //print_r($_POST);die();
-                if(isset($Material_ID) && isset($MaterialOD) && isset($MaterialLength)){
+                if(isset($MaterialID) && isset($MaterialOD) && isset($MaterialLength)){
 
         $Material_ID = min($MaterialID);
         $Material_OD = max($MaterialOD);
@@ -49,8 +49,11 @@ class Manage_enquiry extends CI_controller {
 //------------this fun is used to get calculation of material base price-------------//
     public function GetMaterialBasePrice() {
         extract($_POST);
-        //print_r($_POST);
+        //nt_r($_POST);
+        if(isset($bestTube) && isset($bestTube)!='0.00' && isset($MaterialLength) && isset($Materialinfo)){
+
         $materialID_OD = explode("/", $bestTube);
+        //print_r($materialID_OD);die();
         $Material_ID = $materialID_OD[0];
         $Material_OD = $materialID_OD[1];
         $Material_LENGTH = max($MaterialLength);
@@ -64,7 +67,10 @@ class Manage_enquiry extends CI_controller {
         curl_close($ch);
         $response = json_decode($response_json, true);
 
-        print_r($response);
+        echo $response_json;
+        } else{
+            echo '0.00';
+        }
     }
 
 //    -----------this fun is show fetched material info page
