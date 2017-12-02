@@ -225,7 +225,7 @@ class MaterialStock_Management extends CI_controller {
 
         extract($_POST);
         $data = $_POST;
-        //print_r($data);
+        
         $price = $Input_RawMaterialPrice;
         if (isset($checkPrice)) {
             $price = $Input_RawMaterialPriceFrom_Pricelist;

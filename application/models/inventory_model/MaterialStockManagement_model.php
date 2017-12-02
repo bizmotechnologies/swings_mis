@@ -161,9 +161,9 @@ class MaterialStockManagement_model extends CI_Model {
     /* --------------------------this fun for save raw material details----------------------------------------------- */
     public function Save_RawStockMaterial_Info($data) {
         extract($data);
-
-        $this->load->model('inventory_model/ManageProduct_model');
-        $material_name = $this->ManageProduct_model->getMaterialdata($Select_RawMaterials);
+        
+        $this->load->model('inventory_model/ManageMaterial_model');
+        $material_name = $this->ManageMaterial_model->getMaterialdata($Select_RawMaterials);
 
         $sqlnew = "INSERT INTO raw_materialstock(material_id,vendor_id,material_name,raw_ID,"
                 . "raw_OD,avail_length,raw_quantity,material_price,tolerance,accepted_date)"

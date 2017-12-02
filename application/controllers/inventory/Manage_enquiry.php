@@ -38,7 +38,12 @@ class Manage_enquiry extends CI_controller {
             curl_close($ch);
             $response = json_decode($response_json, true);
 
+            if(empty($response)){
+                echo 'N/A';
+            }
+            else{
             echo $response['value'];
+            }
         }
         else{
             echo 'N/A';

@@ -56,7 +56,7 @@ class ManageMaterial_api extends REST_Controller {
     //-----this fun is used to get material info----------------------------//
     public function GetMaterilaInformation_get() {
         $data = $_GET;
-        $result = $this->ManageMaterial_model->GetMaterilaInformation($data);
+        $result = $this->ManageMaterial_model->GetMaterialInformation($data);
         return $this->response($result);
     }
 

@@ -22,6 +22,22 @@ class ManageMaterial_model extends CI_Model {
 
     /* fun ends here */
 
+//--------------------/*this fun is used to get material name for save materials*/---------------------------
+    public function getMaterialdata($material_id) {
+        $sql = "SELECT material_name FROM materials WHERE material_id='$material_id'";
+        $resultnew = $this->db->query($sql);
+
+        $material_name = "";
+
+        foreach ($resultnew->result_array() as $row) {
+            $material_name = $row['material_name'];
+        }
+        return $material_name;
+    }
+
+//-------------------------/*this fun is used to get material name for save materials ends here-------------------------*/
+
+//--------------------get profile information----------------------//
     public function GetProfileInformation($Profiles) {
         $query = "SELECT * FROM product_profile WHERE profile_id = '$Profiles'";
         $result = $this->db->query($query);
@@ -110,7 +126,7 @@ class ManageMaterial_model extends CI_Model {
     /* fun ends here */
 
     //----this fun is used to get all raw material information-----//
-    public function GetMaterilaInformation($data) {
+    public function GetMaterialInformation($data) {
         extract($data);
         $query = "SELECT * FROM raw_materialstock WHERE material_id = " . $material_id;
         $result = $this->db->query($query);
@@ -123,10 +139,10 @@ class ManageMaterial_model extends CI_Model {
                 'status' => 0,
                 'status_message' => 'No records found');
         }
-        return $response;
-    }
+        return $response;    }
 
     //----this fun is used to get all raw material information ends here-----//
+
 //------this fun is used to get all material inforation-----------------//
     public function GetMaterialInformation_ForEnquiry($data) { /* this fun is used to get material data */
 

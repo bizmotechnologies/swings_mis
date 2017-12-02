@@ -356,7 +356,8 @@ $(wrapper).html('<div class="w3-col l12 w3-padding w3-small">\n\
         return: false, //stop the actual form post !important!
         success: function (data)
         {
-         $('#bestTube_' + fieldnum).val(data);
+            //alert(data);
+        $('#bestTube_' + fieldnum).val(data);
      }
  });
     }
