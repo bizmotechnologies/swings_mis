@@ -254,25 +254,7 @@ class Manage_materials extends CI_controller {
         $response = json_decode($response_json, true);
     }
 
-//------------this fun is used to get calculation of material base price-------------//
-    public function GetMaterialBasePrice() {
-        extract($_POST);
-        $data = $_POST;
-// print_r($data);die();
-        $path = base_url();
-        $url = $path . 'api/ManageMaterial_api/GetMaterialBasePrice';
-        $ch = curl_init($url);
-        curl_setopt($ch, CURLOPT_POST, true);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        $response_json = curl_exec($ch);
-        curl_close($ch);
-        $response = json_decode($response_json, true);
-        echo $response;
-//print_r($response_json);
-    }
 
-//    -----------this fun is show fetched material info page
 //---this fun is used to get base price from raw material 
     public function GetRawMaterialBasePriceForEnquiry() {
         $Material_id = 0;

@@ -114,22 +114,22 @@ function GetTubeHistoryForInquiry() {
 
 function GetMaterialBasePrice(fieldnum) {
     Materialinfo = 0;
-    MaterialID = 0;
-    MaterialOD = 0;
     MaterialLength = 0;
     Materialinfo = $('#Materialinfo_' + fieldnum + ' [value="' + $('#Select_material_' + fieldnum).val() + '"]').data('value');
-    MaterialID = $('#MaterialID_' + fieldnum + ' [value="' + $('#Select_ID_' + fieldnum).val() + '"]').data('value');
-    MaterialOD = $('#MaterialOD_' + fieldnum + ' [value="' + $('#Select_OD_' + fieldnum).val() + '"]').data('value');
-    MaterialLength = $('#MaterialLength_' + fieldnum + ' [value="' + $('#Select_Length_' + fieldnum).val() + '"]').data('value');
-    alert(Materialinfo);
+    $("#Div_no_" + fieldnum + " input[name='Select_Length[]']").each(function ()
+    {
+        MaterialLength.push($(this).val());
+    });
+    bestTube = $('bestTube_' + fieldnum).val();
+
     $.ajax({
         type: "POST",
-        url: BASE_URL + "inventory/Manage_materials/GetMaterialBasePrice",
+        url: BASE_URL + "inventory/Manage_enquiry/GetMaterialBasePrice",
         data: {
             Materialinfo: Materialinfo,
-            MaterialID: MaterialID,
-            MaterialOD: MaterialOD,
-            MaterialLength: MaterialLength
+            MaterialLength: MaterialLength,
+            bestTube: bestTube 
+
         },
         return: false, //stop the actual form post !important!
         success: function (data)
