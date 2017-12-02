@@ -356,7 +356,7 @@ $(wrapper).html('<div class="w3-col l12 w3-padding w3-small">\n\
         {
          $('#bestTube_' + fieldnum).val(data);
      }
- })
+ });
     }
 //--------------get best tube end-----------------------
 </script>
@@ -385,8 +385,6 @@ function GetMaterialBasePrice(fieldnum) {
         return: false, //stop the actual form post !important!
         success: function (data)
         {
-            alert(data);
-            //                            $("#base_Price_" + fieldnum).empty();
             $('#base_Price_' + fieldnum).val(data);
         }
     });

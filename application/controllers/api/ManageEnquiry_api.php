@@ -26,7 +26,7 @@ class ManageEnquiry_api extends REST_Controller {
         $Material_ID = $_GET['Material_ID'];
         $Material_OD = $_GET['Material_OD'];
         $Material_LENGTH = $_GET['Material_LENGTH'];
-        $response = $this->ManageEnquiry_model->GetMaterialBasePrice();
+        $response = $this->ManageEnquiry_model->GetMaterialBasePrice($material_id, $Material_ID, $Material_OD, $Material_LENGTH);
         return $this->response($response);
     }
 
