@@ -221,7 +221,7 @@ class Manage_materials extends CI_controller {
                     <label>DISCOUNT(%)</label>
                     <input id="discount_'.$count.'" name="discount[]" class="form-control" required type="number" min="0" step="0.01" placeholder="Discount %." onkeypress="GetFinalPriceForMaterialCalculation('.$count.');">
                     </div>
-                    <div class="w3-col l1 w3-padding-left">
+                    <div class="w3-col l2 w3-padding-left">
                     <label>FINAL&nbsp;PRICE</label>
                     <input id="final_Price_'.$count.'" name="final_Price[]" class="form-control" required type="number" min="0" step="0.01" placeholder="Final Price" onfocus="GetFinalPriceForMaterialCalculation('.$count.');">
                     </div>

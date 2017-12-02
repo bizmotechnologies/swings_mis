@@ -20,8 +20,10 @@ error_reporting(E_ERROR | E_PARSE);
         var currchild = 1;
             function getChildDivHtml(id) {// this code is used for add div to parent div on click fun
                 return '<div class="w3-card-2 w3-margin w3-round-xlarge w3-col l12 w3-padding">\n\
+                <a href="#" class="btn delete w3-text-grey w3-margin-right w3-right" title="Remove product">remove <i class="fa fa-remove"></i></a>\n\
                 <div class="w3-col l12 " id="Product_' + currparent + '">\n\
-                <div class="w3-col l12 w3-padding-left"><label class="w3-round w3-margin-top w3-medium w3-label w3-black w3-padding">Product ' + currparent + '</label></div>\n\
+                <div class="w3-col l12 w3-padding-left"><label class="w3-round w3-medium w3-label w3-black w3-padding">Product ' + currparent + '</label>\n\
+                </div>\n\
                 <div class="w3-col l12 w3-padding w3-small">\n\
                 \n\
                 <div class="w3-col l3 w3-left">\n\
@@ -145,7 +147,7 @@ error_reporting(E_ERROR | E_PARSE);
                         <div class="w3-col l1 w3-padding-left">\n\
                         <label>FINAL&nbsp;PRICE</label>\n\
                         <input id="final_Price_' + currchild + '" name="final_Price[]" <?php echo $final_Price; ?> class="form-control" required type="number" min="0" step="0.01" placeholder="Final Price" onfocus="GetFinalPriceForMaterialCalculation(' + currchild + ');">\n\
-                        </div>\n\<a href="#" class="delete w3-text-grey w3-margin-left w3-left fa fa-remove" title="Delete field"></a>\n\
+                        </div>\n\\n\
 </div>');// this fun is used for add materials to parent div on click fun
 currchild++;
 });
