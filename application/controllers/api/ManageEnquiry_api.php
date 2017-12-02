@@ -20,6 +20,14 @@ class ManageEnquiry_api extends REST_Controller {
         return $this->response($response);
     }
 
+    //-------------this fun is used to get material base price calculation--------------//
+    public function GetMaterialBasePrice_post() {
+        $data = $_POST;
+        $response = $this->ManageEnquiry_model->GetMaterialBasePrice($data);
+        return $this->response($response);
+    }
+
+    //-------------this fun is used to get material base price calculation--------------//
 }
 
 ?>
