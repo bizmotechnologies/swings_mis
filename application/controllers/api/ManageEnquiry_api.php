@@ -31,6 +31,16 @@ class ManageEnquiry_api extends REST_Controller {
     }
 
     //-------------this fun is used to get material base price calculation--------------//
+
+     // ----------------------- SAVE PRODUCTS API----------------------//
+    //-------------------------------------------------------------//
+    public function SaveProductsForEnquiry_post() {
+        $data = $_POST;
+        $response = $this->ManageEnquiry_model->saveProductForEnquiry($data);
+        return $this->response($response);
+    }
+
+    //---------------------SAVE PRODUCTS API END------------------------------//
 }
 
 ?>

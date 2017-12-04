@@ -163,6 +163,33 @@ class ManageEnquiry_model extends CI_Model {
     }
 
     /* this  function is used for material records  */
+
+
+
+    // this function is used to save  products in enquiry///////////
+    public function saveProductForEnquiry($data) {
+        extract($data);
+        
+        $sql = "INSERT INTO materials
+        (material_name,material_color) 
+        VALUES ('" . strtoupper($material_nameForStock) . "','" . strtoupper($materialColor_ForStock) . "')";
+        //echo $sql; die();
+        $result = $this->db->query($sql);
+
+        if ($result) {
+            $response = array(
+                'status' => 1,
+                'status_message' => 'Material Inserted Successfully..!');
+        } else {
+            $response = array(
+                'status' => 0,
+                'status_message' => 'Material Not Inserted Successfully...!');
+        }
+   
+        return $response;
+    }
+
+// Ending function save products in enquiry/////////////
 }
 
 ?>

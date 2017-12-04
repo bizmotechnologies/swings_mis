@@ -29,7 +29,7 @@ error_reporting(E_ERROR | E_PARSE);
                 <div class="w3-col l3 w3-left">\n\
                 <div class="input-group">\n\
                 <label>Product Name:</label>\n\
-                <input type="text" placeholder="Product Name" value="" class="form-control" style="text-transform:uppercase;" id="product_nameForEnquiry_' + currparent + '" name="product_nameForEnquiry[]" required>\n\
+                <input type="text" placeholder="Product Name" value="" class="w3-input" style="text-transform:uppercase;" id="product_nameForEnquiry_' + currparent + '" name="product_nameForEnquiry[]" required>\n\
                 </div>\n\
                 </div>\n\
                 \n\
@@ -39,7 +39,7 @@ error_reporting(E_ERROR | E_PARSE);
                 <div class="w3-col l3 w3-left">\n\
                 <div class="input-group">\n\
                 <label>Profile Name:</label>\n\
-                <input list="Profiles_' + currparent + '" id="Select_Profiles_' + currparent + '" name="Select_Profiles[]" value="<?php echo $div['profile_id']; ?>" class="form-control" required type="text" placeholder="Select Profile Name" onchange="GetProfileInformation(' + currparent + ');">\n\
+                <input list="Profiles_' + currparent + '" id="Select_Profiles_' + currparent + '" name="Select_Profiles[]" value="<?php echo $div['profile_id']; ?>" class="w3-input" required type="text" placeholder="Select Profile Name" onchange="GetProfileInformation(' + currparent + ');">\n\
                 <datalist id="Profiles_' + currparent + '">\n\
                 <?php foreach ($profileinfo['status_message'] as $result) { ?><option data-value="<?php echo $result['profile_id']; ?>" value="<?php echo $result['profile_name']; ?>"></option><?php } ?></datalist>\n\
                 </div>\n\
@@ -50,7 +50,7 @@ error_reporting(E_ERROR | E_PARSE);
                 \n\
                 <div class="w3-col l10 w3-left">\n\
                 <div class="input-group ">\n\
-                <input type="checkbox" id="checkHousing_' + currparent + '" onclick="GetHousingValue(' + currparent + ');"><b>  Housing(EX. Seal&nbsp;kit&nbsp;for&nbsp;Hydraulic&nbsp;70&nbsp;MM,&nbsp;Rod&nbsp;50&nbsp;MM&nbsp;–&nbsp;15&nbsp;Sets.)</b>\n\
+                <input type="checkbox" id="checkHousing_' + currparent + '" onclick="GetHousingValue(' + currparent + ');" value="1"><b>  Housing Available</b>\n\
                 </div>\n\
                 </div>\n\
                 </div>\n\
@@ -60,7 +60,7 @@ error_reporting(E_ERROR | E_PARSE);
                 <div class="w3-col l12 w3-padding w3-small">\n\
                 <div class="w3-col l6">\n\
                 <label>Profile Description:</label>\n\
-                <input type="text" value="" placeholder="Profile Description(Ex.Piston Seal, Rod Seal .etc.)" class="form-control" style="text-transform:uppercase;" id="profile_DescriptionForHousingUnchecked_' + currparent + '" name="profile_DescriptionForHousingUnchecked[]" required>\n\
+                <input type="text" value="" placeholder="Profile Description(Ex.Piston Seal, Rod Seal .etc.)" class="w3-input" style="text-transform:uppercase;" id="profile_DescriptionForHousingUnchecked_' + currparent + '" name="profile_DescriptionForHousingUnchecked[]" required>\n\
                 </div>\n\
                 </div>\n\
                 <div class="w3-col l12 w3-padding w3-small">\n\
@@ -68,21 +68,21 @@ error_reporting(E_ERROR | E_PARSE);
                 <div class="w3-col l4 s4">\n\
                 <div class="input-group">\n\
                 <label>ID:</label>\n\
-                <input type="number" placeholder="ID" min="0" class="form-control" value="" style="text-transform:uppercase;" id="ID_forHousingUnckecked_' + currparent + '" name="ID_forHousingUnckecked[]" required>\n\
+                <input type="number" placeholder="ID" min="0" class="w3-input" value="" style="text-transform:uppercase;" id="ID_forHousingUnckecked_' + currparent + '" name="ID_forHousingUnckecked[]" required>\n\
                 </div>\n\
                 </div>\n\
                 \n\
                 <div class="w3-col l4 s4 w3-padding-left">\n\
                 <div class="input-group">\n\
                 <label>OD:</label>\n\
-                <input type="number" placeholder="OD" min="0" class="form-control" value="" style="text-transform:uppercase;" id="OD_forHousingUnckecked_' + currparent + '" name="OD_forHousingUnckecked[]" required>\n\
+                <input type="number" placeholder="OD" min="0" class="w3-input" value="" style="text-transform:uppercase;" id="OD_forHousingUnckecked_' + currparent + '" name="OD_forHousingUnckecked[]" required>\n\
                 </div>\n\
                 </div>\n\
                 \n\
                 <div class="w3-col l4 s4 w3-padding-left">\n\
                 <div class="input-group">\n\
                 <label>LENGTH:</label>\n\
-                <input type="number" placeholder="LENGTH" min="0" class="form-control" value="" style="text-transform:uppercase;" id="LENGTH_forHousingUnckecked_' + currparent + '" name="LENGTH_forHousingUnckecked[]" required>\n\
+                <input type="number" placeholder="LENGTH" min="0" class="w3-input" value="" style="text-transform:uppercase;" id="LENGTH_forHousingUnckecked_' + currparent + '" name="LENGTH_forHousingUnckecked[]" required>\n\
                 </div>\n\
                 </div>\n\
                 \n\
@@ -94,11 +94,11 @@ error_reporting(E_ERROR | E_PARSE);
                 <div class="w3-col l12 w3-margin-top w3-margin-bottom w3-small">\n\
                 <div class="w3-col l4 w3-padding-left">\n\
                 <label>QUANTITY</label>\n\
-                <input id="Product_Quantity_1" name="Product_Quantity[]" value="<?php echo $div['product_quantity']; ?>" class="form-control" required type="number" min="0" step="0.01" placeholder="Product Quantity">\n\
+                <input id="Product_Quantity_' + currparent + '" name="Product_Quantity[]" value="<?php echo $div['product_quantity']; ?>" class="w3-input" required type="number" min="0" step="0.01" placeholder="Product Quantity">\n\
                 </div>\n\
                 <div class="w3-col l4 w3-padding-left">\n\
                 <label>Total Product Price</label>\n\
-                <input id="TotalProduct_Price_1" name="TotalProduct_Price[]" value="<?php echo $div['product_price']; ?>" class="form-control" required type="number" min="0" step="0.01" placeholder="Product Quantity">\n\
+                <input id="TotalProduct_Price_' + currparent + '" name="TotalProduct_Price[]" value="<?php echo $div['product_price']; ?>" class="w3-input" required type="number" min="0" step="0.01" placeholder="Net Product Price">\n\
                 </div>\n\
 </div></div>';// this code is used for add div to parent div on click fun
 }
@@ -112,41 +112,41 @@ error_reporting(E_ERROR | E_PARSE);
                     $(this).parent().append('<div class="w3-col l12 w3-tiny w3-margin-top">\n\
                         <div class="w3-col l2 ">\n\
                         <label >MATERIAL</label>\n\
-                        <input list="Materialinfo_' + currchild + '" value="<?php echo $material_id; ?>" id="Select_material_' + currchild + '" name="Select_material[]" class="form-control" required type="text" placeholder="Material" onchange="GetMaterialInformation_ForEnquiry(' + currchild + ');">\n\
+                        <input list="Materialinfo_' + currchild + '" value="<?php echo $material_id; ?>" id="Select_material_' + currchild + '" name="Select_material[]" class="w3-input" required type="text" placeholder="Material" onchange="GetMaterialInformation_ForEnquiry(' + currchild + ');">\n\
                         <datalist id="Materialinfo_' + currchild + '">\n\
                         <?php foreach ($materials['status_message'] as $result) { ?><option data-value="<?php echo $result['material_id']; ?>" value="<?php echo $result['material_name']; ?>"><?php echo $result['material_name']; ?></option><?php } ?></datalist>\n\
                         \n\</div>\n\
                         <div class="w3-col l3">\n\
                         \n\<div class="w3-col l4 s4 w3-padding-left">\n\
                         <label>ID</label>\n\
-                        <input list="MaterialID_' + currchild + '" value="<?php echo $Select_ID; ?>" id="Select_ID_' + currchild + '" name="Select_ID[]" class="form-control" required type="text" min="0" placeholder="ID" >\n\
+                        <input list="MaterialID_' + currchild + '" value="<?php echo $Select_ID; ?>" id="Select_ID_' + currchild + '" name="Select_ID[]" class="w3-input" required type="text" min="0" placeholder="ID" >\n\
                         <datalist id="MaterialID_' + currchild + '"></datalist>\n\
                         </div>\n\
                         <div class="w3-col l4 s4 w3-padding-left">\n\
                         <label>OD</label>\n\
-                        <input list="MaterialOD_' + currchild + '" value="<?php echo $Select_OD; ?>" id="Select_OD_' + currchild + '" name="Select_OD[]" class="form-control" required type="text" min="0" placeholder="OD" >\n\
+                        <input list="MaterialOD_' + currchild + '" value="<?php echo $Select_OD; ?>" id="Select_OD_' + currchild + '" name="Select_OD[]" class="w3-input" required type="text" min="0" placeholder="OD" >\n\
                         <datalist id="MaterialOD_' + currchild + '"></datalist>\n\
                         </div>\n\
                         <div class="w3-col l4 s4 w3-padding-left">\n\
                         <label>LENGTH</label>\n\
-                        <input list="MaterialLength_' + currchild + '" value="<?php echo $Select_Length; ?>" id="Select_Length_' + currchild + '" name="Select_Length[]" class="form-control" required type="text" min="0" placeholder="Length" >\n\
+                        <input list="MaterialLength_' + currchild + '" value="<?php echo $Select_Length; ?>" id="Select_Length_' + currchild + '" name="Select_Length[]" class="w3-input" required type="text" min="0" placeholder="Length" >\n\
                         <datalist id="MaterialLength_' + currchild + '"></datalist>\n\
                         </div>\n\
                         </div>\n\
                         <div class="w3-col l1 w3-padding-left">\n\
-                        <label>BASE PRICE</label><input id="base_Price_' + currchild + '" name="base_Price[]" value="<?php echo $base_Price; ?>" class="form-control" min="0" step="0.01" required type="number" placeholder="Base Price"  onfocus="GetMaterialBasePrice(' + currchild + ');">\n\
+                        <label>BASE PRICE</label><input id="base_Price_' + currchild + '" name="base_Price[]" value="<?php echo $base_Price; ?>" class="w3-input" min="0" step="0.01" required type="number" placeholder="Base Price"  onfocus="GetMaterialBasePrice(' + currchild + ');">\n\
                         </div>\n\
                         <div class="w3-col l1 w3-padding-left">\n\
                         <label>QUANTITY</label>\n\
-                        <input id="select_Quantity_' + currchild + '" name="select_Quantity[]" value="<?php echo $select_Quantity; ?>" class="form-control" min="0" required type="number" placeholder="Quantity" onkeypress="GetFinalPriceForMaterialCalculation(' + currchild + ');">\n\
+                        <input id="select_Quantity_' + currchild + '" name="select_Quantity[]" value="<?php echo $select_Quantity; ?>" class="w3-input" min="0" required type="number" placeholder="Quantity" onkeypress="GetFinalPriceForMaterialCalculation(' + currchild + ');">\n\
                         </div>\n\
                         <div class="w3-col l1 w3-padding-left">\n\
                         <label>DISCOUNT(%)</label>\n\
-                        <input id="discount_' + currchild + '" name="discount[]" <?php echo $discount; ?> class="form-control" required type="number" min="0" step="0.01" placeholder="Discount %." onkeypress="GetFinalPriceForMaterialCalculation(' + currchild + ');">\n\
+                        <input id="discount_' + currchild + '" name="discount[]" <?php echo $discount; ?> class="w3-input" required type="number" min="0" step="0.01" placeholder="Discount %." onkeypress="GetFinalPriceForMaterialCalculation(' + currchild + ');">\n\
                         </div>\n\
                         <div class="w3-col l1 w3-padding-left">\n\
                         <label>FINAL&nbsp;PRICE</label>\n\
-                        <input id="final_Price_' + currchild + '" name="final_Price[]" <?php echo $final_Price; ?> class="form-control" required type="number" min="0" step="0.01" placeholder="Final Price" onfocus="GetFinalPriceForMaterialCalculation(' + currchild + ');">\n\
+                        <input id="final_Price_' + currchild + '" name="final_Price[]" <?php echo $final_Price; ?> class="w3-input" required type="number" min="0" step="0.01" placeholder="Final Price" onfocus="GetFinalPriceForMaterialCalculation(' + currchild + ');">\n\
                         </div>\n\\n\
 </div>');// this fun is used for add materials to parent div on click fun
 currchild++;
@@ -172,32 +172,32 @@ currchild++;
 $(wrapper).html('<div class="w3-col l12 w3-padding w3-small">\n\
     <div class="w3-col l6">\n\
     <label>Profile Description:</label>\n\
-    <input type="text" placeholder="Profile Description(Ex.Piston Seal, Rod Seal .etc.)" class="form-control" style="text-transform:uppercase;" id="profile_DescriptionForHousingChecked_' + currentparent + '" name="profile_DescriptionForHousingChecked[]" required>\n\
+    <input type="text" placeholder="Profile Description(Ex.Piston Seal, Rod Seal .etc.)" class="w3-input" style="text-transform:uppercase;" id="profile_DescriptionForHousingChecked_' + currentparent + '" name="profile_DescriptionForHousingChecked[]" required>\n\
     </div>\n\
     </div>\n\
     <div class="w3-col l12 w3-padding w3-small">\n\
     <div class="w3-col l3 s3">\n\
     <div class="input-group">\n\
     <label>ID:</label>\n\
-    <input type="number" placeholder="ID" class="form-control" style="text-transform:uppercase;" id="ID_forHousingChecked_' + currentparent + '" name="ID_forHousingChecked[]" required>\n\
+    <input type="number" placeholder="ID" class="w3-input" style="text-transform:uppercase;" id="ID_forHousingChecked_' + currentparent + '" name="ID_forHousingChecked[]" required>\n\
     </div>\n\
     </div>\n\
     <div class="w3-col l3 s3 w3-padding-left">\n\
     <div class="input-group">\n\
     <label>OD:</label>\n\
-    <input type="number" placeholder="OD" min="0" class="form-control" style="text-transform:uppercase;" id="OD_forHousingChecked_' + currentparent + '" name="OD_forHousingChecked[]" required>\n\
+    <input type="number" placeholder="OD" min="0" class="w3-input" style="text-transform:uppercase;" id="OD_forHousingChecked_' + currentparent + '" name="OD_forHousingChecked[]" required>\n\
     </div>\n\
     </div>\n\
     <div class="w3-col l3 s3 w3-padding-left">\n\
     <div class="input-group">\n\
     <label>LENGTH:</label>\n\
-    <input type="number" placeholder="LENGTH" min="0" class="form-control" style="text-transform:uppercase;" id="LENGTH_forHousingChecked_' + currentparent + '" name="LENGTH_forHousingChecked[]" required>\n\
+    <input type="number" placeholder="LENGTH" min="0" class="w3-input" style="text-transform:uppercase;" id="LENGTH_forHousingChecked_' + currentparent + '" name="LENGTH_forHousingChecked[]" required>\n\
     </div>\n\
     </div>\n\
     <div class="w3-col l3 s3 w3-padding-left">\n\
     <div class="input-group">\n\
     <label>QUANTITY:</label>\n\
-    <input type="number" placeholder="QUANTITY" min="0" class="form-control" style="text-transform:uppercase;" id="Set_QuantityforHousingChecked_' + currentparent + '" name="Set_QuantityforHousingChecked[]" required>\n\
+    <input type="number" placeholder="QUANTITY" min="0" class="w3-input" style="text-transform:uppercase;" id="Set_QuantityforHousingChecked_' + currentparent + '" name="Set_QuantityforHousingChecked[]" required>\n\
     </div>\n\
     </div>\n\
     </div>');
@@ -206,26 +206,26 @@ $(wrapper).html('<div class="w3-col l12 w3-padding w3-small">\n\
                     $(wrapper).html('<div class="w3-col l12 w3-padding w3-small">\n\
                         <div class="w3-col l6">\n\
                         <label>Profile Description:</label>\n\
-                        <input type="text" placeholder="Profile Description(Ex.Piston Seal, Rod Seal .etc.)" class="form-control" style="text-transform:uppercase;" id="profile_DescriptionForHousingUnchecked_' + currentparent + '" name="profile_DescriptionForHousingUnchecked[]" required>\n\
+                        <input type="text" placeholder="Profile Description(Ex.Piston Seal, Rod Seal .etc.)" class="w3-input" style="text-transform:uppercase;" id="profile_DescriptionForHousingUnchecked_' + currentparent + '" name="profile_DescriptionForHousingUnchecked[]" required>\n\
                         </div>\n\
                         </div>\n\
                         <div class="w3-col l12 w3-padding w3-small">\n\
                         <div class="w3-col l4 s4">\n\
                         <div class="input-group">\n\
                         <label>ID:</label>\n\
-                        <input type="number" placeholder="ID" min="0" class="form-control" style="text-transform:uppercase;" id="ID_forHousingUnckecked_' + currentparent + '" name="ID_forHousingUnckecked[]" required>\n\
+                        <input type="number" placeholder="ID" min="0" class="w3-input" style="text-transform:uppercase;" id="ID_forHousingUnckecked_' + currentparent + '" name="ID_forHousingUnckecked[]" required>\n\
                         </div>\n\
                         </div>\n\
                         <div class="w3-col l4 s4 w3-padding-left">\n\
                         <div class="input-group">\n\
                         <label>OD:</label>\n\
-                        <input type="number" placeholder="OD" min="0" class="form-control" style="text-transform:uppercase;" id="OD_forHousingUnckecked_' + currentparent + '" name="OD_forHousingUnckecked[]" required>\n\
+                        <input type="number" placeholder="OD" min="0" class="w3-input" style="text-transform:uppercase;" id="OD_forHousingUnckecked_' + currentparent + '" name="OD_forHousingUnckecked[]" required>\n\
                         </div>\n\
                         </div>\n\
                         <div class="w3-col l4 s4 w3-padding-left">\n\
                         <div class="input-group">\n\
                         <label>LENGTH:</label>\n\
-                        <input type="number" placeholder="LENGTH" min="0" class="form-control" style="text-transform:uppercase;" id="LENGTH_forHousingUnckecked_' + currentparent + '" name="LENGTH_forHousingUnckecked[]" required>\n\
+                        <input type="number" placeholder="LENGTH" min="0" class="w3-input" style="text-transform:uppercase;" id="LENGTH_forHousingUnckecked_' + currentparent + '" name="LENGTH_forHousingUnckecked[]" required>\n\
                         </div>\n\
                         </div>\n\
 </div>'); // this fun is used for show housing div on checkbox of housing
@@ -264,17 +264,15 @@ $(wrapper).html('<div class="w3-col l12 w3-padding w3-small">\n\
                 <div class="w3-col l12 w3-padding-left w3-small">
                     <label>Add New Enquiry</label>
                 </div>
-                <div class="w3-col l12 w3-padding">
-                    <button id="btn-add-product">Add New Product </button>
-                </div>
+                
             </div>
             <form method="POST" action="<?php echo base_url(); ?>inventory/Manage_materials/SaveProductsForEnquiry" id="Manage_EnquiryForm" name="Manage_EnquiryForm">
-                <div class="w3-col l12 w3-border-top" id="parent"><!--this div for customer for to quotation-->
+                <div class="w3-col l12" id="parent"><!--this div for customer for to quotation-->
                     <div class="w3-col l12 w3-padding w3-small">
-                        <div class="w3-col l3 w3-padding-left">
+                        <div class="w3-col l4 w3-padding-left">
                             <div class="input-group w3-padding-top">
                                 <label>Customer Name:</label> 
-                                <input list="Customers" id="Select_Customers" name="Select_Customers" value="<?php echo $cust_name; ?>" class="form-control" required type="text" placeholder="Customer Name">                                         
+                                <input list="Customers" id="Select_Customers" name="Select_Customers" value="<?php echo $cust_name; ?>" class="w3-input" required type="text" placeholder="Select Customer">                                         
                                 <datalist id="Customers">
                                     <?php foreach ($customers['status_message'] as $result) { ?>
                                     <option data-value="<?php echo $result['cust_id']; ?>" value='<?php echo $result['customer_name']; ?>'></option>
@@ -285,9 +283,11 @@ $(wrapper).html('<div class="w3-col l12 w3-padding w3-small">\n\
                     </div>
 
                 </div><!--this div for customer for to quotation-->
-
+                <div class="w3-col l12 w3-padding">
+                    <a id="btn-add-product" class="btn w3-text-red w3-right"><i class="fa fa-plus"></i> Add New Product </a>
+                </div>
                 <div class="w3-col l12"><!--this div for button for add product to quotation-->
-                    <button type="submit" class="btn btn-info w3-right w3-margin" disabled>Raise Enquiry</button>
+                   <center> <button type="submit" id="add_enquiryBTN" class="btn btn-lg w3-blue w3-margin">Add Enquiry Details</button> </center>
                 </div> 
                 <!--this div for button for add product to quotation-->
             </form>
@@ -329,17 +329,17 @@ $(wrapper).html('<div class="w3-col l12 w3-padding w3-small">\n\
         var MaterialOD = [];
         var MaterialLength = [];
 
-        $('#Div_no_'+fieldnum+' input[name="Select_ID[]"]').each(function ()
+        $('#Div_no_'+fieldnum+' input[name="Select_ID['+fieldnum+'][]"]').each(function ()
         {
             MaterialID.push($(this).val());
         });
 
-        $("#Div_no_"+fieldnum+" input[name='Select_OD[]']").each(function ()
+        $("#Div_no_"+fieldnum+" input[name='Select_OD["+fieldnum+"][]']").each(function ()
         {
             MaterialOD.push($(this).val());
         });
 
-        $("#Div_no_"+fieldnum+" input[name='Select_Length[]']").each(function ()
+        $("#Div_no_"+fieldnum+" input[name='Select_Length["+fieldnum+"][]']").each(function ()
         {
             MaterialLength.push($(this).val());
         });
@@ -370,7 +370,7 @@ function GetMaterialBasePrice(fieldnum) {
     Materialinfo = $('#Materialinfo_'+fieldnum+' [value="' + $('#Select_material_'+fieldnum).val() + '"]').data('value');
     //alert(Materialinfo);
         var MaterialLength = [];
-        $("#Div_no_"+ fieldnum+" input[name='Select_Length[]']").each(function ()
+        $("#Div_no_"+ fieldnum+" input[name='Select_Length["+fieldnum+"][]']").each(function ()
     {
         MaterialLength.push($(this).val());
     });
