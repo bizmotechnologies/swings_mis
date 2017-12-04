@@ -39,7 +39,7 @@ error_reporting(E_ERROR | E_PARSE);
                 <div class="w3-col l3 w3-left">\n\
                 <div class="input-group">\n\
                 <label>Profile Name:</label>\n\
-                <input list="Profiles_' + currparent + '" id="Select_Profiles_' + currparent + '" name="Select_Profiles[]" value="<?php echo $div['profile_id']; ?>" class="w3-input" required type="text" placeholder="Select Profile Name" onchange="GetProfileInformation(' + currparent + ');">\n\
+                <input list="Profiles_' + currparent + '" id="Select_Profiles_' + currparent + '" name="Select_Profiles[]" value="<?php echo $div['profile_id']; ?>" class="w3-input" required type="text" placeholder="Select Profile Name" onchange="GetProfileInformation(' + currparent + ');"><input name="profile_id[]" id="profile_id_fetch_'+currparent+'" type="hidden">\n\
                 <datalist id="Profiles_' + currparent + '">\n\
                 <?php foreach ($profileinfo['status_message'] as $result) { ?><option data-value="<?php echo $result['profile_id']; ?>" value="<?php echo $result['profile_name']; ?>"></option><?php } ?></datalist>\n\
                 </div>\n\
@@ -236,13 +236,14 @@ $(wrapper).html('<div class="w3-col l12 w3-padding w3-small">\n\
         <script>
             function GetProfileInformation(rownum) {
                 Profiles = $('#Profiles_' + rownum + ' [value="' + $('#Select_Profiles_' + rownum).val() + '"]').data('value');
-                //alert(Profiles);
+                  $('#profile_id_fetch_'+rownum).val(Profiles);
 
                 $.ajax({
                     type: "POST",
                     url: "<?php echo base_url(); ?>inventory/Manage_materials/GetProfileInformation",
                     data: {
-                        Profiles: Profiles
+                        Profiles: Profiles,
+                        Profile_num: rownum
                     },
                     cache: false,
                     success: function (data) {
@@ -272,7 +273,8 @@ $(wrapper).html('<div class="w3-col l12 w3-padding w3-small">\n\
                         <div class="w3-col l4 w3-padding-left">
                             <div class="input-group w3-padding-top">
                                 <label>Customer Name:</label> 
-                                <input list="Customers" id="Select_Customers" name="Select_Customers" value="<?php echo $cust_name; ?>" class="w3-input" required type="text" placeholder="Select Customer">                                         
+                                <input list="Customers" id="Select_Customers" name="Select_Customers" value="<?php echo $cust_name; ?>" class="w3-input" required type="text" placeholder="Select Customer" onchange="getCustomerId()">  
+                                <input type="hidden" name="customer_id" id="customer_id">                                      
                                 <datalist id="Customers">
                                     <?php foreach ($customers['status_message'] as $result) { ?>
                                     <option data-value="<?php echo $result['cust_id']; ?>" value='<?php echo $result['customer_name']; ?>'></option>
@@ -284,10 +286,10 @@ $(wrapper).html('<div class="w3-col l12 w3-padding w3-small">\n\
 
                 </div><!--this div for customer for to quotation-->
                 <div class="w3-col l12 w3-padding">
-                    <a id="btn-add-product" class="btn w3-text-red w3-right"><i class="fa fa-plus"></i> Add New Product </a>
+                    <a id="btn-add-product" class="btn w3-text-red w3-left"><i class="fa fa-plus"></i> Add New Product </a>
                 </div>
                 <div class="w3-col l12"><!--this div for button for add product to quotation-->
-                   <center> <button type="submit" id="add_enquiryBTN" class="btn btn-lg w3-blue w3-margin">Add Enquiry Details</button> </center>
+                   <button type="submit" id="add_enquiryBTN" class="btn w3-right btn-lg w3-blue w3-margin">Add Enquiry Details</button>
                 </div> 
                 <!--this div for button for add product to quotation-->
             </form>
@@ -304,7 +306,7 @@ $(wrapper).html('<div class="w3-col l12 w3-padding w3-small">\n\
                         <div class="modal-title" id="msg_header"></div>
                     </div>
                     <div class="modal-body">
-                        <div id="addMaterials_err" name="addMaterials_err"></div>
+                        <div id="addMaterials_err" name="addMaterials_err" class="w3-text-red"></div>
                     </div>
                     <div class="modal-footer">
                         <button type="button"  class="btn btn-default" data-dismiss="modal">Close</button>
@@ -317,29 +319,29 @@ $(wrapper).html('<div class="w3-col l12 w3-padding w3-small">\n\
 </div>\n\-->
 <script>
     //------------get best tube-------------
-    function getBest_tube(fieldnum) {
+    function getBest_tube(fieldnum,countnum) {
 
         Materialinfo = 0;
         MaterialID = 0;
         MaterialOD = 0;
         MaterialLength = 0;
-        Materialinfo = $('#Materialinfo_' + fieldnum + ' [value="' + $('#Select_material_' + fieldnum).val() + '"]').data('value');
+        Materialinfo = $('#Materialinfo_' + fieldnum + '_'+countnum+' [value="' + $('#Select_material_' + fieldnum+'_'+countnum).val() + '"]').data('value');
 
         var MaterialID = [];
         var MaterialOD = [];
         var MaterialLength = [];
 
-        $('#Div_no_'+fieldnum+' input[name="Select_ID['+fieldnum+'][]"]').each(function ()
+        $('#Div_no_'+fieldnum+'_'+countnum+' input[name="Select_ID['+fieldnum+'][]"]').each(function ()
         {
             MaterialID.push($(this).val());
         });
 
-        $("#Div_no_"+fieldnum+" input[name='Select_OD["+fieldnum+"][]']").each(function ()
+        $("#Div_no_"+fieldnum+"_"+countnum+" input[name='Select_OD["+fieldnum+"][]']").each(function ()
         {
             MaterialOD.push($(this).val());
         });
 
-        $("#Div_no_"+fieldnum+" input[name='Select_Length["+fieldnum+"][]']").each(function ()
+        $("#Div_no_"+fieldnum+"_"+countnum+" input[name='Select_Length["+fieldnum+"][]']").each(function ()
         {
             MaterialLength.push($(this).val());
         });
@@ -357,24 +359,24 @@ $(wrapper).html('<div class="w3-col l12 w3-padding w3-small">\n\
         success: function (data)
         {
             //alert(data);
-        $('#bestTube_' + fieldnum).val(data);
+        $('#bestTube_'+fieldnum+'_'+countnum).val(data);
      }
  });
     }
 //--------------get best tube end-----------------------
 </script>
 <script>
-function GetMaterialBasePrice(fieldnum) {
+function GetMaterialBasePrice(fieldnum,countnum) {
     Materialinfo = 0;
     MaterialLength = 0;
-    Materialinfo = $('#Materialinfo_'+fieldnum+' [value="' + $('#Select_material_'+fieldnum).val() + '"]').data('value');
+    Materialinfo = $('#Materialinfo_'+fieldnum+'_'+countnum+' [value="' + $('#Select_material_'+fieldnum+'_'+countnum+'').val() + '"]').data('value');
     //alert(Materialinfo);
         var MaterialLength = [];
-        $("#Div_no_"+ fieldnum+" input[name='Select_Length["+fieldnum+"][]']").each(function ()
+        $("#Div_no_"+ fieldnum+"_"+countnum+" input[name='Select_Length["+fieldnum+"][]']").each(function ()
     {
         MaterialLength.push($(this).val());
     });
-    bestTube = $('#bestTube_'+fieldnum).val();
+    bestTube = $('#bestTube_'+fieldnum+'_'+countnum).val();
     //alert(bestTube);
     $.ajax({
         type: "POST",
@@ -388,12 +390,48 @@ function GetMaterialBasePrice(fieldnum) {
         return: false, //stop the actual form post !important!
         success: function (data)
         {
-            $('#base_Price_' + fieldnum).val(data);
+            $('#base_Price_' + fieldnum+'_'+countnum).val(data);
         }
     });
 }
 
 </script>
-    
+
+<!-- get customer id and profile id in hidden text input -->
+<script>
+  function getCustomerId(){
+
+  var customer_id = $('#Customers option[value="' + $('#Select_Customers').val() + '"]').data('value');
+  $('#customer_id').val(customer_id);
+}
+
+</script>
+ <!-- script end -->
+
+ <!-- script to get final price -->
+ <script>
+    function GetFinalPriceForMaterialCalculation(fieldnum,countnum) {
+
+    finalprice = '0';
+    //quantity = '0';
+    //discount = '0';
+    quantity = $("#select_Quantity_"+fieldnum+"_"+countnum).val();
+    discount = $("#discount_"+fieldnum+"_"+countnum).val();
+    baseprice = $("#base_Price_"+fieldnum+"_"+countnum).val();
+
+    if (discount === '' && quantity === '') {
+        finalprice = baseprice;
+    } else if (discount === '') {
+        finalprice = (parseInt(baseprice) * parseInt(quantity));
+    } else if (quantity === '') {
+        finalprice = (parseInt(baseprice) - ((parseInt(discount) / 100) * (parseInt(baseprice))));
+    } else if (discount !== '' && quantity !== '') {
+        finalprice = ((parseInt(baseprice) * parseInt(quantity)) - ((parseInt(discount) / 100) * (parseInt(baseprice) * parseInt(quantity))));
+    }
+    $("#final_Price_"+fieldnum+"_"+countnum).val(finalprice);
+}
+
+ </script>
+ <!-- script end -->
 </body>
 </html>

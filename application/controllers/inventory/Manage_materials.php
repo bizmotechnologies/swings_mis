@@ -1,4 +1,5 @@
 <?php
+error_reporting(E_ERROR | E_PARSE);
 
 class Manage_materials extends CI_controller {
 
@@ -25,7 +26,7 @@ class Manage_materials extends CI_controller {
 
 //---------this fun is used to add multiple products---------------//
     public function Add_MultipleProduct($data) {
-       
+
 //print_r(json_encode($profile_arr));
     }
 
@@ -61,19 +62,42 @@ class Manage_materials extends CI_controller {
         $response_json = curl_exec($ch);
         curl_close($ch);
         $response = json_decode($response_json, true);
-        //print_r($response['status_message']);
+        //print_r($response['status_message']);die(); 
         if ($response['status'] == 1) {
-            for ($i = 0; $i < count($response['status_message']); $i++) {
-                $material_associated = json_decode($response['status_message'][$i]['material_associated'], TRUE);
-                $count = 1;
+            //for ($i = 0; $i < count($response['status_message']); $i++) {
+
+                $material_associated = json_decode($response['status_message'][0]['material_associated'], TRUE);
+                //print_r($material_associated);
+
+                // for ($material=0; $material < count($material_associated); $material++) { 
+                //     echo $material;
+                //     echo'<div class="w3-col l12 w3-tiny w3-margin-top" id="Div_no_'.$i.'_'.$material.'">
+                //     <div class="w3-col l2">';
+                //     echo'<label>MATERIAL</label>';
+                //     echo'<input autocomplete="off" list="Materialinfo_'.$material.'" value="'.$material['material_name'].'" id="Select_material_'.$material.'" name="Select_material[]" class="w3-input" required type="text" placeholder="Material" onchange="GetMaterialInformation_ForEnquiry('.$material.');">';
+
+                //     echo'<datalist id="Materialinfo_'.$material.'">';
+                //     foreach ($materials['status_message'] as $result) {
+                //         echo'<option data-value = "'.$result['material_id'].'" value = "'.$result['material_name'].'"></option>';
+                //     }
+                //     echo'</datalist>
+                //     </div>
+
+                    
+                //     </div>';
+                // }
+                echo '<div class="w3-col l12 w3-tiny"><span class="w3-text-red"><b>NOTE:</b> Input Fields which are disabled (marked in grey and default set to 0) are N/A for the respective material. Only fill enabled input fields</span></div>';
+
+                       $count=0;
 
                 foreach ($material_associated as $key) {
-                    echo'<div class="w3-col l12 w3-tiny w3-margin-top" id="Div_no_'.$count.'">
+
+                    echo'<div class="w3-col l12 w3-tiny w3-margin-top" id="Div_no_'.$Profile_num.'_'.$count.'">
                     <div class="w3-col l2">';
                     echo'<label>MATERIAL</label>';
-                    echo'<input autocomplete="off" list="Materialinfo_'.$count.'" value="'.$key['material_name'].'" id="Select_material_'.$count.'" name="Select_material[]" class="w3-input" required type="text" placeholder="Material" onchange="GetMaterialInformation_ForEnquiry('.$count.');">';
+                    echo'<input autocomplete="off" list="Materialinfo_'.$Profile_num.'_'.$count.'" value="'.$key['material_name'].'" id="Select_material_'.$Profile_num.'_'.$count.'" name="Select_material[]" class="w3-input" required type="text" placeholder="Material" onchange="GetMaterialInformation_ForEnquiry('.$Profile_num.','.$count.');">';
 
-                    echo'<datalist id="Materialinfo_'.$count.'">';
+                    echo'<datalist id="Materialinfo_'.$Profile_num.'_'.$count.'">';
                     foreach ($materials['status_message'] as $result) {
                         echo'<option data-value = "'.$result['material_id'].'" value = "'.$result['material_name'].'"></option>';
                     }
@@ -81,66 +105,92 @@ class Manage_materials extends CI_controller {
                     </div>
                     <div class="w3-col l3">
                     <div class="w3-col l4 s4 w3-padding-left">';
-                    for ($j = 0; $j < $key['ID_quantity']; $j++) {
+
+                    if($key['ID_quantity']==0){                        
+                        $disabled='readonly';
+                        $value='0';
                         echo'<label>ID</label>
-                        <input list="MaterialID_'.$count.'_'.$j.'" value="" id="Select_ID_'.$count.'_'.$j.'" name="Select_ID['.$count.'][]" class="w3-input" required type="text" min="0" placeholder="ID" >
-                        <datalist id="MaterialID_'.$count.'_'.$j.'">
+                        <input value="'.$value.'" name="Select_ID['.$Profile_num.'][]" class="w3-input w3-light-grey" required type="text" min="0" placeholder="ID" '.$disabled.'>';
+                    }
+                    for ($j = 0; $j < $key['ID_quantity']; $j++) {
+
+                        echo'<label>ID</label>
+                        <input list="MaterialID_'.$Profile_num.'_'.$count.'_'.$j.'" value="" id="Select_ID_'.$Profile_num.'_'.$count.'_'.$j.'" name="Select_ID['.$Profile_num.'][]" class="w3-input" required type="text" min="0" placeholder="ID">
+                        <datalist id="MaterialID_'.$Profile_num.'_'.$count.'_'.$j.'">
                         </datalist>';
+
                     }
                     echo'</div>
                     <div class="w3-col l4 s4 w3-padding-left">';
-                    for ($k = 0; $k < $key['OD_quantity']; $k++) {
+
+                    if($key['OD_quantity']==0){                        
+                        $disabled='readonly';
+                        $value='0';
                         echo'<label>OD</label>
-                        <input list="MaterialOD_'.$count.'_'.$k.'" value="" id="Select_OD_'.$count.'_'.$k.'" name="Select_OD['.$count.'][]" class="w3-input" required type="text" min="0" placeholder="OD" >
-                        <datalist id="MaterialOD_'.$count.'_'.$k.'">
+                        <input value="'.$value.'" name="Select_OD['.$Profile_num.'][]" class="w3-input w3-light-grey" required type="text" min="0" placeholder="OD" '.$disabled.'>';
+                    }
+                    for ($k = 0; $k < $key['OD_quantity']; $k++) {
+
+                        echo'<label>OD</label>
+                        <input list="MaterialOD_'.$Profile_num.'_'.$count.'_'.$k.'" value="" id="Select_OD_'.$Profile_num.'_'.$count.'_'.$k.'" name="Select_OD['.$Profile_num.'][]" class="w3-input" required type="text" min="0" placeholder="OD">
+                        <datalist id="MaterialOD_'.$Profile_num.'_'.$count.'_'.$k.'">
                         </datalist>';
                     }
                     echo'</div>
                     <div class="w3-col l4 s4 w3-padding-left" >';
+
+                    if($key['length_quantity']==0){                        
+                        $disabled='readonly';
+                        $value='0';
+                        echo'<label>Length</label>
+                        <input value="'.$value.'" name="Select_Length['.$Profile_num.'][]" class="w3-input w3-light-grey" required type="text" min="0" placeholder="Length" '.$disabled.'>';
+                    }
                     for ($l = 0; $l < $key['length_quantity']; $l++) {
+
                         echo'<label>LENGTH</label>
-                        <input list="MaterialLength_'.$count.'_'.$l.'" value="" id="Select_Length_'.$count.'_'.$l.'" name="Select_Length['.$count.'][]" class="w3-input" required type="text" min="0" placeholder="Length" >
-                        <datalist id="MaterialLength_'.$count.'_'.$l.'">
+                        <input list="MaterialLength_'.$Profile_num.'_'.$count.'_'.$l.'" value="" id="Select_Length_'.$Profile_num.'_'.$count.'_'.$l.'" name="Select_Length['.$Profile_num.'][]" class="w3-input" required type="text" min="0" placeholder="Length" >
+                        <datalist id="MaterialLength_'.$Profile_num.'_'.$count.'_'.$l.'">
                         </datalist>';
                     }
                     echo'</div>
                     </div>
                     <div class="w3-col l1 w3-padding-left">
-                    <label>BEST TUBE</label>&nbsp;<a class="btn w3-red" style="padding:0 2px 0 2px;" onclick="getBest_tube('.$count.');"><i class="fa fa-refresh w3-small"></i></a>
-                    <input id="bestTube_'.$count.'" name="best_tube[]" value="" class="w3-input" required type="text" placeholder="ID/OD" readonly>
+                    <label>BEST TUBE</label>&nbsp;<a class="btn w3-red" style="padding:0 2px 0 2px;" onclick="getBest_tube('.$Profile_num.','.$count.');"><i class="fa fa-refresh w3-small"></i></a>
+                    <input id="bestTube_'.$Profile_num.'_'.$count.'" name="best_tube[]" value="" class="w3-input" required type="text" placeholder="ID/OD" readonly>
                     </div>
                     <div class="w3-col l2 w3-padding-left">
-                    <label>BASE PRICE</label><input id="base_Price_'.$count.'" name="base_Price[]" value="" class="w3-input" min="0" step="0.01" required type="number" placeholder="Base Price"  onfocus="GetMaterialBasePrice('.$count.');">
+                    <label>BASE PRICE</label><input id="base_Price_'.$Profile_num.'_'.$count.'" name="base_Price[]" value="" class="w3-input" min="0" step="0.01" required type="number" placeholder="Base Price"  onfocus="GetMaterialBasePrice('.$Profile_num.','.$count.');">
                     </div>
                     <div class="w3-col l1 w3-padding-left">
                     <label>QUANTITY</label>
-                    <input id="select_Quantity_'.$count.'" name="select_Quantity[]" value="" class="w3-input" min="0" required type="number" placeholder="Quantity" onkeypress="GetFinalPriceForMaterialCalculation('.$count.');">
+                    <input id="select_Quantity_'.$Profile_num.'_'.$count.'" name="select_Quantity[]" value="" class="w3-input" min="0" required type="number" placeholder="Quantity" onkeypress="GetFinalPriceForMaterialCalculation('.$Profile_num.','.$count.');">
                     </div>
                     <div class="w3-col l1 w3-padding-left">
                     <label>DISCOUNT(%)</label>
-                    <input id="discount_'.$count.'" name="discount[]" class="w3-input" required type="number" min="0" step="0.01" placeholder="Discount %." onkeypress="GetFinalPriceForMaterialCalculation('.$count.');">
+                    <input id="discount_'.$Profile_num.'_'.$count.'" name="discount[]" class="w3-input" required type="number" min="0" step="0.01" placeholder="Discount %." onkeypress="GetFinalPriceForMaterialCalculation('.$Profile_num.','.$count.');">
                     </div>
                     <div class="w3-col l2 w3-padding-left">
                     <label>FINAL&nbsp;PRICE</label>
-                    <input id="final_Price_'.$count.'" name="final_Price[]" class="w3-input" required type="number" min="0" step="0.01" placeholder="Final Price" onfocus="GetFinalPriceForMaterialCalculation('.$count.');">
+                    <input id="final_Price_'.$Profile_num.'_'.$count.'" name="final_Price[]" class="w3-input" required type="number" min="0" step="0.01" placeholder="Final Price" onfocus="GetFinalPriceForMaterialCalculation('.$Profile_num.','.$count.');">
                     </div>
 
-                    <div class="w3-col l12" id="best_tubeError_'.$count.'">
+                    <div class="w3-col l12" id="best_tubeError_'.$Profile_num.'_'.$count.'">
                     
                     </div>
                     </div>
 
                     ';
-                    $count++;
+                    $count=$count+1;
+                    
                 }
-            }
+            //}
         }
     }
 
     public function SaveProductsForEnquiry() {
-        $data = $_POST;
-print_r($data);die();
-        extract($data);
+        //$data = $_POST;
+        //print_r($data);die();
+        extract($_POST);
         $Set_QuantityforHousing = 0;
         $housing_status = 0;
         $Prod_ID = 0;
@@ -151,120 +201,118 @@ print_r($data);die();
         $material_Arr = array();
         $profile_arr = array();
 
-            for ($prod = 0; $prod < count($Select_Profiles); $prod++) {
+        for ($prod = 0; $prod < count($Select_Profiles); $prod++) {
 
-                if (isset($Set_QuantityforHousingChecked[$prod])) {
-                    $housing_status = 1;
-                    $Set_QuantityforHousing = $Set_QuantityforHousingChecked;
+            if (isset($Set_QuantityforHousingChecked[$prod])) {
+                $housing_status = 1;
+                $Set_QuantityforHousing = $Set_QuantityforHousingChecked;
 
-                    $Prod_ID = $ID_forHousingChecked;
-                    $Prod_OD = $OD_forHousingChecked;
-                    $Prod_length = $LENGTH_forHousingChecked;
-                    $Prod_description = $profile_DescriptionForHousingChecked;
-                } else {
-                    $housing_status = 0;
-                    $Set_QuantityforHousing = 0;
-                    $Prod_ID = $ID_forHousingUnckecked;
-                    $Prod_OD = $OD_forHousingUnckecked;
-                    $Prod_length = $LENGTH_forHousingUnckecked;
-                    $Prod_description = $profile_DescriptionForHousingUnchecked;
+                $Prod_ID = $ID_forHousingChecked;
+                $Prod_OD = $OD_forHousingChecked;
+                $Prod_length = $LENGTH_forHousingChecked;
+                $Prod_description = $profile_DescriptionForHousingChecked;
+            } else {
+                $housing_status = 0;
+                $Set_QuantityforHousing = 0;
+                $Prod_ID = $ID_forHousingUnckecked;
+                $Prod_OD = $OD_forHousingUnckecked;
+                $Prod_length = $LENGTH_forHousingUnckecked;
+                $Prod_description = $profile_DescriptionForHousingUnchecked;
+            }
+
+
+            for ($i = 0; $i < count($Select_material); $i++) {
+                $ID_arr = array();
+                $OD_arr = array();
+                $Length_arr = array();
+                
+                foreach ($Select_ID as $ID) {
+                 $multiple_ID = array();
+                 foreach ($ID as $key) {
+                    $multiple_ID[]=$key;
                 }
+                $ID_arr[] = $multiple_ID;
+            }
 
+            foreach ($Select_OD as $OD) {
+             $multiple_OD = array();
+             foreach ($OD as $key) {
+                $multiple_OD[]=$key;
+            }
+            $OD_arr[] = $multiple_OD;
+        }
+        foreach ($Select_Length as $Length) {
+         $multiple_Length = array();
+         foreach ($Length as $key) {
+            $multiple_Length[]=$key;
+        }
+        $Length_arr[] = $multiple_Length;
+    }
 
-//print_r($data);
-                for ($i = 0; $i < count($Select_material); $i++) {
-                    $ID_arr = array();
-                    $OD_arr = array();
-                    $Length_arr = array();
-                    for ($ID=0; $ID < count($Select_material); $ID++) {
-                        $multiple_ID = array();
-                        //print_r($Select_ID[$ID]);die();
-                        foreach ($Select_OD[$ID] as $key) {
-                            print_r($key);
-                            $multiple_ID[]=$key;
-                        }
-                        $ID_arr[] = $multiple_ID;
-                    }
-
-
-                    foreach ($Select_OD as $OD) {
-                         $multiple_OD = array();
-                        foreach ($OD as $key) {
-                            $multiple_OD[]=$key;
-                        }
-                        $OD_arr[] = $multiple_OD;
-                    }
-                    foreach ($Select_Length as $Length) {
-                         $multiple_Length = array();
-                        foreach ($Length as $key) {
-                            $multiple_Length[]=$key;
-                        }
-                        $Length_arr[] = $multiple_Length;
-                    }
-
-                    $material_Arr[] = array(
-                        'material_id' => $Select_material[$i],
-                        'material_ID' => $ID_arr,
-                        'material_OD' => $OD_arr,
-                        'material_Length' => $Length_arr,
-                        'best_tube' => $best_tube,
-                        'base_Price' => $base_Price[$i],
-                        'select_Quantity' => $select_Quantity[$i],
-                        'discount' => $discount[$i],
-                        'final_Price' => $final_Price[$i]
-                    );
-                }
+    $material_Arr[] = array(
+        'material_id' => $Select_material[$i],
+        'material_ID' => $ID_arr,
+        'material_OD' => $OD_arr,
+        'material_Length' => $Length_arr,
+        'best_tube' => $best_tube,
+        'base_Price' => $base_Price[$i],
+        'select_Quantity' => $select_Quantity[$i],
+        'discount' => $discount[$i],
+        'final_Price' => $final_Price[$i]
+    );
+}
 //print_r(json_encode($material_Arr));
 
-                $profile_arr[] = array(
-                    'customer_name' => $Select_Customers,
-                    'product_name' => $product_nameForEnquiry[$prod],
-                    'profile_id' => $Select_Profiles[$prod],
-                    'housing_status' => $housing_status,
-                    'profile_description' => $Prod_description,
-                    'housing_setQuantity' => $Set_QuantityforHousing[$prod],
-                    'Prod_ID' => $Prod_ID[$prod],
-                    'Prod_OD' => $Prod_OD[$prod],
-                    'Prod_length' => $Prod_length[$prod],
-                    'material_associated' => $material_Arr,
-                    'product_quantity' => $Product_Quantity[$prod],
-                    'product_price' => $TotalProduct_Price[$prod]
-                );
-            }
-       
-        echo json_encode($profile_arr);
-        die();
-        $path = base_url();
-        $url = $path . 'api/ManageEnquiry_api/SaveProductsForEnquiry';
-        $ch = curl_init($url);
-        curl_setopt($ch, CURLOPT_POST, true);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        $response_json = curl_exec($ch);
-        curl_close($ch);
-        $response = json_decode($response_json, true);
-    }
+$profile_arr[] = array(
+    'product_name' => $product_nameForEnquiry[$prod],
+    'profile_id' => $profile_id[$prod],
+    'housing_status' => $housing_status,
+    'profile_description' => $Prod_description,
+    'housing_setQuantity' => $Set_QuantityforHousing[$prod],
+    'Prod_ID' => $Prod_ID,
+    'Prod_OD' => $Prod_OD,
+    'Prod_length' => $Prod_length,
+    'material_associated' => $material_Arr,
+    'product_quantity' => $Product_Quantity[$prod],
+    'product_price' => $TotalProduct_Price[$prod]
+);
+}
+$data['customer_id']=$customer_id;
+$data['customer_name']=$Select_Customers;
+$data['products_associated']=json_encode($profile_arr);
+
+$path = base_url();
+$url = $path . 'api/ManageEnquiry_api/SaveProductsForEnquiry';
+$ch = curl_init($url);
+curl_setopt($ch, CURLOPT_POST, true);
+curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+$response_json = curl_exec($ch);
+curl_close($ch);
+$response = json_decode($response_json, true);
+echo $response['status_message'];
+}
 
 
 //---this fun is used to get base price from raw material 
-    public function GetRawMaterialBasePriceForEnquiry() {
-        $Material_id = 0;
-        $Material_ID = array("10","20","20","11","20","20");
-        $Material_OD = array("20","20","20","5","20","20");
-        $Material_LENGTH = array("","","","","","");
-        $path = base_url();
-        $url = $path . 'api/ManageMaterial_api/GetRawMaterialBasePriceForEnquiry?material_id = ' . $Material_id . '&Material_ID = ' . $Material_ID . '&Material_OD =' . $Material_OD . '&Material_LENGTH =' . $Material_LENGTH;
-        $ch = curl_init($url);
-        curl_setopt($ch, CURLOPT_HTTPGET, true);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        $response_json = curl_exec($ch);
-        curl_close($ch);
-        $response = json_decode($response_json, true);
-        print_r($response);
-    }
+public function GetRawMaterialBasePriceForEnquiry() {
+    $Material_id = 0;
+    $Material_ID = array("10","20","20","11","20","20");
+    $Material_OD = array("20","20","20","5","20","20");
+    $Material_LENGTH = array("","","","","","");
+    $path = base_url();
+    $url = $path . 'api/ManageMaterial_api/GetRawMaterialBasePriceForEnquiry?material_id = ' . $Material_id . '&Material_ID = ' . $Material_ID . '&Material_OD =' . $Material_OD . '&Material_LENGTH =' . $Material_LENGTH;
+    $ch = curl_init($url);
+    curl_setopt($ch, CURLOPT_HTTPGET, true);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    $response_json = curl_exec($ch);
+    curl_close($ch);
+    $response = json_decode($response_json, true);
+    print_r($response);
+}
 
 //---this fun is used to get base price from raw material 
-    public function fetchmaterial_details() {
+public function fetchmaterial_details() {
         $data['info'] = Manage_materials::getRawMaterialInfo();     //-------show all Raw materials
         $data['materials'] = Manage_materials::getMaterialrecord();     //-------show all Raw materials
         $data['customers'] = Manage_materials::GetCustomersDetails();     //-------show all Customers

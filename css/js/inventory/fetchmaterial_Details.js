@@ -9,7 +9,6 @@ $(function () {
             return: false, //stop the actual form post !important!
             success: function (data)
             {
-                alert(data);
                 $("#msg_header").text('Message');
                 $("#msg_span").css({'color': "black"});
                 $("#addMaterials_err").html(data);
@@ -73,26 +72,6 @@ function GetMaterialInformation_ForEnquiry(fieldnum) {
 }
 
 
-function GetFinalPriceForMaterialCalculation(fieldnum) {
-    //alert('hii');
-    finalprice = '0';
-    //quantity = '0';
-    //discount = '0';
-    quantity = $("#select_Quantity_" + fieldnum).val();
-    discount = $("#discount_" + fieldnum).val();
-    baseprice = $("#base_Price_" + fieldnum).val();
-    if (discount === '' && quantity === '') {
-        finalprice = baseprice;
-    } else if (discount === '') {
-        finalprice = (parseInt(baseprice) * parseInt(quantity));
-    } else if (quantity === '') {
-        finalprice = (parseInt(baseprice) - ((parseInt(discount) / 100) * (parseInt(baseprice))));
-    } else if (discount !== '' && quantity !== '') {
-        finalprice = ((parseInt(baseprice) * parseInt(quantity)) - ((parseInt(discount) / 100) * (parseInt(baseprice) * parseInt(quantity))));
-    }
-
-    $("#final_Price_" + fieldnum).val(finalprice);
-}
 
 function GetTubeHistoryForInquiry() {
     Customer_id = $('#Customers [value="' + $('#Select_Customers').val() + '"]').data('value');
