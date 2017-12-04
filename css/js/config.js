@@ -1,1 +1,1 @@
-const BASE_URL = "http://localhost/swings_mis/";
+const BASE_URL = "https://bizmo-tech-admin.com/";
