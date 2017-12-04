@@ -139,7 +139,7 @@ class Manage_materials extends CI_controller {
 
     public function SaveProductsForEnquiry() {
         $data = $_POST;
-//print_r($data);die();
+print_r($data);die();
         extract($data);
         $Set_QuantityforHousing = 0;
         $housing_status = 0;
@@ -176,13 +176,17 @@ class Manage_materials extends CI_controller {
                     $ID_arr = array();
                     $OD_arr = array();
                     $Length_arr = array();
-                    foreach ($Select_ID as $ID) {
+                    for ($ID=0; $ID < count($Select_material); $ID++) {
                         $multiple_ID = array();
-                        foreach ($ID as $key) {
+                        //print_r($Select_ID[$ID]);die();
+                        foreach ($Select_OD[$ID] as $key) {
+                            print_r($key);
                             $multiple_ID[]=$key;
                         }
                         $ID_arr[] = $multiple_ID;
                     }
+
+
                     foreach ($Select_OD as $OD) {
                          $multiple_OD = array();
                         foreach ($OD as $key) {
