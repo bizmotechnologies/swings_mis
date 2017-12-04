@@ -75,9 +75,9 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => 'localhost',
+	'hostname' => 'mysql.hostinger.in',
 	'username' => 'u806213775_arexy',
-	'password' => '',
+	'password' => 'sealwings',
 	'database' => 'u806213775_uvawe',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
