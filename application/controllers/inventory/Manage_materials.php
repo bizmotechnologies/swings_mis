@@ -191,6 +191,11 @@ class Manage_materials extends CI_controller {
         //$data = $_POST;
         //print_r($data);die();
         extract($_POST);
+
+        if(!isset($Select_Profiles)){
+            echo 'Add at least 1 Product in Enquiry';
+            die();
+        }
         $Set_QuantityforHousing = 0;
         $housing_status = 0;
         $Prod_ID = 0;

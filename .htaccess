@@ -7,7 +7,7 @@
       # then use
       # RewriteBase /projectfolder  //its an example
 
-      RewriteBase /swings_mis
+      RewriteBase /
       RewriteCond %{REQUEST_FILENAME} !-f
       RewriteCond %{REQUEST_FILENAME} !-d
       RewriteRule ^(.*)$ index.php?/$1 [L]

@@ -317,6 +317,15 @@ $(wrapper).html('<div class="w3-col l12 w3-padding w3-small">\n\
 <!--\n\<div class="w3-col l12 w3-padding-left w3-margin-top w3-margin-bottom">\n\
 <button class="btn-add-siblings">Add Material</button>\n\
 </div>\n\-->
+<!--  Script to reload page when enquiry modal closes............................
+--> 
+<script>
+  $('#myModalnew').on('hidden.bs.modal', function () {
+    location.reload();
+  });
+</script>
+<!-- script end -->
+
 <script>
     //------------get best tube-------------
     function getBest_tube(fieldnum,countnum) {
