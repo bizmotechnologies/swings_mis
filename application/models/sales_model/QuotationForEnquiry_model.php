@@ -50,7 +50,7 @@ class QuotationForEnquiry_model extends CI_Model {
     //------------this fun is for get all enquiries sort by date, customer and sort-------------//
     //------------this fun is used to get enquiries by enquiry id--------------------------------//
     public function Show_Enquiry($Enquiries) {
-        $query = "SELECT * FROM enquiry_master WHERE enquiry_id = '$Enquiries'";
+        $query = "SELECT * FROM enquiry_master WHERE enquiry_id = '$Enquiries' AND current_status = '1'";
 
         $result = $this->db->query($query);
         if ($result->num_rows() <= 0) {
