@@ -22,9 +22,8 @@ class Manage_enquiry extends CI_controller {
 //---this fun is used to get base price from raw material 
     public function getBest_tube() {
         extract($_POST);
-        //print_r($_POST);die();
-        if(isset($MaterialID) && isset($MaterialOD) && isset($MaterialLength)){
 
+        if(isset($MaterialID) && isset($MaterialOD) && isset($MaterialLength)){
             $Material_ID = min($MaterialID);
             $Material_OD = max($MaterialOD);
             $Material_LENGTH = max($MaterialLength);

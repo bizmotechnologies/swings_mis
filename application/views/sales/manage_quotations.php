@@ -38,6 +38,7 @@ error_reporting(E_ERROR | E_PARSE);
 
         <div class="w3-col l12 w3-padding w3-small">
           <div class="w3-col l12 w3-padding-left">
+            <?php //print_r($all_enquiries); ?>
             <label class="">Select Enquiry:</label>
             <div class="input-group">
               <span class="input-group-btn w3-light-grey w3-border-bottom">
@@ -46,7 +47,7 @@ error_reporting(E_ERROR | E_PARSE);
               <input list="enquiry_list" type="text" class="w3-input" name="enquiry_name" id="enquiry_name" placeholder="search by enquiry no. or customer name" required>
               <datalist id="enquiry_list">
                 <?php foreach($all_enquiries['status_message'] as $result) { ?>
-                <option data-value="<?php echo $result['material_id']; ?>" value="<?php echo $result['material_name']; ?>"><?php echo $result['material_name']; ?></option>                  
+                <option data-value="<?php echo $result['enquiry_id']; ?>" value="<?php echo '#ENQ-0'.$result['enquiry_id']; ?>"><?php echo $result['customer_name']; ?> (dated: <?php echo $result['date_on']; ?>)</option>                  
                 <?php } ?>
               </datalist>
             </div>

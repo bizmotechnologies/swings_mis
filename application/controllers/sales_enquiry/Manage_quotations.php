@@ -19,9 +19,8 @@ class Manage_quotations extends CI_Controller
 
 	public function index(){
 		
-		$data['all_products']=Manage_quotations::show_products();
+		$data['all_enquiries'] = Manage_quotations::fetchEnquiry_For_Quotation();
 		$data['all_customer']=Manage_quotations::show_customer();
-		$data['all_liveQuotations']=Manage_quotations::show_liveQuotation();
 
 		$this->load->view('includes/navigation.php');
 		$this->load->view('sales/manage_quotations.php',$data);		
@@ -239,7 +238,7 @@ class Manage_quotations extends CI_Controller
         // --------------------- this fun is used to get sort quotation by customer and date ----------------------------------//
 
 
-        	
+
     // --------------------- this fun is used to show quotation page ----------------------------------//	
 
 	public function show_quotations(){
@@ -250,7 +249,7 @@ class Manage_quotations extends CI_Controller
         // --------------------- this fun is used to show quotation page ----------------------------------//	
 
 
-	
+
     // --------------------- this fun is used to show enquiries by enquiry id ----------------------------------//	
 
 	public function Show_Enquiry(){
