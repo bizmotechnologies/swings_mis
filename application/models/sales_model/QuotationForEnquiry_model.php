@@ -8,7 +8,7 @@ class QuotationForEnquiry_model extends CI_Model {
 //------------this fun is for get all enquiries for quotation status-------------
     public function fetchEnquiry_For_Quotation() {
         $query = "SELECT * FROM enquiry_master";
-        
+
         $result = $this->db->query($query);
         if ($result->num_rows() <= 0) {
             $response = array(
@@ -45,16 +45,13 @@ class QuotationForEnquiry_model extends CI_Model {
                     $sql = "SELECT * FROM quotation_master WHERE status = '0' AND cust_id = '$customer_Id'";
             }
         }
-        
-        
-        
     }
 
     //------------this fun is for get all enquiries sort by date, customer and sort-------------//
-    
-    public function Show_Enquiry($Enquiries){
+    //------------this fun is used to get enquiries by enquiry id--------------------------------//
+    public function Show_Enquiry($Enquiries) {
         $query = "SELECT * FROM enquiry_master WHERE enquiry_id = '$Enquiries'";
-        
+
         $result = $this->db->query($query);
         if ($result->num_rows() <= 0) {
             $response = array(
@@ -67,4 +64,6 @@ class QuotationForEnquiry_model extends CI_Model {
         }
         return $response;
     }
+
+    //------------this fun is used to get enquiries by enquiry id--------------------------------//
 }

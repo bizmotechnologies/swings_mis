@@ -440,6 +440,7 @@ class Manage_quotations extends CI_Controller
 
 	}
 // ---------------------function ends----------------------------------//	
+// --------------------- this fun is used to get all enquiry for quotation----------------------------------//	
 
  public function fetchEnquiry_For_Quotation(){
         
@@ -453,8 +454,10 @@ class Manage_quotations extends CI_Controller
 		$response=json_decode($response_json, true);
                 return ($response);
     }
-    
-    
+    // --------------------- this fun is used to get all enquiry for quotation ends here----------------------------------//	
+
+    // --------------------- this fun is used to get sort quotation by customer and date ----------------------------------//	
+
     public function sort_Enquiry(){
         
         $From_date = 2017/01/01;
@@ -471,13 +474,17 @@ class Manage_quotations extends CI_Controller
 		$response=json_decode($response_json, true);
                 print_r($response);
     }
-    
+        // --------------------- this fun is used to get sort quotation by customer and date ----------------------------------//	
+    // --------------------- this fun is used to show quotation page ----------------------------------//	
+
     public function show_quotations(){
         $data['Enquiries'] = Manage_quotations::fetchEnquiry_For_Quotation();
         $this->load->view('includes/navigation');
         $this->load->view('sales/Quotation_new',$data);	
     }
-    
+        // --------------------- this fun is used to show quotation page ----------------------------------//	
+    // --------------------- this fun is used to show enquiries by enquiry id ----------------------------------//	
+
     public function Show_Enquiry(){
                 extract($_POST);
                 //print_r($_POST);
@@ -491,6 +498,7 @@ class Manage_quotations extends CI_Controller
 		$response=json_decode($response_json, true);
                 print_r($response);
     }
-    
+        // --------------------- this fun is used to show enquiries by enquiry id ----------------------------------//	
+
    
 }

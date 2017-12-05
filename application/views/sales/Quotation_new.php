@@ -36,11 +36,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <input type="hidden" name="material_id[]" id="material_id_1">
             </div>
 
+            <div class="w3-col l12" id="showerror">
+
+            </div>
+
             <div class="w3-col l12"><!-- container starts here -->
-                <div class="w3-col l12">
-                    <span id="input_category_span">
-                    </span>
-                </div>
+
                 <!-- this Div is for Showing table  -->
                 <div class="w3-col l12">
                     <div class="w3-col l12 w3-margin-right" id="" name="" >
@@ -60,9 +61,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         </table>
                     </div>
                 </div>
-                <div class="w3-col l12" id="showerror">
-                    
-                </div>
+
             </div>
         </div>
     </body>
@@ -82,6 +81,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             success: function (data)
             {
                 alert(data);
+                $('#showerror').html(data);
+
             }
         });
     }

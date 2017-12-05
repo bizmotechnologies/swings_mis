@@ -66,9 +66,12 @@ class ManageQuotations_api extends REST_Controller {
     }
 
 //------------this fun is used to get sort enquiry by the date,customer and status-------------------//
-    public function Show_Enquiry_get(){
+    //------------this fun is for get enquiry by id-------------------------------------//
+    public function Show_Enquiry_get() {
         $Enquiries = $_GET['Enquiries'];
         $response = $this->QuotationForEnquiry_model->Show_Enquiry($Enquiries);
         return $this->response($response);
     }
+
+    //------------this fun is for get enquiry by id-------------------------------------//
 }
