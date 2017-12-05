@@ -5,7 +5,7 @@ error_reporting(E_ERROR | E_PARSE);
 <html>
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Generate Quotations</title>
+  <title>Manage Quotations</title>
   <link rel="stylesheet" href="<?php echo base_url(); ?>css/bootstrap/bootstrap.min.css">
   <link rel="stylesheet" href="<?php echo base_url(); ?>css/font awesome/font-awesome.min.css">
   <link rel="stylesheet" href="<?php echo base_url(); ?>css/font awesome/font-awesome.css">
@@ -30,173 +30,64 @@ error_reporting(E_ERROR | E_PARSE);
     </header>
 
     <div class="w3-container">
-      <div class="w3-col l6">
+      <div class="w3-col l6 w3-border">
         <header class="w3-container" >
           <h6><b><i class="fa fa-hand-o-up"></i> Raise Quotation</b></h6>
           <span class="w3-small"></span>
         </header>
 
         <div class="w3-col l12 w3-padding w3-small">
-          <form id="raiseQuote_form">
-            <div class="w3-right checkbox w3-padding-right">
-              <label title="Toggle the switch to raise new OR revise old quotation" class="">
-                <input name="revise_quoteBtn" data-onstyle="danger" data-size="mini" id="revise_quoteBtn" type="checkbox" data-toggle="toggle" data-on="Revise Old" data-off="Raise New" value="1">
-              </label>                           
+          <div class="w3-col l12 w3-padding-left">
+            <label class="">Select Enquiry:</label>
+            <div class="input-group">
+              <span class="input-group-btn w3-light-grey w3-border-bottom">
+                <strong><label class="w3-small">&nbsp;#ENQ NO :&nbsp;</label></strong>
+              </span>
+              <input list="enquiry_list" type="text" class="w3-input" name="enquiry_name" id="enquiry_name" placeholder="search by enquiry no. or customer name" required>
+              <datalist id="enquiry_list">
+                <?php foreach($all_enquiries['status_message'] as $result) { ?>
+                <option data-value="<?php echo $result['material_id']; ?>" value="<?php echo $result['material_name']; ?>"><?php echo $result['material_name']; ?></option>                  
+                <?php } ?>
+              </datalist>
             </div>
-            <div class="w3-col l12 w3-margin-bottom">
-              <div class="w3-col l12 w3-padding" id="new_quoteDiv">
-                <label>Customer List:</label>
-                <select name="customer_name" id="customer_name" class="form-control">
-                  <option class="w3-red" value="0">Select customer</option>
-                  <?php 
-                  if(isset($all_customer['status'])==0){
-                    echo '<option>'.$all_customer['status_message'].'</option>';                    
-                  }
-                  else{
-                    foreach ($all_customer['status_message'] as $key) {                  
-                     echo '<option value="'.$key['cust_id'].'">'.$key['customer_name'].' <i class="w3-tiny">('.$key['customer_email'].')</i></option>';
-                   }
-                 }
-                 ?>
-               </select>
-               <div class="w3-col l12">
-                <a href="<?php echo base_url(); ?>inventory/add_customers"><span class="w3-tiny w3-right w3-text-red w3-label"><i class="fa fa-plus"></i> Add Customer</span></a>
-              </div>
-            </div>
-            <div class="w3-col l12 w3-padding" id="revise_quoteDiv" style="display: none"></div>
-            <div class="w3-col l6 w3-padding">
-              <label>Product List:</label>
-              <select class="form-control" id="product_id" name="product_id" >
-                <option value="0">Select product</option>
-                <?php 
-                if(isset($all_products['status'])){
-                  echo '<option>'.$all_products['status_message'].'</option>';                    
-                }
-                else{
-                  foreach ($all_products as $key) {                  
-                   echo '<option value="'.$key['product_id'].'">'.$key['product_name'].'</option>';
-                 }
-               }
-               ?>
-             </select>
-             <div class="w3-col l12">
-              <a href="<?php echo base_url(); ?>inventory/manage_products/add_products"><span class="w3-tiny w3-right w3-text-red w3-label"><i class="fa fa-plus"></i> Add Product</span></a>
-            </div>
-          </div>
-          <div class="w3-col l2 w3-padding">
-            <label>Cut :</label>
-            <input class="form-control" type="number" id="quote_cut" name="quote_cut" placeholder="Cut" required>
-          </div>
-          <div class="w3-col l4 w3-padding ">
-            <br>
-            <a class="btn w3-small w3-text-blue" id="get_productSpecs_btn"><b><i class="fa fa-chevron-circle-down"></i> Get Specifications</b></a>
+
           </div>
         </div>
-
-        <div id="product_specs">
-
-        </div>
-        <div class="w3-col l12">
-          <div class="col-lg-3"></div>
-          <div class="w3-col l6 w3-card" id="all_productSession">
-            <?php 
-
-            $disable_add="disabled";
-            $product_session=$this->session->userdata('product_session');
-            if(isset($product_session)!='cleared'){ 
-
-              if($product_session==''){
-                echo '<span class="w3-text-red w3-margin-left w3-center"><b>No Any product added yet.</b></span>'; 
-              }
-              echo '
-              <table class="table table-striped" >';
-
-              $product_arr=json_decode($product_session,true);
-              $count=1;
-              foreach ($product_arr as $key) {
-
-                echo '
-                <tr>
-                <td>
-                <span class="w3-padding-left"><b>'.$count.'. '.$key['product_name'].'</b></span>                 
-                </td>
-                </tr>
-                ';
-                $count++;
-              }
-
-
-              echo '</table>
-              <a href="'.base_url().'sales_enquiry/manage_quotations/clearSession" class="w3-button w3-right w3-margin-right w3-margin-bottom" title="Clear product list"><i class="fa fa-refresh"></i> Clear</a>
-              ';
-            } ?>
-          </div>
-          <div class="col-lg-3"></div>
-        </div>
-        <div class="w3-col l12 w3-center w3-padding-large">
-          <button type="submit" title="Raise Quotation" class=" btn-sm btn-block btn w3-blue w3-margin-top" >Raise Quotation</button>
-        </div>
-        <!-- <div id="more"></div>
-          <button type="btn" id="moreBTN">ADD</button> -->
-        </form>
+      </div>
+      <div class="w3-col l6">
+        <header class="w3-container" >
+          <h6><b><i class="fa fa-file-text"></i> Quotation Details</b></h6>
+          <span class="w3-small"></span>
+        </header>
+        <div class="w3-col l12 w3-small"></div>
       </div>
     </div>
-    <div class="w3-col l6">
-      <header class="w3-container" >
-        <h6><b><i class="fa fa-file-text"></i> Quotation Details</b></h6>
-        <span class="w3-small"></span>
-      </header>
-      <div class="w3-col l12 w3-small">
-        <div class="w3-col l12 w3-padding">
-          <label>Live Quotations List:</label><br>
-          <span class="w3-tiny w3-text-red">* Select Quotation Number to view its details.</span>
-          <select name="quotation_ToSend" id="quotation_ToSend" class="form-control">
-            <option class="w3-red" value="0">Select quotation</option>
-            <?php 
-            if(isset($all_liveQuotations['status'])==0){
-              echo '<option>'.$all_liveQuotations['status_message'].'</option>';                    
-            }
-            else{
-              foreach ($all_liveQuotations['status_message'] as $key) {                  
-               echo '<option value="'.$key['sub_quotation_id'].'">Quotation No.#Q'.$key['quotation_id'].'/'.$key['sub_quotation_id'].'- dated:'.$key['dated'].'</option>';
-             }
-           }
-           ?>
-         </select>
-       </div>
-       <div class="w3-col l12 " id="quotation_detailsDIV">
 
-       </div>
+    <div id="Input_MaterialStock"></div>
+    <!-- End page content -->
+  </div>
+  <!-- script to delete product -->
+  <script>
+    function delProduct(id)
+    {
 
-     </div>
-   </div>
- </div>
-
- <div id="Input_MaterialStock"></div>
- <!-- End page content -->
-</div>
-<!-- script to delete product -->
-<script>
-  function delProduct(id)
-  {
-
-   $.ajax({
-    type:'post',
-    url:'<?php echo base_url(); ?>sales_enquiry/manage_quotations/delProducts_fromSession',
-    data:{
-      delete_product_id:id  },
-      success:function(response) {
-        alert(response);
+     $.ajax({
+      type:'post',
+      url:'<?php echo base_url(); ?>sales_enquiry/manage_quotations/delProducts_fromSession',
+      data:{
+        delete_product_id:id  },
+        success:function(response) {
+          alert(response);
       //location.reload();
     }
   });
- }
-</script>
-<!-- script end -->
+   }
+ </script>
+ <!-- script end -->
 
-<!-- script to add products in array  -->
-<script>
- function addProducts() {
+ <!-- script to add products in array  -->
+ <script>
+   function addProducts() {
         var product_id = $('#product_id').val(); //product name value
         var cut_value = $('#quote_cut').val(); //product cut value
         var quote_ID = $('#quote_ID').val(); //product ID value
@@ -285,7 +176,7 @@ error_reporting(E_ERROR | E_PARSE);
            success: function(data)
            {
 
-           location.reload();
+             location.reload();
            }
 
          });
