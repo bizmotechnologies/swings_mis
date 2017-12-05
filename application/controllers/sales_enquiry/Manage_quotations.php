@@ -250,20 +250,94 @@ class Manage_quotations extends CI_Controller
 
 
 
-    // --------------------- this fun is used to show enquiries by enquiry id ----------------------------------//	
-
+    // --------------------- this fun is used to show enquiries by enquiry id ----------------------------------//
 	public function Show_Enquiry(){
 		extract($_POST);
-                //print_r($_POST);
+
+		if(!isset($enquiry_id)){
+			echo '<div class="alert alert-danger w3-col l12">
+			<strong>No records found for this Enquiry number. Select Valid Enquiry from the list!!!</strong> 
+			</div>			
+			';
+			die();
+		}
 		$path=base_url();
-		$url = $path.'api/manageQuotations_api/Show_Enquiry?Enquiries='.$Enquiries;
+		$url = $path.'api/manageQuotations_api/Show_Enquiry?enquiry_id='.$enquiry_id;
 		$ch = curl_init($url);
 		curl_setopt($ch, CURLOPT_HTTPGET, true);
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 		$response_json = curl_exec($ch);
 		curl_close($ch);
 		$response=json_decode($response_json, true);
-		print_r($response);
+		//print_r($response_json);
+
+		if($response['status']==1){
+			$products_associatedArr= json_decode($response['status_message'][0]['products_associated'],true);
+			$enquiry_no=$response['status_message'][0]['enquiry_id'];
+			$customer_id=$response['status_message'][0]['customer_id'];
+			$customer_name=$response['status_message'][0]['customer_name'];
+			$date=date('d M Y', strtotime($response['status_message'][0]['date_on']));
+			$time=date('h:m A', strtotime($response['status_message'][0]['time_on']));
+
+			//print_r($products_associatedArr);die();
+
+				echo '
+				<div class="w3-col l12 w3-small w3-padding-left">
+				<div class="w3-col l12 w3-margin-bottom">
+				<div class="w3-left">
+				<label class="w3-label w3-text-red">Enquiry No:</label> <span class="">#ENQ-0'.$enquiry_no.'</span>
+				</div>
+				<div class="w3-right">
+				<label class="w3-label w3-text-red">Issued On:</label> <span class="">'.$date.', '.$time.'</span>
+				</div>
+				</div>
+
+				<div class="w3-col l12 w3-margin-bottom">
+				<label class="w3-label w3-text-red">Customer Name:</label> <span class="">'.$customer_name.' (#CID-0'.$customer_id.')</span>
+				</div>
+
+				<div class="w3-col l12 w3-margin-bottom">
+				<label class="w3-label w3-text-red">Products:</label>
+
+				<ol type="I" style="margin: 0">';
+
+				//--------------------------all the products fetched from enquiry----------------------//
+				foreach ($products_associatedArr as $key) { 
+				echo '
+				<li>'.strtoupper($key['product_name']).' -';
+
+				if($key['housing_status']==1){ echo $key['housing_setQuantity'].' SETS'; } else { echo '1 SET'; }
+
+				echo '
+				</li>
+				<ol>
+				<i>
+				<li>'.ucwords($key['profile_description'][0]).'- '.strtoupper($key['profile_id']).'- '.$key['Prod_ID'][0].'mm ID X '.$key['Prod_OD'][0].'mm OD X '.$key['Prod_length'][0].'mm THICK -';
+
+				if($key['housing_status']==1){ echo '1 NO.'; } else { echo $key['product_quantity'].' NO.'; }
+
+				echo '@ '.$key['product_price'].' <i class="fa fa-inr"></i> per NO</li>
+				</i>
+				</ol>
+				<br>
+				';
+				//------------------------------products fetched end ----------------------------------//
+				} 
+
+
+				echo '</ol>              
+				</div>
+
+				</div>';			
+			
+		}
+		else{
+
+			echo '<div class="alert alert-danger w3-col l12">
+			<strong>'.$response['status_message'].'</strong> 
+			</div>			
+			';	
+		}
 	}
         // --------------------- this fun is used to show enquiries by enquiry id ----------------------------------//	
 

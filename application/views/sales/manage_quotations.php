@@ -17,7 +17,9 @@ error_reporting(E_ERROR | E_PARSE);
   <script type="text/javascript" src="<?php echo base_url(); ?>css/bootstrap/bootstrap.min.js"></script>
   <script src="<?php echo base_url(); ?>css/bootstrap/bootstrap-toggle.min.js"></script>
   <script type="text/javascript" src="<?php echo base_url(); ?>css/alert/jquery-confirm.js"></script>
-  <script type="text/javascript" src="<?php echo base_url(); ?>css/js/function.js"></script>
+      <script type="text/javascript" src="<?php echo base_url(); ?>css/js/config.js"></script>
+    <script type="text/javascript" src="<?php echo base_url(); ?>css/js/sales/manage_quotation.js"></script>
+
 </head>
 <body class="w3-light-grey">
 
@@ -30,7 +32,7 @@ error_reporting(E_ERROR | E_PARSE);
     </header>
 
     <div class="w3-container">
-      <div class="w3-col l6 w3-border">
+      <div class="w3-col l6">
         <header class="w3-container" >
           <h6><b><i class="fa fa-hand-o-up"></i> Raise Quotation</b></h6>
           <span class="w3-small"></span>
@@ -44,51 +46,94 @@ error_reporting(E_ERROR | E_PARSE);
               <span class="input-group-btn w3-light-grey w3-border-bottom">
                 <strong><label class="w3-small">&nbsp;#ENQ NO :&nbsp;</label></strong>
               </span>
-              <input list="enquiry_list" type="text" class="w3-input" name="enquiry_name" id="enquiry_name" placeholder="search by enquiry no. or customer name" required>
+              <input list="enquiry_list" type="text" class="w3-input" name="enquiry_name" id="enquiry_name" placeholder="search by enquiry no. or customer name" onchange="Show_Enquiry()" required>
               <datalist id="enquiry_list">
                 <?php foreach($all_enquiries['status_message'] as $result) { ?>
                 <option data-value="<?php echo $result['enquiry_id']; ?>" value="<?php echo '#ENQ-0'.$result['enquiry_id']; ?>"><?php echo $result['customer_name']; ?> (dated: <?php echo $result['date_on']; ?>)</option>                  
                 <?php } ?>
               </datalist>
             </div>
+          </div>
+
+          <div class="w3-col l12 w3-margin-top" id="fetched_enquiryDetails">
+            <div class="w3-col l12 w3-small w3-padding-left">
+              <div class="w3-col l12 w3-margin-bottom">
+                <div class="w3-left">
+                  <label class="w3-label w3-text-red">Enquiry No:</label> <span class="">#ENQ-021</span>
+                </div>
+                <div class="w3-right">
+                  <label class="w3-label w3-text-red">Issued On:</label> <span class="">2017-02-12 2pm</span>
+                </div>
+              </div>
+
+              <div class="w3-col l12 w3-margin-bottom">
+                <label class="w3-label w3-text-red">Customer Name:</label> <span class="">Swapnil Birajdar (#CID-021)</span>
+              </div>
+
+              <div class="w3-col l12 w3-margin-bottom">
+                <label class="w3-label w3-text-red">Products:</label>
+
+                <ol type="I" style="margin: 0">
+                  <li>Product name full - 5 SETS</li>
+                 <ul><i>
+                  <li>Profile Description- Profile Name- 5mm ID X 7mm OD X 12mm THICK - 7NOS. @ 179Rs. per NO</li>
+                  <li>Profile Description- Profile Name- 5mm ID X 7mm OD X 12mm THICK - 7NOS. @ 179Rs. per NO</li>
+                  <li>Profile Description- Profile Name- 5mm ID X 7mm OD X 12mm THICK - 7NOS. @ 179Rs. per NO</li>
+                  <li>Profile Description- Profile Name- 5mm ID X 7mm OD X 12mm THICK - 7NOS. @ 179Rs. per NO</li></i>
+                </ul><br>
+                <li>Product name full - 5 SETS</li>
+                 <ul><i>
+                  <li>Profile Description- Profile Name- 5mm ID X 7mm OD X 12mm THICK - 7NOS. @ 179Rs. per NO</li>
+                  <li>Profile Description- Profile Name- 5mm ID X 7mm OD X 12mm THICK - 7NOS. @ 179Rs. per NO</li>
+                  <li>Profile Description- Profile Name- 5mm ID X 7mm OD X 12mm THICK - 7NOS. @ 179Rs. per NO</li>
+                  <li>Profile Description- Profile Name- 5mm ID X 7mm OD X 12mm THICK - 7NOS. @ 179Rs. per NO</li></i>
+                </ul>                 
+              </ol>              
+            </div>
+
+            <div class="w3-col l12">
+                <label class="w3-label w3-text-red">Enquiry No:</label>
+                <             
+            </div>
 
           </div>
         </div>
       </div>
-      <div class="w3-col l6">
-        <header class="w3-container" >
-          <h6><b><i class="fa fa-file-text"></i> Quotation Details</b></h6>
-          <span class="w3-small"></span>
-        </header>
-        <div class="w3-col l12 w3-small"></div>
-      </div>
     </div>
-
-    <div id="Input_MaterialStock"></div>
-    <!-- End page content -->
+    <div class="w3-col l6">
+      <header class="w3-container" >
+        <h6><b><i class="fa fa-file-text"></i> Quotation Details</b></h6>
+        <span class="w3-small"></span>
+      </header>
+      <div class="w3-col l12 w3-small"></div>
+    </div>
   </div>
-  <!-- script to delete product -->
-  <script>
-    function delProduct(id)
-    {
 
-     $.ajax({
-      type:'post',
-      url:'<?php echo base_url(); ?>sales_enquiry/manage_quotations/delProducts_fromSession',
-      data:{
-        delete_product_id:id  },
-        success:function(response) {
-          alert(response);
+  <div id="Input_MaterialStock"></div>
+  <!-- End page content -->
+</div>
+<!-- script to delete product -->
+<script>
+  function delProduct(id)
+  {
+
+   $.ajax({
+    type:'post',
+    url:'<?php echo base_url(); ?>sales_enquiry/manage_quotations/delProducts_fromSession',
+    data:{
+      delete_product_id:id  },
+      success:function(response) {
+        alert(response);
       //location.reload();
     }
   });
-   }
- </script>
- <!-- script end -->
+ }
+</script>
+<!-- script end -->
 
- <!-- script to add products in array  -->
- <script>
-   function addProducts() {
+<!-- script to add products in array  -->
+<script>
+ function addProducts() {
         var product_id = $('#product_id').val(); //product name value
         var cut_value = $('#quote_cut').val(); //product cut value
         var quote_ID = $('#quote_ID').val(); //product ID value
