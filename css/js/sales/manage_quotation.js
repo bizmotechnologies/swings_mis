@@ -1,6 +1,7 @@
     function Show_Enquiry() {
 
         enquiry_id = $('#enquiry_list [value="' + $('#enquiry_name').val() + '"]').data('value');
+        $("#fetched_enquiryDetails").html('<center><img width="70%" height="auto" src="'+BASE_URL+'css/logos/page_spinner3.gif"/></center>');
 
         $.ajax({
             type: "POST",
@@ -17,3 +18,5 @@
             }
         });
     }
+
+

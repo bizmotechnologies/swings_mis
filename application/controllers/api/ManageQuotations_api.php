@@ -74,4 +74,14 @@ class ManageQuotations_api extends REST_Controller {
     }
 
     //------------this fun is for get enquiry by id-------------------------------------//
+
+
+    //------------this fun is save quotation-------------------------------------//
+    public function save_quotation_post() {
+        $data = $_POST;
+        $response = $this->QuotationForEnquiry_model->save_quotation($data);
+        return $this->response($response);
+    }
+
+    //------------this fun is save quotation-------------------------------------//
 }

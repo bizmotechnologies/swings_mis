@@ -31,20 +31,20 @@ class QuotationForEnquiry_model extends CI_Model {
         if ($customer_Id == 'all') {
             switch ($Sort_by) {
                 case 'live':
-                    $sql = "SELECT * FROM quotation_master WHERE status = '1'";
-                    break;
+                $sql = "SELECT * FROM quotation_master WHERE status = '1'";
+                break;
 
                 case 'inpo':
-                    $sql = "SELECT * FROM quotation_master WHERE status = '0'";
+                $sql = "SELECT * FROM quotation_master WHERE status = '0'";
             }
         } else {
             switch ($Sort_by) {
                 case 'live':
-                    $sql = "SELECT * FROM quotation_master WHERE status = '1' AND cust_id = '$customer_Id'";
-                    break;
+                $sql = "SELECT * FROM quotation_master WHERE status = '1' AND cust_id = '$customer_Id'";
+                break;
 
                 case 'inpo':
-                    $sql = "SELECT * FROM quotation_master WHERE status = '0' AND cust_id = '$customer_Id'";
+                $sql = "SELECT * FROM quotation_master WHERE status = '0' AND cust_id = '$customer_Id'";
             }
         }
     }
@@ -68,4 +68,52 @@ class QuotationForEnquiry_model extends CI_Model {
     }
 
     //------------this fun is used to get enquiries by enquiry id--------------------------------//
+
+
+    //------------this fun is used to save quotation--------------------------------//
+    public function save_quotation($data) {
+        extract($data);
+
+        $delivery_P='';
+
+        switch ($delivery_period) {
+            case '1':
+                $delivery_P='day/days';
+                break;
+
+                case '2':
+                $delivery_P='week/weeks';
+                break;
+
+                case '3':
+                $delivery_P='month/months';
+                break;
+
+                case '4':
+                $delivery_P='year/years';
+                break;
+            
+            default:
+                # code...
+                break;
+        }
+
+        $delivery_within= $delivery_span.' '.$delivery_P;
+     $insert_quotation="INSERT INTO quotation_master(enquiry_id,customer_id,delivery_within,dated,time_at,current_status) VALUES ('$enquiry_id','$customer_id','$delivery_within',NOW(),NOW(),'1')";
+
+     if($this->db->query($insert_quotation)){
+         $response = array(
+            'status' => 1,
+            'status_message' => 'Quotation Raised Successfully');
+    }
+     else {
+        $response = array(
+            'status' => 0,
+            'status_message' => 'Quotation Raising Failed');
+    }
+   
+    return $response;
+}
+
+    //------------this fun is used to save quotation--------------------------------//
 }

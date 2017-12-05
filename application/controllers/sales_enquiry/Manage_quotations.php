@@ -248,6 +248,37 @@ class Manage_quotations extends CI_Controller
 	}
         // --------------------- this fun is used to show quotation page ----------------------------------//	
 
+	 // --------------------- this fun is used to show quotation page ----------------------------------//	
+
+	public function raise_quotation(){
+		extract($_POST);
+		$data=$_POST;		
+
+		$path=base_url();
+		$url = $path.'api/manageQuotations_api/save_quotation';			
+		$ch = curl_init($url);
+		curl_setopt($ch, CURLOPT_POST, true);
+		curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		$response_json = curl_exec($ch);
+		curl_close($ch);
+		$response=json_decode($response_json, true);
+		//print_r($response_json);die();
+
+		if($response['status']==0){
+			echo '<div class="alert alert-danger">
+			<strong>#ENQ-0'.$_POST['enquiry_id'].' '.$response['status_message'].'</strong> 
+			</div>						
+			';	
+		}
+		else{
+			echo '<div class="alert alert-success">
+			<strong>#ENQ-0'.$_POST['enquiry_id'].' '.$response['status_message'].'</strong> 
+			</div>						
+			';
+		}	
+	}
+        // --------------------- this fun is used to show quotation page ----------------------------------//	
 
 
     // --------------------- this fun is used to show enquiries by enquiry id ----------------------------------//
@@ -271,6 +302,7 @@ class Manage_quotations extends CI_Controller
 		$response=json_decode($response_json, true);
 		//print_r($response_json);
 
+		$enquiry_no=0;
 		if($response['status']==1){
 			$products_associatedArr= json_decode($response['status_message'][0]['products_associated'],true);
 			$enquiry_no=$response['status_message'][0]['enquiry_id'];
@@ -281,28 +313,31 @@ class Manage_quotations extends CI_Controller
 
 			//print_r($products_associatedArr);die();
 
-				echo '
-				<div class="w3-col l12 w3-small w3-padding-left">
-				<div class="w3-col l12 w3-margin-bottom">
-				<div class="w3-left">
-				<label class="w3-label w3-text-red">Enquiry No:</label> <span class="">#ENQ-0'.$enquiry_no.'</span>
-				</div>
-				<div class="w3-right">
-				<label class="w3-label w3-text-red">Issued On:</label> <span class="">'.$date.', '.$time.'</span>
-				</div>
-				</div>
+			echo '
+			<div class="w3-col l12 w3-small w3-padding-left">
+			<div class="w3-col l12 w3-margin-bottom">
+			<div class="w3-left">
+			<label class="w3-label w3-text-red">Enquiry No:</label> <span class="">#ENQ-0'.$enquiry_no.'</span>
+			<input type="hidden" value="'.$enquiry_no.'" name="enquiry_id" name="enquiry_id">
+			</div>
+			<div class="w3-right">
+			<label class="w3-label w3-text-red">Issued On:</label> <span class="">'.$date.', '.$time.'</span>
+			</div>
+			</div>
 
-				<div class="w3-col l12 w3-margin-bottom">
-				<label class="w3-label w3-text-red">Customer Name:</label> <span class="">'.$customer_name.' (#CID-0'.$customer_id.')</span>
-				</div>
+			<div class="w3-col l12 w3-margin-bottom">
+			<label class="w3-label w3-text-red">Customer Name:</label> <span class="">'.$customer_name.' (#CID-0'.$customer_id.')</span>
+			<input type="hidden" value="'.$customer_id.'" name="customer_id" name="customer_id">
 
-				<div class="w3-col l12 w3-margin-bottom">
-				<label class="w3-label w3-text-red">Products:</label>
+			</div>
 
-				<ol type="I" style="margin: 0">';
+			<div class="w3-col l12 w3-margin-bottom">
+			<label class="w3-label w3-text-red">Products:</label>
+
+			<ol type="I" style="margin: 0">';
 
 				//--------------------------all the products fetched from enquiry----------------------//
-				foreach ($products_associatedArr as $key) { 
+			foreach ($products_associatedArr as $key) { 
 				echo '
 				<li>'.strtoupper($key['product_name']).' -';
 
@@ -322,13 +357,24 @@ class Manage_quotations extends CI_Controller
 				<br>
 				';
 				//------------------------------products fetched end ----------------------------------//
-				} 
+			} 
 
 
-				echo '</ol>              
-				</div>
-
-				</div>';			
+			echo '</ol>              
+			</div>
+			<div class="w3-col l12 w3-margin-bottom">
+			<label class="w3-label w3-text-red">Delivery within:</label><br>
+			<input type="number" class="" style="width:60px;" name="delivery_span" id="delivery_span" required>
+			<select class="w3-select" style="width:100px;" name="delivery_period" id="delivery_period">
+			<option value="1">day/days</option>
+			<option value="2">week/weeks</option>
+			<option value="3">month/months</option>
+			<option value="4">year/years</option>
+			</select>             
+			</div><br>
+			<button class="btn w3-button btn-block w3-red" type="submit" id="send_quote" name="send_quote">Save and Send Quotation To Customer <span class="w3-tiny">(by mail)</span></button>
+			</div>
+			';			
 			
 		}
 		else{

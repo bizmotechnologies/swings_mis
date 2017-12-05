@@ -1,5 +1,5 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed'); 
-error_reporting(E_ERROR | E_PARSE);
+//error_reporting(E_ERROR | E_PARSE);
 ?>
 <!DOCTYPE html>
 <html>
@@ -55,49 +55,9 @@ error_reporting(E_ERROR | E_PARSE);
             </div>
           </div>
 
-          <div class="w3-col l12 w3-margin-top" id="fetched_enquiryDetails">
-            <div class="w3-col l12 w3-small w3-padding-left">
-              <div class="w3-col l12 w3-margin-bottom">
-                <div class="w3-left">
-                  <label class="w3-label w3-text-red">Enquiry No:</label> <span class="">#ENQ-021</span>
-                </div>
-                <div class="w3-right">
-                  <label class="w3-label w3-text-red">Issued On:</label> <span class="">2017-02-12 2pm</span>
-                </div>
-              </div>
-
-              <div class="w3-col l12 w3-margin-bottom">
-                <label class="w3-label w3-text-red">Customer Name:</label> <span class="">Swapnil Birajdar (#CID-021)</span>
-              </div>
-
-              <div class="w3-col l12 w3-margin-bottom">
-                <label class="w3-label w3-text-red">Products:</label>
-
-                <ol type="I" style="margin: 0">
-                  <li>Product name full - 5 SETS</li>
-                 <ul><i>
-                  <li>Profile Description- Profile Name- 5mm ID X 7mm OD X 12mm THICK - 7NOS. @ 179Rs. per NO</li>
-                  <li>Profile Description- Profile Name- 5mm ID X 7mm OD X 12mm THICK - 7NOS. @ 179Rs. per NO</li>
-                  <li>Profile Description- Profile Name- 5mm ID X 7mm OD X 12mm THICK - 7NOS. @ 179Rs. per NO</li>
-                  <li>Profile Description- Profile Name- 5mm ID X 7mm OD X 12mm THICK - 7NOS. @ 179Rs. per NO</li></i>
-                </ul><br>
-                <li>Product name full - 5 SETS</li>
-                 <ul><i>
-                  <li>Profile Description- Profile Name- 5mm ID X 7mm OD X 12mm THICK - 7NOS. @ 179Rs. per NO</li>
-                  <li>Profile Description- Profile Name- 5mm ID X 7mm OD X 12mm THICK - 7NOS. @ 179Rs. per NO</li>
-                  <li>Profile Description- Profile Name- 5mm ID X 7mm OD X 12mm THICK - 7NOS. @ 179Rs. per NO</li>
-                  <li>Profile Description- Profile Name- 5mm ID X 7mm OD X 12mm THICK - 7NOS. @ 179Rs. per NO</li></i>
-                </ul>                 
-              </ol>              
-            </div>
-
-            <div class="w3-col l12">
-                <label class="w3-label w3-text-red">Enquiry No:</label>
-                <             
-            </div>
-
-          </div>
-        </div>
+          <form id="send_quotationForm" name="send_quotationForm" >
+          <div class="w3-col l12 w3-margin-top" id="fetched_enquiryDetails"></div>
+        </form>
       </div>
     </div>
     <div class="w3-col l6">
@@ -112,123 +72,31 @@ error_reporting(E_ERROR | E_PARSE);
   <div id="Input_MaterialStock"></div>
   <!-- End page content -->
 </div>
-<!-- script to delete product -->
-<script>
-  function delProduct(id)
-  {
-
-   $.ajax({
-    type:'post',
-    url:'<?php echo base_url(); ?>sales_enquiry/manage_quotations/delProducts_fromSession',
-    data:{
-      delete_product_id:id  },
-      success:function(response) {
-        alert(response);
-      //location.reload();
-    }
-  });
- }
-</script>
-<!-- script end -->
-
-<!-- script to add products in array  -->
-<script>
- function addProducts() {
-        var product_id = $('#product_id').val(); //product name value
-        var cut_value = $('#quote_cut').val(); //product cut value
-        var quote_ID = $('#quote_ID').val(); //product ID value
-        var quote_OD = $('#quote_OD').val(); //product OD value
-        var quote_thickness = $('#quote_thickness').val(); //product thickness value
-        var quote_price = $('#quote_price').val(); //product price value
-        var quote_tolerance = $('#quote_tolerance').val(); //product tolerance value
-
-        if(quote_ID==''||quote_OD==''||quote_thickness==''||quote_price==''||quote_tolerance==''){
-          msg='<h4 class="w3-text-red"><i class="fa  fa-info-circle"></i> WARNING</h4><label class="w3-text-grey w3-label w3-small">       <strong>Please fill all the specifications of product. </strong></label>';
-          $.alert(msg);
-          return false;
-        }
-        var data = {
-          product_id:product_id,
-          cut_value:cut_value,
-          quote_ID:quote_ID,
-          quote_OD:quote_OD,
-          quote_thickness:quote_thickness,
-          quote_price:quote_price,
-          quote_tolerance:quote_tolerance
-        };
-
-        $.ajax({
-          type: "POST",
-          url: "<?php echo base_url(); ?>sales_enquiry/manage_quotations/addProducts_toSession",
-          data: data,
-          cache: false,
-          success: function(response) {
-            $('#all_productSession').html(response);
-
-            $('#quote_ID').val('');
-            $('#quote_OD').val(''); 
-            $('#quote_thickness').val(''); 
-            $('#quote_price').val('');
-            $('#quote_tolerance').val(''); 
-          },
-          error: function(xhr, textStatus, errorThrown) {
-           alert('request failed'+errorThrown);
-         }
-       });
-      }
-    </script>
-    <!-- script ends -->
-
-    <!-- script to get product specifications and calculated price -->
-    <script>
-      $(document).ready(function() {
-        $('#get_productSpecs_btn').click(function() {
-
-        var product_id = $('#product_id').val(); //where #table could be an input with the name of the table you want to truncate
-        var cut_value = $('#quote_cut').val(); //where #table could be an input with the name of the table you want to truncate
-
-        $("#product_specs").html('<center><img width="70%" height="auto" src="<?php echo base_url(); ?>css/logos/page_spinner3.gif" /></center>');
-
-        $.ajax({
-          type: "POST",
-          url: "<?php echo base_url(); ?>sales_enquiry/manage_quotations/productDetails",
-          data: 'product_id='+ product_id +'&cut_value='+ cut_value,
-          cache: false,
-          success: function(response) {
-            $('#product_specs').html(response);
-          },
-          error: function(xhr, textStatus, errorThrown) {
-           alert('request failed'+errorThrown);
-         }
-       });
-
-      });
-      });
-    </script>
-    <!-- script ends -->
 
     <!--     script to raise quotation   -->
     <script>
      $(function(){
-       $("#raiseQuote_form").submit(function(){
-         dataString = $("#raiseQuote_form").serialize();
+       $("#send_quotationForm").submit(function(){
+
+         dataString = $("#send_quotationForm").serialize();
+        $("#fetched_enquiryDetails").html('<center><img width="70%" height="auto" src="'+BASE_URL+'css/logos/mail_loader.gif"/></center>');
 
          $.ajax({
            type: "POST",
-           url: "<?php echo base_url(); ?>sales_enquiry/manage_quotations/generate_quotation",
+           url: "<?php echo base_url(); ?>sales_enquiry/manage_quotations/raise_quotation",
            data: dataString,
            return: false,  //stop the actual form post !important!
 
            success: function(data)
            {
 
-             location.reload();
+             $('#fetched_enquiryDetails').html(data);
            }
 
          });
          return false;  //stop the actual form post !important!
 
-       });
+        });
      });
    </script>
    <!-- script ends here -->
