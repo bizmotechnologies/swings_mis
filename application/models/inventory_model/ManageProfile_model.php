@@ -73,6 +73,25 @@ class ManageProfile_model extends CI_Model{
         return $response;
         }
 	//------------------function for delete profile image from profile-------------------------//
+	//------------------function for update profile -------------------------//
+
+        public function UpdateProfile(){
+        $sqlupdate = "UPDATE product_profile SET status = '0' WHERE profile_id = '$profile_id'";
+
+        $resultupdate = $this->db->query($sqlupdate);
+
+        if ($resultupdate) {
+            $response = array(
+                'status' => 1,
+                'status_message' => 'Records Deleted Successfully..!');
+        } else {
+            $response = array(
+                'status' => 0,
+                'status_message' => 'Records Not Deleted Successfully...!');
+        }
+        return $response;
+        }
+      //------------------function for update profile -------------------------//
 
 }
 ?>

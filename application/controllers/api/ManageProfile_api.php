@@ -65,4 +65,9 @@ class ManageProfile_api extends REST_Controller {
     }
 
     //--------------------- DELETE PRODUCT RECORDS------------------------------//
+    public function UpdateProfile_post(){
+        $data = $_POST;
+        $response = $this->ManageProfile_model->UpdateProfile($data);
+        return $this->response($response);
+    }
 }
