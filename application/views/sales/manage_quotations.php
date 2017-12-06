@@ -53,7 +53,7 @@ error_reporting(E_ERROR | E_PARSE);
                 <?php } ?>
               </datalist>
             </div>
-                          <div class="w3-col l12 w3-tiny"><span class="w3-text-red w3-right">* The Enquiries listed above are all Live Enquiries.</span></div>
+            <div class="w3-col l12 w3-tiny"><span class="w3-text-red w3-right">*The Enquiries listed above are all Live Enquiries. Empty list indicates no Live Enquiries left.</span></div>
           </div>
 
           <form id="send_quotationForm" name="send_quotationForm" >
