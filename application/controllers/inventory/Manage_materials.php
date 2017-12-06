@@ -186,8 +186,23 @@ class Manage_materials extends CI_controller {
             //}
         }
     }
+    //--------------this fun is used to get profile image-------------------//
 
-    public function SaveProductsForEnquiry() {
+    public function getprofileimage(){
+        extract($_POST);
+        $path = base_url();
+        $url = $path . 'api/ManageMaterial_api/getprofileimage?Profiles='.$Profiles;
+        $ch = curl_init($url);
+        curl_setopt($ch, CURLOPT_HTTPGET, true);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $response_json = curl_exec($ch);
+        curl_close($ch);
+        $response = json_decode($response_json, true);
+        echo $response;
+    }
+    //--------------this fun is used to get profile image-------------------//
+
+        public function SaveProductsForEnquiry() {
         //$data = $_POST;
         //print_r($data);die();
         extract($_POST);

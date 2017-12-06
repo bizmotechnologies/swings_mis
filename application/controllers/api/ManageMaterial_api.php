@@ -69,7 +69,6 @@ class ManageMaterial_api extends REST_Controller {
     }
 
 //--------this fun is used to get material info-----------------------------------------//
-  
     //---------this fun is used to get customers details-------------------------//
     public function GetCustomersDetails_get() {
         $result = $this->ManageMaterial_model->GetCustomersDetails();
@@ -99,6 +98,13 @@ class ManageMaterial_api extends REST_Controller {
         return $this->response($response);
     }
 
-   
+    //--------------this fun is used to get profile image-------------------//
 
+    public function getprofileimage_get() {
+        $Profiles = $_GET['Profiles'];
+        $response = $this->ManageMaterial_model->getprofileimage($Profiles);
+        return $this->response($response);
+    }
+
+    //--------------this fun is used to get profile image-------------------//
 }

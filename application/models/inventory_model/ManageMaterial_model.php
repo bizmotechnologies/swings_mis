@@ -21,6 +21,19 @@ class ManageMaterial_model extends CI_Model {
     }
 
     /* fun ends here */
+    //--------------this fun is used to get profile image-------------------//
+    public function getprofileimage($Profiles){
+         $query = "SELECT profile_image FROM product_profile WHERE profile_id = '$Profiles'";
+        $resultnew = $this->db->query($query);
+
+        $profile_image = "";
+
+        foreach ($resultnew->result_array() as $row) {
+            $profile_image = $row['profile_image'];
+        }
+        return $profile_image;
+    }
+    //--------------this fun is used to get profile image-------------------//
 
 //--------------------/*this fun is used to get material name for save materials*/---------------------------
     public function getMaterialdata($material_id) {
