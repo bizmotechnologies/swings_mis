@@ -6,7 +6,7 @@ class Enquiry_model extends CI_Model{
 	//---------------get all live quotations model-------------//
 	function getlive_Quotations()
 	{
-		$query="SELECT * FROM sub_quotation WHERE current_status='0'";
+		$query="SELECT * FROM quotation_master WHERE current_status='1'";
 		$result = $this->db->query($query);
 		//return $result['num'];
 
@@ -160,54 +160,7 @@ class Enquiry_model extends CI_Model{
 	}
 	//----------------get revised subquotation list to quotation master table ends--------------------------//
 
-	//---------------get particular product costing model-------------//
-	function getProduct_Costing($product_id,$cut_value)
-	{
-		$query="SELECT * FROM product_material_assoc WHERE product_id='$product_id'";
-		$result = $this->db->query($query);
-		//return $result['num'];
-
-		if($result->num_rows() <= 0)
-		{  
-			$response=array(
-				'status'	=>	0,
-				'status_message' =>'Product details not found OR No any material is associated with it!!!'
-			);
-			return $response;
-		}
-		else
-		{
-			$response=$result->result_array();
-			$product_price=0;
-
-			$this->load->model('inventory_model/ManageMaterials_model');
-			$this->load->model('inventory_model/ManageProducts_model');
-
-			$product = $this->ManageProducts_model->getProduct_details($product_id);
-			$product_thickness= $product[0]['thickness'];
-
-			for ($i=0; $i < count($response) ; $i++) {
-				$material = $this->ManageMaterials_model->getMaterial_details($response[$i]['material_id']);
-
-				for ($j=0; $j < count($material) ; $j++) {
-					$material_price=((($cut_value + $product_thickness) * 2.65) * $material[$j]['pricepermm'] );
-					$product_price=$product_price + $material_price;
-				}
-
-			}
-			$quote_data=array(
-				'status'	=>	1,
-				'product_ID'	=> $product[0]['ID'],	
-				'product_OD'	=> $product[0]['OD'],	
-				'product_thickness'	=> $product[0]['thickness'],
-				'product_price'	=> $product_price	
-			);
-
-			return $quote_data;
-		}
-	}
-	//----------------get particular product costing ends--------------------------//
-
+	
 
 	//---------------add product to quotation model-------------//
 	function add_ToQuotation($data)

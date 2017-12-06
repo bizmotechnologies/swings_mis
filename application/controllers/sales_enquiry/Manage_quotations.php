@@ -20,7 +20,8 @@ class Manage_quotations extends CI_Controller
 	public function index(){
 		
 		$data['all_enquiries'] = Manage_quotations::fetchEnquiry_For_Quotation();
-		$data['all_customer']=Manage_quotations::show_customer();
+		//$data['all_customer']=Manage_quotations::show_customer();
+		$data['all_liveQuotes']=Manage_quotations::show_quotations();
 
 		$this->load->view('includes/navigation.php');
 		$this->load->view('sales/manage_quotations.php',$data);		
@@ -31,11 +32,11 @@ class Manage_quotations extends CI_Controller
 
 
 	// ---------------function to show all products------------------------//
-	public function show_customer(){
+	public function show_quotations(){
 
 		//Connection establishment, processing of data and response from REST API
 		$path=base_url();
-		$url = $path.'api/ManageCustomer_api/getCustomerDetails';		
+		$url = $path.'api/ManageQuotations_api/all_liveQuotations';		
 		$ch = curl_init($url);
 		curl_setopt($ch, CURLOPT_HTTPGET, true);
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -237,16 +238,7 @@ class Manage_quotations extends CI_Controller
 	}
         // --------------------- this fun is used to get sort quotation by customer and date ----------------------------------//
 
-
-
-    // --------------------- this fun is used to show quotation page ----------------------------------//	
-
-	public function show_quotations(){
-		$data['Enquiries'] = Manage_quotations::fetchEnquiry_For_Quotation();
-		$this->load->view('includes/navigation');
-		$this->load->view('sales/Quotation_new',$data);	
-	}
-        // --------------------- this fun is used to show quotation page ----------------------------------//	
+   	
 
 	 // --------------------- this fun is used to show quotation page ----------------------------------//	
 
