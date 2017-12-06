@@ -137,7 +137,7 @@ error_reporting(E_ERROR | E_PARSE);
                       <div class="modal-content">
                       <div class="modal-header w3-blue">
                       <button type="button" class="close" data-dismiss="modal">&times;</button>
-                      <h4 class="modal-title"><span class="w3-text-white">Quotation NO: #QUO-0'.$key['quotation_id'].'</span></h4>
+                      <h4 class="modal-title"><span class="w3-text-white">Quotation No: #QUO-0'.$key['quotation_id'].'</span></h4>
                       </div>
                       <div class="modal-body">';
                       $products_associatedArr= json_decode($key['product_associated'],true);
