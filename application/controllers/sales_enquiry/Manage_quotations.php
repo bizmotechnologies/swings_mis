@@ -238,6 +238,23 @@ class Manage_quotations extends CI_Controller
 	}
         // --------------------- this fun is used to get sort quotation by customer and date ----------------------------------//
 
+	// --------------------- this fun is used to get sort quotation by customer and date ----------------------------------//	
+
+	public function sendTo_PO(){
+		extract($_GET);
+		print_r($quotation_id);die();
+		$path=base_url();
+		$url = $path.'api/manageQuotations_api/sort_Enquiry?From_date='.$From_date.'&To_date='.$To_date.'&Sort_by='.$Sort_by.'&customer_Id='.$customer_Id;		
+		$ch = curl_init($url);
+		curl_setopt($ch, CURLOPT_HTTPGET, true);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		$response_json = curl_exec($ch);
+		curl_close($ch);
+		$response=json_decode($response_json, true);
+		print_r($response);
+	}
+        // --------------------- this fun is used to get sort quotation by customer and date ----------------------------------//
+
    	
 
 	 // --------------------- this fun is used to show quotation page ----------------------------------//	
@@ -260,13 +277,29 @@ class Manage_quotations extends CI_Controller
 		if($response['status']==0){
 			echo '<div class="alert alert-danger">
 			<strong>#ENQ-0'.$_POST['enquiry_id'].' '.$response['status_message'].'</strong> 
-			</div>						
+			</div>
+			<script>
+			window.setTimeout(function() {
+				$(".alert").fadeTo(500, 0).slideUp(500, function(){
+					$(this).remove(); 
+				});
+				location.reload();
+			}, 1000);
+			</script>						
 			';	
 		}
 		else{
 			echo '<div class="alert alert-success">
 			<strong>#ENQ-0'.$_POST['enquiry_id'].' '.$response['status_message'].'</strong> 
-			</div>						
+			</div>
+			<script>
+			window.setTimeout(function() {
+				$(".alert").fadeTo(500, 0).slideUp(500, function(){
+					$(this).remove(); 
+				});
+				location.reload();
+			}, 1000);
+			</script>						
 			';
 		}	
 	}
@@ -303,6 +336,7 @@ class Manage_quotations extends CI_Controller
 			$date=date('d M Y', strtotime($response['status_message'][0]['date_on']));
 			$time=date('h:m A', strtotime($response['status_message'][0]['time_on']));
 
+			$product_arr=array();
 			//print_r($products_associatedArr);die();
 
 			echo '

@@ -53,6 +53,7 @@
                 <?php } ?>
               </datalist>
             </div>
+                          <div class="w3-col l12 w3-tiny"><span class="w3-text-red w3-right">* The Enquiries listed above are all Live Enquiries.</span></div>
           </div>
 
           <form id="send_quotationForm" name="send_quotationForm" >
@@ -73,45 +74,142 @@
             <div class="w3-col l12">
 
               <div id="quotation_table" class="w3-col l12">
-                <table class="table table-bordered w3-table-all w3-card-4" ><!-- table starts here -->
+                <table class="table table-bordered table-responsive w3-small w3-card-4" ><!-- table starts here -->
                   <tr style="background-color:black; color:white;" >
-                    <th class="text-center">Sr. No</th>
-                    <th class="text-center">Enquiry No.</th>              
-                    <th class="text-center">Quotation No.</th>              
-                    <th class="text-center">Raised on</th>              
-                    <th class="text-center">Delivery&nbsp;within</th>              
-                    <th class="text-center">Current Status</th> 
-                    <th class="text-center">#</th>                                           
+                    <th class="w3-center">Sr. No</th>
+                    <th class="w3-center">Enquiry No.</th>              
+                    <th class="w3-center">Quotation No.</th>              
+                    <th class="w3-center">Customer</th>              
+                    <th class="w3-center">Raised on</th>              
+                    <th class="w3-center">Delivery&nbsp;within</th>              
+                    <th class="w3-center">Current Status</th> 
+                    <th class="w3-center">#</th>                                           
                   </tr>
 
                   <?php 
                   $count=1;
-                  foreach ($all_liveQuotes['status_message'] as $key) {
 
-                    $date=date('d M Y', strtotime($key['dated']));
-                    $time=date('h:m A', strtotime($key['time_at']));
+                  if($all_liveQuotes['status']==0){
+                    echo '<div class="alert alert-danger">
+                    <strong>'.$all_liveQuotes['status_message'].'</strong> 
+                    </div>';
+                  }
+                  else
+                  {
+                    foreach ($all_liveQuotes['status_message'] as $key) {
+                      $date=date('d M Y', strtotime($key['dated']));
+                      $time=date('h:m A', strtotime($key['time_at']));
 
-                    $current_stat='live';
-                    $color='w3-green';
+                      $delivery_values=explode(' ', $key['delivery_within']);
 
-                    if($key['current_status']=='2'){
-                      $current_stat='In PO';
-                      $color='w3-blue';
+
+                      $current_stat='live';
+                      $color='w3-green';
+
+                      if($key['current_status']=='2'){
+                        $current_stat='In PO';
+                        $color='w3-red';
+                      }
+
+                      echo                    
+                      '<tr>
+                      <td class="w3-center">'.$count.'.</td>
+                      <td class="w3-center">#ENQ-0'.$key['enquiry_id'].'</td>
+                      <td class="w3-center">#QUO-0'.$key['quotation_id'].'</td>
+                      <td class="w3-center">'.$key['customer_name'].'</td>
+                      <td class="w3-center">'.$date.'<br>'.$time.'</td>
+                      <td class="w3-center">'.$key['delivery_within'].'</td>
+                      <td class="w3-center"><br><span class="'.$color.'  w3-padding-small w3-round">'.$current_stat.'</span></td>
+                      <td>
+                      <a class="btn w3-small btn-block btn-primary" style="padding:2px;margin:5px" data-toggle="modal" data-target="#viewQuote_modal_'.$key['quotation_id'].'">view Quote <i class="fa fa-eye"></i></a>
+                      <a class="btn w3-small btn-block btn-primary" style="padding:2px;margin:5px" href="'.base_url().'sales_enquiry/manage_quotations/sendTo_PO?quotation_id='.$key['quotation_id'].'">
+                      send to PO <i class="fa fa-sign-out"></i></a></td>
+                      </tr>
+                      ';
+                      $count++;
+
+                      echo '
+                      <!-- Modal start  --> 
+                      <div id="viewQuote_modal_'.$key['quotation_id'].'" class="modal fade" role="dialog">
+                      <div class="modal-dialog">
+                      <!-- Modal content-->
+                      <div class="modal-content">
+                      <div class="modal-header w3-blue">
+                      <button type="button" class="close" data-dismiss="modal">&times;</button>
+                      <h4 class="modal-title"><span class="w3-text-white">Quotation NO: #ENQ-0'.$key['quotation_id'].'</span></h4>
+                      </div>
+                      <div class="modal-body">';
+                      $products_associatedArr= json_decode($key['product_associated'],true);
+
+                      $enquiry_no=$key['enquiry_id'];
+                      $customer_id=$key['customer_id'];
+                      $customer_name=$key['customer_name'];
+                      $date=date('d M Y', strtotime($key['dated']));
+                      $time=date('h:m A', strtotime($key['time_at']));
+
+                      $product_arr=array();
+      //print_r($products_associatedArr);die();
+
+                      echo '
+                      <div class="w3-col l12 w3-small">
+                      <div class="w3-col l12 w3-margin-bottom">
+                      <div class="w3-left">
+                      <label class="w3-label w3-text-red">Enquiry No:</label> <span class="">#ENQ-0'.$enquiry_no.'</span>
+                      <input type="hidden" value="'.$enquiry_no.'" name="enquiry_id" name="enquiry_id">
+                      </div>
+                      <div class="w3-right">
+                      <label class="w3-label w3-text-red">Issued On:</label> <span class="">'.$date.', '.$time.'</span>
+                      </div>
+                      </div>
+
+                      <div class="w3-col l12 w3-margin-bottom">
+                      <label class="w3-label w3-text-red">Customer Name:</label> <span class="">'.$customer_name.' (#CID-0'.$customer_id.')</span>
+                      <input type="hidden" value="'.$customer_id.'" name="customer_id" name="customer_id">
+
+                      </div>
+
+                      <div class="w3-col l12 w3-margin-bottom">
+                      <label class="w3-label w3-text-red">Products:</label>
+
+                      <ol type="I" style="margin: 0">';
+
+        //--------------------------all the products fetched from enquiry----------------------//
+                      foreach ($products_associatedArr as $value) { 
+                        echo '
+                        <li>'.strtoupper($value['product_name']).' -';
+
+                        if($value['housing_status']==1){ echo $value['housing_setQuantity'].' SETS'; } else { echo '1 SET'; }
+
+                        echo '
+                        </li>
+                        <ol>
+                        <i>
+                        <li>'.ucwords($value['profile_description'][0]).'- '.strtoupper($value['profile_id']).'- '.$value['Prod_ID'][0].'mm ID X '.$value['Prod_OD'][0].'mm OD X '.$value['Prod_length'][0].'mm THICK -';
+
+                        if($value['housing_status']==1){ echo '1 NO.'; } else { echo $value['product_quantity'].' NO.'; }
+
+                        echo '@ '.$value['product_price'].' <i class="fa fa-inr"></i> per NO</li>
+                        </i>
+                        </ol>
+                        <br>
+                        ';
+                      } 
+                      echo '</ol>              
+                      </div>
+                      <div class="w3-col l12 w3-margin-bottom">
+                      <label class="w3-label w3-text-red">Delivery within: '.$key['delivery_within'].'</label><br>
+
+                      </div><br>';
+      //------------------------------products fetched end ----------------------------------//
+                      echo '</div><br><br>
+                      <div class="">
+                      <button type="button" class="btn btn-default" data-dismiss="modal">Close Window</button>
+                      </div>
+                      </div>
+                      </div>
+                      </div>
+                      <!-- //Modal End  -->';
                     }
-
-                    echo                    
-                    '<tr>
-                    <td class="text-center">'.$count.'</td>
-                    <td class="text-center">#ENQ-0'.$key['enquiry_id'].'</td>
-                    <td class="text-center">#QUO-0'.$key['quotation_id'].'</td>
-                    <td class="text-center">'.$date.'<br>'.$time.'</td>
-                    <td class="text-center">'.$key['delivery_within'].'</td>
-                    <td class="text-center"><span class="'.$color.' w3-padding-tiny w3-round">'.$current_stat.'</span></td>
-                    <td>
-                    <a class="btn w3-small" data-toggle="modal" data-target="#myModal"><i class="fa fa-eye"></i></a>&nbsp;&nbsp;&nbsp;&nbsp;<a class="btn w3-small" data-toggle="modal" data-target="#"><i class="fa fa-times"></i></a></td>
-                    </tr>
-                    ';
-                    $count++;
                   }
                   ?>
                 </table>
