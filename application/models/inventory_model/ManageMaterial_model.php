@@ -23,7 +23,7 @@ class ManageMaterial_model extends CI_Model {
     /* fun ends here */
     //--------------this fun is used to get profile image-------------------//
     public function getprofileimage($Profiles){
-         $query = "SELECT profile_image FROM product_profile WHERE profile_id = '$Profiles'";
+         $query = "SELECT profile_image FROM product_profile WHERE profile_id = '$Profiles' AND status = '1'";
         $resultnew = $this->db->query($query);
 
         $profile_image = "";
@@ -52,7 +52,7 @@ class ManageMaterial_model extends CI_Model {
 
 //--------------------get profile information----------------------//
     public function GetProfileInformation($Profiles) {
-        $query = "SELECT * FROM product_profile WHERE profile_id = '$Profiles'";
+        $query = "SELECT * FROM product_profile WHERE profile_id = '$Profiles' AND status = '1'";
         $result = $this->db->query($query);
         if ($result->num_rows() > 0) {
             $response = array(
@@ -85,7 +85,7 @@ class ManageMaterial_model extends CI_Model {
 //------this fun is used to get all customers details-----------//
     //------this fun is used to get all informaion of product profile
     public function GetProductProfileDetails() {
-        $query = "SELECT * FROM product_profile";
+        $query = "SELECT * FROM product_profile WHERE status = '1'";
         $result = $this->db->query($query);
         if ($result->num_rows() > 0) {
             $response = array(

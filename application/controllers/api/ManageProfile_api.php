@@ -57,5 +57,9 @@ class ManageProfile_api extends REST_Controller
 		return $this->response($response);			
 	}
 	//---------------------GET PRODUCT UPDATE RECORDS END------------------------------//
-
+        public function DeleteProfile_get(){
+           $profile_id=$_GET['profile_id'];
+           $response = $this->ManageProfile_model->DeleteProfile($profile_id);     
+	   return $this->response($response);
+        }
 }

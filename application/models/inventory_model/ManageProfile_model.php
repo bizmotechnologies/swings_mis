@@ -35,7 +35,7 @@ class ManageProfile_model extends CI_Model{
 	//-------------function to get all profile data-----------//
 	 public function getAll_profile() { 
 
-        $sqlselect = "SELECT * FROM product_profile";
+        $sqlselect = "SELECT * FROM product_profile WHERE status = '1'";
 
         $result = $this->db->query($sqlselect);
 
@@ -53,8 +53,26 @@ class ManageProfile_model extends CI_Model{
 
     /* ends here */
 	//------------------function ends-------------------------//
+//------------------function for delete profile image from profile-------------------------//
 
-	
+    public function DeleteProfile($profile_id){
+            
+        $sqldelete = "UPDATE product_profile SET status = '0' WHERE profile_id = '$profile_id'";
+
+        $resultdelete = $this->db->query($sqldelete);
+
+        if ($resultdelete) {
+            $response = array(
+                'status' => 1,
+                'status_message' => 'Records Deleted Successfully..!');
+        } else {
+            $response = array(
+                'status' => 0,
+                'status_message' => 'Records Not Deleted Successfully...!');
+        }
+        return $response;
+        }
+	//------------------function for delete profile image from profile-------------------------//
 
 }
 ?>

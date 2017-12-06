@@ -41,10 +41,12 @@ error_reporting(E_ERROR | E_PARSE);
 
         echo '
         <div class="w3-col l1 s3 m3 w3-red w3-card-2 w3-round w3-padding-tiny w3-text-white w3-hover-opacity" style="margin:5px">
+        <a href="' . base_url() . 'inventory/manage_profiles/DeleteProfile?profile_id=' . $key['profile_id'] . '" class="w3-col l12 btn delete w3-right" title="Remove Profile"><i class="fa fa-remove"></i></a>
         <a class="btn w3-col l12" data-toggle="modal" data-target="#view_profile_'.$key['profile_id'].'" style="margin:0;padding:0">
         <div class=" profile_pic img-thumbnail" style="background-image:url(\''.base_url().$key['profile_image'].'\')"></div>
         <div class="w3-col l12 w3-center"><hr style="margin:0;padding:0"><span class="w3-small">'.$key['profile_name'].'</span></div>
         </a>
+
         </div>';
 
         echo '
