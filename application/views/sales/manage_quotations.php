@@ -81,7 +81,7 @@ error_reporting(E_ERROR | E_PARSE);
                     <th class="w3-center">Quotation No.</th>              
                     <th class="w3-center">Customer</th>              
                     <th class="w3-center">Raised on</th>              
-                    <th class="w3-center">Delivery&nbsp;within</th>              
+                    <th class="w3-center">Delivery within</th>              
                     <th class="w3-center">Current Status</th> 
                     <th class="w3-center">Actions</th>                                           
                   </tr>
@@ -96,9 +96,7 @@ error_reporting(E_ERROR | E_PARSE);
                   else
                   {
                     foreach ($all_liveQuotes['status_message'] as $key) {
-                      $date=date('d M Y', strtotime($key['dated']));
-                      $time=date('h:m A', strtotime($key['time_at']));
-
+                      $date=date('d/m/y', strtotime($key['dated']));
                       $delivery_values=explode(' ', $key['delivery_within']);
 
 
@@ -117,13 +115,13 @@ error_reporting(E_ERROR | E_PARSE);
                       <td class="w3-center">'.$count.'.</td>
                       <td class="w3-center">#ENQ-0'.$key['enquiry_id'].'</td>
                       <td class="w3-center">#QUO-0'.$key['quotation_id'].'</td>
-                      <td class="w3-center">'.$key['customer_name'].'</td>
-                      <td class="w3-center">'.$date.'<br>'.$time.'</td>
+                      <td class="w3-center">'.ucwords($key['customer_name']).'</td>
+                      <td class="w3-center">'.$date.'</td>
                       <td class="w3-center">'.$key['delivery_within'].'</td>
-                      <td class="w3-center"><br><span class="'.$color.'  w3-padding-small w3-round">'.$current_stat.'</span></td>
+                      <td class="w3-center"><span class="'.$color.'  w3-padding-small w3-round">'.$current_stat.'</span></td>
                       <td>
-                      <a class="btn w3-small btn-block btn-primary" style="padding:2px;margin:5px" data-toggle="modal" data-target="#viewQuote_modal_'.$key['quotation_id'].'">view Quote <i class="fa fa-eye"></i></a>
-                      <a class="btn w3-small btn-block btn-primary '.$hide.'" style="padding:2px;margin:5px" href="'.base_url().'sales_enquiry/manage_quotations/sendTo_PO?quotation_id='.$key['quotation_id'].'">
+                      <a class="btn w3-small btn-block btn-primary" style="padding:2px;margin-bottom:5px" data-toggle="modal" data-target="#viewQuote_modal_'.$key['quotation_id'].'">view Quote <i class="fa fa-eye"></i></a>
+                      <a class="btn w3-small btn-block btn-primary '.$hide.'" style="padding:2px;margin-bottom:5px" href="'.base_url().'sales_enquiry/manage_quotations/sendTo_PO?quotation_id='.$key['quotation_id'].'">
                       send to PO <i class="fa fa-sign-out"></i></a></td>
                       </tr>
                       ';
