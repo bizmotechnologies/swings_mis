@@ -176,8 +176,8 @@ class QuotationForEnquiry_model extends CI_Model {
 
         //$mail->SMTPDebug = 3;                               // Enable verbose debug output
 
-        $emailFrom='samratbizmotech@gmail.com'
-        $nameFrom='Seal-Wings '
+        $emailFrom='samratbizmotech@gmail.com';
+        $nameFrom='Seal-Wings ';
 
         $mail->isSMTP();                                      // Set mailer to use SMTP
         $mail->Host = 'smtp.gmail.com';  // Specify main and backup SMTP servers
