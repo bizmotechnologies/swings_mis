@@ -84,4 +84,13 @@ class ManageQuotations_api extends REST_Controller {
     }
 
     //------------this fun is save quotation-------------------------------------//
+
+    //------------this fun is send quotation to PO-------------------------------------//
+    public function sendTo_PO_get() {
+        $quotation_id = $_GET['quotation_id'];
+        $response = $this->QuotationForEnquiry_model->sendTo_PO($quotation_id);
+        return $this->response($response);
+    }
+
+    //------------this fun is send quotation to PO-------------------------------------//
 }

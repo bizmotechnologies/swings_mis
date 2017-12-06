@@ -242,16 +242,17 @@ class Manage_quotations extends CI_Controller
 
 	public function sendTo_PO(){
 		extract($_GET);
-		print_r($quotation_id);die();
 		$path=base_url();
-		$url = $path.'api/manageQuotations_api/sort_Enquiry?From_date='.$From_date.'&To_date='.$To_date.'&Sort_by='.$Sort_by.'&customer_Id='.$customer_Id;		
+		$url = $path.'api/manageQuotations_api/sendTo_PO?quotation_id='.$quotation_id;		
 		$ch = curl_init($url);
 		curl_setopt($ch, CURLOPT_HTTPGET, true);
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 		$response_json = curl_exec($ch);
 		curl_close($ch);
 		$response=json_decode($response_json, true);
-		print_r($response);
+		print_r($response_json);
+
+		redirect('sales_enquiry/manage_quotations');
 	}
         // --------------------- this fun is used to get sort quotation by customer and date ----------------------------------//
 

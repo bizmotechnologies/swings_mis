@@ -131,9 +131,11 @@ class QuotationForEnquiry_model extends CI_Model {
         $insert_quotation="INSERT INTO quotation_master(enquiry_id,customer_id,customer_name,product_associated,delivery_within,dated,time_at,current_status) VALUES ('$enquiry_id','$customer_id','".$customer_details[0]['customer_name']."','".$enquiry_products[0]['products_associated']."','$delivery_within',NOW(),NOW(),'1')";
 
         if($this->db->query($insert_quotation)){
+
             //--------------update enquiry from live enquiry to Quotation---------------------
             $update_enquiry="UPDATE enquiry_master SET current_status = '0' WHERE enquiry_id = '$enquiry_id'";
-            if($this->db->query($update_enquiry)){
+            if($this->db->query($update_enquiry))
+            {
                 $response = array(
                     'status' => 1,
                     'status_message' => 'Quotation Raised Successfully');             
@@ -154,4 +156,84 @@ class QuotationForEnquiry_model extends CI_Model {
     }
 
     //------------this fun is used to save quotation--------------------------------//
+
+
+    // -----------------------contact customer for quotation----------------------//
+    //-------------------------------------------------------------//
+    public function contact_admin($data)
+    {   
+        extract($data);
+
+        // $this->load->model('admin_settings');
+        // $all_mailsettings=$this->admin_settings->allMailSettings();
+
+        // $admin_mail=$all_mailsettings[0]['mail_email'];
+        // $admin_password=$all_mailsettings[0]['mail_password'];
+
+        require 'mail/PHPMailerAutoload.php';
+
+        $mail = new PHPMailer;
+
+        //$mail->SMTPDebug = 3;                               // Enable verbose debug output
+
+        $emailFrom='samratbizmotech@gmail.com'
+        $nameFrom='Seal-Wings '
+
+        $mail->isSMTP();                                      // Set mailer to use SMTP
+        $mail->Host = 'smtp.gmail.com';  // Specify main and backup SMTP servers
+        $mail->SMTPAuth = true;                               // Enable SMTP authentication
+        $mail->Username = $emailFrom;                 // SMTP username
+        $mail->Password = '8446524095';                           // SMTP password
+        $mail->SMTPSecure = 'tls';                            // Enable TLS encryption, `ssl` also accepted
+        $mail->Port = 587;                                    // TCP port to connect to
+
+        $mail->setFrom($emailFrom, $nameFrom);
+        $mail->addAddress($customer_email, $customer_name);     // Add a recipient
+        $mail->addReplyTo($emailFrom, $nameFrom);
+        // $mail->addCC('cc@example.com');
+        // $mail->addBCC('bcc@example.com');
+
+        $mail->isHTML(true);                                  // Set email format to HTML
+
+        $mail->Subject = 'Response for your Enquiry';
+        $mail->Body    = 'There is a query from <b>'.$contact_name.'</b><br>This is the body in plain text for non-HTML mail clients<br>'.$contact_message;
+        $mail->AltBody = 'This is the body in plain text for non-HTML mail clients<br>'.$contact_message;
+
+        if(!$mail->send()) {
+            $response=array(
+                'status' => 0,
+                'status_message' =>'Message could not be sent. <br>Mailer Error: '.$mail->ErrorInfo
+            );
+
+        } else {
+            $response=array(
+                'status' => 1,
+                'status_message' =>'Message has been sent'
+            );
+        }
+        //sql query to insert user row and create an account
+        return $response;
+    }
+
+
+    //----------------------------contact customer END------------------------------//
+
+
+    //------------this fun is used to get enquiry product by enquiry id--------------------------------//
+    public function sendTo_PO($quotation_id) {
+        $update_quotation="UPDATE quotation_master SET current_status = '2' WHERE quotation_id = '$quotation_id'";
+        if($this->db->query($update_quotation)){
+            $response = array(
+                'status' => 1,
+                'status_message' => 'Quotation sent to PO Successfully');             
+        }
+        else{
+            $response = array(
+                'status' => 0,
+                'status_message' => 'Quotation sent to PO Failed!!!');
+        }   
+        return $response;
+    }
+
+    //------------this fun is used to get enquiry product by enquiry id--------------------------------//
 }

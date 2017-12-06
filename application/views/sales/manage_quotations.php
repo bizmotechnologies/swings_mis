@@ -73,8 +73,8 @@
             </div>
             <div class="w3-col l12">
 
-              <div id="quotation_table" class="w3-col l12">
-                <table class="table table-bordered table-responsive w3-small w3-card-4" ><!-- table starts here -->
+              <div id="quotation_table" class="w3-col l12 w3-padding">
+                <table class="table table-bordered table-responsive w3-small" ><!-- table starts here -->
                   <tr style="background-color:black; color:white;" >
                     <th class="w3-center">Sr. No</th>
                     <th class="w3-center">Enquiry No.</th>              
@@ -83,7 +83,7 @@
                     <th class="w3-center">Raised on</th>              
                     <th class="w3-center">Delivery&nbsp;within</th>              
                     <th class="w3-center">Current Status</th> 
-                    <th class="w3-center">#</th>                                           
+                    <th class="w3-center">Actions</th>                                           
                   </tr>
 
                   <?php 
@@ -105,10 +105,12 @@
 
                       $current_stat='live';
                       $color='w3-green';
+                      $hide='';
 
                       if($key['current_status']=='2'){
                         $current_stat='In PO';
                         $color='w3-red';
+                        $hide='w3-hide';
                       }
 
                       echo                    
@@ -122,7 +124,7 @@
                       <td class="w3-center"><br><span class="'.$color.'  w3-padding-small w3-round">'.$current_stat.'</span></td>
                       <td>
                       <a class="btn w3-small btn-block btn-primary" style="padding:2px;margin:5px" data-toggle="modal" data-target="#viewQuote_modal_'.$key['quotation_id'].'">view Quote <i class="fa fa-eye"></i></a>
-                      <a class="btn w3-small btn-block btn-primary" style="padding:2px;margin:5px" href="'.base_url().'sales_enquiry/manage_quotations/sendTo_PO?quotation_id='.$key['quotation_id'].'">
+                      <a class="btn w3-small btn-block btn-primary '.$hide.'" style="padding:2px;margin:5px" href="'.base_url().'sales_enquiry/manage_quotations/sendTo_PO?quotation_id='.$key['quotation_id'].'">
                       send to PO <i class="fa fa-sign-out"></i></a></td>
                       </tr>
                       ';
@@ -136,7 +138,7 @@
                       <div class="modal-content">
                       <div class="modal-header w3-blue">
                       <button type="button" class="close" data-dismiss="modal">&times;</button>
-                      <h4 class="modal-title"><span class="w3-text-white">Quotation NO: #ENQ-0'.$key['quotation_id'].'</span></h4>
+                      <h4 class="modal-title"><span class="w3-text-white">Quotation NO: #QUO-0'.$key['quotation_id'].'</span></h4>
                       </div>
                       <div class="modal-body">';
                       $products_associatedArr= json_decode($key['product_associated'],true);
