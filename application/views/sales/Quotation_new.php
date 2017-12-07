@@ -33,7 +33,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <option data-value="<?php echo $result['enquiry_id']; ?>" value="<?php echo $result['customer_name']; ?>"><?php echo $result['date_on']; ?></option>                  
                     <?php } ?>
                 </datalist>
-                <input type="hidden" name="material_id[]" id="material_id_1">
             </div>
 
             <div class="w3-col l12" id="showerror">

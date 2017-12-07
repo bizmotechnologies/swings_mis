@@ -127,7 +127,6 @@ error_reporting(E_ERROR | E_PARSE);
 
                 <!-- Modal content-->
                 <div class="modal-content">
-                <input type="hidden" value="'.$key['profile_id'].'" name="profile_id" id="profile_id" class="w3-input w3-padding-tiny"> 
 
                 <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -150,11 +149,11 @@ error_reporting(E_ERROR | E_PARSE);
               <label class="w3-label w3-text-black">Product Description:</label>
               <input type="text" class="w3-input" value="'.$key['product_description'].'" name="prod_description" id="prod_description" placeholder="Eg. Piston seal, Rod seal, etc." required>
             </div>
-            
+                            <input type="hidden" value="'.$key['profile_id'].'" name="profile_id" id="profile_id" class="w3-input w3-padding-tiny"> 
+
           </div>
           
           <div class="w3-small w3-margin-bottom"> 
-          
             <div class=" w3-padding-top w3-padding-right">
               <label class="w3-label w3-text-black w3-margin-top">Profile Image:</label>
               <input type="file" name="profile_image" id="profile_image" class="w3-input w3-padding-tiny"> 
@@ -168,19 +167,20 @@ error_reporting(E_ERROR | E_PARSE);
             <header class="w3-small">
               <span class="w3-small"><b><i class="fa fa-cubes"></i> Associated Materials :</b></span>
             </header>';
+        $count=1;
             foreach (json_decode($key['material_associated'],TRUE) as $mat) { 
           echo '<div class="w3-small">
                 
                 <div class="w3-small">
                 <label class="">Material:</label>
-                <input list="Materialinfo_1" type="text" class="w3-input" value="'.$mat['material_name'].'" name="material_name[]" id="material_name_1" placeholder="Type material name" required onchange="getMaterialId(1)">
-                <datalist id="Materialinfo_1">';
+                <input list="Materialinfo_'.$count.'" type="text" class="w3-input" value="'.$mat['material_name'].'" name="material_name[]" id="material_name_'.$count.'" placeholder="Type material name" required onchange="getMaterialId('.$count.');">
+                <datalist id="Materialinfo_'.$count.'">';
                
         foreach ($all_materials['status_message'] as $result) {
-            echo'<option data-value="' . $result['material_id'] . '" value="' . $result['material_name'] . '"></option>';
+            echo'<option data-value="'.$result['material_id'].'" value="'.$result['material_name'].'"></option>';
         }
         echo'</datalist>
-                <input type="hidden" name="material_id[]" id="material_id_1">
+                <input type="hidden" name="material_id[]" value="'.$mat['material_id'].'" id="material_id_'.$count.'">
               </div>
               
               <div class="w3-small">
@@ -214,9 +214,10 @@ error_reporting(E_ERROR | E_PARSE);
               </div>
               
             </div>';
+        $count++;
             }
           echo'</div>
-              <div id="added_newMaterial" class="">
+              <div id="added_newMaterial_'.$key['profile_id'].'" class="">
           </div>
           <!-- material div end -->
           <div class="">
@@ -228,10 +229,16 @@ error_reporting(E_ERROR | E_PARSE);
         </div>
         </div>
         </div>
-        
+  <script>
+  function getMaterialId(field_num){
+
+  var material_id = $("#Materialinfo_"+field_num+" option[value=" + $("#material_name_"+field_num).val() + "]").data("value");
+  $("#material_id_"+field_num).val(material_id);
+}
+</script>      
 <script>
  $(document).ready(function (e){
-    $("UpdateProfile_form_'.$key['profile_id'].'").on(\'submit\',(function(e){       
+    $("#UpdateProfile_form_'.$key['profile_id'].'").on(\'submit\',(function(e){       
         e.preventDefault(); 
         $.ajax({
             url: "'.base_url().'inventory/manage_profiles/UpdateProfile",
@@ -242,6 +249,7 @@ error_reporting(E_ERROR | E_PARSE);
             processData:false,
             success: function(data){
                alert(data);
+              $("#added_newMaterial_'.$key['profile_id'].'").html(data); 
             },
             error: function(){}             
         });

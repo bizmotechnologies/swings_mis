@@ -192,7 +192,6 @@ public function addProfile() {
  public function UpdateProfile(){
   extract($_POST); 
   $data = $_POST;
-  print_r($data);die();
   
   $material_Arr=array();  //material_image array
   $allowed_types=['gif','jpg','png','jpeg','JPG','GIF','JPEG','PNG'];
@@ -284,7 +283,8 @@ public function addProfile() {
   $data['material_associated']=json_encode($material_Arr);
   $data['profile_image']=($profileImg_path);
   
-  
+    //print_r($data);die();
+
   $path = base_url();                                                   // this code is for web service AND api for save profile 
   $url = $path . 'api/ManageProfile_api/UpdateProfile';
   $ch = curl_init($url);
@@ -293,7 +293,33 @@ public function addProfile() {
   curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
   $response_json = curl_exec($ch);
   curl_close($ch);
-  $response = json_decode($response_json, true);    
+  $response = json_decode($response_json, true);
+ //print_r($response_json);
+  if ($response['status'] == 0) {
+    echo '<div class="alert alert-danger">
+      <strong>'.$response['status_message'].'</strong> 
+      </div>
+      <script>
+      window.setTimeout(function() {
+        $(".alert").fadeTo(500, 0).slideUp(500, function(){
+          $(this).remove(); 
+        });
+        location.reload();
+      }, 1000);
+      </script>';
+  } else {
+    echo '<div class="alert alert-success">
+      <strong>'.$response['status_message'].'</strong> 
+      </div>
+      <script>
+      window.setTimeout(function() {
+        $(".alert").fadeTo(500, 0).slideUp(500, function(){
+          $(this).remove(); 
+        });
+        location.reload();
+      }, 1000);
+      </script>';
+  }
  }
  
 }

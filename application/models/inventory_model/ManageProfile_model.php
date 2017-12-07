@@ -75,19 +75,23 @@ class ManageProfile_model extends CI_Model{
 	//------------------function for delete profile image from profile-------------------------//
 	//------------------function for update profile -------------------------//
 
-        public function UpdateProfile(){
-        $sqlupdate = "UPDATE product_profile SET status = '0' WHERE profile_id = '$profile_id'";
-
+        public function UpdateProfile($data){
+            extract($data);
+            //print_r($data);die();
+        $sqlupdate = "UPDATE product_profile SET profile_name = '$profile_name',"
+                . " product_description = '$prod_description', profile_image = '$profile_image',"
+                . " material_associated = '$material_associated' WHERE profile_id = '$profile_id'";
+        
         $resultupdate = $this->db->query($sqlupdate);
 
         if ($resultupdate) {
             $response = array(
                 'status' => 1,
-                'status_message' => 'Records Deleted Successfully..!');
+                'status_message' => 'Records Updated Successfully..!');
         } else {
             $response = array(
                 'status' => 0,
-                'status_message' => 'Records Not Deleted Successfully...!');
+                'status_message' => 'Records Not Updated Successfully...!');
         }
         return $response;
         }
