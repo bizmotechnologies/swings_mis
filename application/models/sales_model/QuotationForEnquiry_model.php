@@ -312,7 +312,7 @@ public function getEnquiry_DetailsFor_MultipleQuotation($data) {
                         $prod['product_price'] = $Updated_price[$count];
                     }
                     $count++;
-                    echo $count;
+                   
                 }
             }
 
