@@ -242,7 +242,16 @@ class Manage_quotations extends CI_Controller
 
 	public function sendTo_PO(){
 		extract($_POST);
-		print_r($_POST);
+		//print_r($_POST);
+		$config = Array(
+        'protocol' => 'smtp',
+        'smtp_host' => 'mx1.hostinger.in',
+        'smtp_port' => 587,
+        'smtp_user' => 'samratbizmotech@gmail.com',
+        'smtp_pass' => '8446524095',
+        'mailtype'  => 'html', 
+        'charset'   => 'iso-8859-1'
+    );
 $this->load->library('email');
 
 $this->email->from('samratbizmotech.com', 'Your Name');
