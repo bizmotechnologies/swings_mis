@@ -174,7 +174,7 @@ class QuotationForEnquiry_model extends CI_Model {
 
         $mail = new PHPMailer;
 
-        $mail->SMTPDebug = 2;                               // Enable verbose debug output
+       // $mail->SMTPDebug = 2;                               // Enable verbose debug output
 
         $emailFrom='samratbizmotech@gmail.com';
         $nameFrom='Seal-Wings ';
@@ -189,7 +189,7 @@ class QuotationForEnquiry_model extends CI_Model {
 
         $mail->setFrom('sealwings@bizmo-tech-admin.com', 'samrat');
         $mail->addAddress($emailFrom, $nameFrom);     // Add a recipient
-        $mail->addReplyTo'sealwings@bizmo-tech-admin.com', 'samrat');
+        $mail->addReplyTo('sealwings@bizmo-tech-admin.com', 'samrat');
         // $mail->addCC('cc@example.com');
         // $mail->addBCC('bcc@example.com');
 

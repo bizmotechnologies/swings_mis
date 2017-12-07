@@ -87,7 +87,7 @@ class ManageQuotations_api extends REST_Controller {
 
     //------------this fun is send quotation to PO-------------------------------------//
     public function sendTo_PO_get() {
-        $quotation_id = $_GET['quotation_id'];
+        //$quotation_id = $_GET['quotation_id'];
         $response = $this->QuotationForEnquiry_model->contact_admin();
         return $this->response($response);
     }

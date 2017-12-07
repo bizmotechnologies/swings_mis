@@ -241,7 +241,7 @@ class Manage_quotations extends CI_Controller
 	// --------------------- this fun is used to get sort quotation by customer and date ----------------------------------//	
 
 	public function sendTo_PO(){
-		extract($_POST);
+		//extract($_POST);
 		//print_r($_POST);
 		// Configure email library
 // $config['protocol'] = 'https';
@@ -270,7 +270,7 @@ class Manage_quotations extends CI_Controller
 // $this->email->send();
 		//die();
 		$path=base_url();
-		$url = $path.'api/manageQuotations_api/sendTo_PO?quotation_id='.$quotation_id;		
+		$url = $path.'api/manageQuotations_api/sendTo_PO';		
 		$ch = curl_init($url);
 		curl_setopt($ch, CURLOPT_HTTPGET, true);
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);

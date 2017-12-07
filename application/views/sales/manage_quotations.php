@@ -1,5 +1,5 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed'); 
-error_reporting(E_ERROR | E_PARSE);
+//error_reporting(E_ERROR | E_PARSE);
 ?>
 <!DOCTYPE html>
 <html>
@@ -87,7 +87,7 @@ error_reporting(E_ERROR | E_PARSE);
                   </tr>
 
                   <?php 
-                  $count=1;
+                  $count=1; 
                   if($all_liveQuotes['status']==0){
                     echo '<div class="alert alert-danger">
                     <strong>'.$all_liveQuotes['status_message'].'</strong> 
