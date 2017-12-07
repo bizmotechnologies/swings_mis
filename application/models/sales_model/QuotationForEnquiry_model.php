@@ -160,9 +160,9 @@ class QuotationForEnquiry_model extends CI_Model {
 
     // -----------------------contact customer for quotation----------------------//
     //-------------------------------------------------------------//
-    public function contact_admin($data)
+    public function contact_admin()
     {   
-        extract($data);
+       // extract($data);
 
         // $this->load->model('admin_settings');
         // $all_mailsettings=$this->admin_settings->allMailSettings();
@@ -174,30 +174,30 @@ class QuotationForEnquiry_model extends CI_Model {
 
         $mail = new PHPMailer;
 
-        //$mail->SMTPDebug = 3;                               // Enable verbose debug output
+        $mail->SMTPDebug = 2;                               // Enable verbose debug output
 
         $emailFrom='samratbizmotech@gmail.com';
         $nameFrom='Seal-Wings ';
 
         $mail->isSMTP();                                      // Set mailer to use SMTP
-        $mail->Host = 'smtp.gmail.com';  // Specify main and backup SMTP servers
+        $mail->Host = 'mx1.hostinger.in';  // Specify main and backup SMTP servers
         $mail->SMTPAuth = true;                               // Enable SMTP authentication
-        $mail->Username = $emailFrom;                 // SMTP username
-        $mail->Password = '8446524095';                           // SMTP password
+        $mail->Username = 'sealwings@bizmo-tech-admin.com';                 // SMTP username
+        $mail->Password = 'Descartes1990';                           // SMTP password
         $mail->SMTPSecure = 'tls';                            // Enable TLS encryption, `ssl` also accepted
         $mail->Port = 587;                                    // TCP port to connect to
 
-        $mail->setFrom($emailFrom, $nameFrom);
-        $mail->addAddress($customer_email, $customer_name);     // Add a recipient
-        $mail->addReplyTo($emailFrom, $nameFrom);
+        $mail->setFrom('sealwings@bizmo-tech-admin.com', 'samrat');
+        $mail->addAddress($emailFrom, $nameFrom);     // Add a recipient
+        $mail->addReplyTo'sealwings@bizmo-tech-admin.com', 'samrat');
         // $mail->addCC('cc@example.com');
         // $mail->addBCC('bcc@example.com');
 
         $mail->isHTML(true);                                  // Set email format to HTML
 
         $mail->Subject = 'Response for your Enquiry';
-        $mail->Body    = 'There is a query from <b>'.$contact_name.'</b><br>This is the body in plain text for non-HTML mail clients<br>'.$contact_message;
-        $mail->AltBody = 'This is the body in plain text for non-HTML mail clients<br>'.$contact_message;
+        $mail->Body    = 'There is a query from <b>'.$emailFrom.'</b><br>This is the body in plain text for non-HTML mail clients<br>';
+        $mail->AltBody = 'This is the body in plain text for non-HTML mail clients<br>';
 
         if(!$mail->send()) {
             $response=array(

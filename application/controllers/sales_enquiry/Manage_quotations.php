@@ -244,31 +244,31 @@ class Manage_quotations extends CI_Controller
 		extract($_POST);
 		//print_r($_POST);
 		// Configure email library
-$config['protocol'] = 'https';
-$config['smtp_host'] = 'mx1.hostinger.in';
-$config['smtp_timeout'] = '7';
-$config['smtp_port'] = 587;
-$config['charset']    = 'utf-8';
-$config['newline']    = "\r\n";
-$config['mailtype'] = 'text'; // or html
-//$config[‘validation’] = TRUE; // bool whether to validate email or not
-$config['smtp_user'] = 'sealwings@bizmo-tech-admin.com';
-$config['smtp_pass'] = 'Descartes1990';
+// $config['protocol'] = 'https';
+// $config['smtp_host'] = 'mx1.hostinger.in';
+// $config['smtp_timeout'] = '7';
+// $config['smtp_port'] = 587;
+// $config['charset']    = 'utf-8';
+// $config['newline']    = "\r\n";
+// $config['mailtype'] = 'text'; // or html
+// //$config[‘validation’] = TRUE; // bool whether to validate email or not
+// $config['smtp_user'] = 'sealwings@bizmo-tech-admin.com';
+// $config['smtp_pass'] = 'Descartes1990';
 
-// Load email library and passing configured values to email library
-$this->load->library('email', $config);
-$this->email->set_newline("\r\n");
+// // Load email library and passing configured values to email library
+// $this->load->library('email', $config);
+// $this->email->set_newline("\r\n");
 
-$this->email->from('sealwings@bizmo-tech-admin.com', 'Your Name');
-$this->email->to('samrat.munde@bizmo-tech.com');
-//$this->email->cc('another@another-example.com');
-//$this->email->bcc('them@their-example.com');
+// $this->email->from('sealwings@bizmo-tech-admin.com', 'Your Name');
+// $this->email->to('samrat.munde@bizmo-tech.com');
+// //$this->email->cc('another@another-example.com');
+// //$this->email->bcc('them@their-example.com');
 
-$this->email->subject('Email Test');
-$this->email->message('Testing the email class.');
+// $this->email->subject('Email Test');
+// $this->email->message('Testing the email class.');
 
-$this->email->send();
-		die();
+// $this->email->send();
+		//die();
 		$path=base_url();
 		$url = $path.'api/manageQuotations_api/sendTo_PO?quotation_id='.$quotation_id;		
 		$ch = curl_init($url);
@@ -277,7 +277,7 @@ $this->email->send();
 		$response_json = curl_exec($ch);
 		curl_close($ch);
 		$response=json_decode($response_json, true);
-		print_r($response_json);
+		print_r($response_json);die();
 
 		redirect('sales_enquiry/manage_quotations');
 	}
