@@ -279,7 +279,7 @@ class Manage_quotations extends CI_Controller
 	}
         // --------------------- this fun is used to get sort quotation by customer and date ----------------------------------//
 
-   	
+
 
 	 // --------------------- this fun is used to show quotation page ----------------------------------//	
 
@@ -435,14 +435,18 @@ class Manage_quotations extends CI_Controller
 			';	
 		}
 	}
-        // --------------------- this fun is used to show enquiries by enquiry id ----------------------------------//	
 //------------this fun is used to get enquiry details for multiple quotations----------------------------------------//
-        public function getEnquiry_DetailsFor_MultipleQuotation(){
-                
-                extract($_POST);
-		$data=$_POST;
-                
-                $path=base_url();
+	public function getEnquiry_DetailsFor_MultipleQuotation(){
+
+		extract($_POST);
+		//$data=$_POST;
+		$revise_Price=json_encode($_POST['revise_productPrice']);
+		$data['product_JSON']=$revise_Price;
+		$data['enquiry_id']=$enquiry_id;
+		$data['revise_deliverySpan']=$revise_deliverySpan;
+		$data['revise_deliveryPeriod']=$revise_deliveryPeriod;
+//print_r($data);die();
+		$path=base_url();
 		$url = $path.'api/manageQuotations_api/getEnquiry_DetailsFor_MultipleQuotation';
 		$ch = curl_init($url);
 		curl_setopt($ch, CURLOPT_POST, true);
@@ -452,17 +456,9 @@ class Manage_quotations extends CI_Controller
 		curl_close($ch);
 		$response=json_decode($response_json, true);
 		print_r($response_json);die();
-                
-                if($response['status']==1){
-                   $products_associatedArr= json_decode($response['status_message'][0]['products_associated'],true);
-                   foreach ($products_associatedArr as $key => $value) {
-                        if ($value['profile_id'] == '5') {
-                            $products_associatedArr[$key]['activity_name'] = "TENNIS";
-                        }
-                   }
 
-		}
-        }
+		
+	}
 //------------this fun is used to get enquiry details for multiple quotations----------------------------------------//
-        
+
 }

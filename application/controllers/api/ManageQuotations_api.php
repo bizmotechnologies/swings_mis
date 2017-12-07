@@ -94,15 +94,13 @@ class ManageQuotations_api extends REST_Controller {
     public function getEnquiry_DetailsFor_MultipleQuotation_post() {
         $data = $_POST;
         $response = $this->QuotationForEnquiry_model->getEnquiry_DetailsFor_MultipleQuotation($data);
-
         return $this->response($response);
     }
     //------------this fun is used to insert new quotation for revised quotation-------------------------------------//
 
      //------------this fun is send quotation to customer by mail-------------------------------------//
     public function sendMail_post() {
-        extract($_POST);
-        
+        extract($_POST);        
         $response = $this->QuotationForEnquiry_model->contact_admin();
         return $this->response($response);
     }

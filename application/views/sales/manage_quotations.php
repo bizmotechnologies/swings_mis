@@ -161,12 +161,12 @@
                       <div class="w3-col l12 w3-margin-bottom">
                       <div class="checkbox">
                       <label title="Toggle the switch to raise this quotation" class="">
-                      <input name="revise_quoteBtn" data-onstyle="danger" data-size="mini" id="revise_quoteBtn" type="checkbox" data-toggle="toggle" data-on="ON" data-off="OFF" value="1">
+                      <input name="revise_quoteBtn" data-onstyle="danger" data-size="mini" id="revise_quoteBtn_'.$key['quotation_id'].'" type="checkbox" data-toggle="toggle" data-on="ON" data-off="OFF" value="1">
                       <b>Toggle to Revise Quotation</b>
                       </label>                           
                       </div>
                       </div>                      
-                      <div class="w3-col l12 w3-small" id="view_quoteDiv">
+                      <div class="w3-col l12 w3-small" id="view_quoteDiv_'.$key['quotation_id'].'">
                       <div class="w3-col l12 w3-margin-bottom">
                       <div class="w3-left">
                       <label class="w3-label w3-text-red">Enquiry No:</label> <span class="">#ENQ-0'.$enquiry_no.'</span>
@@ -217,7 +217,8 @@
                       </div></div><br>';
 
                       echo '
-                      <div class="w3-col l12 w3-small" id="revise_quoteDiv" style="display:none">
+                      <form id="revise_quoteForm_'.$key['quotation_id'].'">
+                      <div class="w3-col l12 w3-small" id="revise_quoteDiv_'.$key['quotation_id'].'" style="display:none">
                       <div class="w3-col l12 w3-margin-bottom">
                       <div class="w3-left">
                       <label class="w3-label w3-text-red">Enquiry No:</label> <span class="">#ENQ-0'.$enquiry_no.'</span>
@@ -257,7 +258,7 @@
 
                         echo '@ 
                         <div class="input-group w3-small" style="width:200px">
-                        <input type="number" class="form-control" step="0.01" min="0" value="'.$value['product_price'].'">
+                        <input name="revise_productPrice[]" type="number" class="form-control" step="0.01" min="0" value="'.$value['product_price'].'">
                         <span class="input-group-addon"><i class="fa fa-inr"></i> per NO</span>
                         </div>                        
                         </li>
@@ -271,8 +272,8 @@
                       <div class="w3-col l12 w3-margin-bottom">
                       <div class="w3-col l12">
                       <label class="w3-label w3-text-red">Delivery within:</label>
-                      <input type="number" class="form-control w3-padding-right" style="width:80px" min="0" value="'.$delivery_values[0].'">
-                      <select class="w3-input" style="width:120px">
+                      <input type="number" name="revise_deliverySpan" class="form-control w3-padding-right" style="width:80px" min="0" value="'.$delivery_values[0].'">
+                      <select class="w3-input" style="width:120px" name="revise_deliveryPeriod">
                       <option '; if($delivery_values[1]=='day/days'){ echo 'selected'; } echo ' value="1">day/days</option>
                       <option '; if($delivery_values[1]=='week/weeks'){ echo 'selected'; } echo ' value="2">week/weeks</option>
                       <option '; if($delivery_values[1]=='month/months'){ echo 'selected'; } echo ' value="3">month/months</option>
@@ -281,7 +282,7 @@
                       </div> 
                       <button class="btn w3-button btn-block w3-red w3-margin-top w3-margin-bottom" type="submit" id="send_quote" name="send_quote">Revise Quotation For Enquiry #ENQ-0'.$enquiry_no.'</button>                     
                       <br>
-
+                      </form>
                       </div><br>
                       </div>';
       //------------------------------products fetched end ----------------------------------//
@@ -289,104 +290,146 @@
                       <br><br>
 
                       </div>
-                      <!-- //Modal End  -->';
-                    }
-                  }
-                  ?>
-                </table>
-              </div> 
+                      <!-- //Modal End  -->
+                      <!-- script to toggle i.e.hide/show revise and new quotation div -->
+                      <script>
+                      $(function() {
+                        $("#revise_quoteBtn_'.$key['quotation_id'].'").change(function() {
+                          if ($("#revise_quoteBtn_'.$key['quotation_id'].'").is(":checked")) {
+                            $("#revise_quoteDiv_'.$key['quotation_id'].'").show();
+                            $("#view_quoteDiv_'.$key['quotation_id'].'").hide();
+                          }
+                          else{
+                            $("#revise_quoteDiv_'.$key['quotation_id'].'").hide();
+                            $("#view_quoteDiv_'.$key['quotation_id'].'").show();        
+                          }
+                        })
+                      })
+                      </script>
+                      <!-- script ends -->
+
+                      <!--     script to add role     -->
+                      <script>
+                      $(function(){
+                        $("#revise_quoteForm_'.$key['quotation_id'].'").submit(function(){
+                         dataString = $("#revise_quoteForm_'.$key['quotation_id'].'").serialize();
+
+                         $.ajax({
+                           type: "POST",
+                           url: "'.base_url().'sales_enquiry/manage_quotations/getEnquiry_DetailsFor_MultipleQuotation",
+                           data: dataString,
+                           return: false,  //stop the actual form post !important!
+
+                           success: function(data)
+                           {
+                             $.alert(data);                                     
+                           }
+
+                         });
+                         return false;  //stop the actual form post !important!
+
+                       });
+                     });
+                     </script>
+                     <!-- script ends here -->
+                     ';
+                   }
+                 }
+                 ?>
+               </table>
+             </div> 
 
 
-              <!-- revise quotation div start -->
-              <div class="w3-col l12">
+             <!-- revise quotation div start -->
+             <div class="w3-col l12">
 
-              </div>
-              <!-- revise quotation div end -->
+             </div>
+             <!-- revise quotation div end -->
 
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+           </div>
+         </div>
+       </div>
+     </div>
+   </div>
 
-    <div id="Input_MaterialStock"></div>
-    <!-- End page content -->
-  </div>
-
-
-  <!--  Script to delete item from order list............................
-  --> 
-  <script type="text/javascript">
-    function send_mail(customer_id,customer_name,quotation_id)
-    {
-
-      $.confirm({
-        title: '<label class="w3-large w3-text-red"><i class="fa fa-envelope"></i> Send Quotation to Customer.</label>',
-        content: '<span class="w3-medium">Do You really want to send this quotation to customer?</span>',
-        buttons: {
-          confirm: function () {
-            $.ajax({
-              type:'post',
-              url:BASE_URL+'sales_enquiry/manage_quotations/sendMail',
-              data:{
-                customer_id:customer_id,
-                customer_name:customer_name,
-                quotation_id:quotation_id
-              },
-              success:function(response) {
-                $.alert(response);
-              }
-            });
-          },
-          cancel: function () {}
-        }
-      });
-    }
-  </script>
-  <!-- script to send mail ends -->
-
-   <!--  Script to delete item from order list............................
-   --> 
-   <script type="text/javascript">
-    function send_ToPO(quotation_id)
-    {
-
-      $.confirm({
-        title: '<label class="w3-large w3-text-red"><i class="fa fa-envelope"></i> Send Quotation to Purchase Order.</label>',
-        content: '<span class="w3-medium">Do You really want to send #QUO-0'+quotation_id+' to Purchase Order ?</span>',
-        buttons: {
-          confirm: function () {
-            $.ajax({
-              type:'post',
-              url:BASE_URL+'sales_enquiry/manage_quotations/sendTo_PO',
-              data:{
-                quotation_id:quotation_id
-              },
-              success:function(response) {
-                $.alert(response);
-              }
-            });
-          },
-          cancel: function () {}
-        }
-      });
-    }
-  </script>
-  <!-- script to send mail ends -->
+   <div id="Input_MaterialStock"></div>
+   <!-- End page content -->
+ </div>
 
 
-  <!--     script to raise quotation   -->
-  <script>
-   $(function(){
-     $("#send_quotationForm").submit(function(){
+<!--  Script to delete item from order list............................
+--> 
+<script type="text/javascript">
+  function send_mail(customer_id,customer_name,quotation_id)
+  {
 
-       dataString = $("#send_quotationForm").serialize();
-       $("#fetched_enquiryDetails").html('<center><img width="70%" height="auto" src="'+BASE_URL+'css/logos/mail_loader.gif"/></center>');
+    $.confirm({
+      title: '<label class="w3-large w3-text-red"><i class="fa fa-envelope"></i> Send Quotation to Customer.</label>',
+      content: '<span class="w3-medium">Do You really want to send this quotation to customer?</span>',
+      buttons: {
+        confirm: function () {
+          $.ajax({
+            type:'post',
+            url:BASE_URL+'sales_enquiry/manage_quotations/sendMail',
+            data:{
+              customer_id:customer_id,
+              customer_name:customer_name,
+              quotation_id:quotation_id
+            },
+            success:function(response) {
+              $.alert(response);
+            }
+          });
+        },
+        cancel: function () {}
+      }
+    });
+  }
+</script>
+<!-- script to send mail ends -->
 
-       $.ajax({
-         type: "POST",
-         url: "<?php echo base_url(); ?>sales_enquiry/manage_quotations/raise_quotation",
-         data: dataString,
+<!--  Script to delete item from order list............................
+--> 
+<script type="text/javascript">
+  function send_ToPO(quotation_id)
+  {
+
+    $.confirm({
+      title: '<label class="w3-large w3-text-red"><i class="fa fa-envelope"></i> Send Quotation to Purchase Order.</label>',
+      content: '<span class="w3-medium">Do You really want to send #QUO-0'+quotation_id+' to Purchase Order ?</span>',
+      buttons: {
+        confirm: function () {
+          $.ajax({
+            type:'post',
+            url:BASE_URL+'sales_enquiry/manage_quotations/sendTo_PO',
+            data:{
+              quotation_id:quotation_id
+            },
+            success:function(response) {
+              $.alert(response);
+            }
+          });
+        },
+        cancel: function () {}
+      }
+    });
+  }
+</script>
+<!-- script to send mail ends -->
+
+
+<!--     script to raise quotation   -->
+<script>
+  $(function(){
+   $("#send_quotationForm").submit(function(){
+
+     dataString = $("#send_quotationForm").serialize();
+     $("#fetched_enquiryDetails").html('<center><img width="70%" height="auto" src="'+BASE_URL+'css/logos/mail_loader.gif"/></center>');
+
+     $.ajax({
+       type: "POST",
+       url: "<?php echo base_url(); ?>sales_enquiry/manage_quotations/raise_quotation",
+       data: dataString,
            return: false,  //stop the actual form post !important!
 
            success: function(data)
@@ -399,26 +442,11 @@
          return false;  //stop the actual form post !important!
 
        });
-   });
- </script>
- <!-- script ends here -->
-
- <!-- script to toggle i.e.hide/show revise and new quotation div -->
- <script>
-  $(function() {
-    $('#revise_quoteBtn').change(function() {
-      if ($('#revise_quoteBtn').is(':checked')) {
-        $("#revise_quoteDiv").show();
-        $("#view_quoteDiv").hide();
-      }
-      else{
-        $("#revise_quoteDiv").hide();
-        $("#view_quoteDiv").show();
-      }
-    })
-  })
+ });
 </script>
-<!-- script ends -->
+<!-- script ends here -->
+
+
 
 <!-- script to get customer specific live quotations when customer is selected -->
 <script>
