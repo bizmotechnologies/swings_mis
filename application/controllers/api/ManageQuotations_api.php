@@ -74,8 +74,6 @@ class ManageQuotations_api extends REST_Controller {
     }
 
     //------------this fun is for get enquiry by id-------------------------------------//
-
-
     //------------this fun is save quotation-------------------------------------//
     public function save_quotation_post() {
         $data = $_POST;
@@ -93,4 +91,9 @@ class ManageQuotations_api extends REST_Controller {
     }
 
     //------------this fun is send quotation to PO-------------------------------------//
+    public function getEnquiry_DetailsFor_MultipleQuotation_get(){
+        $enquiry_id = $_GET['enquiry_id'];
+        $response = $this->QuotationForEnquiry_model->getEnquiry_DetailsFor_MultipleQuotation($enquiry_id);
+        return $this->response($response);
+    }
 }

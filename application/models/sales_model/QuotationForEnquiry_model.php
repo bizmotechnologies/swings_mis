@@ -217,8 +217,6 @@ class QuotationForEnquiry_model extends CI_Model {
 
 
     //----------------------------contact customer END------------------------------//
-
-
     //------------this fun is used to get enquiry product by enquiry id--------------------------------//
     public function sendTo_PO($quotation_id) {
         $update_quotation="UPDATE quotation_master SET current_status = '2' WHERE quotation_id = '$quotation_id'";
@@ -236,4 +234,27 @@ class QuotationForEnquiry_model extends CI_Model {
     }
 
     //------------this fun is used to get enquiry product by enquiry id--------------------------------//
+   
+    public function getEnquiry_DetailsFor_MultipleQuotation($enquiry_id){
+        $query = "SELECT * FROM enquiry_master WHERE current_status = '1' AND enquiry_id = '$enquiry_id'";
+
+        $result = $this->db->query($query);
+        $products = '';
+        $products_associatedArr = array();
+        $productPrice = array();
+        foreach ($result->result_array() as $row) {
+                $products = $row['products_associated'];                
+            }
+            
+        $products_associatedArr = json_decode($products, TRUE);
+       // print_r($products);
+        foreach ($products_associatedArr as &$key){
+            $productPrice = $key['product_price'];
+            if($productPrice != ''){
+                $key['product_price'] = 5363166335;
+            }
+        }
+        echo json_encode($products_associatedArr);
+    }
+   
 }

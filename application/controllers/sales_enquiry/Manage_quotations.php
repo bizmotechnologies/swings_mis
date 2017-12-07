@@ -49,8 +49,6 @@ class Manage_quotations extends CI_Controller
 	}
 // ---------------------function ends----------------------------------//
 
-	
-
 	// ---------------function to show all live quotations of customer------------------------//
 	public function getCustomer_quotations(){
 		extract($_POST);
@@ -440,6 +438,19 @@ class Manage_quotations extends CI_Controller
 		}
 	}
         // --------------------- this fun is used to show enquiries by enquiry id ----------------------------------//	
-
-
+//------------this fun is used to get enquiry details for multiple quotations----------------------------------------//
+        public function getEnquiry_DetailsFor_MultipleQuotation(){
+                $enquiry_id = 2;
+                $path=base_url();
+		$url = $path.'api/manageQuotations_api/getEnquiry_DetailsFor_MultipleQuotation?enquiry_id='.$enquiry_id;
+		$ch = curl_init($url);
+		curl_setopt($ch, CURLOPT_HTTPGET, true);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		$response_json = curl_exec($ch);
+		curl_close($ch);
+		$response=json_decode($response_json, true);
+		//print_r($response_json);
+        }
+//------------this fun is used to get enquiry details for multiple quotations----------------------------------------//
+        
 }
