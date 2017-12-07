@@ -127,11 +127,12 @@
 
                       <a class="btn w3-medium '.$hide.'" style="padding:0px;" onclick="send_ToPO('.$quotation_id.');" title="Send to PO"><i class="fa fa-sign-out"></i></a>
 
-                      <a class="btn w3-medium" style="padding:0px;" onclick="send_mail('.$customer_id.',\''.$customer_name.'\','.$quotation_id.');" title="Send To Client"><i class="fa fa-envelope"></i></a>
+                      <a class="btn w3-medium" style="padding:0px;" href="#"  title="Send To Client"><i class="fa fa-envelope"></i></a>
                       </div>                      
                       </td>
                       </tr>
                       ';
+                      //onclick="send_mail('.$customer_id.',\''.$customer_name.'\','.$quotation_id.');"---- code for mail sending
                       $count++;
 
                       echo '
@@ -157,7 +158,15 @@
       //print_r($products_associatedArr);die();
 
                       echo '
-                      <div class="w3-col l12 w3-small">
+                      <div class="w3-col l12 w3-margin-bottom">
+                      <div class="checkbox">
+                      <label title="Toggle the switch to raise this quotation" class="">
+                      <input name="revise_quoteBtn" data-onstyle="danger" data-size="mini" id="revise_quoteBtn" type="checkbox" data-toggle="toggle" data-on="ON" data-off="OFF" value="1">
+                      <b>Toggle to Revise Quotation</b>
+                      </label>                           
+                      </div>
+                      </div>                      
+                      <div class="w3-col l12 w3-small" id="view_quoteDiv">
                       <div class="w3-col l12 w3-margin-bottom">
                       <div class="w3-left">
                       <label class="w3-label w3-text-red">Enquiry No:</label> <span class="">#ENQ-0'.$enquiry_no.'</span>
@@ -205,21 +214,80 @@
                       <div class="w3-col l12 w3-margin-bottom">
                       <label class="w3-label w3-text-red">Delivery within: '.$key['delivery_within'].'</label><br>
 
-                      </div><br>';
+                      </div></div><br>';
+
+                      echo '
+                      <div class="w3-col l12 w3-small" id="revise_quoteDiv" style="display:none">
+                      <div class="w3-col l12 w3-margin-bottom">
+                      <div class="w3-left">
+                      <label class="w3-label w3-text-red">Enquiry No:</label> <span class="">#ENQ-0'.$enquiry_no.'</span>
+                      <input type="hidden" value="'.$enquiry_no.'" name="enquiry_id" name="enquiry_id">
+                      </div>
+                      <div class="w3-right">
+                      <label class="w3-label w3-text-red">Issued On:</label> <span class="">'.$date.', '.$time.'</span>
+                      </div>
+                      </div>
+
+                      <div class="w3-col l12 w3-margin-bottom">
+                      <label class="w3-label w3-text-red">Customer Name:</label> <span class="">'.$customer_name.' (#CID-0'.$customer_id.')</span>
+                      <input type="hidden" value="'.$customer_id.'" name="customer_id" name="customer_id">
+
+                      </div>
+
+                      <div class="w3-col l12 w3-margin-bottom">
+                      <label class="w3-label w3-text-red">Products:</label>
+
+                      <ol type="I" style="margin: 0">';
+
+        //--------------------------all the products fetched from enquiry----------------------//
+                      foreach ($products_associatedArr as $value) { 
+                        echo '
+                        <li>'.strtoupper($value['product_name']).' -';
+
+                        if($value['housing_status']==1){ echo $value['housing_setQuantity'].' SETS'; } else { echo '1 SET'; }
+
+                        echo '
+                        </li>
+                        <ol>
+                        <i>
+                        <li>
+                        '.ucwords($value['profile_description'][0]).'- '.strtoupper($value['profile_id']).'- '.$value['Prod_ID'][0].'mm ID X '.$value['Prod_OD'][0].'mm OD X '.$value['Prod_length'][0].'mm THICK -';
+
+                        if($value['housing_status']==1){ echo '1 NO.'; } else { echo $value['product_quantity'].' NO.'; }
+
+                        echo '@ 
+                        <div class="input-group w3-small" style="width:200px">
+                        <input type="number" class="form-control" step="0.01" min="0" value="'.$value['product_price'].'">
+                        <span class="input-group-addon"><i class="fa fa-inr"></i> per NO</span>
+                        </div>                        
+                        </li>
+                        </i>
+                        </ol>
+                        <br>
+                        ';
+                      } 
+                      echo '</ol>              
+                      </div>
+                      <div class="w3-col l12 w3-margin-bottom">
+                      <div class="w3-col l12">
+                      <label class="w3-label w3-text-red">Delivery within:</label>
+                      <input type="number" class="form-control w3-padding-right" style="width:80px" min="0" value="'.$delivery_values[0].'">
+                      <select class="w3-input" style="width:120px">
+                      <option '; if($delivery_values[1]=='day/days'){ echo 'selected'; } echo ' value="1">day/days</option>
+                      <option '; if($delivery_values[1]=='week/weeks'){ echo 'selected'; } echo ' value="2">week/weeks</option>
+                      <option '; if($delivery_values[1]=='month/months'){ echo 'selected'; } echo ' value="3">month/months</option>
+                      <option '; if($delivery_values[1]=='year/years'){ echo 'selected'; } echo ' value="4">year/years</option>
+                      </select>
+                      </div> 
+                      <button class="btn w3-button btn-block w3-red w3-margin-top w3-margin-bottom" type="submit" id="send_quote" name="send_quote">Revise Quotation For Enquiry #ENQ-0'.$enquiry_no.'</button>                     
+                      <br>
+
+                      </div><br>
+                      </div>';
       //------------------------------products fetched end ----------------------------------//
                       echo '</div>
                       <br><br>
-                      <div class="w3-col l12 w3-margin-bottom">
-                      <div class="w3-col l6">
-                      <button type="button" class="btn btn-default" data-dismiss="modal">Send To PO</button>
-                      </div>
-                      <div class="w3-col l6">
 
-                      </div>
-                      
-                      </div>
-                      </div>
-                      </div>
                       </div>
                       <!-- //Modal End  -->';
                     }
@@ -227,6 +295,14 @@
                   ?>
                 </table>
               </div> 
+
+
+              <!-- revise quotation div start -->
+              <div class="w3-col l12">
+
+              </div>
+              <!-- revise quotation div end -->
+
             </div>
           </div>
         </div>
@@ -270,8 +346,8 @@
   <!-- script to send mail ends -->
 
    <!--  Script to delete item from order list............................
-  --> 
-  <script type="text/javascript">
+   --> 
+   <script type="text/javascript">
     function send_ToPO(quotation_id)
     {
 
@@ -331,7 +407,14 @@
  <script>
   $(function() {
     $('#revise_quoteBtn').change(function() {
-      $("#revise_quoteDiv").toggle();
+      if ($('#revise_quoteBtn').is(':checked')) {
+        $("#revise_quoteDiv").show();
+        $("#view_quoteDiv").hide();
+      }
+      else{
+        $("#revise_quoteDiv").hide();
+        $("#view_quoteDiv").show();
+      }
     })
   })
 </script>

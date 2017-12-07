@@ -422,7 +422,7 @@ class Manage_quotations extends CI_Controller
 			<option value="4">year/years</option>
 			</select>             
 			</div><br>
-			<button class="btn w3-button btn-block w3-red" type="submit" id="send_quote" name="send_quote">Save and Send Quotation To Customer <span class="w3-tiny">(by mail)</span></button>
+			<button class="btn w3-button btn-block w3-red" type="submit" id="send_quote" name="send_quote">Raise New Quotation for Enquiry</button>
 			</div>
 			';			
 			

@@ -170,7 +170,8 @@ class QuotationForEnquiry_model extends CI_Model {
         // $admin_mail=$all_mailsettings[0]['mail_email'];
         // $admin_password=$all_mailsettings[0]['mail_password'];
 
-
+$this->load->helper('email');
+ $this->load->library('email');
         $emailFrom='samrat.munde@bizmo-tech.com';
         $nameFrom='Seal-Wings ';
 
@@ -187,7 +188,7 @@ $config['smtp_user'] = 'test@seal-wings.com';
 $config['smtp_pass'] = 'sealwings@123';
 
 // Load email library and passing configured values to email library
-$this->load->library('email', $config);
+ $this->email->initialize($config);
 $this->email->set_newline("\r\n");
 
 // Sender email address
