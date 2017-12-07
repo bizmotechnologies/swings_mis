@@ -258,7 +258,7 @@ $config['wordwrap'] = TRUE;
 
 $this->email->initialize($config);
 
-$this->email->from('samratbizmotech.com', 'Your Name');
+$this->email->from('sealwings@bizmo-tech-admin.com', 'Your Name');
 $this->email->to('samrat.munde@bizmo-tech.com');
 //$this->email->cc('another@another-example.com');
 //$this->email->bcc('them@their-example.com');
