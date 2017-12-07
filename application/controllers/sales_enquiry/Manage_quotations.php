@@ -49,8 +49,6 @@ class Manage_quotations extends CI_Controller
 	}
 // ---------------------function ends----------------------------------//
 
-	
-
 	// ---------------function to show all live quotations of customer------------------------//
 	public function getCustomer_quotations(){
 		extract($_POST);
@@ -241,38 +239,36 @@ class Manage_quotations extends CI_Controller
 	// --------------------- this fun is used to get sort quotation by customer and date ----------------------------------//	
 
 	public function sendTo_PO(){
-		//extract($_POST);
-		//print_r($_POST);
-		// Configure email library
-// $config['protocol'] = 'https';
-// $config['smtp_host'] = 'mx1.hostinger.in';
-// $config['smtp_timeout'] = '7';
-// $config['smtp_port'] = 587;
-// $config['charset']    = 'utf-8';
-// $config['newline']    = "\r\n";
-// $config['mailtype'] = 'text'; // or html
-// //$config[‘validation’] = TRUE; // bool whether to validate email or not
-// $config['smtp_user'] = 'sealwings@bizmo-tech-admin.com';
-// $config['smtp_pass'] = 'Descartes1990';
+		extract($_POST);
+		print_r($_POST);
 
-// // Load email library and passing configured values to email library
-// $this->load->library('email', $config);
-// $this->email->set_newline("\r\n");
-
-// $this->email->from('sealwings@bizmo-tech-admin.com', 'Your Name');
-// $this->email->to('samrat.munde@bizmo-tech.com');
-// //$this->email->cc('another@another-example.com');
-// //$this->email->bcc('them@their-example.com');
-
-// $this->email->subject('Email Test');
-// $this->email->message('Testing the email class.');
-
-// $this->email->send();
-		//die();
 		$path=base_url();
-		$url = $path.'api/manageQuotations_api/sendTo_PO';		
+		$url = $path.'api/manageQuotations_api/sendTo_PO?quotation_id='.$quotation_id;		
 		$ch = curl_init($url);
 		curl_setopt($ch, CURLOPT_HTTPGET, true);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		$response_json = curl_exec($ch);
+		curl_close($ch);
+		$response=json_decode($response_json, true);
+		print_r($response_json);
+
+		redirect('sales_enquiry/manage_quotations');
+	}
+        // --------------------- this fun is used to get sort quotation by customer and date ----------------------------------//
+
+
+	// --------------------- this fun is used to get sort quotation by customer and date ----------------------------------//	
+
+	public function sendMail(){
+		extract($_POST);
+		$data=$_POST;
+		//print_r($_POST);die();
+		
+		$path=base_url();
+		$url = $path.'api/manageQuotations_api/sendMail';
+		$ch = curl_init($url);
+		curl_setopt($ch, CURLOPT_POST, true);
+		curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 		$response_json = curl_exec($ch);
 		curl_close($ch);
@@ -440,6 +436,19 @@ class Manage_quotations extends CI_Controller
 		}
 	}
         // --------------------- this fun is used to show enquiries by enquiry id ----------------------------------//	
-
-
+//------------this fun is used to get enquiry details for multiple quotations----------------------------------------//
+        public function getEnquiry_DetailsFor_MultipleQuotation(){
+                $enquiry_id = 2;
+                $path=base_url();
+		$url = $path.'api/manageQuotations_api/getEnquiry_DetailsFor_MultipleQuotation?enquiry_id='.$enquiry_id;
+		$ch = curl_init($url);
+		curl_setopt($ch, CURLOPT_HTTPGET, true);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		$response_json = curl_exec($ch);
+		curl_close($ch);
+		$response=json_decode($response_json, true);
+		//print_r($response_json);
+        }
+//------------this fun is used to get enquiry details for multiple quotations----------------------------------------//
+        
 }
