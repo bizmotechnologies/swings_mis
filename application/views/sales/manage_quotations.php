@@ -83,7 +83,7 @@ error_reporting(E_ERROR | E_PARSE);
                     <th class="w3-center">Raised on</th>              
                     <th class="w3-center">Delivery within</th>              
                     <th class="w3-center">Current Status</th> 
-                    <th class="w3-center">Actions</th>                                           
+                    <th class="w3-center">#&nbsp;Actions</th>                                           
                   </tr>
 
                   <?php 
@@ -98,7 +98,9 @@ error_reporting(E_ERROR | E_PARSE);
                     foreach ($all_liveQuotes['status_message'] as $key) {
                       $date=date('d/m/y', strtotime($key['dated']));
                       $delivery_values=explode(' ', $key['delivery_within']);
-
+                      $customer_id=$key['customer_id'];
+                      $customer_name=$key['customer_name'];
+                      $quotation_id=$key['quotation_id'];
 
                       $current_stat='live';
                       $color='w3-green';
@@ -111,18 +113,23 @@ error_reporting(E_ERROR | E_PARSE);
                       }
 
                       echo                    
-                      '<tr>
+                      '<tr class="">
                       <td class="w3-center">'.$count.'.</td>
                       <td class="w3-center">#ENQ-0'.$key['enquiry_id'].'</td>
-                      <td class="w3-center">#QUO-0'.$key['quotation_id'].'</td>
-                      <td class="w3-center">'.ucwords($key['customer_name']).'</td>
+                      <td class="w3-center">#QUO-0'.$quotation_id.'</td>
+                      <td class="w3-center">'.ucwords($customer_name).'</td>
                       <td class="w3-center">'.$date.'</td>
                       <td class="w3-center">'.$key['delivery_within'].'</td>
                       <td class="w3-center"><span class="'.$color.'  w3-padding-small w3-round">'.$current_stat.'</span></td>
                       <td>
-                      <a class="btn w3-small btn-block btn-primary" style="padding:2px;margin-bottom:5px" data-toggle="modal" data-target="#viewQuote_modal_'.$key['quotation_id'].'">view Quote <i class="fa fa-eye"></i></a>
-                      <a class="btn w3-small btn-block btn-primary '.$hide.'" style="padding:2px;margin-bottom:5px" href="'.base_url().'sales_enquiry/manage_quotations/sendTo_PO?quotation_id='.$key['quotation_id'].'">
-                      send to PO <i class="fa fa-sign-out"></i></a></td>
+                      <div class="w3-col l12 w3-text-grey">
+                      <a class="btn w3-medium" style="padding:0px;" data-toggle="modal" data-target="#viewQuote_modal_'.$key['quotation_id'].'" title="View Quotation"><i class="fa fa-eye"></i></a>
+
+                      <a class="btn w3-medium '.$hide.'" style="padding:0px;" onclick="send_ToPO('.$quotation_id.');" title="Send to PO"><i class="fa fa-sign-out"></i></a>
+
+                      <a class="btn w3-medium" style="padding:0px;" onclick="send_mail('.$customer_id.',\''.$customer_name.'\','.$quotation_id.');" title="Send To Client"><i class="fa fa-envelope"></i></a>
+                      </div>                      
+                      </td>
                       </tr>
                       ';
                       $count++;
@@ -132,7 +139,7 @@ error_reporting(E_ERROR | E_PARSE);
                       <div id="viewQuote_modal_'.$key['quotation_id'].'" class="modal fade" role="dialog">
                       <div class="modal-dialog">
                       <!-- Modal content-->
-                      <div class="modal-content">
+                      <div class="modal-content w3-col l12">
                       <div class="modal-header w3-blue">
                       <button type="button" class="close" data-dismiss="modal">&times;</button>
                       <h4 class="modal-title"><span class="w3-text-white">Quotation No: #QUO-0'.$key['quotation_id'].'</span></h4>
@@ -200,9 +207,16 @@ error_reporting(E_ERROR | E_PARSE);
 
                       </div><br>';
       //------------------------------products fetched end ----------------------------------//
-                      echo '</div><br><br>
-                      <div class="">
-                      <button type="button" class="btn btn-default" data-dismiss="modal">Close Window</button>
+                      echo '</div>
+                      <br><br>
+                      <div class="w3-col l12 w3-margin-bottom">
+                      <div class="w3-col l6">
+                      <button type="button" class="btn btn-default" data-dismiss="modal">Send To PO</button>
+                      </div>
+                      <div class="w3-col l6">
+
+                      </div>
+                      
                       </div>
                       </div>
                       </div>
@@ -222,6 +236,68 @@ error_reporting(E_ERROR | E_PARSE);
     <div id="Input_MaterialStock"></div>
     <!-- End page content -->
   </div>
+
+
+  <!--  Script to delete item from order list............................
+  --> 
+  <script type="text/javascript">
+    function send_mail(customer_id,customer_name,quotation_id)
+    {
+
+      $.confirm({
+        title: '<label class="w3-large w3-text-red"><i class="fa fa-envelope"></i> Send Quotation to Customer.</label>',
+        content: '<span class="w3-medium">Do '+quotation_id+' You really want to '+customer_id+' send this quotation to customer '+customer_name+' ?</span>',
+        buttons: {
+          confirm: function () {
+            $.ajax({
+              type:'post',
+              url:BASE_URL+'sales_enquiry/manage_quotations/sendTo_PO',
+              data:{
+                customer_id:customer_id,
+                customer_name:customer_name,
+                enquiry_id:enquiry_id
+              },
+              success:function(response) {
+                $.alert(response);
+              }
+            });
+          },
+          cancel: function () {}
+        }
+      });
+    }
+  </script>
+  <!-- script to send mail ends -->
+
+   <!--  Script to delete item from order list............................
+  --> 
+  <script type="text/javascript">
+    function send_ToPO(quotation_id)
+    {
+
+      $.confirm({
+        title: '<label class="w3-large w3-text-red"><i class="fa fa-envelope"></i> Send Quotation to Purchase Order.</label>',
+        content: '<span class="w3-medium">Do You really want to send #QUO-0'+quotation_id+' to Purchase Order ?</span>',
+        buttons: {
+          confirm: function () {
+            $.ajax({
+              type:'post',
+              url:BASE_URL+'sales_enquiry/manage_quotations/sendTo_PO',
+              data:{
+                quotation_id:quotation_id
+              },
+              success:function(response) {
+                $.alert(response);
+              }
+            });
+          },
+          cancel: function () {}
+        }
+      });
+    }
+  </script>
+  <!-- script to send mail ends -->
+
 
   <!--     script to raise quotation   -->
   <script>

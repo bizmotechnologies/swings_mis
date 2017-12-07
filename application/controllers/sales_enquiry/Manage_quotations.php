@@ -241,7 +241,20 @@ class Manage_quotations extends CI_Controller
 	// --------------------- this fun is used to get sort quotation by customer and date ----------------------------------//	
 
 	public function sendTo_PO(){
-		extract($_GET);
+		extract($_POST);
+		print_r($_POST);
+$this->load->library('email');
+
+$this->email->from('samratbizmotech.com', 'Your Name');
+$this->email->to('samrat.munde@bizmo-tech.com');
+//$this->email->cc('another@another-example.com');
+//$this->email->bcc('them@their-example.com');
+
+$this->email->subject('Email Test');
+$this->email->message('Testing the email class.');
+
+$this->email->send();
+		die();
 		$path=base_url();
 		$url = $path.'api/manageQuotations_api/sendTo_PO?quotation_id='.$quotation_id;		
 		$ch = curl_init($url);
