@@ -256,8 +256,8 @@ $config['smtp_user'] = 'sealwings@bizmo-tech-admin.com';
 $config['smtp_pass'] = 'Descartes1990';
 
 // Load email library and passing configured values to email library
-$this->load->library(’email’, $config);
-$this->email->set_newline(“\r\n”);
+$this->load->library('email', $config);
+$this->email->set_newline("\r\n");
 
 $this->email->from('sealwings@bizmo-tech-admin.com', 'Your Name');
 $this->email->to('samrat.munde@bizmo-tech.com');
