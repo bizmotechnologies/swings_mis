@@ -244,7 +244,7 @@ class Manage_quotations extends CI_Controller
 		extract($_POST);
 		//print_r($_POST);
 		// Configure email library
-$config['protocol'] = 'http';
+$config['protocol'] = 'https';
 $config['smtp_host'] = 'mx1.hostinger.in';
 $config['smtp_timeout'] = '7';
 $config['smtp_port'] = 587;
