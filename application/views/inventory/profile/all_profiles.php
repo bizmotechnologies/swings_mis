@@ -248,7 +248,6 @@ error_reporting(E_ERROR | E_PARSE);
             cache: false,
             processData:false,
             success: function(data){
-               alert(data);
               $("#added_newMaterial_'.$key['profile_id'].'").html(data); 
             },
             error: function(){}             
