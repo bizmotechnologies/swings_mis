@@ -247,7 +247,7 @@ class Manage_quotations extends CI_Controller
 $config['protocol'] = 'http';
 $config['smtp_host'] = 'mx1.hostinger.in';
 $config['smtp_timeout'] = '7';
-$config['smtp_port'] = 110;
+$config['smtp_port'] = 587;
 $config['charset']    = 'utf-8';
 $config['newline']    = "\r\n";
 $config['mailtype'] = 'text'; // or html
