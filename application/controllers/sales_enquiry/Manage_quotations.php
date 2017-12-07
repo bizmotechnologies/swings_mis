@@ -243,20 +243,21 @@ class Manage_quotations extends CI_Controller
 	public function sendTo_PO(){
 		extract($_POST);
 		//print_r($_POST);
-		$this->load->library('email');
+		// Configure email library
+$config['protocol'] = 'http';
+$config['smtp_host'] = 'mx1.hostinger.in';
+$config['smtp_timeout'] = '7';
+$config['smtp_port'] = 110;
+$config['charset']    = 'utf-8';
+$config['newline']    = "\r\n";
+$config['mailtype'] = 'text'; // or html
+//$config[‘validation’] = TRUE; // bool whether to validate email or not
+$config['smtp_user'] = 'sealwings@bizmo-tech-admin.com';
+$config['smtp_pass'] = 'Descartes1990';
 
-		$config = Array(
-        'protocol' => 'smtp',
-        'smtp_host' => 'mx1.hostinger.in',
-        'smtp_port' => 587,
-        'smtp_user' => 'sealwings@bizmo-tech-admin.com',
-        'smtp_pass' => 'Descartes1990',
-        'mailtype'  => 'html', 
-        'charset'   => 'iso-8859-1'
-    );
-$config['wordwrap'] = TRUE;
-
-$this->email->initialize($config);
+// Load email library and passing configured values to email library
+$this->load->library(’email’, $config);
+$this->email->set_newline(“\r\n”);
 
 $this->email->from('sealwings@bizmo-tech-admin.com', 'Your Name');
 $this->email->to('samrat.munde@bizmo-tech.com');
