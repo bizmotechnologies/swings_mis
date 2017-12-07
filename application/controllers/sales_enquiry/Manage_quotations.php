@@ -247,10 +247,10 @@ class Manage_quotations extends CI_Controller
 
 		$config = Array(
         'protocol' => 'smtp',
-        'smtp_host' => 'ssl://smtp.gmail.com',
-        'smtp_port' => 465,
-        'smtp_user' => 'samratbizmotech@gmail.com',
-        'smtp_pass' => '8446524095',
+        'smtp_host' => 'mx1.hostinger.in',
+        'smtp_port' => 587,
+        'smtp_user' => 'sealwings@bizmo-tech-admin.com',
+        'smtp_pass' => 'Descartes1990',
         'mailtype'  => 'html', 
         'charset'   => 'iso-8859-1'
     );
