@@ -349,7 +349,7 @@ public function fetchmaterial_details() {
         $data['profileinfo'] = Manage_materials::GetProductProfileDetails(); //-------show all Product Profile
         $data['multiple_divs'] = Manage_materials::Add_MultipleProduct($_POST);     //-------show all materials
         $this->load->view('includes/navigation');
-        $this->load->view('inventory/new/demo', $data);
+        $this->load->view('sales/raise_enquiry', $data);
     }
 
 //    -----------this fun is show fetched material info page
