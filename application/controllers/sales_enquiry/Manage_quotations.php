@@ -243,8 +243,10 @@ class Manage_quotations extends CI_Controller
 	public function sendTo_PO(){
 		extract($_POST);
 		//print_r($_POST);
+		$this->load->library('email');
+
 		$config = Array(
-        'protocol' => 'smtp',
+        'protocol' => 'sendmail',
         'smtp_host' => 'mx1.hostinger.in',
         'smtp_port' => 587,
         'smtp_user' => 'samratbizmotech@gmail.com',
@@ -252,7 +254,10 @@ class Manage_quotations extends CI_Controller
         'mailtype'  => 'html', 
         'charset'   => 'iso-8859-1'
     );
-$this->load->library('email',$config);
+$config['mailpath'] = '/usr/sbin/sendmail';
+$config['wordwrap'] = TRUE;
+
+$this->email->initialize($config);
 
 $this->email->from('samratbizmotech.com', 'Your Name');
 $this->email->to('samrat.munde@bizmo-tech.com');
