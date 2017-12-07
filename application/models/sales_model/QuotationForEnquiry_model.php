@@ -170,26 +170,28 @@ class QuotationForEnquiry_model extends CI_Model {
         // $admin_mail=$all_mailsettings[0]['mail_email'];
         // $admin_password=$all_mailsettings[0]['mail_password'];
 
-        require 'mail/PHPMailerAutoload.php';
+       //$mail->SMTPDebug = 2;                               // Enable verbose debug output
+
+        $emailFrom='samrat.munde@bizmo-tech.com';
+        $nameFrom='Seal-Wings ';
+
+       require 'mail/PHPMailerAutoload.php';
 
         $mail = new PHPMailer;
 
-       $mail->SMTPDebug = 2;                               // Enable verbose debug output
+//$mail->SMTPDebug = 3;                               // Enable verbose debug output
 
-        $emailFrom='samratbizmotech@gmail.com';
-        $nameFrom='Seal-Wings ';
-
-        $mail->isSMTP();                                      // Set mailer to use SMTP
-        $mail->Host = 'mx1.hostinger.in';  // Specify main and backup SMTP servers
-        $mail->SMTPAuth = true;                               // Enable SMTP authentication
-        $mail->Username = 'sealwings@bizmo-tech-admin.com';                 // SMTP username
-        $mail->Password = 'Descartes1990';                           // SMTP password
+$mail->isSMTP();                                      // Set mailer to use SMTP
+$mail->Host = 'smtp.gmail.com';  // Specify main and backup SMTP servers
+$mail->SMTPAuth = true;                               // Enable SMTP authentication
+        $mail->Username = 'samratbizmotech@gmail.com';                 // SMTP username
+        $mail->Password = '8446524095';                           // SMTP password
         $mail->SMTPSecure = 'tls';                            // Enable TLS encryption, `ssl` also accepted
         $mail->Port = 587;                                    // TCP port to connect to
 
-        $mail->setFrom('sealwings@bizmo-tech-admin.com', 'samrat');
+        $mail->setFrom('samratbizmotech@gmail.com', 'samrat');
         $mail->addAddress($emailFrom, $nameFrom);     // Add a recipient
-        $mail->addReplyTo('sealwings@bizmo-tech-admin.com', 'samrat');
+        $mail->addReplyTo('samratbizmotech@gmail.com', 'samrat');
         // $mail->addCC('cc@example.com');
         // $mail->addBCC('bcc@example.com');
 
