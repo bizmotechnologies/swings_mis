@@ -246,16 +246,16 @@
 
       $.confirm({
         title: '<label class="w3-large w3-text-red"><i class="fa fa-envelope"></i> Send Quotation to Customer.</label>',
-        content: '<span class="w3-medium">Do '+quotation_id+' You really want to '+customer_id+' send this quotation to customer '+customer_name+' ?</span>',
+        content: '<span class="w3-medium">Do You really want to send this quotation to customer?</span>',
         buttons: {
           confirm: function () {
             $.ajax({
               type:'post',
-              url:BASE_URL+'sales_enquiry/manage_quotations/sendTo_PO',
+              url:BASE_URL+'sales_enquiry/manage_quotations/sendMail',
               data:{
                 customer_id:customer_id,
                 customer_name:customer_name,
-                enquiry_id:enquiry_id
+                quotation_id:quotation_id
               },
               success:function(response) {
                 $.alert(response);

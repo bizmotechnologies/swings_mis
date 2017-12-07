@@ -158,37 +158,66 @@ class QuotationForEnquiry_model extends CI_Model {
         // $admin_password=$all_mailsettings[0]['mail_password'];
         //$mail->SMTPDebug = 2;                               // Enable verbose debug output
 
-        $emailFrom = 'samrat.munde@bizmo-tech.com';
-        $nameFrom = 'Seal-Wings ';
+       
+        $emailFrom='samrat.munde@bizmo-tech.com';
+        $nameFrom='Seal-Wings ';
 
-        require 'mail/PHPMailerAutoload.php';
+        // Configure email library
+$config['protocol'] = 'smtp';
+$config['smtp_host'] ='seal-wings.com';
+$config['smtp_timeout'] = '7';
+$config['smtp_port'] = 465;
+$config['charset']    = 'iso-8859-1';
+$config['newline']    = "\r\n";
+$config['mailtype'] = 'text'; // or html
+//$config[‘validation’] = TRUE; // bool whether to validate email or not
+$config['smtp_user'] = 'test@seal-wings.com';
+$config['smtp_pass'] = 'sealwings@123';
 
-        $mail = new PHPMailer;
+// Load email library and passing configured values to email library
+$this->load->library('email', $config);
+$this->email->set_newline("\r\n");
 
-//$mail->SMTPDebug = 3;                               // Enable verbose debug output
+// Sender email address
+$this->email->from('test@seal-wings.com', 'username');
+// Receiver email address
+$this->email->to('samratbizmotech@gmail.com');
+// Subject of email
+$this->email->subject('Hii test mail');
+// Message in email
+$this->email->message('Test mail content');
 
-        $mail->isSMTP();                                      // Set mailer to use SMTP
-        $mail->Host = 'smtp.gmail.com';  // Specify main and backup SMTP servers
-        $mail->SMTPAuth = true;                               // Enable SMTP authentication
-        $mail->Username = 'samratbizmotech@gmail.com';                 // SMTP username
-        $mail->Password = '8446524095';                           // SMTP password
-        $mail->SMTPSecure = 'tls';                            // Enable TLS encryption, `ssl` also accepted
-        $mail->Port = 587;                                    // TCP port to connect to
 
-        $mail->setFrom('samratbizmotech@gmail.com', 'samrat');
-        $mail->addAddress($emailFrom, $nameFrom);     // Add a recipient
-        $mail->addReplyTo('samratbizmotech@gmail.com', 'samrat');
-        // $mail->addCC('cc@example.com');
-        // $mail->addBCC('bcc@example.com');
 
-        $mail->isHTML(true);                                  // Set email format to HTML
+        //require 'mail/PHPMailerAutoload.php';
 
-        $mail->Subject = 'Response for your Enquiry';
-        $mail->Body = 'There is a query from <b>' . $emailFrom . '</b><br>This is the body in plain text for non-HTML mail clients<br>';
-        $mail->AltBody = 'This is the body in plain text for non-HTML mail clients<br>';
+//         $mail = new PHPMailer;
 
-        if (!$mail->send()) {
-            $response = array(
+// $mail->SMTPDebug = 2;                               // Enable verbose debug output
+
+// $mail->isSMTP();                                      // Set mailer to use SMTP
+// $mail->Host = 'seal-wings.com';  // Specify main and backup SMTP servers
+// $mail->SMTPAuth = true;                               // Enable SMTP authentication
+//         $mail->Username = 'test@seal-wings.com';                 // SMTP username
+//         $mail->Password = 'sealwings@123';                           // SMTP password
+//         $mail->SMTPSecure = 'ssl';                            // Enable TLS encryption, `ssl` also accepted
+//         $mail->Port = 465;                                    // TCP port to connect to
+
+//         $mail->setFrom('samratbizmotech@gmail.com', 'samrat');
+//         $mail->addAddress($emailFrom, $nameFrom);     // Add a recipient
+//         $mail->addReplyTo('samratbizmotech@gmail.com', 'samrat');
+//         // $mail->addCC('cc@example.com');
+//         // $mail->addBCC('bcc@example.com');
+
+//         $mail->isHTML(true);                                  // Set email format to HTML
+
+//         $mail->Subject = 'Response for your Enquiry';
+//         $mail->Body    = 'There is a query from <b>'.$emailFrom.'</b><br>This is the body in plain text for non-HTML mail clients<br>';
+//         $mail->AltBody = 'This is the body in plain text for non-HTML mail clients<br>';
+
+       // if(!$mail->send()) {
+if ($this->email->send()) {
+            $response=array(
                 'status' => 0,
                 'status_message' => 'Message could not be sent. <br>Mailer Error: ' . $mail->ErrorInfo
             );
