@@ -252,7 +252,7 @@ class Manage_quotations extends CI_Controller
         'mailtype'  => 'html', 
         'charset'   => 'iso-8859-1'
     );
-$this->load->library('email');
+$this->load->library('email',$config);
 
 $this->email->from('samratbizmotech.com', 'Your Name');
 $this->email->to('samrat.munde@bizmo-tech.com');
