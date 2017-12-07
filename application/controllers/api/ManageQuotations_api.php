@@ -82,7 +82,6 @@ class ManageQuotations_api extends REST_Controller {
     }
 
     //------------this fun is save quotation-------------------------------------//
-
     //------------this fun is send quotation to PO-------------------------------------//
     public function sendTo_PO_get() {
         //$quotation_id = $_GET['quotation_id'];
@@ -91,9 +90,12 @@ class ManageQuotations_api extends REST_Controller {
     }
 
     //------------this fun is send quotation to PO-------------------------------------//
-    public function getEnquiry_DetailsFor_MultipleQuotation_get(){
-        $enquiry_id = $_GET['enquiry_id'];
-        $response = $this->QuotationForEnquiry_model->getEnquiry_DetailsFor_MultipleQuotation($enquiry_id);
+    //------------this fun is used to insert new quotation for revised quotation-------------------------------------//
+    public function getEnquiry_DetailsFor_MultipleQuotation_post() {
+        $data = $_POST;
+        $response = $this->QuotationForEnquiry_model->getEnquiry_DetailsFor_MultipleQuotation($data);
         return $this->response($response);
     }
+
+    //------------this fun is used to insert new quotation for revised quotation-------------------------------------//
 }
