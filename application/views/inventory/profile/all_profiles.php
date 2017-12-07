@@ -119,7 +119,7 @@ error_reporting(E_ERROR | E_PARSE);
         </div>
         <!-- modal ends here -->
         ';
-        
+      //--------------------- modal for update profile information---------------------------//  
         
         echo'<!-- Modal -->
         <div id="UpdateprofileModal_'.$key['profile_id'].'" class="modal fade" role="dialog">
@@ -215,7 +215,8 @@ error_reporting(E_ERROR | E_PARSE);
               
             </div>';
         $count++;
-            }
+            }      //--------------------- modal for update profile information---------------------------//  
+
           echo'</div>
               <div id="added_newMaterial_'.$key['profile_id'].'" class="">
           </div>
@@ -229,14 +230,20 @@ error_reporting(E_ERROR | E_PARSE);
         </div>
         </div>
         </div>
+
   <script>
+    /*this script is used to get material id starts here*/
+
   function getMaterialId(field_num){
 
   var material_id = $("#Materialinfo_"+field_num+" option[value=" + $("#material_name_"+field_num).val() + "]").data("value");
   $("#material_id_"+field_num).val(material_id);
 }
+    /*this script is used to get material id ends here*/
 </script>      
 <script>
+  /*this script is used to update profile details starts here*/
+
  $(document).ready(function (e){
     $("#UpdateProfile_form_'.$key['profile_id'].'").on(\'submit\',(function(e){       
         e.preventDefault(); 
@@ -254,7 +261,7 @@ error_reporting(E_ERROR | E_PARSE);
         });
     }));
 });
-  /*this script is used to update customer details ends here*/
+  /*this script is used to update profile details ends here*/
 </script>                       
 
 

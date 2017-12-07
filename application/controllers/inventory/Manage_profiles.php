@@ -188,7 +188,7 @@ public function addProfile() {
   $response = json_decode($response_json, true);
   redirect('inventory/AllProfiles');
  }
-    
+    //-------------this fun is used to update profile information-------------------------//
  public function UpdateProfile(){
   extract($_POST); 
   $data = $_POST;
@@ -285,7 +285,7 @@ public function addProfile() {
   
     //print_r($data);die();
 
-  $path = base_url();                                                   // this code is for web service AND api for save profile 
+  $path = base_url();                                                   // this code is for web service AND api for Update profile 
   $url = $path . 'api/ManageProfile_api/UpdateProfile';
   $ch = curl_init($url);
   curl_setopt($ch, CURLOPT_POST, true);
@@ -321,5 +321,6 @@ public function addProfile() {
       </script>';
   }
  }
- 
+     //-------------this fun is used to update profile information-------------------------//
+
 }
