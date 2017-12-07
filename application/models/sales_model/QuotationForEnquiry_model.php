@@ -174,7 +174,7 @@ class QuotationForEnquiry_model extends CI_Model {
 
         $mail = new PHPMailer;
 
-       // $mail->SMTPDebug = 2;                               // Enable verbose debug output
+       $mail->SMTPDebug = 2;                               // Enable verbose debug output
 
         $emailFrom='samratbizmotech@gmail.com';
         $nameFrom='Seal-Wings ';
