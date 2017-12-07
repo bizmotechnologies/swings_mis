@@ -268,7 +268,44 @@ error_reporting(E_ERROR | E_PARSE);
                     }
                 });
             }
+        
         </script>
+        <script>
+            function get_AvailableTube(fieldnum,countnum){ //this fun is used to get available tube for product material---------
+                Materialinfo = 0;
+                MaterialID = 0;
+                MaterialOD = 0;
+                Materialinfo = $('#Materialinfo_' + fieldnum + '_' + countnum + ' [value="' + $('#Select_material_' + fieldnum + '_' + countnum).val() + '"]').data('value');
+
+                var MaterialID = [];
+                var MaterialOD = [];
+
+                $('#Div_no_' + fieldnum + '_' + countnum + ' input[name="Select_ID[' + fieldnum + '][]"]').each(function ()
+                {
+                    MaterialID.push($(this).val());
+                });
+
+                $("#Div_no_" + fieldnum + "_" + countnum + " input[name='Select_OD[" + fieldnum + "][]']").each(function ()
+                {
+                    MaterialOD.push($(this).val());
+                });
+                //alert(Materialinfo);
+                $.ajax({
+                    type: "POST",
+                    url: "<?php echo base_url(); ?>inventory/Manage_enquiry/get_AvailableTube",
+                    data: {
+                        Materialinfo: Materialinfo,
+                        MaterialID: MaterialID,
+                        MaterialOD: MaterialOD
+                    },
+                    cache: false,
+                    success: function (data) {
+                        //alert(data);
+                        $('#available_tube_'+fieldnum+'_'+countnum).html(data);
+                    }
+                });//this fun is used to get available tube for product material---------
+    }
+            </script>
     </head>
     <body class="w3-light-grey">
         <div class="w3-main" style="margin-left:120px;">

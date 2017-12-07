@@ -49,7 +49,38 @@ class Manage_enquiry extends CI_controller {
         }
     }
 
-//---this fun is used to get base price from raw material
+//---this fun is used to get base price from raw material-----------------------//
+//---this fun is used to get available tube from raw material-----------------//
+
+    public function get_AvailableTube(){
+        extract($_POST);
+        //print_r($_POST);
+        if(isset($MaterialID) && isset($MaterialOD)){
+            $Material_ID = min($MaterialID);
+            $Material_OD = max($MaterialOD);
+
+            $path = base_url();
+            $url = $path . 'api/ManageEnquiry_api/get_AvailableTube?material_id='.$Materialinfo.'&Material_ID='.$Material_ID.'&Material_OD='.$Material_OD;
+            $ch = curl_init($url);
+            curl_setopt($ch, CURLOPT_HTTPGET, true);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            $response_json = curl_exec($ch);
+            curl_close($ch);
+            $response = json_decode($response_json, true);
+            //print_r($response_json);
+            if(empty($response) || $response['status_message'] == NULL){
+                echo '<label>Available Tube: N/A</label>';
+            }
+            else{
+            echo '<label>Available Tube: '.$response['status_message'].'</label>';
+            }
+        }
+        else{
+            echo '<label>Available Tube: N/A</label>';
+        }
+    }
+//---this fun is used to get available tube from raw material-----------------------//
+
 //------------this fun is used to get calculation of material base price-------------//
     public function GetMaterialBasePrice() {
         extract($_POST);

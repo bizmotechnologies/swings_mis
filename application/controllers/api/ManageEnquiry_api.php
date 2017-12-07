@@ -41,6 +41,16 @@ class ManageEnquiry_api extends REST_Controller {
     }
 
     //---------------------SAVE PRODUCTS API END------------------------------//
+    //---------------------GET AVAILABLE TUBE FROM RAW MATERIAL------------------------------//
+    public function get_AvailableTube_get(){
+        $material_id = $_GET['material_id'];
+        $Material_ID = $_GET['Material_ID'];
+        $Material_OD = $_GET['Material_OD'];
+        $response = $this->ManageEnquiry_model->get_AvailableTube($material_id, $Material_ID, $Material_OD);
+        return $this->response($response);
+    }
+    //---------------------GET AVAILABLE TUBE FROM RAW MATERIAL------------------------------//
+
 }
 
 ?>

@@ -95,7 +95,7 @@ class Manage_materials extends CI_controller {
                     echo'<div class="w3-col l12 w3-tiny w3-margin-top" id="Div_no_'.$Profile_num.'_'.$count.'">
                     <div class="w3-col l2">';
                     echo'<label>MATERIAL</label>';
-                    echo'<input autocomplete="off" list="Materialinfo_'.$Profile_num.'_'.$count.'" value="'.$key['material_name'].'" id="Select_material_'.$Profile_num.'_'.$count.'" name="Select_material[]" class="w3-input" required type="text" placeholder="Material" onchange="GetMaterialInformation_ForEnquiry('.$Profile_num.','.$count.');">';
+                    echo'<input autocomplete="off" list="Materialinfo_'.$Profile_num.'_'.$count.'" value="'.$key['material_name'].'" id="Select_material_'.$Profile_num.'_'.$count.'" name="Select_material[]" class="w3-input" required type="text" placeholder="Material" onchange="get_AvailableTube('.$Profile_num.','.$count.');">';
 
                     echo'<datalist id="Materialinfo_'.$Profile_num.'_'.$count.'">';
                     foreach ($materials['status_message'] as $result) {
@@ -148,7 +148,7 @@ class Manage_materials extends CI_controller {
                     for ($l = 0; $l < $key['length_quantity']; $l++) {
 
                         echo'<label>LENGTH</label>
-                        <input list="MaterialLength_'.$Profile_num.'_'.$count.'_'.$l.'" value="" id="Select_Length_'.$Profile_num.'_'.$count.'_'.$l.'" name="Select_Length['.$Profile_num.'][]" class="w3-input" required type="text" min="0" placeholder="Length" >
+                        <input list="MaterialLength_'.$Profile_num.'_'.$count.'_'.$l.'" value="" id="Select_Length_'.$Profile_num.'_'.$count.'_'.$l.'" name="Select_Length['.$Profile_num.'][]" class="w3-input" required type="text" min="0" placeholder="Length" onkeyup="get_AvailableTube('.$Profile_num.','.$count.');">
                         <datalist id="MaterialLength_'.$Profile_num.'_'.$count.'_'.$l.'">
                         </datalist>';
                     }
@@ -177,6 +177,8 @@ class Manage_materials extends CI_controller {
                     <div class="w3-col l12" id="best_tubeError_'.$Profile_num.'_'.$count.'">
                     
                     </div>
+                    <div class="w3-col l2 w3-margin-top" id="available_tube_'.$Profile_num.'_'.$count.'">                     
+                    </div>
                     </div>
 
                     ';
@@ -186,6 +188,7 @@ class Manage_materials extends CI_controller {
             //}
         }
     }
+    
     //--------------this fun is used to get profile image-------------------//
 
     public function getprofileimage(){

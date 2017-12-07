@@ -189,6 +189,28 @@ class ManageEnquiry_model extends CI_Model {
     }
 
 // Ending function save products in enquiry/////////////
+   //---------------------GET AVAILABLE TUBE FROM RAW MATERIAL------------------------------//
+    public function get_AvailableTube($material_id, $MaterialID, $MaterialOD){
+          $sql = "SELECT max(avail_length) as avail_length FROM raw_materialstock WHERE material_id = '$material_id' "
+                . "AND raw_ID = '$MaterialID' AND raw_OD ='$MaterialOD'";
+
+        $result = $this->db->query($sql);
+        $avail_length = '0.00';
+        if ($result->num_rows() <= 0) {
+            $avail_length = array(
+                'status' => 0,
+                'status_message' => '<label>Available Tube: N/A</label>');
+        } else {
+            foreach ($result->result_array() as $row) {
+                $avail_length = $row['avail_length'];
+            }
+            $avail_length = array(
+                'status' => 0,
+                'status_message' => $avail_length);
+        }
+        return $avail_length;
+    }
+    //---------------------GET AVAILABLE TUBE FROM RAW MATERIAL------------------------------// 
 }
 
 ?>
