@@ -246,15 +246,14 @@ class Manage_quotations extends CI_Controller
 		$this->load->library('email');
 
 		$config = Array(
-        'protocol' => 'sendmail',
-        'smtp_host' => 'mx1.hostinger.in',
-        'smtp_port' => 587,
+        'protocol' => 'smtp',
+        'smtp_host' => 'ssl://smtp.gmail.com',
+        'smtp_port' => 465,
         'smtp_user' => 'samratbizmotech@gmail.com',
         'smtp_pass' => '8446524095',
         'mailtype'  => 'html', 
         'charset'   => 'iso-8859-1'
     );
-$config['mailpath'] = '/usr/sbin/sendmail';
 $config['wordwrap'] = TRUE;
 
 $this->email->initialize($config);
