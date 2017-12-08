@@ -263,6 +263,28 @@ class Manage_quotations extends CI_Controller
 		extract($_POST);
 		$data=$_POST;
 		//print_r($_POST);die();
+
+		$config['protocol'] = 'smtp';
+$config['smtp_host'] = 'seal-wings.com';
+$config['smtp_port'] = '465'; // 8025, 587 and 25 can also be used. Use Port 465 for SSL.
+$config['smtp_crypto'] = 'ssl';
+$config['smtp_user'] = 'test@seal-wings.com';
+$config['smtp_pass'] = 'sealwings@123';
+$config['charset'] = 'utf-8';
+$config['mailtype'] = 'html';
+$config['newline'] = "rn";
+$this->load->library('email',$config); 
+$this->email->from('test@seal-wings.com', 'Sender Name');
+$this->email->to('samratbizmotech@gmail.com','Recipient Name');
+$this->email->subject('Your Subject');
+$this->email->message('Your Message'); 
+try{
+$this->email->send();
+echo 'Message has been sent.';
+}catch(Exception $e){
+echo $e->getMessage();
+}
+die();
 		
 		$path=base_url();
 		$url = $path.'api/manageQuotations_api/sendMail';
@@ -359,7 +381,6 @@ class Manage_quotations extends CI_Controller
 			$customer_name=$response['status_message'][0]['customer_name'];
 			$date=date('d M Y', strtotime($response['status_message'][0]['date_on']));
 			$time=date('h:m A', strtotime($response['status_message'][0]['time_on']));
-
 			$product_arr=array();
 			//print_r($products_associatedArr);die();
 
@@ -435,6 +456,7 @@ class Manage_quotations extends CI_Controller
 			';	
 		}
 	}
+
 //------------this fun is used to get enquiry details for multiple quotations----------------------------------------//
 	public function getEnquiry_DetailsFor_MultipleQuotation(){
 

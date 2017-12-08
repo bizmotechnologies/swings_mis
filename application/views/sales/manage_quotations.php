@@ -77,8 +77,8 @@
                 <table class="table table-bordered table-responsive w3-small" ><!-- table starts here -->
                   <tr style="background-color:black; color:white;" >
                     <th class="w3-center">Sr. No</th>
-                    <th class="w3-center">Enquiry No.</th>              
                     <th class="w3-center">Quotation No.</th>              
+                    <th class="w3-center">Enquiry No.</th>              
                     <th class="w3-center">Customer</th>              
                     <th class="w3-center">Raised on</th>              
                     <th class="w3-center">Delivery within</th>              
@@ -115,8 +115,8 @@
                       echo                    
                       '<tr class="">
                       <td class="w3-center">'.$count.'.</td>
-                      <td class="w3-center">#ENQ-0'.$key['enquiry_id'].'</td>
                       <td class="w3-center">#QUO-0'.$quotation_id.'</td>
+                      <td class="w3-center">#ENQ-0'.$key['enquiry_id'].'</td>
                       <td class="w3-center">'.ucwords($customer_name).'</td>
                       <td class="w3-center">'.$date.'</td>
                       <td class="w3-center">'.$key['delivery_within'].'</td>
@@ -127,7 +127,7 @@
 
                       <a class="btn w3-medium '.$hide.'" style="padding:0px;" onclick="send_ToPO('.$quotation_id.');" title="Send to PO"><i class="fa fa-sign-out"></i></a>
 
-                      <a class="btn w3-medium" style="padding:0px;" href="#"  title="Send To Client"><i class="fa fa-envelope"></i></a>
+                      <a class="btn w3-medium" style="padding:0px;" href="'.base_url().'sales_enquiry/manage_quotations/sendMail"  title="Send To Client"><i class="fa fa-envelope"></i></a>
                       </div>                      
                       </td>
                       </tr>
@@ -308,7 +308,7 @@
                       </script>
                       <!-- script ends -->
 
-                      <!--     script to add role     -->
+                      <!--     script to add revised quotation     -->
                       <script>
                       $(function(){
                         $("#revise_quoteForm_'.$key['quotation_id'].'").submit(function(){
