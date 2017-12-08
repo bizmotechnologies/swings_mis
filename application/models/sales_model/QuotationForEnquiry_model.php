@@ -25,26 +25,32 @@ class QuotationForEnquiry_model extends CI_Model {
 //------------this fun is for get all enquiries for quotation status-------------
 //------------this fun is for get all enquiries sort by date, customer and sort-------------
 
-    public function sort_Enquiry($From_date, $To_date, $Sort_by, $customer_Id) {
-        if ($customer_Id == 'all') {
-            switch ($Sort_by) {
-                case 'live':
-                $sql = "SELECT * FROM quotation_master WHERE status = '1'";
-                break;
+    public function filter_quotation($From_date, $Till_date, $customer_Id) {
 
-                case 'inpo':
-                $sql = "SELECT * FROM quotation_master WHERE status = '0'";
-            }
+       if ($From_date==''){
+        $query = "SELECT * FROM quotation_master WHERE customer_id='$customer_Id' AND dated <= '$Till_date' AND current_status!='0' ";                 
+       }
+       else if($Till_date==''){
+        $query = "SELECT * FROM quotation_master WHERE customer_id='$customer_Id' AND dated >= '$From_date' AND current_status!='0' ";                 
+       }
+       else if($customer_Id==''){
+        $query = "SELECT * FROM quotation_master WHERE dated BETWEEN '$From_date' AND '$Till_date' AND current_status!='0' ";                 
+       }
+       else{
+        $query = "SELECT * FROM quotation_master WHERE dated WHERE current_status!='0' ";
+       }
+       $result = $this->db->query($query); 
+
+       if ($result->num_rows() <= 0) {
+            $response = array(
+                'status' => 0,
+                'status_message' => 'No Quotations Found for specified Filter !!!');
         } else {
-            switch ($Sort_by) {
-                case 'live':
-                $sql = "SELECT * FROM quotation_master WHERE status = '1' AND cust_id = '$customer_Id'";
-                break;
-
-                case 'inpo':
-                $sql = "SELECT * FROM quotation_master WHERE status = '0' AND cust_id = '$customer_Id'";
-            }
+            $response = array(
+                'status' => 1,
+                'status_message' => $result->result_array());
         }
+        return $response; 
     }
 
     //------------this fun is for get all enquiries sort by date, customer and sort-------------//
