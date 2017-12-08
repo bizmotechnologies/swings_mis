@@ -56,12 +56,11 @@ class ManageQuotations_api extends REST_Controller {
 
 //------------this fun is used to get enquiry -------------------//
 //------------this fun is used to get sort enquiry by the date,customer and status-------------------//
-    public function sort_Enquiry_get() {
+    public function filter_quotation_get() {
         $From_date = $_GET['From_date'];
-        $To_date = $_GET['To_date'];
-        $Sort_by = $_GET['Sort_by'];
+        $Till_date = $_GET['Till_date'];
         $customer_Id = $_GET['customer_Id'];
-        $response = $this->QuotationForEnquiry_model->sort_Enquiry($From_date, $To_date, $Sort_by, $customer_Id);
+        $response = $this->QuotationForEnquiry_model->filter_quotation($From_date, $Till_date, $customer_Id);
         return $this->response($response);
     }
 

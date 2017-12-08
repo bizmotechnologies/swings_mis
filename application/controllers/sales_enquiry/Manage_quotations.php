@@ -216,27 +216,26 @@ class Manage_quotations extends CI_Controller
 	}
     // --------------------- this fun is used to get all enquiry for quotation ends here----------------------------------//	
 
-    // --------------------- this fun is used to get sort quotation by customer and date ----------------------------------//	
+    // --------------------- this fun is used to get filter quotation by customer and date ----------------------------------//	
 
-	public function sort_Enquiry(){
+	public function filter_quotation(){
 
 		$From_date = 2017/01/01;
-		$To_date = 2017/12/31;
-		$Sort_by = "live";
+		$Till_date = 2017/12/31;
 		$customer_Id = 1;
 		$path=base_url();
-		$url = $path.'api/manageQuotations_api/sort_Enquiry?From_date='.$From_date.'&To_date='.$To_date.'&Sort_by='.$Sort_by.'&customer_Id='.$customer_Id;		
+		$url = $path.'api/manageQuotations_api/filter_quotation?From_date='.$From_date.'&Till_date='.$Till_date.'&customer_Id='.$customer_Id;		
 		$ch = curl_init($url);
 		curl_setopt($ch, CURLOPT_HTTPGET, true);
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 		$response_json = curl_exec($ch);
 		curl_close($ch);
 		$response=json_decode($response_json, true);
-		print_r($response);
+		print_r($response_json);die();
 	}
-        // --------------------- this fun is used to get sort quotation by customer and date ----------------------------------//
+        // --------------------- this fun is used to get filter quotation by customer and date ----------------------------------//
 
-	// --------------------- this fun is used to get sort quotation by customer and date ----------------------------------//	
+	// --------------------- this fun is used to send quotation to PO ----------------------------------//	
 
 	public function sendTo_PO(){
 		extract($_POST);
@@ -254,7 +253,7 @@ class Manage_quotations extends CI_Controller
 
 		redirect('sales_enquiry/manage_quotations');
 	}
-        // --------------------- this fun is used to get sort quotation by customer and date ----------------------------------//
+        // --------------------- this fun is used to to send quotation to PO ----------------------------------//
 
 
 	// --------------------- this fun is used to get sort quotation by customer and date ----------------------------------//	
@@ -262,7 +261,7 @@ class Manage_quotations extends CI_Controller
 	public function sendMail(){
 		extract($_POST);
 		$data=$_POST;
-		//print_r($_POST);die();
+		print_r($_POST);die();
 
 		$config['protocol'] = 'smtp';
 $config['smtp_host'] = 'seal-wings.com';
@@ -278,12 +277,19 @@ $this->email->from('test@seal-wings.com', 'Sender Name');
 $this->email->to('samratbizmotech@gmail.com','Recipient Name');
 $this->email->subject('Your Subject');
 $this->email->message('Your Message'); 
-try{
-$this->email->send();
-echo 'Message has been sent.';
-}catch(Exception $e){
-echo $e->getMessage();
+if ($this->email->send()) {
+    $response=array(
+        'status' => 0,
+        'status_message' => 'Message could not be sent. <br>Mailer Error: '
+    );
+} else {
+    $response = array(
+        'status' => 1,
+        'status_message' => 'Message has been sent'
+    );
 }
+        //sql query to insert user row and create an account
+return $response;
 die();
 		
 		$path=base_url();

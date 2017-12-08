@@ -127,7 +127,7 @@
 
                       <a class="btn w3-medium '.$hide.'" style="padding:0px;" onclick="send_ToPO('.$quotation_id.');" title="Send to PO"><i class="fa fa-sign-out"></i></a>
 
-                      <a class="btn w3-medium" style="padding:0px;" href="'.base_url().'sales_enquiry/manage_quotations/sendMail"  title="Send To Client"><i class="fa fa-envelope"></i></a>
+                      <a class="btn w3-medium" style="padding:0px;" onclick="send_mail('.$customer_id.',\''.$customer_name.'\','.$quotation_id.')" title="Send To Client"><i class="fa fa-envelope"></i></a>
                       </div>                      
                       </td>
                       </tr>
