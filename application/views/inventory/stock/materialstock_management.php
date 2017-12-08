@@ -118,11 +118,12 @@ error_reporting(E_ERROR | E_PARSE);
                                                         <td class="text-center">' . $details['status_message'][$i]['tolerance'] . '</td>
                                                         <td class="text-center">' . $details['status_message'][$i]['material_price'] . ' <i class="fa fa-rupee"></i></td>
                                                         <td class="text-center">' . $details['status_message'][$i]['raw_quantity'] . '</td>
-                                                        <td class="text-center"><a class="btn w3-red w3-medium w3-padding-small" title="Delete Raw Material" href="' . base_url() . 'inventory/MaterialStock_Management/DeleteRawMaterialStockDetails?rawmaterial_id=' . $details['status_message'][$i]['rawmaterial_id'] . '" style="padding:0"><i class="fa fa-close"></i></a>
-
+                                                        <td class="text-center"><a class="btn w3-blue w3-medium w3-padding-small" title="UpdateMaterial" data-toggle="modal" data-target="#myModalnew_'.$details['status_message'][$i]['rawmaterial_id'].'" style="padding:0"><i class="fa fa-edit"></i></a>'
+                                                                . '&nbsp;<a class="btn w3-red w3-medium w3-padding-small" title="Delete Raw Material" href="' . base_url() . 'inventory/MaterialStock_Management/DeleteRawMaterialStockDetails?rawmaterial_id=' . $details['status_message'][$i]['rawmaterial_id'] . '" style="padding:0"><i class="fa fa-close"></i></a>
+                                                        
                                                         <!-- Modal  starts here-->
 
-                                                        <div id="myModalnew_' . $details['status_message'][$i]['rawmaterial_id'] . '" class="modal fade" role="dialog">
+                                                        <div class="modal fade" role="dialog">
                                                         <div class="modal-dialog">
 
                                                         <!-- Modal content-->
@@ -150,7 +151,24 @@ error_reporting(E_ERROR | E_PARSE);
                                                         echo '</select><br>
                                                         </div>
                                                         </div>
-
+                                                        
+                                                        <div class="row">
+                                                        <div class="col-lg-3">
+                                                        <label>Select Vendor</label> 
+                                                        </div>
+                                                        <div class="col-lg-6">                   
+                                                        <select class="form-control" name="Select_RawVendor_Id" id="Select_RawVendor_Id" required> <!-- this is for showing material stocks quantity -->
+                                                        <option>Select Material</option>';
+                                                        foreach ($vendors as $result) {
+                                                            echo '<option value="' . $result['vendor_id'] . '"';
+                                                            if ($details['status_message'][$i]['vendor_id'] == $result['vendor_id']) {
+                                                                echo 'selected';
+                                                            } echo '>' . $result['vendor_name'] . '</option>';
+                                                        }
+                                                        echo '</select><br>
+                                                        </div>
+                                                        </div>
+                                                        
                                                         <div class="row">
                                                         <div class="col-lg-3">
                                                         <label>ID:</label>
@@ -189,19 +207,30 @@ error_reporting(E_ERROR | E_PARSE);
 
                                                         <div class="row">
                                                         <div class="col-lg-3">
-                                                        <label>Select Vendor</label> 
+                                                            <label class="padding-left">Tolerance:</label>
                                                         </div>
-                                                        <div class="col-lg-6">                   
-                                                        <select class="form-control" name="Select_RawVendor_Id" id="Select_RawVendor_Id" required> <!-- this is for showing material stocks quantity -->
-                                                        <option>Select Material</option>';
-                                                        foreach ($vendors as $result) {
-                                                            echo '<option value="' . $result['vendor_id'] . '"';
-                                                            if ($details['status_message'][$i]['vendor_id'] == $result['vendor_id']) {
-                                                                echo 'selected';
-                                                            } echo '>' . $result['vendor_name'] . '</option>';
-                                                        }
-                                                        echo '</select><br>
+                                                        <div class="col-lg-6">
+                                                            <input type="number" name="Input_RawMaterialTolerance" id="Input_RawMaterialTolerance" class="form-control" value="'.$details['status_message'][$i]['tolerance'] . '" placeholder="Material Tolerance" step="0.01" required><br>
+                                                        </div>      
                                                         </div>
+
+                                                        <div class="row" id="simple_price">
+                                                        <div class="col-lg-3">
+                                                            <label class="padding-left">Price:</label>
+                                                        </div>
+                                                        <div class="col-lg-6">
+                                                            <input type="number" name="Input_RawMaterialPrice" id="Input_RawMaterialPrice" value="'.$details['status_message'][$i]['material_price'].'" class="form-control" placeholder="Material Price" step="0.01" ><br>
+                                                        </div>      
+                                                        </div>
+                                                        <br>
+
+                                                        <div class="row" id="fetched_price" style="display:none">
+                                                        <div class="col-lg-3">
+                                                            <label class="padding-left">Fetched&nbsp;Price:</label>
+                                                        </div>
+                                                        <div class="col-lg-6">
+                                                            <input type="number" name="Input_RawMaterialPriceFrom_Pricelist" id="Input_RawMaterialPriceFrom_Pricelist" class="form-control" placeholder="Material Price" step="0.01" ><br>
+                                                        </div>      
                                                         </div>
 
                                                         <div class="w3-right">

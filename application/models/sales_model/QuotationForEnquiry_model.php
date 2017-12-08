@@ -365,6 +365,21 @@ public function getEnquiry_DetailsFor_MultipleQuotation($data) {
                 }
                 return $Product_details;
             }
-
 //----------this fun is used to fetch enquiry details-------------------------------------//
+    public function sort_byStatus($From_date, $To_date, $Sort_by, $customer_Id){
+        
+        switch ($Sort_by) {
+            case '1':
+                $sqlsort = "SELECT * FROM quotation_master WHERE customer_id = '' AND ";
+            break;
+
+            case '2':
+                $sqlsort = "";
+            break;
+
+            default:
+                $sqlsort = "";
+            break;
         }
+    }
+}

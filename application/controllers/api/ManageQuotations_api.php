@@ -104,5 +104,16 @@ class ManageQuotations_api extends REST_Controller {
         $response = $this->QuotationForEnquiry_model->contact_admin();
         return $this->response($response);
     }
+    //------------this fun is send quotation to customer by mail-------------------------------------//
+    //--------------this fun is used to get sort quotation details by status-------------------------//
+    public function sort_byStatus_get(){
+        $From_date = $_GET['From_date'];
+        $To_date = $_GET['To_date'];
+        $Sort_by = $_GET['Sort_by'];
+        $customer_Id = $_GET['customer_Id'];
+        $response = $this->QuotationForEnquiry_model->sort_byStatus($From_date, $To_date, $Sort_by, $customer_Id);
+        return $this->response($response);
+    }
+    //--------------this fun is used to get sort quotation details by status-------------------------//
 
    }

@@ -509,5 +509,20 @@ die();
 		
 	}
 //------------this fun is used to get enquiry details for multiple quotations----------------------------------------//
+    public function sort_byStatus(){
+        $From_date = 2017/01/01;
+        $To_date = 2017/12/31;
+        $Sort_by = "live";
+        $customer_Id = 1;
+        $path = base_url();
+        $url = $path . 'api/manageQuotations_api/sort_byStatus?From_date='.$From_date.'&To_date='.$To_date.'&Sort_by='.$Sort_by.'&customer_Id'.$customer_Id;
+        $ch = curl_init($url);
+        curl_setopt($ch, CURLOPT_HTTPGET, true);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $response_json = curl_exec($ch);
+        curl_close($ch);
+        $response = json_decode($response_json, true);
+       // print_r($response_json);die();
 
+    }
 }
