@@ -7,7 +7,6 @@ class ManageEnquiry_model extends CI_Model {
 
     public function getBest_tube($material_id, $Material_ID, $Material_OD, $Material_LENGTH) {
         $criteriaForTube = ManageEnquiry_model::CheckCriteriaForCalculatedTube($material_id, $Material_ID, $Material_OD, $Material_LENGTH);
-
         return ($criteriaForTube);
     }
 
@@ -58,7 +57,6 @@ class ManageEnquiry_model extends CI_Model {
             } else {
                 $criteria[] = 0;
             }
-            //print_r($criteria);
             if (in_array(0, $criteria)) {
                 $response = array(
                     'status' => 0,
@@ -67,16 +65,16 @@ class ManageEnquiry_model extends CI_Model {
                 unset($criteria);
             } else {
                 $length_avail = ($Material_LENGTH + $rawMaterial_Tolerance);
-                //echo $length_avail;                
                 $response = array(
                     'status' => 1,
                     'value' => $rawMaterial_ID . '/' . $rawMaterial_OD
                 );
+                //print_r($response);die();
                 unset($criteria);
                 break;
             }
         }
-        return ($response);
+        return $response;
     }
 
 //-----this fun is used to get material base price calculations-------------//
@@ -192,7 +190,7 @@ class ManageEnquiry_model extends CI_Model {
    //---------------------GET AVAILABLE TUBE FROM RAW MATERIAL------------------------------//
     public function get_AvailableTube($material_id, $MaterialID, $MaterialOD){
           $sql = "SELECT max(avail_length) as avail_length FROM raw_materialstock WHERE material_id = '$material_id' "
-                . "AND raw_ID = '$MaterialID' AND raw_OD ='$MaterialOD'";
+                . "AND raw_ID <= '$MaterialID' AND raw_OD >='$MaterialOD'";
 
         $result = $this->db->query($sql);
         $avail_length = '0.00';

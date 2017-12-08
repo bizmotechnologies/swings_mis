@@ -17,6 +17,7 @@ class ManageEnquiry_api extends REST_Controller {
         $Material_OD = $_GET['Material_OD'];
         $Material_LENGTH = $_GET['Material_LENGTH'];
         $response = $this->ManageEnquiry_model->getBest_tube($material_id, $Material_ID, $Material_OD, $Material_LENGTH);
+        //print_r($_GET);
         return $this->response($response);
     }
 

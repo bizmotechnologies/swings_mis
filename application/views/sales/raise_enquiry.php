@@ -1,6 +1,6 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-error_reporting(E_ERROR | E_PARSE);
+//error_reporting(E_ERROR | E_PARSE);
 ?>
 <!DOCTYPE html>
 <html>
@@ -19,7 +19,7 @@ error_reporting(E_ERROR | E_PARSE);
             var currparent = 1;
             var currchild = 1;
             function getChildDivHtml(id) {// this code is used for add div to parent div on click fun
-                return '<div class="w3-card-2 w3-margin w3-round-xlarge w3-col l12 w3-padding">\n\
+            return '<div class="w3-card-2 w3-margin w3-round-xlarge w3-col l12 w3-padding">\n\
                     <a href="#" class="btn delete w3-text-grey w3-margin-right w3-right" title="Remove product">remove <i class="fa fa-remove"></i></a>\n\
                     <div class="w3-col l12 " id="Product_' + currparent + '">\n\
                     <div class="w3-col l12 w3-padding-left"><label class="w3-round w3-medium w3-label w3-black w3-padding">Product ' + currparent + '</label>\n\
@@ -94,22 +94,22 @@ error_reporting(E_ERROR | E_PARSE);
                     <div class="w3-col l12 w3-margin-top w3-margin-bottom w3-small">\n\
                     <div class="w3-col l4 w3-padding-left">\n\
                     <label>QUANTITY</label>\n\
-                    <input id="Product_Quantity_' + currparent + '" name="Product_Quantity[]" value="<?php echo $div['product_quantity']; ?>" class="w3-input" required type="number" min="0" step="0.01" placeholder="Product Quantity">\n\
+                    <input id="Product_Quantity_' + currparent + '" name="Product_Quantity[]" value="<?php echo $div['product_quantity']; ?>" class="w3-input" required type="number" min="0" step="0.01" placeholder="Product Quantity" onkeyup="GetProductPrice(' + currparent + ');">\n\
                     </div>\n\
                     <div class="w3-col l4 w3-padding-left">\n\
                     <label>Total Product Price</label>\n\
-                    <input id="TotalProduct_Price_' + currparent + '" name="TotalProduct_Price[]" value="<?php echo $div['product_price']; ?>" class="w3-input" required type="number" min="0" step="0.01" placeholder="Net Product Price">\n\
+                    <input id="TotalProduct_Price_' + currparent + '" name="TotalProduct_Price[]" value="<?php echo $div['product_price']; ?>" class="w3-input" required type="number" min="0" step="0.01" placeholder="Net Product Price" onfocus="GetProductPrice(' + currparent + ');">\n\
                     </div>\n\
-    </div></div>';// this code is used for add div to parent div on click fun
+    </div></div>'; // this code is used for add div to parent div on click fun
             }
             $(document).ready(function () {// this fun is used for add above code to parent div on click fun
-                $('#btn-add-product').on('click', function () {
-                    $('div#parent').append(getChildDivHtml(currparent));
-                    currparent++;
-                });// this fun is used for add above code to parent div on click fun
+            $('#btn-add-product').on('click', function () {
+            $('div#parent').append(getChildDivHtml(currparent));
+            currparent++;
+            }); // this fun is used for add above code to parent div on click fun
 
-                $('div#parent').on('click', '.btn-add-siblings', function () {// this fun is used for add materials to parent div on click fun
-                    $(this).parent().append('<div class="w3-col l12 w3-tiny w3-margin-top">\n\
+            $('div#parent').on('click', '.btn-add-siblings', function () {// this fun is used for add materials to parent div on click fun
+            $(this).parent().append('<div class="w3-col l12 w3-tiny w3-margin-top">\n\
                             <div class="w3-col l2 ">\n\
                             <label >MATERIAL</label>\n\
                             <input list="Materialinfo_' + currchild + '" value="<?php echo $material_id; ?>" id="Select_material_' + currchild + '" name="Select_material[]" class="w3-input" required type="text" placeholder="Material" onchange="GetMaterialInformation_ForEnquiry(' + currchild + ');">\n\
@@ -148,28 +148,26 @@ error_reporting(E_ERROR | E_PARSE);
                             <label>FINAL&nbsp;PRICE</label>\n\
                             <input id="final_Price_' + currchild + '" name="final_Price[]" <?php echo $final_Price; ?> class="w3-input" required type="number" min="0" step="0.01" placeholder="Final Price" onfocus="GetFinalPriceForMaterialCalculation(' + currchild + ');">\n\
                             </div>\n\\n\
-    </div>');// this fun is used for add materials to parent div on click fun
-                    currchild++;
-                });
-                $('div#parent').on("click", ".delete", function (e) {// this fun is used for remove materials from parent div on click fun
-                    e.preventDefault();
-                    $(this).parent('div').remove();
-                    x--;
-                });// this fun is used for remove materials from parent div on click fun
+    </div>'); // this fun is used for add materials to parent div on click fun
+            currchild++;
             });
-
-
+            $('div#parent').on("click", ".delete", function (e) {// this fun is used for remove materials from parent div on click fun
+            e.preventDefault();
+            $(this).parent('div').remove();
+            x--;
+            }); // this fun is used for remove materials from parent div on click fun
+            });
         </script>
         <script>
             function GetHousingValue(currentparent) {// this fun is used for show housing div on checkbox of housing
-                //alert('hiii');
-                var wrapper = $("#housing_statusforChecked_" + currentparent);
-                var x = 1;
-                var check_status = document.getElementById("checkHousing_" + currentparent).checked;
-                if (check_status) {
-                    x++;
+            //alert('hiii');
+            var wrapper = $("#housing_statusforChecked_" + currentparent);
+            var x = 1;
+            var check_status = document.getElementById("checkHousing_" + currentparent).checked;
+            if (check_status) {
+            x++;
 // this fun is used for show housing div on checkbox of housing
-                    $(wrapper).html('<div class="w3-col l12 w3-padding w3-small">\n\
+            $(wrapper).html('<div class="w3-col l12 w3-padding w3-small">\n\
     <div class="w3-col l6">\n\
     <label>Profile Description:</label>\n\
     <input type="text" placeholder="Profile Description(Ex.Piston Seal, Rod Seal .etc.)" class="w3-input" style="text-transform:uppercase;" id="profile_DescriptionForHousingChecked_' + currentparent + '" name="profile_DescriptionForHousingChecked[]" required>\n\
@@ -201,9 +199,8 @@ error_reporting(E_ERROR | E_PARSE);
     </div>\n\
     </div>\n\
     </div>');
-
-                } else {// this fun is used for show housing div on checkbox of housing
-                    $(wrapper).html('<div class="w3-col l12 w3-padding w3-small">\n\
+            } else {// this fun is used for show housing div on checkbox of housing
+            $(wrapper).html('<div class="w3-col l12 w3-padding w3-small">\n\
                         <div class="w3-col l6">\n\
                         <label>Profile Description:</label>\n\
                         <input type="text" placeholder="Profile Description(Ex.Piston Seal, Rod Seal .etc.)" class="w3-input" style="text-transform:uppercase;" id="profile_DescriptionForHousingUnchecked_' + currentparent + '" name="profile_DescriptionForHousingUnchecked[]" required>\n\
@@ -230,82 +227,104 @@ error_reporting(E_ERROR | E_PARSE);
                         </div>\n\
 </div>'); // this fun is used for show housing div on checkbox of housing
 
-                }
+            }
             }
         </script>
+        <script>
+            function GetProductPrice(rownum) { //----------------this fun is used to get product price---------------
+            final_Price = 0;
+            Product_Quantity = 0;
+            var final_Price = [];
+            var Product_Quantity = [];
+            FinalPricesum = 0;
+            ProductQuantity = 0;
+            productPrice = 0;
+            $('#Product_' + rownum + ' input[name="final_Price[]"]').each(function ()
+            {
+            final_Price.push($(this).val());
+            });
+            ProductQuantity = document.getElementById('Product_Quantity_' + rownum).value;
+            FinalPrice = final_Price.length;
+            while (FinalPrice--) {
+            FinalPricesum += parseFloat(final_Price[FinalPrice]) || 0;
+            }
+            productPrice = (FinalPricesum * parseFloat(ProductQuantity));
+            //alert(productPrice);
+            $('#TotalProduct_Price_' + rownum).val(productPrice);
+            
+            }
+            //----------------------this fun is used to get product price---------------------------
+        </script>        
         <script>
             function GetProfileInformation(rownum) {//this fun is used for get profile information
-                Profiles = $('#Profiles_' + rownum + ' [value="' + $('#Select_Profiles_' + rownum).val() + '"]').data('value');
-                $('#profile_id_fetch_' + rownum).val(Profiles);
-                getprofileimage(Profiles,rownum);//this fun is used for show profile image
-                $.ajax({
-                    type: "POST",
+            Profiles = $('#Profiles_' + rownum + ' [value="' + $('#Select_Profiles_' + rownum).val() + '"]').data('value');
+            $('#profile_id_fetch_' + rownum).val(Profiles);
+            getprofileimage(Profiles, rownum); //this fun is used for show profile image
+            $.ajax({
+            type: "POST",
                     url: "<?php echo base_url(); ?>inventory/Manage_materials/GetProfileInformation",
                     data: {
-                        Profiles: Profiles,
-                        Profile_num: rownum
+                    Profiles: Profiles,
+                            Profile_num: rownum
                     },
                     cache: false,
                     success: function (data) {
-                        //alert(data);
-                        $('#MaterialDiv_' + rownum).html(data);
+                    //alert(data);
+                    $('#MaterialDiv_' + rownum).html(data);
                     }
-                });
+            });
             }
 
-            function getprofileimage(Profiles,rownum) {//this fun is used for show profile image
+            function getprofileimage(Profiles, rownum) {//this fun is used for show profile image
 
-                $.ajax({
-                    type: "POST",
+            $.ajax({
+            type: "POST",
                     url: "<?php echo base_url(); ?>inventory/Manage_materials/getprofileimage",
                     data: {
-                        Profiles: Profiles
+                    Profiles: Profiles
                     },
                     cache: false,
                     success: function (data) {
-                        //alert(data);
-                        $('#profile_image_div_' + rownum).html('<center><img width="30%" height="30%" src="'+BASE_URL+''+data+'"/></center>');
+                    //alert(data);
+                    $('#profile_image_div_' + rownum).html('<center><img width="30%" height="30%" src="' + BASE_URL + '' + data + '"/></center>');
                     }
-                });
+            });
             }
-        
+
         </script>
         <script>
-            function get_AvailableTube(fieldnum,countnum){ //this fun is used to get available tube for product material---------
-                Materialinfo = 0;
-                MaterialID = 0;
-                MaterialOD = 0;
-                Materialinfo = $('#Materialinfo_' + fieldnum + '_' + countnum + ' [value="' + $('#Select_material_' + fieldnum + '_' + countnum).val() + '"]').data('value');
-
-                var MaterialID = [];
-                var MaterialOD = [];
-
-                $('#Div_no_' + fieldnum + '_' + countnum + ' input[name="Select_ID[' + fieldnum + '][]"]').each(function ()
-                {
-                    MaterialID.push($(this).val());
-                });
-
-                $("#Div_no_" + fieldnum + "_" + countnum + " input[name='Select_OD[" + fieldnum + "][]']").each(function ()
-                {
-                    MaterialOD.push($(this).val());
-                });
-                //alert(Materialinfo);
-                $.ajax({
-                    type: "POST",
+            function get_AvailableTube(fieldnum, countnum) { //this fun is used to get available tube for product material---------
+            Materialinfo = 0;
+            MaterialID = 0;
+            MaterialOD = 0;
+            Materialinfo = $('#Materialinfo_' + fieldnum + '_' + countnum + ' [value="' + $('#Select_material_' + fieldnum + '_' + countnum).val() + '"]').data('value');
+            var MaterialID = [];
+            var MaterialOD = [];
+            $('#Div_no_' + fieldnum + '_' + countnum + ' input[name="Select_ID[' + fieldnum + '][]"]').each(function ()
+            {
+            MaterialID.push($(this).val());
+            });
+            $("#Div_no_" + fieldnum + "_" + countnum + " input[name='Select_OD[" + fieldnum + "][]']").each(function ()
+            {
+            MaterialOD.push($(this).val());
+            });
+            //alert(Materialinfo);
+            $.ajax({
+            type: "POST",
                     url: "<?php echo base_url(); ?>inventory/Manage_enquiry/get_AvailableTube",
                     data: {
-                        Materialinfo: Materialinfo,
-                        MaterialID: MaterialID,
-                        MaterialOD: MaterialOD
+                    Materialinfo: Materialinfo,
+                            MaterialID: MaterialID,
+                            MaterialOD: MaterialOD
                     },
                     cache: false,
                     success: function (data) {
-                        //alert(data);
-                        $('#available_tube_'+fieldnum+'_'+countnum).html(data);
+                    //alert(data);
+                    $('#available_tube_' + fieldnum + '_' + countnum).html(data);
                     }
-                });//this fun is used to get available tube for product material---------
-    }
-            </script>
+            }); //this fun is used to get available tube for product material---------
+            }
+        </script>
     </head>
     <body class="w3-light-grey">
         <div class="w3-main" style="margin-left:120px;">
@@ -374,7 +393,7 @@ error_reporting(E_ERROR | E_PARSE);
         --> 
         <script>
             $('#myModalnew').on('hidden.bs.modal', function () {
-                location.reload();
+            location.reload();
             });
         </script>
         <!-- script end -->
@@ -383,78 +402,73 @@ error_reporting(E_ERROR | E_PARSE);
             //------------get best tube-------------
             function getBest_tube(fieldnum, countnum) {
 
-                Materialinfo = 0;
-                MaterialID = 0;
-                MaterialOD = 0;
-                MaterialLength = 0;
-                Materialinfo = $('#Materialinfo_' + fieldnum + '_' + countnum + ' [value="' + $('#Select_material_' + fieldnum + '_' + countnum).val() + '"]').data('value');
-
-                var MaterialID = [];
-                var MaterialOD = [];
-                var MaterialLength = [];
-
-                $('#Div_no_' + fieldnum + '_' + countnum + ' input[name="Select_ID[' + fieldnum + '][]"]').each(function ()
-                {
-                    MaterialID.push($(this).val());
-                });
-
-                $("#Div_no_" + fieldnum + "_" + countnum + " input[name='Select_OD[" + fieldnum + "][]']").each(function ()
-                {
-                    MaterialOD.push($(this).val());
-                });
-
-                $("#Div_no_" + fieldnum + "_" + countnum + " input[name='Select_Length[" + fieldnum + "][]']").each(function ()
-                {
-                    MaterialLength.push($(this).val());
-                });
-
-                $.ajax({
-                    type: "POST",
+            Materialinfo = 0;
+            MaterialID = 0;
+            MaterialOD = 0;
+            MaterialLength = 0;
+            Materialinfo = $('#Materialinfo_' + fieldnum + '_' + countnum + ' [value="' + $('#Select_material_' + fieldnum + '_' + countnum).val() + '"]').data('value');
+            var MaterialID = [];
+            var MaterialOD = [];
+            var MaterialLength = [];
+            $('#Div_no_' + fieldnum + '_' + countnum + ' input[name="Select_ID[' + fieldnum + '][]"]').each(function ()
+            {
+            MaterialID.push($(this).val());
+            });
+            $("#Div_no_" + fieldnum + "_" + countnum + " input[name='Select_OD[" + fieldnum + "][]']").each(function ()
+            {
+            MaterialOD.push($(this).val());
+            });
+            $("#Div_no_" + fieldnum + "_" + countnum + " input[name='Select_Length[" + fieldnum + "][]']").each(function ()
+            {
+            MaterialLength.push($(this).val());
+            });
+            $.ajax({
+            type: "POST",
                     url: BASE_URL + "inventory/Manage_enquiry/getBest_tube",
                     data: {
-                        Materialinfo: Materialinfo,
-                        MaterialID: MaterialID,
-                        MaterialOD: MaterialOD,
-                        MaterialLength: MaterialLength
+                    Materialinfo: Materialinfo,
+                            MaterialID: MaterialID,
+                            MaterialOD: MaterialOD,
+                            MaterialLength: MaterialLength
                     },
                     return: false, //stop the actual form post !important!
                     success: function (data)
                     {
-                        //alert(data);
-                        $('#bestTube_' + fieldnum + '_' + countnum).val(data);
+                    // alert(data);
+                    $('#bestTube_' + fieldnum + '_' + countnum).val(data);
                     }
-                });
+            });
             }
-        //--------------get best tube end-----------------------
+            //--------------get best tube end-----------------------
         </script>
         <script>
             function GetMaterialBasePrice(fieldnum, countnum) {
-                Materialinfo = 0;
-                MaterialLength = 0;
-                Materialinfo = $('#Materialinfo_' + fieldnum + '_' + countnum + ' [value="' + $('#Select_material_' + fieldnum + '_' + countnum + '').val() + '"]').data('value');
-                //alert(Materialinfo);
-                var MaterialLength = [];
-                $("#Div_no_" + fieldnum + "_" + countnum + " input[name='Select_Length[" + fieldnum + "][]']").each(function ()
-                {
-                    MaterialLength.push($(this).val());
-                });
-                bestTube = $('#bestTube_' + fieldnum + '_' + countnum).val();
-                //alert(bestTube);
-                $.ajax({
-                    type: "POST",
+            Materialinfo = 0;
+            MaterialLength = 0;
+            Materialinfo = $('#Materialinfo_' + fieldnum + '_' + countnum + ' [value="' + $('#Select_material_' + fieldnum + '_' + countnum + '').val() + '"]').data('value');
+            //alert(Materialinfo);
+            var MaterialLength = [];
+            $("#Div_no_" + fieldnum + "_" + countnum + " input[name='Select_Length[" + fieldnum + "][]']").each(function ()
+            {
+            MaterialLength.push($(this).val());
+            });
+            bestTube = $('#bestTube_' + fieldnum + '_' + countnum).val();
+            //alert(bestTube);
+            $.ajax({
+            type: "POST",
                     url: BASE_URL + "inventory/Manage_enquiry/GetMaterialBasePrice",
                     data: {
-                        Materialinfo: Materialinfo,
-                        MaterialLength: MaterialLength,
-                        bestTube: bestTube
+                    Materialinfo: Materialinfo,
+                            MaterialLength: MaterialLength,
+                            bestTube: bestTube
 
                     },
                     return: false, //stop the actual form post !important!
                     success: function (data)
                     {
-                        $('#base_Price_' + fieldnum + '_' + countnum).val(data);
+                    $('#base_Price_' + fieldnum + '_' + countnum).val(data);
                     }
-                });
+            });
             }
 
         </script>
@@ -463,8 +477,8 @@ error_reporting(E_ERROR | E_PARSE);
         <script>
             function getCustomerId() {
 
-                var customer_id = $('#Customers option[value="' + $('#Select_Customers').val() + '"]').data('value');
-                $('#customer_id').val(customer_id);
+            var customer_id = $('#Customers option[value="' + $('#Select_Customers').val() + '"]').data('value');
+            $('#customer_id').val(customer_id);
             }
 
         </script>
@@ -474,23 +488,22 @@ error_reporting(E_ERROR | E_PARSE);
         <script>
             function GetFinalPriceForMaterialCalculation(fieldnum, countnum) {
 
-                finalprice = '0';
-                //quantity = '0';
-                //discount = '0';
-                quantity = $("#select_Quantity_" + fieldnum + "_" + countnum).val();
-                discount = $("#discount_" + fieldnum + "_" + countnum).val();
-                baseprice = $("#base_Price_" + fieldnum + "_" + countnum).val();
-
-                if (discount === '' && quantity === '') {
-                    finalprice = baseprice;
-                } else if (discount === '') {
-                    finalprice = (parseInt(baseprice) * parseInt(quantity));
-                } else if (quantity === '') {
-                    finalprice = (parseInt(baseprice) - ((parseInt(discount) / 100) * (parseInt(baseprice))));
-                } else if (discount !== '' && quantity !== '') {
-                    finalprice = ((parseInt(baseprice) * parseInt(quantity)) - ((parseInt(discount) / 100) * (parseInt(baseprice) * parseInt(quantity))));
-                }
-                $("#final_Price_" + fieldnum + "_" + countnum).val(finalprice);
+            finalprice = '0';
+            //quantity = '0';
+            //discount = '0';
+            quantity = $("#select_Quantity_" + fieldnum + "_" + countnum).val();
+            discount = $("#discount_" + fieldnum + "_" + countnum).val();
+            baseprice = $("#base_Price_" + fieldnum + "_" + countnum).val();
+            if (discount === '' && quantity === '') {
+            finalprice = baseprice;
+            } else if (discount === '') {
+            finalprice = (parseInt(baseprice) * parseInt(quantity));
+            } else if (quantity === '') {
+            finalprice = (parseInt(baseprice) - ((parseInt(discount) / 100) * (parseInt(baseprice))));
+            } else if (discount !== '' && quantity !== '') {
+            finalprice = ((parseInt(baseprice) * parseInt(quantity)) - ((parseInt(discount) / 100) * (parseInt(baseprice) * parseInt(quantity))));
+            }
+            $("#final_Price_" + fieldnum + "_" + countnum).val(finalprice);
             }
 
         </script>
