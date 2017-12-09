@@ -356,9 +356,15 @@ error_reporting(E_ERROR | E_PARSE);
                                         <div class="col-lg-3">
                                             <label class="padding-left">Price:</label>
                                         </div>
-                                        <div class="col-lg-6">
+                                        <div class="col-lg-3">
                                             <input type="number" name="Input_RawMaterialPrice" id="Input_RawMaterialPrice" class="form-control" placeholder="Material Price" step="0.01" ><br>
-                                        </div>      
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <select class="form-control" name="Input_RawMaterialCurrency" id="Input_RawMaterialCurrency" required>                   
+                                                <option value="INR">INR</option>
+                                                <option value="EURO">EURO</option>
+                                            </select>
+                                        </div>
                                     </div>
                                     <br>
 
@@ -370,7 +376,10 @@ error_reporting(E_ERROR | E_PARSE);
                                             <input type="number" name="Input_RawMaterialPriceFrom_Pricelist" id="Input_RawMaterialPriceFrom_Pricelist" class="form-control" placeholder="Material Price" step="0.01" ><br>
                                         </div>
                                         <div class="col-lg-3">
-                                            <input type="number" name="Input_RawMaterial_Currency" id="Input_RawMaterialPriceFrom_Pricelist" class="form-control" placeholder="Material Price" step="0.01" ><br>
+                                            <select class="form-control" name="Input_RawMaterial_CurrencyFrom_Pricelist" id="Input_RawMaterial_CurrencyFrom_Pricelist" required>                   
+                                                <option value="INR">INR</option>
+                                                <option value="EURO">EURO</option>
+                                            </select>
                                         </div>
                                     </div>
 
@@ -782,7 +791,7 @@ error_reporting(E_ERROR | E_PARSE);
                                                 <td class="text-center">' . $Finished['status_message'][$i]['fproduct_length'] . '</td>
                                                 <td class="text-center">' . $Finished['status_message'][$i]['fproduct_quantity'] . '</td>
                                                 <td class="text-center"><a class="btn w3-blue w3-medium w3-padding-small" title="UpdateCustomer" data-toggle="modal" data-target="#myModalnew_' . $Finished['status_message'][$i]['finished_product_id'] . '" style="padding:0"><i class="fa fa-edit"></i></a>
-                                                <a class="btn w3-red w3-medium w3-padding-small" title="DeleteCustomer" href="' . base_url() . 'inventory/MaterialStock_Management/DeleteFinishedProductDetails?finished_product_id=' . $Finished['status_message'][$i]['finished_product_id'] . '" style="padding:0"><i class="fa fa-close"></i></a>
+                                                <a class="btn w3-red w3-medium w3-padding-small" title="UpdateMaterial" href="' . base_url() . 'inventory/MaterialStock_Management/DeleteFinishedProductDetails?finished_product_id=' . $Finished['status_message'][$i]['finished_product_id'] . '" style="padding:0"><i class="fa fa-close"></i></a>
 
                                                 <!-- Modal  starts here-->
 
@@ -1032,4 +1041,26 @@ error_reporting(E_ERROR | E_PARSE);
             $('#fetched_price').hide();
         }
     });
-</script> 
+</script>
+<script>
+//----this fun is used to add raw material details information---------------------//
+$(function () {
+    $("#Manage_RawMaterialForm").submit(function () {
+        dataString = $("#Manage_RawMaterialForm").serialize();
+        alert(dataString);
+        $.ajax({
+            type: "POST",
+            url: BASE_URL + "inventory/MaterialStock_Management/Save_RawStockMaterial_Info",
+            data: dataString,
+            return: false, //stop the actual form post !important!
+            success: function (data)
+            {
+                //alert(data);
+                $("#addProducts_err").html(data);
+            }
+        });
+        return false; //stop the actual form post !important!
+    });
+});
+//this fun is used to add raw material ends here----------------------------------//
+</script>

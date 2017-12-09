@@ -225,13 +225,15 @@ class MaterialStock_Management extends CI_controller {
 
         extract($_POST);
         $data = $_POST;
-        
+        //print_r($data);
         $price = $Input_RawMaterialPrice;
+        $currency = $Input_RawMaterialCurrency;
         if (isset($checkPrice)) {
             $price = $Input_RawMaterialPriceFrom_Pricelist;
+            $currency = $Input_RawMaterial_CurrencyFrom_Pricelist;
         }
         $data['price'] = $price;
-
+        $data['currency'] = $currency;
         $path = base_url();
         $url = $path . 'api/MaterialStockManagement_api/Save_RawStockMaterial_Info';
         $ch = curl_init($url);
@@ -241,7 +243,7 @@ class MaterialStock_Management extends CI_controller {
         $response_json = curl_exec($ch);
         curl_close($ch);
         $response = json_decode($response_json, true);
-
+        print_r($response_json);
         if ($response['status'] == 0) {
             echo'<div class="alert alert-danger w3-margin" style="text-align: center;">
             <strong>' . $response['status_message'] . '</strong> 
@@ -250,7 +252,7 @@ class MaterialStock_Management extends CI_controller {
             window.setTimeout(function() {
              $(".alert").fadeTo(500, 0).slideUp(500, function(){
               $(this).remove(); 
-                          location.reload();
+              
              });
             }, 1000);
             </script>';
@@ -262,7 +264,6 @@ class MaterialStock_Management extends CI_controller {
             window.setTimeout(function() {
              $(".alert").fadeTo(500, 0).slideUp(500, function(){
               $(this).remove();
-                          location.reload(); 
              });
             }, 1000);
             </script>';

@@ -34,26 +34,7 @@ function ShowMaterialStock() {
 }
 /*this function is used for show total material stocks quantity*/
 
-//----this fun is used to add raw material details information---------------------//
-$(function () {
-    $("#Manage_RawMaterialForm").submit(function () {
-        dataString = $("#Manage_RawMaterialForm").serialize();
-        //alert(dataString);
-        $.ajax({
-            type: "POST",
-            url: BASE_URL + "inventory/MaterialStock_Management/Save_RawStockMaterial_Info",
-            data: dataString,
-            return: false, //stop the actual form post !important!
-            success: function (data)
-            {
-                //alert(data);
-                $("#addProducts_err").html(data);
-            }
-        });
-        return false; //stop the actual form post !important!
-    });
-});
-//this fun is used to add raw material ends here----------------------------------//
+
 
 //this fun is used to add purchased material Starts here----------------------------------//
 
