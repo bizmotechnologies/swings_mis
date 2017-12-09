@@ -170,8 +170,8 @@ class MaterialStockManagement_model extends CI_Model {
                 . " values ('$Select_RawMaterials','$Select_RawVendors_Id',"
                 . "'$material_name','$Input_RawMaterialStock_ID',"
                 . "'$Input_RawMaterialStock_OD','$Input_RawMaterialLength',"
-                . "'$currency','$branch_id','$price','$Input_RawMaterialTolerance',now())";
-        echo $sqlnew;die();
+                . "'$currency','$branch_name','$price','$Input_RawMaterialTolerance',now())";
+        //echo $sqlnew;die();
         for($i=0; $i< $Input_RawMaterialNewQuantity; $i++){
         $resultnew = $this->db->query($sqlnew);
         }

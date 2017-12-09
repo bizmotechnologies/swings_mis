@@ -113,14 +113,14 @@ $branch_name=$this->session->userdata('branch_name');
                                                     for ($i = 0; $i < count($details['status_message']); $i++) {
                                                         echo '<tr class="text-center">
                                                         <td class="text-center">' . $count . '.</td>
-                                                        <td class="text-center"><form name="#Update_Manage_MaterialForm_'.$details['status_message'][$i]['rawmaterial_id'].'" id="#Update_Manage_MaterialForm_'.$details['status_message'][$i]['rawmaterial_id'].'"><input type="text" name="Updated_MaterialStock_ID" id="Updated_MaterialStock_ID" class="form-control" value="' . $details['status_message'][$i]['material_name'] . '"></td>
+                                                        <td class="text-center"><input type="text" name="Updated_MaterialStock_Materialname" id="Updated_MaterialStock_Materialname" class="form-control" value="' . $details['status_message'][$i]['material_name'] . '"></td>
                                                         <td class="text-center">' . $details['status_message'][$i]['raw_ID'] . '</td>
                                                         <td class="text-center">' . $details['status_message'][$i]['raw_OD'] . '</td>
-                                                        <td class="text-center"><input type="number" name="Updated_MaterialStock_ID" id="Updated_MaterialStock_ID" class="form-control" value="' . $details['status_message'][$i]['avail_length'] . '"></form></td>
+                                                        <td class="text-center"><input type="number" name="Updated_MaterialStock_Length" id="Updated_MaterialStock_Length" class="form-control" value="' . $details['status_message'][$i]['avail_length'] . '"></td>
                                                         <td class="text-center">' . $details['status_message'][$i]['tolerance'] . '</td>
                                                         <td class="text-center">' . $details['status_message'][$i]['material_price'] . ' <i class="fa fa-euro"></i></td>
                                                         <td class="text-center">' . $details['status_message'][$i]['raw_quantity'] . '</td>
-                                                        <td class="text-center"><button  type="submit" class="btn w3-blue w3-medium w3-padding-small" title="Update Raw Material" href="'.base_url().'inventory/MaterialStock_Management/Update_UpdatedStockMaterial_Info?rawmaterial_id='.$details['status_message'][$i]['rawmaterial_id'].'" style="padding:0"><i class="fa fa-edit"></i></a>
+                                                        <td class="text-center"><button  type="submit" class="btn w3-blue w3-medium w3-padding-small" title="Update Raw Material" href="'.base_url().'inventory/MaterialStock_Management/Update_UpdatedStockMaterial_Info?rawmaterial_id='.$details['status_message'][$i]['rawmaterial_id'].'" style="padding:0"><i class="fa fa-edit"></i></button>
                                                         <button class="btn w3-red w3-medium w3-padding-small" title="Delete Raw Material" href="'.base_url().'inventory/MaterialStock_Management/DeleteRawMaterialStockDetails?rawmaterial_id=' . $details['status_message'][$i]['rawmaterial_id'] . '" style="padding:0"><i class="fa fa-close"></i></button>
                                                         
 
@@ -216,28 +216,28 @@ $branch_name=$this->session->userdata('branch_name');
                                                         </div>
                                                         </div>
                                                         </div>
-
                                                         <script>
-                                                        /* this script is used to update material info */
-                                                        $(function(){
-                                                         $("#Update_Manage_MaterialForm_'.$details['status_message'][$i]['rawmaterial_id'].'").submit(function(){
-                                                           dataString = $("#Update_Manage_MaterialForm_'.$details['status_message'][$i]['rawmaterial_id'].'").serialize();
-                                                           $.ajax({
-                                                             type: "POST",
-                                                             url: "'.base_url().'inventory/MaterialStock_Management/Update_UpdatedRawStockMaterial_Info",
-                                                             data: dataString,
-                                                             return: false,  
-                                                             success: function(data)
-                                                             {
-                                                                $("#Updatestock_errnew").html(data);
-                                                                location.reload();
-                                                            }
-                                                        });
-                                                        return false;  
-                                                    });
-                                                });
-                                                /* update script ends here  */
-                                                </script>   
+                                                        function Update_UpdatedStockMaterial_Info(){
+                                                        Updated_MaterialStock_Materialname = $("#Updated_MaterialStock_Materialname").val()
+                                                        Updated_MaterialStock_Materialname = $("#Updated_MaterialStock_Materialname").val()
+                                                        alert(hiii);
+                                                             $.ajax({
+                                                                type: "POST",
+                                                                        url: "<?php echo base_url(); ?>inventory/Manage_enquiry/get_AvailableTube",
+                                                                        data: {
+                                                                        Materialinfo: Materialinfo,
+                                                                                Updated_MaterialStock_Materialname: Updated_MaterialStock_Materialname,
+                                                                                Updated_MaterialStock_Length: Updated_MaterialStock_Length
+                                                                        },
+                                                                        cache: false,
+                                                                        success: function (data) {
+                                                                        alert(data);
+                                                                        //$("#available_tube_" + fieldnum + "_" + countnum).html(data);
+                                                                        }
+                                                                });   
+                                                          }
+                                                        </script>
+                                                         
 
                                                 <script>   
                                                 /* this script is used to reload page when close modal*/
@@ -1044,7 +1044,7 @@ $branch_name=$this->session->userdata('branch_name');
 $(function () {
     $("#Manage_RawMaterialForm").submit(function () {
         dataString = $("#Manage_RawMaterialForm").serialize();
-        alert(dataString);
+        //alert(dataString);
         $.ajax({
             type: "POST",
             url: BASE_URL + "inventory/MaterialStock_Management/Save_RawStockMaterial_Info",
@@ -1061,11 +1061,11 @@ $(function () {
 });
 //this fun is used to add raw material ends here----------------------------------//
 </script>
-<script>
+<!--<script>
 function priceconversion(){
     Input_RawMaterialCurrency = $("#Input_RawMaterialCurrency").val();
     checkPrice = document.getElementById("checkPrice");
-    if(checkPrice.checked = true;){
+    if(checkPrice.checked = true){
         
     }
     $.ajax({
@@ -1081,4 +1081,4 @@ function priceconversion(){
             }
         });
 }
-</script>
+</script>-->

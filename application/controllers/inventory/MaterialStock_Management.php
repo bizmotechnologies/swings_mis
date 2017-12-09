@@ -71,7 +71,7 @@ class MaterialStock_Management extends CI_controller {
     public function Save_PurchasedProduct_Info() {
         extract($_POST);
         $data = $_POST;
-
+        
         $path = base_url();
         $url = $path . 'api/MaterialStockManagement_api/Save_PurchasedProduct_Info';
         $ch = curl_init($url);
@@ -254,7 +254,8 @@ class MaterialStock_Management extends CI_controller {
 
         extract($_POST);
         $data = $_POST;
-        //print_r($data);
+        $branch_name=$this->session->userdata('branch_name');
+        $data['branch_name']=$$branch_name;        
         $price = $Input_RawMaterialPrice;
         if (isset($checkPrice)) {
             $price = $Input_RawMaterialPriceFrom_Pricelist;
