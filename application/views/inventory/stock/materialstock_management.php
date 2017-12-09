@@ -1,6 +1,8 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-error_reporting(E_ERROR | E_PARSE);
+//error_reporting(E_ERROR | E_PARSE);
+$branch_name=$this->session->userdata('branch_name');
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -101,6 +103,7 @@ error_reporting(E_ERROR | E_PARSE);
                                                 <th class="text-center">Available&nbsp;Length</th>              
                                                 <th class="text-center">Tolerance</th>
                                                 <th class="text-center">Price/Unit</th>
+                                                <th class="text-center">Branch</th>
                                                 <th class="text-center">Actions</th>                                           
                                             </tr>
                                             <tbody><!-- table body starts here -->
@@ -110,15 +113,21 @@ error_reporting(E_ERROR | E_PARSE);
                                                     for ($i = 0; $i < count($details['status_message']); $i++) {
                                                         echo '<tr class="text-center">
                                                         <td class="text-center">' . $count . '.</td>
-                                                        <td class="text-center"><input type="text" name="Updated_MaterialStock_ID" id="Updated_MaterialStock_ID" class="form-control" value="'.$details['status_message'][$i]['material_name'].'"></td>
-                                                        <td class="text-center">'.$details['status_message'][$i]['raw_ID'].'</td>
-                                                        <td class="text-center">'.$details['status_message'][$i]['raw_OD'].'</td>
-                                                        <td class="text-center"><input type="text" name="Updated_MaterialStock_OD" id="Updated_MaterialStock_OD" class="form-control" value="'.$details['status_message'][$i]['avail_length'].'"></td>
-                                                        <td class="text-center">'.$details['status_message'][$i]['tolerance'].'</td>
-                                                        <td class="text-center">'.$details['status_message'][$i]['material_price'].' <i class="fa fa-euro"></i></td>
+                                                        <td class="text-center">' . $details['status_message'][$i]['material_name'] . '</td>
+                                                        <td class="text-center">' . $details['status_message'][$i]['raw_ID'] . '</td>
+                                                        <td class="text-center">' . $details['status_message'][$i]['raw_OD'] . '</td>
+                                                        <td class="text-center">' . $details['status_message'][$i]['avail_length'] . '</td>
+                                                        <td class="text-center">' . $details['status_message'][$i]['tolerance'] . '</td>
+                                                        <td class="text-center">' . $details['status_message'][$i]['material_price'] . ' <i class="fa fa-rupee"></i></td>
+                                                        <td class="text-center">' . $details['status_message'][$i]['raw_quantity'] . '</td>
                                                         <td class="text-center"><a class="btn w3-blue w3-medium w3-padding-small" title="Update Raw Material" href="'.base_url().'inventory/MaterialStock_Management/DeleteRawMaterialStockDetails?rawmaterial_id=' . $details['status_message'][$i]['rawmaterial_id'] . '" style="padding:0"><i class="fa fa-edit"></i></a>
+<<<<<<< HEAD
                                                         <a class="btn w3-red w3-medium w3-padding-small" title="Delete Raw Material" href="'.base_url().'inventory/MaterialStock_Management/Update_UpdatedStockMaterial_Info?rawmaterial_id='.$details['status_message'][$i]['rawmaterial_id'].'" style="padding:0"><i class="fa fa-close"></i></a>
                                                             
+=======
+                                                        <a class="btn w3-red w3-medium w3-padding-small" title="Delete Raw Material" href="' . base_url() . 'inventory/MaterialStock_Management/?rawmaterial_id=' . $details['status_message'][$i]['rawmaterial_id'] . '" style="padding:0"><i class="fa fa-close"></i></a>
+
+>>>>>>> 3f5be6033bf0b0b62b7834ea42c3ac7b0387944d
 
                                                         <!-- Modal  starts here-->
 

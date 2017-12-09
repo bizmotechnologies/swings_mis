@@ -80,6 +80,7 @@ class Role_login extends CI_Controller
  				'user_id'  => $response['user_id'],
  				'user_name' => $response['user_name'],
  				'privilege'=>$response['role'],
+ 				'branch_name'=>$response['branch_name'],
  				'role'=>$response['role']
  			);
 
