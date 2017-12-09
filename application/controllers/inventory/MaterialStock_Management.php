@@ -112,8 +112,7 @@ class MaterialStock_Management extends CI_controller {
     //-----------------------------api to fetch excel to db-------------//
      public function EXCELDB() {
 
-        ;
-        $data = ;
+      
         //print_r($data); die();
         $path = base_url();
         $url = $path . 'api/MaterialStockManagement_api/Update_Finishedproducts_Info';
