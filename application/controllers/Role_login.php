@@ -15,6 +15,7 @@ class Role_login extends CI_Controller
 	public function index(){
 		
 		$data['all_roles']=Role_login::show_roles();	//---get all roles
+		$data['all_branches']=Role_login::show_branch();	//---get all roles
 		$this->load->view('pages/index.php',$data);
 		
 	}
@@ -30,11 +31,21 @@ class Role_login extends CI_Controller
 			';	
 			die();
 		}
+
+		//---------------if any of the role is not selected, then return this--------//
+		if($login_branch=='0'){
+			echo '<div class="alert alert-danger">
+			<strong>Choose branch name first !!!</strong> 
+			</div>			
+			';	
+			die();
+		}
 		//Connection establishment, processing of data and response from REST API		
 		$data=array(
  			'user_name' =>$login_user,
  			'user_password' => $login_password,
- 			'user_role'	=> $login_role
+ 			'user_role'	=> $login_role,
+ 			'user_branch'	=> $login_branch
  		);
  		
 		$path=base_url();
@@ -46,7 +57,7 @@ class Role_login extends CI_Controller
 		$response_json = curl_exec($ch);
 		curl_close($ch);
 		$response=json_decode($response_json, true);
-		
+
 		//API processing end
 		if($response['status']==0){
 			echo '<div class="alert alert-danger ">
@@ -68,7 +79,7 @@ class Role_login extends CI_Controller
 			$session_data= array(
  				'user_id'  => $response['user_id'],
  				'user_name' => $response['user_name'],
- 				'privilege'=>$response['privilege'],
+ 				'privilege'=>$response['role'],
  				'role'=>$response['role']
  			);
 
@@ -108,6 +119,23 @@ class Role_login extends CI_Controller
 		//Connection establishment, processing of data and response from REST API
 		$path=base_url();
 		$url = $path.'api/manageRoles_api/all_role';		
+		$ch = curl_init($url);
+		curl_setopt($ch, CURLOPT_HTTPGET, true);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		$response_json = curl_exec($ch);
+		curl_close($ch);
+		$response=json_decode($response_json, true);
+		return $response;		
+		
+	}
+// ---------------------function ends----------------------------------//
+
+	// ---------------function to show all branches------------------------//
+	public function show_branch(){
+		
+		//Connection establishment, processing of data and response from REST API
+		$path=base_url();
+		$url = $path.'api/manageRoles_api/all_branches';		
 		$ch = curl_init($url);
 		curl_setopt($ch, CURLOPT_HTTPGET, true);
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);

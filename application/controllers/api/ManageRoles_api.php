@@ -28,6 +28,14 @@ class ManageRoles_api extends REST_Controller
 	}
 	//---------------------GET ALL ROLE END------------------------------//
 
+	// -----------------------GET ALL BRANCHES API----------------------//
+	//-------------------------------------------------------------//
+	public function all_branches_get(){
+		$result = $this->manageRole_model->getAll_branches();
+		return $this->response($result);			
+	}
+	//---------------------GET ALL BRANCHES END------------------------------//
+
 	
 	// -----------------------DELETE ROLE API----------------------//
 	//-------------------------------------------------------------//

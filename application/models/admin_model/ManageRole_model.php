@@ -55,6 +55,30 @@ class ManageRole_model extends CI_Model{
 	}
 	//----------------get all roles ends--------------------------//
 
+
+	//---------------get all branches model-------------//
+	function getAll_branches()
+	{
+		$query="SELECT * FROM branch_table";
+		$result = $this->db->query($query);
+		//return $result['num'];
+				
+		if($result->num_rows() <= 0)
+		{  
+			$response=array(
+				'status'	=>	0,
+				'status_message' =>'Branches are not defined yet!!!'
+			);
+			return $response;
+		}
+		else
+		{
+			$response=$result->result_array();
+			return $response;
+		}
+	}
+	//----------------get all branches ends--------------------------//
+
 	//-----------------------function to check whether privilege level already exists------------------//
 	function checkPrivilege_exist($privilege_level)
 	{

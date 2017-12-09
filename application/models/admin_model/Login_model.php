@@ -12,7 +12,8 @@ class Login_model extends CI_Model{
 	//sql query to check login credentials
 		$query="SELECT * FROM user_tab WHERE user_name='$user_name' AND user_password='$user_password' AND user_role='$user_role'";
 		$result = $this->db->query($query);
-
+		
+		$privilege='';
 	//if credentials are true, their is obviously only one record
 		if($result->num_rows() == 1){
 			foreach ($result->result_array() as $row) {
@@ -27,7 +28,7 @@ class Login_model extends CI_Model{
 					'status' => 1,
 					'user_id' =>$user_id,
 					'user_name' => $user_name,				
-					'privilege' => $privilege,
+					'branch_name' => $user_branch,
 					'status_message' =>'Login Successfull',
 					'role' => $privilege
 				);
@@ -37,6 +38,7 @@ class Login_model extends CI_Model{
 					'status' => 0,
 					'user_id' =>$user_id,
 					'user_name' => $user_name,
+					'branch_name' => $user_branch,
 					'role' => $privilege,				
 					'status_message' =>'Error to start session for '.$user_name.' !!!',
 				);
@@ -48,8 +50,8 @@ class Login_model extends CI_Model{
 			$response=array(
 				'status' => 0,
 				'status_message' =>'Sorry..Login credentials are incorrect!!!',
-				'user_name' => $user_name,				
-				'role' => $privilege
+				'user_name' => $user_name,
+				'branch_name' => $user_branch		
 			);
 		}
 		return $response;
