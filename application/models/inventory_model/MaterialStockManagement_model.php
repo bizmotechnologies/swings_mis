@@ -442,6 +442,47 @@ class MaterialStockManagement_model extends CI_Model {
     }
 
     /* this fun ends here */
+
+
+     /* --------------------------this fun for save raw material details----------------------------------------------- */
+    public function Excelto_DB($data) {
+        extract($data);
+        //print_r($data);die();
+        $jsonArr=json_decode($data,'TRUE');
+        foreach ($jsonArr as $key ) {
+            //print_r($key);
+            $sqlnew = "INSERT INTO raw_materialstock(vendor_id,material_name,raw_ID,"
+                . "raw_OD,avail_length,weight,material_price)"
+                . " values ('10','".$key['Material']."','".$key['ID']."',"
+                . "'".$key['OD']."','".$key['L']."',"
+                . "'".$key['weight']."','".$key['price']."')";
+//echo $sqlnew;
+                $this->db->query($sqlnew);
+
+        }
+        die();
+        // $sqlnew = "INSERT INTO raw_materialstock(material_id,vendor_id,material_name,raw_ID,"
+        //         . "raw_OD,avail_length,currency,branch_name,material_price,tolerance,accepted_date)"
+        //         . " values ('$Select_RawMaterials','$Select_RawVendors_Id',"
+        //         . "'$material_name','$Input_RawMaterialStock_ID',"
+        //         . "'$Input_RawMaterialStock_OD','$Input_RawMaterialLength',"
+        //         . "'$currency','$branch_id','$price','$Input_RawMaterialTolerance',now())";
+        echo $sqlnew;die();
+        for($i=0; $i< $Input_RawMaterialNewQuantity; $i++){
+        $resultnew = $this->db->query($sqlnew);
+        }
+        if ($resultnew) {
+            $response = array(
+                'status' => 1,
+                'status_message' => 'Records Inserted Successfully..!');
+        } else {
+            $response = array(
+                'status' => 0,
+                'status_message' => 'Records Not Inserted Successfully...!');
+        }
+        return $response;
+    }
+
 }
 
 ?>	

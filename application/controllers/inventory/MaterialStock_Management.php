@@ -111,11 +111,12 @@ class MaterialStock_Management extends CI_controller {
 
     //-----------------------------api to fetch excel to db-------------//
      public function EXCELDB() {
+       
+        $data = 'rdrdh';
+        print_r($data); die();
 
-      
-        //print_r($data); die();
         $path = base_url();
-        $url = $path . 'api/MaterialStockManagement_api/Update_Finishedproducts_Info';
+        $url = $path . 'api/MaterialStockManagement_api/excelTodb';
         $ch = curl_init($url);
         curl_setopt($ch, CURLOPT_POST, true);
         curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
@@ -123,6 +124,7 @@ class MaterialStock_Management extends CI_controller {
         $response_json = curl_exec($ch);
         curl_close($ch);
         $response = json_decode($response_json, true);
+        print_r($response_json);die();
     }
     //------------------------------------------------------------------//
 
