@@ -117,7 +117,7 @@ error_reporting(E_ERROR | E_PARSE);
                                                         <td class="text-center">'.$details['status_message'][$i]['tolerance'].'</td>
                                                         <td class="text-center">'.$details['status_message'][$i]['material_price'].' <i class="fa fa-euro"></i></td>
                                                         <td class="text-center"><a class="btn w3-blue w3-medium w3-padding-small" title="Update Raw Material" href="'.base_url().'inventory/MaterialStock_Management/DeleteRawMaterialStockDetails?rawmaterial_id=' . $details['status_message'][$i]['rawmaterial_id'] . '" style="padding:0"><i class="fa fa-edit"></i></a>
-                                                        <a class="btn w3-red w3-medium w3-padding-small" title="Delete Raw Material" href="'.base_url().'inventory/MaterialStock_Management/?rawmaterial_id='.$details['status_message'][$i]['rawmaterial_id'].'" style="padding:0"><i class="fa fa-close"></i></a>
+                                                        <a class="btn w3-red w3-medium w3-padding-small" title="Delete Raw Material" href="'.base_url().'inventory/MaterialStock_Management/Update_UpdatedStockMaterial_Info?rawmaterial_id='.$details['status_message'][$i]['rawmaterial_id'].'" style="padding:0"><i class="fa fa-close"></i></a>
                                                             
 
                                                         <!-- Modal  starts here-->
