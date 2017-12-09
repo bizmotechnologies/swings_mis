@@ -101,7 +101,6 @@ error_reporting(E_ERROR | E_PARSE);
                                                 <th class="text-center">Available&nbsp;Length</th>              
                                                 <th class="text-center">Tolerance</th>
                                                 <th class="text-center">Price/Unit</th>
-                                                <th class="text-center">Quantity</th>
                                                 <th class="text-center">Actions</th>                                           
                                             </tr>
                                             <tbody><!-- table body starts here -->
@@ -111,15 +110,14 @@ error_reporting(E_ERROR | E_PARSE);
                                                     for ($i = 0; $i < count($details['status_message']); $i++) {
                                                         echo '<tr class="text-center">
                                                         <td class="text-center">' . $count . '.</td>
-                                                        <td class="text-center">' . $details['status_message'][$i]['material_name'] . '</td>
-                                                        <td class="text-center">' . $details['status_message'][$i]['raw_ID'] . '</td>
-                                                        <td class="text-center">' . $details['status_message'][$i]['raw_OD'] . '</td>
-                                                        <td class="text-center">' . $details['status_message'][$i]['avail_length'] . '</td>
-                                                        <td class="text-center">' . $details['status_message'][$i]['tolerance'] . '</td>
-                                                        <td class="text-center">' . $details['status_message'][$i]['material_price'] . ' <i class="fa fa-rupee"></i></td>
-                                                        <td class="text-center">' . $details['status_message'][$i]['raw_quantity'] . '</td>
-                                                        <td class="text-center"><a class="btn w3-blue w3-medium w3-padding-small" title="Update Raw Material" href="' . base_url() . 'inventory/MaterialStock_Management/DeleteRawMaterialStockDetails?rawmaterial_id=' . $details['status_message'][$i]['rawmaterial_id'] . '" style="padding:0"><i class="fa fa-edit"></i></a>
-                                                        <a class="btn w3-red w3-medium w3-padding-small" title="Delete Raw Material" href="' . base_url() . 'inventory/MaterialStock_Management/?rawmaterial_id=' . $details['status_message'][$i]['rawmaterial_id'] . '" style="padding:0"><i class="fa fa-close"></i></a>
+                                                        <td class="text-center"><input type="text" name="Updated_MaterialStock_ID" id="Updated_MaterialStock_ID" class="form-control" value="'.$details['status_message'][$i]['material_name'].'"></td>
+                                                        <td class="text-center">'.$details['status_message'][$i]['raw_ID'].'</td>
+                                                        <td class="text-center">'.$details['status_message'][$i]['raw_OD'].'</td>
+                                                        <td class="text-center"><input type="text" name="Updated_MaterialStock_OD" id="Updated_MaterialStock_OD" class="form-control" value="'.$details['status_message'][$i]['avail_length'].'"></td>
+                                                        <td class="text-center">'.$details['status_message'][$i]['tolerance'].'</td>
+                                                        <td class="text-center">'.$details['status_message'][$i]['material_price'].' <i class="fa fa-euro"></i></td>
+                                                        <td class="text-center"><a class="btn w3-blue w3-medium w3-padding-small" title="Update Raw Material" href="'.base_url().'inventory/MaterialStock_Management/DeleteRawMaterialStockDetails?rawmaterial_id=' . $details['status_message'][$i]['rawmaterial_id'] . '" style="padding:0"><i class="fa fa-edit"></i></a>
+                                                        <a class="btn w3-red w3-medium w3-padding-small" title="Delete Raw Material" href="'.base_url().'inventory/MaterialStock_Management/?rawmaterial_id='.$details['status_message'][$i]['rawmaterial_id'].'" style="padding:0"><i class="fa fa-close"></i></a>
                                                             
 
                                                         <!-- Modal  starts here-->
@@ -218,11 +216,11 @@ error_reporting(E_ERROR | E_PARSE);
                                                         <script>
                                                         /* this script is used to update material info */
                                                         $(function(){
-                                                         $("#Update_Manage_MaterialForm_' . $details['status_message'][$i]['rawmaterial_id'] . '").submit(function(){
-                                                           dataString = $("#Update_Manage_MaterialForm_' . $details['status_message'][$i]['rawmaterial_id'] . '").serialize();
+                                                         $("#Update_Manage_MaterialForm_'.$details['status_message'][$i]['rawmaterial_id'].'").submit(function(){
+                                                           dataString = $("#Update_Manage_MaterialForm_'.$details['status_message'][$i]['rawmaterial_id'].'").serialize();
                                                            $.ajax({
                                                              type: "POST",
-                                                             url: "' . base_url() . 'inventory/MaterialStock_Management/Update_UpdatedRawStockMaterial_Info",
+                                                             url: "'.base_url().'inventory/MaterialStock_Management/Update_UpdatedRawStockMaterial_Info",
                                                              data: dataString,
                                                              return: false,  
                                                              success: function(data)
@@ -352,36 +350,31 @@ error_reporting(E_ERROR | E_PARSE);
                                         </div>
                                     </div><br>
 
-                                    <div class="row" id="simple_price">
+                                    <div class="row" >
+                                        <div id="simple_price">
                                         <div class="col-lg-3">
                                             <label class="padding-left">Price:</label>
                                         </div>
-                                        <div class="col-lg-3">
+                                        <div class="col-lg-3" >
                                             <input type="number" name="Input_RawMaterialPrice" id="Input_RawMaterialPrice" class="form-control" placeholder="Material Price" step="0.01" ><br>
                                         </div>
+                                        </div>
+                                        <div id="fetched_price" style="display:none">
                                         <div class="col-lg-3">
-                                            <select class="form-control" name="Input_RawMaterialCurrency" id="Input_RawMaterialCurrency" required>                   
+                                            <label class="padding-left">Fetched&nbsp;Price:</label>
+                                        </div>
+                                        <div class="col-lg-3" > 
+                                            <input type="number" name="Input_RawMaterialPriceFrom_Pricelist" id="Input_RawMaterialPriceFrom_Pricelist" class="form-control" placeholder="Material Price" step="0.01" ><br>
+                                        </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <select class="form-control" name="Input_RawMaterialCurrency" id="Input_RawMaterialCurrency" required onchange="priceconversion();">                   
                                                 <option value="INR">INR</option>
                                                 <option value="EURO">EURO</option>
                                             </select>
                                         </div>
                                     </div>
                                     <br>
-
-                                    <div class="row" id="fetched_price" style="display:none">
-                                        <div class="col-lg-3">
-                                            <label class="padding-left">Fetched&nbsp;Price:</label>
-                                        </div>
-                                        <div class="col-lg-3">
-                                            <input type="number" name="Input_RawMaterialPriceFrom_Pricelist" id="Input_RawMaterialPriceFrom_Pricelist" class="form-control" placeholder="Material Price" step="0.01" ><br>
-                                        </div>
-                                        <div class="col-lg-3">
-                                            <select class="form-control" name="Input_RawMaterial_CurrencyFrom_Pricelist" id="Input_RawMaterial_CurrencyFrom_Pricelist" required>                   
-                                                <option value="INR">INR</option>
-                                                <option value="EURO">EURO</option>
-                                            </select>
-                                        </div>
-                                    </div>
 
                                     <center>
                                         <button type="submit" class="btn btn-primary">Save Stock</button>
@@ -791,7 +784,7 @@ error_reporting(E_ERROR | E_PARSE);
                                                 <td class="text-center">' . $Finished['status_message'][$i]['fproduct_length'] . '</td>
                                                 <td class="text-center">' . $Finished['status_message'][$i]['fproduct_quantity'] . '</td>
                                                 <td class="text-center"><a class="btn w3-blue w3-medium w3-padding-small" title="UpdateCustomer" data-toggle="modal" data-target="#myModalnew_' . $Finished['status_message'][$i]['finished_product_id'] . '" style="padding:0"><i class="fa fa-edit"></i></a>
-                                                <a class="btn w3-red w3-medium w3-padding-small" title="UpdateMaterial" href="' . base_url() . 'inventory/MaterialStock_Management/DeleteFinishedProductDetails?finished_product_id=' . $Finished['status_message'][$i]['finished_product_id'] . '" style="padding:0"><i class="fa fa-close"></i></a>
+                                                <a class="btn w3-red w3-medium w3-padding-small" title="DeleteCustomer" href="' . base_url() . 'inventory/MaterialStock_Management/DeleteFinishedProductDetails?finished_product_id=' . $Finished['status_message'][$i]['finished_product_id'] . '" style="padding:0"><i class="fa fa-close"></i></a>
 
                                                 <!-- Modal  starts here-->
 
@@ -1063,4 +1056,25 @@ $(function () {
     });
 });
 //this fun is used to add raw material ends here----------------------------------//
+</script>
+<script>
+function priceconversion(){
+    Input_RawMaterialCurrency = $("#Input_RawMaterialCurrency").val();
+    checkPrice = document.getElementById("checkPrice");
+    if(checkPrice.checked = true;){
+        
+    }
+    $.ajax({
+            type: "POST",
+            url: BASE_URL + "inventory/MaterialStock_Management/Save_RawStockMaterial_Info",
+            Input_RawMaterialCurrency: Input_RawMaterialCurrency,
+            
+            return: false, //stop the actual form post !important!
+            success: function (data)
+            {
+                //alert(data);
+                $("#addProducts_err").html(data);
+            }
+        });
+}
 </script>

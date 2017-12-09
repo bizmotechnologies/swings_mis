@@ -12,7 +12,7 @@ class MaterialStockManagement_model extends CI_Model {
                 . "AND raw_OD ='$Input_RawMaterialStock_OD'";
         $resultnew = $this->db->query($sql);
         $material_price = '0.00';
-
+        
         foreach ($resultnew->result_array() as $row) {
             $material_price = $row['material_price'];
         }
