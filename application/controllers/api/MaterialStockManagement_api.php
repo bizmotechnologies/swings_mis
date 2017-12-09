@@ -14,8 +14,8 @@ class MaterialStockManagement_api extends REST_Controller {
     // -----------------------GET ALL MATERIAL DETAILS API----------------------//
     //-------------------------------------------------------------//
     public function excelTodb_post() {
-        extract($_POST);
-        $result = $this->MaterialStockManagement_model->Excelto_DB();
+        $data=($_POST['excel_json']);
+        $result = $this->MaterialStockManagement_model->Excelto_DB($data);
         return $this->response($result);
     }
 
