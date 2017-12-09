@@ -113,16 +113,16 @@ $branch_name=$this->session->userdata('branch_name');
                                                     for ($i = 0; $i < count($details['status_message']); $i++) {
                                                         echo '<tr class="text-center">
                                                         <td class="text-center">' . $count . '.</td>
-                                                        <td class="text-center">' . $details['status_message'][$i]['material_name'] . '</td>
+                                                        <td class="text-center"><form name="#Update_Manage_MaterialForm_'.$details['status_message'][$i]['rawmaterial_id'].'" id="#Update_Manage_MaterialForm_'.$details['status_message'][$i]['rawmaterial_id'].'"><input type="text" name="Updated_MaterialStock_ID" id="Updated_MaterialStock_ID" class="form-control" value="' . $details['status_message'][$i]['material_name'] . '"></td>
                                                         <td class="text-center">' . $details['status_message'][$i]['raw_ID'] . '</td>
                                                         <td class="text-center">' . $details['status_message'][$i]['raw_OD'] . '</td>
-                                                        <td class="text-center">' . $details['status_message'][$i]['avail_length'] . '</td>
+                                                        <td class="text-center"><input type="number" name="Updated_MaterialStock_ID" id="Updated_MaterialStock_ID" class="form-control" value="' . $details['status_message'][$i]['avail_length'] . '"></form></td>
                                                         <td class="text-center">' . $details['status_message'][$i]['tolerance'] . '</td>
-                                                        <td class="text-center">' . $details['status_message'][$i]['material_price'] . ' <i class="fa fa-rupee"></i></td>
+                                                        <td class="text-center">' . $details['status_message'][$i]['material_price'] . ' <i class="fa fa-euro"></i></td>
                                                         <td class="text-center">' . $details['status_message'][$i]['raw_quantity'] . '</td>
-                                                        <td class="text-center"><a class="btn w3-blue w3-medium w3-padding-small" title="Update Raw Material" href="'.base_url().'inventory/MaterialStock_Management/DeleteRawMaterialStockDetails?rawmaterial_id=' . $details['status_message'][$i]['rawmaterial_id'] . '" style="padding:0"><i class="fa fa-edit"></i></a>
-                                                        <a class="btn w3-red w3-medium w3-padding-small" title="Delete Raw Material" href="' . base_url() . 'inventory/MaterialStock_Management/?rawmaterial_id=' . $details['status_message'][$i]['rawmaterial_id'] . '" style="padding:0"><i class="fa fa-close"></i></a>
-
+                                                        <td class="text-center"><button  type="submit" class="btn w3-blue w3-medium w3-padding-small" title="Update Raw Material" href="'.base_url().'inventory/MaterialStock_Management/Update_UpdatedStockMaterial_Info?rawmaterial_id='.$details['status_message'][$i]['rawmaterial_id'].'" style="padding:0"><i class="fa fa-edit"></i></a>
+                                                        <button class="btn w3-red w3-medium w3-padding-small" title="Delete Raw Material" href="'.base_url().'inventory/MaterialStock_Management/DeleteRawMaterialStockDetails?rawmaterial_id=' . $details['status_message'][$i]['rawmaterial_id'] . '" style="padding:0"><i class="fa fa-close"></i></button>
+                                                        
 
                                                         <!-- Modal  starts here-->
 
@@ -136,7 +136,7 @@ $branch_name=$this->session->userdata('branch_name');
                                                         <div>Manage Stock Material</div>
                                                         </div>
                                                         <div class="modal-body w3-light-grey">   
-                                                        <form method="POST" action="" id="Update_Manage_MaterialForm_' . $details['status_message'][$i]['rawmaterial_id'] . '" name="Update_Manage_MaterialForm_' . $details['status_message'][$i]['rawmaterial_id'] . '">
+                                                        <form method="POST" >
                                                         <input type="hidden" name="rawmaterial_id" id="rawmaterial_id' . $details['status_message'][$i]['rawmaterial_id'] . '" value="' . $details['status_message'][$i]['rawmaterial_id'] . '">
                                                         <div class="row">
                                                         <div class="col-lg-3">

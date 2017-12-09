@@ -114,6 +114,7 @@ class MaterialStock_Management extends CI_controller {
        
         $data = 'rdrdh';
         print_r($data); die();
+
         $path = base_url();
         $url = $path . 'api/MaterialStockManagement_api/excelTodb';
         $ch = curl_init($url);

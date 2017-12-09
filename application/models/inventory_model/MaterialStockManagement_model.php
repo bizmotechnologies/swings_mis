@@ -280,11 +280,8 @@ class MaterialStockManagement_model extends CI_Model {
         $this->load->model('inventory_model/ManageProduct_model');
         $material_name = $this->ManageProduct_model->getMaterialdata($Select_RawMaterials_Id);
 
-        $sql = "UPDATE raw_materialstock SET rawmaterial_id = '$rawmaterial_id',
-		material_id = '$Select_RawMaterials_Id', vendor_id = '$Select_RawVendor_Id',
-		material_name = '$material_name', raw_ID = '$Updated_MaterialStock_OD',
-		raw_OD = '$Updated_MaterialStock_OD',avail_length = '$Updated_MaterialLength',
-		raw_quantity = '$Updated_MaterialNewQuantity',tolerance ='$Updated_RawMaterialTolerance' WHERE rawmaterial_id = '$rawmaterial_id'";
+        $sql = "UPDATE raw_materialstock SET material_name = '$material_name',"
+                . "avail_length = '$Updated_MaterialLength' WHERE rawmaterial_id = '$rawmaterial_id'";
         //echo $sql; die();
         $resultUpadate = $this->db->query($sql);
 
