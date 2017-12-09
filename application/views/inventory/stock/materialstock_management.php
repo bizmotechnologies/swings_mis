@@ -1,6 +1,8 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-error_reporting(E_ERROR | E_PARSE);
+//error_reporting(E_ERROR | E_PARSE);
+$branch_name=$this->session->userdata('branch_name');
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -101,7 +103,7 @@ error_reporting(E_ERROR | E_PARSE);
                                                 <th class="text-center">Available&nbsp;Length</th>              
                                                 <th class="text-center">Tolerance</th>
                                                 <th class="text-center">Price/Unit</th>
-                                                <th class="text-center">Quantity</th>
+                                                <th class="text-center">Branch</th>
                                                 <th class="text-center">Actions</th>                                           
                                             </tr>
                                             <tbody><!-- table body starts here -->
@@ -118,7 +120,7 @@ error_reporting(E_ERROR | E_PARSE);
                                                         <td class="text-center">' . $details['status_message'][$i]['tolerance'] . '</td>
                                                         <td class="text-center">' . $details['status_message'][$i]['material_price'] . ' <i class="fa fa-rupee"></i></td>
                                                         <td class="text-center">' . $details['status_message'][$i]['raw_quantity'] . '</td>
-                                                        <td class="text-center"><a class="btn w3-blue w3-medium w3-padding-small" title="Update Raw Material" href="' . base_url() . 'inventory/MaterialStock_Management/DeleteRawMaterialStockDetails?rawmaterial_id=' . $details['status_message'][$i]['rawmaterial_id'] . '" style="padding:0"><i class="fa fa-edit"></i></a>
+                                                        <td class="text-center"><a class="btn w3-blue w3-medium w3-padding-small" title="Update Raw Material" href="'.base_url().'inventory/MaterialStock_Management/DeleteRawMaterialStockDetails?rawmaterial_id=' . $details['status_message'][$i]['rawmaterial_id'] . '" style="padding:0"><i class="fa fa-edit"></i></a>
                                                         <a class="btn w3-red w3-medium w3-padding-small" title="Delete Raw Material" href="' . base_url() . 'inventory/MaterialStock_Management/?rawmaterial_id=' . $details['status_message'][$i]['rawmaterial_id'] . '" style="padding:0"><i class="fa fa-close"></i></a>
                                                             
 

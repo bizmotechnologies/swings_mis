@@ -4,8 +4,23 @@ error_reporting(E_ERROR | E_PARSE);
 
 class MaterialStock_Management extends CI_controller {
 
-    public function index() {
+    public function __construct(){
+        parent::__construct();
+        
+        //start session     
+        $user_id=$this->session->userdata('user_id');
+        $user_name=$this->session->userdata('user_name');
+        $privilege=$this->session->userdata('privilege');
+        $branch_name=$this->session->userdata('branch_name');
+        //check session variable set or not, otherwise logout
+        if(($user_id=='') || ($user_name=='') || ($privilege=='') || ($branch_name=='')){
+            redirect('role_login');
+        }
+    }
 
+
+    public function index() {
+       
         $response['All_Material'] = MaterialStock_Management::GetMaterialDetails(); // this fun shows that the select material values
         $response['vendors'] = MaterialStock_Management::GetVendorsDetails(); // this fun shows that the select material values
         $response['values'] = MaterialStock_Management::Get_Purchase_Stock(); // this fun shows that the select material values
@@ -54,10 +69,8 @@ class MaterialStock_Management extends CI_controller {
 //----------------this fun is for get total info of materials---------------//
 
     public function Save_PurchasedProduct_Info() {
-
         extract($_POST);
         $data = $_POST;
-
 
         $path = base_url();
         $url = $path . 'api/MaterialStockManagement_api/Save_PurchasedProduct_Info';
@@ -96,8 +109,25 @@ class MaterialStock_Management extends CI_controller {
         }
     }
 
-    public function Delete() {
+    //-----------------------------api to fetch excel to db-------------//
+     public function EXCELDB() {
 
+        ;
+        $data = ;
+        //print_r($data); die();
+        $path = base_url();
+        $url = $path . 'api/MaterialStockManagement_api/Update_Finishedproducts_Info';
+        $ch = curl_init($url);
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $response_json = curl_exec($ch);
+        curl_close($ch);
+        $response = json_decode($response_json, true);
+    }
+    //------------------------------------------------------------------//
+
+    public function Delete() {
         extract($_POST);
 
         $path = base_url();

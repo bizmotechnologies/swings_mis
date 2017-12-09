@@ -67,25 +67,7 @@ class Manage_materials extends CI_controller {
             //for ($i = 0; $i < count($response['status_message']); $i++) {
 
                 $material_associated = json_decode($response['status_message'][0]['material_associated'], TRUE);
-                //print_r($material_associated);
-
-                // for ($material=0; $material < count($material_associated); $material++) { 
-                //     echo $material;
-                //     echo'<div class="w3-col l12 w3-tiny w3-margin-top" id="Div_no_'.$i.'_'.$material.'">
-                //     <div class="w3-col l2">';
-                //     echo'<label>MATERIAL</label>';
-                //     echo'<input autocomplete="off" list="Materialinfo_'.$material.'" value="'.$material['material_name'].'" id="Select_material_'.$material.'" name="Select_material[]" class="w3-input" required type="text" placeholder="Material" onchange="GetMaterialInformation_ForEnquiry('.$material.');">';
-
-                //     echo'<datalist id="Materialinfo_'.$material.'">';
-                //     foreach ($materials['status_message'] as $result) {
-                //         echo'<option data-value = "'.$result['material_id'].'" value = "'.$result['material_name'].'"></option>';
-                //     }
-                //     echo'</datalist>
-                //     </div>
-
-                    
-                //     </div>';
-                // }
+               
                 echo '<div class="w3-col l12 w3-tiny"><span class="w3-text-red"><b>NOTE:</b> Input Fields which are disabled (marked in grey and default set to 0) are N/A for the respective material. Only fill enabled input fields</span></div>';
 
                        $count=0;
