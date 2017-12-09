@@ -104,7 +104,8 @@ $branch_name=$this->session->userdata('branch_name');
                                                 <th class="text-center">Tolerance</th>
                                                 <th class="text-center">Price/Unit</th>
                                                 <th class="text-center">Branch</th>
-                                                <th class="text-center">Actions</th>                                           
+                                                <th class="text-center">Actions</th>  
+                                                
                                             </tr>
                                             <tbody><!-- table body starts here -->
                                                 <?php
