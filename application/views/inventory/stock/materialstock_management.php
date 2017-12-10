@@ -19,7 +19,7 @@ $branch_name=$this->session->userdata('branch_name');
     <script type="text/javascript" src="<?php echo base_url(); ?>css/js/config.js"></script>
     <script type="text/javascript" src="<?php echo base_url(); ?>css/alert/jquery-confirm.js"></script>
     <script type="text/javascript" src="<?php echo base_url(); ?>css/js/inventory/materialstock_management.js"></script>
-
+  
 </head>
 <body class="w3-light-grey">
     <!-- !PAGE CONTENT! -->
@@ -101,19 +101,22 @@ $branch_name=$this->session->userdata('branch_name');
                             </div><br><!-- container ends here -->
                             <div class="w3-col l12 w3-margin-top">
                                 <div class="" id="ShowRaw_products" name="ShowRaw_products" style="max-height: 400px; overflow: scroll;">
-                                    <table class="table table-bordered table-responsive w3-small" >            <!-- table starts here -->
-                                        <tr >
-                                            <th class="text-center">SR. No</th>
-                                            <th class="text-center">Material&nbsp;Name</th>  
-                                            <th class="text-center">ID</th>              
-                                            <th class="text-center">OD</th>              
-                                            <th class="text-center">Available&nbsp;Length</th>              
-                                            <th class="text-center">Tolerance</th>
-                                            <th class="text-center">Price/Unit</th>
-                                            <th class="text-center">Branch</th>
-                                            <th class="text-center">Actions</th>  
-                                            
-                                        </tr>
+                                    <table class="table table-striped table-responsive w3-small"> 
+                                               <!-- table starts here -->
+                                        <thead>
+                                            <tr class="w3-black">
+                                                <th class="text-center">SR. No</th>
+                                                <th class="text-center">Material&nbsp;Name</th>  
+                                                <th class="text-center">ID</th>              
+                                                <th class="text-center">OD</th>              
+                                                <th class="text-center">Available&nbsp;Length</th>              
+                                                <th class="text-center">Tolerance</th>
+                                                <th class="text-center">Price/Unit</th>
+                                                <th class="text-center">Branch</th>
+                                                <th class="text-center">Actions</th>  
+
+                                            </tr>
+                                        </thead>
                                         <tbody><!-- table body starts here -->
                                             <?php
                                             $count = 1;
@@ -150,7 +153,7 @@ $branch_name=$this->session->userdata('branch_name');
                     <script>
                         function delete_rawMaterial(row_id)
                         {
-                         $.confirm({
+                           $.confirm({
                             title: '<label class="w3-large w3-text-red"><i class="fa fa-envelope"></i> Delete Stock Entry.</label>',
                             content: '<span class="w3-medium">Do You really want to delete this stock entry ?</span>',
                             buttons: {
@@ -167,11 +170,11 @@ $branch_name=$this->session->userdata('branch_name');
                               cancel: function () {}
                           }
                       });
-                     }
-                 </script>
-                 <!-- script to delete raw material stock -->
-                 <!-- script to update raw material stock -->
-                 <script>
+                       }
+                   </script>
+                   <!-- script to delete raw material stock -->
+                   <!-- script to update raw material stock -->
+                   <script>
                     function update_rawMaterial(row_id)
                     {
                         Material_name= $("#Updated_MaterialStock_Materialname_"+row_id).val();
@@ -520,15 +523,15 @@ $branch_name=$this->session->userdata('branch_name');
                                                 <script>
                                                 /* this script is used to update material info */
                                                 $(function(){
-                                                   $("#Update_purchasedManage_MaterialForm_' . $Purchased['status_message'][$i]['purchased_product_id'] . '").submit(function(){
-                                                     dataString = $("#Update_purchasedManage_MaterialForm_' . $Purchased['status_message'][$i]['purchased_product_id'] . '").serialize();
-                                                     $.ajax({
-                                                       type: "POST",
-                                                       url: "' . base_url() . 'inventory/MaterialStock_Management/Update_purchasedproducts_Info",
-                                                       data: dataString,
-                                                       return: false,  
-                                                       success: function(data)
-                                                       {
+                                                 $("#Update_purchasedManage_MaterialForm_' . $Purchased['status_message'][$i]['purchased_product_id'] . '").submit(function(){
+                                                   dataString = $("#Update_purchasedManage_MaterialForm_' . $Purchased['status_message'][$i]['purchased_product_id'] . '").serialize();
+                                                   $.ajax({
+                                                     type: "POST",
+                                                     url: "' . base_url() . 'inventory/MaterialStock_Management/Update_purchasedproducts_Info",
+                                                     data: dataString,
+                                                     return: false,  
+                                                     success: function(data)
+                                                     {
                                                         $("#Updatestock_errnew_' . $Purchased['status_message'][$i]['purchased_product_id'] . '").html(data);
                                                         location.reload();
                                                     }
@@ -811,15 +814,15 @@ $branch_name=$this->session->userdata('branch_name');
                                             <script>
                                             /* this script is used to update material info */
                                             $(function(){
-                                               $("#Update_Finished_ProductForm_' . $Finished['status_message'][$i]['finished_product_id'] . '").submit(function(){
-                                                 dataString = $("#Update_Finished_ProductForm_' . $Finished['status_message'][$i]['finished_product_id'] . '").serialize();
-                                                 $.ajax({
-                                                   type: "POST",
-                                                   url: "' . base_url() . 'inventory/MaterialStock_Management/Update_Finishedproducts_Info",
-                                                   data: dataString,
-                                                   return: false,  
-                                                   success: function(data)
-                                                   {
+                                             $("#Update_Finished_ProductForm_' . $Finished['status_message'][$i]['finished_product_id'] . '").submit(function(){
+                                               dataString = $("#Update_Finished_ProductForm_' . $Finished['status_message'][$i]['finished_product_id'] . '").serialize();
+                                               $.ajax({
+                                                 type: "POST",
+                                                 url: "' . base_url() . 'inventory/MaterialStock_Management/Update_Finishedproducts_Info",
+                                                 data: dataString,
+                                                 return: false,  
+                                                 success: function(data)
+                                                 {
                                                     $("#Updatestock_errnew_' . $Finished['status_message'][$i]['finished_product_id'] . '").html(data);
                                                     location.reload();
                                                 }
