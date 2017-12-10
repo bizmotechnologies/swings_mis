@@ -29,7 +29,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <div class="w3-col l3 w3-left">\n\
                     <div class="input-group">\n\
                     <label>Product Name:</label>\n\
-                    <input type="text" placeholder="Product Name" value="" class="w3-input" style="text-transform:uppercase;" id="product_nameForEnquiry_' + currparent + '" name="product_nameForEnquiry[]" required>\n\
+                    <input type="text" placeholder="Product Name" value="" class="w3-input" style="text-transform:uppercase;" id="product_nameForEnquiry_' + currparent + '" name="product_nameForEnquiry[]" >\n\
                     </div>\n\
                     </div>\n\
                     \n\
@@ -50,7 +50,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     \n\
                     <div class="w3-col l10 w3-left">\n\
                     <div class="input-group ">\n\
-                    <input type="checkbox" id="checkHousing_' + currparent + '" onclick="GetHousingValue(' + currparent + ');" value="1"><b>  Housing Available</b>\n\
+                    <input type="checkbox" name = "checkHousing[]" id="checkHousing_' + currparent + '" onclick="GetHousingValue(' + currparent + ');" value="1"><b>  Housing Available</b>\n\
                     </div>\n\
                     </div>\n\
                     </div>\n\
@@ -189,16 +189,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <div class="w3-col l3 s3 w3-padding-left">\n\
     <div class="input-group">\n\
     <label>LENGTH:</label>\n\
-    <input type="number" placeholder="LENGTH" min="0" class="w3-input" style="text-transform:uppercase;" id="LENGTH_forHousingChecked_' + currentparent + '" name="LENGTH_forHousingChecked[]" required>\n\
-    </div>\n\
-    </div>\n\
-    <div class="w3-col l3 s3 w3-padding-left">\n\
-    <div class="input-group">\n\
-    <label>QUANTITY:</label>\n\
-    <input type="number" placeholder="QUANTITY" min="0" class="w3-input" style="text-transform:uppercase;" id="Set_QuantityforHousingChecked_' + currentparent + '" name="Set_QuantityforHousingChecked[]" required>\n\
+    <input type="number" placeholder="LENGTH" min="0" class="w3-input" style="text-transform:uppercase;" id="LENGTH_forHousingChecked_' + currentparent + '" name="LENGTH_forHousingChecked[]" >\n\
     </div>\n\
     </div>\n\
     </div>');
+            $('#Product_Quantity_'+currentparent).val(1);
             } else {// this fun is used for show housing div on checkbox of housing
             $(wrapper).html('<div class="w3-col l12 w3-padding w3-small">\n\
                         <div class="w3-col l6">\n\
@@ -226,6 +221,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         </div>\n\
                         </div>\n\
 </div>'); // this fun is used for show housing div on checkbox of housing
+                        $('#Product_Quantity_'+currentparent).val('');
 
             }
             }
@@ -259,6 +255,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             function GetProfileInformation(rownum) {//this fun is used for get profile information
             Profiles = $('#Profiles_' + rownum + ' [value="' + $('#Select_Profiles_' + rownum).val() + '"]').data('value');
             $('#profile_id_fetch_' + rownum).val(Profiles);
+            Customer = $('#Customers [value="' + $('#Customers').val() + '"]').data('value');
+            Get_housingData(Profiles);
             getprofileimage(Profiles, rownum); //this fun is used for show profile image
             $.ajax({
             type: "POST",
@@ -290,7 +288,28 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     }
             });
             }
+            function Get_housingData(Profiles){
+                $.ajax({
+            type: "POST",
+                    url: "<?php echo base_url(); ?>inventory/Manage_materials/Get_housingData",
+                    data: {
+                    Profiles: Profiles
+                    },
+                    cache: false,
+                    success: function (data) {
+                    alert(data);
+                    key = JSON.parse(data);
+                    
+                    for (var i = 0; i < key.length; i++) {
+                      $('#MaterialDiv').val(key[i].raw_ID);
 
+                        
+                    }
+
+
+                    }
+            });
+            }
         </script>
         <script>
             function get_AvailableTube(fieldnum, countnum) { //this fun is used to get available tube for product material---------
@@ -322,7 +341,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     //alert(data);
                     $('#available_tube_' + fieldnum + '_' + countnum).html(data);
                     }
-            }); //this fun is used to get available tube for product material---------
+            }); //this fun is used to get available tube for product material---------//
             }
         </script>
     </head>
@@ -391,11 +410,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         </div>\n\-->
         <!--  Script to reload page when enquiry modal closes............................
         --> 
-        <script>
+<!--        <script>
             $('#myModalnew').on('hidden.bs.modal', function () {
             location.reload();
             });
-        </script>
+        </script>-->
         <!-- script end -->
 
         <script>

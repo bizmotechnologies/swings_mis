@@ -209,6 +209,23 @@ class ManageEnquiry_model extends CI_Model {
         return $avail_length;
     }
     //---------------------GET AVAILABLE TUBE FROM RAW MATERIAL------------------------------// 
+    
+    public function SaveProfile_data($housingInfo){
+        extract($housingInfo);
+        //print_r($housingInfo); die();
+        $sqlselect = "SELECT * FROM profile_combination WHERE profile_id = '$profile_id'";
+        $result = $this->db->query($sqlselect);
+        if ($result->num_rows() <= 0) {
+            $sql = "INSERT INTO profile_combination(profile_id,profile_data) 
+        VALUES ('$profile_id','$profile_data')";
+            $result = $this->db->query($sql);
+        } else {
+            $sql = "UPDATE profile_combination SET profile_data = '$profile_data' WHERE profile_id = '$profile_id'";
+            $result = $this->db->query($sql);
+        }
+    }
+    
+       
 }
 
 ?>

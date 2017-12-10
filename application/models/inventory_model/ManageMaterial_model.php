@@ -306,6 +306,21 @@ class ManageMaterial_model extends CI_Model {
     }
 
     /* delete  function ends here */
+    
+    public function Get_housingData($Profiles){
+        $sql = "SELECT * FROM profile_combination WHERE profile_id = '$Profiles'";
+
+        $result = $this->db->query($sql);
+        $profile_data = '';
+        if ($result->num_rows() <= 0) {
+            $profile_data = array(
+                'status' => 0,
+                'status_message' => 'Records Not Found..!');
+        } else {
+            $profile_data = $result->result_array();
+        }
+        return $profile_data;
+    }
 }
 
 ?>
