@@ -263,9 +263,7 @@ class MaterialStock_Management extends CI_controller {
         if (isset($checkPrice)) {
             $price = $Input_RawMaterialPriceFrom_Pricelist;
         }
-        // if (isset($Input_RawMaterialCurrency)=='EURO') {
-        //     $price = $Input_RawMaterialPriceFrom_Pricelist * ;
-        // }
+       
         $data['price'] = $price;
         $path = base_url();
         $url = $path . 'api/MaterialStockManagement_api/Save_RawStockMaterial_Info';
@@ -276,7 +274,7 @@ class MaterialStock_Management extends CI_controller {
         $response_json = curl_exec($ch);
         curl_close($ch);
         $response = json_decode($response_json, true);
-        print_r($response_json);die();
+        //print_r($response_json);die();
         if ($response['status'] == 0) {
             echo'<div class="alert alert-danger w3-margin" style="text-align: center;">
             <strong>' . $response['status_message'] . '</strong> 

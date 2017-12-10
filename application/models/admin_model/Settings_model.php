@@ -153,6 +153,30 @@ class Settings_model extends CI_Model{
 	}
 	//----------------get all settings ends--------------------------//
 
+	//---------------get all settings model-------------//
+	function get_settingsByName($setting_name)
+	{
+		$query="SELECT * FROM customize_settings WHERE setting_name='$setting_name'";
+		$result = $this->db->query($query);
+		//return $result['num'];
+		
+		if($result->num_rows() <= 0)
+		{  
+			$response='0';
+			return $response;
+		}
+		else
+		{
+			$setting_value='0';
+			foreach ($result->result_array() as $key) {
+				$setting_value=$key['setting_value'];
+			}
+			$response=$setting_value;
+			return $response;
+		}
+	}
+	//----------------get all settings ends--------------------------//
+
 	//---------------edit calculating parameters model-------------//
 	function update_calcParams($data)
 	{

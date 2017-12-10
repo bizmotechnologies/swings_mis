@@ -163,26 +163,37 @@ class MaterialStockManagement_model extends CI_Model {
         extract($data);
         
         $this->load->model('inventory_model/ManageMaterial_model');
+        $this->load->model('admin_model/Settings_model');
+
         $material_name = $this->ManageMaterial_model->getMaterialdata($Select_RawMaterials);
-        print_r($data);die();
+        $euro_cost = $this->Settings_model->get_settingsByName('euro_cost');
+        $price_euro=$price;
+
+        if ($Input_RawMaterialCurrency=='EURO') {
+            $price = ($price * $euro_cost);
+        }
+        if ($Input_RawMaterialCurrency=='INR') {
+            $price_euro = ($price / $euro_cost);
+        }
+
         $sqlnew = "INSERT INTO raw_materialstock(material_id,vendor_id,material_name,raw_ID,"
-        . "raw_OD,avail_length,branch_name,material_price,tolerance,accepted_date)"
+        . "raw_OD,avail_length,branch_name,material_price,price_euro,tolerance,accepted_date)"
         . " values ('$Select_RawMaterials','$Select_RawVendors_Id',"
         . "'$material_name','$Input_RawMaterialStock_ID',"
         . "'$Input_RawMaterialStock_OD','$Input_RawMaterialLength',"
-        . "'$branch_name','$price','$Input_RawMaterialTolerance',NOW())";
-        echo $sqlnew;die();
+        . "'$branch_name','$price','$price_euro','$Input_RawMaterialTolerance',NOW())";
+        
         for($i=0; $i< $Input_RawMaterialNewQuantity; $i++){
             $resultnew = $this->db->query($sqlnew);
         }
         if ($resultnew) {
             $response = array(
                 'status' => 1,
-                'status_message' => 'Records Inserted Successfully..!');
+                'status_message' => 'Stock Entry Inserted Successfully..!');
         } else {
             $response = array(
                 'status' => 0,
-                'status_message' => 'Records Not Inserted Successfully...!');
+                'status_message' => 'Stock Entry Not Inserted Successfully...!');
         }
         return $response;
     }

@@ -30,7 +30,7 @@ $branch_name=$this->session->userdata('branch_name');
             <h5><b><i class="fa fa-cubes"></i> Manage Stocks</b></h5>
         </header>
 
-        <div id="exTab1" class="container"> <!-- container for tab -->
+        <div id="exTab1" class="container w3-small" > <!-- container for tab -->
             <br>
             <ul  class="nav nav-tabs">
                 <li class="active"><a  href="#RawMaterialStock" data-toggle="tab">Raw Material Stock</a>
@@ -90,7 +90,7 @@ $branch_name=$this->session->userdata('branch_name');
 
                                 <div class="w3-left w3-margin-top">
 
-                                    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal">Add Raw Material</button><br>
+                                    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#addRawMaterial_modal">Add Raw Material</button><br>
                                 </div>
                             </div><br><!-- container ends here -->
                             <div class="w3-col l12 w3-margin-top">
@@ -144,15 +144,15 @@ $branch_name=$this->session->userdata('branch_name');
                     <script>
                         function delete_rawMaterial(row_id)
                         {
-                           $.confirm({
+                         $.confirm({
                             title: '<label class="w3-large w3-text-red"><i class="fa fa-envelope"></i> Delete Stock Entry.</label>',
-                              content: '<span class="w3-medium">Do You really want to delete this stock entry ?</span>',
-                              buttons: {
+                            content: '<span class="w3-medium">Do You really want to delete this stock entry ?</span>',
+                            buttons: {
                                 confirm: function () {
                                   $.ajax({
                                     type:'get',
                                     url:BASE_URL+'inventory/MaterialStock_Management/DeleteRawMaterialStockDetails?rawmaterial_id='+row_id,                                    
-                                  success:function(response) {
+                                    success:function(response) {
                                       //$.alert(response);
                                       location.reload();
                                   }
@@ -161,11 +161,11 @@ $branch_name=$this->session->userdata('branch_name');
                               cancel: function () {}
                           }
                       });
-                       }
-                   </script>
-                   <!-- script to delete raw material stock -->
-                   <!-- script to update raw material stock -->
-                   <script>
+                     }
+                 </script>
+                 <!-- script to delete raw material stock -->
+                 <!-- script to update raw material stock -->
+                 <script>
                     function update_rawMaterial(row_id)
                     {
                         Material_name= $("#Updated_MaterialStock_Materialname_"+row_id).val();
@@ -190,7 +190,7 @@ $branch_name=$this->session->userdata('branch_name');
                 <!-- script to edit raw material stock -->
 
                 <!-- Modal -->
-                <div id="myModal" class="modal fade" role="dialog"><!-- modal starts here for add Raw  materials stocks -->
+                <div id="addRawMaterial_modal" class="modal fade" role="dialog"><!-- modal starts here for add Raw  materials stocks -->
                     <div class="modal-dialog ">
                         <!-- Modal content-->
                         <div class="modal-content">
@@ -261,7 +261,7 @@ $branch_name=$this->session->userdata('branch_name');
                                                 <label class="padding-left">Quantity:</label>
                                             </div>
                                             <div class="col-lg-6">
-                                                <input type="number" name="Input_RawMaterialNewQuantity" id="Input_RawMaterialNewQuantity" class="form-control" placeholder="Material Quantity" step="0.01" required><br>
+                                                <input type="number" name="Input_RawMaterialNewQuantity" id="Input_RawMaterialNewQuantity" class="form-control" placeholder="Material Quantity" min="0" required><br>
                                             </div>      
                                         </div>
 
@@ -286,7 +286,7 @@ $branch_name=$this->session->userdata('branch_name');
                                                     <label class="padding-left">Price:</label>
                                                 </div>
                                                 <div class="col-lg-3" >
-                                                    <input type="number" name="Input_RawMaterialPrice" id="Input_RawMaterialPrice" class="form-control" placeholder="Material Price" step="0.01" ><br>
+                                                    <input type="number" name="Input_RawMaterialPrice" id="Input_RawMaterialPrice" class="form-control" placeholder="Price" step="0.01" ><br>
                                                 </div>
                                             </div>
                                             <div id="fetched_price" style="display:none">
@@ -294,7 +294,7 @@ $branch_name=$this->session->userdata('branch_name');
                                                     <label class="padding-left">Fetched&nbsp;Price:</label>
                                                 </div>
                                                 <div class="col-lg-3" > 
-                                                    <input type="number" name="Input_RawMaterialPriceFrom_Pricelist" id="Input_RawMaterialPriceFrom_Pricelist" class="form-control" placeholder="Material Price" step="0.01" ><br>
+                                                    <input type="number" name="Input_RawMaterialPriceFrom_Pricelist" id="Input_RawMaterialPriceFrom_Pricelist" class="form-control" placeholder="Price" step="0.01" ><br>
                                                 </div>
                                             </div>
                                             <div class="col-lg-3">
@@ -318,35 +318,44 @@ $branch_name=$this->session->userdata('branch_name');
                     </div>
                 </div>
             </div><!-- modal ends here -->
-            <!--____________________________________ tab div 1 ends here_________________________________________ -->
 
-            <div class="tab-pane" id="PurchasedProducts">  <!-- tab 2 starts here -->
+            <!--  Script to reload page when add feature modal closes............................
+            --> 
+            <script>
+              $('#addRawMaterial_modal').on('hidden.bs.modal', function () {
+                location.reload();
+            });
+        </script>
+        <!-- script end -->
+        <!--____________________________________ tab div 1 ends here_________________________________________ -->
 
-                <div class=" container w3-padding"><!-- container starts here -->
-                    <div class="w3-left">
-                        <button type="button" class="btn btn-info" data-toggle="modal" data-target="#ModalFor_purchasedProduct">Add Purchased Stock</button><br>
-                    </div><br><br>
-                </div><br><!-- container ends here -->
+        <div class="tab-pane" id="PurchasedProducts">  <!-- tab 2 starts here -->
 
-                <div class="container w3-padding"><!-- table container -->
-                    <div class="">
-                        <div>
-                            <div class="w3-margin-right" id="ShowPurchasedProduct" name="ShowPurchasedProduct" style="max-height: 400px; overflow: scroll;">
-                                <table class="table table-bordered table-responsive" >            <!-- table starts here -->
-                                    <tr >
-                                        <th class="text-center">SR. No</th>
-                                        <th class="text-center">Material&nbsp;Name</th>  
-                                        <th class="text-center">ID</th>              
-                                        <th class="text-center">OD</th>              
-                                        <th class="text-center">Length</th>              
-                                        <th class="text-center">Quantity</th>
-                                        <th class="text-center">price</th>                         
-                                        <th class="text-center">Actions</th>                                           
-                                    </tr>
-                                    <tbody><!-- table body starts here -->
+            <div class=" container w3-padding"><!-- container starts here -->
+                <div class="w3-left">
+                    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#ModalFor_purchasedProduct">Add Purchased Stock</button><br>
+                </div><br><br>
+            </div><br><!-- container ends here -->
 
-                                        <?php
-                                        $count = 1;
+            <div class="container w3-padding"><!-- table container -->
+                <div class="">
+                    <div>
+                        <div class="w3-margin-right" id="ShowPurchasedProduct" name="ShowPurchasedProduct" style="max-height: 400px; overflow: scroll;">
+                            <table class="table table-bordered table-responsive" >            <!-- table starts here -->
+                                <tr >
+                                    <th class="text-center">SR. No</th>
+                                    <th class="text-center">Material&nbsp;Name</th>  
+                                    <th class="text-center">ID</th>              
+                                    <th class="text-center">OD</th>              
+                                    <th class="text-center">Length</th>              
+                                    <th class="text-center">Quantity</th>
+                                    <th class="text-center">price</th>                         
+                                    <th class="text-center">Actions</th>                                           
+                                </tr>
+                                <tbody><!-- table body starts here -->
+
+                                    <?php
+                                    $count = 1;
                                             if ($Purchased['status'] == 1) {//print_r($Purchased['status_message']);
                                             for ($i = 0; $i < count($Purchased['status_message']); $i++) {
                                                 echo '<tr class="text-center">
@@ -505,15 +514,15 @@ $branch_name=$this->session->userdata('branch_name');
                                                 <script>
                                                 /* this script is used to update material info */
                                                 $(function(){
-                                                 $("#Update_purchasedManage_MaterialForm_' . $Purchased['status_message'][$i]['purchased_product_id'] . '").submit(function(){
-                                                   dataString = $("#Update_purchasedManage_MaterialForm_' . $Purchased['status_message'][$i]['purchased_product_id'] . '").serialize();
-                                                   $.ajax({
-                                                     type: "POST",
-                                                     url: "' . base_url() . 'inventory/MaterialStock_Management/Update_purchasedproducts_Info",
-                                                     data: dataString,
-                                                     return: false,  
-                                                     success: function(data)
-                                                     {
+                                                   $("#Update_purchasedManage_MaterialForm_' . $Purchased['status_message'][$i]['purchased_product_id'] . '").submit(function(){
+                                                     dataString = $("#Update_purchasedManage_MaterialForm_' . $Purchased['status_message'][$i]['purchased_product_id'] . '").serialize();
+                                                     $.ajax({
+                                                       type: "POST",
+                                                       url: "' . base_url() . 'inventory/MaterialStock_Management/Update_purchasedproducts_Info",
+                                                       data: dataString,
+                                                       return: false,  
+                                                       success: function(data)
+                                                       {
                                                         $("#Updatestock_errnew_' . $Purchased['status_message'][$i]['purchased_product_id'] . '").html(data);
                                                         location.reload();
                                                     }
@@ -796,15 +805,15 @@ $branch_name=$this->session->userdata('branch_name');
                                             <script>
                                             /* this script is used to update material info */
                                             $(function(){
-                                             $("#Update_Finished_ProductForm_' . $Finished['status_message'][$i]['finished_product_id'] . '").submit(function(){
-                                               dataString = $("#Update_Finished_ProductForm_' . $Finished['status_message'][$i]['finished_product_id'] . '").serialize();
-                                               $.ajax({
-                                                 type: "POST",
-                                                 url: "' . base_url() . 'inventory/MaterialStock_Management/Update_Finishedproducts_Info",
-                                                 data: dataString,
-                                                 return: false,  
-                                                 success: function(data)
-                                                 {
+                                               $("#Update_Finished_ProductForm_' . $Finished['status_message'][$i]['finished_product_id'] . '").submit(function(){
+                                                 dataString = $("#Update_Finished_ProductForm_' . $Finished['status_message'][$i]['finished_product_id'] . '").serialize();
+                                                 $.ajax({
+                                                   type: "POST",
+                                                   url: "' . base_url() . 'inventory/MaterialStock_Management/Update_Finishedproducts_Info",
+                                                   data: dataString,
+                                                   return: false,  
+                                                   success: function(data)
+                                                   {
                                                     $("#Updatestock_errnew_' . $Finished['status_message'][$i]['finished_product_id'] . '").html(data);
                                                     location.reload();
                                                 }
@@ -987,7 +996,7 @@ $(function () {
 });
 //this fun is used to add raw material ends here----------------------------------//
 </script>
-<!--<script>
+<!-- <script>
 function priceconversion(){
 Input_RawMaterialCurrency = $("#Input_RawMaterialCurrency").val();
 checkPrice = document.getElementById("checkPrice");
@@ -1007,4 +1016,4 @@ $.ajax({
         }
     });
 }
-</script>-->
+</script> -->
