@@ -63,7 +63,7 @@ class MaterialStockManagement_model extends CI_Model {
 
     public function GetRawMaterialInfoDetails() {
 
-        $query = "SELECT * FROM raw_materialstock ORDER BY raw_ID ";
+        $query = "SELECT * FROM raw_materialstock ORDER BY material_name,raw_ID ";
         $result = $this->db->query($query);
         if ($result->num_rows() <= 0) {
             $response = array(
