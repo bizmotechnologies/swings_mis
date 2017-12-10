@@ -94,7 +94,7 @@ $branch_name=$this->session->userdata('branch_name');
                                         <a class="btn btn-info" data-toggle="modal" data-target="#addRawMaterial_modal">Add Raw Material</a><br>
                                     </div>
                                     <div class="w3-col l6 ">
-                                        <a class="btn btn-info w3-right" href="<?php echo base_url(); ?>">Add Consumed Material</a><br>
+                                        <a class="btn btn-info w3-right" href="<?php echo base_url(); ?>inventory/materialConsumption">Add Consumed Material</a><br>
                                     </div>
 
                                 </div>
