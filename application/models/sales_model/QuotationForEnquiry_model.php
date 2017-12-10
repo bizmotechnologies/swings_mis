@@ -27,21 +27,18 @@ class QuotationForEnquiry_model extends CI_Model {
 
     public function filter_quotation($From_date, $Till_date, $customer_Id) {
 
-       if ($From_date==''){
-        $query = "SELECT * FROM quotation_master WHERE customer_id='$customer_Id' AND dated <= '$Till_date' AND current_status!='0' ";                 
-       }
-       else if($Till_date==''){
-        $query = "SELECT * FROM quotation_master WHERE customer_id='$customer_Id' AND dated >= '$From_date' AND current_status!='0' ";                 
-       }
-       else if($customer_Id==''){
-        $query = "SELECT * FROM quotation_master WHERE dated BETWEEN '$From_date' AND '$Till_date' AND current_status!='0' ";                 
-       }
-       else{
-        $query = "SELECT * FROM quotation_master WHERE dated WHERE current_status!='0' ";
-       }
-       $result = $this->db->query($query); 
+        if ($From_date == '') {
+            $query = "SELECT * FROM quotation_master WHERE customer_id='$customer_Id' AND dated <= '$Till_date' AND current_status!='0' ";
+        } else if ($Till_date == '') {
+            $query = "SELECT * FROM quotation_master WHERE customer_id='$customer_Id' AND dated >= '$From_date' AND current_status!='0' ";
+        } else if ($customer_Id == '') {
+            $query = "SELECT * FROM quotation_master WHERE dated BETWEEN '$From_date' AND '$Till_date' AND current_status!='0' ";
+        } else {
+            $query = "SELECT * FROM quotation_master WHERE dated WHERE current_status!='0' ";
+        }
+        $result = $this->db->query($query);
 
-       if ($result->num_rows() <= 0) {
+        if ($result->num_rows() <= 0) {
             $response = array(
                 'status' => 0,
                 'status_message' => 'No Quotations Found for specified Filter !!!');
@@ -50,7 +47,7 @@ class QuotationForEnquiry_model extends CI_Model {
                 'status' => 1,
                 'status_message' => $result->result_array());
         }
-        return $response; 
+        return $response;
     }
 
     //------------this fun is for get all enquiries sort by date, customer and sort-------------//
@@ -108,24 +105,24 @@ class QuotationForEnquiry_model extends CI_Model {
         //print_r($enquiry_products);die();
         switch ($delivery_period) {
             case '1':
-            $delivery_P = 'day/days';
-            break;
+                $delivery_P = 'day/days';
+                break;
 
             case '2':
-            $delivery_P = 'week/weeks';
-            break;
+                $delivery_P = 'week/weeks';
+                break;
 
             case '3':
-            $delivery_P = 'month/months';
-            break;
+                $delivery_P = 'month/months';
+                break;
 
             case '4':
-            $delivery_P = 'year/years';
-            break;
+                $delivery_P = 'year/years';
+                break;
 
             default:
                 # code...
-            break;
+                break;
         }
 
         $delivery_within = $delivery_span . ' ' . $delivery_P;
@@ -165,42 +162,39 @@ class QuotationForEnquiry_model extends CI_Model {
         //$mail->SMTPDebug = 2;                               // Enable verbose debug output
 
 
-        $emailFrom='samrat.munde@bizmo-tech.com';
-        $nameFrom='Seal-Wings ';
+        $emailFrom = 'samrat.munde@bizmo-tech.com';
+        $nameFrom = 'Seal-Wings ';
 
         // Configure email library
         $config['protocol'] = 'smtp';
-        $config['smtp_host'] ='seal-wings.com';
+        $config['smtp_host'] = 'seal-wings.com';
         $config['smtp_timeout'] = '7';
         $config['smtp_port'] = 465;
-        $config['charset']    = 'iso-8859-1';
-        $config['newline']    = "\r\n";
-$config['mailtype'] = 'text'; // or html
+        $config['charset'] = 'iso-8859-1';
+        $config['newline'] = "\r\n";
+        $config['mailtype'] = 'text'; // or html
 //$config[‘validation’] = TRUE; // bool whether to validate email or not
-$config['smtp_user'] = 'test@seal-wings.com';
-$config['smtp_pass'] = 'sealwings@123';
+        $config['smtp_user'] = 'test@seal-wings.com';
+        $config['smtp_pass'] = 'sealwings@123';
 
 // Load email library and passing configured values to email library
-$this->email->initialize($config);
-$this->email->set_newline("\r\n");
+        $this->email->initialize($config);
+        $this->email->set_newline("\r\n");
 
 // Sender email address
-$this->email->from('test@seal-wings.com', 'username');
+        $this->email->from('test@seal-wings.com', 'username');
 // Receiver email address
-$this->email->to('samratbizmotech@gmail.com');
+        $this->email->to('samratbizmotech@gmail.com');
 // Subject of email
-$this->email->subject('Hii test mail');
+        $this->email->subject('Hii test mail');
 // Message in email
-$this->email->message('Test mail content');
+        $this->email->message('Test mail content');
 
 
 
         //require 'mail/PHPMailerAutoload.php';
-
 //         $mail = new PHPMailer;
-
 // $mail->SMTPDebug = 2;                               // Enable verbose debug output
-
 // $mail->isSMTP();                                      // Set mailer to use SMTP
 // $mail->Host = 'seal-wings.com';  // Specify main and backup SMTP servers
 // $mail->SMTPAuth = true;                               // Enable SMTP authentication
@@ -208,91 +202,87 @@ $this->email->message('Test mail content');
 //         $mail->Password = 'sealwings@123';                           // SMTP password
 //         $mail->SMTPSecure = 'ssl';                            // Enable TLS encryption, `ssl` also accepted
 //         $mail->Port = 465;                                    // TCP port to connect to
-
 //         $mail->setFrom('samratbizmotech@gmail.com', 'samrat');
 //         $mail->addAddress($emailFrom, $nameFrom);     // Add a recipient
 //         $mail->addReplyTo('samratbizmotech@gmail.com', 'samrat');
 //         // $mail->addCC('cc@example.com');
 //         // $mail->addBCC('bcc@example.com');
-
 //         $mail->isHTML(true);                                  // Set email format to HTML
-
 //         $mail->Subject = 'Response for your Enquiry';
 //         $mail->Body    = 'There is a query from <b>'.$emailFrom.'</b><br>This is the body in plain text for non-HTML mail clients<br>';
 //         $mail->AltBody = 'This is the body in plain text for non-HTML mail clients<br>';
-
-       // if(!$mail->send()) {
-if ($this->email->send()) {
-    $response=array(
-        'status' => 0,
-        'status_message' => 'Message could not be sent. <br>Mailer Error: ' . $mail->ErrorInfo
-    );
-} else {
-    $response = array(
-        'status' => 1,
-        'status_message' => 'Message has been sent'
-    );
-}
+        // if(!$mail->send()) {
+        if ($this->email->send()) {
+            $response = array(
+                'status' => 0,
+                'status_message' => 'Message could not be sent. <br>Mailer Error: ' . $mail->ErrorInfo
+            );
+        } else {
+            $response = array(
+                'status' => 1,
+                'status_message' => 'Message has been sent'
+            );
+        }
         //sql query to insert user row and create an account
-return $response;
-}
+        return $response;
+    }
 
     //----------------------------contact customer END------------------------------//
     //------------this fun is used to get enquiry product by enquiry id--------------------------------//
-public function sendTo_PO($quotation_id) {
-    $update_quotation = "UPDATE quotation_master SET current_status = '2' WHERE quotation_id = '$quotation_id'";
-    if ($this->db->query($update_quotation)) {
-        $response = array(
-            'status' => 1,
-            'status_message' => 'Quotation sent to PO Successfully');
-    } else {
-        $response = array(
-            'status' => 0,
-            'status_message' => 'Quotation sent to PO Failed!!!');
+    public function sendTo_PO($quotation_id) {
+        $update_quotation = "UPDATE quotation_master SET current_status = '2' WHERE quotation_id = '$quotation_id'";
+        if ($this->db->query($update_quotation)) {
+            $response = array(
+                'status' => 1,
+                'status_message' => 'Quotation sent to PO Successfully');
+        } else {
+            $response = array(
+                'status' => 0,
+                'status_message' => 'Quotation sent to PO Failed!!!');
+        }
+        return $response;
     }
-    return $response;
-}
 
     //------------this fun is used to get enquiry product by enquiry id--------------------------------//
 //----------this fun is used to insert quotation for revised quotation-------------------------------------//
-public function getEnquiry_DetailsFor_MultipleQuotation($data) {
-    extract($data);
-    $productarr = '';
-    $customer_id = '';
-    $customer_name = '';
-    $productinfoArr = '';
-    $profile_id = '';
-    $prod_price = '';
-    $delivery_within='';
-    $delivery_period='';
+    public function getEnquiry_DetailsFor_MultipleQuotation($data) {
+        extract($data);
+        $productarr = '';
+        $customer_id = '';
+        $customer_name = '';
+        $productinfoArr = '';
+        $profile_id = '';
+        $prod_price = '';
+        $delivery_within = '';
+        $delivery_period = '';
 
-     switch ($revise_deliveryPeriod) {
+        switch ($revise_deliveryPeriod) {
             case '1':
-            $delivery_period = 'day/days';
-            break;
+                $delivery_period = 'day/days';
+                break;
 
             case '2':
-            $delivery_period = 'week/weeks';
-            break;
+                $delivery_period = 'week/weeks';
+                break;
 
             case '3':
-            $delivery_period = 'month/months';
-            break;
+                $delivery_period = 'month/months';
+                break;
 
             case '4':
-            $delivery_period = 'year/years';
-            break;
+                $delivery_period = 'year/years';
+                break;
 
             default:
                 # code...
-            break;
+                break;
         }
-    $Updated_price=json_decode($product_JSON,TRUE);
+        $Updated_price = json_decode($product_JSON, TRUE);
 
-        $Product_details = QuotationForEnquiry_model::getquotationdetails($enquiry_id);//----fun for get quotation details
+        $Product_details = QuotationForEnquiry_model::getquotationdetails($enquiry_id); //----fun for get quotation details
         $product_information = json_decode($Product_details, true);
 
-        $query = "SELECT * FROM enquiry_master WHERE enquiry_id = '$enquiry_id'";        
+        $query = "SELECT * FROM enquiry_master WHERE enquiry_id = '$enquiry_id'";
         $result = $this->db->query($query);
 
         if ($result->num_rows() <= 0) {
@@ -311,14 +301,12 @@ public function getEnquiry_DetailsFor_MultipleQuotation($data) {
                     'profile_id' => $key['profile_id'],
                     'product_price' => $key['product_price']
                 );
-                $count=0;
+                $count = 0;
                 foreach ($product_information as &$prod) {//-----loop for update json price
-
                     if ($prod['profile_id'] == $key['profile_id']) {
                         $prod['product_price'] = $Updated_price[$count];
                     }
                     $count++;
-                   
                 }
             }
 
@@ -329,63 +317,91 @@ public function getEnquiry_DetailsFor_MultipleQuotation($data) {
         $resultupdate = $this->db->query($sqlupdate);
 
         if ($resultupdate) {
-            $delivery_within = $revise_deliverySpan.' '.$delivery_period;
+            $delivery_within = $revise_deliverySpan . ' ' . $delivery_period;
             $sqlinsert = "INSERT INTO quotation_master(enquiry_id,customer_id,customer_name,"
-            . "product_associated,delivery_within,dated,time_at,current_status) "
+                    . "product_associated,delivery_within,dated,time_at,current_status) "
                     . "VALUES ('$enquiry_id','$customer_id','$customer_name','$productarr','$delivery_within',NOW(),NOW(),'1')"; //----insert new quotation into quotation master
 
-                    $resultinsert = $this->db->query($sqlinsert);
-                    if ($resultinsert) {
-                        $response = array(
-                            'status' => 1,
-                            'status_message' => 'Quotation Inserted Successfully..!');
-                    } else {
-                        $response = array(
-                            'status' => 0,
-                            'status_message' => 'Quotation did not get revised...!');
-                    }
-                } else {
-                    $response = array(
-                        'status' => 0,
-                        'status_message' => 'Quotation did not get revised...!');
-                }
-                return $response;
+            $resultinsert = $this->db->query($sqlinsert);
+            if ($resultinsert) {
+                $response = array(
+                    'status' => 1,
+                    'status_message' => 'Quotation Inserted Successfully..!');
+            } else {
+                $response = array(
+                    'status' => 0,
+                    'status_message' => 'Quotation did not get revised...!');
             }
+        } else {
+            $response = array(
+                'status' => 0,
+                'status_message' => 'Quotation did not get revised...!');
+        }
+        return $response;
+    }
 
 //----------this fun is used to insert quotation for revised quotation-------------------------------------//
 //----------this fun is used to fetch enquiry details-------------------------------------//
 
-            public function getquotationdetails($enquiry_id) {
-                $sql = "SELECT * FROM enquiry_master WHERE enquiry_id = '$enquiry_id'";
+    public function getquotationdetails($enquiry_id) {
+        $sql = "SELECT * FROM enquiry_master WHERE enquiry_id = '$enquiry_id'";
 
-                $result = $this->db->query($sql);
-                $Product_details = '';
-                if ($result->num_rows() <= 0) {
-                    $Product_details = array(
-                        'status' => 0,
-                        'status_message' => 'No Records Found.');
-                } else {
-                    foreach ($result->result_array() as $row) {
-                        $Product_details = $row['products_associated'];
-                    }
-                }
-                return $Product_details;
+        $result = $this->db->query($sql);
+        $Product_details = '';
+        if ($result->num_rows() <= 0) {
+            $Product_details = array(
+                'status' => 0,
+                'status_message' => 'No Records Found.');
+        } else {
+            foreach ($result->result_array() as $row) {
+                $Product_details = $row['products_associated'];
             }
-//----------this fun is used to fetch enquiry details-------------------------------------//
-    public function sort_byStatus($From_date, $To_date, $Sort_by, $customer_Id){
-        
-        switch ($Sort_by) {
-            case '1':
-                $sqlsort = "SELECT * FROM quotation_master WHERE customer_id = '' AND ";
-            break;
-
-            case '2':
-                $sqlsort = "";
-            break;
-
-            default:
-                $sqlsort = "";
-            break;
         }
+        return $Product_details;
     }
+
+//----------this fun is used to fetch enquiry details-------------------------------------//
+    public function sort_byStatus($From_date, $To_date, $Sort_by, $customer_Id) {
+
+        if ($From_date == '') {
+            $sqlsort = "SELECT * FROM quotation_master WHERE customer_id = '$customer_Id' AND dated <= '$To_date' AND current_status ='$Sort_by'";
+        } else if ($To_date == '') {
+            $sqlsort = "SELECT * FROM quotation_master WHERE customer_id = '$customer_Id' AND dated >= '$From_date' AND current_status ='$Sort_by'";
+        } else if ($customer_Id == '') {
+            $sqlsort = "SELECT * FROM quotation_master WHERE dated BETWEEN '$From_date' AND '$To_date' AND current_status ='$Sort_by'";
+        } else {
+            $sqlsort = "SELECT * FROM quotation_master WHERE current_status ='$Sort_by' ";
+        }
+        //echo $sqlsort;die();
+        $result = $this->db->query($sqlsort);
+
+        if ($result->num_rows() <= 0) {
+            $response = array(
+                'status' => 0,
+                'status_message' => 'No Quotations Found for specified Filter !!!');
+        } else {
+            $response = array(
+                'status' => 1,
+                'status_message' => $result->result_array());
+        }
+        return $response;
+    }
+
+    public function getcustomerDetails() {
+        //extract($data);
+        $query = "SELECT * FROM customer_details";
+        $result = $this->db->query($query);
+
+        if ($result->num_rows() <= 0) {
+            $response = array(
+                'status' => 0,
+                'status_message' => 'No Records Found.');
+        } else {
+            $response = array(
+                'status' => 1,
+                'status_message' => $result->result_array());
+        }
+        return $response;
+    }
+
 }

@@ -18,6 +18,9 @@
   <script src="<?php echo base_url(); ?>css/bootstrap/bootstrap-toggle.min.js"></script>
   <script type="text/javascript" src="<?php echo base_url(); ?>css/alert/jquery-confirm.js"></script>
   <script type="text/javascript" src="<?php echo base_url(); ?>css/js/config.js"></script>
+<!--  <script type="text/javascript" src="<?php echo base_url(); ?>css/calender/dhtmlxcalendar.js"></script>
+  <script type="text/javascript" src="<?php echo base_url(); ?>css/calender/dhtmlxcalendar.css"></script>
+  <script type="text/javascript" src="<?php echo base_url(); ?>css/calender/dhtmlxcalendar_deprecated.js"></script>-->
   <script type="text/javascript" src="<?php echo base_url(); ?>css/js/sales/manage_quotation.js"></script>
 
 </head>
@@ -68,10 +71,34 @@
         </header>
         <div class="w3-col l12 w3-small">
           <div class="w3-col l12">
-            <div class="w3-col l12">
+            <div class="w3-col l12 w3-padding">
               <!-- div for filtering table data||| still in construction -->
+              <div class="w3-col l3">
+                  <label>From Date</label>
+                  <input type="date" class="w3-input" id="From_date" name="From_date">
+              </div>
+              <div class="w3-col l3 padding-left">
+                  <label>To Date</label>
+                  <input type="date" class="w3-input" id="To_date" name="To_date">
+              </div>
+              <div class="w3-col l3 padding-left">
+                  <label>Customer name</label>
+                  <input list="CustomerFilter" id="Customer_nameForFilter" name="Customer_nameForFilter" class="w3-input" placeholder="Customer Name" >
+                  <datalist id="CustomerFilter">
+                      <?php foreach ($all_customer['status_message'] as $result) { ?>
+                          <option data-value="<?php echo $result['cust_id']; ?>" value='<?php echo $result['customer_name']; ?>'></option>
+                      <?php } ?>
+                  </datalist>
+              </div>
+              <div class="w3-col l3">
+                  <label>Sort By Status</label>
+                  <select class="w3-input" id="Sort_by" name="Sort_by" onchange="sort_byStatus();">
+                      <option value="1">LIVE</option>
+                      <option value="2">PO</option>
+                  </select>
+              </div>
             </div>
-            <div class="w3-col l12">
+            <div class="w3-col l12" id = "Show_quotationsTable">
 
               <div id="quotation_table" class="w3-col l12 w3-padding">
                 <table class="table table-bordered table-responsive w3-small" ><!-- table starts here -->
@@ -85,7 +112,6 @@
                     <th class="w3-center">Current Status</th> 
                     <th class="w3-center">#&nbsp;Actions</th>                                           
                   </tr>
-
                   <?php 
                   $count=1; 
                   if($all_liveQuotes['status']==0){
@@ -472,7 +498,29 @@
   });
 </script>
 <!-- script ends -->
-
+<script>
+function sort_byStatus(){
+    customer_id = $('#CustomerFilter [value="' + $('#Customer_nameForFilter').val() + '"]').data('value');
+    From_date = $('#From_date').val();
+    To_date = $('#To_date').val();
+    Sort_by = $('#Sort_by').val();
+            $.ajax({
+            type: "POST",
+                    url: "<?php echo base_url(); ?>sales_enquiry/Sort_Enquiries_Quotations/sort_byStatus",
+                    data: {
+                    customer_id: customer_id,
+                            From_date: From_date,
+                            To_date: To_date,
+                            Sort_by: Sort_by
+                    },
+                    cache: false,
+                    success: function (data) {
+                    //alert(data);
+                    $('#Show_quotationsTable').html(data);
+                    }
+            });
+}
+</script>
 <!-- script to get customer specific live quotations when customer is selected -->
 <script>
   $(document).ready(function() {

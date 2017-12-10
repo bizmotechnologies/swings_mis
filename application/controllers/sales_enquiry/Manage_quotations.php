@@ -20,15 +20,26 @@ class Manage_quotations extends CI_Controller
 	public function index(){
 		
 		$data['all_enquiries'] = Manage_quotations::fetchEnquiry_For_Quotation();
-		//$data['all_customer']=Manage_quotations::show_customer();
-		$data['all_liveQuotes']=Manage_quotations::show_quotations();
+		$data['all_customer'] = Manage_quotations::getcustomerDetails();
+		$data['all_liveQuotes'] = Manage_quotations::show_quotations();
 
 		$this->load->view('includes/navigation.php');
 		$this->load->view('sales/manage_quotations.php',$data);		
 		//$this->load->view('sales/demo.php',$data);		
 	}
 	
-	
+	public function getcustomerDetails()
+    {
+        $path=base_url();
+        $url = $path.'api/ManageQuotations_api/getcustomerDetails';      
+        $ch = curl_init($url);
+        curl_setopt($ch, CURLOPT_HTTPGET, true);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $response_json = curl_exec($ch);
+        curl_close($ch);
+        $response=json_decode($response_json, true);
+         return $response;       
+ }
 
 
 	// ---------------function to show all products------------------------//
@@ -215,25 +226,6 @@ class Manage_quotations extends CI_Controller
 		return ($response);
 	}
     // --------------------- this fun is used to get all enquiry for quotation ends here----------------------------------//	
-
-    // --------------------- this fun is used to get filter quotation by customer and date ----------------------------------//	
-
-	public function filter_quotation(){
-
-		$From_date = 2017/01/01;
-		$Till_date = 2017/12/31;
-		$customer_Id = 1;
-		$path=base_url();
-		$url = $path.'api/manageQuotations_api/filter_quotation?From_date='.$From_date.'&Till_date='.$Till_date.'&customer_Id='.$customer_Id;		
-		$ch = curl_init($url);
-		curl_setopt($ch, CURLOPT_HTTPGET, true);
-		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-		$response_json = curl_exec($ch);
-		curl_close($ch);
-		$response=json_decode($response_json, true);
-		print_r($response_json);die();
-	}
-        // --------------------- this fun is used to get filter quotation by customer and date ----------------------------------//
 
 	// --------------------- this fun is used to send quotation to PO ----------------------------------//	
 
@@ -515,20 +507,5 @@ die();
 		
 	}
 //------------this fun is used to get enquiry details for multiple quotations----------------------------------------//
-    public function sort_byStatus(){
-        $From_date = 2017/01/01;
-        $To_date = 2017/12/31;
-        $Sort_by = "live";
-        $customer_Id = 1;
-        $path = base_url();
-        $url = $path . 'api/manageQuotations_api/sort_byStatus?From_date='.$From_date.'&To_date='.$To_date.'&Sort_by='.$Sort_by.'&customer_Id'.$customer_Id;
-        $ch = curl_init($url);
-        curl_setopt($ch, CURLOPT_HTTPGET, true);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        $response_json = curl_exec($ch);
-        curl_close($ch);
-        $response = json_decode($response_json, true);
-       // print_r($response_json);die();
 
-    }
 }

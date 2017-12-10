@@ -55,16 +55,7 @@ class ManageQuotations_api extends REST_Controller {
     }
 
 //------------this fun is used to get enquiry -------------------//
-//------------this fun is used to get sort enquiry by the date,customer and status-------------------//
-    public function filter_quotation_get() {
-        $From_date = $_GET['From_date'];
-        $Till_date = $_GET['Till_date'];
-        $customer_Id = $_GET['customer_Id'];
-        $response = $this->QuotationForEnquiry_model->filter_quotation($From_date, $Till_date, $customer_Id);
-        return $this->response($response);
-    }
 
-//------------this fun is used to get sort enquiry by the date,customer and status-------------------//
     //------------this fun is for get enquiry by id-------------------------------------//
     public function Show_Enquiry_get() {
         $enquiry_id = $_GET['enquiry_id'];
@@ -104,15 +95,9 @@ class ManageQuotations_api extends REST_Controller {
         return $this->response($response);
     }
     //------------this fun is send quotation to customer by mail-------------------------------------//
-    //--------------this fun is used to get sort quotation details by status-------------------------//
-    public function sort_byStatus_get(){
-        $From_date = $_GET['From_date'];
-        $To_date = $_GET['To_date'];
-        $Sort_by = $_GET['Sort_by'];
-        $customer_Id = $_GET['customer_Id'];
-        $response = $this->QuotationForEnquiry_model->sort_byStatus($From_date, $To_date, $Sort_by, $customer_Id);
-        return $this->response($response);
+    public function getcustomerDetails_get() {
+        $result = $this->QuotationForEnquiry_model->getcustomerDetails();
+        return $this->response($result);
     }
-    //--------------this fun is used to get sort quotation details by status-------------------------//
 
-   }
+}
