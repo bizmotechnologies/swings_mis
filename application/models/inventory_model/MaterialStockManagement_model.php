@@ -7,9 +7,9 @@ class MaterialStockManagement_model extends CI_Model {
     public function GetPriceFromPriceList($data) {
         extract($data);
         $sql = "SELECT material_price FROM raw_materialstock WHERE material_id ='$Select_Materials_Id' "
-                . "AND vendor_id ='$Select_RawVendors_Id' "
-                . "AND raw_ID ='$Input_RawMaterialStock_ID' "
-                . "AND raw_OD ='$Input_RawMaterialStock_OD'";
+        . "AND vendor_id ='$Select_RawVendors_Id' "
+        . "AND raw_ID ='$Input_RawMaterialStock_ID' "
+        . "AND raw_OD ='$Input_RawMaterialStock_OD'";
         $resultnew = $this->db->query($sql);
         $material_price = '0.00';
         
@@ -161,19 +161,19 @@ class MaterialStockManagement_model extends CI_Model {
     /* --------------------------this fun for save raw material details----------------------------------------------- */
     public function Save_RawStockMaterial_Info($data) {
         extract($data);
-        //print_r($data);die();
+        
         $this->load->model('inventory_model/ManageMaterial_model');
         $material_name = $this->ManageMaterial_model->getMaterialdata($Select_RawMaterials);
-
+        print_r($data);die();
         $sqlnew = "INSERT INTO raw_materialstock(material_id,vendor_id,material_name,raw_ID,"
-                . "raw_OD,avail_length,currency,branch_name,material_price,tolerance,accepted_date)"
-                . " values ('$Select_RawMaterials','$Select_RawVendors_Id',"
-                . "'$material_name','$Input_RawMaterialStock_ID',"
-                . "'$Input_RawMaterialStock_OD','$Input_RawMaterialLength',"
-                . "'$currency','$branch_name','$price','$Input_RawMaterialTolerance',now())";
-        //echo $sqlnew;die();
+        . "raw_OD,avail_length,branch_name,material_price,tolerance,accepted_date)"
+        . " values ('$Select_RawMaterials','$Select_RawVendors_Id',"
+        . "'$material_name','$Input_RawMaterialStock_ID',"
+        . "'$Input_RawMaterialStock_OD','$Input_RawMaterialLength',"
+        . "'$branch_name','$price','$Input_RawMaterialTolerance',NOW())";
+        echo $sqlnew;die();
         for($i=0; $i< $Input_RawMaterialNewQuantity; $i++){
-        $resultnew = $this->db->query($sqlnew);
+            $resultnew = $this->db->query($sqlnew);
         }
         if ($resultnew) {
             $response = array(
@@ -199,11 +199,11 @@ class MaterialStockManagement_model extends CI_Model {
         $product_name = MaterialStockManagement_model::getproductdata($Select_PurchasedProduct_Id);
         //print_r($product_name);
         $sqlnew = "INSERT INTO finished_products(product_id,product_name,
-			fproduct_ID,fproduct_OD,
-			fproduct_length,fproduct_quantity,accepted_date) 
-		VALUES ('$Select_PurchasedProduct_Id','$product_name',
-			'$Input_Finished_Product_ID','$Input_Finished_Product_OD',
-			'$Input_Finished_Product_Thickness','$Input_Finished_Product_Quantity',now())";
+        fproduct_ID,fproduct_OD,
+        fproduct_length,fproduct_quantity,accepted_date) 
+        VALUES ('$Select_PurchasedProduct_Id','$product_name',
+        '$Input_Finished_Product_ID','$Input_Finished_Product_OD',
+        '$Input_Finished_Product_Thickness','$Input_Finished_Product_Quantity',now())";
         //echo $sqlnew;die();
         $resultnew = $this->db->query($sqlnew);
 
@@ -231,16 +231,16 @@ class MaterialStockManagement_model extends CI_Model {
         $product_name = MaterialStockManagement_model::getproductdata($Select_PurchasedProduct_Id);
         //print_r($product_name);
         $sqlnew = "INSERT INTO purchase_productstock(product_id,product_name,
-			stock_id,stock_od,
-			length,quantity,purchase_price,
-			purchase_discount,vendor_id,accepted_date,
-			purchase_currency,price_in_rs) 
-		values ('$Select_PurchasedProduct_Id','$product_name',
-			'$Input_PurchasedProductStock_ID','$Input_ProductStock_OD',
-			'$Input_PurchasedLength','$Input_Purchased_quantity',
-			'$input_priceForPurchase','$Input_PurchasedDiscount',
-			'$Select_PurchasedVendors_Id',now(),
-			'$Select_purchasedCurrency','$Input_Purchased_Price')";
+        stock_id,stock_od,
+        length,quantity,purchase_price,
+        purchase_discount,vendor_id,accepted_date,
+        purchase_currency,price_in_rs) 
+        values ('$Select_PurchasedProduct_Id','$product_name',
+        '$Input_PurchasedProductStock_ID','$Input_ProductStock_OD',
+        '$Input_PurchasedLength','$Input_Purchased_quantity',
+        '$input_priceForPurchase','$Input_PurchasedDiscount',
+        '$Select_PurchasedVendors_Id',now(),
+        '$Select_purchasedCurrency','$Input_Purchased_Price')";
         //echo $sqlnew;die();
         $resultnew = $this->db->query($sqlnew);
 
@@ -277,22 +277,19 @@ class MaterialStockManagement_model extends CI_Model {
 
         extract($data);
 
-        $this->load->model('inventory_model/ManageProduct_model');
-        $material_name = $this->ManageProduct_model->getMaterialdata($Select_RawMaterials_Id);
-
-        $sql = "UPDATE raw_materialstock SET material_name = '$material_name',"
-                . "avail_length = '$Updated_MaterialLength' WHERE rawmaterial_id = '$rawmaterial_id'";
+        $sql = "UPDATE raw_materialstock SET material_name = '$Material_name',"
+        . "avail_length = '$Material_length' WHERE rawmaterial_id = '$Raw_materialId'";
         //echo $sql; die();
         $resultUpadate = $this->db->query($sql);
 
         if ($resultUpadate) {
             $response = array(
                 'status' => 1,
-                'status_message' => 'Records Updated Successfully..!');
+                'status_message' => 'Stock Updated Successfully..!');
         } else {
             $response = array(
                 'status' => 0,
-                'status_message' => 'Records Not Updated Successfully...!');
+                'status_message' => 'Stock Values Not Updated Successfully...!');
         }
         return $response;
     }
@@ -307,11 +304,11 @@ class MaterialStockManagement_model extends CI_Model {
         $product_name = MaterialStockManagement_model::getproductdata($Select_UpdatedFinished_product_Id);
 
         $sql = "UPDATE finished_products SET product_id = '$Select_UpdatedFinished_product_Id',
-		product_name = '$product_name',
-		fproduct_ID = '$Updated_FinishedProduct_ID',
-		fproduct_OD = '$Updated_FinishedProduct_OD',
-		fproduct_length = '$Updated_FinishedProductLength',
-		fproduct_quantity = '$Updated_FinishedProductQuantity' WHERE finished_product_id = '$finished_product_id'";
+        product_name = '$product_name',
+        fproduct_ID = '$Updated_FinishedProduct_ID',
+        fproduct_OD = '$Updated_FinishedProduct_OD',
+        fproduct_length = '$Updated_FinishedProductLength',
+        fproduct_quantity = '$Updated_FinishedProductQuantity' WHERE finished_product_id = '$finished_product_id'";
         //echo $sql; die();
         $resultUpadate = $this->db->query($sql);
 
@@ -375,12 +372,12 @@ class MaterialStockManagement_model extends CI_Model {
         $product_name = MaterialStockManagement_model::getproductdata($Select_UpdatedPurchased_Id);
 
         $sql = "UPDATE purchase_productstock SET product_id = '$Select_UpdatedPurchased_Id',
-		vendor_id = '$Select_UpdatedVendor_Id', product_name = '$product_name', 
-		stock_id = '$Updated_PurchasedStock_ID', stock_od = '$Updated_purchasedStock_OD', 
-		length = '$Updated_purchasedLength', quantity = '$Updated_PurchasedNewQuantity',
-		purchase_price = '$input_updatedpriceForPurchase',purchase_discount = '$Input_PurchasedDiscount',
-		purchase_currency = '$Select_UpdatedpurchasedCurrency', price_in_rs = '$Input_UpdatedPurchased_Price' 
-		WHERE purchased_product_id = '$purchased_product_id'";
+        vendor_id = '$Select_UpdatedVendor_Id', product_name = '$product_name', 
+        stock_id = '$Updated_PurchasedStock_ID', stock_od = '$Updated_purchasedStock_OD', 
+        length = '$Updated_purchasedLength', quantity = '$Updated_PurchasedNewQuantity',
+        purchase_price = '$input_updatedpriceForPurchase',purchase_discount = '$Input_PurchasedDiscount',
+        purchase_currency = '$Select_UpdatedpurchasedCurrency', price_in_rs = '$Input_UpdatedPurchased_Price' 
+        WHERE purchased_product_id = '$purchased_product_id'";
         //echo $sql; die();
         $resultUpadate = $this->db->query($sql);
 
@@ -444,44 +441,22 @@ class MaterialStockManagement_model extends CI_Model {
     /* this fun ends here */
 
 
-     /* --------------------------this fun for save raw material details----------------------------------------------- */
+    /* --------------------------this fun for save raw material details----------------------------------------------- */
     public function Excelto_DB($data) {
         extract($data);
         //print_r($data);die();
         $jsonArr=json_decode($data,'TRUE');
         foreach ($jsonArr as $key ) {
             $rupee=$key['price'] *75.87;
-            //print_r($key);
+            
             $sqlnew = "INSERT INTO raw_materialstock(vendor_id,material_name,raw_ID,"
-                . "raw_OD,avail_length,weight,material_price,price_rupee,branch_name)"
-                . " values ('1','".$key['Material']."','".$key['ID']."',"
-                . "'".$key['OD']."',0,"
-                . "'".$key['weight']."','".$key['price']."','".$rupee."','PUNE')";
-//echo $sqlnew;
-                $this->db->query($sqlnew);
-
+            . "raw_OD,avail_length,weight,material_price,price_euro,branch_name)"
+            . " values ('1','".$key['Material']."','".$key['ID']."',"
+            . "'".$key['OD']."',0,"
+            . "'".$key['weight']."','".$rupee."','".$key['price']."','PUNE')";
+            $this->db->query($sqlnew);
         }
-        die();
-        // $sqlnew = "INSERT INTO raw_materialstock(material_id,vendor_id,material_name,raw_ID,"
-        //         . "raw_OD,avail_length,currency,branch_name,material_price,tolerance,accepted_date)"
-        //         . " values ('$Select_RawMaterials','$Select_RawVendors_Id',"
-        //         . "'$material_name','$Input_RawMaterialStock_ID',"
-        //         . "'$Input_RawMaterialStock_OD','$Input_RawMaterialLength',"
-        //         . "'$currency','$branch_id','$price','$Input_RawMaterialTolerance',now())";
-        echo $sqlnew;die();
-        for($i=0; $i< $Input_RawMaterialNewQuantity; $i++){
-        $resultnew = $this->db->query($sqlnew);
-        }
-        if ($resultnew) {
-            $response = array(
-                'status' => 1,
-                'status_message' => 'Records Inserted Successfully..!');
-        } else {
-            $response = array(
-                'status' => 0,
-                'status_message' => 'Records Not Inserted Successfully...!');
-        }
-        return $response;
+        die();       
     }
 
 }
