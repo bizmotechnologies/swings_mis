@@ -1,4 +1,5 @@
 <?php
+error_reporting(E_ERROR | E_PARSE);
 
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
@@ -26,20 +27,17 @@ class Sort_Enquiries_Quotations extends CI_Controller {
     // --------------------- this fun is used to get filter quotation by customer and date ----------------------------------//	
 
     public function filter_quotation() {
-
-        $From_date = 2017 / 01 / 01;
-        $Till_date = 2017 / 12 / 31;
-        $customer_Id = 1;
+        extract($_POST);
+        //print_r($_POST);die();
         $path = base_url();
-        $url = $path . 'api/Sort_Enquiry_Quotations_api/filter_quotation?From_date=' . $From_date . '&Till_date=' . $Till_date . '&customer_Id=' . $customer_Id;
+        $url = $path . 'api/Sort_Enquiry_Quotations_api/filter_quotation?From_date='.$From_date.'&To_date='.$To_date.'&customer_id='.$customer_id;
         $ch = curl_init($url);
         curl_setopt($ch, CURLOPT_HTTPGET, true);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         $response_json = curl_exec($ch);
         curl_close($ch);
         $response = json_decode($response_json, true);
-        print_r($response_json);
-        die();
+        //print_r($response_json);        die();
         
         echo'<div id="quotation_table" class="w3-col l12 w3-padding">
                 <table class="table table-bordered table-responsive w3-small" ><!-- table starts here -->
@@ -52,17 +50,16 @@ class Sort_Enquiries_Quotations extends CI_Controller {
                     <th class="w3-center">Delivery within</th>              
                     <th class="w3-center">Current Status</th> 
                     <th class="w3-center">#&nbsp;Actions</th>                                           
-                  </tr>
-                  <tr class="" id="sortedQuotations">';
+                  </tr>';
                   $count=1; 
-                  if($all_liveQuotes['status']==0){
+                  if($response['status']==0){
                     echo '<div class="alert alert-danger">
-                    <strong>'.$all_liveQuotes['status_message'].'</strong> 
+                    <strong>'.$response['status_message'].'</strong> 
                     </div>';
                   }
                   else
                   {
-                    foreach ($all_liveQuotes['status_message'] as $key) {
+                    foreach ($response['status_message'] as $key) {
                       $date=date('d/m/y', strtotime($key['dated']));
                       $delivery_values=explode(' ', $key['delivery_within']);
                       $customer_id=$key['customer_id'];
@@ -80,7 +77,7 @@ class Sort_Enquiries_Quotations extends CI_Controller {
                       }
 
                       echo                    
-                      '
+                      '<tr class="">
                       <td class="w3-center">'.$count.'.</td>
                       <td class="w3-center">#QUO-0'.$quotation_id.'</td>
                       <td class="w3-center">#ENQ-0'.$key['enquiry_id'].'</td>

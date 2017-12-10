@@ -71,18 +71,19 @@
         </header>
         <div class="w3-col l12 w3-small">
           <div class="w3-col l12">
+              <form>
             <div class="w3-col l12 w3-padding">
-              <!-- div for filtering table data||| still in construction -->
+              <!-- div for filtering table data -->
               <div class="w3-col l3">
-                  <label>From Date</label>
-                  <input type="date" class="w3-input" id="From_date" name="From_date">
+                  <label class="w3-center">From Date</label>
+                  <input type="date" class="w3-input" id="From_date" name="From_date" required>
               </div>
               <div class="w3-col l3 padding-left">
-                  <label>To Date</label>
-                  <input type="date" class="w3-input" id="To_date" name="To_date">
+                  <label class="w3-center">To Date</label>
+                  <input type="date" class="w3-input" id="To_date" name="To_date" required>
               </div>
               <div class="w3-col l3 padding-left">
-                  <label>Customer name</label>
+                  <label class="w3-center">Customer name</label>
                   <input list="CustomerFilter" id="Customer_nameForFilter" name="Customer_nameForFilter" class="w3-input" placeholder="Customer Name" >
                   <datalist id="CustomerFilter">
                       <?php foreach ($all_customer['status_message'] as $result) { ?>
@@ -90,14 +91,19 @@
                       <?php } ?>
                   </datalist>
               </div>
-              <div class="w3-col l3">
-                  <label>Sort By Status</label>
+              <div class="w3-col l1 padding-left">
+                  <button type="submit" class="btn w3-blue w3-margin-top w3-center" id="quotation_filter" name="quotation_filter">Sort</button>
+              </div>
+              <div class="w3-col l2">
+                  <label class="w3-center">Status</label>
                   <select class="w3-input" id="Sort_by" name="Sort_by" onchange="sort_byStatus();">
                       <option value="1">LIVE</option>
                       <option value="2">PO</option>
                   </select>
               </div>
+              <!-- div for filtering table data -->
             </div>
+              </form>
             <div class="w3-col l12" id = "Show_quotationsTable">
 
               <div id="quotation_table" class="w3-col l12 w3-padding">
@@ -499,6 +505,7 @@
 </script>
 <!-- script ends -->
 <script>
+    //---------this fun is used to sort by status--------------------------------//
 function sort_byStatus(){
     customer_id = $('#CustomerFilter [value="' + $('#Customer_nameForFilter').val() + '"]').data('value');
     From_date = $('#From_date').val();
@@ -520,6 +527,8 @@ function sort_byStatus(){
                     }
             });
 }
+    //---------this fun is used to sort by status--------------------------------//
+
 </script>
 <!-- script to get customer specific live quotations when customer is selected -->
 <script>
@@ -545,5 +554,33 @@ function sort_byStatus(){
   });
 </script>
 <!-- script ends -->
+<script>
+    //-----------this fun is used to filter quotation onclick on button------------------//
+$(document).ready(function() {
+    $("#quotation_filter").click(function(){
+    customer_id = $('#CustomerFilter [value="' + $('#Customer_nameForFilter').val() + '"]').data('value');
+    From_date = $('#From_date').val();
+    To_date = $('#To_date').val();
+           // alert(customer_id);
+
+            $.ajax({
+            type: "POST",
+                    url: "<?php echo base_url(); ?>sales_enquiry/Sort_Enquiries_Quotations/filter_quotation",
+                    data: {
+                            customer_id: customer_id,
+                            From_date: From_date,
+                            To_date: To_date
+                    },
+                    cache: false,
+                    success: function (data) {
+                    //alert(data);
+                    $('#Show_quotationsTable').html(data);
+                    }
+            });
+    }); 
+});
+    //-----------this fun is used to filter quotation onclick on button------------------//
+
+</script>
 </body>
 </html>

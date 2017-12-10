@@ -25,17 +25,17 @@ class QuotationForEnquiry_model extends CI_Model {
 //------------this fun is for get all enquiries for quotation status-------------
 //------------this fun is for get all enquiries sort by date, customer and sort-------------
 
-    public function filter_quotation($From_date, $Till_date, $customer_Id) {
-
-        if ($From_date == '') {
-            $query = "SELECT * FROM quotation_master WHERE customer_id='$customer_Id' AND dated <= '$Till_date' AND current_status!='0' ";
-        } else if ($Till_date == '') {
-            $query = "SELECT * FROM quotation_master WHERE customer_id='$customer_Id' AND dated >= '$From_date' AND current_status!='0' ";
-        } else if ($customer_Id == '') {
-            $query = "SELECT * FROM quotation_master WHERE dated BETWEEN '$From_date' AND '$Till_date' AND current_status!='0' ";
+    public function filter_quotation($From_date, $To_date, $customer_Id) {
+        if ($From_date == '' && $To_date == '' && $customer_Id == '') {
+            $sqlsort = "SELECT * FROM quotation_master WHERE current_status !='0'";
         } else {
-            $query = "SELECT * FROM quotation_master WHERE dated WHERE current_status!='0' ";
+            if ($customer_Id == '') {
+                $query = "SELECT * FROM quotation_master WHERE dated BETWEEN '$From_date' AND '$To_date' AND current_status!='0' ";
+            } else {
+                $query = "SELECT * FROM quotation_master WHERE current_status!='0' ";
+            }
         }
+        //echo $query;die();
         $result = $this->db->query($query);
 
         if ($result->num_rows() <= 0) {
@@ -243,7 +243,7 @@ class QuotationForEnquiry_model extends CI_Model {
         return $response;
     }
 
-    //------------this fun is used to get enquiry product by enquiry id--------------------------------//
+//------------this fun is used to get enquiry product by enquiry id--------------------------------//
 //----------this fun is used to insert quotation for revised quotation-------------------------------------//
     public function getEnquiry_DetailsFor_MultipleQuotation($data) {
         extract($data);
@@ -361,16 +361,21 @@ class QuotationForEnquiry_model extends CI_Model {
     }
 
 //----------this fun is used to fetch enquiry details-------------------------------------//
-    public function sort_byStatus($From_date, $To_date, $Sort_by, $customer_Id) {
+//----this fun is used to sort quotation by status----------------------------//
 
-        if ($From_date == '') {
-            $sqlsort = "SELECT * FROM quotation_master WHERE customer_id = '$customer_Id' AND dated <= '$To_date' AND current_status ='$Sort_by'";
-        } else if ($To_date == '') {
-            $sqlsort = "SELECT * FROM quotation_master WHERE customer_id = '$customer_Id' AND dated >= '$From_date' AND current_status ='$Sort_by'";
-        } else if ($customer_Id == '') {
-            $sqlsort = "SELECT * FROM quotation_master WHERE dated BETWEEN '$From_date' AND '$To_date' AND current_status ='$Sort_by'";
+    public function sort_byStatus($From_date, $To_date, $Sort_by, $customer_Id) {
+        if ($From_date == '' && $To_date == '' && $customer_Id == '') {
+            $sqlsort = "SELECT * FROM quotation_master WHERE current_status ='$Sort_by'";
         } else {
-            $sqlsort = "SELECT * FROM quotation_master WHERE current_status ='$Sort_by' ";
+            if ($From_date == '') {
+                $sqlsort = "SELECT * FROM quotation_master WHERE customer_id = '$customer_Id' AND dated <= '$To_date' AND current_status ='$Sort_by'";
+            } else if ($To_date == '') {
+                $sqlsort = "SELECT * FROM quotation_master WHERE customer_id = '$customer_Id' AND dated >= '$From_date' AND current_status ='$Sort_by'";
+            } else if ($customer_Id == '') {
+                $sqlsort = "SELECT * FROM quotation_master WHERE dated BETWEEN '$From_date' AND '$To_date' AND current_status ='$Sort_by'";
+            } else {
+                $sqlsort = "SELECT * FROM quotation_master WHERE current_status ='$Sort_by' ";
+            }
         }
         //echo $sqlsort;die();
         $result = $this->db->query($sqlsort);
@@ -386,6 +391,9 @@ class QuotationForEnquiry_model extends CI_Model {
         }
         return $response;
     }
+
+//----this fun is used to sort quotation by status----------------------------//
+    //----this fun is used to get customer details----------------------------//
 
     public function getcustomerDetails() {
         //extract($data);
@@ -404,4 +412,5 @@ class QuotationForEnquiry_model extends CI_Model {
         return $response;
     }
 
+    //----this fun is used to get customer details----------------------------//
 }
