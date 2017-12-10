@@ -21,6 +21,7 @@
     <!-- Header -->
     <header class="w3-container" >
       <h5><b><i class="fa fa-users"></i>Consumed Material</b></h5>
+      <a class="btn btn-info w3-right w3-margin-right" href="<?php echo base_url(); ?>inventory/materialStock_Management">Material Stock</a><br>
     </header>
     <!-- Header end -->
 
