@@ -161,7 +161,7 @@ $branch_name=$this->session->userdata('branch_name');
                                                         <label>ID:</label>
                                                         </div>
                                                         <div class="col-lg-6">
-                                                        <input type="number" name="Updated_MaterialStock_ID" id="Updated_MaterialStock_ID" class="form-control" placeholder="Material ID" step="0.01" value="' . $details['status_message'][$i]['raw_ID'] . '" required><br>
+                                                        <input type="number" name="Updated_MaterialStock_ID" id="Updated_MaterialStock_ID" class="form-control" placeholder="Material ID" step="0.01" value="'.$details['status_message'][$i]['raw_ID'].'" required><br>
                                                         </div>
                                                         </div>
 
@@ -170,7 +170,7 @@ $branch_name=$this->session->userdata('branch_name');
                                                         <label>OD:</label>
                                                         </div>
                                                         <div class="col-lg-6">
-                                                        <input type="number" name="Updated_MaterialStock_OD" id="Updated_MaterialStock_OD" class="form-control" placeholder="Material OD" step="0.01" value="' . $details['status_message'][$i]['raw_OD'] . '" required><br>
+                                                        <input type="number" name="Updated_MaterialStock_OD" id="Updated_MaterialStock_OD" class="form-control" placeholder="Material OD" step="0.01" value="'.$details['status_message'][$i]['raw_OD'].'" required><br>
                                                         </div>
                                                         </div>
 

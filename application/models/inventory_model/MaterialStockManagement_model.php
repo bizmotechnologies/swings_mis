@@ -450,12 +450,13 @@ class MaterialStockManagement_model extends CI_Model {
         //print_r($data);die();
         $jsonArr=json_decode($data,'TRUE');
         foreach ($jsonArr as $key ) {
+            $rupee=$key['price'] *75.87;
             //print_r($key);
             $sqlnew = "INSERT INTO raw_materialstock(vendor_id,material_name,raw_ID,"
-                . "raw_OD,avail_length,weight,material_price)"
-                . " values ('10','".$key['Material']."','".$key['ID']."',"
-                . "'".$key['OD']."','".$key['L']."',"
-                . "'".$key['weight']."','".$key['price']."')";
+                . "raw_OD,avail_length,weight,material_price,price_rupee,branch_name)"
+                . " values ('1','".$key['Material']."','".$key['ID']."',"
+                . "'".$key['OD']."',0,"
+                . "'".$key['weight']."','".$key['price']."','".$rupee."','PUNE')";
 //echo $sqlnew;
                 $this->db->query($sqlnew);
 
