@@ -311,6 +311,7 @@ class MaterialStock_Management extends CI_controller {
     public function DeleteRawMaterialStockDetails() {
         extract($_GET);
         $data = $_GET;
+
         $path = base_url();
         $url = $path . 'api/MaterialStockManagement_api/DeleteRawMaterialStockDetails?rawmaterial_id=' . $rawmaterial_id;
         $ch = curl_init($url);
@@ -319,8 +320,6 @@ class MaterialStock_Management extends CI_controller {
         $response_json = curl_exec($ch);
         curl_close($ch);
         $response = json_decode($response_json, true);
-
-        redirect('inventory/MaterialStock_Management');
     }
 
     /* --------------this fun is for save raw material stock information ----------------------- */
