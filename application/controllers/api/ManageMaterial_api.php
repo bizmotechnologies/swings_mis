@@ -107,4 +107,9 @@ class ManageMaterial_api extends REST_Controller {
     }
 
     //--------------this fun is used to get profile image-------------------//
+    public function Get_housingData_get(){
+        $Profiles = $_GET['profile_id'];
+        $response = $this->ManageMaterial_model->Get_housingData($Profiles);
+        return $this->response($response);
+    }
 }

@@ -51,6 +51,13 @@ class ManageEnquiry_api extends REST_Controller {
         return $this->response($response);
     }
     //---------------------GET AVAILABLE TUBE FROM RAW MATERIAL------------------------------//
+    //---------------------THIS FUN IS USED TO SAVE PROFILE DATA-----------------------------//
+    public function SaveProfile_data_post(){
+        $housingInfo = $_POST;
+        $response = $this->ManageEnquiry_model->SaveProfile_data($housingInfo);
+        return $this->response($response);
+    }
+    //---------------------THIS FUN IS USED TO SAVE PROFILE DATA-----------------------------//
 
 }
 

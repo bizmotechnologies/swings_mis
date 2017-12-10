@@ -205,12 +205,14 @@ class Manage_materials extends CI_controller {
         $product_arr = array();
         $material_Arr = array();
         $profile_arr = array();
-
+        $HousingArr = array();
+        $housingInfo = '';
+        
+        //print_r($LENGTH_forHousingChecked);die();
         for ($prod = 0; $prod < count($Select_Profiles); $prod++) {
-
-            if (isset($Set_QuantityforHousingChecked[$prod])) {
+            
+            if (isset($ID_forHousingChecked[$prod])) {
                 $housing_status = 1;
-                $Set_QuantityforHousing = $Set_QuantityforHousingChecked;
 
                 $Prod_ID = $ID_forHousingChecked;
                 $Prod_OD = $OD_forHousingChecked;
@@ -218,7 +220,6 @@ class Manage_materials extends CI_controller {
                 $Prod_description = $profile_DescriptionForHousingChecked;
             } else {
                 $housing_status = 0;
-                $Set_QuantityforHousing = 0;
                 $Prod_ID = $ID_forHousingUnckecked;
                 $Prod_OD = $OD_forHousingUnckecked;
                 $Prod_length = $LENGTH_forHousingUnckecked;
@@ -265,15 +266,15 @@ class Manage_materials extends CI_controller {
         'discount' => $discount[$i],
         'final_Price' => $final_Price[$i]
     );
+   
 }
-//print_r(json_encode($material_Arr));
 
+//print_r(json_encode($material_Arr));
 $profile_arr[] = array(
     'product_name' => $product_nameForEnquiry[$prod],
     'profile_id' => $profile_id[$prod],
     'housing_status' => $housing_status,
     'profile_description' => $Prod_description,
-    'housing_setQuantity' => $Set_QuantityforHousing[$prod],
     'Prod_ID' => $Prod_ID,
     'Prod_OD' => $Prod_OD,
     'Prod_length' => $Prod_length,
@@ -281,6 +282,30 @@ $profile_arr[] = array(
     'product_quantity' => $Product_Quantity[$prod],
     'product_price' => $TotalProduct_Price[$prod]
 );
+    
+$HousingArr[] = array(
+    'product_name' => $product_nameForEnquiry[$prod],
+    'housing_status' => $housing_status,
+    'profile_description' => $Prod_description,
+    'Prod_ID' => $Prod_ID,
+    'Prod_OD' => $Prod_OD,
+    'Prod_length' => $Prod_length,
+    'product_quantity' => $Product_Quantity[$prod]
+    );
+    
+    $housingInfo['profile_id'] = $profile_id[$prod];
+    $housingInfo['profile_data'] = json_encode($HousingArr);
+    //print_r($housingInfo);die();
+            $path = base_url();
+            $url = $path . 'api/ManageEnquiry_api/SaveProfile_data';
+            $ch = curl_init($url);
+            curl_setopt($ch, CURLOPT_POST, true);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $housingInfo);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            $response_json = curl_exec($ch);
+            curl_close($ch);
+            $response = json_decode($response_json, true);
+            //print_r($response_json);die();    
 }
 $data['customer_id']=$customer_id;
 $data['customer_name']=$Select_Customers;
@@ -519,7 +544,21 @@ public function fetchmaterial_details() {
         redirect('inventory/manage_materials');
     }
 
-// ---- this function is used to delete material details-------
+// ---- this function is used to delete material details-------//
+    public function Get_housingData(){
+        extract($_POST);
+        $data = $_POST;
+
+        $path = base_url();
+        $url = $path . 'api/ManageMaterial_api/Get_housingData?profile_id='.$Profiles;
+        $ch = curl_init($url);
+        curl_setopt($ch, CURLOPT_HTTPGET, true);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $response_json = curl_exec($ch);
+        curl_close($ch);
+        $response = json_decode($response_json, true);
+        return $response_json;
+    }
 }
 
 ?>
