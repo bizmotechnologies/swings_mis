@@ -1,5 +1,4 @@
 <?php
-
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 require(APPPATH . '/libraries/REST_Controller.php');
@@ -24,6 +23,7 @@ class MaterialStockManagement_api extends REST_Controller {
     // -----------------------GET ALL MATERIAL DETAILS API----------------------//
     //-------------------------------------------------------------//
     public function GetMaterialDetails_get() {
+        
         $result = $this->MaterialStockManagement_model->GetMaterialDetails();
         return $this->response($result);
     }
@@ -65,7 +65,8 @@ class MaterialStockManagement_api extends REST_Controller {
 //---------------------API FOR SAVE FUNCTIONALITY API----------------------------//
 // -----------------------GET ALL RAW MATERIAL DETAILS API----------------------//
     public function GetRawMaterialInfoDetails_get() {
-        $result = $this->MaterialStockManagement_model->GetRawMaterialInfoDetails();
+        $branch_name=$_GET['branch_name'];
+        $result = $this->MaterialStockManagement_model->GetRawMaterialInfoDetails($branch_name);
         return $this->response($result);
     }
 

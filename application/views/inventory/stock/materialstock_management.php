@@ -1,6 +1,6 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-//error_reporting(E_ERROR | E_PARSE);
+error_reporting(E_ERROR | E_PARSE);
 $branch_name=$this->session->userdata('branch_name');
 
 ?>
@@ -202,12 +202,12 @@ $branch_name=$this->session->userdata('branch_name');
                 <div id="addRawMaterial_modal" class="modal fade" role="dialog"><!-- modal starts here for add Raw  materials stocks -->
                     <div class="modal-dialog ">
                         <!-- Modal content-->
-                        <div class="modal-content">
+                        <div class="modal-content w3-col l12">
                             <div class="modal-header">
                                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                                 <div class="w3-xlarge w3-center">Add Raw Materials</div>
                             </div>
-                            <div class="modal-body w3-small">
+                            <div class="modal-body w3-small ">
                                 <form method="POST" action="" id="Manage_RawMaterialForm" name="Manage_RawMaterialForm">
                                     <div class="w3-padding-left col-lg-offset-1">
                                         <div class="row">
@@ -312,14 +312,12 @@ $branch_name=$this->session->userdata('branch_name');
                                                     <option value="EURO">EURO</option>
                                                 </select>
                                             </div>
-                                        </div>
-                                        <br>
-
+                                        </div>                                     
                                         <center>
                                             <button type="submit" class="btn btn-primary">Save Stock</button>
                                             <button type="reset" class="btn btn-default">Reset</button>
-                                        </center><br><br>
-                                        <div class="w3-margin-bottom w3-col l12 w3-small" id="addProducts_err"></div><br><br><br>
+                                        </center>
+                                        <div class="w3-margin-bottom w3-col l12 w3-small" id="addProducts_err"></div><br>
                                     </div>
                                 </form><!-- form ends here -->
                             </div>

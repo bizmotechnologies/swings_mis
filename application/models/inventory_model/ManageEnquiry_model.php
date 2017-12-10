@@ -50,13 +50,13 @@ class ManageEnquiry_model extends CI_Model {
             }
 
 
-            $length_avail = ($Material_LENGTH + $rawMaterial_Tolerance);
-            //echo $length_avail;
-            if ($rawMaterial_LENGTH >= $length_avail) {
-                $criteria[] = 1;
-            } else {
-                $criteria[] = 0;
-            }
+            // $length_avail = ($Material_LENGTH + $rawMaterial_Tolerance);
+            // //echo $length_avail;
+            // if ($rawMaterial_LENGTH >= $length_avail) {
+            //     $criteria[] = 1;
+            // } else {
+            //     $criteria[] = 0;
+            // }
             if (in_array(0, $criteria)) {
                 $response = array(
                     'status' => 0,
@@ -64,7 +64,7 @@ class ManageEnquiry_model extends CI_Model {
                 );
                 unset($criteria);
             } else {
-                $length_avail = ($Material_LENGTH + $rawMaterial_Tolerance);
+                //$length_avail = ($Material_LENGTH + $rawMaterial_Tolerance);
                 $response = array(
                     'status' => 1,
                     'value' => $rawMaterial_ID . '/' . $rawMaterial_OD

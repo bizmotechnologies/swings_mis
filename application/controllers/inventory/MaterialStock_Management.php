@@ -20,7 +20,7 @@ class MaterialStock_Management extends CI_controller {
 
 
     public function index() {
-       
+
         $response['All_Material'] = MaterialStock_Management::GetMaterialDetails(); // this fun shows that the select material values
         $response['vendors'] = MaterialStock_Management::GetVendorsDetails(); // this fun shows that the select material values
         $response['values'] = MaterialStock_Management::Get_Purchase_Stock(); // this fun shows that the select material values
@@ -88,468 +88,468 @@ class MaterialStock_Management extends CI_controller {
             </div>
             <script>
             window.setTimeout(function() {
-             $(".alert").fadeTo(500, 0).slideUp(500, function(){
+               $(".alert").fadeTo(500, 0).slideUp(500, function(){
+                  $(this).remove(); 
+                  location.reload();
+              });
+          }, 1000);
+          </script>';
+      } else {
+        echo'<div class="alert alert-success w3-margin" style="text-align: center;">
+        <strong>' . $response['status_message'] . '</strong> 
+        </div>
+        <script>
+        window.setTimeout(function() {
+           $(".alert").fadeTo(500, 0).slideUp(500, function(){
               $(this).remove(); 
               location.reload();
-             });
-            }, 1000);
-            </script>';
-        } else {
-            echo'<div class="alert alert-success w3-margin" style="text-align: center;">
-            <strong>' . $response['status_message'] . '</strong> 
-            </div>
-            <script>
-            window.setTimeout(function() {
-             $(".alert").fadeTo(500, 0).slideUp(500, function(){
-              $(this).remove(); 
-            location.reload();
-             });
-            }, 1000);
-            </script>';
-        }
-    }
+          });
+      }, 1000);
+      </script>';
+  }
+}
 
     //-----------------------------api to fetch excel to db-------------//
-     public function EXCELDB() {
-       
-        $data = 'rdrdh';
-        print_r($data); die();
+public function EXCELDB() {
 
-        $path = base_url();
-        $url = $path . 'api/MaterialStockManagement_api/excelTodb';
-        $ch = curl_init($url);
-        curl_setopt($ch, CURLOPT_POST, true);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        $response_json = curl_exec($ch);
-        curl_close($ch);
-        $response = json_decode($response_json, true);
-        print_r($response_json);die();
-    }
+    $data = 'rdrdh';
+    print_r($data); die();
+
+    $path = base_url();
+    $url = $path . 'api/MaterialStockManagement_api/excelTodb';
+    $ch = curl_init($url);
+    curl_setopt($ch, CURLOPT_POST, true);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    $response_json = curl_exec($ch);
+    curl_close($ch);
+    $response = json_decode($response_json, true);
+    print_r($response_json);die();
+}
     //------------------------------------------------------------------//
 
-    public function Delete() {
-        extract($_POST);
+public function Delete() {
+    extract($_POST);
 
-        $path = base_url();
-        $url = $path . 'api/ManageMaterial_api/deleteRecord?material_id=' . $Select_NewMaterials_Id;
-        $ch = curl_init($url);
-        curl_setopt($ch, CURLOPT_HTTPGET, true);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        $response_json = curl_exec($ch);
-        curl_close($ch);
-        $response = json_decode($response_json, true);
+    $path = base_url();
+    $url = $path . 'api/ManageMaterial_api/deleteRecord?material_id=' . $Select_NewMaterials_Id;
+    $ch = curl_init($url);
+    curl_setopt($ch, CURLOPT_HTTPGET, true);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    $response_json = curl_exec($ch);
+    curl_close($ch);
+    $response = json_decode($response_json, true);
+}
+
+public function GetPurchaseProductsName() {
+    $path = base_url();
+    $url = $path . 'api/MaterialStockManagement_api/GetPurchaseProductsName';
+    $ch = curl_init($url);
+    curl_setopt($ch, CURLOPT_HTTPGET, true);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    $response_json = curl_exec($ch);
+    curl_close($ch);
+    $response = json_decode($response_json, true);
+
+    return $response;
+}
+
+public function GetFinishedInformationDetails() {
+    $path = base_url();
+    $url = $path . 'api/MaterialStockManagement_api/GetFinishedInformationDetails';
+    $ch = curl_init($url);
+    curl_setopt($ch, CURLOPT_HTTPGET, true);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    $response_json = curl_exec($ch);
+    curl_close($ch);
+    $response = json_decode($response_json, true);
+
+    return $response;
+}
+
+public function GetProductsName() {
+    $path = base_url();
+    $url = $path . 'api/MaterialStockManagement_api/GetProductsName';
+    $ch = curl_init($url);
+    curl_setopt($ch, CURLOPT_HTTPGET, true);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    $response_json = curl_exec($ch);
+    curl_close($ch);
+    $response = json_decode($response_json, true);
+
+    return $response;
+}
+
+/* --------------this fun for geting all material information ----------------------- */
+
+public function GetRawMaterialInfoDetails() {
+
+    $branch_name=$this->session->userdata('branch_name');
+
+    $path = base_url();
+    $url = $path . 'api/MaterialStockManagement_api/GetRawMaterialInfoDetails?branch_name='.$branch_name;
+    $ch = curl_init($url);
+    curl_setopt($ch, CURLOPT_HTTPGET, true);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    $response_json = curl_exec($ch);
+    curl_close($ch);
+    $response = json_decode($response_json, true);
+    return $response;
+}
+
+/* --------------this fun for geting all material information ----------------------- */
+
+/* --------------this fun for geting all material information ----------------------- */
+
+public function GetMaterialDetails() {
+    $path = base_url();
+    $url = $path . 'api/MaterialStockManagement_api/GetMaterialDetails';
+    $ch = curl_init($url);
+    curl_setopt($ch, CURLOPT_HTTPGET, true);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    $response_json = curl_exec($ch);
+    curl_close($ch);
+    $response = json_decode($response_json, true);
+
+    return $response;
+}
+
+/* --------------this fun for geting all material information ----------------------- */
+
+/* --------------this fun for geting all Vendor information ----------------------- */
+
+public function GetVendorsDetails() {
+
+    $path = base_url();
+    $url = $path . 'api/MaterialStockManagement_api/GetVendorsDetails';
+    $ch = curl_init($url);
+    curl_setopt($ch, CURLOPT_HTTPGET, true);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    $response_json = curl_exec($ch);
+    curl_close($ch);
+    $response = json_decode($response_json, true);
+    return $response;
+}
+
+/* --------------this fun for geting all material information ----------------------- */
+
+/* --------------this fun for geting all Purchased product information ----------------------- */
+
+public function Get_Purchase_Stock() {
+
+    $path = base_url();
+    $url = $path . 'api/MaterialStockManagement_api/Get_Purchase_Stock';
+    $ch = curl_init($url);
+    curl_setopt($ch, CURLOPT_HTTPGET, true);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    $response_json = curl_exec($ch);
+    curl_close($ch);
+    $response = json_decode($response_json, true);
+    return $response;
+}
+
+/* --------------this fun for geting all purchased product information ----------------------- */
+
+/* --------------this fun is for save raw material stock information ----------------------- */
+
+public function Save_RawStockMaterial_Info() {
+
+    extract($_POST);
+    $data = $_POST;
+    $branch_name=$this->session->userdata('branch_name');
+    $data['branch_name']=$branch_name;        
+    $price = $Input_RawMaterialPrice;
+
+    if (isset($checkPrice)) {
+        $price = $Input_RawMaterialPriceFrom_Pricelist;
     }
 
-    public function GetPurchaseProductsName() {
-        $path = base_url();
-        $url = $path . 'api/MaterialStockManagement_api/GetPurchaseProductsName';
-        $ch = curl_init($url);
-        curl_setopt($ch, CURLOPT_HTTPGET, true);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        $response_json = curl_exec($ch);
-        curl_close($ch);
-        $response = json_decode($response_json, true);
-
-        return $response;
-    }
-
-    public function GetFinishedInformationDetails() {
-        $path = base_url();
-        $url = $path . 'api/MaterialStockManagement_api/GetFinishedInformationDetails';
-        $ch = curl_init($url);
-        curl_setopt($ch, CURLOPT_HTTPGET, true);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        $response_json = curl_exec($ch);
-        curl_close($ch);
-        $response = json_decode($response_json, true);
-
-        return $response;
-    }
-
-    public function GetProductsName() {
-        $path = base_url();
-        $url = $path . 'api/MaterialStockManagement_api/GetProductsName';
-        $ch = curl_init($url);
-        curl_setopt($ch, CURLOPT_HTTPGET, true);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        $response_json = curl_exec($ch);
-        curl_close($ch);
-        $response = json_decode($response_json, true);
-
-        return $response;
-    }
-
-    /* --------------this fun for geting all material information ----------------------- */
-
-    public function GetRawMaterialInfoDetails() {
-
-        $path = base_url();
-        $url = $path . 'api/MaterialStockManagement_api/GetRawMaterialInfoDetails';
-        $ch = curl_init($url);
-        curl_setopt($ch, CURLOPT_HTTPGET, true);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        $response_json = curl_exec($ch);
-        curl_close($ch);
-        $response = json_decode($response_json, true);
-
-        return $response;
-    }
-
-    /* --------------this fun for geting all material information ----------------------- */
-
-    /* --------------this fun for geting all material information ----------------------- */
-
-    public function GetMaterialDetails() {
-
-        $path = base_url();
-        $url = $path . 'api/MaterialStockManagement_api/GetMaterialDetails';
-        $ch = curl_init($url);
-        curl_setopt($ch, CURLOPT_HTTPGET, true);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        $response_json = curl_exec($ch);
-        curl_close($ch);
-        $response = json_decode($response_json, true);
-
-        return $response;
-    }
-
-    /* --------------this fun for geting all material information ----------------------- */
-
-    /* --------------this fun for geting all Vendor information ----------------------- */
-
-    public function GetVendorsDetails() {
-
-        $path = base_url();
-        $url = $path . 'api/MaterialStockManagement_api/GetVendorsDetails';
-        $ch = curl_init($url);
-        curl_setopt($ch, CURLOPT_HTTPGET, true);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        $response_json = curl_exec($ch);
-        curl_close($ch);
-        $response = json_decode($response_json, true);
-        return $response;
-    }
-
-    /* --------------this fun for geting all material information ----------------------- */
-
-    /* --------------this fun for geting all Purchased product information ----------------------- */
-
-    public function Get_Purchase_Stock() {
-
-        $path = base_url();
-        $url = $path . 'api/MaterialStockManagement_api/Get_Purchase_Stock';
-        $ch = curl_init($url);
-        curl_setopt($ch, CURLOPT_HTTPGET, true);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        $response_json = curl_exec($ch);
-        curl_close($ch);
-        $response = json_decode($response_json, true);
-        return $response;
-    }
-
-    /* --------------this fun for geting all purchased product information ----------------------- */
-
-    /* --------------this fun is for save raw material stock information ----------------------- */
-
-    public function Save_RawStockMaterial_Info() {
-
-        extract($_POST);
-        $data = $_POST;
-        $branch_name=$this->session->userdata('branch_name');
-        $data['branch_name']=$branch_name;        
-        $price = $Input_RawMaterialPrice;
-
-        if (isset($checkPrice)) {
-            $price = $Input_RawMaterialPriceFrom_Pricelist;
-        }
-       
-        $data['price'] = $price;
-        $path = base_url();
-        $url = $path . 'api/MaterialStockManagement_api/Save_RawStockMaterial_Info';
-        $ch = curl_init($url);
-        curl_setopt($ch, CURLOPT_POST, true);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        $response_json = curl_exec($ch);
-        curl_close($ch);
-        $response = json_decode($response_json, true);
+    $data['price'] = $price;
+    $path = base_url();
+    $url = $path . 'api/MaterialStockManagement_api/Save_RawStockMaterial_Info';
+    $ch = curl_init($url);
+    curl_setopt($ch, CURLOPT_POST, true);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    $response_json = curl_exec($ch);
+    curl_close($ch);
+    $response = json_decode($response_json, true);
         //print_r($response_json);die();
-        if ($response['status'] == 0) {
-            echo'<div class="alert alert-danger w3-margin" style="text-align: center;">
-            <strong>' . $response['status_message'] . '</strong> 
-            </div>
-            <script>
-            window.setTimeout(function() {
-             $(".alert").fadeTo(500, 0).slideUp(500, function(){
+    if ($response['status'] == 0) {
+        echo'<div class="alert w3-red w3-margin" style="text-align: center;">
+        <strong>' . $response['status_message'] . '</strong> 
+        </div>
+        <script>
+        window.setTimeout(function() {
+           $(".alert").fadeTo(500, 0).slideUp(500, function(){
               $(this).remove(); 
               
-             });
-            }, 1000);
-            </script>';
-        } else {
-            echo'<div class="alert alert-success w3-margin" style="text-align: center;">
-            <strong>' . $response['status_message'] . '</strong> 
-            </div>
-            <script>
-            window.setTimeout(function() {
-             $(".alert").fadeTo(500, 0).slideUp(500, function(){
-              $(this).remove();
-             });
-            }, 1000);
-            </script>';
-        }
-    }
+          });
+      }, 1000);
+      </script>';
+  } else {
+    echo'<div class="alert w3-green w3-margin" style="text-align: center;">
+    <strong>' . $response['status_message'] . '</strong> 
+    </div>
+    <script>
+    window.setTimeout(function() {
+       $(".alert").fadeTo(500, 0).slideUp(500, function(){
+          $(this).remove();
+      });
+  }, 1000);
+  </script>';
+}
+}
 
-    /* --------------this fun is for save raw material stock information ----------------------- */
+/* --------------this fun is for save raw material stock information ----------------------- */
 
 
-    /* --------------this fun is for Delete raw material stock information ----------------------- */
+/* --------------this fun is for Delete raw material stock information ----------------------- */
 
-    public function DeleteRawMaterialStockDetails() {
-        extract($_GET);
-        $data = $_GET;
+public function DeleteRawMaterialStockDetails() {
+    extract($_GET);
+    $data = $_GET;
 
-        $path = base_url();
-        $url = $path . 'api/MaterialStockManagement_api/DeleteRawMaterialStockDetails?rawmaterial_id=' . $rawmaterial_id;
-        $ch = curl_init($url);
-        curl_setopt($ch, CURLOPT_HTTPGET, true);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        $response_json = curl_exec($ch);
-        curl_close($ch);
-        $response = json_decode($response_json, true);
-    }
+    $path = base_url();
+    $url = $path . 'api/MaterialStockManagement_api/DeleteRawMaterialStockDetails?rawmaterial_id=' . $rawmaterial_id;
+    $ch = curl_init($url);
+    curl_setopt($ch, CURLOPT_HTTPGET, true);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    $response_json = curl_exec($ch);
+    curl_close($ch);
+    $response = json_decode($response_json, true);
+}
 
-    /* --------------this fun is for save raw material stock information ----------------------- */
+/* --------------this fun is for save raw material stock information ----------------------- */
 
-    public function Update_Finishedproducts_Info() {
+public function Update_Finishedproducts_Info() {
 
-        extract($_POST);
-        $data = $_POST;
+    extract($_POST);
+    $data = $_POST;
         //print_r($data); die();
-        $path = base_url();
-        $url = $path . 'api/MaterialStockManagement_api/Update_Finishedproducts_Info';
-        $ch = curl_init($url);
-        curl_setopt($ch, CURLOPT_POST, true);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        $response_json = curl_exec($ch);
-        curl_close($ch);
-        $response = json_decode($response_json, true);
+    $path = base_url();
+    $url = $path . 'api/MaterialStockManagement_api/Update_Finishedproducts_Info';
+    $ch = curl_init($url);
+    curl_setopt($ch, CURLOPT_POST, true);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    $response_json = curl_exec($ch);
+    curl_close($ch);
+    $response = json_decode($response_json, true);
         //print_r($response_json);die();
-        if ($response['status'] == 0) {
-            echo'<div class="alert alert-danger w3-margin" style="text-align: center;">
-            <strong>' . $response['status_message'] . '</strong> 
-            </div>
-            <script>
-            window.setTimeout(function() {
-             $(".alert").fadeTo(500, 0).slideUp(500, function(){
+    if ($response['status'] == 0) {
+        echo'<div class="alert alert-danger w3-margin" style="text-align: center;">
+        <strong>' . $response['status_message'] . '</strong> 
+        </div>
+        <script>
+        window.setTimeout(function() {
+           $(".alert").fadeTo(500, 0).slideUp(500, function(){
               $(this).remove(); 
-            location.reload();
-             });
-            }, 1000);
-            </script>';
-        } else {
-            echo'<div class="alert alert-success w3-margin" style="text-align: center;">
-            <strong>' . $response['status_message'] . '</strong> 
-            </div>
-            <script>
-            window.setTimeout(function() {
-             $(".alert").fadeTo(500, 0).slideUp(500, function(){
-              $(this).remove();
-            location.reload();          
-             });
-            }, 1000);
-            </script>';
-        }
-    }
+              location.reload();
+          });
+      }, 1000);
+      </script>';
+  } else {
+    echo'<div class="alert alert-success w3-margin" style="text-align: center;">
+    <strong>' . $response['status_message'] . '</strong> 
+    </div>
+    <script>
+    window.setTimeout(function() {
+       $(".alert").fadeTo(500, 0).slideUp(500, function(){
+          $(this).remove();
+          location.reload();          
+      });
+  }, 1000);
+  </script>';
+}
+}
 
-    public function Update_UpdatedStockMaterial_Info() {
+public function Update_UpdatedStockMaterial_Info() {
 
-        extract($_POST);
-        $data = $_POST;
-        
-        $path = base_url();
-        $url = $path . 'api/MaterialStockManagement_api/Update_UpdatedRawStockMaterial_Info';
-        $ch = curl_init($url);
-        curl_setopt($ch, CURLOPT_POST, true);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        $response_json = curl_exec($ch);
-        curl_close($ch);
-        $response = json_decode($response_json, true);
+    extract($_POST);
+    $data = $_POST;
+
+    $path = base_url();
+    $url = $path . 'api/MaterialStockManagement_api/Update_UpdatedRawStockMaterial_Info';
+    $ch = curl_init($url);
+    curl_setopt($ch, CURLOPT_POST, true);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    $response_json = curl_exec($ch);
+    curl_close($ch);
+    $response = json_decode($response_json, true);
         //print_r($response_json);die();
 
-        if ($response['status'] == 0) {
-            echo'<div class="alert alert-danger w3-margin" style="text-align: center;">
-            <strong>' . $response['status_message'] . '</strong> 
-            </div>
-            <script>
-            window.setTimeout(function() {
-             $(".alert").fadeTo(500, 0).slideUp(500, function(){
+    if ($response['status'] == 0) {
+        echo'<div class="alert alert-danger w3-margin" style="text-align: center;">
+        <strong>' . $response['status_message'] . '</strong> 
+        </div>
+        <script>
+        window.setTimeout(function() {
+           $(".alert").fadeTo(500, 0).slideUp(500, function(){
               $(this).remove(); 
-            location.reload();              
-             });
-            }, 600);
-            </script>';
-        } else {
-            echo'<div class="alert alert-success w3-margin" style="text-align: center;">
-            <strong>' . $response['status_message'] . '</strong> 
-            </div>
-            <script>
-            window.setTimeout(function() {
-             $(".alert").fadeTo(500, 0).slideUp(500, function(){
-              $(this).remove(); 
-            location.reload();              
-             });
-            }, 600);
-            </script>';
-        }
-    }
+              location.reload();              
+          });
+      }, 600);
+      </script>';
+  } else {
+    echo'<div class="alert alert-success w3-margin" style="text-align: center;">
+    <strong>' . $response['status_message'] . '</strong> 
+    </div>
+    <script>
+    window.setTimeout(function() {
+       $(".alert").fadeTo(500, 0).slideUp(500, function(){
+          $(this).remove(); 
+          location.reload();              
+      });
+  }, 600);
+  </script>';
+}
+}
 
-    public function Update_purchasedproducts_Info() {
+public function Update_purchasedproducts_Info() {
 
-        extract($_POST);
-        $data = $_POST;
+    extract($_POST);
+    $data = $_POST;
         // print_r($data); die();
-        $path = base_url();
-        $url = $path . 'api/MaterialStockManagement_api/Update_purchasedproducts_Info';
-        $ch = curl_init($url);
-        curl_setopt($ch, CURLOPT_POST, true);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        $response_json = curl_exec($ch);
-        curl_close($ch);
-        $response = json_decode($response_json, true);
+    $path = base_url();
+    $url = $path . 'api/MaterialStockManagement_api/Update_purchasedproducts_Info';
+    $ch = curl_init($url);
+    curl_setopt($ch, CURLOPT_POST, true);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    $response_json = curl_exec($ch);
+    curl_close($ch);
+    $response = json_decode($response_json, true);
         //print_r($response_json);die();
-        if ($response['status'] == 0) {
-            echo'<div class="alert alert-danger w3-margin" style="text-align: center;">
-            <strong>' . $response['status_message'] . '</strong> 
-            </div>
-            <script>
-            window.setTimeout(function() {
-             $(".alert").fadeTo(500, 0).slideUp(500, function(){
+    if ($response['status'] == 0) {
+        echo'<div class="alert alert-danger w3-margin" style="text-align: center;">
+        <strong>' . $response['status_message'] . '</strong> 
+        </div>
+        <script>
+        window.setTimeout(function() {
+           $(".alert").fadeTo(500, 0).slideUp(500, function(){
               $(this).remove(); 
-            location.reload();              
-             });
-            }, 1000);
-            </script>';
-        } else {
-            echo'<div class="alert alert-success w3-margin" style="text-align: center;">
-            <strong>' . $response['status_message'] . '</strong> 
-            </div>
-            <script>
-            window.setTimeout(function() {
-             $(".alert").fadeTo(500, 0).slideUp(500, function(){
-              $(this).remove(); 
-            location.reload();              
-             });
-            }, 1000);
-            </script>';
-        }
-    }
+              location.reload();              
+          });
+      }, 1000);
+      </script>';
+  } else {
+    echo'<div class="alert alert-success w3-margin" style="text-align: center;">
+    <strong>' . $response['status_message'] . '</strong> 
+    </div>
+    <script>
+    window.setTimeout(function() {
+       $(".alert").fadeTo(500, 0).slideUp(500, function(){
+          $(this).remove(); 
+          location.reload();              
+      });
+  }, 1000);
+  </script>';
+}
+}
 
-    public function DeleteFinishedProductDetails() {
-        extract($_GET);
-        $data = $_GET;
-        $path = base_url();
-        $url = $path . 'api/MaterialStockManagement_api/DeleteFinishedProductDetails?finished_product_id=' . $finished_product_id;
-        $ch = curl_init($url);
-        curl_setopt($ch, CURLOPT_HTTPGET, true);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        $response_json = curl_exec($ch);
-        curl_close($ch);
-        $response = json_decode($response_json, true);
+public function DeleteFinishedProductDetails() {
+    extract($_GET);
+    $data = $_GET;
+    $path = base_url();
+    $url = $path . 'api/MaterialStockManagement_api/DeleteFinishedProductDetails?finished_product_id=' . $finished_product_id;
+    $ch = curl_init($url);
+    curl_setopt($ch, CURLOPT_HTTPGET, true);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    $response_json = curl_exec($ch);
+    curl_close($ch);
+    $response = json_decode($response_json, true);
 
-        redirect('inventory/MaterialStock_Management');
-    }
+    redirect('inventory/MaterialStock_Management');
+}
 
-    public function DeletePurchasedStockDetails() {
-        extract($_GET);
-        $data = $_GET;
-        $path = base_url();
-        $url = $path . 'api/MaterialStockManagement_api/DeletePurchasedStockDetails?purchased_product_id=' . $purchased_product_id;
-        $ch = curl_init($url);
-        curl_setopt($ch, CURLOPT_HTTPGET, true);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        $response_json = curl_exec($ch);
-        curl_close($ch);
-        $response = json_decode($response_json, true);
+public function DeletePurchasedStockDetails() {
+    extract($_GET);
+    $data = $_GET;
+    $path = base_url();
+    $url = $path . 'api/MaterialStockManagement_api/DeletePurchasedStockDetails?purchased_product_id=' . $purchased_product_id;
+    $ch = curl_init($url);
+    curl_setopt($ch, CURLOPT_HTTPGET, true);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    $response_json = curl_exec($ch);
+    curl_close($ch);
+    $response = json_decode($response_json, true);
 
-        redirect('inventory/MaterialStock_Management');
-    }
+    redirect('inventory/MaterialStock_Management');
+}
 
 
-    public function Save_FinishedProduct_Info() {
+public function Save_FinishedProduct_Info() {
 
-        extract($_POST);
-        $data = $_POST;
+    extract($_POST);
+    $data = $_POST;
         //print_r($data);
-        $path = base_url();
-        $url = $path . 'api/MaterialStockManagement_api/Save_FinishedProduct_Info';
-        $ch = curl_init($url);
-        curl_setopt($ch, CURLOPT_POST, true);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        $response_json = curl_exec($ch);
-        curl_close($ch);
-        $response = json_decode($response_json, true);
+    $path = base_url();
+    $url = $path . 'api/MaterialStockManagement_api/Save_FinishedProduct_Info';
+    $ch = curl_init($url);
+    curl_setopt($ch, CURLOPT_POST, true);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    $response_json = curl_exec($ch);
+    curl_close($ch);
+    $response = json_decode($response_json, true);
         //print_r($response_json);
-        if ($response['status'] == 0) {
-            echo'<div class="alert alert-danger w3-margin" style="text-align: center;">
-            <strong>' . $response['status_message'] . '</strong> 
-            </div>
-            <script>
-            window.setTimeout(function() {
-             $(".alert").fadeTo(500, 0).slideUp(500, function(){
+    if ($response['status'] == 0) {
+        echo'<div class="alert alert-danger w3-margin" style="text-align: center;">
+        <strong>' . $response['status_message'] . '</strong> 
+        </div>
+        <script>
+        window.setTimeout(function() {
+           $(".alert").fadeTo(500, 0).slideUp(500, function(){
               $(this).remove(); 
-            location.reload();              
-             });
-            }, 1000);
-            </script>';
-        } else {
-            echo'<div class="alert alert-success w3-margin" style="text-align: center;">
-            <strong>' . $response['status_message'] . '</strong> 
-            </div>
-            <script>
-            window.setTimeout(function() {
-             $(".alert").fadeTo(500, 0).slideUp(500, function(){
-              $(this).remove(); 
-            location.reload();              
-             });
-            }, 1000);
-            </script>';
-        }
-    }
+              location.reload();              
+          });
+      }, 1000);
+      </script>';
+  } else {
+    echo'<div class="alert alert-success w3-margin" style="text-align: center;">
+    <strong>' . $response['status_message'] . '</strong> 
+    </div>
+    <script>
+    window.setTimeout(function() {
+       $(".alert").fadeTo(500, 0).slideUp(500, function(){
+          $(this).remove(); 
+          location.reload();              
+      });
+  }, 1000);
+  </script>';
+}
+}
 
-    public function DeleteStockDetails() { /* this is the fun for delete stock details */
+public function DeleteStockDetails() { /* this is the fun for delete stock details */
 
-        extract($_GET);
+    extract($_GET);
         // print_r($_GET);die();
-        $data = $_GET;
-        $this->load->model('inventory_model/MaterialStockManagement_model');
-        $records = $this->MaterialStockManagement_model->DeleteStockDetails($data);
-        redirect('inventory/MaterialStock_Management');
-    }
+    $data = $_GET;
+    $this->load->model('inventory_model/MaterialStockManagement_model');
+    $records = $this->MaterialStockManagement_model->DeleteStockDetails($data);
+    redirect('inventory/MaterialStock_Management');
+}
 
-    /* this fun for delete stock details ends here */
+/* this fun for delete stock details ends here */
 
-    public function ShowMaterialStock() { /* this show material stock fun is used to show all stocks quantity */
+public function ShowMaterialStock() { /* this show material stock fun is used to show all stocks quantity */
 
-        extract($_POST);
+    extract($_POST);
         //print_r($_POST);die();
-        $data = $_POST;
-        $this->load->model('inventory_model/MaterialStockManagement_model');
-        $response = $this->MaterialStockManagement_model->showMaterial($data);
+    $data = $_POST;
+    $this->load->model('inventory_model/MaterialStockManagement_model');
+    $response = $this->MaterialStockManagement_model->showMaterial($data);
         //print_r($response);
-        if ($response['status'] == 0) {
-            echo $response['status_message'];
-        } else {
-            echo trim($response['status_message']);
-        }
+    if ($response['status'] == 0) {
+        echo $response['status_message'];
+    } else {
+        echo trim($response['status_message']);
     }
+}
 
-    /* this show material fun ends here */
+/* this show material fun ends here */
 }
 
 ?>

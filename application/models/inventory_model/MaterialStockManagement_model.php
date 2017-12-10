@@ -1,7 +1,5 @@
 <?php
-
 error_reporting(E_ERROR | E_PARSE);
-
 class MaterialStockManagement_model extends CI_Model {
 
     public function GetPriceFromPriceList($data) {
@@ -61,9 +59,10 @@ class MaterialStockManagement_model extends CI_Model {
 
     /* ---------------------------this fun is used to get raw material details------------------------------------------------ */
 
-    public function GetRawMaterialInfoDetails() {
+    public function GetRawMaterialInfoDetails($branch_name) {
 
-        $query = "SELECT * FROM raw_materialstock ORDER BY material_name,raw_ID,raw_OD ";
+        $query = "SELECT * FROM raw_materialstock WHERE branch_name='".$branch_name."' ORDER BY material_name,raw_ID,raw_OD ";
+        //echo $query;die();
         $result = $this->db->query($query);
         if ($result->num_rows() <= 0) {
             $response = array(
@@ -176,6 +175,8 @@ class MaterialStockManagement_model extends CI_Model {
             $price_euro = ($price / $euro_cost);
         }
 
+        MaterialStockManagement_model::deleteDuplicate($Select_RawMaterials,$Input_RawMaterialStock_ID,$Input_RawMaterialStock_OD);
+
         $sqlnew = "INSERT INTO raw_materialstock(material_id,vendor_id,material_name,raw_ID,"
         . "raw_OD,avail_length,branch_name,material_price,price_euro,tolerance,accepted_date)"
         . " values ('$Select_RawMaterials','$Select_RawVendors_Id',"
@@ -199,6 +200,27 @@ class MaterialStockManagement_model extends CI_Model {
     }
 
     /* ---------------------------------------------Save Raw material info fun ends here-------------------------------- */
+
+    /* -----------------------------------function to delete duplicate stock entries-------------------------------- */
+    public function deleteDuplicate($Select_RawMaterials,$Input_RawMaterialStock_ID,$Input_RawMaterialStock_OD) {
+
+        $query = "SELECT * FROM raw_materialstock WHERE material_id='$Select_RawMaterials' AND raw_ID='$Input_RawMaterialStock_ID' AND raw_OD='$Input_RawMaterialStock_OD' AND avail_length='0'";
+        $result = $this->db->query($query);
+
+        $num_rows=$result->num_rows();
+        $rawmaterial_id ='';
+        
+        foreach ($result->result_array() as $row) {
+
+            if($num_rows>1){
+                $rawmaterial_id = $row['rawmaterial_id'];            
+                $sqldelete = "DELETE FROM raw_materialstock WHERE rawmaterial_id='$rawmaterial_id'";
+                $resultdelete = $this->db->query($sqldelete);
+            }
+            $num_rows--;            
+        }
+    }
+    /* ----------------------function to delete duplicate stock entries ends here-------------------------------- */
 
     /* -----------------------------------Save Finished products info fun is Starts here-------------------------------- */
 
