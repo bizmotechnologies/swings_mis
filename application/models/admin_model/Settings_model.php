@@ -191,8 +191,10 @@ class Settings_model extends CI_Model{
 		$query_profit="UPDATE customize_settings SET setting_value='$profit_margin' WHERE setting_name='profit_margin' ";
 		$result_profit =$this->db->query($query_profit);
 		
+		$query_euro="UPDATE customize_settings SET setting_value='$euro_cost' WHERE setting_name='euro_cost' ";
+		$result_euro =$this->db->query($query_euro);
 		
-		if($result_cut && $result_profit && $result_landing){
+		if($result_cut && $result_profit && $result_landing && $result_euro){
 			$response=array(
 				'status'	=>	1,
 				'status_message'	=>	'Updated successfully'
