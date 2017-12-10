@@ -33,15 +33,16 @@ $branch_name=$this->session->userdata('branch_name');
         <div id="exTab1" class="container w3-small" > <!-- container for tab -->
             <br>
             <ul  class="nav nav-tabs">
-                <li class="active"><a  href="#RawMaterialStock" data-toggle="tab">Raw Material Stock</a>
-                </li>
+                <li class="active "><a class="w3-medium w3-red"  href="#RawMaterialStock" data-toggle="tab">Raw Material Stock</a></li>
+                <li><a class="w3-medium w3-orange w3-text-white"  href="#" data-toggle="tab">Purchased Products Stock</a></li>
+                <li><a class="w3-medium w3-brown"  href="#" data-toggle="tab">Finished Product Stock</a></li>
 <!--                    <li><a href="#PurchasedProducts" data-toggle="tab">Purchased Products Stock</a>
                 </li>
                 <li><a href="#FinishedProducts" data-toggle="tab">Finished Product Stock</a>
                 </li>-->
             </ul>
 
-            <div class="tab-content clearfix"><br><!-- tab containt starts -->
+            <div class="tab-content clearfix "><br><!-- tab containt starts -->
 
                 <div class="tab-pane active" id="RawMaterialStock">  <!-- tab for Raw material starts here -->
 
@@ -88,9 +89,14 @@ $branch_name=$this->session->userdata('branch_name');
                             <div class=" w3-col l12"><!-- container starts here -->
                                 <div class="w3-col l12"><label>Manage Raw Material</label></div><br>
 
-                                <div class="w3-left w3-margin-top">
+                                <div class="w3-col l12 w3-margin-top">
+                                    <div class="w3-col l6 w3-left">
+                                        <a class="btn btn-info" data-toggle="modal" data-target="#addRawMaterial_modal">Add Raw Material</a><br>
+                                    </div>
+                                    <div class="w3-col l6 ">
+                                        <a class="btn btn-info w3-right" href="<?php echo base_url(); ?>">Add Consumed Material</a><br>
+                                    </div>
 
-                                    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#addRawMaterial_modal">Add Raw Material</button><br>
                                 </div>
                             </div><br><!-- container ends here -->
                             <div class="w3-col l12 w3-margin-top">
