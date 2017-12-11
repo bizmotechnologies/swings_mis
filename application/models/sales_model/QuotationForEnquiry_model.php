@@ -423,9 +423,9 @@ class QuotationForEnquiry_model extends CI_Model {
 //----this fun is used to sort enquiries ----------------------------//
     public function sort_Enquiries($From_date, $To_date, $customer_Id){
         if ($customer_Id == '') {
-            $query = "SELECT * FROM enquiry_master WHERE date_on BETWEEN '$From_date' AND '$To_date' AND current_status!='0' ";
+            $query = "SELECT * FROM enquiry_master WHERE date_on BETWEEN '$From_date' AND '$To_date'";
         } else {
-            $query = "SELECT * FROM enquiry_master WHERE date_on BETWEEN '$From_date' AND '$To_date' AND customer_id='$customer_Id' AND current_status!='0' ";
+            $query = "SELECT * FROM enquiry_master WHERE date_on BETWEEN '$From_date' AND '$To_date' AND customer_id='$customer_Id'";
         }
         //echo $query;die();
         $result = $this->db->query($query);
@@ -433,7 +433,7 @@ class QuotationForEnquiry_model extends CI_Model {
         if ($result->num_rows() <= 0) {
             $response = array(
                 'status' => 0,
-                'status_message' => 'No Quotations Found for specified Filter !!!');
+                'status_message' => 'No Enquiries Found for specified Filter !!!');
         } else {
             $response = array(
                 'status' => 1,

@@ -400,7 +400,7 @@ die();
 			//print_r($products_associatedArr);die();
 
 			echo '
-			<div class="w3-col l12 w3-small w3-padding-left">
+			<div class="w3-col l12 w3-small w3-padding w3-round w3-card-2">
 			<div class="w3-col l12 w3-margin-bottom">
 			<div class="w3-left">
 			<label class="w3-label w3-text-red">Enquiry No:</label> <span class="">#ENQ-0'.$enquiry_no.'</span>
@@ -458,7 +458,7 @@ die();
 			<option value="4">year/years</option>
 			</select>             
 			</div><br>
-			<button class="btn w3-button btn-block w3-red" type="submit" id="send_quote" name="send_quote">Raise New Quotation for Enquiry</button>
+			<button class="btn w3-button btn-block w3-red" type="submit" id="send_quote" name="send_quote">Raise New Quotation for this Enquiry</button>
 			</div>
 			';			
 			

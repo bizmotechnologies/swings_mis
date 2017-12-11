@@ -1,5 +1,5 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed'); 
-//error_reporting(E_ERROR | E_PARSE);
+error_reporting(E_ERROR | E_PARSE);
 ?>
 <!DOCTYPE html>
 <html>
@@ -18,9 +18,6 @@
   <script src="<?php echo base_url(); ?>css/bootstrap/bootstrap-toggle.min.js"></script>
   <script type="text/javascript" src="<?php echo base_url(); ?>css/alert/jquery-confirm.js"></script>
   <script type="text/javascript" src="<?php echo base_url(); ?>css/js/config.js"></script>
-<!--  <script type="text/javascript" src="<?php echo base_url(); ?>css/calender/dhtmlxcalendar.js"></script>
-  <script type="text/javascript" src="<?php echo base_url(); ?>css/calender/dhtmlxcalendar.css"></script>
-  <script type="text/javascript" src="<?php echo base_url(); ?>css/calender/dhtmlxcalendar_deprecated.js"></script>-->
   <script type="text/javascript" src="<?php echo base_url(); ?>css/js/sales/manage_quotation.js"></script>
   <style type="text/css">
   input[type=date]::-webkit-inner-spin-button, 
@@ -70,179 +67,158 @@
           </div>
 
           <form id="send_quotationForm" name="send_quotationForm" >
-            <div class="w3-col l12 w3-margin-top w3-padding-right" id="fetched_enquiryDetails"></div>
+            <div class="w3-col l12 w3-margin-top w3-padding " id="fetched_enquiryDetails"></div>
           </form>
-            <!-- div for filtering enquiry table data -->
-            <div class="w3-col l12">
-                <form id="SortEnquiry_Form" name="SortEnquiry_Form">
-                    <div class="w3-col l12">
-                        <div class="w3-col l4">
-                            <label class="w3-center">From Date</label>
-                            <input type="date" class="w3-input" id="Enquiry_From_date" name="Enquiry_From_date" required>
-                        </div>
-                        <div class="w3-col l4 w3-padding-left">
-                            <label class="w3-center">To Date</label>
-                            <input type="date" class="w3-input" id="Enquiry_To_date" name="Enquiry_To_date" required>
-                        </div>
-                        <div class="w3-col l3 w3-padding-left">
-                            <input type="hidden" name="customer_idFilter" id="customer_idFilter">
-                            <label class="w3-center">Customer name</label>
-                            <input list="Customer_Filter" id="CustomerForFilter" name="CustomerForFilter" class="w3-input" placeholder="Customer Name" onchange="getCustomerIdForEnquirySort();">
-                            <datalist id="Customer_Filter">
-                                <?php foreach ($all_customer['status_message'] as $result) { ?>
-                                    <option data-value="<?php echo $result['cust_id']; ?>" value='<?php echo $result['customer_name']; ?>'></option>
-                                <?php } ?>
-                            </datalist>
-                        </div>
-                        <div class="w3-col l1 w3-center w3-padding">
-                            <button type="submit" class="btn w3-blue w3-margin-top" id="EnquiryFilter" name="EnquiryFilter">Sort</button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-            <!-- div for filtering enquiry table data -->                          
-        </div>
-          <!-- div for enquiry table data -->  
-          <div class="w3-col l12" id = "Show_EnquiriesTable">
-
-              <div id="quotation_table" class="w3-col l12 w3-padding" style="max-height: 300px; overflow-y: auto;">
-                <table class="table table-bordered table-responsive w3-small" ><!-- table starts here -->
-                  <tr style="background-color:black; color:white;" >
-                    <th class="w3-center">Sr. No</th>
-                    <th class="w3-center">Enquiry No.</th>              
-                    <th class="w3-center">Customer</th>              
-                    <th class="w3-center">Raised on</th>              
-                    <th class="w3-center">Current Status</th> 
-                    <th class="w3-center">#&nbsp;Actions</th>                                           
-                  </tr>
-                  <tbody id="ShowEnquiry_Details">
-                     <?php 
-                    // print_r($enquiries['status_message']);
-                  $count=1; 
-                  if($enquiries['status']==0){
-                    echo '<div class="alert alert-danger">
-                    <strong>'.$enquiries['status_message'].'</strong> 
-                    </div>';
-                  }
-                  else
-                  {
-                    foreach ($enquiries['status_message'] as $key) {
-                      $date=date('d/m/y', strtotime($key['date_on']));
-                      $customer_id=$key['customer_id'];
-                      $customer_name=$key['customer_name'];
-
-                      $current_stat='live';
-                      $color='w3-green';
-                      $hide='';
-
-                      if($key['current_status']=='2'){
-                        $current_stat='In PO';
-                        $color='w3-red';
-                        $hide='w3-hide';
-                      }
-
-                      echo                    
-                      '<tr>
-                      <td class="w3-center">'.$count.'.</td>
-                      <td class="w3-center">#ENQ-0'.$key['enquiry_id'].'</td>
-                      <td class="w3-center">'.ucwords($customer_name).'</td>
-                      <td class="w3-center">'.$date.'</td>
-                      <td class="w3-center"><span class="'.$color.'  w3-padding-small w3-round">'.$current_stat.'</span></td>
-                      <td>
-                      <div class="w3-col l12 w3-text-grey w3-center">
-                      <a class="btn w3-medium" style="padding:0px;" data-toggle="modal" data-target="#viewQuote_modal_" title="View Quotation"><i class="fa fa-eye"></i></a>                     
-                      </div>                      
-                      </td>
-                      </tr>';
-                      $count++;
-                    }
-                  }
-                    ?>
-                  </tbody>
-                </table>
-              </div>
-              
-          </div>
-                    <!-- div for enquiry table data -->  
-      </div>
-      <div class="w3-col l7">
-        <header class="w3-container" >
-          <h6><b><i class="fa fa-file-text"></i> Quotation Details</b></h6>
-          <span class="w3-small"></span>
-        </header>
-        <div class="w3-col l12 w3-small">
-          <div class="w3-col l12 ">
-            <div class="w3-col l12 w3-padding-left w3-padding-top">
+          <!-- div for filtering enquiry table data -->
+          <div class="w3-col l12">
+            <div class="w3-col l12 w3-padding-top">
               <div class="w3-col l12">
-                <div class="w3-col l10">
-                  <form id="quotation_filter">
-                    <div class="w3-col l4 w3-padding-right">
-                      <label class="w3-label">From Date:</label>
-                      <input type="date" class="form-control" name="filter_fromDate" id="filter_fromDate" required>
-                    </div>
-                    <div class="w3-col l4 w3-padding-right">
-                      <label class="w3-label">Till Date:</label>
-                      <input type="date" class="form-control" name="filter_toDate" id="filter_toDate" required>
-                    </div>
-                    <div class="w3-col l4 w3-padding-right">
-                      <label class="w3-label">Search Customer:</label>
-                      <div class="input-group">
-                        <input type="hidden" name="customer_idFilter" id="customer_idFilter">
-                        <input list="customerName_list" id="filter_customerName" name="filter_customerName" class="form-control" placeholder="Customers..." onchange="getCustomerId();">
-                        <datalist id="customerName_list">
-                          <?php foreach ($all_customer['status_message'] as $result) { ?>
-                          <option data-value="<?php echo $result['cust_id']; ?>" value='<?php echo $result['customer_name']; ?>'></option>
-                          <?php } ?>
-                        </datalist>
-                        <span class="input-group-btn">
-                          <button class="btn btn-secondary w3-blue" name="filter_quoteBtn" id="filter_quoteBtn" type="submit" title="Filter"><i class="fa fa-filter"></i></button>
-                        </span>
-                      </div>                      
-                    </div>
-                  </form>
-                </div>
-                <div class="w3-col l2">
-                  <div class="w3-col l12 w3-padding-right">
-                    <label class="w3-label">Sort By:</label>
-                    <select class="form-control" id="Sort_by" name="Sort_by" onchange="sort_byStatus();">
-                      <option value="1">LIVE</option>
-                      <option value="2">PO</option>
-                    </select>
+                <form id="SortEnquiry_Form">
+                  <div class="w3-col l4 w3-padding-right">
+                    <label class="w3-label">From Date:</label>
+                    <input type="date" class="form-control" name="Enquiry_From_date" id="Enquiry_From_date" required>
                   </div>
+                  <div class="w3-col l4 w3-padding-right">
+                    <label class="w3-label">Till Date:</label>
+                    <input type="date" class="form-control" name="Enquiry_To_date" id="Enquiry_To_date" required>
+                  </div>
+                  <div class="w3-col l4 ">
+                    <label class="w3-label">Search Customer:</label>
+                    <div class="input-group">
+                      <input type="hidden" name="customer_idEnquiryFilter" id="customer_idEnquiryFilter">
+                      <input list="Customer_Filter" id="CustomerForFilter" name="CustomerForFilter" class="form-control" placeholder="Customers..." onchange="getCustomerIdForEnquirySort();">
+                      <datalist id="Customer_Filter">
+                        <?php foreach ($all_customer['status_message'] as $result) { ?>
+                        <option data-value="<?php echo $result['cust_id']; ?>" value='<?php echo $result['customer_name']; ?>'></option>
+                        <?php } ?>
+                      </datalist>
+                      <span class="input-group-btn">
+                        <button class="btn btn-secondary w3-blue" name="EnquiryFilter" id="EnquiryFilter" type="submit" title="Filter Enquiries"><i class="fa fa-filter"></i></button>
+                      </span>
+                    </div>                      
+                  </div>
+                </form>
+                
+              </div>
+            </div>                
+          </div>
+          <!-- div for filtering enquiry table data -->                          
+        </div>
+        <!-- div for enquiry table data -->  
+        <div class="w3-col l12" id = "Show_EnquiriesTable">
+
+          <div id="quotation_table" class="w3-col l12 w3-padding" style="max-height: 300px; overflow-y:auto;">
+            <table class="table table-bordered table-responsive w3-small" ><!-- table starts here -->
+              <tr style="background-color:black; color:white;" >
+                <th class="w3-center">Sr.No</th>
+                <th class="w3-center">Enquiry No.</th>              
+                <th class="w3-center">Customer Name</th>              
+                <th class="w3-center">Issued on</th>              
+                <th class="w3-center">Current Status</th> 
+                <th class="w3-center">#</th>                                           
+              </tr>
+              <tbody id="ShowEnquiry_Details">
+               <?php 
+                    // print_r($enquiries['status_message']);
+               $count=1; 
+               if($enquiries['status']==0){
+                echo '<tr>
+                <td colspan="6">
+                <div class="alert alert-danger">
+                <strong>'.$enquiries['status_message'].'</strong> 
                 </div>
-              </div>
-            </div>
-              <!-- <form>
-            <div class="w3-col l12 w3-padding">
-              <div class="w3-col l3">
-                  <label class="w3-center">From Date</label>
-                  <input type="date" class="w3-input" id="From_date" name="From_date" required>
-              </div>
-              <div class="w3-col l3 padding-left">
-                  <label class="w3-center">To Date</label>
-                  <input type="date" class="w3-input" id="To_date" name="To_date" required>
-              </div>
-              <div class="w3-col l3 padding-left">
-                  <label class="w3-center">Customer name</label>
-                  <input list="CustomerFilter" id="Customer_nameForFilter" name="Customer_nameForFilter" class="w3-input" placeholder="Customer Name" >
-                  <datalist id="CustomerFilter">
-                      <?php foreach ($all_customer['status_message'] as $result) { ?>
-                          <option data-value="<?php echo $result['cust_id']; ?>" value='<?php echo $result['customer_name']; ?>'></option>
-                      <?php } ?>
-                  </datalist>
-              </div>
-              <div class="w3-col l1 padding-left">
-                  <button type="submit" class="btn w3-blue w3-margin-top w3-center" id="quotation_filter" name="quotation_filter">Sort</button>
+                </td>
+                </tr>';
+              }
+              else
+              {
+                foreach ($enquiries['status_message'] as $key) {
+                  $date=date('d/m/y', strtotime($key['date_on']));
+                  $customer_id=$key['customer_id'];
+                  $customer_name=$key['customer_name'];
+
+                  $current_stat='live';
+                  $color='w3-green';
+                  $hide='';
+
+                  if($key['current_status']=='0'){
+                    $current_stat='Quotation';
+                    $color='w3-orange';
+                    $hide='w3-hide';
+                  }
+
+                  echo                    
+                  '<tr>
+                  <td class="w3-center">'.$count.'.</td>
+                  <td class="w3-center">#ENQ-0'.$key['enquiry_id'].'</td>
+                  <td class="w3-center">'.ucwords($customer_name).'</td>
+                  <td class="w3-center">'.$date.'</td>
+                  <td class="w3-center"><span class="'.$color.' w3-text-white w3-tiny w3-padding-small w3-round">'.$current_stat.'</span></td>
+                  <td>
+                  <div class="w3-col l12 w3-text-grey w3-center">
+                  <a class="btn w3-medium" style="padding:0px;" title="View Enquiry" onclick="Show_EnquiryFromTable('.$key['enquiry_id'].')"><i class="fa fa-eye"></i></a>                     
+                  </div>                      
+                  </td>
+                  </tr>';
+                  $count++;
+                }
+              }
+              ?>
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+      <!-- div for enquiry table data -->  
+    </div>
+    <div class="w3-col l7">
+      <header class="w3-container" >
+        <h6><b><i class="fa fa-file-text"></i> Quotation Details</b></h6>
+        <span class="w3-small"></span>
+      </header>
+      <div class="w3-col l12 w3-small">
+        <div class="w3-col l12 ">
+          <div class="w3-col l12 w3-padding-left w3-padding-top">
+            <div class="w3-col l12">
+              <div class="w3-col l10">
+                <form id="quotation_filter">
+                  <div class="w3-col l4 w3-padding-right">
+                    <label class="w3-label">From Date:</label>
+                    <input type="date" class="form-control" name="filter_fromDate" id="filter_fromDate" required>
+                  </div>
+                  <div class="w3-col l4 w3-padding-right">
+                    <label class="w3-label">Till Date:</label>
+                    <input type="date" class="form-control" name="filter_toDate" id="filter_toDate" required>
+                  </div>
+                  <div class="w3-col l4 w3-padding-right">
+                    <label class="w3-label">Search Customer:</label>
+                    <div class="input-group">
+                      <input type="hidden" name="customer_idFilter" id="customer_idFilter">
+                      <input list="customerName_list" id="filter_customerName" name="filter_customerName" class="form-control" placeholder="Customers..." onchange="getCustomerId();">
+                      <datalist id="customerName_list">
+                        <?php foreach ($all_customer['status_message'] as $result) { ?>
+                        <option data-value="<?php echo $result['cust_id']; ?>" value='<?php echo $result['customer_name']; ?>'></option>
+                        <?php } ?>
+                      </datalist>
+                      <span class="input-group-btn">
+                        <button class="btn btn-secondary w3-blue" name="filter_quoteBtn" id="filter_quoteBtn" type="submit" title="Filter Quotations"><i class="fa fa-filter"></i></button>
+                      </span>
+                    </div>                      
+                  </div>
+                </form>
               </div>
               <div class="w3-col l2">
-                  <label class="w3-center">Status</label>
-                  <select class="w3-input" id="Sort_by" name="Sort_by" onchange="sort_byStatus();">
-                      <option value="1">LIVE</option>
-                      <option value="2">PO</option>
+                <div class="w3-col l12 w3-padding-right">
+                  <label class="w3-label">Sort By:</label>
+                  <select class="form-control" id="Sort_by" name="Sort_by" onchange="sort_byStatus();">
+                    <option value="1">LIVE</option>
+                    <option value="2">PO</option>
                   </select>
+                </div>
               </div>
             </div>
-          </form> -->
+          </div>
+              
           <div class="w3-col l12" id="Show_quotationsTable">
             <hr class="w3-margin-right w3-margin-left">
             <div id="quotation_table" class="w3-col l12 w3-padding">
@@ -291,7 +267,7 @@
                     <td class="w3-center">'.ucwords($customer_name).'</td>
                     <td class="w3-center">'.$date.'</td>
                     <td class="w3-center">'.$key['delivery_within'].'</td>
-                    <td class="w3-center"><span class="'.$color.'  w3-padding-small w3-round">'.$current_stat.'</span></td>
+                    <td class="w3-center"><span class="'.$color.' w3-text-white w3-tiny w3-padding-small w3-round">'.$current_stat.'</span></td>
                     <td>
                     <div class="w3-col l12 w3-text-grey">
                     <a class="btn w3-medium" style="padding:0px;" data-toggle="modal" data-target="#viewQuote_modal_'.$key['quotation_id'].'" title="View Quotation"><i class="fa fa-eye"></i></a>
@@ -526,6 +502,30 @@
  <div id="Input_MaterialStock"></div>
  <!-- End page content -->
 </div>
+<!-- script to show enquiry on click enquiry from table -->
+<script>
+  function Show_EnquiryFromTable(enquiry_id) {
+
+        $("#fetched_enquiryDetails").html('<center><img width="70%" height="auto" src="'+BASE_URL+'css/logos/page_spinner3.gif"/></center>');
+
+        $.ajax({
+            type: "POST",
+            url: BASE_URL + "sales_enquiry/Manage_quotations/Show_Enquiry",
+            data: {
+                enquiry_id: enquiry_id
+            },
+            return: false, //stop the actual form post !important!
+            success: function (data)
+            {
+                //alert(data);
+                $('#fetched_enquiryDetails').html(data);
+
+            }
+        });
+    }
+</script>
+<!-- script ends -->
+
 
 <script>
   function getCustomerId(){
@@ -538,7 +538,7 @@
   function getCustomerIdForEnquirySort(){
 
     customer_id = $('#Customer_Filter [value="' + $('#CustomerForFilter').val() + '"]').data('value');
-    $('#customer_idFilter').val(customer_id);
+    $('#customer_idEnquiryFilter').val(customer_id);
   }
 </script>
 <!--     script to sort Enquiries   -->
@@ -546,6 +546,8 @@
   $(function(){
    $("#SortEnquiry_Form").submit(function(){
      dataString = $("#SortEnquiry_Form").serialize();
+
+     $("#ShowEnquiry_Details").html('<center><img width="150%" height="auto" src="'+BASE_URL+'css/logos/page_spinner3.gif"/></center>');
      $.ajax({
        type: "POST",
        url: "<?php echo base_url(); ?>sales_enquiry/Sort_Enquiries_Quotations/sort_Enquiries",
@@ -553,7 +555,7 @@
            return: false,  //stop the actual form post !important!
            success: function(data)
            {
-               alert(data);
+             //alert(data);
              $('#ShowEnquiry_Details').html(data);
            }
          });
