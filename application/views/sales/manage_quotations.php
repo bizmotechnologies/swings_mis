@@ -489,7 +489,7 @@
      dataString = $("#SortEnquiry_Form").serialize();
      $.ajax({
        type: "POST",
-       url: "<?php echo base_url(); ?>sales_enquiry/manage_quotations/raise_quotation",
+       url: "<?php echo base_url(); ?>sales_enquiry/manage_quotations/sort_Enquiries",
        data: dataString,
            return: false,  //stop the actual form post !important!
            success: function(data)

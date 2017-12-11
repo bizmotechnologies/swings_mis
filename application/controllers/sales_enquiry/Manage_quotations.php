@@ -30,6 +30,13 @@ class Manage_quotations extends CI_Controller
 	}
 //------------this fun is used to get all customer details------------//
 
+        public function sort_Enquiries(){
+            
+        }
+//------------this fun is used to get all customer details------------//
+
+//------------this fun is used to get all customer details------------//
+
 	public function getcustomerDetails() {
         $path = base_url();
         $url = $path . 'api/ManageQuotations_api/getcustomerDetails';
