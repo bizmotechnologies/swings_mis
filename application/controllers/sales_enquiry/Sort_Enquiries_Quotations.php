@@ -69,12 +69,8 @@ class Sort_Enquiries_Quotations extends CI_Controller {
                       <td class="w3-center">'.$date.'</td>
                       <td class="w3-center"><span class="'.$color.'  w3-padding-small w3-round">'.$current_stat.'</span></td>
                       <td>
-                      <div class="w3-col l12 w3-text-grey">
+                      <div class="w3-col l12 w3-text-grey w3-center">
                       <a class="btn w3-medium" style="padding:0px;" data-toggle="modal" data-target="#viewQuote_modal_" title="View Quotation"><i class="fa fa-eye"></i></a>
-
-                      <a class="btn w3-medium '.$hide.'" style="padding:0px;" onclick="send_ToPO();" title="Send to PO"><i class="fa fa-sign-out"></i></a>
-
-                      <a class="btn w3-medium" style="padding:0px;" onclick="send_mail('.$customer_id.','.$customer_name.')" title="Send To Client"><i class="fa fa-envelope"></i></a>
                       </div>                      
                       </td>
                       </tr>';
