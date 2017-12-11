@@ -98,11 +98,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     </div>\n\
                     <div class="w3-col l4 w3-padding-left">\n\
                     <label>Product Discount</label>\n\
-                    <input id="Product_Discount_' + currparent + '" name="Product_Discount[]" value="" class="w3-input" required type="number" min="0" step="0.01" placeholder="Product discount" onkeyup="GetProductfinalPrice(' + currparent + ');">\n\
+                    <input id="Product_Discount_' + currparent + '" name="Product_Discount[]" value="" class="w3-input" required type="number" min="0" step="0.01" placeholder="Product discount" onkeyup="GetProductPrice(' + currparent + ');">\n\
                     </div>\n\
                     <div class="w3-col l4 w3-padding-left">\n\
                     <label>Total Product Price</label>\n\
-                    <input id="TotalProduct_Price_' + currparent + '" name="TotalProduct_Price[]" value="<?php echo $div['product_price']; ?>" class="w3-input" required type="number" min="0" step="0.01" placeholder="Net Product Price" onfocus="GetProductfinalPrice(' + currparent + ');">\n\
+                    <input id="TotalProduct_Price_' + currparent + '" name="TotalProduct_Price[]" value="<?php echo $div['product_price']; ?>" class="w3-input" required type="number" min="0" step="0.01" placeholder="Net Product Price" onfocus="GetProductPrice(' + currparent + ');">\n\
                     </div>\n\
     </div></div>'; // this code is used for add div to parent div on click fun
             }
