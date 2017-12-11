@@ -97,8 +97,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <input id="Product_Quantity_' + currparent + '" name="Product_Quantity[]" value="<?php echo $div['product_quantity']; ?>" class="w3-input" required type="number" min="0" step="0.01" placeholder="Product Quantity" onkeyup="GetProductPrice(' + currparent + ');">\n\
                     </div>\n\
                     <div class="w3-col l4 w3-padding-left">\n\
+                    <label>Product Discount</label>\n\
+                    <input id="Product_Discount_' + currparent + '" name="Product_Discount[]" value="" class="w3-input" required type="number" min="0" step="0.01" placeholder="Product discount" onkeyup="GetProductfinalPrice(' + currparent + ');">\n\
+                    </div>\n\
+                    <div class="w3-col l4 w3-padding-left">\n\
                     <label>Total Product Price</label>\n\
-                    <input id="TotalProduct_Price_' + currparent + '" name="TotalProduct_Price[]" value="<?php echo $div['product_price']; ?>" class="w3-input" required type="number" min="0" step="0.01" placeholder="Net Product Price" onfocus="GetProductPrice(' + currparent + ');">\n\
+                    <input id="TotalProduct_Price_' + currparent + '" name="TotalProduct_Price[]" value="<?php echo $div['product_price']; ?>" class="w3-input" required type="number" min="0" step="0.01" placeholder="Net Product Price" onfocus="GetProductfinalPrice(' + currparent + ');">\n\
                     </div>\n\
     </div></div>'; // this code is used for add div to parent div on click fun
             }
@@ -177,10 +181,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         </script>
         <script>
             function GetProductPrice(rownum) { //----------------this fun is used to get product price---------------
+            Base_Price = 0;
             final_Price = 0;
             Product_Quantity = 0;
             var final_Price = [];
             var Product_Quantity = [];
+            var Base_Price = [];
+            BasePricesum = 0;
             FinalPricesum = 0;
             ProductQuantity = 0;
             productPrice = 0;
@@ -188,18 +195,66 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             {
             final_Price.push($(this).val());
             });
+            $('#Product_' + rownum + ' input[name="base_Price[]"]').each(function ()
+            {
+            Base_Price.push($(this).val());
+            });
             ProductQuantity = document.getElementById('Product_Quantity_' + rownum).value;
+            
+            //-----this loop is used to addition of the final price of material------//
             FinalPrice = final_Price.length;
             while (FinalPrice--) {
             FinalPricesum += parseFloat(final_Price[FinalPrice]) || 0;
             }
-            productPrice = (FinalPricesum * parseFloat(ProductQuantity));
-            //alert(productPrice);
-            $('#TotalProduct_Price_' + rownum).val(productPrice);
+            //-----this loop ends here for used to addition of the final price of material------//
             
+            //-----this loop is used to addition of the base price of material------//
+            BasePrice = final_Price.length;
+            while (BasePrice--) {
+            BasePricesum += parseFloat(Base_Price[BasePrice]) || 0;
+            }
+            //-----this loop ends here for used to addition of the base price of material------//
+            
+            temporary_amount = BasePricesum - FinalPricesum;  //------this amount is used for get calculate price for discount
+            //alert(temporary_amount);
+            Discount = temporary_amount / BasePricesum * 100; //-----finding the discount here by deviding 
+            
+            $('#Product_Discount_' + rownum).val(Discount);   //------discount value set to the text field 
+            
+            productPrice = (FinalPricesum * parseFloat(ProductQuantity));  //-----product price multiplied with quantity
+            
+            DiscountPrice = productPrice * Discount / 100;
+            
+            productFinalprice = BasePricesum - DiscountPrice;
+            //alert(productPrice);
+            $('#TotalProduct_Price_' + rownum).val(productFinalprice);
             }
             //----------------------this fun is used to get product price---------------------------
-        </script>        
+        </script>  
+<!--        <script>
+        function GetProductfinalPrice(rownum){
+             final_Price = 0;
+            var final_Price = [];
+            FinalPricesum = 0;
+        ProductQuantity = document.getElementById('Product_Quantity_' + rownum).value;
+        TotalProduct_Price = $('#TotalProduct_Price_' + rownum).val();
+        productDiscount = $('#Product_Discount_' + rownum).val();   //------discount value set to the text field 
+        
+         $('#Product_' + rownum + ' input[name="final_Price[]"]').each(function ()
+            {
+            final_Price.push($(this).val());
+            });
+        
+         FinalPrice = final_Price.length;
+            while (FinalPrice--) {
+            FinalPricesum += parseFloat(final_Price[FinalPrice]) || 0;
+            }
+        alert(FinalPricesum);
+        price = parseFloat(ProductQuantity) * FinalPricesum;
+        finalProductPrice = price * productDiscount / 100;
+        $('#TotalProduct_Price_' + rownum).val(finalProductPrice);
+        }
+        </script>-->
         <script>
             function GetProfileInformation(rownum) {//this fun is used for get profile information
             Profiles = $('#Profiles_' + rownum + ' [value="' + $('#Select_Profiles_' + rownum).val() + '"]').data('value');

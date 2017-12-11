@@ -277,6 +277,7 @@ $profile_arr[] = array(
     'Prod_length' => $Prod_length,
     'material_associated' => $material_Arr,
     'product_quantity' => $Product_Quantity[$prod],
+    'Product_Discount' => $Product_Discount[$prod],
     'product_price' => $TotalProduct_Price[$prod]
 );
     
