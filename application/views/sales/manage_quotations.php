@@ -85,8 +85,9 @@
                             <input type="date" class="w3-input" id="Enquiry_To_date" name="Enquiry_To_date" required>
                         </div>
                         <div class="w3-col l3 w3-padding-left">
+                            <input type="hidden" name="customer_idFilter" id="customer_idFilter">
                             <label class="w3-center">Customer name</label>
-                            <input list="Customer_Filter" id="CustomerForFilter" name="CustomerForFilter" class="w3-input" placeholder="Customer Name" >
+                            <input list="Customer_Filter" id="CustomerForFilter" name="CustomerForFilter" class="w3-input" placeholder="Customer Name" onchange="getCustomerIdForEnquirySort();">
                             <datalist id="Customer_Filter">
                                 <?php foreach ($all_customer['status_message'] as $result) { ?>
                                     <option data-value="<?php echo $result['cust_id']; ?>" value='<?php echo $result['customer_name']; ?>'></option>
@@ -537,6 +538,13 @@
     $('#customer_idFilter').val(customer_id);
   }
 </script>
+<script>
+  function getCustomerIdForEnquirySort(){
+
+    customer_id = $('#Customer_Filter [value="' + $('#CustomerForFilter').val() + '"]').data('value');
+    $('#customer_idFilter').val(customer_id);
+  }
+</script>
 <!--     script to sort Enquiries   -->
 <script>
   $(function(){
@@ -544,7 +552,7 @@
      dataString = $("#SortEnquiry_Form").serialize();
      $.ajax({
        type: "POST",
-       url: "<?php echo base_url(); ?>sales_enquiry/manage_quotations/sort_Enquiries",
+       url: "<?php echo base_url(); ?>sales_enquiry/Sort_Enquiries_Quotations/sort_Enquiries",
        data: dataString,
            return: false,  //stop the actual form post !important!
            success: function(data)

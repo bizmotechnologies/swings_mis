@@ -23,7 +23,68 @@ class Sort_Enquiries_Quotations extends CI_Controller {
     public function index() {
         
     }
+    
+    //------------this fun is used to get all customer details------------//
 
+    public function sort_Enquiries(){
+        extract($_POST);
+        //print_r($_POST);die();
+        $path = base_url();
+        $url = $path . 'api/Sort_Enquiry_Quotations_api/sort_Enquiries?Enquiry_From_date='.$Enquiry_From_date.'&Enquiry_To_date='.$Enquiry_To_date.'&customer_id='.$customer_idFilter;
+        $ch = curl_init($url);
+        curl_setopt($ch, CURLOPT_HTTPGET, true);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $response_json = curl_exec($ch);
+        curl_close($ch);
+        $response = json_decode($response_json, true);
+        //print_r($response_json);        die();
+        $count=1; 
+                  if($response['status']==0){
+                    echo '<div class="alert alert-danger">
+                    <strong>'.$response['status_message'].'</strong> 
+                    </div>';
+                  }
+                  else
+                  {
+                    foreach ($response['status_message'] as $key) {
+                      $date=date('d/m/y', strtotime($key['date_on']));
+                      $customer_id=$key['customer_id'];
+                      $customer_name=$key['customer_name'];
+
+                      $current_stat='live';
+                      $color='w3-green';
+                      $hide='';
+
+                      if($key['current_status']=='2'){
+                        $current_stat='In PO';
+                        $color='w3-red';
+                        $hide='w3-hide';
+                      }
+
+                      echo                    
+                      '<tr>
+                      <td class="w3-center">'.$count.'.</td>
+                      <td class="w3-center">#ENQ-0'.$key['enquiry_id'].'</td>
+                      <td class="w3-center">'.ucwords($customer_name).'</td>
+                      <td class="w3-center">'.$date.'</td>
+                      <td class="w3-center"><span class="'.$color.'  w3-padding-small w3-round">'.$current_stat.'</span></td>
+                      <td>
+                      <div class="w3-col l12 w3-text-grey">
+                      <a class="btn w3-medium" style="padding:0px;" data-toggle="modal" data-target="#viewQuote_modal_" title="View Quotation"><i class="fa fa-eye"></i></a>
+
+                      <a class="btn w3-medium '.$hide.'" style="padding:0px;" onclick="send_ToPO();" title="Send to PO"><i class="fa fa-sign-out"></i></a>
+
+                      <a class="btn w3-medium" style="padding:0px;" onclick="send_mail('.$customer_id.','.$customer_name.')" title="Send To Client"><i class="fa fa-envelope"></i></a>
+                      </div>                      
+                      </td>
+                      </tr>';
+                      $count++;
+                    }
+                  }
+                  
+        }
+    //------------this fun is used to get all customer details------------//
+    
     // --------------------- this fun is used to get filter quotation by customer and date ----------------------------------//	
 
     public function filter_quotation() {

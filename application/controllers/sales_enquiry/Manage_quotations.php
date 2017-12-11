@@ -28,12 +28,7 @@ class Manage_quotations extends CI_Controller
 		$this->load->view('sales/manage_quotations.php',$data);		
 		//$this->load->view('sales/demo.php',$data);		
 	}
-//------------this fun is used to get all customer details------------//
 
-        public function sort_Enquiries(){
-            
-        }
-//------------this fun is used to get all customer details------------//
 
 //------------this fun is used to get all customer details------------//
 

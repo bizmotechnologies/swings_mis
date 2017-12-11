@@ -420,6 +420,28 @@ class QuotationForEnquiry_model extends CI_Model {
             }
 
 //----this fun is used to sort quotation by status----------------------------//
+//----this fun is used to sort enquiries ----------------------------//
+    public function sort_Enquiries($From_date, $To_date, $customer_Id){
+        if ($customer_Id == '') {
+            $query = "SELECT * FROM enquiry_master WHERE date_on BETWEEN '$From_date' AND '$To_date' AND current_status!='0' ";
+        } else {
+            $query = "SELECT * FROM enquiry_master WHERE date_on BETWEEN '$From_date' AND '$To_date' AND customer_id='$customer_Id' AND current_status!='0' ";
+        }
+        //echo $query;die();
+        $result = $this->db->query($query);
+
+        if ($result->num_rows() <= 0) {
+            $response = array(
+                'status' => 0,
+                'status_message' => 'No Quotations Found for specified Filter !!!');
+        } else {
+            $response = array(
+                'status' => 1,
+                'status_message' => $result->result_array());
+        }
+        return $response;
+    }
+//----this fun is used to sort enquiries ----------------------------//
     //----this fun is used to get customer details----------------------------//
 
             public function getcustomerDetails() {

@@ -34,4 +34,11 @@ class Sort_Enquiry_Quotations_api extends REST_Controller {
     }
 
     //--------------this fun is used to get sort quotation details by status-------------------------//
+    public function sort_Enquiries_get(){
+        $From_date = $_GET['Enquiry_From_date'];
+        $To_date = $_GET['Enquiry_To_date'];
+        $customer_Id = $_GET['customer_id'];
+        $response = $this->QuotationForEnquiry_model->sort_Enquiries($From_date, $To_date, $customer_Id);
+        return $this->response($response);
+    }
 }
