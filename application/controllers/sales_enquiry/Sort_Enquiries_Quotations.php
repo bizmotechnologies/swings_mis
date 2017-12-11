@@ -30,14 +30,14 @@ class Sort_Enquiries_Quotations extends CI_Controller {
         extract($_POST);
         //print_r($_POST);die();
         $path = base_url();
-        $url = $path . 'api/Sort_Enquiry_Quotations_api/filter_quotation?From_date='.$From_date.'&To_date='.$To_date.'&customer_id='.$customer_id;
+        $url = $path . 'api/Sort_Enquiry_Quotations_api/filter_quotation?From_date='.$filter_fromDate.'&To_date='.$filter_toDate.'&customer_id='.$customer_idFilter;
         $ch = curl_init($url);
         curl_setopt($ch, CURLOPT_HTTPGET, true);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         $response_json = curl_exec($ch);
         curl_close($ch);
         $response = json_decode($response_json, true);
-        //print_r($response_json);        die();
+       // print_r($response_json);        die();
         
         echo'<div id="quotation_table" class="w3-col l12 w3-padding">
                 <table class="table table-bordered table-responsive w3-small" ><!-- table starts here -->
@@ -307,7 +307,7 @@ class Sort_Enquiries_Quotations extends CI_Controller {
     // --------------------- this fun is used to get filter quotations by status ----------------------------------//
     public function sort_byStatus() {
         extract($_POST);
-        //print_r($_POST);
+
         $path = base_url();
         $url = $path . 'api/Sort_Enquiry_Quotations_api/sort_byStatus?From_date='.$From_date.'&To_date='.$To_date.'&Sort_by='.$Sort_by.'&customer_id='.$customer_id;
         $ch = curl_init($url);

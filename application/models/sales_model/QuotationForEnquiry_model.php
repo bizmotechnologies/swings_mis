@@ -44,15 +44,13 @@ class QuotationForEnquiry_model extends CI_Model {
 //------------this fun is for get all enquiries sort by date, customer and sort-------------
 
     public function filter_quotation($From_date, $To_date, $customer_Id) {
-        if ($From_date == '' && $To_date == '' && $customer_Id == '') {
-            $sqlsort = "SELECT * FROM quotation_master WHERE current_status !='0'";
+
+        if ($customer_Id == '') {
+            $query = "SELECT * FROM quotation_master WHERE dated BETWEEN '$From_date' AND '$To_date' AND current_status!='0' ";
         } else {
-            if ($customer_Id == '') {
-                $query = "SELECT * FROM quotation_master WHERE dated BETWEEN '$From_date' AND '$To_date' AND current_status!='0' ";
-            } else {
-                $query = "SELECT * FROM quotation_master WHERE current_status!='0' ";
-            }
+            $query = "SELECT * FROM quotation_master WHERE dated BETWEEN '$From_date' AND '$To_date' AND customer_id='$customer_Id' AND current_status!='0' ";
         }
+
         //echo $query;die();
         $result = $this->db->query($query);
 
@@ -123,24 +121,24 @@ class QuotationForEnquiry_model extends CI_Model {
         //print_r($enquiry_products);die();
         switch ($delivery_period) {
             case '1':
-                $delivery_P = 'day/days';
-                break;
+            $delivery_P = 'day/days';
+            break;
 
             case '2':
-                $delivery_P = 'week/weeks';
-                break;
+            $delivery_P = 'week/weeks';
+            break;
 
             case '3':
-                $delivery_P = 'month/months';
-                break;
+            $delivery_P = 'month/months';
+            break;
 
             case '4':
-                $delivery_P = 'year/years';
-                break;
+            $delivery_P = 'year/years';
+            break;
 
             default:
                 # code...
-                break;
+            break;
         }
 
         $delivery_within = $delivery_span . ' ' . $delivery_P;
@@ -276,24 +274,24 @@ class QuotationForEnquiry_model extends CI_Model {
 
         switch ($revise_deliveryPeriod) {
             case '1':
-                $delivery_period = 'day/days';
-                break;
+            $delivery_period = 'day/days';
+            break;
 
             case '2':
-                $delivery_period = 'week/weeks';
-                break;
+            $delivery_period = 'week/weeks';
+            break;
 
             case '3':
-                $delivery_period = 'month/months';
-                break;
+            $delivery_period = 'month/months';
+            break;
 
             case '4':
-                $delivery_period = 'year/years';
-                break;
+            $delivery_period = 'year/years';
+            break;
 
             default:
                 # code...
-                break;
+            break;
         }
         $Updated_price = json_decode($product_JSON, TRUE);
 
@@ -337,98 +335,109 @@ class QuotationForEnquiry_model extends CI_Model {
         if ($resultupdate) {
             $delivery_within = $revise_deliverySpan . ' ' . $delivery_period;
             $sqlinsert = "INSERT INTO quotation_master(enquiry_id,customer_id,customer_name,"
-                    . "product_associated,delivery_within,dated,time_at,current_status) "
+            . "product_associated,delivery_within,dated,time_at,current_status) "
                     . "VALUES ('$enquiry_id','$customer_id','$customer_name','$productarr','$delivery_within',NOW(),NOW(),'1')"; //----insert new quotation into quotation master
 
-            $resultinsert = $this->db->query($sqlinsert);
-            if ($resultinsert) {
-                $response = array(
-                    'status' => 1,
-                    'status_message' => 'Quotation Inserted Successfully..!');
-            } else {
-                $response = array(
-                    'status' => 0,
-                    'status_message' => 'Quotation did not get revised...!');
+                    $resultinsert = $this->db->query($sqlinsert);
+                    if ($resultinsert) {
+                        $response = array(
+                            'status' => 1,
+                            'status_message' => 'Quotation Inserted Successfully..!');
+                    } else {
+                        $response = array(
+                            'status' => 0,
+                            'status_message' => 'Quotation did not get revised...!');
+                    }
+                } else {
+                    $response = array(
+                        'status' => 0,
+                        'status_message' => 'Quotation did not get revised...!');
+                }
+                return $response;
             }
-        } else {
-            $response = array(
-                'status' => 0,
-                'status_message' => 'Quotation did not get revised...!');
-        }
-        return $response;
-    }
 
 //----------this fun is used to insert quotation for revised quotation-------------------------------------//
 //----------this fun is used to fetch enquiry details-------------------------------------//
 
-    public function getquotationdetails($enquiry_id) {
-        $sql = "SELECT * FROM enquiry_master WHERE enquiry_id = '$enquiry_id'";
+            public function getquotationdetails($enquiry_id) {
+                $sql = "SELECT * FROM enquiry_master WHERE enquiry_id = '$enquiry_id'";
 
-        $result = $this->db->query($sql);
-        $Product_details = '';
-        if ($result->num_rows() <= 0) {
-            $Product_details = array(
-                'status' => 0,
-                'status_message' => 'No Records Found.');
-        } else {
-            foreach ($result->result_array() as $row) {
-                $Product_details = $row['products_associated'];
+                $result = $this->db->query($sql);
+                $Product_details = '';
+                if ($result->num_rows() <= 0) {
+                    $Product_details = array(
+                        'status' => 0,
+                        'status_message' => 'No Records Found.');
+                } else {
+                    foreach ($result->result_array() as $row) {
+                        $Product_details = $row['products_associated'];
+                    }
+                }
+                return $Product_details;
             }
-        }
-        return $Product_details;
-    }
 
 //----------this fun is used to fetch enquiry details-------------------------------------//
 //----this fun is used to sort quotation by status----------------------------//
 
-    public function sort_byStatus($From_date, $To_date, $Sort_by, $customer_Id) {
-        if ($From_date == '' && $To_date == '' && $customer_Id == '') {
-            $sqlsort = "SELECT * FROM quotation_master WHERE current_status ='$Sort_by'";
-        } else {
-            if ($From_date == '') {
-                $sqlsort = "SELECT * FROM quotation_master WHERE customer_id = '$customer_Id' AND dated <= '$To_date' AND current_status ='$Sort_by'";
-            } else if ($To_date == '') {
-                $sqlsort = "SELECT * FROM quotation_master WHERE customer_id = '$customer_Id' AND dated >= '$From_date' AND current_status ='$Sort_by'";
-            } else if ($customer_Id == '') {
-                $sqlsort = "SELECT * FROM quotation_master WHERE dated BETWEEN '$From_date' AND '$To_date' AND current_status ='$Sort_by'";
-            } else {
-                $sqlsort = "SELECT * FROM quotation_master WHERE current_status ='$Sort_by' ";
-            }
-        }
+            public function sort_byStatus($From_date, $To_date, $Sort_by, $customer_Id) {
+                
+                if ($From_date == '' && $To_date == '' && $customer_Id == '') {
+                    $sqlsort = "SELECT * FROM quotation_master WHERE current_status ='$Sort_by'";
+                }
+                else if($From_date == '' && $To_date == ''){
+                    $sqlsort = "SELECT * FROM quotation_master WHERE customer_id = '$customer_Id' AND current_status ='$Sort_by'";
+                }
+                else if($customer_Id == '' && $To_date == ''){
+                    $sqlsort = "SELECT * FROM quotation_master WHERE customer_id = '$customer_Id' AND dated <= '$To_date' AND current_status ='$Sort_by'";
+                }
+                else if($From_date == '' && $customer_Id == ''){
+                    $sqlsort = "SELECT * FROM quotation_master WHERE customer_id = '$customer_Id' AND dated >= '$From_date' AND current_status ='$Sort_by'";
+                }
+                 else {
+                    if ($From_date == '') {
+                        $sqlsort = "SELECT * FROM quotation_master WHERE customer_id = '$customer_Id' AND dated <= '$To_date' AND current_status ='$Sort_by'";
+                    } else if ($To_date == '') {
+                        $sqlsort = "SELECT * FROM quotation_master WHERE customer_id = '$customer_Id' AND dated >= '$From_date' AND current_status ='$Sort_by'";
+                    } else if ($customer_Id == '') {
+                        $sqlsort = "SELECT * FROM quotation_master WHERE dated BETWEEN '$From_date' AND '$To_date' AND current_status ='$Sort_by'";
+                    } else {
+                        $sqlsort = "SELECT * FROM quotation_master WHERE dated BETWEEN '$From_date' AND '$To_date' AND customer_id='$customer_Id' AND current_status ='$Sort_by' ";
+                    }
+                }
         //echo $sqlsort;die();
-        $result = $this->db->query($sqlsort);
+                $result = $this->db->query($sqlsort);
 
-        if ($result->num_rows() <= 0) {
-            $response = array(
-                'status' => 0,
-                'status_message' => 'No Quotations Found for specified Filter !!!');
-        } else {
-            $response = array(
-                'status' => 1,
-                'status_message' => $result->result_array());
-        }
-        return $response;
-    }
+                if ($result->num_rows() <= 0) {
+                    $response = array(
+                        'status' => 0,
+                        'status_message' => 'No Quotations Found for specified Filter !!!');
+                } else {
+                    $response = array(
+                        'status' => 1,
+                        'status_message' => $result->result_array());
+                }
+                return $response;
+            }
 
 //----this fun is used to sort quotation by status----------------------------//
     //----this fun is used to get customer details----------------------------//
 
-    public function getcustomerDetails() {
+            public function getcustomerDetails() {
         //extract($data);
-        $query = "SELECT * FROM customer_details";
-        $result = $this->db->query($query);
+                $query = "SELECT * FROM customer_details";
+                $result = $this->db->query($query);
 
-        if ($result->num_rows() <= 0) {
-            $response = array(
-                'status' => 0,
-                'status_message' => 'No Records Found.');
-        } else {
-            $response = array(
-                'status' => 1,
-                'status_message' => $result->result_array());
-        }
-        return $response;
-    }
+                if ($result->num_rows() <= 0) {
+                    $response = array(
+                        'status' => 0,
+                        'status_message' => 'No Records Found.');
+                } else {
+                    $response = array(
+                        'status' => 1,
+                        'status_message' => $result->result_array());
+                }
+                return $response;
+            }
 
     //----this fun is used to get customer details----------------------------//
-}
+        }
