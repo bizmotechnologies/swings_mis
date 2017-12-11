@@ -58,6 +58,16 @@ class ManageEnquiry_api extends REST_Controller {
         return $this->response($response);
     }
     //---------------------THIS FUN IS USED TO SAVE PROFILE DATA-----------------------------//
+    //---------------------THIS FUN IS USED TO GET AVAILABLE TUBE-----------------------------//
+    public function showAvailable_Tube_get(){
+        $material_id = $_GET['material_id'];
+        $Material_ID = $_GET['Material_ID'];
+        $Material_OD = $_GET['Material_OD'];
+        $Material_LENGTH = $_GET['Material_LENGTH'];
+        $response = $this->ManageEnquiry_model->showAvailable_Tube($material_id, $Material_ID, $Material_OD, $Material_LENGTH);
+        return $this->response($response);
+    }
+    //---------------------THIS FUN IS USED TO GET AVAILABLE TUBE FROM RAW MATERIAL-----------------------------//
 
 }
 

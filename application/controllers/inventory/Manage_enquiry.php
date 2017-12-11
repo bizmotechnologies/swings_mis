@@ -18,8 +18,41 @@ class Manage_enquiry extends CI_controller {
     public function index() {
 
     }
+    //---this fun is used to get Available tube for product from raw material 
 
-//---this fun is used to get base price from raw material 
+    public function showAvailable_Tube(){
+        $Materialinfo = 30;
+        $MaterialID = 10;
+        $MaterialOD = 20;
+        $MaterialLength = 45;
+       if(isset($MaterialID) && isset($MaterialOD) && isset($MaterialLength)){
+            $Material_ID = min($MaterialID);
+            $Material_OD = max($MaterialOD);
+            $Material_LENGTH = max($MaterialLength);
+            
+            $path = base_url();
+            $url = $path . 'api/ManageEnquiry_api/showAvailable_Tube?material_id='.$Materialinfo.'&Material_ID='.$Material_ID.'&Material_OD='.$Material_OD.'&Material_LENGTH='.$Material_LENGTH;
+            $ch = curl_init($url);
+            curl_setopt($ch, CURLOPT_HTTPGET, true);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            $response_json = curl_exec($ch);
+            curl_close($ch);
+            $response=json_decode($response_json, true);
+            //print_r($response['value']);die();
+            if(empty($response['value'])){
+                echo 'N/A';
+            }
+            else{
+            echo $response['value'];
+            }
+        }
+        else{
+            echo 'N/A';
+        }
+    }
+    //---this fun is used to get Available tube for product from raw material 
+    //---this fun is used to get best tube for product from raw material 
+
     public function getBest_tube() {
         extract($_POST);
 

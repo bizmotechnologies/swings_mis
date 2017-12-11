@@ -161,9 +161,82 @@ class ManageEnquiry_model extends CI_Model {
     }
 
     /* this  function is used for material records  */
+    /* this  function is used to show available tube from raw materials  */
+    public function showAvailable_Tube($material_id, $Material_ID, $Material_OD, $Material_LENGTH){
+        $criteriaForAvailableTube = ManageEnquiry_model::CheckCriteriaForAvailableTube($material_id, $Material_ID, $Material_OD, $Material_LENGTH);
+        return ($criteriaForAvailableTube);
+    
+    }
+    /* this  function is used to show available tube from raw materials  */
+    /* this  function is used to set Crieria for available tube from raw materials  */
+    public function CheckCriteriaForAvailableTube($material_id, $Material_ID, $Material_OD, $Material_LENGTH){
+        
+        $sql = "SELECT * from raw_materialstock WHERE material_id = '$material_id'";
+        $result = $this->db->query($sql);
+        $rawMaterial_ID = 0;
+        $rawMaterial_OD = 0;
+        $rawMaterial_Tolerance = 0;
+        $rawMaterial_LENGTH = 0;
+        $criteria = array();
+        $response = array();
+
+        foreach ($result->result_array() as $row) {
+            $rawMaterial_ID = $row['raw_ID'];
+            $rawMaterial_OD = $row['raw_OD'];
+            $rawMaterial_LENGTH = $row['avail_length'];
+            $rawMaterial_Tolerance = $row['tolerance'];
+            $Conditionone = $Material_ID - $rawMaterial_ID;
+            $Conditiontwo = $Material_OD + $rawMaterial_Tolerance;
+            //echo $Conditionone;
+            if ($Conditionone >= 0) {   //----criteria no1 for available tube
+                $criteria[] = 1;
+            } else {
+                $criteria[] = 0;
+            }
+
+            if ($rawMaterial_OD >= $Conditiontwo) {   //----criteria no2 for available tube
+                $criteria[] = 1;
+            } else {
+                $criteria[] = 0;
+            }
+
+            if ($Conditionone == $Material_ID) {  //----criteria no3 for available tube
+                $criteria[] = 1;
+            } elseif ($Conditionone >= $rawMaterial_Tolerance) {
+                $criteria[] = 1;
+            } else {
+                $criteria[] = 0;
+            }
 
 
+             $length_avail = ($Material_LENGTH + $rawMaterial_Tolerance);   //----criteria no4 for length for available tube
+             //echo $length_avail;
+             if ($rawMaterial_LENGTH >= $length_avail) {    //---checking the material length is greater than provided length
+                 $criteria[] = 1;
+             } else {
+                 $criteria[] = 0;
+             }
+            if (in_array(0, $criteria)) {   //----checking criteria for available tube as all criteria TRUE
+                $response = array(
+                    'status' => 0,
+                    'value' => 'N/A'       //------if single criteria is not true it returns false
+                );
+                unset($criteria);
+            } else {
+                //$length_avail = ($Material_LENGTH + $rawMaterial_Tolerance);
+                $response = array(
+                    'status' => 1,
+                    'value' => $rawMaterial_ID . '/' . $rawMaterial_OD
+                );
+                //print_r($response);die();
+                unset($criteria);
+                break;
+            }
+        }
+        return $response;
 
+    }
+    /* this  function is used to set Crieria for available tube from raw materials  */
     // this function is used to save  products in enquiry///////////
     public function saveProductForEnquiry($data) {
         extract($data);

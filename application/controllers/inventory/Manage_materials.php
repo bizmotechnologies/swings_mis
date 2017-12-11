@@ -213,7 +213,6 @@ class Manage_materials extends CI_controller {
             
             if (isset($checkHousing[$prod])) {
                 $housing_status = 1;
-
                 $Prod_ID = $ID_forHousingUnckecked;
                 $Prod_OD = $OD_forHousingUnckecked;
                 $Prod_length = $LENGTH_forHousingUnckecked;
@@ -225,8 +224,6 @@ class Manage_materials extends CI_controller {
                 $Prod_length = $LENGTH_forHousingUnckecked;
                 $Prod_description = $profile_DescriptionForHousingUnchecked;
             }
-
-
             for ($i = 0; $i < count($Select_material); $i++) {
                 $ID_arr = array();
                 $OD_arr = array();
@@ -292,21 +289,20 @@ $HousingArr[] = array(
     'Prod_length' => $Prod_length[$prod],
     'product_quantity' => $Product_Quantity[$prod]
     );
-    
-    $housingInfo['profile_id'] = $profile_id[$prod];
-    $housingInfo['profile_data'] = json_encode($HousingArr);
-    //print_r($housingInfo);die();
-            $path = base_url();
-            $url = $path . 'api/ManageEnquiry_api/SaveProfile_data';
-            $ch = curl_init($url);
-            curl_setopt($ch, CURLOPT_POST, true);
-            curl_setopt($ch, CURLOPT_POSTFIELDS, $housingInfo);
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-            $response_json = curl_exec($ch);
-            curl_close($ch);
-            $response = json_decode($response_json, true);
-            //print_r($response_json);die();    
+        $housingInfo['profile_id'] = $profile_id[$prod];
 }
+
+        $housingInfo['profile_data'] = json_encode($HousingArr);
+        $path = base_url();
+        $url = $path . 'api/ManageEnquiry_api/SaveProfile_data';
+        $ch = curl_init($url);
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $housingInfo);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $response_json = curl_exec($ch);
+        curl_close($ch);
+        $response = json_decode($response_json, true);
+
 $data['customer_id']=$customer_id;
 $data['customer_name']=$Select_Customers;
 $data['products_associated']=json_encode($profile_arr);

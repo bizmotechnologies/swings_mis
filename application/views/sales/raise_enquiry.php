@@ -369,11 +369,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         </div>\n\-->
         <!--  Script to reload page when enquiry modal closes............................
         --> 
-<!--        <script>
+        <script>
             $('#myModalnew').on('hidden.bs.modal', function () {
             location.reload();
             });
-        </script>-->
+        </script>
         <!-- script end -->
 
         <script>
@@ -418,6 +418,49 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             });
             }
             //--------------get best tube end-----------------------
+        </script>
+        <script>
+        function showAvailable_Tube(){
+            Materialinfo = 0;
+            MaterialID = 0;
+            MaterialOD = 0;
+            MaterialLength = 0;
+            Materialinfo = $('#Materialinfo_' + fieldnum + '_' + countnum + ' [value="' + $('#Select_material_' + fieldnum + '_' + countnum).val() + '"]').data('value');
+            var MaterialID = [];
+            var MaterialOD = [];
+            var MaterialLength = [];
+            $('#Div_no_' + fieldnum + '_' + countnum + ' input[name="Select_ID[' + fieldnum + '][]"]').each(function ()
+            {
+            MaterialID.push($(this).val());
+            });
+            $("#Div_no_" + fieldnum + "_" + countnum + " input[name='Select_OD[" + fieldnum + "][]']").each(function ()
+            {
+            MaterialOD.push($(this).val());
+            });
+            $("#Div_no_" + fieldnum + "_" + countnum + " input[name='Select_Length[" + fieldnum + "][]']").each(function ()
+            {
+            MaterialLength.push($(this).val());
+            });
+            $.ajax({
+            type: "POST",
+                    url: BASE_URL + "inventory/Manage_enquiry/showAvailable_Tube",
+                    data: {
+                    Materialinfo: Materialinfo,
+                            MaterialID: MaterialID,
+                            MaterialOD: MaterialOD,
+                            MaterialLength: MaterialLength
+                    },
+                    return: false, //stop the actual form post !important!
+                    success: function (data)
+                    {
+                    // alert(data);
+                    $('#bestTube_' + fieldnum + '_' + countnum).val(data);
+                    }
+            });
+            }
+            //--------------get best tube end-----------------------
+        
+        }
         </script>
         <script>
             function GetMaterialBasePrice(fieldnum, countnum) {
