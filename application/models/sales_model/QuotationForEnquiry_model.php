@@ -169,13 +169,54 @@ class QuotationForEnquiry_model extends CI_Model {
     //------------this fun is used to save quotation--------------------------------//
     // -----------------------contact customer for quotation----------------------//
     //-------------------------------------------------------------//
-    public function contact_admin() {
-        // extract($data);
-        // $this->load->model('admin_settings');
-        // $all_mailsettings=$this->admin_settings->allMailSettings();
-        // $admin_mail=$all_mailsettings[0]['mail_email'];
-        // $admin_password=$all_mailsettings[0]['mail_password'];
-        //$mail->SMTPDebug = 2;                               // Enable verbose debug output
+    public function contact_admin($data) {
+        extract($data);
+        $this->load->model('inventory_model/ManageCustomer_model');
+        $this->load->model('sales_model/Enquiry_model');
+
+        $customer_details=$this->ManageCustomer_model->getCustomerBy_ID($customer_id);
+        $quotation_details=$this->Enquiry_model->getQuotation($quotation_id);
+
+
+        //---------------if record not found-------------
+        if (isset($customer_details['status']) && $customer_details['status']==0) {
+            $response = array(
+                'status' =>0,
+                'status_message' => 'Customer record not found');
+            return $response;
+            die();
+        }
+
+        //---------------if record not found-------------
+        if (isset($quotation_details['status']) && $quotation_details['status']==0) {
+            $response = array(
+                'status' =>0,
+                'status_message' => 'Quotation record not found');
+            return $response;
+            die();
+        }
+
+        $customer_mail=$customer_details[0]['customer_email'];//----------customer emails
+        $mail_details=array();
+
+        $extra=array(
+            'customer_mail' =>  $customer_mail,
+            'quotation_id'  =>  $quotation_id,
+            'enquiry_id'  =>  $quotation_details[0]['enquiry_id'],
+            'product_associated'    => $quotation_details[0]['product_associated'],
+            'delivery_within'    => $quotation_details[0]['delivery_within'],
+            'dated'  =>  $quotation_details[0]['dated'],
+            'time_at'  =>  $quotation_details[0]['time_at'],
+            'current_status'  =>  $quotation_details[0]['current_status']
+        );
+
+        $response = array(
+            'status' =>1,
+            'status_message' => $extra);
+        return $response;
+        die();
+        //$admin_password=$all_mailsettings[0]['mail_password'];
+        $mail->SMTPDebug = 2;                               // Enable verbose debug output
 
 
         $emailFrom = 'samrat.munde@bizmo-tech.com';
@@ -380,7 +421,7 @@ class QuotationForEnquiry_model extends CI_Model {
 //----this fun is used to sort quotation by status----------------------------//
 
             public function sort_byStatus($From_date, $To_date, $Sort_by, $customer_Id) {
-                
+
                 if ($From_date == '' && $To_date == '' && $customer_Id == '') {
                     $sqlsort = "SELECT * FROM quotation_master WHERE current_status ='$Sort_by'";
                 }
@@ -393,7 +434,7 @@ class QuotationForEnquiry_model extends CI_Model {
                 else if($From_date == '' && $customer_Id == ''){
                     $sqlsort = "SELECT * FROM quotation_master WHERE customer_id = '$customer_Id' AND dated >= '$From_date' AND current_status ='$Sort_by'";
                 }
-                 else {
+                else {
                     if ($From_date == '') {
                         $sqlsort = "SELECT * FROM quotation_master WHERE customer_id = '$customer_Id' AND dated <= '$To_date' AND current_status ='$Sort_by'";
                     } else if ($To_date == '') {
@@ -421,26 +462,26 @@ class QuotationForEnquiry_model extends CI_Model {
 
 //----this fun is used to sort quotation by status----------------------------//
 //----this fun is used to sort enquiries ----------------------------//
-    public function sort_Enquiries($From_date, $To_date, $customer_Id){
-        if ($customer_Id == '') {
-            $query = "SELECT * FROM enquiry_master WHERE date_on BETWEEN '$From_date' AND '$To_date'";
-        } else {
-            $query = "SELECT * FROM enquiry_master WHERE date_on BETWEEN '$From_date' AND '$To_date' AND customer_id='$customer_Id'";
-        }
+            public function sort_Enquiries($From_date, $To_date, $customer_Id){
+                if ($customer_Id == '') {
+                    $query = "SELECT * FROM enquiry_master WHERE date_on BETWEEN '$From_date' AND '$To_date'";
+                } else {
+                    $query = "SELECT * FROM enquiry_master WHERE date_on BETWEEN '$From_date' AND '$To_date' AND customer_id='$customer_Id'";
+                }
         //echo $query;die();
-        $result = $this->db->query($query);
+                $result = $this->db->query($query);
 
-        if ($result->num_rows() <= 0) {
-            $response = array(
-                'status' => 0,
-                'status_message' => 'No Enquiries Found for specified Filter !!!');
-        } else {
-            $response = array(
-                'status' => 1,
-                'status_message' => $result->result_array());
-        }
-        return $response;
-    }
+                if ($result->num_rows() <= 0) {
+                    $response = array(
+                        'status' => 0,
+                        'status_message' => 'No Enquiries Found for specified Filter !!!');
+                } else {
+                    $response = array(
+                        'status' => 1,
+                        'status_message' => $result->result_array());
+                }
+                return $response;
+            }
 //----this fun is used to sort enquiries ----------------------------//
     //----this fun is used to get customer details----------------------------//
 
