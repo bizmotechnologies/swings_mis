@@ -34,7 +34,7 @@
               <div class="w3-col l11 w3-margin-top">
                 <div class="w3-col l3 w3-padding-left w3-padding-bottom">
                   <label class="w3-label">Select Material</label>
-                  <select class="form-control" id="material_name" name="material_name">
+                  <select class="form-control" id="material_name" name="material_name" >
                     <option class="w3-red" value="0" active>Select Material</option>
                     <?php 
                     foreach ($all_material['status_message'] as $key) {
@@ -45,15 +45,15 @@
                 </div>
                 <div class="w3-col l3 w3-padding-left w3-padding-bottom">
                   <label class="w3-label">Inner Dimensions(ID)</label>
-                  <input type="number" placeholder="Enter ID" class="form-control" id="inner_dia" name="inner_dia">
+                  <input type="number" placeholder="Enter ID" class="form-control" id="inner_dia" name="inner_dia" required>
                 </div>
                 <div class="w3-col l3 w3-padding-left w3-padding-bottom">
                   <label class="w3-label">Outer Dimension(OD)</label>
-                  <input type="number" placeholder="Enter OD" class="form-control" id="outer_dia" name="outer_dia">
+                  <input type="number" placeholder="Enter OD" class="form-control" id="outer_dia" name="outer_dia" required>
                 </div>
                 <div class="w3-col l3 w3-padding-left w3-padding-bottom">
                   <label class="w3-label">Consumed Lenght</label>
-                  <input type="number" placeholder="Enter Consumed Length" class="form-control" id="consumed_length" name="consumed_length">
+                  <input type="number" placeholder="Enter Consumed Length" class="form-control" id="consumed_length" name="consumed_length" required>
                   <b><span id="message"></span></b>
                 </div>
               </div>
@@ -124,7 +124,8 @@
 
            success: function(data)
            {
-             $("#Err_msg").html(data);                                     
+             $("#Err_msg").html(data);
+             //location.reload();                                     
            }
 
          });

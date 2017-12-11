@@ -45,6 +45,16 @@ class MaterialConsumption extends CI_controller
 	{
 		extract($_POST);
 		$data = $_POST;
+
+        //---------------if any of the role is not selected, then return this--------//
+        if($material_name=='0'){
+            echo '<div class="alert alert-danger">
+            <strong>Choose appropriate material first !!!</strong> 
+            </div>          
+            ';  
+            die();
+        }
+
 		$path = base_url();                                                   
         $url = $path.'api/ManageConsumption_api/addConsumption';
         $ch = curl_init($url);
@@ -66,7 +76,7 @@ class MaterialConsumption extends CI_controller
               $(this).remove(); 
               location.reload();
              });
-            }, 1000);
+            }, 600);
             </script>';
         } else {
             echo'<div class="alert alert-success w3-margin" style="text-align: center;">
@@ -78,7 +88,7 @@ class MaterialConsumption extends CI_controller
               $(this).remove(); 
             location.reload();
              });
-            }, 1000);
+            }, 600);
             </script>';
         }
 	  
