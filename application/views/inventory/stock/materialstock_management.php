@@ -33,9 +33,9 @@ $branch_name=$this->session->userdata('branch_name');
         <div id="exTab1" class="container w3-small" > <!-- container for tab -->
             <br>
             <ul  class="nav nav-tabs">
-                <li class="active "><a class="w3-medium w3-red"  href="#RawMaterialStock" data-toggle="tab">Raw Material Stock</a></li>
-                <li><a class="w3-medium w3-orange w3-text-white"  href="#" data-toggle="tab">Purchased Products Stock</a></li>
-                <li><a class="w3-medium w3-brown"  href="#" data-toggle="tab">Finished Product Stock</a></li>
+                <li class="active "><a class="w3-medium w3-button w3-red"  href="#RawMaterialStock" data-toggle="tab">Raw Material Stock</a></li>
+                <li><a class="w3-medium w3-orange w3-button w3-text-white"  href="#" data-toggle="tab">Purchased Products Stock</a></li>
+                <li><a class="w3-medium w3-brown w3-button"  href="#" data-toggle="tab">Finished Product Stock</a></li>
 <!--                    <li><a href="#PurchasedProducts" data-toggle="tab">Purchased Products Stock</a>
                 </li>
                 <li><a href="#FinishedProducts" data-toggle="tab">Finished Product Stock</a>
