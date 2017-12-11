@@ -211,13 +211,13 @@ class Manage_materials extends CI_controller {
         //print_r($LENGTH_forHousingChecked);die();
         for ($prod = 0; $prod < count($Select_Profiles); $prod++) {
             
-            if (isset($ID_forHousingChecked[$prod])) {
+            if (isset($checkHousing[$prod])) {
                 $housing_status = 1;
 
-                $Prod_ID = $ID_forHousingChecked;
-                $Prod_OD = $OD_forHousingChecked;
-                $Prod_length = $LENGTH_forHousingChecked;
-                $Prod_description = $profile_DescriptionForHousingChecked;
+                $Prod_ID = $ID_forHousingUnckecked;
+                $Prod_OD = $OD_forHousingUnckecked;
+                $Prod_length = $LENGTH_forHousingUnckecked;
+                $Prod_description = $profile_DescriptionForHousingUnchecked;
             } else {
                 $housing_status = 0;
                 $Prod_ID = $ID_forHousingUnckecked;
@@ -286,10 +286,10 @@ $profile_arr[] = array(
 $HousingArr[] = array(
     'product_name' => $product_nameForEnquiry[$prod],
     'housing_status' => $housing_status,
-    'profile_description' => $Prod_description,
-    'Prod_ID' => $Prod_ID,
-    'Prod_OD' => $Prod_OD,
-    'Prod_length' => $Prod_length,
+    'profile_description' => $Prod_description[$prod],
+    'Prod_ID' => $Prod_ID[$prod],
+    'Prod_OD' => $Prod_OD[$prod],
+    'Prod_length' => $Prod_length[$prod],
     'product_quantity' => $Product_Quantity[$prod]
     );
     
@@ -557,7 +557,7 @@ public function fetchmaterial_details() {
         $response_json = curl_exec($ch);
         curl_close($ch);
         $response = json_decode($response_json, true);
-        return $response_json;
+        print_r($response[0]['profile_data']);
     }
 }
 

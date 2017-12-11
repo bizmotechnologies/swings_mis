@@ -50,7 +50,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     \n\
                     <div class="w3-col l10 w3-left">\n\
                     <div class="input-group ">\n\
-                    <input type="checkbox" name = "checkHousing[]" id="checkHousing_' + currparent + '" onclick="GetHousingValue(' + currparent + ');" value="1"><b>  Housing Available</b>\n\
+                    <input type="checkbox" name = "checkHousing[]" id="checkHousing_' + currparent + '" onchange="GetHousingValue(' + currparent + ');" value="1"><b>  Housing Available</b>\n\
                     </div>\n\
                     </div>\n\
                     </div>\n\
@@ -166,62 +166,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             var check_status = document.getElementById("checkHousing_" + currentparent).checked;
             if (check_status) {
             x++;
-// this fun is used for show housing div on checkbox of housing
-            $(wrapper).html('<div class="w3-col l12 w3-padding w3-small">\n\
-    <div class="w3-col l6">\n\
-    <label>Profile Description:</label>\n\
-    <input type="text" placeholder="Profile Description(Ex.Piston Seal, Rod Seal .etc.)" class="w3-input" style="text-transform:uppercase;" id="profile_DescriptionForHousingChecked_' + currentparent + '" name="profile_DescriptionForHousingChecked[]" required>\n\
-    </div>\n\
-    </div>\n\
-    <div class="w3-col l12 w3-padding w3-small">\n\
-    <div class="w3-col l3 s3">\n\
-    <div class="input-group">\n\
-    <label>ID:</label>\n\
-    <input type="number" placeholder="ID" class="w3-input" style="text-transform:uppercase;" id="ID_forHousingChecked_' + currentparent + '" name="ID_forHousingChecked[]" required>\n\
-    </div>\n\
-    </div>\n\
-    <div class="w3-col l3 s3 w3-padding-left">\n\
-    <div class="input-group">\n\
-    <label>OD:</label>\n\
-    <input type="number" placeholder="OD" min="0" class="w3-input" style="text-transform:uppercase;" id="OD_forHousingChecked_' + currentparent + '" name="OD_forHousingChecked[]" required>\n\
-    </div>\n\
-    </div>\n\
-    <div class="w3-col l3 s3 w3-padding-left">\n\
-    <div class="input-group">\n\
-    <label>LENGTH:</label>\n\
-    <input type="number" placeholder="LENGTH" min="0" class="w3-input" style="text-transform:uppercase;" id="LENGTH_forHousingChecked_' + currentparent + '" name="LENGTH_forHousingChecked[]" >\n\
-    </div>\n\
-    </div>\n\
-    </div>');
+                                        // this fun is used for show housing div on checkbox of housing
             $('#Product_Quantity_'+currentparent).val(1);
             } else {// this fun is used for show housing div on checkbox of housing
-            $(wrapper).html('<div class="w3-col l12 w3-padding w3-small">\n\
-                        <div class="w3-col l6">\n\
-                        <label>Profile Description:</label>\n\
-                        <input type="text" placeholder="Profile Description(Ex.Piston Seal, Rod Seal .etc.)" class="w3-input" style="text-transform:uppercase;" id="profile_DescriptionForHousingUnchecked_' + currentparent + '" name="profile_DescriptionForHousingUnchecked[]" required>\n\
-                        </div>\n\
-                        </div>\n\
-                        <div class="w3-col l12 w3-padding w3-small">\n\
-                        <div class="w3-col l4 s4">\n\
-                        <div class="input-group">\n\
-                        <label>ID:</label>\n\
-                        <input type="number" placeholder="ID" min="0" class="w3-input" style="text-transform:uppercase;" id="ID_forHousingUnckecked_' + currentparent + '" name="ID_forHousingUnckecked[]" required>\n\
-                        </div>\n\
-                        </div>\n\
-                        <div class="w3-col l4 s4 w3-padding-left">\n\
-                        <div class="input-group">\n\
-                        <label>OD:</label>\n\
-                        <input type="number" placeholder="OD" min="0" class="w3-input" style="text-transform:uppercase;" id="OD_forHousingUnckecked_' + currentparent + '" name="OD_forHousingUnckecked[]" required>\n\
-                        </div>\n\
-                        </div>\n\
-                        <div class="w3-col l4 s4 w3-padding-left">\n\
-                        <div class="input-group">\n\
-                        <label>LENGTH:</label>\n\
-                        <input type="number" placeholder="LENGTH" min="0" class="w3-input" style="text-transform:uppercase;" id="LENGTH_forHousingUnckecked_' + currentparent + '" name="LENGTH_forHousingUnckecked[]" required>\n\
-                        </div>\n\
-                        </div>\n\
-</div>'); // this fun is used for show housing div on checkbox of housing
-                        $('#Product_Quantity_'+currentparent).val('');
+                                                // this fun is used for show housing div on checkbox of housing
+            $('#Product_Quantity_'+currentparent).val('');
 
             }
             }
@@ -256,7 +205,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             Profiles = $('#Profiles_' + rownum + ' [value="' + $('#Select_Profiles_' + rownum).val() + '"]').data('value');
             $('#profile_id_fetch_' + rownum).val(Profiles);
             Customer = $('#Customers [value="' + $('#Customers').val() + '"]').data('value');
-            Get_housingData(Profiles);
+            Get_housingData(Profiles,rownum);
             getprofileimage(Profiles, rownum); //this fun is used for show profile image
             $.ajax({
             type: "POST",
@@ -271,10 +220,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     $('#MaterialDiv_' + rownum).html(data);
                     }
             });
-            }
+            }//this fun is used for get profile information
 
             function getprofileimage(Profiles, rownum) {//this fun is used for show profile image
-
             $.ajax({
             type: "POST",
                     url: "<?php echo base_url(); ?>inventory/Manage_materials/getprofileimage",
@@ -288,7 +236,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     }
             });
             }
-            function Get_housingData(Profiles){
+            function Get_housingData(Profiles,rownum){//-------------this fun is used to set populated housing values on profile change
                 $.ajax({
             type: "POST",
                     url: "<?php echo base_url(); ?>inventory/Manage_materials/Get_housingData",
@@ -297,19 +245,25 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     },
                     cache: false,
                     success: function (data) {
-                    alert(data);
+                    //alert(data);
                     key = JSON.parse(data);
                     
-                    for (var i = 0; i < key.length; i++) {
-                      $('#MaterialDiv').val(key[i].raw_ID);
+                    for(var i=0;i<key.length;i++){
+                        //alert(key[i].housing_status);
+                    if(key[i].housing_status == 1){
+                      $('#checkHousing_'+rownum).prop('checked', true);
+                      $('#profile_DescriptionForHousingUnchecked_'+rownum).val(key[i].profile_description);
+                      $('#ID_forHousingUnckecked_'+rownum).val(key[i].Prod_ID);
+                      $('#OD_forHousingUnckecked_'+rownum).val(key[i].Prod_OD);
+                      $('#LENGTH_forHousingUnckecked_'+rownum).val(key[i].Prod_length);
+                      $('#Product_Quantity_'+rownum).val(key[i].product_quantity);
 
-                        
                     }
-
-
+                    }   
                     }
+                    
             });
-            }
+            }//-------------this fun is used to set populated housing values on profile change
         </script>
         <script>
             function get_AvailableTube(fieldnum, countnum) { //this fun is used to get available tube for product material---------
