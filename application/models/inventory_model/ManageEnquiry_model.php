@@ -5,12 +5,12 @@ if (!defined('BASEPATH'))
 
 class ManageEnquiry_model extends CI_Model {
 
-    public function getBest_tube($material_id, $Material_ID, $Material_OD, $Material_LENGTH) {
-        $criteriaForTube = ManageEnquiry_model::CheckCriteriaForCalculatedTube($material_id, $Material_ID, $Material_OD, $Material_LENGTH);
+    public function getBest_tube($material_id, $Material_ID, $Material_OD) {
+        $criteriaForTube = ManageEnquiry_model::CheckCriteriaForCalculatedTube($material_id, $Material_ID, $Material_OD);
         return ($criteriaForTube);
     }
 
-    public function CheckCriteriaForCalculatedTube($material_id, $Material_ID, $Material_OD, $Material_LENGTH) {
+    public function CheckCriteriaForCalculatedTube($material_id, $Material_ID, $Material_OD) {
 
         $sql = "SELECT * from raw_materialstock WHERE material_id = '$material_id'";
         $result = $this->db->query($sql);
@@ -49,14 +49,6 @@ class ManageEnquiry_model extends CI_Model {
                 $criteria[] = 0;
             }
 
-
-            // $length_avail = ($Material_LENGTH + $rawMaterial_Tolerance);
-            // //echo $length_avail;
-            // if ($rawMaterial_LENGTH >= $length_avail) {
-            //     $criteria[] = 1;
-            // } else {
-            //     $criteria[] = 0;
-            // }
             if (in_array(0, $criteria)) {
                 $response = array(
                     'status' => 0,
@@ -64,7 +56,6 @@ class ManageEnquiry_model extends CI_Model {
                 );
                 unset($criteria);
             } else {
-                //$length_avail = ($Material_LENGTH + $rawMaterial_Tolerance);
                 $response = array(
                     'status' => 1,
                     'value' => $rawMaterial_ID . '/' . $rawMaterial_OD

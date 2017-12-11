@@ -21,10 +21,10 @@ class Manage_enquiry extends CI_controller {
     //---this fun is used to get Available tube for product from raw material 
 
     public function showAvailable_Tube(){
-        $Materialinfo = 30;
-        $MaterialID = 10;
-        $MaterialOD = 20;
-        $MaterialLength = 45;
+        $Materialinfo= 30;
+        $MaterialID = array(10,20,30);
+        $MaterialOD = array(20,10,15,12);
+        $MaterialLength = array(45,40,30,20);
        if(isset($MaterialID) && isset($MaterialOD) && isset($MaterialLength)){
             $Material_ID = min($MaterialID);
             $Material_OD = max($MaterialOD);
@@ -55,7 +55,7 @@ class Manage_enquiry extends CI_controller {
 
     public function getBest_tube() {
         extract($_POST);
-
+        
         if(isset($MaterialID) && isset($MaterialOD) && isset($MaterialLength)){
             $Material_ID = min($MaterialID);
             $Material_OD = max($MaterialOD);
@@ -69,7 +69,7 @@ class Manage_enquiry extends CI_controller {
             $response_json = curl_exec($ch);
             curl_close($ch);
             $response=json_decode($response_json, true);
-            //print_r($response['value']);die();
+            //print_r($response_json);die();
             if(empty($response['value'])){
                 echo 'N/A';
             }
