@@ -257,8 +257,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                       $('#OD_forHousingUnckecked_'+rownum).val(key[i].Prod_OD);
                       $('#LENGTH_forHousingUnckecked_'+rownum).val(key[i].Prod_length);
                       $('#Product_Quantity_'+rownum).val(key[i].product_quantity);
-
-                    }
+                    }else{
+                      $('#checkHousing_'+rownum).prop('checked', false);
+                      $('#profile_DescriptionForHousingUnchecked_'+rownum).val(key[i].profile_description);
+                      $('#ID_forHousingUnckecked_'+rownum).val(key[i].Prod_ID);
+                      $('#OD_forHousingUnckecked_'+rownum).val(key[i].Prod_OD);
+                      $('#LENGTH_forHousingUnckecked_'+rownum).val(key[i].Prod_length);  
+                    }                        
                     }   
                     }
                     

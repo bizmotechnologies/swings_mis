@@ -23,6 +23,24 @@ class QuotationForEnquiry_model extends CI_Model {
     }
 
 //------------this fun is for get all enquiries for quotation status-------------
+//------------this fun is for get all enquiries for sorting-------------
+    public function GetEnquiriesForSorting() {
+        $query = "SELECT * FROM enquiry_master";
+
+        $result = $this->db->query($query);
+        if ($result->num_rows() <= 0) {
+            $response = array(
+                'status' => 0,
+                'status_message' => 'No Quotations Found for specified Filter !!!.');
+        } else {
+            $response = array(
+                'status' => 1,
+                'status_message' => $result->result_array());
+        }
+        return $response;
+    }
+
+//------------this fun is for get all enquiries for sorting-------------
 //------------this fun is for get all enquiries sort by date, customer and sort-------------
 
     public function filter_quotation($From_date, $To_date, $customer_Id) {

@@ -99,5 +99,12 @@ class ManageQuotations_api extends REST_Controller {
         $result = $this->QuotationForEnquiry_model->getcustomerDetails();
         return $this->response($result);
     }
+    //--------this fun is used to show all customer details--------------------------------//
+    //--------this fun is used to get all enquiry details for sorting--------------------------------//
+    public function GetEnquiriesForSorting_get(){
+        $result = $this->QuotationForEnquiry_model->GetEnquiriesForSorting();
+        return $this->response($result);
+    }
+    //--------this fun is used to get all enquiry details for sorting--------------------------------//
 
 }

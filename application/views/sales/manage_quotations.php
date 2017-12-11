@@ -72,7 +72,101 @@
           <form id="send_quotationForm" name="send_quotationForm" >
             <div class="w3-col l12 w3-margin-top w3-padding-right" id="fetched_enquiryDetails"></div>
           </form>
+            <!-- div for filtering enquiry table data -->
+            <div class="w3-col l12">
+                <form id="SortEnquiry_Form" name="SortEnquiry_Form">
+                    <div class="w3-col l12">
+                        <div class="w3-col l4">
+                            <label class="w3-center">From Date</label>
+                            <input type="date" class="w3-input" id="Enquiry_From_date" name="Enquiry_From_date" required>
+                        </div>
+                        <div class="w3-col l4 w3-padding-left">
+                            <label class="w3-center">To Date</label>
+                            <input type="date" class="w3-input" id="Enquiry_To_date" name="Enquiry_To_date" required>
+                        </div>
+                        <div class="w3-col l3 w3-padding-left">
+                            <label class="w3-center">Customer name</label>
+                            <input list="Customer_Filter" id="CustomerForFilter" name="CustomerForFilter" class="w3-input" placeholder="Customer Name" >
+                            <datalist id="Customer_Filter">
+                                <?php foreach ($all_customer['status_message'] as $result) { ?>
+                                    <option data-value="<?php echo $result['cust_id']; ?>" value='<?php echo $result['customer_name']; ?>'></option>
+                                <?php } ?>
+                            </datalist>
+                        </div>
+                        <div class="w3-col l1 w3-center w3-padding">
+                            <button type="submit" class="btn w3-blue w3-margin-top" id="EnquiryFilter" name="EnquiryFilter">Sort</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <!-- div for filtering enquiry table data -->                          
         </div>
+          <!-- div for enquiry table data -->  
+          <div class="w3-col l12" id = "Show_EnquiriesTable">
+
+              <div id="quotation_table" class="w3-col l12 w3-padding" style="max-height: 300px; overflow-y: auto;">
+                <table class="table table-bordered table-responsive w3-small" ><!-- table starts here -->
+                  <tr style="background-color:black; color:white;" >
+                    <th class="w3-center">Sr. No</th>
+                    <th class="w3-center">Enquiry No.</th>              
+                    <th class="w3-center">Customer</th>              
+                    <th class="w3-center">Raised on</th>              
+                    <th class="w3-center">Current Status</th> 
+                    <th class="w3-center">#&nbsp;Actions</th>                                           
+                  </tr>
+                  <tbody id="ShowEnquiry_Details">
+                     <?php 
+                    // print_r($enquiries['status_message']);
+                  $count=1; 
+                  if($enquiries['status']==0){
+                    echo '<div class="alert alert-danger">
+                    <strong>'.$enquiries['status_message'].'</strong> 
+                    </div>';
+                  }
+                  else
+                  {
+                    foreach ($enquiries['status_message'] as $key) {
+                      $date=date('d/m/y', strtotime($key['date_on']));
+                      $customer_id=$key['customer_id'];
+                      $customer_name=$key['customer_name'];
+
+                      $current_stat='live';
+                      $color='w3-green';
+                      $hide='';
+
+                      if($key['current_status']=='2'){
+                        $current_stat='In PO';
+                        $color='w3-red';
+                        $hide='w3-hide';
+                      }
+
+                      echo                    
+                      '<tr>
+                      <td class="w3-center">'.$count.'.</td>
+                      <td class="w3-center">#ENQ-0'.$key['enquiry_id'].'</td>
+                      <td class="w3-center">'.ucwords($customer_name).'</td>
+                      <td class="w3-center">'.$date.'</td>
+                      <td class="w3-center"><span class="'.$color.'  w3-padding-small w3-round">'.$current_stat.'</span></td>
+                      <td>
+                      <div class="w3-col l12 w3-text-grey">
+                      <a class="btn w3-medium" style="padding:0px;" data-toggle="modal" data-target="#viewQuote_modal_" title="View Quotation"><i class="fa fa-eye"></i></a>
+
+                      <a class="btn w3-medium '.$hide.'" style="padding:0px;" onclick="send_ToPO();" title="Send to PO"><i class="fa fa-sign-out"></i></a>
+
+                      <a class="btn w3-medium" style="padding:0px;" onclick="send_mail('.$customer_id.','.$customer_name.')" title="Send To Client"><i class="fa fa-envelope"></i></a>
+                      </div>                      
+                      </td>
+                      </tr>';
+                      $count++;
+                    }
+                  }
+                    ?>
+                  </tbody>
+                </table>
+              </div>
+              
+          </div>
+                    <!-- div for enquiry table data -->  
       </div>
       <div class="w3-col l7">
         <header class="w3-container" >
@@ -443,6 +537,28 @@
     $('#customer_idFilter').val(customer_id);
   }
 </script>
+<!--     script to sort Enquiries   -->
+<script>
+  $(function(){
+   $("#SortEnquiry_Form").submit(function(){
+     dataString = $("#SortEnquiry_Form").serialize();
+     $.ajax({
+       type: "POST",
+       url: "<?php echo base_url(); ?>sales_enquiry/manage_quotations/raise_quotation",
+       data: dataString,
+           return: false,  //stop the actual form post !important!
+           success: function(data)
+           {
+               alert(data);
+             $('#ShowEnquiry_Details').html(data);
+           }
+         });
+         return false;  //stop the actual form post !important!
+
+       });
+ });
+</script>
+<!--     script to sort Enquiries   -->
 
 <!--  Script to delete item from order list............................
 --> 

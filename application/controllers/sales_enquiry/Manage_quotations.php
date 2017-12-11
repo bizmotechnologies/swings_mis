@@ -20,6 +20,7 @@ class Manage_quotations extends CI_Controller
 	public function index(){
 		
 		$data['all_enquiries'] = Manage_quotations::fetchEnquiry_For_Quotation();
+		$data['enquiries'] = Manage_quotations::GetEnquiriesForSorting();
 		$data['all_customer'] = Manage_quotations::getcustomerDetails();
 		$data['all_liveQuotes'] = Manage_quotations::show_quotations();
 
@@ -27,23 +28,37 @@ class Manage_quotations extends CI_Controller
 		$this->load->view('sales/manage_quotations.php',$data);		
 		//$this->load->view('sales/demo.php',$data);		
 	}
-	
-	public function getcustomerDetails()
-    {
-        $path=base_url();
-        $url = $path.'api/ManageQuotations_api/getcustomerDetails';      
+//------------this fun is used to get all customer details------------//
+
+	public function getcustomerDetails() {
+        $path = base_url();
+        $url = $path . 'api/ManageQuotations_api/getcustomerDetails';
         $ch = curl_init($url);
         curl_setopt($ch, CURLOPT_HTTPGET, true);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         $response_json = curl_exec($ch);
         curl_close($ch);
-        $response=json_decode($response_json, true);
-         return $response;       
- }
+        $response = json_decode($response_json, true);
+        return $response;
+    }
 
+    // ---------------function to show all products------------------------//
+    //------------this fun is used to get all enquiries for sorting------------//
+    public function GetEnquiriesForSorting(){
+        $path = base_url();
+        $url = $path . 'api/ManageQuotations_api/GetEnquiriesForSorting';
+        $ch = curl_init($url);
+        curl_setopt($ch, CURLOPT_HTTPGET, true);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $response_json = curl_exec($ch);
+        curl_close($ch);
+        $response = json_decode($response_json, true);
+        return $response;
+    }
+        //------------this fun is used to get all enquiries for sorting------------//
+    //------------this fun is used to get all quotations------------//
 
-	// ---------------function to show all products------------------------//
-	public function show_quotations(){
+    public function show_quotations(){
 
 		//Connection establishment, processing of data and response from REST API
 		$path=base_url();
