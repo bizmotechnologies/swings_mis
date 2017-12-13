@@ -89,9 +89,10 @@ class ManageQuotations_api extends REST_Controller {
     //------------this fun is used to insert new quotation for revised quotation-------------------------------------//
 
      //------------this fun is send quotation to customer by mail-------------------------------------//
-    public function sendMail_post() {
-        extract($_POST);        
-        $response = $this->QuotationForEnquiry_model->contact_admin();
+    public function sendMail_get() {
+        extract($_GET);
+        $data=$_GET;        
+        $response = $this->QuotationForEnquiry_model->contact_admin($data);
         return $this->response($response);
     }
     //------------this fun is send quotation to customer by mail-------------------------------------//
