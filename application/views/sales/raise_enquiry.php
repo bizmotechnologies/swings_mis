@@ -381,7 +381,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <div class="w3-col l4 w3-padding-left">
                             <div class="input-group w3-padding-top">
                                 <label>Customer Name:</label> 
-                                <input list="Customers" id="Select_Customers" name="Select_Customers" value="<?php echo $cust_name; ?>" class="w3-input" required type="text" placeholder="Select Customer" onchange="getCustomerId()">  
+                                <input list="Customers" id="Select_Customers" onclick="this.select();" name="Select_Customers" value="<?php echo $cust_name; ?>" class="w3-input" required type="text" placeholder="Select Customer" onchange="getCustomerId()">  
                                 <input type="hidden" name="customer_id" id="customer_id">                                      
                                 <datalist id="Customers">
                                     <?php foreach ($customers['status_message'] as $result) { ?>
