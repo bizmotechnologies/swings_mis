@@ -98,11 +98,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     </div>\n\
                     <div class="w3-col l4 w3-padding-left">\n\
                     <label>Product Discount</label>\n\
-                    <input id="Product_Discount_' + currparent + '" name="Product_Discount[]" value="" class="w3-input" required type="number" min="0" step="0.01" placeholder="Product discount" onkeyup="GetProductPrice(' + currparent + ');">\n\
+                    <input id="Product_Discount_' + currparent + '" name="Product_Discount[]" value="" class="w3-input" required type="number" min="0" step="0.01" placeholder="Product discount" onkeyup="GetProductfinalPrice(' + currparent + ');">\n\
                     </div>\n\
                     <div class="w3-col l4 w3-padding-left">\n\
                     <label>Total Product Price</label>\n\
-                    <input id="TotalProduct_Price_' + currparent + '" name="TotalProduct_Price[]" value="<?php echo $div['product_price']; ?>" class="w3-input" required type="number" min="0" step="0.01" placeholder="Net Product Price" onfocus="GetProductPrice(' + currparent + ');">\n\
+                    <input id="TotalProduct_Price_' + currparent + '" name="TotalProduct_Price[]" value="<?php echo $div['product_price']; ?>" class="w3-input" required type="number" min="0" step="0.01" placeholder="Net Product Price" onfocus="GetProductfinalPrice(' + currparent + ');">\n\
                     </div>\n\
     </div></div>'; // this code is used for add div to parent div on click fun
             }
@@ -171,7 +171,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             if (check_status) {
             x++;
                                         // this fun is used for show housing div on checkbox of housing
-            $('#Product_Quantity_'+currentparent).val(1);
+            $('#Product_Quantity_'+currentparent).val();
             } else {// this fun is used for show housing div on checkbox of housing
                                                 // this fun is used for show housing div on checkbox of housing
             $('#Product_Quantity_'+currentparent).val('');
@@ -231,7 +231,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             }
             //----------------------this fun is used to get product price---------------------------
         </script>  
-<!--        <script>
+    <script>
         function GetProductfinalPrice(rownum){
              final_Price = 0;
             var final_Price = [];
@@ -249,12 +249,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             while (FinalPrice--) {
             FinalPricesum += parseFloat(final_Price[FinalPrice]) || 0;
             }
-        alert(FinalPricesum);
+        //alert(FinalPricesum);
         price = parseFloat(ProductQuantity) * FinalPricesum;
         finalProductPrice = price * productDiscount / 100;
-        $('#TotalProduct_Price_' + rownum).val(finalProductPrice);
+        productPrice = FinalPricesum - finalProductPrice;
+        $('#TotalProduct_Price_' + rownum).val(productPrice);
         }
-        </script>-->
+        </script>
         <script>
             function GetProfileInformation(rownum) {//this fun is used for get profile information
             Profiles = $('#Profiles_' + rownum + ' [value="' + $('#Select_Profiles_' + rownum).val() + '"]').data('value');
