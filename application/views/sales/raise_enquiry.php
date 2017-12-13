@@ -56,7 +56,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     </div>\n\
                     \n\
                     <div class="w3-light-grey" id="housing_statusforChecked_' + currparent + '">\n\
-                    \n\
+                    \n\<div class="w3-col l12" style="display: none;" id="Housing_Div_' + currparent + '">\n\
                     <div class="w3-col l12 w3-padding w3-small">\n\
                     <div class="w3-col l6">\n\
                     <label>Profile Description:</label>\n\
@@ -87,6 +87,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     </div>\n\
                     \n\
                     </div>\n\
+                    \n\
+                    \n\</div>\n\
+                    \n\
                     </div>\n\
                     \n\<div class="w3-col l12 w3-padding-left w3-margin-top w3-margin-bottom w3-light-grey" id="MaterialDiv_' + currparent + '">\n\
                     </div>\n\
@@ -150,7 +153,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             </div>\n\
                             <div class="w3-col l1 w3-padding-left">\n\
                             <label>FINAL&nbsp;PRICE</label>\n\
-                            <input id="final_Price_' + currchild + '" name="final_Price[]" <?php echo $final_Price; ?> class="w3-input" required type="number" min="0" step="0.01" placeholder="Final Price" onfocus="GetFinalPriceForMaterialCalculation(' + currchild + ');">\n\
+                            <input id="final_Price_' + currchild + '" name="final_Price[]" <?php echo $final_Price; ?> class="w3-input" required type="number" min="0" step="0.0001" placeholder="Final Price" onfocus="GetFinalPriceForMaterialCalculation(' + currchild + ');">\n\
                             </div>\n\\n\
     </div>'); // this fun is used for add materials to parent div on click fun
             currchild++;
@@ -164,18 +167,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         </script>
         <script>
             function GetHousingValue(currentparent) {// this fun is used for show housing div on checkbox of housing
-            //alert('hiii');
             var wrapper = $("#housing_statusforChecked_" + currentparent);
             var x = 1;
             var check_status = document.getElementById("checkHousing_" + currentparent).checked;
             if (check_status) {
             x++;
-                                        // this fun is used for show housing div on checkbox of housing
-            $('#Product_Quantity_'+currentparent).val();
-            } else {// this fun is used for show housing div on checkbox of housing
-                                                // this fun is used for show housing div on checkbox of housing
-            $('#Product_Quantity_'+currentparent).val('');
-
+            $('#Housing_Div_'+currentparent).css('display', 'block');  // this fun is used for show housing div on checkbox of housing check
+            } else {
+            $('#Housing_Div_'+currentparent).css('display', 'none'); // this fun is used for show housing div on checkbox of housing uncheck
             }
             }
         </script>
@@ -233,6 +232,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         </script>  
     <script>
         function GetProductfinalPrice(rownum){
+          
              final_Price = 0;
             var final_Price = [];
             FinalPricesum = 0;
@@ -240,19 +240,19 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         TotalProduct_Price = $('#TotalProduct_Price_' + rownum).val();
         productDiscount = $('#Product_Discount_' + rownum).val();   //------discount value set to the text field 
         
-         $('#Product_' + rownum + ' input[name="final_Price[]"]').each(function ()
+         $('#Product_' + rownum + ' input[name="final_Price[]"]').each(function ()  //get material final price array
             {
             final_Price.push($(this).val());
             });
         
          FinalPrice = final_Price.length;
             while (FinalPrice--) {
-            FinalPricesum += parseFloat(final_Price[FinalPrice]) || 0;
+            FinalPricesum += parseFloat(final_Price[FinalPrice]) || 0;  //--final price array sum
             }
         //alert(FinalPricesum);
-        price = parseFloat(ProductQuantity) * FinalPricesum;
-        finalProductPrice = price * productDiscount / 100;
-        productPrice = FinalPricesum - finalProductPrice;
+        price = parseFloat(ProductQuantity) * FinalPricesum; //---price multiplied by quantity
+        finalProductPrice = price * productDiscount / 100; //---discount on final price
+        productPrice = FinalPricesum - finalProductPrice;  //-----total price
         $('#TotalProduct_Price_' + rownum).val(productPrice);
         }
         </script>
@@ -308,13 +308,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         //alert(key[i].housing_status);
                     if(key[i].housing_status == 1){
                       $('#checkHousing_'+rownum).prop('checked', true);
+                      $('#Housing_Div').css('display', 'block');                            // this fun is used for show housing div on checkbox of housing
                       $('#profile_DescriptionForHousingUnchecked_'+rownum).val(key[i].profile_description);
                       $('#ID_forHousingUnckecked_'+rownum).val(key[i].Prod_ID);
                       $('#OD_forHousingUnckecked_'+rownum).val(key[i].Prod_OD);
                       $('#LENGTH_forHousingUnckecked_'+rownum).val(key[i].Prod_length);
-                      $('#Product_Quantity_'+rownum).val(key[i].product_quantity);
+                      //$('#Product_Quantity_'+rownum).val(key[i].product_quantity);
                     }else{
                       $('#checkHousing_'+rownum).prop('checked', false);
+                      $('#Housing_Div').css('display', 'none');                            // this fun is used for show housing div on checkbox of housing
                       $('#profile_DescriptionForHousingUnchecked_'+rownum).val(key[i].profile_description);
                       $('#ID_forHousingUnckecked_'+rownum).val(key[i].Prod_ID);
                       $('#OD_forHousingUnckecked_'+rownum).val(key[i].Prod_OD);
@@ -515,8 +517,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             });
             }
             //--------------get best tube end-----------------------
-        
-        }
         </script>
         <script>
             function GetMaterialBasePrice(fieldnum, countnum) {
