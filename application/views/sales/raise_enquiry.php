@@ -274,6 +274,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     success: function (data) {
                     //alert(data);
                     $('#MaterialDiv_' + rownum).html(data);
+                    $('#Housing_Div').css('display', 'block');                            // this fun is used for show housing div on checkbox of housing
+
                     }
             });
             }//this fun is used for get profile information
@@ -308,7 +310,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         //alert(key[i].housing_status);
                     if(key[i].housing_status == 1){
                       $('#checkHousing_'+rownum).prop('checked', true);
-                      $('#Housing_Div').css('display', 'block');                            // this fun is used for show housing div on checkbox of housing
+                      $('#Housing_Div_'+rownum).css('display', 'block');                            // this fun is used for show housing div on checkbox of housing
                       $('#profile_DescriptionForHousingUnchecked_'+rownum).val(key[i].profile_description);
                       $('#ID_forHousingUnckecked_'+rownum).val(key[i].Prod_ID);
                       $('#OD_forHousingUnckecked_'+rownum).val(key[i].Prod_OD);
@@ -316,7 +318,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                       //$('#Product_Quantity_'+rownum).val(key[i].product_quantity);
                     }else{
                       $('#checkHousing_'+rownum).prop('checked', false);
-                      $('#Housing_Div').css('display', 'none');                            // this fun is used for show housing div on checkbox of housing
+                      $('#Housing_Div_'+rownum).css('display', 'none');                            // this fun is used for show housing div on checkbox of housing
                       $('#profile_DescriptionForHousingUnchecked_'+rownum).val(key[i].profile_description);
                       $('#ID_forHousingUnckecked_'+rownum).val(key[i].Prod_ID);
                       $('#OD_forHousingUnckecked_'+rownum).val(key[i].Prod_OD);
