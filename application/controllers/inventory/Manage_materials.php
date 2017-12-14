@@ -83,7 +83,7 @@ class Manage_materials extends CI_controller {
                 echo'</datalist>
                 <div class="w3-col l6 s6 w3-padding-top">
                 <label>Material Image</label>                
-                <img class="img img-thumbnail" alt="Material Image" width="100px" height="auto" src="'.base_url().''.$key['material_image'].'">
+                <img class="img img-thumbnail" alt="Material Image not found" width="100px" height="auto" src="'.base_url().''.$key['material_image'].'">
                 </div>
                 <div class="w3-col l6 s6 w3-padding-top w3-padding-left">
                 <label>ID Tolerance</label>                
@@ -147,6 +147,8 @@ class Manage_materials extends CI_controller {
                 <div class="w3-col l1 w3-padding-left">
                 <label>BEST TUBE</label>&nbsp;<a class="btn w3-red" style="padding:0 2px 0 2px;" onclick="getBest_tube('.$Profile_num.','.$count.');"><i class="fa fa-refresh w3-small"></i></a>
                 <input id="bestTube_'.$Profile_num.'_'.$count.'" name="best_tube[]" value="" class="w3-input" required type="text" placeholder="ID/OD" readonly>
+                <div class="w3-col l12" id="tube_spinner">
+                </div>
                 </div>
                 <div class="w3-col l2 w3-padding-left">
                 <label>BEST PRICE</label><input id="base_Price_'.$Profile_num.'_'.$count.'" name="base_Price[]" value="" class="w3-input" min="0" step="0.01" required type="number" placeholder="Base Price"  onfocus="GetMaterialBasePrice('.$Profile_num.','.$count.');">
