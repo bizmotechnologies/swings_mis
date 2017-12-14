@@ -362,6 +362,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             }
         }); //this fun is used to get available tube for product material---------//
     }
+  
 </script>
 </head>
 <body class="w3-light-grey">
@@ -485,7 +486,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         //--------------get best tube end-----------------------
     </script>
     <script>
-        function showAvailable_Tube(){
+        function showAvailable_Tube(fieldnum,countnum){
             Materialinfo = 0;
             MaterialID = 0;
             MaterialOD = 0;
@@ -524,6 +525,26 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             });
         }
         //--------------get best tube end-----------------------
+    </script>
+    <script>
+    function getAvailableTubeFromAllBranches(fieldnum, countnum){
+        Materialinfo = $('#Materialinfo_' + fieldnum + '_' + countnum + ' [value="' + $('#Select_material_' + fieldnum + '_' + countnum).val() + '"]').data('value');
+        bestTube = $('#bestTube_' + fieldnum + '_' + countnum).val();
+        $.ajax({
+            type: "POST",
+            url: BASE_URL + "inventory/Manage_materials/getAvailableTubeFromAllBranches",
+            data: {
+                Materialinfo: Materialinfo,
+                bestTube: bestTube
+            },
+                return: false, //stop the actual form post !important!
+                success: function (data)
+                {
+                    alert(data);
+                    $('#base_Price_' + fieldnum + '_' + countnum).val(data);
+                }
+            });
+    }
     </script>
     <script>
         function GetMaterialBasePrice(fieldnum, countnum) {

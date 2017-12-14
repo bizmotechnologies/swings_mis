@@ -65,7 +65,7 @@ class Manage_materials extends CI_controller {
             echo '<div class="w3-col l12 w3-tiny"><span class="w3-text-red"><b>NOTE:</b> Input Fields which are disabled (marked in grey and default set to 0) are N/A for the respective material. Only fill enabled input fields</span></div>';
 
             $count=0;
-
+            $no = 1;
             foreach ($material_associated as $key) {
                 for ($material_count=0; $material_count < $key['material_quantity']; $material_count++) { 
                    
@@ -169,11 +169,32 @@ class Manage_materials extends CI_controller {
                 </div>
                 <div class="w3-col l2 w3-margin-top" id="available_tube_'.$Profile_num.'_'.$count.'">                     
                 </div>
-                </div>
-
-                ';
-                $count=$count+1;
-            }
+                </div>';
+                echo'<div class="w3-col l12 w3-tiny">
+                    <div class="w3-col-l2">
+                     <button type="submit" id="fetchAvailableTubeBTN" onclick="getAvailableTubeFromAllBranches('.$Profile_num.','.$count.');" class="btn w3-left btn-sm w3-blue w3-margin">Available Tube</button>
+                     </div>
+                     <div class="w3-col-l4">
+                     <div id="quotation_table" class="w3-col l4 w3-padding">
+                     <table class="table table-bordered table-responsive w3-small" ><!-- table starts here -->
+                    <tr style="background-color:black; color:white;">
+                    <th class="w3-center">Sr. No</th>
+                    <th class="w3-center">#</th>
+                    <th class="w3-center">Branch Name.</th>              
+                    <th class="w3-center">Price</th>
+                    </tr>
+                    <tr>
+                    <td>'.$no.'</td>
+                    <td><input type="checkbox" name="" id=""></td>
+                    <td></td>
+                    <td></td>
+                    </tr>
+                    </table>
+                    </div>
+                    </div>';
+                    $no++;
+                    $count = $count + 1;
+                }
             }
             //}
         }
@@ -352,7 +373,6 @@ public function fetchmaterial_details() {
         $data['materials'] = Manage_materials::getMaterialrecord();     //-------show all Raw materials
         $data['customers'] = Manage_materials::GetCustomersDetails();     //-------show all Customers
         $data['profileinfo'] = Manage_materials::GetProductProfileDetails();     //-------show all Product Profile
-        $data['multiple_divs'] = Manage_materials::Add_MultipleProduct($_POST);     //-------show all materials
         $this->load->view('includes/navigation');
         $this->load->view('inventory/new/fetchmaterial_details', $data);
     }
@@ -362,7 +382,6 @@ public function fetchmaterial_details() {
         $data['materials'] = Manage_materials::getMaterialrecord();     //-------show all Raw materials
         $data['customers'] = Manage_materials::GetCustomersDetails();     //-------show all Customers
         $data['profileinfo'] = Manage_materials::GetProductProfileDetails(); //-------show all Product Profile
-        $data['multiple_divs'] = Manage_materials::Add_MultipleProduct($_POST);     //-------show all materials
         $this->load->view('includes/navigation');
         $this->load->view('sales/raise_enquiry', $data);
     }
@@ -550,6 +569,7 @@ public function fetchmaterial_details() {
     }
 
 // ---- this function is used to delete material details-------//
+// ---- this function is used to get housing data for maintained history of housing-------//
     public function Get_housingData(){
         extract($_POST);
         $data = $_POST;
@@ -563,6 +583,22 @@ public function fetchmaterial_details() {
         curl_close($ch);
         $response = json_decode($response_json, true);
         print_r($response[0]['profile_data']);
+    }
+    // ---- this function is used to get housing data for maintained history of housing-------//
+
+    public function getAvailableTubeFromAllBranches(){
+        extract($_POST);
+        $materialID_OD = explode("/", $bestTube); 
+        $Material_ID = $materialID_OD[0];
+        $Material_OD = $materialID_OD[1]; 
+        $path = base_url();
+        $url = $path . 'api/ManageMaterial_api/deleteRecord?material_id='.$Materialinfo.'&material_ID='. $Material_ID.'&material_OD='.$Material_OD;
+        $ch = curl_init($url);
+        curl_setopt($ch, CURLOPT_HTTPGET, true);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $response_json = curl_exec($ch);
+        curl_close($ch);
+        $response = json_decode($response_json, true); 
     }
 }
 
