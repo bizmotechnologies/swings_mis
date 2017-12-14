@@ -195,6 +195,7 @@ public function GetRawMaterialInfoDetails() {
     curl_close($ch);
     $response = json_decode($response_json, true);
     return $response;
+    
 }
 
 /* --------------this fun for geting all material information ----------------------- */
@@ -384,26 +385,12 @@ public function Update_UpdatedStockMaterial_Info() {
         echo'<div class="alert alert-danger w3-margin" style="text-align: center;">
         <strong>' . $response['status_message'] . '</strong> 
         </div>
-        <script>
-        window.setTimeout(function() {
-           $(".alert").fadeTo(500, 0).slideUp(500, function(){
-              $(this).remove(); 
-              location.reload();              
-          });
-      }, 600);
-      </script>';
+        ';
   } else {
     echo'<div class="alert alert-success w3-margin" style="text-align: center;">
     <strong>' . $response['status_message'] . '</strong> 
     </div>
-    <script>
-    window.setTimeout(function() {
-       $(".alert").fadeTo(500, 0).slideUp(500, function(){
-          $(this).remove(); 
-          location.reload();              
-      });
-  }, 600);
-  </script>';
+    ';
 }
 }
 
