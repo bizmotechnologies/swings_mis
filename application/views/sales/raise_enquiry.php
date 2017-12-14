@@ -383,7 +383,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <div class="w3-col l4 w3-padding-left">
                         <div class="input-group w3-padding-top">
                             <label>Customer Name:</label> 
-                            <input list="Customers" id="Select_Customers" onclick="this.select();" name="Select_Customers" value="<?php echo $cust_name; ?>" class="w3-input" required type="text" placeholder="Select Customer" onchange="getCustomerId()">  
+                            <input list="Customers" id="Select_Customers" autocomplete="off" onclick="this.select();" name="Select_Customers" value="<?php echo $cust_name; ?>" class="w3-input" required type="text" placeholder="Select Customer" onchange="getCustomerId()">  
                             <input type="hidden" name="customer_id" id="customer_id">                                      
                             <datalist id="Customers">
                                 <?php foreach ($customers['status_message'] as $result) { ?>
@@ -448,6 +448,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             var MaterialID = [];
             var MaterialOD = [];
             var MaterialLength = [];
+            var ID_tolerance=$('#ID_tolerance_' + fieldnum + '_' + countnum).val();
+            var OD_tolerance=$('#OD_tolerance_' + fieldnum + '_' + countnum).val();
+
             $('#Div_no_' + fieldnum + '_' + countnum + ' input[name="Select_ID[' + fieldnum + '][]"]').each(function ()
             {
                 MaterialID.push($(this).val());
@@ -467,13 +470,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     Materialinfo: Materialinfo,
                     MaterialID: MaterialID,
                     MaterialOD: MaterialOD,
-                    MaterialLength: MaterialLength
+                    MaterialLength: MaterialLength,
+                    ID_tolerance: ID_tolerance,
+                    OD_tolerance: OD_tolerance
                 },
                 return: false, //stop the actual form post !important!
                 success: function (data)
                 {
-                    alert(data);
-                    //$('#bestTube_' + fieldnum + '_' + countnum).val(data);
+                    //alert(data);
+                    $('#bestTube_' + fieldnum + '_' + countnum).val(data);
                 }
             });
         }

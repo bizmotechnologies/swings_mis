@@ -57,15 +57,19 @@ class Manage_enquiry extends CI_controller {
 
     public function getBest_tube() {
         extract($_POST);
-        print_r($_POST);
-        die();
+        //print_r($_POST);die();
+
         if(isset($MaterialID) && isset($MaterialOD) && isset($MaterialLength)){
             $Material_ID = min($MaterialID);
             $Material_OD = max($MaterialOD);
             $Material_LENGTH = max($MaterialLength);
 
+            $Material_ID=$Material_ID - $ID_tolerance;//-----taking tolerance value into consideration
+            $Material_OD=$Material_OD - $OD_tolerance;//-----taking tolerance value into consideration
+
             $path = base_url();
             $url = $path . 'api/ManageEnquiry_api/getBestTube?material_id='.$Materialinfo.'&Material_ID='.$Material_ID.'&Material_OD='.$Material_OD.'&Material_LENGTH='.$Material_LENGTH;
+            //echo $url;die();
             $ch = curl_init($url);
             curl_setopt($ch, CURLOPT_HTTPGET, true);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
