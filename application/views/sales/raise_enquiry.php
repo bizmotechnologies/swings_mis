@@ -233,11 +233,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <script>
         function GetProductfinalPrice(rownum){
 
-         final_Price = 0;
-         var final_Price = [];
-         FinalPricesum = 0;
-         ProductQuantity = document.getElementById('Product_Quantity_' + rownum).value;
-         TotalProduct_Price = $('#TotalProduct_Price_' + rownum).val();
+           final_Price = 0;
+           var final_Price = [];
+           FinalPricesum = 0;
+           ProductQuantity = document.getElementById('Product_Quantity_' + rownum).value;
+           TotalProduct_Price = $('#TotalProduct_Price_' + rownum).val();
     productDiscount = $('#Product_Discount_' + rownum).val();   //------discount value set to the text field 
     
      $('#Product_' + rownum + ' input[name="final_Price[]"]').each(function ()  //get material final price array
@@ -263,19 +263,17 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             Customer = $('#Customers [value="' + $('#Customers').val() + '"]').data('value');
 
             $("#MaterialDiv_" + rownum).html('<center><img width="auto" height="auto" src="'+BASE_URL+'css/logos/page_spinner3.gif"/></center>');
-
-            Get_housingData(Profiles,rownum);   //------------profile history
-
-        getprofileimage(Profiles, rownum);  //------------profile image
-        $.ajax({
-            type: "POST",
-            url: "<?php echo base_url(); ?>inventory/Manage_materials/GetProfileInformation",
-            data: {
-                Profiles: Profiles,
-                Profile_num: rownum
-            },
-            cache: false,
-            success: function (data) {
+            Get_housingData(Profiles,rownum);       //------------profile history data
+            getprofileimage(Profiles, rownum);      //------------profile image data 
+            $.ajax({
+                type: "POST",
+                url: "<?php echo base_url(); ?>inventory/Manage_materials/GetProfileInformation",
+                data: {
+                    Profiles: Profiles,
+                    Profile_num: rownum
+                },
+                cache: false,
+                success: function (data) {
                 //alert(data);
                 $('#MaterialDiv_' + rownum).html(data);
                 $('#Housing_Div').css('display', 'block');                            // this fun is used for show housing div on checkbox of housing
@@ -293,7 +291,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 cache: false,
                 success: function (data) {
                 //alert(data);
-                $('#profile_image_div_' + rownum).html('<center><img width="30%" class="img img-thumbnail" height="30%" src="' + BASE_URL + '' + data + '"/></center>');
+                $('#profile_image_div_' + rownum).html('<center><img width="30%" alt="Profile image not found" class="img img-thumbnail" height="30%" src="' + BASE_URL + '' + data + '"/></center>');
             }
         });
         }
@@ -557,9 +555,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 success: function (data)
                 {
                    // alert(data);
-                    $('#base_Price_' + fieldnum + '_' + countnum).val(data);
-                }
-            });
+                   $('#base_Price_' + fieldnum + '_' + countnum).val(data);
+               }
+           });
     }
 
 </script>
