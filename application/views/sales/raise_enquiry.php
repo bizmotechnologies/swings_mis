@@ -261,8 +261,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             Profiles = $('#Profiles_' + rownum + ' [value="' + $('#Select_Profiles_' + rownum).val() + '"]').data('value');
             $('#profile_id_fetch_' + rownum).val(Profiles);
             Customer = $('#Customers [value="' + $('#Customers').val() + '"]').data('value');
-            Get_housingData(Profiles,rownum);
-        getprofileimage(Profiles, rownum); //this fun is used for show profile image
+
+            $("#MaterialDiv_" + rownum).html('<center><img width="auto" height="auto" src="'+BASE_URL+'css/logos/page_spinner3.gif"/></center>');
+
+            Get_housingData(Profiles,rownum);   //------------profile history
+
+        getprofileimage(Profiles, rownum);  //------------profile image
         $.ajax({
             type: "POST",
             url: "<?php echo base_url(); ?>inventory/Manage_materials/GetProfileInformation",
@@ -275,7 +279,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 //alert(data);
                 $('#MaterialDiv_' + rownum).html(data);
                 $('#Housing_Div').css('display', 'block');                            // this fun is used for show housing div on checkbox of housing
-
             }
         });
         }//this fun is used for get profile information
@@ -290,7 +293,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 cache: false,
                 success: function (data) {
                 //alert(data);
-                $('#profile_image_div_' + rownum).html('<center><img width="30%" height="30%" src="' + BASE_URL + '' + data + '"/></center>');
+                $('#profile_image_div_' + rownum).html('<center><img width="30%" class="img img-thumbnail" height="30%" src="' + BASE_URL + '' + data + '"/></center>');
             }
         });
         }
@@ -451,6 +454,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             var ID_tolerance=$('#ID_tolerance_' + fieldnum + '_' + countnum).val();
             var OD_tolerance=$('#OD_tolerance_' + fieldnum + '_' + countnum).val();
 
+            $("#tube_spinner").html('<center><img width="100%" height="auto" src="'+BASE_URL+'css/logos/small_loader.gif"/></center>');
+
             $('#Div_no_' + fieldnum + '_' + countnum + ' input[name="Select_ID[' + fieldnum + '][]"]').each(function ()
             {
                 MaterialID.push($(this).val());
@@ -479,6 +484,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 {
                     //alert(data);
                     $('#bestTube_' + fieldnum + '_' + countnum).val(data);
+                    $("#tube_spinner").html('');
                 }
             });
         }

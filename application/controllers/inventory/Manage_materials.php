@@ -147,6 +147,8 @@ class Manage_materials extends CI_controller {
                 <div class="w3-col l1 w3-padding-left">
                 <label>BEST TUBE</label>&nbsp;<a class="btn w3-red" style="padding:0 2px 0 2px;" onclick="getBest_tube('.$Profile_num.','.$count.');"><i class="fa fa-refresh w3-small"></i></a>
                 <input id="bestTube_'.$Profile_num.'_'.$count.'" name="best_tube[]" value="" class="w3-input" required type="text" placeholder="ID/OD" readonly>
+                <div class="w3-col l12" id="tube_spinner">
+                </div>
                 </div>
                 <div class="w3-col l2 w3-padding-left">
                 <label>BEST PRICE</label><input id="base_Price_'.$Profile_num.'_'.$count.'" name="base_Price[]" value="" class="w3-input" min="0" step="0.01" required type="number" placeholder="Base Price"  onfocus="GetMaterialBasePrice('.$Profile_num.','.$count.');">
@@ -352,7 +354,6 @@ public function fetchmaterial_details() {
         $data['materials'] = Manage_materials::getMaterialrecord();     //-------show all Raw materials
         $data['customers'] = Manage_materials::GetCustomersDetails();     //-------show all Customers
         $data['profileinfo'] = Manage_materials::GetProductProfileDetails();     //-------show all Product Profile
-        $data['multiple_divs'] = Manage_materials::Add_MultipleProduct($_POST);     //-------show all materials
         $this->load->view('includes/navigation');
         $this->load->view('inventory/new/fetchmaterial_details', $data);
     }
@@ -362,7 +363,6 @@ public function fetchmaterial_details() {
         $data['materials'] = Manage_materials::getMaterialrecord();     //-------show all Raw materials
         $data['customers'] = Manage_materials::GetCustomersDetails();     //-------show all Customers
         $data['profileinfo'] = Manage_materials::GetProductProfileDetails(); //-------show all Product Profile
-        $data['multiple_divs'] = Manage_materials::Add_MultipleProduct($_POST);     //-------show all materials
         $this->load->view('includes/navigation');
         $this->load->view('sales/raise_enquiry', $data);
     }
