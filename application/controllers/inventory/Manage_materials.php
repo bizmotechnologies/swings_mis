@@ -24,13 +24,7 @@ class Manage_materials extends CI_controller {
         $this->load->view('inventory/materials/manage_material', $data);
     }
 
-//---------this fun is used to add multiple products---------------//
-    public function Add_MultipleProduct($data) {
 
-//print_r(json_encode($profile_arr));
-    }
-
-//---------this fun is used to add multiple products---------------//
 //--------this fun is uded to get all values of material----------// 
     public function GetMaterialInformation_ForEnquiry() {
         extract($_POST);
@@ -155,7 +149,7 @@ class Manage_materials extends CI_controller {
                 <input id="bestTube_'.$Profile_num.'_'.$count.'" name="best_tube[]" value="" class="w3-input" required type="text" placeholder="ID/OD" readonly>
                 </div>
                 <div class="w3-col l2 w3-padding-left">
-                <label>BASE PRICE</label><input id="base_Price_'.$Profile_num.'_'.$count.'" name="base_Price[]" value="" class="w3-input" min="0" step="0.01" required type="number" placeholder="Base Price"  onfocus="GetMaterialBasePrice('.$Profile_num.','.$count.');">
+                <label>BEST PRICE</label><input id="base_Price_'.$Profile_num.'_'.$count.'" name="base_Price[]" value="" class="w3-input" min="0" step="0.01" required type="number" placeholder="Base Price"  onfocus="GetMaterialBasePrice('.$Profile_num.','.$count.');">
                 </div>
                 <div class="w3-col l1 w3-padding-left">
                 <label>QUANTITY</label>
