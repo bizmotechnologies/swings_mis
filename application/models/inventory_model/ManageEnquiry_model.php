@@ -170,7 +170,8 @@ class ManageEnquiry_model extends CI_Model {
         $rawMaterial_LENGTH = 0;
         $criteria = array();
         $response = array();
-
+        $tube = array();
+        $length = array();
         foreach ($result->result_array() as $row) {
             $rawMaterial_ID = $row['raw_ID'];
             $rawMaterial_OD = $row['raw_OD'];
@@ -199,14 +200,14 @@ class ManageEnquiry_model extends CI_Model {
                 $criteria[] = 0;
             }
 
+            $length_avail = ($Material_LENGTH + $rawMaterial_Tolerance);   //----criteria no4 for length for available tube
+            //echo $length_avail;
+            if ($rawMaterial_LENGTH >= $length_avail) {    //---checking the material length is greater than provided length
+                $criteria[] = 1;
+            } else {
+                $criteria[] = 0;
+            }
 
-             $length_avail = ($Material_LENGTH + $rawMaterial_Tolerance);   //----criteria no4 for length for available tube
-             //echo $length_avail;
-             if ($rawMaterial_LENGTH >= $length_avail) {    //---checking the material length is greater than provided length
-                 $criteria[] = 1;
-             } else {
-                 $criteria[] = 0;
-             }
             if (in_array(0, $criteria)) {   //----checking criteria for available tube as all criteria TRUE
                 $response = array(
                     'status' => 0,
@@ -214,18 +215,18 @@ class ManageEnquiry_model extends CI_Model {
                 );
                 unset($criteria);
             } else {
-                //$length_avail = ($Material_LENGTH + $rawMaterial_Tolerance);
-                $response = array(
-                    'status' => 1,
-                    'value' => $rawMaterial_ID . '/' . $rawMaterial_OD
-                );
-                //print_r($response);die();
+                $tube[] = $rawMaterial_ID . '/' . $rawMaterial_OD;  //---this tube is collection of all tube which satisfies with above criteria
+                $length[] = $rawMaterial_LENGTH; //---the length for satisfied tube
                 unset($criteria);
-                break;
             }
         }
+        $response = array(
+            'status' => 1,
+            'tube' => $tube,
+            'length' => $length
+        );
+        //print_r($response); //die();
         return $response;
-
     }
     /* this  function is used to set Crieria for available tube from raw materials  */
     // this function is used to save  products in enquiry///////////
