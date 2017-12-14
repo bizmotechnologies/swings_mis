@@ -453,7 +453,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             var ID_tolerance=$('#ID_tolerance_' + fieldnum + '_' + countnum).val();
             var OD_tolerance=$('#OD_tolerance_' + fieldnum + '_' + countnum).val();
 
-            $("#tube_spinner").html('<center><img width="100%" height="auto" src="'+BASE_URL+'css/logos/small_loader.gif"/></center>');
+            $("#tube_spinner_" + fieldnum + '_' + countnum).html('<center><img width="100%" height="auto" src="'+BASE_URL+'css/logos/small_loader.gif"/></center>');
 
             $('#Div_no_' + fieldnum + '_' + countnum + ' input[name="Select_ID[' + fieldnum + '][]"]').each(function ()
             {
@@ -483,7 +483,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 {
                     //alert(data);
                     $('#bestTube_' + fieldnum + '_' + countnum).val(data);
-                    $("#tube_spinner").html('');
+                    $("#tube_spinner_" + fieldnum + '_' + countnum).html('');
                 }
             });
         }

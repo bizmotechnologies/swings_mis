@@ -163,7 +163,8 @@ $branch_name=$this->session->userdata('branch_name');
                                     url:BASE_URL+'inventory/MaterialStock_Management/DeleteRawMaterialStockDetails?rawmaterial_id='+row_id,                                    
                                     success:function(response) {
                                       //$.alert(response);
-                                      location.reload();
+                                      //location.reload();
+                                      $("#ShowRaw_products").load(location.href + " #ShowRaw_products>*", "");
                                   }
                               });
                               },
@@ -191,7 +192,8 @@ $branch_name=$this->session->userdata('branch_name');
                             return: false, 
                             success: function (data)
                             {
-                                $.alert(data);                                    
+                                $.alert(data);  
+                                $("#ShowRaw_products").load(location.href + " #ShowRaw_products>*", "");
                             }
                         });
                     }
