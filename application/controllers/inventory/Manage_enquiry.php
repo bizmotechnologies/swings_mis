@@ -57,8 +57,8 @@ class Manage_enquiry extends CI_controller {
 
     public function getBest_tube() {
         extract($_POST);
-        print_r($_POST);
-        die();
+        //print_r($_POST);
+        //die();
         if(isset($MaterialID) && isset($MaterialOD) && isset($MaterialLength)){
             $Material_ID = min($MaterialID);
             $Material_OD = max($MaterialOD);
