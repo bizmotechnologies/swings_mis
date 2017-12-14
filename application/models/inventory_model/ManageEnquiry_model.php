@@ -72,6 +72,7 @@ class ManageEnquiry_model extends CI_Model {
     public function GetMaterialBasePrice($material_id, $MaterialID, $MaterialOD, $MaterialLength) {
 
         $material_price = ManageEnquiry_model::getmaterialPriceforcalculation($material_id, $MaterialID, $MaterialOD, $MaterialLength);
+        //print_r($material_price);
         $customizevalue = ManageEnquiry_model::getcustomizedvalueforCalculation();
         $setting_value = json_decode($customizevalue, TRUE);
         //print_r($setting_value);
@@ -91,7 +92,7 @@ class ManageEnquiry_model extends CI_Model {
 
     public function getmaterialPriceforcalculation($material_id, $MaterialID, $MaterialOD, $MaterialLength) {
         $sql = "SELECT material_price FROM raw_materialstock WHERE material_id = '$material_id' "
-                . "AND raw_ID = '$MaterialID' AND raw_OD ='$MaterialOD' AND avail_length >= '$MaterialLength'";
+                . "AND raw_ID = '$MaterialID' AND raw_OD ='$MaterialOD'";
 
         $result = $this->db->query($sql);
         $material_price = '0.00';
