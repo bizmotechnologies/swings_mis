@@ -68,7 +68,13 @@ class ManageEnquiry_api extends REST_Controller {
         return $this->response($response);
     }
     //---------------------THIS FUN IS USED TO GET AVAILABLE TUBE FROM RAW MATERIAL-----------------------------//
-
+    public function getAvailableTubeFromAllBranches_get(){
+        $material_id = $_GET['material_id'];
+        $Material_ID = $_GET['material_ID'];
+        $Material_OD = $_GET['material_OD'];
+        $response = $this->ManageEnquiry_model->getAvailableTubeFromAllBranches($material_id, $Material_ID, $Material_OD);
+        return $this->response($response);
+    }
 }
 
 ?>

@@ -290,7 +290,54 @@ class ManageEnquiry_model extends CI_Model {
             $result = $this->db->query($sql);
         }
     }
-    
+  
+    public function getAvailableTubeFromAllBranches($material_id, $Material_ID, $Material_OD){
+        $branch_name = '';
+        $branch = '';
+        $tube = '';
+        $price = '';
+        $available_tubes = '';
+        $sql = "SELECT * FROM branch_table";
+        $result = $this->db->query($sql);
+       
+        if ($result->num_rows() >= 0) {         
+            foreach ($result->result_array() as $row) {
+                $branch_name = $row['branch_name'];
+                
+                $selectSql = "SELECT * FROM raw_materialstock WHERE "
+                        . "raw_ID = '$Material_ID' AND raw_OD = '$Material_OD' "
+                        . "AND material_id ='$material_id' AND branch_name = '$branch_name' LIMIT 1";
+                //echo $selectSql;                die();
+                $resultSelect = $this->db->query($selectSql);
+                if($resultSelect->num_rows() >= 0){
+                    foreach ($resultSelect->result_array() as $key) {
+                    $branch = $key['branch_name'];
+                    $tube = $key['raw_ID'] . '/' . $key['raw_OD'];
+                    $price = $key['material_price'];
+                    
+                    $available_tubes = array(
+                        'branch_name' => $branch,
+                        'tube' => $tube,
+                        'price' => $price
+                    );       
+                      $all_banchData[] = $available_tubes;
+                    }
+                   // print_r($all_banchData);
+                $response = array(
+                'status' => 1,
+                'status_message' => $all_banchData);
+                } 
+                else{
+                   $response = array(
+                'status' => 0,
+                'status_message' => 'Tube is not available in this branch'
+                       ); 
+                }
+            }
+            return $response;
+        }
+                //return $response;
+    }
        
 }
 

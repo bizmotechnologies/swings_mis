@@ -65,7 +65,6 @@ class Manage_materials extends CI_controller {
             echo '<div class="w3-col l12 w3-tiny"><span class="w3-text-red"><b>NOTE:</b> Input Fields which are disabled (marked in grey and default set to 0) are N/A for the respective material. Only fill enabled input fields</span></div>';
 
             $count=0;
-            $no = 1;
             foreach ($material_associated as $key) {
                 for ($material_count=0; $material_count < $key['material_quantity']; $material_count++) { 
                    
@@ -174,7 +173,7 @@ class Manage_materials extends CI_controller {
                 </div>';
                 echo'<div class="w3-col l12 w3-tiny">
                     <div class="w3-col-l2">
-                     <button type="submit" id="fetchAvailableTubeBTN" onclick="getAvailableTubeFromAllBranches('.$Profile_num.','.$count.');" class="btn w3-left btn-sm w3-blue w3-margin">Available Tube</button>
+                     <button type="button" id="fetchAvailableTubeBTN_'.$Profile_num.'_'.$count.'" onclick="getAvailableTubeFromAllBranches('.$Profile_num.','.$count.');" class="btn w3-left btn-sm w3-blue w3-margin">Available Tube</button>
                      </div>
                      <div class="w3-col-l4">
                      <div id="quotation_table" class="w3-col l4 w3-padding">
@@ -183,14 +182,11 @@ class Manage_materials extends CI_controller {
                     <th class="w3-center">Sr. No</th>
                     <th class="w3-center">#</th>
                     <th class="w3-center">Branch Name.</th>              
+                    <th class="w3-center">Tube</th>
                     <th class="w3-center">Price</th>
                     </tr>
-                    <tr>
-                    <td>'.$no.'</td>
-                    <td><input type="checkbox" name="" id=""></td>
-                    <td></td>
-                    <td></td>
-                    </tr>
+                    <tbody id = "allbranchAvailable_tube_'.$Profile_num.'_'.$count.'">                    
+                    </tbody>
                     </table>
                     </div>
                     </div>';
@@ -587,21 +583,37 @@ public function fetchmaterial_details() {
         print_r($response[0]['profile_data']);
     }
     // ---- this function is used to get housing data for maintained history of housing-------//
-
+    // ---- this function is used to get available tubes from all branches -------//
     public function getAvailableTubeFromAllBranches(){
         extract($_POST);
         $materialID_OD = explode("/", $bestTube); 
         $Material_ID = $materialID_OD[0];
         $Material_OD = $materialID_OD[1]; 
         $path = base_url();
-        $url = $path . 'api/ManageMaterial_api/deleteRecord?material_id='.$Materialinfo.'&material_ID='. $Material_ID.'&material_OD='.$Material_OD;
+        $url = $path . 'api/ManageEnquiry_api/getAvailableTubeFromAllBranches?material_id='.$Materialinfo.'&material_ID='. $Material_ID.'&material_OD='.$Material_OD;
         $ch = curl_init($url);
         curl_setopt($ch, CURLOPT_HTTPGET, true);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         $response_json = curl_exec($ch);
         curl_close($ch);
-        $response = json_decode($response_json, true); 
+        $response = json_decode($response_json, true);
+        //print_r($response_json);        die();
+        $no = 1;
+        if($response['status'] == 1){
+                  foreach ($response['status_message'] as $key) {
+            echo'   <tr>
+                    <td>'.$no.'</td>
+                    <td><input type="checkbox" name="branchPrice" id=""></td>
+                    <td>'.$key['branch_name'].'</td>
+                    <td>'.$key['tube'].'</td>
+                    <td>'.$key['price'].'</td>
+                    </tr>';
+                    $no++;
+             }
+        }
     }
+    // ---- this function is used to get available tubes from all branches -------//
+
 }
 
 ?>
