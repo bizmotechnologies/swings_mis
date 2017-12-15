@@ -534,18 +534,20 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     function getAvailableTubeFromAllBranches(fieldnum, countnum){
         Materialinfo = $('#Materialinfo_' + fieldnum + '_' + countnum + ' [value="' + $('#Select_material_' + fieldnum + '_' + countnum).val() + '"]').data('value');
         bestTube = $('#bestTube_' + fieldnum + '_' + countnum).val();
-        alert(Materialinfo);
+        //alert(Materialinfo);
         $.ajax({
             type: "POST",
             url: BASE_URL + "inventory/Manage_materials/getAvailableTubeFromAllBranches",
             data: {
                 Materialinfo: Materialinfo,
-                bestTube: bestTube
+                bestTube: bestTube,
+                fieldnum: fieldnum,
+                countnum: countnum
             },
                 return: false, //stop the actual form post !important!
                 success: function (data)
                 {
-                    alert(data);
+                    //alert(data);
                     $('#allbranchAvailable_tube_' + fieldnum + '_' + countnum).html(data);
                 }
             });
@@ -571,7 +573,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 Materialinfo: Materialinfo,
                 MaterialLength: MaterialLength,
                 bestTube: bestTube
-
             },
                 return: false, //stop the actual form post !important!
                 success: function (data)

@@ -330,7 +330,7 @@ class ManageEnquiry_model extends CI_Model {
                 else{
                    $response = array(
                 'status' => 0,
-                'status_message' => 'Tube is not available in this branch'
+                'status_message' => 'Tube is not available in this branch.'
                        ); 
                 }
             }
