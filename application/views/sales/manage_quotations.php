@@ -272,7 +272,7 @@ error_reporting(E_ERROR | E_PARSE);
                     <div class="w3-col l12 w3-text-grey">
                     <a class="btn w3-medium" style="padding:0px;" data-toggle="modal" data-target="#viewQuote_modal_'.$key['quotation_id'].'" title="View Quotation"><i class="fa fa-eye"></i></a>
 
-                    <a class="btn w3-medium '.$hide.'" style="padding:0px;" onclick="send_ToPO('.$quotation_id.');" title="Send to PO"><i class="fa fa-sign-out"></i></a>
+                    <a class="btn w3-medium '.$hide.'" style="padding:0px;" onclick="send_ToWO('.$quotation_id.');" title="Send to PO"><i class="fa fa-sign-out"></i></a>
 
                     <a class="btn w3-medium" style="padding:0px;" onclick="send_mail('.$customer_id.',\''.$customer_name.'\','.$quotation_id.')" title="Send To Client"><i class="fa fa-envelope"></i></a>
                     </div>                      
@@ -600,7 +600,7 @@ error_reporting(E_ERROR | E_PARSE);
 <!--  Script to delete item from order list............................
 --> 
 <script type="text/javascript">
-  function send_ToPO(quotation_id)
+  function send_ToWO(quotation_id)
   {
 
     $.confirm({
@@ -610,7 +610,7 @@ error_reporting(E_ERROR | E_PARSE);
         confirm: function () {
           $.ajax({
             type:'post',
-            url:BASE_URL+'sales_enquiry/manage_quotations/sendTo_PO',
+            url:BASE_URL+'sales_enquiry/manage_quotations/sendTo_WO',
             data:{
               quotation_id:quotation_id
             },

@@ -63,123 +63,123 @@ class Manage_materials extends CI_controller {
             $material_associated = json_decode($response['status_message'][0]['material_associated'], TRUE);
 
             echo '<div class="w3-col l12 w3-tiny"><span class="w3-text-red"><b>NOTE:</b> Input Fields which are disabled (marked in grey and default set to 0) are N/A for the respective material. Only fill enabled input fields</span></div>';
-
+            
             $count=0;
             foreach ($material_associated as $key) {
                 for ($material_count=0; $material_count < $key['material_quantity']; $material_count++) { 
+
                    
+                    echo'<div class="w3-col l12 w3-tiny w3-margin-top" id="Div_no_'.$Profile_num.'_'.$count.'">';
+                    echo '<div class="w3-col l12">
+                    <input class="w3-right" name="make_boughtOut[]" data-onstyle="danger" data-size="mini" id="make_boughtOut_'.$Profile_num.'_'.$count.'" type="checkbox" data-toggle="toggle" data-on="ON" data-off="OFF" value="1" onchange="makeBought_out('.$Profile_num.','.$count.')">
+                    </div>';
+                    echo '<div class="w3-col l2">';
+                    echo'<label>MATERIAL</label>';
+                    echo'<input onclick="this.select();" autocomplete="off" list="Materialinfo_'.$Profile_num.'_'.$count.'" value="'.$key['material_name'].'" id="Select_material_'.$Profile_num.'_'.$count.'" name="Select_material[]" class="w3-input" required type="text" placeholder="Material" onchange="get_AvailableTube('.$Profile_num.','.$count.');">';
 
-                echo'<div class="w3-col l12 w3-tiny w3-margin-top" id="Div_no_'.$Profile_num.'_'.$count.'">';
-                echo '<div class="w3-col l12">
-                <input name="make_boughtOut[]" data-onstyle="danger" data-size="mini" id="make_boughtOut_'.$Profile_num.'_'.$count.'" type="checkbox" data-toggle="toggle" data-on="ON" data-off="OFF" value="1" onchange="makeBought_out('.$Profile_num.','.$count.')">
-                </div>';
-                echo '<div class="w3-col l2">';
-                echo'<label>MATERIAL</label>';
-                echo'<input onclick="this.select();" autocomplete="off" list="Materialinfo_'.$Profile_num.'_'.$count.'" value="'.$key['material_name'].'" id="Select_material_'.$Profile_num.'_'.$count.'" name="Select_material[]" class="w3-input" required type="text" placeholder="Material" onchange="get_AvailableTube('.$Profile_num.','.$count.');">';
+                    echo'<datalist id="Materialinfo_'.$Profile_num.'_'.$count.'">';
+                    foreach ($materials['status_message'] as $result) {
+                        echo'<option data-value = "'.$result['material_id'].'" value = "'.$result['material_name'].'"></option>';
+                    }
+                    echo'</datalist>
+                    <div class="w3-col l6 s6 w3-padding-top">
+                    <label>Material Image</label>                
+                    <img class="img img-thumbnail" alt="Material Image not found" width="100px" height="auto" src="'.base_url().''.$key['material_image'].'">
+                    </div>
+                    <div class="w3-col l6 s6 w3-padding-top w3-padding-left">
+                    <label>ID Tolerance</label>                
+                    <input onclick="this.select();" autocomplete="off" value="" id="ID_tolerance_'.$Profile_num.'_'.$count.'" name="ID_tolerance[]" class="w3-input" type="number" placeholder="Tolerance">
 
-                echo'<datalist id="Materialinfo_'.$Profile_num.'_'.$count.'">';
-                foreach ($materials['status_message'] as $result) {
-                    echo'<option data-value = "'.$result['material_id'].'" value = "'.$result['material_name'].'"></option>';
-                }
-                echo'</datalist>
-                <div class="w3-col l6 s6 w3-padding-top">
-                <label>Material Image</label>                
-                <img class="img img-thumbnail" alt="Material Image not found" width="100px" height="auto" src="'.base_url().''.$key['material_image'].'">
-                </div>
-                <div class="w3-col l6 s6 w3-padding-top w3-padding-left">
-                <label>ID Tolerance</label>                
-                <input onclick="this.select();" autocomplete="off" value="" id="ID_tolerance_'.$Profile_num.'_'.$count.'" name="ID_tolerance[]" class="w3-input" type="number" placeholder="Tolerance">
+                    <label>OD Tolerance</label>
+                    <input onclick="this.select();" autocomplete="off" value="" id="OD_tolerance_'.$Profile_num.'_'.$count.'" name="OD_tolerance[]" class="w3-input" type="number" placeholder="Tolerance">
+                    </div>
+                    </div>
+                    <div class="w3-col l3">
+                    <div class="w3-col l4 s4 w3-padding-left">';
 
-                <label>OD Tolerance</label>
-                <input onclick="this.select();" autocomplete="off" value="" id="OD_tolerance_'.$Profile_num.'_'.$count.'" name="OD_tolerance[]" class="w3-input" type="number" placeholder="Tolerance">
-                </div>
-                </div>
-                <div class="w3-col l3">
-                <div class="w3-col l4 s4 w3-padding-left">';
+                    if($key['ID_quantity']==0){                        
+                        $disabled='readonly';
+                        $value='0';
+                        echo'<label>ID</label>
+                        <input value="'.$value.'" onclick="this.select();" autocomplete="off" name="Select_ID['.$Profile_num.'][]" class="w3-input w3-light-grey" required type="text" min="0" placeholder="ID" '.$disabled.'>';
+                    }
+                    for ($j = 0; $j < $key['ID_quantity']; $j++) {
 
-                if($key['ID_quantity']==0){                        
-                    $disabled='readonly';
-                    $value='0';
-                    echo'<label>ID</label>
-                    <input value="'.$value.'" onclick="this.select();" autocomplete="off" name="Select_ID['.$Profile_num.'][]" class="w3-input w3-light-grey" required type="text" min="0" placeholder="ID" '.$disabled.'>';
-                }
-                for ($j = 0; $j < $key['ID_quantity']; $j++) {
+                        echo'<label>ID</label>
+                        <input list="MaterialID_'.$Profile_num.'_'.$count.'_'.$j.'" onclick="this.select();" autocomplete="off" value="" id="Select_ID_'.$Profile_num.'_'.$count.'_'.$j.'" name="Select_ID['.$Profile_num.'][]" class="w3-input" required type="text" min="0" placeholder="ID">
+                        <datalist id="MaterialID_'.$Profile_num.'_'.$count.'_'.$j.'">
+                        </datalist>';
 
-                    echo'<label>ID</label>
-                    <input list="MaterialID_'.$Profile_num.'_'.$count.'_'.$j.'" onclick="this.select();" autocomplete="off" value="" id="Select_ID_'.$Profile_num.'_'.$count.'_'.$j.'" name="Select_ID['.$Profile_num.'][]" class="w3-input" required type="text" min="0" placeholder="ID">
-                    <datalist id="MaterialID_'.$Profile_num.'_'.$count.'_'.$j.'">
-                    </datalist>';
+                    }
+                    echo'</div>
+                    <div class="w3-col l4 s4 w3-padding-left">';
 
-                }
-                echo'</div>
-                <div class="w3-col l4 s4 w3-padding-left">';
+                    if($key['OD_quantity']==0){                        
+                        $disabled='readonly';
+                        $value='0';
+                        echo'<label>OD</label>
+                        <input value="'.$value.'" onclick="this.select();" autocomplete="off" name="Select_OD['.$Profile_num.'][]" class="w3-input w3-light-grey" required type="text" min="0" placeholder="OD" '.$disabled.'>';
+                    }
+                    for ($k = 0; $k < $key['OD_quantity']; $k++) {
 
-                if($key['OD_quantity']==0){                        
-                    $disabled='readonly';
-                    $value='0';
-                    echo'<label>OD</label>
-                    <input value="'.$value.'" onclick="this.select();" autocomplete="off" name="Select_OD['.$Profile_num.'][]" class="w3-input w3-light-grey" required type="text" min="0" placeholder="OD" '.$disabled.'>';
-                }
-                for ($k = 0; $k < $key['OD_quantity']; $k++) {
+                        echo'<label>OD</label>
+                        <input list="MaterialOD_'.$Profile_num.'_'.$count.'_'.$k.'" value="" id="Select_OD_'.$Profile_num.'_'.$count.'_'.$k.'" name="Select_OD['.$Profile_num.'][]" class="w3-input" required type="text" min="0" placeholder="OD">
+                        <datalist id="MaterialOD_'.$Profile_num.'_'.$count.'_'.$k.'">
+                        </datalist>';
+                    }
+                    echo'</div>
+                    <div class="w3-col l4 s4 w3-padding-left" >';
 
-                    echo'<label>OD</label>
-                    <input list="MaterialOD_'.$Profile_num.'_'.$count.'_'.$k.'" value="" id="Select_OD_'.$Profile_num.'_'.$count.'_'.$k.'" name="Select_OD['.$Profile_num.'][]" class="w3-input" required type="text" min="0" placeholder="OD">
-                    <datalist id="MaterialOD_'.$Profile_num.'_'.$count.'_'.$k.'">
-                    </datalist>';
-                }
-                echo'</div>
-                <div class="w3-col l4 s4 w3-padding-left" >';
+                    if($key['length_quantity']==0){                        
+                        $disabled='readonly';
+                        $value='0';
+                        echo'<label>Length</label>
+                        <input value="'.$value.'" name="Select_Length['.$Profile_num.'][]" class="w3-input w3-light-grey" required type="text" min="0" placeholder="Length" '.$disabled.'>';
+                    }
+                    for ($l = 0; $l < $key['length_quantity']; $l++) {
 
-                if($key['length_quantity']==0){                        
-                    $disabled='readonly';
-                    $value='0';
-                    echo'<label>Length</label>
-                    <input value="'.$value.'" name="Select_Length['.$Profile_num.'][]" class="w3-input w3-light-grey" required type="text" min="0" placeholder="Length" '.$disabled.'>';
-                }
-                for ($l = 0; $l < $key['length_quantity']; $l++) {
+                        echo'<label>LENGTH</label>
+                        <input list="MaterialLength_'.$Profile_num.'_'.$count.'_'.$l.'" value="" id="Select_Length_'.$Profile_num.'_'.$count.'_'.$l.'" name="Select_Length['.$Profile_num.'][]" class="w3-input" required type="text" min="0" placeholder="Length" onkeyup="get_AvailableTube('.$Profile_num.','.$count.');">
+                        <datalist id="MaterialLength_'.$Profile_num.'_'.$count.'_'.$l.'">
+                        </datalist>';
+                    }
+                    echo'</div>
+                    </div>
+                    <div class="w3-col l1 w3-padding-left" id="best_tubeDiv_'.$Profile_num.'_'.$count.'">
+                    <label>BEST TUBE</label>&nbsp;<a class="btn w3-red" id="bestTube_btn_'.$Profile_num.'_'.$count.'" style="padding:0 2px 0 2px;" onclick="getBest_tube('.$Profile_num.','.$count.');"><i class="fa fa-refresh w3-small"></i></a>
+                    <input id="bestTube_'.$Profile_num.'_'.$count.'" name="best_tube[]" value="" class="w3-input" required type="text" placeholder="ID/OD" readonly>
+                    <div class="w3-col l12" id="tube_spinner_'.$Profile_num.'_'.$count.'">
+                    </div>
+                    </div>
+                    <div class="w3-col l2 w3-padding-left">
+                    <label>BEST PRICE</label><input id="base_Price_'.$Profile_num.'_'.$count.'" name="base_Price[]" value="" class="w3-input" min="0" step="0.01" required type="number" placeholder="Base Price"  onfocus="GetMaterialBasePrice('.$Profile_num.','.$count.');">
+                    </div>
+                    <div class="w3-col l1 w3-padding-left">
+                    <label>QUANTITY</label>
+                    <input id="select_Quantity_'.$Profile_num.'_'.$count.'" name="select_Quantity[]" value="1" class="w3-input" min="0" required type="number" placeholder="Quantity" onkeypress="GetFinalPriceForMaterialCalculation('.$Profile_num.','.$count.');" >
+                    </div>
+                    <div class="w3-col l1 w3-padding-left">
+                    <label>DISCOUNT(%)</label>
+                    <input id="discount_'.$Profile_num.'_'.$count.'" name="discount[]" class="w3-input" required type="number" min="0" step="0.01" placeholder="Discount %." onkeypress="GetFinalPriceForMaterialCalculation('.$Profile_num.','.$count.');">
+                    </div>
+                    <div class="w3-col l2 w3-padding-left">
+                    <label>FINAL&nbsp;PRICE</label>
+                    <input id="final_Price_'.$Profile_num.'_'.$count.'" name="final_Price[]" class="w3-input" required type="number" min="0" step="0.01" placeholder="Final Price" onfocus="GetFinalPriceForMaterialCalculation('.$Profile_num.','.$count.');">
+                    </div>
 
-                    echo'<label>LENGTH</label>
-                    <input list="MaterialLength_'.$Profile_num.'_'.$count.'_'.$l.'" value="" id="Select_Length_'.$Profile_num.'_'.$count.'_'.$l.'" name="Select_Length['.$Profile_num.'][]" class="w3-input" required type="text" min="0" placeholder="Length" onkeyup="get_AvailableTube('.$Profile_num.','.$count.');">
-                    <datalist id="MaterialLength_'.$Profile_num.'_'.$count.'_'.$l.'">
-                    </datalist>';
-                }
-                echo'</div>
-                </div>
-                <div class="w3-col l1 w3-padding-left" id="best_tubeDiv_'.$Profile_num.'_'.$count.'">
-                <label>BEST TUBE</label>&nbsp;<a class="btn w3-red" id="bestTube_btn_'.$Profile_num.'_'.$count.'" style="padding:0 2px 0 2px;" onclick="getBest_tube('.$Profile_num.','.$count.');"><i class="fa fa-refresh w3-small"></i></a>
-                <input id="bestTube_'.$Profile_num.'_'.$count.'" name="best_tube[]" value="" class="w3-input" required type="text" placeholder="ID/OD" readonly>
-                <div class="w3-col l12" id="tube_spinner_'.$Profile_num.'_'.$count.'">
-                </div>
-                </div>
-                <div class="w3-col l2 w3-padding-left">
-                <label>BEST PRICE</label><input id="base_Price_'.$Profile_num.'_'.$count.'" name="base_Price[]" value="" class="w3-input" min="0" step="0.01" required type="number" placeholder="Base Price"  onfocus="GetMaterialBasePrice('.$Profile_num.','.$count.');">
-                </div>
-                <div class="w3-col l1 w3-padding-left">
-                <label>QUANTITY</label>
-                <input id="select_Quantity_'.$Profile_num.'_'.$count.'" name="select_Quantity[]" value="1" class="w3-input" min="0" required type="number" placeholder="Quantity" onkeypress="GetFinalPriceForMaterialCalculation('.$Profile_num.','.$count.');" >
-                </div>
-                <div class="w3-col l1 w3-padding-left">
-                <label>DISCOUNT(%)</label>
-                <input id="discount_'.$Profile_num.'_'.$count.'" name="discount[]" class="w3-input" required type="number" min="0" step="0.01" placeholder="Discount %." onkeypress="GetFinalPriceForMaterialCalculation('.$Profile_num.','.$count.');">
-                </div>
-                <div class="w3-col l2 w3-padding-left">
-                <label>FINAL&nbsp;PRICE</label>
-                <input id="final_Price_'.$Profile_num.'_'.$count.'" name="final_Price[]" class="w3-input" required type="number" min="0" step="0.01" placeholder="Final Price" onfocus="GetFinalPriceForMaterialCalculation('.$Profile_num.','.$count.');">
-                </div>
+                    <div class="w3-col l12" id="best_tubeError_'.$Profile_num.'_'.$count.'">
 
-                <div class="w3-col l12" id="best_tubeError_'.$Profile_num.'_'.$count.'">
-
-                </div>
-                <div class="w3-col l2 w3-margin-top" id="available_tube_'.$Profile_num.'_'.$count.'">                     
-                </div>
-                </div>';
-                echo'<div class="w3-col l12 w3-tiny">
+                    </div>
+                    <div class="w3-col l2 w3-margin-top" id="available_tube_'.$Profile_num.'_'.$count.'">                     
+                    </div>
+                    </div>';
+                    echo'<div class="w3-col l12 w3-tiny">
                     <div class="w3-col-l2">
-                     <button type="button" id="fetchAvailableTubeBTN_'.$Profile_num.'_'.$count.'" onclick="getAvailableTubeFromAllBranches('.$Profile_num.','.$count.');" class="btn w3-left btn-sm w3-blue w3-margin">Available Tube</button>
-                     </div>
-                     <div class="w3-col-l4">
-                     <div id="quotation_table" class="w3-col l4 w3-padding">
-                     <table class="table table-bordered table-responsive w3-small" ><!-- table starts here -->
+                    <button type="button" id="fetchAvailableTubeBTN_'.$Profile_num.'_'.$count.'" onclick="getAvailableTubeFromAllBranches('.$Profile_num.','.$count.');" class="btn w3-left btn-sm w3-blue w3-margin">Available Tube</button>
+                    </div>
+                    <div class="w3-col-l4">
+                    <div id="quotation_table" class="w3-col l4 w3-padding">
+                    <table class="table table-bordered table-responsive w3-small" ><!-- table starts here -->
                     <tr style="background-color:black; color:white;">
                     <th class="w3-center">Sr. No</th>
                     <th class="w3-center">#</th>
@@ -260,23 +260,23 @@ class Manage_materials extends CI_controller {
                 $Length_arr = array();
                 
                 foreach ($Select_ID as $ID) {
-                   $multiple_ID = array();
-                   foreach ($ID as $key) {
+                 $multiple_ID = array();
+                 foreach ($ID as $key) {
                     $multiple_ID[]=$key;
                 }
                 $ID_arr[] = $multiple_ID;
             }
 
             foreach ($Select_OD as $OD) {
-               $multiple_OD = array();
-               foreach ($OD as $key) {
+             $multiple_OD = array();
+             foreach ($OD as $key) {
                 $multiple_OD[]=$key;
             }
             $OD_arr[] = $multiple_OD;
         }
         foreach ($Select_Length as $Length) {
-           $multiple_Length = array();
-           foreach ($Length as $key) {
+         $multiple_Length = array();
+         foreach ($Length as $key) {
             $multiple_Length[]=$key;
         }
         $Length_arr[] = $multiple_Length;
@@ -605,34 +605,34 @@ public function fetchmaterial_details() {
         if($response['status'] == 1){//---this is for the response if true 
             $no = 2;
             
-             echo'  <tr id="branch_price_'.$fieldnum.'_'.$countnum.'_1">
-                    <td>1.</td>
-                    <td><input type="radio" name="branchPrice_radio_'.$fieldnum.'_'.$countnum.'" id="branch_id_'.$fieldnum.'_'.$countnum.'_1" checked value="0" onchange=GetMaterialBasePrice('.$fieldnum.','.$countnum.',1);></td>
-                    <td>None of These</td>
-                    <td>N/A</td>
-                    <td>N/A</td>
-                    </tr>';
-                  foreach ($response['status_message'] as $key) {
-                      
-            echo'   <tr id="branch_price_'.$fieldnum.'_'.$countnum.'_'.$no.'">
-                    <td>'.$no.'.</td>
-                    <td><input type="radio" name="branchPrice_radio_'.$fieldnum.'_'.$countnum.'" id="branch_id_'.$fieldnum.'_'.$countnum.'_'.$no.'" value="'.$key['price'].'" onchange=GetMaterialBasePrice('.$fieldnum.','.$countnum.','.$no.');></td>
-                    <td>'.$key['branch_name'].'</td>
-                    <td>'.$key['tube'].'</td>
-                    <td>'.$key['price'].'</td>
-                    </tr>';
-                    $no++;
-             }
+            echo'  <tr id="branch_price_'.$fieldnum.'_'.$countnum.'_1">
+            <td>1.</td>
+            <td><input type="radio" name="branchPrice_radio_'.$fieldnum.'_'.$countnum.'" id="branch_id_'.$fieldnum.'_'.$countnum.'_1" checked value="0" onchange=GetMaterialBasePrice('.$fieldnum.','.$countnum.',1);></td>
+            <td>None of These</td>
+            <td>N/A</td>
+            <td>N/A</td>
+            </tr>';
+            foreach ($response['status_message'] as $key) {
+
+                echo'   <tr id="branch_price_'.$fieldnum.'_'.$countnum.'_'.$no.'">
+                <td>'.$no.'.</td>
+                <td><input type="radio" name="branchPrice_radio_'.$fieldnum.'_'.$countnum.'" id="branch_id_'.$fieldnum.'_'.$countnum.'_'.$no.'" value="'.$key['price'].'" onchange=GetMaterialBasePrice('.$fieldnum.','.$countnum.','.$no.');></td>
+                <td>'.$key['branch_name'].'</td>
+                <td>'.$key['tube'].'</td>
+                <td>'.$key['price'].'</td>
+                </tr>';
+                $no++;
+            }
             
         }else{
             echo'  <tr id="branch_price_'.$fieldnum.'_'.$countnum.'_1">
-                    <td>1.</td>
-                    <td><input type="radio" name="branchPrice_radio_'.$fieldnum.'_'.$countnum.'" id="branch_id_'.$fieldnum.'_'.$countnum.'_1" checked value="0" onchange=GetMaterialBasePrice('.$fieldnum.','.$countnum.',1);></td>
-                    <td>None of These</td>
-                    <td>N/A</td>
-                    <td>N/A</td>
-                    </tr>';
-                      }
+            <td>1.</td>
+            <td><input type="radio" name="branchPrice_radio_'.$fieldnum.'_'.$countnum.'" id="branch_id_'.$fieldnum.'_'.$countnum.'_1" checked value="0" onchange=GetMaterialBasePrice('.$fieldnum.','.$countnum.',1);></td>
+            <td>None of These</td>
+            <td>N/A</td>
+            <td>N/A</td>
+            </tr>';
+        }
     }
     // ---- this function is used to get available tubes from all branches -------//
 

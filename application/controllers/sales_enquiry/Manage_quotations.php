@@ -246,12 +246,12 @@ class Manage_quotations extends CI_Controller
 
 	// --------------------- this fun is used to send quotation to PO ----------------------------------//	
 
-	public function sendTo_PO(){
+	public function sendTo_WO(){
 		extract($_POST);
-		print_r($_POST);
+		//print_r($_POST);
 
 		$path=base_url();
-		$url = $path.'api/manageQuotations_api/sendTo_PO?quotation_id='.$quotation_id;		
+		$url = $path.'api/manageQuotations_api/sendTo_WO?quotation_id='.$quotation_id;		
 		$ch = curl_init($url);
 		curl_setopt($ch, CURLOPT_HTTPGET, true);
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);

@@ -286,21 +286,22 @@ class QuotationForEnquiry_model extends CI_Model {
 
     //----------------------------contact customer END------------------------------//
     //------------this fun is used to get enquiry product by enquiry id--------------------------------//
-    public function sendTo_PO($quotation_id) {
-        $update_quotation = "UPDATE quotation_master SET current_status = '2' WHERE quotation_id = '$quotation_id'";
-        if ($this->db->query($update_quotation)) {
-            $response = array(
-                'status' => 1,
-                'status_message' => 'Quotation sent to PO Successfully');
-        } else {
-            $response = array(
-                'status' => 0,
-                'status_message' => 'Quotation sent to PO Failed!!!');
-        }
-        return $response;
+public function sendTo_WO($quotation_id) {
+    $update_quotation = "INSERT INTO wo_master(quotation_id,dated,time_on) VALUES ('$quotation_id',now(),now())";
+   // echo $update_quotation;die();
+    if ($this->db->query($update_quotation)) {
+        $response = array(
+            'status' => 1,
+            'status_message' => 'Quotation sent to WO Successfully');
+    } else {
+        $response = array(
+            'status' => 0,
+            'status_message' => 'Quotation sent to WO Failed!!!');
     }
+    return $response;
+}
 
-//------------this fun is used to get enquiry product by enquiry id--------------------------------//
+    //------------this fun is used to get enquiry product by enquiry id--------------------------------//
 //----------this fun is used to insert quotation for revised quotation-------------------------------------//
     public function getEnquiry_DetailsFor_MultipleQuotation($data) {
         extract($data);
