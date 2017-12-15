@@ -67,6 +67,7 @@ class ManageEnquiry_api extends REST_Controller {
         $response = $this->ManageEnquiry_model->showAvailable_Tube($material_id, $Material_ID, $Material_OD, $Material_LENGTH);
         return $this->response($response);
     }
+    //---------------------THIS FUN IS USED TO GET AVAILABLE TUBE-----------------------------//
     //---------------------THIS FUN IS USED TO GET AVAILABLE TUBE FROM RAW MATERIAL-----------------------------//
     public function getAvailableTubeFromAllBranches_get(){
         $material_id = $_GET['material_id'];
@@ -75,6 +76,16 @@ class ManageEnquiry_api extends REST_Controller {
         $response = $this->ManageEnquiry_model->getAvailableTubeFromAllBranches($material_id, $Material_ID, $Material_OD);
         return $this->response($response);
     }
+    //---------------------THIS FUN IS USED TO GET AVAILABLE TUBE FROM RAW MATERIAL-----------------------------//
+    //---------------------THIS FUN IS USED TO GET BEST PRICE FOR AVAILABLE TUBE FROM RAW MATERIAL-----------------------------/
+    public function GetMaterialBasePrice_byBranchPrice_get(){
+        $branchprice = $_GET['branchprice'];
+        $Material_LENGTH = $_GET['Material_LENGTH'];
+        $response = $this->ManageEnquiry_model->GetMaterialBasePrice_byBranchPrice($branchprice, $Material_LENGTH);
+        return $this->response($response);
+    }
+    //---------------------THIS FUN IS USED TO GET BEST PRICE FOR AVAILABLE TUBE FROM RAW MATERIAL-----------------------------/
+
 }
 
 ?>

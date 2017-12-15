@@ -67,6 +67,20 @@ class ManageEnquiry_model extends CI_Model {
         }
         return $response;
     }
+    public function GetMaterialBasePrice_byBranchPrice($branchprice, $Material_LENGTH){
+        $customizevalue = ManageEnquiry_model::getcustomizedvalueforCalculation();
+        $setting_value = json_decode($customizevalue, TRUE);
+        //print_r($setting_value);
+        $cut_value = 0;
+        $profit_margin = 0;
+        $single_cost = 0;
+        $cut_value = $setting_value['cut_value'];
+        $profit_margin = $setting_value['profit_margin'];
+
+        $single_cost = $branchprice * ($profit_margin * ($cut_value + $Material_LENGTH));
+
+        return $single_cost;
+    }
 
 //-----this fun is used to get material base price calculations-------------//
     public function GetMaterialBasePrice($material_id, $MaterialID, $MaterialOD, $MaterialLength) {

@@ -124,9 +124,10 @@ class Manage_enquiry extends CI_controller {
 //------------this fun is used to get calculation of material base price-------------//
     public function GetMaterialBasePrice() {
         extract($_POST);
+       // print_r($_POST);die();
+
         $Material_ID=0;
         $Material_OD=0;
-//print_r($_POST);die();
         if(isset($bestTube) && $bestTube!='N/A' && isset($MaterialLength) && isset($Materialinfo)){
 
             $materialID_OD = explode("/", $bestTube);            
@@ -149,4 +150,25 @@ class Manage_enquiry extends CI_controller {
     }
 
 //    -----------this fun is show fetched material info page
+    public function GetMaterialBasePrice_byBranchPrice(){
+        extract($_POST);
+        
+//print_r($_POST);die();
+        if(isset($branchprice) && $branchprice!=0 && isset($MaterialLength)){
+           
+            $Material_LENGTH = max($MaterialLength);
+            $path = base_url();
+            $url = $path . 'api/ManageEnquiry_api/GetMaterialBasePrice_byBranchPrice?branchprice='.$branchprice.'&Material_LENGTH='.$Material_LENGTH;
+            //echo $url;die();
+            $ch = curl_init($url);
+            curl_setopt($ch, CURLOPT_HTTPGET, true);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            $response_json = curl_exec($ch);
+            curl_close($ch);
+            $response = json_decode($response_json, true);
+            echo $response_json;
+        } else{
+            echo '0.00';
+        }
+    }
 }
