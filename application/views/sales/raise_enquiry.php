@@ -534,9 +534,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         //--------------get best tube end-----------------------
     </script>
     <script>
-        function getAvailableTubeFromAllBranches(fieldnum, countnum){
-            Materialinfo = $('#Materialinfo_' + fieldnum + '_' + countnum + ' [value="' + $('#Select_material_' + fieldnum + '_' + countnum).val() + '"]').data('value');
-            bestTube = $('#bestTube_' + fieldnum + '_' + countnum).val();
+
+    function getAvailableTubeFromAllBranches(fieldnum, countnum){
+        Materialinfo = $('#Materialinfo_' + fieldnum + '_' + countnum + ' [value="' + $('#Select_material_' + fieldnum + '_' + countnum).val() + '"]').data('value');
+        bestTube = $('#bestTube_' + fieldnum + '_' + countnum).val();
+        document.getElementById('hiddentInputForBranch_Price_'+ fieldnum + '_' + countnum).value='1';
         //alert(Materialinfo);
         $.ajax({
             type: "POST",
@@ -556,19 +558,23 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             });
     }
 </script>
-<script>
-    function GetMaterialBasePrice(fieldnum, countnum) {
-        Materialinfo = 0;
-        MaterialLength = 0;
-        Materialinfo = $('#Materialinfo_' + fieldnum + '_' + countnum + ' [value="' + $('#Select_material_' + fieldnum + '_' + countnum + '').val() + '"]').data('value');
 
-        var MaterialLength = [];
-        $("#Div_no_" + fieldnum + "_" + countnum + " input[name='Select_Length[" + fieldnum + "][]']").each(function ()
-        {
-            MaterialLength.push($(this).val());
-        });
-        bestTube = $('#bestTube_' + fieldnum + '_' + countnum).val();
-        //alert(bestTube);
+    <script>
+        //----this funis used to get value from table to perform bestprice calculations
+        function GetMaterialBasePrice(fieldnum, countnum ,cellnum) {
+            Materialinfo = 0;
+            MaterialLength = 0;
+            branchprice = 0;
+            Materialinfo = $('#Materialinfo_' + fieldnum + '_' + countnum + ' [value="' + $('#Select_material_' + fieldnum + '_' + countnum + '').val() + '"]').data('value');
+            document.getElementById('hiddentInputForBranch_Price_'+fieldnum + '_' + countnum).value = '0';
+            var MaterialLength = [];
+            $("#Div_no_" + fieldnum + "_" + countnum + " input[name='Select_Length[" + fieldnum + "][]']").each(function ()
+            {
+                MaterialLength.push($(this).val());//--this is for get material length array...
+            });
+            bestTube = $('#bestTube_' + fieldnum + '_' + countnum).val();
+            hiddentInputForBranch_Price = document.getElementById('hiddentInputForBranch_Price_'+fieldnum + '_' + countnum).value;
+        if(hiddentInputForBranch_Price == 0){//---if this hidden text box is value is 0 then perform the material bestprice  calculations
         $.ajax({
             type: "POST",
             url: BASE_URL + "inventory/Manage_enquiry/GetMaterialBasePrice",
@@ -580,12 +586,27 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 return: false, //stop the actual form post !important!
                 success: function (data)
                 {
-                   // alert(data);
                    $('#base_Price_' + fieldnum + '_' + countnum).val(data);
                }
            });
+       }else{
+           branchprice = document.getElementById('branch_id_'+ fieldnum + '_' + countnum + '_' +cellnum).value;
+           $.ajax({
+            type: "POST",//----this funis used to get value from table to perform bestprice calculations
+            url: BASE_URL + "inventory/Manage_enquiry/GetMaterialBasePrice_byBranchPrice",
+            data: {
+                MaterialLength: MaterialLength,
+                branchprice: branchprice
+            },
+                return: false, //stop the actual form post !important!
+                success: function (data)
+                {
+                   $('#base_Price_' + fieldnum + '_' + countnum).val(data);
+               }
+           });
+       }
     }
-
+//----this funis used to get value from table to perform bestprice calculations
 </script>
 
 <!-- get customer id and profile id in hidden text input -->

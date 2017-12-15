@@ -187,7 +187,8 @@ class Manage_materials extends CI_controller {
                     <th class="w3-center">Tube</th>
                     <th class="w3-center">Price</th>
                     </tr>
-                    <tbody id = "allbranchAvailable_tube_'.$Profile_num.'_'.$count.'">                    
+                    <tbody id = "allbranchAvailable_tube_'.$Profile_num.'_'.$count.'">
+                    <input type ="hidden" id="hiddentInputForBranch_Price_'.$Profile_num.'_'.$count.'" value="0" name="hiddentInputForBranch_Price_'.$fieldnum.'_'.$countnum.'">
                     </tbody>
                     </table>
                     </div>
@@ -601,28 +602,37 @@ public function fetchmaterial_details() {
         $response = json_decode($response_json, true);
         //print_r($response_json);        die();
         
-        if($response['status'] == 1){
-            $no = 1;
+        if($response['status'] == 1){//---this is for the response if true 
+            $no = 2;
+            
+             echo'  <tr id="branch_price_'.$fieldnum.'_'.$countnum.'_1">
+                    <td>1.</td>
+                    <td><input type="radio" name="branchPrice_radio_'.$fieldnum.'_'.$countnum.'" id="branch_id_'.$fieldnum.'_'.$countnum.'_1" checked value="0" onchange=GetMaterialBasePrice('.$fieldnum.','.$countnum.',1);></td>
+                    <td>None of These</td>
+                    <td>N/A</td>
+                    <td>N/A</td>
+                    </tr>';
                   foreach ($response['status_message'] as $key) {
+                      
             echo'   <tr id="branch_price_'.$fieldnum.'_'.$countnum.'_'.$no.'">
-                    <td>'.$no.'</td>
-                    <td><input type="radio" name="branchPrice_radio_'.$fieldnum.'_'.$countnum.'" id=""></td>
+                    <td>'.$no.'.</td>
+                    <td><input type="radio" name="branchPrice_radio_'.$fieldnum.'_'.$countnum.'" id="branch_id_'.$fieldnum.'_'.$countnum.'_'.$no.'" value="'.$key['price'].'" onchange=GetMaterialBasePrice('.$fieldnum.','.$countnum.','.$no.');></td>
                     <td>'.$key['branch_name'].'</td>
                     <td>'.$key['tube'].'</td>
                     <td>'.$key['price'].'</td>
                     </tr>';
                     $no++;
              }
-             echo'  <tr id="branch_price_'.$fieldnum.'_'.$countnum.'_'.$no.'">
-                    <td>'.$no.'</td>
-                    <td><input type="radio" name="branchPrice_radio_'.$fieldnum.'_'.$countnum.'" id="" checked></td>
+            
+        }else{
+            echo'  <tr id="branch_price_'.$fieldnum.'_'.$countnum.'_1">
+                    <td>1.</td>
+                    <td><input type="radio" name="branchPrice_radio_'.$fieldnum.'_'.$countnum.'" id="branch_id_'.$fieldnum.'_'.$countnum.'_1" checked value="0" onchange=GetMaterialBasePrice('.$fieldnum.','.$countnum.',1);></td>
                     <td>None of These</td>
                     <td>N/A</td>
                     <td>N/A</td>
                     </tr>';
-        }else{
-            echo'<tr> No Tube Available For This Branch..! </tr>';
-        }
+                      }
     }
     // ---- this function is used to get available tubes from all branches -------//
 
