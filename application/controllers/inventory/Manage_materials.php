@@ -69,9 +69,11 @@ class Manage_materials extends CI_controller {
                 for ($material_count=0; $material_count < $key['material_quantity']; $material_count++) { 
                    
 
-                echo'<div class="w3-col l12 w3-tiny w3-margin-top" id="Div_no_'.$Profile_num.'_'.$count.'">
-
-                <div class="w3-col l2">';
+                echo'<div class="w3-col l12 w3-tiny w3-margin-top" id="Div_no_'.$Profile_num.'_'.$count.'">';
+                echo '<div class="w3-col l12">
+                <input name="make_boughtOut[]" data-onstyle="danger" data-size="mini" id="make_boughtOut_'.$Profile_num.'_'.$count.'" type="checkbox" data-toggle="toggle" data-on="ON" data-off="OFF" value="1" onchange="makeBought_out('.$Profile_num.','.$count.')">
+                </div>';
+                echo '<div class="w3-col l2">';
                 echo'<label>MATERIAL</label>';
                 echo'<input onclick="this.select();" autocomplete="off" list="Materialinfo_'.$Profile_num.'_'.$count.'" value="'.$key['material_name'].'" id="Select_material_'.$Profile_num.'_'.$count.'" name="Select_material[]" class="w3-input" required type="text" placeholder="Material" onchange="get_AvailableTube('.$Profile_num.','.$count.');">';
 
@@ -143,8 +145,8 @@ class Manage_materials extends CI_controller {
                 }
                 echo'</div>
                 </div>
-                <div class="w3-col l1 w3-padding-left">
-                <label>BEST TUBE</label>&nbsp;<a class="btn w3-red" style="padding:0 2px 0 2px;" onclick="getBest_tube('.$Profile_num.','.$count.');"><i class="fa fa-refresh w3-small"></i></a>
+                <div class="w3-col l1 w3-padding-left" id="best_tubeDiv_'.$Profile_num.'_'.$count.'">
+                <label>BEST TUBE</label>&nbsp;<a class="btn w3-red" id="bestTube_btn_'.$Profile_num.'_'.$count.'" style="padding:0 2px 0 2px;" onclick="getBest_tube('.$Profile_num.','.$count.');"><i class="fa fa-refresh w3-small"></i></a>
                 <input id="bestTube_'.$Profile_num.'_'.$count.'" name="best_tube[]" value="" class="w3-input" required type="text" placeholder="ID/OD" readonly>
                 <div class="w3-col l12" id="tube_spinner_'.$Profile_num.'_'.$count.'">
                 </div>
@@ -154,7 +156,7 @@ class Manage_materials extends CI_controller {
                 </div>
                 <div class="w3-col l1 w3-padding-left">
                 <label>QUANTITY</label>
-                <input id="select_Quantity_'.$Profile_num.'_'.$count.'" name="select_Quantity[]" value="1" class="w3-input" min="0" required type="number" placeholder="Quantity" onkeypress="GetFinalPriceForMaterialCalculation('.$Profile_num.','.$count.');">
+                <input id="select_Quantity_'.$Profile_num.'_'.$count.'" name="select_Quantity[]" value="1" class="w3-input" min="0" required type="number" placeholder="Quantity" onkeypress="GetFinalPriceForMaterialCalculation('.$Profile_num.','.$count.');" >
                 </div>
                 <div class="w3-col l1 w3-padding-left">
                 <label>DISCOUNT(%)</label>

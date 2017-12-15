@@ -10,8 +10,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <link rel="stylesheet" href="<?php echo base_url(); ?>css/bootstrap/bootstrap.min.css">
     <link rel="stylesheet" href="<?php echo base_url(); ?>css/font awesome/font-awesome.min.css">
     <link rel="stylesheet" href="<?php echo base_url(); ?>css/font awesome/font-awesome.css">
+    <link href="<?php echo base_url(); ?>css/bootstrap/bootstrap-toggle.min.css" rel="stylesheet">
     <link rel="stylesheet" href="<?php echo base_url(); ?>css/w3.css">
+
     <script type="text/javascript" src="<?php echo base_url(); ?>css/bootstrap/jquery-3.1.1.js"></script>
+    <script src="<?php echo base_url(); ?>css/bootstrap/bootstrap-toggle.min.js"></script>
     <script type="text/javascript" src="<?php echo base_url(); ?>css/bootstrap/bootstrap.min.js"></script>
     <script type="text/javascript" src="<?php echo base_url(); ?>css/js/config.js"></script>
     <script type="text/javascript" src="<?php echo base_url(); ?>css/js/inventory/fetchmaterial_Details.js"></script>
@@ -233,11 +236,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <script>
         function GetProductfinalPrice(rownum){
 
-           final_Price = 0;
-           var final_Price = [];
-           FinalPricesum = 0;
-           ProductQuantity = document.getElementById('Product_Quantity_' + rownum).value;
-           TotalProduct_Price = $('#TotalProduct_Price_' + rownum).val();
+         final_Price = 0;
+         var final_Price = [];
+         FinalPricesum = 0;
+         ProductQuantity = document.getElementById('Product_Quantity_' + rownum).value;
+         TotalProduct_Price = $('#TotalProduct_Price_' + rownum).val();
     productDiscount = $('#Product_Discount_' + rownum).val();   //------discount value set to the text field 
     
      $('#Product_' + rownum + ' input[name="final_Price[]"]').each(function ()  //get material final price array
@@ -363,7 +366,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             }
         }); //this fun is used to get available tube for product material---------//
     }
-  
+
 </script>
 </head>
 <body class="w3-light-grey">
@@ -531,9 +534,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         //--------------get best tube end-----------------------
     </script>
     <script>
-    function getAvailableTubeFromAllBranches(fieldnum, countnum){
-        Materialinfo = $('#Materialinfo_' + fieldnum + '_' + countnum + ' [value="' + $('#Select_material_' + fieldnum + '_' + countnum).val() + '"]').data('value');
-        bestTube = $('#bestTube_' + fieldnum + '_' + countnum).val();
+        function getAvailableTubeFromAllBranches(fieldnum, countnum){
+            Materialinfo = $('#Materialinfo_' + fieldnum + '_' + countnum + ' [value="' + $('#Select_material_' + fieldnum + '_' + countnum).val() + '"]').data('value');
+            bestTube = $('#bestTube_' + fieldnum + '_' + countnum).val();
         //alert(Materialinfo);
         $.ajax({
             type: "POST",
@@ -552,19 +555,19 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 }
             });
     }
-    </script>
-    <script>
-        function GetMaterialBasePrice(fieldnum, countnum) {
-            Materialinfo = 0;
-            MaterialLength = 0;
-            Materialinfo = $('#Materialinfo_' + fieldnum + '_' + countnum + ' [value="' + $('#Select_material_' + fieldnum + '_' + countnum + '').val() + '"]').data('value');
+</script>
+<script>
+    function GetMaterialBasePrice(fieldnum, countnum) {
+        Materialinfo = 0;
+        MaterialLength = 0;
+        Materialinfo = $('#Materialinfo_' + fieldnum + '_' + countnum + ' [value="' + $('#Select_material_' + fieldnum + '_' + countnum + '').val() + '"]').data('value');
 
-            var MaterialLength = [];
-            $("#Div_no_" + fieldnum + "_" + countnum + " input[name='Select_Length[" + fieldnum + "][]']").each(function ()
-            {
-                MaterialLength.push($(this).val());
-            });
-            bestTube = $('#bestTube_' + fieldnum + '_' + countnum).val();
+        var MaterialLength = [];
+        $("#Div_no_" + fieldnum + "_" + countnum + " input[name='Select_Length[" + fieldnum + "][]']").each(function ()
+        {
+            MaterialLength.push($(this).val());
+        });
+        bestTube = $('#bestTube_' + fieldnum + '_' + countnum).val();
         //alert(bestTube);
         $.ajax({
             type: "POST",
@@ -616,6 +619,35 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             finalprice = ((parseInt(baseprice) * parseInt(quantity)) - ((parseInt(discount) / 100) * (parseInt(baseprice) * parseInt(quantity))));
         }
         $("#final_Price_" + fieldnum + "_" + countnum).val(finalprice);
+    }
+
+</script>
+<!-- script end -->
+
+<!-- script to get final price -->
+<script>
+    function makeBought_out(fieldnum, countnum) {
+
+        if(document.getElementById('make_boughtOut_'+fieldnum+'_'+countnum).checked){
+            //best tube disable/enable change
+            document.getElementById('bestTube_'+fieldnum+'_'+countnum).value = '0';
+            document.getElementById('bestTube_'+fieldnum+'_'+countnum).disabled = true;
+            document.getElementById('best_tubeDiv_'+fieldnum+'_'+countnum).disabled = true;
+
+            //best price disable/enable change
+            document.getElementById('base_Price_'+fieldnum+'_'+countnum).value = '0.00';
+            document.getElementById('base_Price_'+fieldnum+'_'+countnum).disabled = true;
+        }
+        else{
+            //best tube disable/enable change
+            document.getElementById('bestTube_'+fieldnum+'_'+countnum).value = '';
+            document.getElementById('bestTube_'+fieldnum+'_'+countnum).disabled = false;
+            document.getElementById('best_tubeDiv_'+fieldnum+'_'+countnum).disabled = false;
+
+            //best price disable/enable change
+            document.getElementById('base_Price_'+fieldnum+'_'+countnum).value = '';
+            document.getElementById('base_Price_'+fieldnum+'_'+countnum).disabled = false;
+        }
     }
 
 </script>
