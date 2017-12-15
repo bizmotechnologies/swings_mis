@@ -67,6 +67,7 @@ class ManageEnquiry_model extends CI_Model {
         }
         return $response;
     }
+    //----this funis used to get value from table to perform bestprice calculations
     public function GetMaterialBasePrice_byBranchPrice($branchprice, $Material_LENGTH){
         $customizevalue = ManageEnquiry_model::getcustomizedvalueforCalculation();
         $setting_value = json_decode($customizevalue, TRUE);
@@ -81,7 +82,7 @@ class ManageEnquiry_model extends CI_Model {
 
         return $single_cost;
     }
-
+//----this funis used to get value from table to perform bestprice calculations
 //-----this fun is used to get material base price calculations-------------//
     public function GetMaterialBasePrice($material_id, $MaterialID, $MaterialOD, $MaterialLength) {
 

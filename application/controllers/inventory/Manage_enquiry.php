@@ -171,4 +171,5 @@ class Manage_enquiry extends CI_controller {
             echo '0.00';
         }
     }
+    //----this funis used to get value from table to perform bestprice calculations
 }

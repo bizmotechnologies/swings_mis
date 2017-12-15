@@ -555,6 +555,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     }
     </script>
     <script>
+        //----this funis used to get value from table to perform bestprice calculations
         function GetMaterialBasePrice(fieldnum, countnum ,cellnum) {
             Materialinfo = 0;
             MaterialLength = 0;
@@ -585,9 +586,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
            });
        }else{
            branchprice = document.getElementById('branch_id_'+ fieldnum + '_' + countnum + '_' +cellnum).value;
-           alert(branchprice);
            $.ajax({
-            type: "POST",
+            type: "POST",//----this funis used to get value from table to perform bestprice calculations
             url: BASE_URL + "inventory/Manage_enquiry/GetMaterialBasePrice_byBranchPrice",
             data: {
                 MaterialLength: MaterialLength,
@@ -601,7 +601,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
            });
        }
     }
-
+//----this funis used to get value from table to perform bestprice calculations
 </script>
 
 <!-- get customer id and profile id in hidden text input -->
