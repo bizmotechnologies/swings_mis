@@ -186,11 +186,11 @@ error_reporting(E_ERROR | E_PARSE);
                                     <div class="w3-col l12 w3-margin-bottom">
                                         <div class="col-lg-7 col-lg-offset-3">
                                         <div class=" w3-col l12 w3-left">
-                                            <input type="radio" name="Updatedvendor_tag" value="1"'; if($details['status_message'][$i]['vendor_tag']=='1'){ echo 'selected'; } echo'><b>&nbsp;Vendor For Raw Material.</b></div>
+                                            <input type="radio" name="Updatedvendor_tag" value="1"'; if($details['status_message'][$i]['vendor_tag']=='1'){ echo 'checked'; } echo'><b>&nbsp;Vendor For Raw Material.</b></div>
                                             <div class="w3-col l12 w3-left">
-                                            <input type="radio" name="Updatedvendor_tag" value="2"'; if($details['status_message'][$i]['vendor_tag']=='2'){ echo 'selected'; } echo'><b>&nbsp;Vendor For Bought out Materials.</b></div>
+                                            <input type="radio" name="Updatedvendor_tag" value="2"'; if($details['status_message'][$i]['vendor_tag']=='2'){ echo 'checked'; } echo'><b>&nbsp;Vendor For Bought out Materials.</b></div>
                                             <div class="w3-col l12 w3-left">
-                                            <input type="radio" name="Updatedvendor_tag" value="3"'; if($details['status_message'][$i]['vendor_tag']=='3'){ echo 'selected'; } echo'><b>&nbsp;Both.</b></div>
+                                            <input type="radio" name="Updatedvendor_tag" value="3"'; if($details['status_message'][$i]['vendor_tag']=='3'){ echo 'checked'; } echo'><b>&nbsp;Both.</b></div>
                                         </div>
                                     </div>
                                     
@@ -491,7 +491,7 @@ error_reporting(E_ERROR | E_PARSE);
 $(function () {
     $("#VendorDetailsForm").submit(function () {
         dataString = $("#VendorDetailsForm").serialize();
-        alert(dataString);
+        //alert(dataString);
         $.ajax({
             type: "POST",
             url: BASE_URL + "inventory/Vendor_Management/save_VendorDetails",
