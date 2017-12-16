@@ -286,20 +286,34 @@ class QuotationForEnquiry_model extends CI_Model {
 
     //----------------------------contact customer END------------------------------//
     //------------this fun is used to get enquiry product by enquiry id--------------------------------//
-public function sendTo_WO($quotation_id) {
-    $update_quotation = "INSERT INTO wo_master(quotation_id,dated,time_on) VALUES ('$quotation_id',now(),now())";
-   // echo $update_quotation;die();
-    if ($this->db->query($update_quotation)) {
-        $response = array(
-            'status' => 1,
-            'status_message' => 'Quotation sent to WO Successfully');
-    } else {
-        $response = array(
-            'status' => 0,
-            'status_message' => 'Quotation sent to WO Failed!!!');
+    public function sendTo_WO($quotation_id) {
+        $this->load->model('sales_model/Enquiry_model');
+        $quotation_details=$this->Enquiry_model->getQuotation($quotation_id);
+        $products=$quotation_details[0]['product_associated'];
+         //---------------if record not found-------------
+        if (isset($quotation_details['status']) && $quotation_details['status']==0) {
+            $response = array(
+                'status' =>0,
+                'status_message' => 'Quotation record not found');
+            return $response;
+            die();
+        }
+
+        $insert_quotation = "INSERT INTO wo_master(quotation_id,product_associated,dated,time_on) VALUES ('$quotation_id','$products',now(),now())";
+   
+        if ($this->db->query($insert_quotation)) {
+            $update_quotation = "UPDATE quotation_master SET current_status = '2' WHERE quotation_id = '$quotation_id'";
+            $this->db->query($update_quotation);
+            $response = array(
+                'status' => 1,
+                'status_message' => 'Quotation sent to WO Successfully');
+        } else {
+            $response = array(
+                'status' => 0,
+                'status_message' => 'Quotation sent to WO Failed!!!');
+        }
+        return $response;
     }
-    return $response;
-}
 
     //------------this fun is used to get enquiry product by enquiry id--------------------------------//
 //----------this fun is used to insert quotation for revised quotation-------------------------------------//

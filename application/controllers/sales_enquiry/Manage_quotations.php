@@ -244,7 +244,7 @@ class Manage_quotations extends CI_Controller
 	}
     // --------------------- this fun is used to get all enquiry for quotation ends here----------------------------------//	
 
-	// --------------------- this fun is used to send quotation to PO ----------------------------------//	
+	// --------------------- this fun is used to send quotation to WO ----------------------------------//	
 
 	public function sendTo_WO(){
 		extract($_POST);
@@ -258,11 +258,10 @@ class Manage_quotations extends CI_Controller
 		$response_json = curl_exec($ch);
 		curl_close($ch);
 		$response=json_decode($response_json, true);
-		print_r($response_json);
-
-		//redirect('sales_enquiry/manage_quotations');
+		//echo($response_json);
+		echo($response['status_message']);
 	}
-        // --------------------- this fun is used to to send quotation to PO ----------------------------------//
+        // --------------------- this fun is used to to send quotation to WO ----------------------------------//
 
 
 	// --------------------- this fun is used to get sort quotation by customer and date ----------------------------------//	

@@ -107,7 +107,7 @@ error_reporting(E_ERROR | E_PARSE);
         <!-- div for enquiry table data -->  
         <div class="w3-col l12" id = "Show_EnquiriesTable">
 
-          <div id="quotation_table" class="w3-col l12 w3-padding" style="max-height: 300px; overflow-y:auto;">
+          <div id="enquiry_table" class="w3-col l12 w3-padding" style="max-height: 300px; overflow-y:auto;">
             <table class="table table-bordered table-responsive w3-small" ><!-- table starts here -->
               <tr style="background-color:black; color:white;" >
                 <th class="w3-center">Sr.No</th>
@@ -212,7 +212,7 @@ error_reporting(E_ERROR | E_PARSE);
                   <label class="w3-label">Sort By:</label>
                   <select class="form-control" id="Sort_by" name="Sort_by" onchange="sort_byStatus();">
                     <option value="1">LIVE</option>
-                    <option value="2">PO</option>
+                    <option value="2">WO</option>
                   </select>
                 </div>
               </div>
@@ -254,7 +254,7 @@ error_reporting(E_ERROR | E_PARSE);
                     $hide='';
 
                     if($key['current_status']=='2'){
-                      $current_stat='In PO';
+                      $current_stat='In WO';
                       $color='w3-red';
                       $hide='w3-hide';
                     }
@@ -272,7 +272,7 @@ error_reporting(E_ERROR | E_PARSE);
                     <div class="w3-col l12 w3-text-grey">
                     <a class="btn w3-medium" style="padding:0px;" data-toggle="modal" data-target="#viewQuote_modal_'.$key['quotation_id'].'" title="View Quotation"><i class="fa fa-eye"></i></a>
 
-                    <a class="btn w3-medium '.$hide.'" style="padding:0px;" onclick="send_ToWO('.$quotation_id.');" title="Send to PO"><i class="fa fa-sign-out"></i></a>
+                    <a class="btn w3-medium '.$hide.'" style="padding:0px;" onclick="send_ToWO('.$quotation_id.');" title="Send to WO"><i class="fa fa-sign-out"></i></a>
 
                     <a class="btn w3-medium" style="padding:0px;" onclick="send_mail('.$customer_id.',\''.$customer_name.'\','.$quotation_id.')" title="Send To Client"><i class="fa fa-envelope"></i></a>
                     </div>                      
@@ -616,6 +616,7 @@ error_reporting(E_ERROR | E_PARSE);
             },
             success:function(response) {
               $.alert(response);
+              $("#quotation_table").load(location.href + " #quotation_table>*", "");
             }
           });
         },
