@@ -25,7 +25,7 @@ class ManageProfile_api extends REST_Controller {
     //-------------------------------------------------------------//
     public function profileDetails_get() {
         $profile_id = $_GET['profile_id'];
-        $result = $this->ManageProfile_model->getProfile_details($profile_id);
+        $result = $this->ManageProfile_model->get_profileDetails($profile_id);
         return $this->response($result);
     }
 

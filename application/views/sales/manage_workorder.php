@@ -79,7 +79,7 @@
       </div>
       <div class="w3-col l8 w3-margin-top w3-padding-left">
         <div class="w3-col l12 w3-small w3-margin-top">
-          <div class="w3-col l12 w3-margin-top" id="wo_details">         
+          <div class="w3-col l12 w3-margin-top" id="wo_details" style="overflow-x: scroll">         
 
         </div>
       </div>
@@ -102,5 +102,25 @@
 
     }
   </script>
+
+<script>
+  // ----function to preview selected image for profile------//
+function readURL(input,count,x) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+
+        reader.onload = function (e) {
+            $('#profile_imagePreview_'+count+'_'+x).attr('src', e.target.result);
+        }
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+// function getImage(count) {
+//     $("#profile_image_"+count).change(function(){
+//         readURL(this,count);
+//     });
+// }
+// ------------function preview image end------------------//
+</script>
 </body>
 </html>
