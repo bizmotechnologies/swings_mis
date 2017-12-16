@@ -31,7 +31,7 @@
     </header>
 
     <div class="w3-container">
-      <div class="w3-col l5">
+      <div class="w3-col l4">
         <header class="w3-container" >
           <h6><b><i class="fa fa-hand-o-up"></i> Raise Work Order</b></h6>
           <span class="w3-small"></span>
@@ -45,7 +45,7 @@
                   <th class="text-center">Work Order No.</th>
                   <th class="text-center">Quotation No.</th>              
                   <th class="text-center"> Issued On</th>              
-                  <th class="text-center">Actions</th>                                           
+                  <th class="text-center">#</th>                                           
                 </tr>
                 <?php  
                 if($wo_info['status']==1){
@@ -60,7 +60,7 @@
                       <td class="text-center">#QUO-0<?php echo $row['quotation_id'];?></td>
                       <td class="text-center"><?php echo $date;?><br><?php echo $time;?></td>
                       <td class="text-center w3-medium">  <!-- onclick="show_WO_id_info('<?php echo $row['wo_id']; ?>');" --> 
-                        <a class="btn w3-medium '.$hide.'" style="padding:0px;" title="View Work Order"><i class="fa fa-eye" ></i>
+                        <a class="btn w3-medium '.$hide.'" style="padding:0px;" title="View Work Order"><i class="fa fa-eye" onclick="show_WO_id_info('<?php echo $row['wo_id']; ?>');"></i>
                         </a>                        
                       </td>
                     </tr>  
@@ -77,12 +77,10 @@
           </div>
         </div>
       </div>
-      <div class="w3-col l7 w3-margin-top w3-padding-left">
+      <div class="w3-col l8 w3-margin-top w3-padding-left">
         <div class="w3-col l12 w3-small w3-margin-top">
-          <div class="w3-col l12 w3-margin-top">
-            <div class= "w3-margin-top" id="wo_details">
-            </div> 
-          </div>
+          <div class="w3-col l12 w3-margin-top" id="wo_details">         
+
         </div>
       </div>
     </div>
@@ -90,26 +88,18 @@
   <script type="text/javascript">
     function show_WO_id_info(wo_id)
     {
-
-      $.confirm({
-        title: '<label class="w3-large w3-text-red"><i class="fa fa-envelope"></i> Send  to Work Order.</label>',
-        content: '<span class="w3-medium">Do You really want to send '+wo_id+' to Work Order ?</span>',
-        buttons: {
-          confirm: function () {
-            $.ajax({
-              type:'post',
-              url:BASE_URL+'sales_enquiry/Manage_workorder/show_WO_id_info',
-              data:{
-                wo_id:wo_id
-              },
-              success:function(response) {
-                $('#wo_details').html(response);
-              }
-            });
-          },
-          cancel: function () {}
+    $("#wo_details").html('<center><img width="60%" height="auto" src="'+BASE_URL+'css/logos/page_spinner3.gif"/></center>');     
+      $.ajax({
+        type:'post',
+        url:BASE_URL+'sales_enquiry/Manage_workorder/show_WO_id_info',
+        data:{
+          wo_id:wo_id
+        },
+        success:function(response) {
+          $('#wo_details').html(response);
         }
       });
+
     }
   </script>
 </body>

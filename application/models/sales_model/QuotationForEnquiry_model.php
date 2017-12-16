@@ -289,6 +289,7 @@ class QuotationForEnquiry_model extends CI_Model {
     public function sendTo_WO($quotation_id) {
         $this->load->model('sales_model/Enquiry_model');
         $quotation_details=$this->Enquiry_model->getQuotation($quotation_id);
+        
         $products=$quotation_details[0]['product_associated'];
          //---------------if record not found-------------
         if (isset($quotation_details['status']) && $quotation_details['status']==0) {
