@@ -244,25 +244,24 @@ class Manage_quotations extends CI_Controller
 	}
     // --------------------- this fun is used to get all enquiry for quotation ends here----------------------------------//	
 
-	// --------------------- this fun is used to send quotation to PO ----------------------------------//	
+	// --------------------- this fun is used to send quotation to WO ----------------------------------//	
 
-	public function sendTo_PO(){
+	public function sendTo_WO(){
 		extract($_POST);
-		print_r($_POST);
+		//print_r($_POST);
 
 		$path=base_url();
-		$url = $path.'api/manageQuotations_api/sendTo_PO?quotation_id='.$quotation_id;		
+		$url = $path.'api/manageQuotations_api/sendTo_WO?quotation_id='.$quotation_id;		
 		$ch = curl_init($url);
 		curl_setopt($ch, CURLOPT_HTTPGET, true);
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 		$response_json = curl_exec($ch);
 		curl_close($ch);
 		$response=json_decode($response_json, true);
-		print_r($response_json);
-
-		//redirect('sales_enquiry/manage_quotations');
+		//echo($response_json);
+		echo($response['status_message']);
 	}
-        // --------------------- this fun is used to to send quotation to PO ----------------------------------//
+        // --------------------- this fun is used to to send quotation to WO ----------------------------------//
 
 
 	// --------------------- this fun is used to get sort quotation by customer and date ----------------------------------//	

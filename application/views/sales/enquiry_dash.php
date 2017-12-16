@@ -41,10 +41,10 @@ error_reporting(E_ERROR | E_PARSE);
           </div>
         </a>
 
-        <a class="btn w3-col l2  w3-round-xxlarge w3-card-4 w3-center w3-hover-light-blue w3-red w3-padding-16 w3-margin-right w3-margin-bottom" href="#">
+        <a class="btn w3-col l2  w3-round-xxlarge w3-card-4 w3-center w3-hover-light-blue w3-red w3-padding-16 w3-margin-right w3-margin-bottom" href="<?php echo base_url(); ?>sales_enquiry/manage_workorder">
           <div class="w3-col l12"><i class="fa fa-file-text w3-xxxlarge"></i></div>
           <div class="w3-col l12"><br>
-            <span class="w3-small">Manage Purchase Orders</span>
+            <span class="w3-small">Manage Work Orders</span>
           </div>
         </a>
        

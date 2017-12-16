@@ -236,11 +236,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <script>
         function GetProductfinalPrice(rownum){
 
-         final_Price = 0;
-         var final_Price = [];
-         FinalPricesum = 0;
-         ProductQuantity = document.getElementById('Product_Quantity_' + rownum).value;
-         TotalProduct_Price = $('#TotalProduct_Price_' + rownum).val();
+           final_Price = 0;
+           var final_Price = [];
+           FinalPricesum = 0;
+           ProductQuantity = document.getElementById('Product_Quantity_' + rownum).value;
+           TotalProduct_Price = $('#TotalProduct_Price_' + rownum).val();
     productDiscount = $('#Product_Discount_' + rownum).val();   //------discount value set to the text field 
     
      $('#Product_' + rownum + ' input[name="final_Price[]"]').each(function ()  //get material final price array
@@ -434,11 +434,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 </div>\n\-->
     <!--  Script to reload page when enquiry modal closes............................
     --> 
-<!--    <script>
+    <script>
         $('#myModalnew').on('hidden.bs.modal', function () {
             location.reload();
         });
-    </script>-->
+    </script>
     <!-- script end -->
 
     <script>
@@ -537,11 +537,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         //--------------get best tube end-----------------------
     </script>
     <script>
-
     function getAvailableTubeFromAllBranches(fieldnum, countnum){
         Materialinfo = $('#Materialinfo_' + fieldnum + '_' + countnum + ' [value="' + $('#Select_material_' + fieldnum + '_' + countnum).val() + '"]').data('value');
         Available_tube = $('#Available_tube_' + fieldnum + '_' + countnum).val();
         document.getElementById('hiddentInputForBranch_Price_'+ fieldnum + '_' + countnum).value='1';
+
         //alert(Materialinfo);
         $.ajax({
             type: "POST",
@@ -562,7 +562,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     }
 </script>
 
-    <script>
+<script>
         //----this funis used to get value from table to perform bestprice calculations
         function GetMaterialBasePrice(fieldnum, countnum ,cellnum) {
             Materialinfo = 0;
@@ -597,6 +597,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
        }else{
            branchprice = document.getElementById('branch_id_'+ fieldnum + '_' + countnum + '_' +cellnum).value;
            $.ajax({
+
             type: "POST",//----this funis used to get value from table to perform bestprice calculations
             url: BASE_URL + "inventory/Manage_enquiry/GetMaterialBasePrice_byBranchPrice",
             data: {
@@ -611,6 +612,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
            });
        }
     }
+
 //----this funis used to get value from table to perform bestprice calculations
 </script>
 
