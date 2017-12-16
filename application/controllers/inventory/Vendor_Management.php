@@ -40,7 +40,7 @@ class Vendor_Management extends CI_controller {
 
         extract($_POST);
         $data = $_POST;
-        print_r($data);
+       // print_r($data);die();
         $emailArr = array();
         foreach ($Input_VendorEmail as $key) {
             $emailArr[] = $key;  //---------create array of roles to store in feature table
@@ -59,6 +59,8 @@ class Vendor_Management extends CI_controller {
             'Input_VendorBank_Address' => $Input_VendorBank_Address,
             'Input_VendorBank_IFSC_Code' => $Input_VendorBank_IFSC_Code,
             'Input_VendorPAN_No' => $Input_VendorPAN_No,
+            'vendor_tag' => $vendor_tag,
+            'Input_ProfitMargin' => $Input_ProfitMargin,
             'Input_VendorEmail' => json_encode($emailArr)
         );
 

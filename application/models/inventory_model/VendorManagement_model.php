@@ -9,12 +9,12 @@ class VendorManagement_model extends CI_Model {
             vendor_shopname,vendor_landing_cost,vendor_discount,
             vendor_shopaddress, contact_no_one, contact_no_two,
             vendorbank_name,vendorbank_address, vendor_accno,
-            vendor_ifsc_no, vendor_micr_no, vendor_pan_no, submitted_date)
+            vendor_ifsc_no, vendor_micr_no, vendor_pan_no, submitted_date, vendor_tag, profit_margin)
     VALUES ('$Input_VendorName','$Input_VendorEmail','$Input_VendorShopName',"
                 . "'$Input_VendorLandingCost','$Input_Discount','$Input_VendorShopAddress',"
                 . "'$Input_VendorContactNo_one','$Input_VendorContactNo_two','$Input_VendorsBank_name',"
                 . "'$Input_VendorBank_Address','$Input_VendorBank_AccNo','$Input_VendorBank_IFSC_Code',"
-                . "'$Input_VendorBank_MICR_Code','$Input_VendorPAN_No',now())";
+                . "'$Input_VendorBank_MICR_Code','$Input_VendorPAN_No',now(),$vendor_tag, $Input_ProfitMargin)";
 
         $resultnew = $this->db->query($sql);
 
@@ -61,7 +61,8 @@ class VendorManagement_model extends CI_Model {
                 . "contact_no_two = '$Updated_VendorContactNo_two' ,vendorbank_name = '$Updated_VendorBank_name' , vendorbank_address = '$Updated_VendorBank_Address' ,"
                 . "vendor_landing_cost = '$Updated_VendorLandingCost',vendor_accno = '$Updated_VendorBank_AccNo' ,"
                 . "vendor_ifsc_no = '$UpdatedVendor_Bank_IFSC_Code',vendor_discount = '$Updated_Discount',"
-                . "vendor_micr_no='$UpdatedVendor_Bank_MICR_Code', vendor_pan_no='$VendorUpdated_PAN_No' WHERE vendor_id ='$new_Vendor_id'";
+                . "vendor_micr_no='$UpdatedVendor_Bank_MICR_Code', vendor_pan_no='$VendorUpdated_PAN_No',"
+                . " vendor_tag = '$Updatedvendor_tag', profit_margin='$Updated_ProfitMargin' WHERE vendor_id ='$new_Vendor_id'";
        // echo $sql;
         $resultUpadateCustomerDetails = $this->db->query($sql);
 
