@@ -43,6 +43,7 @@ public function show_WO_id_info($wo_id)
     $quotation_details=$this->Enquiry_model->getQuotation($quotation_id);
 
     $data[0]['customer_name']=$quotation_details[0]['customer_name'];
+    
     //echo $data['customer_name'];die();
     $response = array(
       'status' => 1,
