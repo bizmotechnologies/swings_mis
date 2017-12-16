@@ -67,9 +67,11 @@ class Manage_materials extends CI_controller {
             $count=0;
             foreach ($material_associated as $key) {
                 for ($material_count=0; $material_count < $key['material_quantity']; $material_count++) { 
-                   
-
+                                   
                 echo'<div class="w3-col l12 w3-tiny w3-margin-top" id="Div_no_'.$Profile_num.'_'.$count.'">';
+//                 echo'<div class="w3-col-l12 w3-margin-top w3-tiny">
+//                <div class="w3-col-l3 w3-small"style="padding-top:26px">&nbsp;<input type="checkbox" name = "checkMaterial[]" id="checkMaterial_'.$Profile_num.'_'.$count.'" value="1"><b> SELECT MATERIAL</b></div>
+//                </div>'; 
                 echo '<div class="w3-col l12">
                 <input name="make_boughtOut[]" data-onstyle="danger" data-size="mini" id="make_boughtOut_'.$Profile_num.'_'.$count.'" type="checkbox" data-toggle="toggle" data-on="ON" data-off="OFF" value="1" onchange="makeBought_out('.$Profile_num.','.$count.')">
                 </div>';
@@ -139,22 +141,31 @@ class Manage_materials extends CI_controller {
                 for ($l = 0; $l < $key['length_quantity']; $l++) {
 
                     echo'<label>LENGTH</label>
-                    <input list="MaterialLength_'.$Profile_num.'_'.$count.'_'.$l.'" value="" id="Select_Length_'.$Profile_num.'_'.$count.'_'.$l.'" name="Select_Length['.$Profile_num.'][]" class="w3-input" required type="text" min="0" placeholder="Length" onkeyup="get_AvailableTube('.$Profile_num.','.$count.');">
+                    <input list="MaterialLength_'.$Profile_num.'_'.$count.'_'.$l.'" value="" id="Select_Length_'.$Profile_num.'_'.$count.'_'.$l.'" name="Select_Length['.$Profile_num.'][]" class="w3-input" required type="text" min="0" placeholder="Length" onkeyup="getBest_tube('.$Profile_num.','.$count.');">
                     <datalist id="MaterialLength_'.$Profile_num.'_'.$count.'_'.$l.'">
                     </datalist>';
                 }
                 echo'</div>
-                </div>
-                <div class="w3-col l1 w3-padding-left" id="best_tubeDiv_'.$Profile_num.'_'.$count.'">
-                <label>BEST TUBE</label>&nbsp;<a class="btn w3-red" id="bestTube_btn_'.$Profile_num.'_'.$count.'" style="padding:0 2px 0 2px;" onclick="getBest_tube('.$Profile_num.','.$count.');"><i class="fa fa-refresh w3-small"></i></a>
-                <input id="bestTube_'.$Profile_num.'_'.$count.'" name="best_tube[]" value="" class="w3-input" required type="text" placeholder="ID/OD" readonly>
+                </div>';
+                echo'<div class="w3-col l1 w3-padding-left" id="available_tubeDiv_'.$Profile_num.'_'.$count.'">
+                <label>TUBE</label>&nbsp;<a class="btn w3-right w3-red" id="available_tubebtn_'.$Profile_num.'_'.$count.'" style="padding:0 2px 0 2px;" onclick="showAvailable_Tube('.$Profile_num.','.$count.');"><i class="fa fa-refresh w3-small"></i></a>
+                <input id="Available_tube_'.$Profile_num.'_'.$count.'" name="Available_tube[]" value="" class="w3-input" required type="text" placeholder="ID/OD" readonly>
                 <div class="w3-col l12" id="tube_spinner_'.$Profile_num.'_'.$count.'">
                 </div>
-                </div>
-                <div class="w3-col l2 w3-padding-left">
-                <label>BEST PRICE</label><input id="base_Price_'.$Profile_num.'_'.$count.'" name="base_Price[]" value="" class="w3-input" min="0" step="0.01" required type="number" placeholder="Base Price"  onfocus="GetMaterialBasePrice('.$Profile_num.','.$count.');">
-                </div>
-                <div class="w3-col l1 w3-padding-left">
+                </div>';
+                echo'<div class="w3-col l2 w3-padding-left">
+                <label>PRICE</label><input id="Available_Price_'.$Profile_num.'_'.$count.'" name="Available_Price[]" value="" class="w3-input" min="0" step="0.01" required type="number" placeholder="Available Price"  onfocus="GetMaterialBasePrice('.$Profile_num.','.$count.');">
+                </div>';
+//                echo'<div class="w3-col l1 w3-padding-left" id="best_tubeDiv_'.$Profile_num.'_'.$count.'">
+//                <label>BEST TUBE</label>&nbsp;<a class="btn w3-red" id="bestTube_btn_'.$Profile_num.'_'.$count.'" style="padding:0 2px 0 2px;" onclick="getBest_tube('.$Profile_num.','.$count.');"><i class="fa fa-refresh w3-small"></i></a>
+//                <input id="bestTube_'.$Profile_num.'_'.$count.'" name="best_tube[]" value="" class="w3-input" required type="text" placeholder="ID/OD" readonly>
+//                <div class="w3-col l12" id="tube_spinner_'.$Profile_num.'_'.$count.'">
+//                </div>
+//                </div>';
+//                echo'<div class="w3-col l2 w3-padding-left">
+//                <label>BEST PRICE</label><input id="base_Price_'.$Profile_num.'_'.$count.'" name="base_Price[]" value="" class="w3-input" min="0" step="0.01" required type="number" placeholder="Base Price"  onfocus="GetMaterialBasePrice('.$Profile_num.','.$count.');">
+//                </div>';
+                echo'<div class="w3-col l1 w3-padding-left">
                 <label>QUANTITY</label>
                 <input id="select_Quantity_'.$Profile_num.'_'.$count.'" name="select_Quantity[]" value="1" class="w3-input" min="0" required type="number" placeholder="Quantity" onkeypress="GetFinalPriceForMaterialCalculation('.$Profile_num.','.$count.');" >
                 </div>
@@ -174,8 +185,8 @@ class Manage_materials extends CI_controller {
                 </div>
                 </div>';
                 echo'<div class="w3-col l12 w3-tiny">
-                    <div class="w3-col-l2">
-                     <button type="button" id="fetchAvailableTubeBTN_'.$Profile_num.'_'.$count.'" onclick="getAvailableTubeFromAllBranches('.$Profile_num.','.$count.');" class="btn w3-left btn-sm w3-blue w3-margin">Available Tube</button>
+                    <div class="w3-col-l2 w3-tiny">
+                     <button type="button" id="fetchAvailableTubeBTN_'.$Profile_num.'_'.$count.'" onclick="getAvailableTubeFromAllBranches('.$Profile_num.','.$count.');" class="btn w3-left btn-sm w3-blue">Available Tube</button>
                      </div>
                      <div class="w3-col-l4">
                      <div id="quotation_table" class="w3-col l4 w3-padding">
@@ -188,12 +199,11 @@ class Manage_materials extends CI_controller {
                     <th class="w3-center">Price</th>
                     </tr>
                     <tbody id = "allbranchAvailable_tube_'.$Profile_num.'_'.$count.'">
-                    <input type ="hidden" id="hiddentInputForBranch_Price_'.$Profile_num.'_'.$count.'" value="0" name="hiddentInputForBranch_Price_'.$fieldnum.'_'.$countnum.'">
+                    <input type ="text" id="hiddentInputForBranch_Price_'.$Profile_num.'_'.$count.'" value="0" name="hiddentInputForBranch_Price[]">
                     </tbody>
                     </table>
                     </div>
                     </div>';
-                    $no++;
                     $count = $count + 1;
                 }
             }
@@ -219,9 +229,8 @@ class Manage_materials extends CI_controller {
 
     public function SaveProductsForEnquiry() {
         //$data = $_POST;
-        //print_r($data);die();
         extract($_POST);
-
+        //print_r($_POST);die();
         if(!isset($Select_Profiles)){
             echo 'Add at least 1 Product in Enquiry';
             die();
@@ -254,6 +263,8 @@ class Manage_materials extends CI_controller {
                 $Prod_length = $LENGTH_forHousingUnckecked;
                 $Prod_description = $profile_DescriptionForHousingUnchecked;
             }
+            //if(isset($checkMaterial)){
+
             for ($i = 0; $i < count($Select_material); $i++) {
                 $ID_arr = array();
                 $OD_arr = array();
@@ -281,7 +292,6 @@ class Manage_materials extends CI_controller {
         }
         $Length_arr[] = $multiple_Length;
     }
-
     $material_Arr[] = array(
         'material_id' => $Select_material[$i],
         'material_ID' => $ID_arr,
@@ -295,7 +305,7 @@ class Manage_materials extends CI_controller {
     );
 
 }
-
+            
 //print_r(json_encode($material_Arr));
 $profile_arr[] = array(
     'product_name' => $product_nameForEnquiry[$prod],
@@ -310,7 +320,7 @@ $profile_arr[] = array(
     'Product_Discount' => $Product_Discount[$prod],
     'product_price' => $TotalProduct_Price[$prod]
 );
-
+        
 $HousingArr[] = array(
     'product_name' => $product_nameForEnquiry[$prod],
     'housing_status' => $housing_status,
@@ -322,7 +332,7 @@ $HousingArr[] = array(
 );
 $housingInfo['profile_id'] = $profile_id[$prod];
 }
-
+//print_r($profile_arr);die();
 $housingInfo['profile_data'] = json_encode($HousingArr);
 $path = base_url();
 $url = $path . 'api/ManageEnquiry_api/SaveProfile_data';
@@ -347,6 +357,8 @@ curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 $response_json = curl_exec($ch);
 curl_close($ch);
 $response = json_decode($response_json, true);
+//print_r($response_json);die();
+
 echo $response['status_message'];
 }
 
@@ -589,7 +601,7 @@ public function fetchmaterial_details() {
     // ---- this function is used to get available tubes from all branches -------//
     public function getAvailableTubeFromAllBranches(){
         extract($_POST);
-        $materialID_OD = explode("/", $bestTube); 
+        $materialID_OD = explode("/", $Available_tube); 
         $Material_ID = $materialID_OD[0];
         $Material_OD = $materialID_OD[1]; 
         $path = base_url();

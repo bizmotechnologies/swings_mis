@@ -183,13 +183,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 </script>
 <script>
         function GetProductPrice(rownum) { //----------------this fun is used to get product price---------------
-            Base_Price = 0;
+            AvailablePrice = 0;
             final_Price = 0;
             Product_Quantity = 0;
             var final_Price = [];
             var Product_Quantity = [];
-            var Base_Price = [];
-            BasePricesum = 0;
+            var AvailablePrice = [];
+            AvailablePricesum = 0;
             FinalPricesum = 0;
             ProductQuantity = 0;
             productPrice = 0;
@@ -197,9 +197,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             {
                 final_Price.push($(this).val());
             });
-            $('#Product_' + rownum + ' input[name="base_Price[]"]').each(function ()
+            $('#Product_' + rownum + ' input[name="Available_Price[]"]').each(function ()
             {
-                Base_Price.push($(this).val());
+                AvailablePrice.push($(this).val());
             });
             ProductQuantity = document.getElementById('Product_Quantity_' + rownum).value;
 
@@ -211,15 +211,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         //-----this loop ends here for used to addition of the final price of material------//
         
         //-----this loop is used to addition of the base price of material------//
-        BasePrice = final_Price.length;
-        while (BasePrice--) {
-            BasePricesum += parseFloat(Base_Price[BasePrice]) || 0;
+        AvailablePricenew = AvailablePrice.length;
+        while (AvailablePricenew--) {
+            AvailablePricesum += parseFloat(AvailablePrice[AvailablePricenew]) || 0;
         }
         //-----this loop ends here for used to addition of the base price of material------//
         
-        temporary_amount = BasePricesum - FinalPricesum;  //------this amount is used for get calculate price for discount
+        temporary_amount = AvailablePricesum - FinalPricesum;  //------this amount is used for get calculate price for discount
         //alert(temporary_amount);
-        Discount = temporary_amount / BasePricesum * 100; //-----finding the discount here by deviding 
+        Discount = temporary_amount / AvailablePricesum * 100; //-----finding the discount here by deviding 
         
         $('#Product_Discount_' + rownum).val(Discount);   //------discount value set to the text field 
         
@@ -227,7 +227,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         
         DiscountPrice = productPrice * Discount / 100;
         
-        productFinalprice = BasePricesum - DiscountPrice;
+        productFinalprice = AvailablePricesum - DiscountPrice;
         //alert(productPrice);
         $('#TotalProduct_Price_' + rownum).val(productFinalprice);
     }
@@ -434,11 +434,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 </div>\n\-->
     <!--  Script to reload page when enquiry modal closes............................
     --> 
-    <script>
+<!--    <script>
         $('#myModalnew').on('hidden.bs.modal', function () {
             location.reload();
         });
-    </script>
+    </script>-->
     <!-- script end -->
 
     <script>
@@ -485,7 +485,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 success: function (data)
                 {
                     //alert(data);
-                    $('#bestTube_' + fieldnum + '_' + countnum).val(data);
+                    $('#available_tube_' + fieldnum + '_' + countnum).html(data);
                     $("#tube_spinner_" + fieldnum + '_' + countnum).html('');
                 }
             });
@@ -502,6 +502,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             var MaterialID = [];
             var MaterialOD = [];
             var MaterialLength = [];
+            $("#tube_spinner_" + fieldnum + '_' + countnum).html('<center><img width="100%" height="auto" src="'+BASE_URL+'css/logos/small_loader.gif"/></center>');
             $('#Div_no_' + fieldnum + '_' + countnum + ' input[name="Select_ID[' + fieldnum + '][]"]').each(function ()
             {
                 MaterialID.push($(this).val());
@@ -514,6 +515,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             {
                 MaterialLength.push($(this).val());
             });
+            getBest_tube(fieldnum, countnum);
             $.ajax({
                 type: "POST",
                 url: BASE_URL + "inventory/Manage_enquiry/showAvailable_Tube",
@@ -526,8 +528,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 return: false, //stop the actual form post !important!
                 success: function (data)
                 {
-
-                    $('#bestTube_' + fieldnum + '_' + countnum).val(data);
+                    alert(data);
+                    $('#Available_tube_' + fieldnum + '_' + countnum).val(data);
+                    $("#tube_spinner_" + fieldnum + '_' + countnum).html('');
                 }
             });
         }
@@ -537,7 +540,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
     function getAvailableTubeFromAllBranches(fieldnum, countnum){
         Materialinfo = $('#Materialinfo_' + fieldnum + '_' + countnum + ' [value="' + $('#Select_material_' + fieldnum + '_' + countnum).val() + '"]').data('value');
-        bestTube = $('#bestTube_' + fieldnum + '_' + countnum).val();
+        Available_tube = $('#Available_tube_' + fieldnum + '_' + countnum).val();
         document.getElementById('hiddentInputForBranch_Price_'+ fieldnum + '_' + countnum).value='1';
         //alert(Materialinfo);
         $.ajax({
@@ -545,7 +548,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             url: BASE_URL + "inventory/Manage_materials/getAvailableTubeFromAllBranches",
             data: {
                 Materialinfo: Materialinfo,
-                bestTube: bestTube,
+                Available_tube: Available_tube,
                 fieldnum: fieldnum,
                 countnum: countnum
             },
@@ -572,7 +575,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             {
                 MaterialLength.push($(this).val());//--this is for get material length array...
             });
-            bestTube = $('#bestTube_' + fieldnum + '_' + countnum).val();
+            Available_tube = $('#Available_tube_' + fieldnum + '_' + countnum).val();
+            //alert(Availble_tube,MaterialLength,Materialinfo);
             hiddentInputForBranch_Price = document.getElementById('hiddentInputForBranch_Price_'+fieldnum + '_' + countnum).value;
         if(hiddentInputForBranch_Price == 0){//---if this hidden text box is value is 0 then perform the material bestprice  calculations
         $.ajax({
@@ -581,12 +585,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             data: {
                 Materialinfo: Materialinfo,
                 MaterialLength: MaterialLength,
-                bestTube: bestTube
+                Available_tube: Available_tube
             },
                 return: false, //stop the actual form post !important!
                 success: function (data)
-                {
-                   $('#base_Price_' + fieldnum + '_' + countnum).val(data);
+                {   
+                    //alert(data);
+                   $('#Available_Price_' + fieldnum + '_' + countnum).val(data);
                }
            });
        }else{
@@ -601,7 +606,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 return: false, //stop the actual form post !important!
                 success: function (data)
                 {
-                   $('#base_Price_' + fieldnum + '_' + countnum).val(data);
+                   $('#Available_Price_' + fieldnum + '_' + countnum).val(data);
                }
            });
        }
@@ -629,15 +634,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         //discount = '0';
         quantity = $("#select_Quantity_" + fieldnum + "_" + countnum).val();
         discount = $("#discount_" + fieldnum + "_" + countnum).val();
-        baseprice = $("#base_Price_" + fieldnum + "_" + countnum).val();
+        Available_Price = $("#Available_Price_" + fieldnum + "_" + countnum).val();
         if (discount === '' && quantity === '') {
-            finalprice = baseprice;
+            finalprice = Available_Price;
         } else if (discount === '') {
-            finalprice = (parseInt(baseprice) * parseInt(quantity));
+            finalprice = (parseInt(Available_Price) * parseInt(quantity));
         } else if (quantity === '') {
-            finalprice = (parseInt(baseprice) - ((parseInt(discount) / 100) * (parseInt(baseprice))));
+            finalprice = (parseInt(Available_Price) - ((parseInt(discount) / 100) * (parseInt(Available_Price))));
         } else if (discount !== '' && quantity !== '') {
-            finalprice = ((parseInt(baseprice) * parseInt(quantity)) - ((parseInt(discount) / 100) * (parseInt(baseprice) * parseInt(quantity))));
+            finalprice = ((parseInt(Available_Price) * parseInt(quantity)) - ((parseInt(discount) / 100) * (parseInt(Available_Price) * parseInt(quantity))));
         }
         $("#final_Price_" + fieldnum + "_" + countnum).val(finalprice);
     }

@@ -21,11 +21,9 @@ class Manage_enquiry extends CI_controller {
     //---this fun is used to get Available tube for product from raw material 
 
     public function showAvailable_Tube(){
-        $Materialinfo= 34;
-        $MaterialID = array(115,115,112,112);
-        $MaterialOD = array(210,210,110,140);
-        $MaterialLength = array(128,130,90,100);
-       if(isset($MaterialID) && isset($MaterialOD) && isset($MaterialLength)){
+       extract($_POST);
+       //print_r($_POST);die();
+       if(isset($MaterialID) && isset($MaterialOD) && isset($MaterialLength)  && $MaterialID[0] != ''){
             $Material_ID = min($MaterialID);
             $Material_OD = max($MaterialOD);
             $Material_LENGTH = max($MaterialLength);
@@ -78,10 +76,10 @@ class Manage_enquiry extends CI_controller {
             $response=json_decode($response_json, true);
             //print_r($response_json);die();
             if(empty($response['value'])){
-                echo 'N/A';
+                echo '<label>Best Tube: N/A</label>';
             }
             else{
-            echo $response['value'];
+            echo '<label>Available Tube: '.$response['value'].'</label>';
             }
         }
         else{
@@ -124,13 +122,13 @@ class Manage_enquiry extends CI_controller {
 //------------this fun is used to get calculation of material base price-------------//
     public function GetMaterialBasePrice() {
         extract($_POST);
-       // print_r($_POST);die();
+        //print_r($_POST);die();
 
         $Material_ID=0;
         $Material_OD=0;
-        if(isset($bestTube) && $bestTube!='N/A' && isset($MaterialLength) && isset($Materialinfo)){
+        if(isset($Available_tube) && $Available_tube!='N/A' && isset($MaterialLength) && isset($Materialinfo)){
 
-            $materialID_OD = explode("/", $bestTube);            
+            $materialID_OD = explode("/", $Available_tube);            
             $Material_ID = $materialID_OD[0];
             $Material_OD = $materialID_OD[1];            
             $Material_LENGTH = max($MaterialLength);
