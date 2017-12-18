@@ -75,7 +75,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <div class="w3-twothird target w3-col l9" id="welcomeDiv1">
                                 <div class="w3-container w3-white w3-margin-bottom">
                                     <div class="w3-main">
-                                        <div id="" class="w3-container">
+                                        <div id="" class="w3-col l12">
                                             <a class="w3-button w3-red" href="#">Start Time<i class="w3-margin-left fa fa-clock-o"></i></a>
                                             <a class="w3-button w3-black" href="#">End Time<i class="w3-margin-left fa fa-clock-o"></i></a>
                                             <hr>

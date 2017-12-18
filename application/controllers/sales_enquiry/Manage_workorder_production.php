@@ -116,11 +116,15 @@ class Manage_workorder_production extends CI_Controller {
         <td class="text-center">
         <label>'.$row['Prod_length'][0].'</label>
         </td>
+        <td class="text-center">';
+        $no = 0;
+        foreach ($row['material_associated'] as $material) {
+          echo($material['best_tube'][$no]);
+          $no++;
+        }  
+        echo '</td>
         <td class="text-center">
-        <label></label>
-        </td>
-        <td class="text-center">
-        <label></label>        
+        <input type="text" name="consume" id="consume">
         </td>
         <td class="text-center">
         <label>'.$row['product_quantity'].'</label>
