@@ -52,4 +52,4 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $route['default_controller'] = 'role_login';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
-$route['item/(:any)'] = 'item/index/$1';
+$route['sales_enquiry/work_order/(:any)'] = 'sales_enquiry/work_order/index/$1';

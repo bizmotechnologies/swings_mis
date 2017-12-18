@@ -99,32 +99,32 @@ class Manage_workorder extends CI_Controller
         echo '
         <tr>
         <td class="text-center">
-        <label>'.$count.'.</label>
+        <span>'.$count.'.</span>
         </td>
         <td class="text-center">
-        <label>'.$profile_name.'</label>
+        <span>'.$profile_name.'</span>
         </td>
         <td class="text-center">
-        <label>';
+        <span>';
         foreach ($row['material_associated'] as $material) {
           echo($material['material_id']).'+';
         }  
-        echo '</label>
+        echo '</span>
         </td>
         <td class="text-center">
-        <label>'.$row['Prod_ID'][0].'</label>
+        <span>'.$row['Prod_ID'][0].'</span>
         </td>
         <td class="text-center">
-        <label>'.$row['Prod_OD'][0].'</label>
+        <span>'.$row['Prod_OD'][0].'</span>
         </td>
         <td class="text-center">
-        <label>'.$row['Prod_length'][0].'</label>
+        <span>'.$row['Prod_length'][0].'</span>
         </td>
         <td class="text-center">
-        <label>'.$row['product_quantity'].'</label>
+        <span><input class="form-control" value="'.$row['product_quantity'].'" style="width:60px" type="number"></span>
         </td>
         <td class="text-center">
-        <label>'.number_format($row['product_price']/$row['product_quantity'], 2, '.', '').'</label>
+        <span>'.number_format($row['product_price']/$row['product_quantity'], 2, '.', '').'</span>
         </td>
         </tr>
         <tr>
@@ -178,7 +178,9 @@ class Manage_workorder extends CI_Controller
       }
       echo '</tbody>
       </table>
-      <button class="btn w3-button btn-block w3-red w3-margin-top w3-margin-bottom" type="submit" id="send_wo" name="send_wo">Send #WO-0'.$key['wo_id'].' for Production <i class="fa fa-sign-out"></i></button>                     
+      <div class="w3-center">
+      <button class="w3-button w3-red w3-margin-top w3-margin-bottom" type="submit"><i class="fa fa-print"></i> Print #WO-0'.$key['wo_id'].'</button>
+      </div>
       <br>
       </div> 
       </div>

@@ -44,7 +44,7 @@
                   <th class="text-center">Sr No.</th>
                   <th class="text-center">Work Order No.</th>
                   <th class="text-center">Quotation No.</th>              
-                  <th class="text-center"> Issued On</th>              
+                  <th class="text-center">Issued On</th>              
                   <th class="text-center">#</th>                                           
                 </tr>
                 <?php  
@@ -59,7 +59,7 @@
                       <td class="text-center">#WO-0<?php echo $row['wo_id'];?></td>  
                       <td class="text-center">#QUO-0<?php echo $row['quotation_id'];?></td>
                       <td class="text-center"><?php echo $date;?><br><?php echo $time;?></td>
-                      <td class="text-center w3-medium">  <!-- onclick="show_WO_id_info('<?php echo $row['wo_id']; ?>');" --> 
+                      <td class="text-center w3-medium">   
                         <a class="btn w3-medium '.$hide.'" style="padding:0px;" title="View Work Order"><i class="fa fa-eye" onclick="show_WO_id_info('<?php echo $row['wo_id']; ?>');"></i>
                         </a>                        
                       </td>
