@@ -528,7 +528,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 return: false, //stop the actual form post !important!
                 success: function (data)
                 {
-                    alert(data);
+                    //alert(data);
                     $('#Available_tube_' + fieldnum + '_' + countnum).val(data);
                     $("#tube_spinner_" + fieldnum + '_' + countnum).html('');
                 }
