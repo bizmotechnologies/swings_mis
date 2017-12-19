@@ -284,8 +284,8 @@ class Manage_materials extends CI_controller {
         'material_ID' => $ID_arr,
         'material_OD' => $OD_arr,
         'material_Length' => $Length_arr,
-        'best_tube' => $best_tube,
-        'base_Price' => $base_Price[$i],
+        'Available_tube' => $Available_tube,
+        'Available_Price' => $Available_Price[$i],
         'select_Quantity' => $select_Quantity[$i],
         'discount' => $discount[$i],
         'final_Price' => $final_Price[$i]

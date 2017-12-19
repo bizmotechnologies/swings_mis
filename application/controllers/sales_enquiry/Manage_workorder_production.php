@@ -107,7 +107,9 @@ class Manage_workorder_production extends CI_Controller {
         echo '</label>
         </td>
         <td>
-        <table>'; $no=0;
+        <table>';
+         //----this code for showing the tube for  the material associated
+        $no=0;
                     foreach ($row['material_associated'] as $material) {
                         echo'<tr><td>';
                        
@@ -118,14 +120,15 @@ class Manage_workorder_production extends CI_Controller {
                     echo'</table>
         </td>
         <td>
-        <table>'; $no=0;
+        <table>'; //----this code for showing the text box related the material associated
+                    $no=0;
                     foreach ($row['material_associated'] as $material) {
                         echo'<tr><td>';
                        
                         echo'<input type="text" value="" >';
                         echo'</td></tr>';
                         $no++;
-                    }
+                    }  //----this code for showing the text box related the material associated
                     echo'</table>
         </td>
         <td class="text-center">
