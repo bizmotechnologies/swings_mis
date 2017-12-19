@@ -79,7 +79,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                             <a class="w3-button w3-red" href="#">Start Time<i class="w3-margin-left fa fa-clock-o"></i></a>
                                             <a class="w3-button w3-black" href="#">End Time<i class="w3-margin-left fa fa-clock-o"></i></a>
                                             <hr>
-                                            <div class="w3-col l12" id="showProduction_workorder">
+                                            <div class="w3-col l12" id="showProduction_workorder" style="overflow-y: auto;">
                                             </div>
                                         </div>
                                     </div>

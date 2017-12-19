@@ -65,12 +65,12 @@ class Manage_workorder_production extends CI_Controller {
       <tr>
       <th class="text-center">Sr.</th>
       <th class="text-center">Profile</th>
-      <th class="text-center">Material</th>      
-      <th class="text-center">ID</th>
-      <th class="text-center">OD</th>
-      <th class="text-center">Length</th>
+      <th class="text-center">Material</th>
       <th class="text-center">Used Tube</th>
       <th class="text-center">Consume Tube</th>      
+      <th class="text-center">ID</th>
+      <th class="text-center">OD</th>
+      <th class="text-center">Length</th>      
       <th class="text-center">Qty</th>
       <th class="text-center">per Piece (<i class="fa fa-inr"></i>)</th>
       </tr>
@@ -106,7 +106,28 @@ class Manage_workorder_production extends CI_Controller {
         }  
         echo '</label>
         </td>
-       
+        <td>
+        <table>'; $no=0;
+                    foreach ($row['material_associated'] as $material) {
+                        echo'<tr><td>';
+                       
+                        echo'<input type="text" value="'.($material['best_tube'][$no]).'" >';
+                        echo'</td></tr>';
+                        $no++;
+                    }
+                    echo'</table>
+        </td>
+        <td>
+        <table>'; $no=0;
+                    foreach ($row['material_associated'] as $material) {
+                        echo'<tr><td>';
+                       
+                        echo'<input type="text" value="" >';
+                        echo'</td></tr>';
+                        $no++;
+                    }
+                    echo'</table>
+        </td>
         <td class="text-center">
         <label>'.$row['Prod_ID'][0].'</label>
         </td>
@@ -115,17 +136,7 @@ class Manage_workorder_production extends CI_Controller {
         </td>
         <td class="text-center">
         <label>'.$row['Prod_length'][0].'</label>
-        </td>
-        <td class="text-center">';
-        $no = 0;
-        foreach ($row['material_associated'] as $material) {
-          echo($material['best_tube'][$no]);
-          $no++;
-        }  
-        echo '</td>
-        <td class="text-center">
-        <input type="text" name="consume" id="consume">
-        </td>
+        </td>        
         <td class="text-center">
         <label>'.$row['product_quantity'].'</label>
         </td>        
