@@ -44,6 +44,12 @@ class Manage_workorder_production extends CI_Controller {
     foreach ($response['status_message'] as $key) {
       $date=date('d/m/Y',strtotime($key['dated'])); 
       echo '
+          
+      <div id="" class="w3-col l12">
+        <a class="w3-button w3-red" href="#">Start Time<i class="w3-margin-left fa fa-clock-o"></i></a>
+        <a class="w3-button w3-black" href="#">End Time<i class="w3-margin-left fa fa-clock-o"></i></a>
+        <hr>
+      </div>
       <div class= "w3-margin-top w3-card-2">
       <div class="w3-col l12">
       <table class="table table-bordered">
@@ -66,8 +72,8 @@ class Manage_workorder_production extends CI_Controller {
       <th class="text-center">Sr.</th>
       <th class="text-center">Profile</th>
       <th class="text-center">Material</th>
-      <th class="text-center">Used Tube</th>
-      <th class="text-center">Consume Tube</th>      
+      <th class="text-center">Alloted Length</th>
+      <th class="text-center">Consume Length</th>      
       <th class="text-center">ID</th>
       <th class="text-center">OD</th>
       <th class="text-center">Length</th>      
@@ -77,6 +83,7 @@ class Manage_workorder_production extends CI_Controller {
       </thead>
       <tbody>';
       $count=1;
+      $new = 0;
       foreach (json_decode($key['product_associated'],TRUE) as $row) {
                   
         //-----------------get profile name----------------------
@@ -92,7 +99,7 @@ class Manage_workorder_production extends CI_Controller {
         //echo $profile_name;
         //------------------get profile name ends---------------------------
         echo '
-        <tr>
+        <tr id="divno_'.$count.'">
         <td class="text-center">
         <label>'.$count.'.</label>
         </td>
@@ -100,32 +107,33 @@ class Manage_workorder_production extends CI_Controller {
         <label>'.$profile_name.'</label>
         </td>
         <td class="text-center">
-        <label>';
-        foreach ($row['material_associated'] as $material) {
-          echo($material['material_id']).'+';
-        }  
-        echo '</label>
+        <table>';
+                    foreach ($row['material_associated'] as $material) {
+                        echo' <tr><td><label>';
+                        echo($material['material_id']);
+                        echo '</label><td></tr>';
+                    }
+                    echo'</table>
+        <input type="hidden" name="profile_id" id="profile_id" value="'.$row['profile_id'].'">
         </td>
         <td>
-        <table>';
-         //----this code for showing the tube for  the material associated
-        $no=0;
+        <table id="lengthtable">';
+                    //----this code for showing the tube for  the material associated
+                    $no = 0;
                     foreach ($row['material_associated'] as $material) {
                         echo'<tr><td>';
-                       
-                        echo'<input type="text" value="'.($material['best_tube'][$no]).'" >';
+                        echo'<input type="text" name="usedlength[]" id="usedlength" value="' . ($material['material_Length'][$new][$no]) . '" </label>';
                         echo'</td></tr>';
                         $no++;
-                    }
+                    }  //----this code for showing the text box related the material associated
                     echo'</table>
         </td>
         <td>
-        <table>'; //----this code for showing the text box related the material associated
+        <table id="mytable">'; //----this code for showing the text box related the material associated
                     $no=0;
                     foreach ($row['material_associated'] as $material) {
-                        echo'<tr><td>';
-                       
-                        echo'<input type="text" value="" >';
+                        echo'<tr><td>';                       
+                        echo'<input type="text" id="consumedtube" name="consumedtube[]" value="'.$material['material_Length'][$new][$no].'" onkeyup="getconsumetube('.$count.');">';
                         echo'</td></tr>';
                         $no++;
                     }  //----this code for showing the text box related the material associated

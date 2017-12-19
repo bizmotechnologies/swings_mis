@@ -48,7 +48,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <!-- The Grid -->
                         <div class="w3-col l12">
                             <!-- Left Column -->
-                            <div class="w3-col l3">        
+                            <div class="w3-col l2">        
                                 <div class="w3-white w3-text-grey w3-card-4">
                                     <div class="w3-display-container">
                                         <img src="http://localhost/swings_mis/images/desktop/SS01_UTEC_1-0.jpg"alt="Avatar">
@@ -72,16 +72,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <!-- End Left Column -->
                             </div>
                             <!-- Right Column -->
-                            <div class="w3-twothird target w3-col l9" id="welcomeDiv1">
+                            <div class="w3-twothird target w3-col l10" id="welcomeDiv1">
                                 <div class="w3-container w3-white w3-margin-bottom">
-                                    <div class="w3-main">
-                                        <div id="" class="w3-col l12">
-                                            <a class="w3-button w3-red" href="#">Start Time<i class="w3-margin-left fa fa-clock-o"></i></a>
-                                            <a class="w3-button w3-black" href="#">End Time<i class="w3-margin-left fa fa-clock-o"></i></a>
-                                            <hr>
-                                            <div class="w3-col l12" id="showProduction_workorder" style="overflow-y: auto;">
-                                            </div>
-                                        </div>
+                                    <div class="w3-main" style="overflow-y: auto;">                                        
+                                        <div class="w3-col l12" id="showProduction_workorder" >
+                                        </div>                                        
                                     </div>
                                     <hr>
                                 </div>
@@ -142,5 +137,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     });
 </script>
 <!-- this function is used to get all information of wo production-->
+<script>
+function getconsumetube(fieldnum){
+    profile_id = $('#profile_id').val();
+    usedlength = $("input[name='usedlength[]']").map(function(){return $(this).val();}).get();
+    consumedtube = $("input[name='consumedtube[]']").map(function(){return $(this).val();}).get();
+    alert(usedlength);
+    
+}
+</script>
 
 
