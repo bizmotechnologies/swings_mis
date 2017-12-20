@@ -68,8 +68,8 @@ class Manage_materials extends CI_controller {
             foreach ($material_associated as $key) {
                 for ($material_count=0; $material_count < $key['material_quantity']; $material_count++) { 
                  echo '<div class="w3-col l12">
-                     <label>Select material</label>
-                    <input class="w3-left" name="select_material['.$Profile_num.'][]" data-onstyle="danger" data-size="mini" id="select_box_'.$Profile_num.'_'.$count.'" type="checkbox" value="'.$key['material_name'].'"  onchange="checkedMaterial('.$Profile_num.','.$count.');" checked>
+                 <label>Select material</label>
+                 <input class="w3-left" name="select_material['.$Profile_num.'][]" data-onstyle="danger" data-size="mini" id="select_box_'.$Profile_num.'_'.$count.'" type="checkbox" value="'.$key['material_name'].'"  onchange="checkedMaterial('.$Profile_num.','.$count.');" checked>
                     </div>';//div for select material checkbox
 
                     echo'<div class="w3-col l12 w3-tiny w3-margin-top" id="Div_no_'.$Profile_num.'_'.$count.'">';
@@ -141,49 +141,46 @@ class Manage_materials extends CI_controller {
                         <input value="'.$value.'" name="Select_Length['.$Profile_num.'][]" class="w3-input w3-light-grey" required type="text" min="0" placeholder="Length" '.$disabled.'>';
                     }
                     for ($l = 0; $l < $key['length_quantity']; $l++) {
-                    echo'<label>LENGTH</label>
-                    <input list="MaterialLength_'.$Profile_num.'_'.$count.'_'.$l.'" value="" id="Select_Length_'.$Profile_num.'_'.$count.'_'.$l.'" name="Select_Length['.$Profile_num.'][]" class="w3-input" required type="text" min="0" placeholder="Length" onkeyup="getBest_tube('.$Profile_num.','.$count.');">
-                    <datalist id="MaterialLength_'.$Profile_num.'_'.$count.'_'.$l.'">
-                    </datalist>';
-                }
-                echo'</div>
-                </div>';
+                        echo'<label>LENGTH</label>
+                        <input list="MaterialLength_'.$Profile_num.'_'.$count.'_'.$l.'" value="" id="Select_Length_'.$Profile_num.'_'.$count.'_'.$l.'" name="Select_Length['.$Profile_num.'][]" class="w3-input" required type="text" min="0" placeholder="Length" onkeyup="getBest_tube('.$Profile_num.','.$count.');">
+                        <datalist id="MaterialLength_'.$Profile_num.'_'.$count.'_'.$l.'">
+                        </datalist>';
+                    }
+                    echo'</div>
+                    </div>';
 
-                echo'<div class="w3-col l1 w3-padding-left" id="available_tubeDiv_'.$Profile_num.'_'.$count.'">
-                <label>TUBE</label>&nbsp;<a class="btn w3-right w3-red" id="available_tubebtn_'.$Profile_num.'_'.$count.'" style="padding:0 2px 0 2px;" onclick="showAvailable_Tube('.$Profile_num.','.$count.');"><i class="fa fa-refresh w3-small"></i></a>
-                <input id="Available_tube_'.$Profile_num.'_'.$count.'" step="0.01" name="Available_tube[]" value="" class="w3-input" required type="text" placeholder="ID/OD" readonly>
-                <div class="w3-col l12" id="tube_spinner_'.$Profile_num.'_'.$count.'"></div>
-                </div>';
+                    echo'<div class="w3-col l1 w3-padding-left" id="available_tubeDiv_'.$Profile_num.'_'.$count.'">
+                    <label>TUBE</label>&nbsp;<a class="btn w3-right w3-red" id="available_tubebtn_'.$Profile_num.'_'.$count.'" style="padding:0 2px 0 2px;" onclick="showAvailable_Tube('.$Profile_num.','.$count.');"><i class="fa fa-refresh w3-small"></i></a>
+                    <input id="Available_tube_'.$Profile_num.'_'.$count.'" step="0.01" name="Available_tube[]" value="" class="w3-input" required type="text" placeholder="ID/OD" readonly>
+                    <div class="w3-col l12" id="tube_spinner_'.$Profile_num.'_'.$count.'"></div>
+                    </div>';
 
-                echo'<div class="w3-col l2 w3-padding-left">
-                <label>PRICE</label><input id="Available_Price_'.$Profile_num.'_'.$count.'" name="Available_Price[]" value="" class="w3-input" min="0" step="0.01" required type="number" placeholder="Available Price"  onfocus="GetMaterialBasePrice('.$Profile_num.','.$count.');">
-                </div>';
+                    echo'<div class="w3-col l2 w3-padding-left">
+                    <label>PRICE</label><input id="Available_Price_'.$Profile_num.'_'.$count.'" name="Available_Price[]" value="" class="w3-input" min="0" step="0.01" required type="number" placeholder="Available Price"  onfocus="GetMaterialBasePrice('.$Profile_num.','.$count.');">
+                    </div>';
 
-                echo'<div class="w3-col l1 w3-padding-left">
-                <label>QUANTITY</label>
-                <input id="select_Quantity_'.$Profile_num.'_'.$count.'" name="select_Quantity[]" value="1" class="w3-input" min="0" required type="number" placeholder="Quantity" onkeypress="GetFinalPriceForMaterialCalculation('.$Profile_num.','.$count.');" >
-                </div>
+                    echo'<div class="w3-col l1 w3-padding-left">
+                    <label>QUANTITY</label>
+                    <input id="select_Quantity_'.$Profile_num.'_'.$count.'" name="select_Quantity[]" value="1" class="w3-input" min="0" required type="number" placeholder="Quantity" onkeypress="GetFinalPriceForMaterialCalculation('.$Profile_num.','.$count.');" >
+                    </div>
 
-                <div class="w3-col l1 w3-padding-left">
-                <label>DISCOUNT(%)</label>
-                <input id="discount_'.$Profile_num.'_'.$count.'" name="discount[]" class="w3-input" required type="number" min="0" step="0.01" value="0" placeholder="Discount %." onkeypress="GetFinalPriceForMaterialCalculation('.$Profile_num.','.$count.');">
-                </div>
+                    <div class="w3-col l1 w3-padding-left">
+                    <label>DISCOUNT(%)</label>
+                    <input id="discount_'.$Profile_num.'_'.$count.'" name="discount[]" class="w3-input" required type="number" min="0" step="0.01" value="0" placeholder="Discount %." onkeypress="GetFinalPriceForMaterialCalculation('.$Profile_num.','.$count.');">
+                    </div>
 
-                <div class="w3-col l2 w3-padding-left">
-                <label>FINAL&nbsp;PRICE</label>
-                <input id="final_Price_'.$Profile_num.'_'.$count.'" name="final_Price[]" class="w3-input" required type="number" min="0" step="0.01" placeholder="Final Price" onfocus="GetFinalPriceForMaterialCalculation('.$Profile_num.','.$count.');">
-                </div>
+                    <div class="w3-col l2 w3-padding-left">
+                    <label>FINAL&nbsp;PRICE</label>
+                    <input id="final_Price_'.$Profile_num.'_'.$count.'" name="final_Price[]" class="w3-input" required type="number" min="0" step="0.01" placeholder="Final Price" onfocus="GetFinalPriceForMaterialCalculation('.$Profile_num.','.$count.');">
+                    </div>
 
-                <div class="w3-col l12" id="best_tubeError_'.$Profile_num.'_'.$count.'"></div>
-                <div class="w3-col l2 w3-margin-top" id="available_tube_'.$Profile_num.'_'.$count.'"></div>
-                <div class="w3-col l12 w3-tiny">
-                    <div class="w3-col-l2 w3-tiny">
-                     <button type="button" id="fetchAvailableTubeBTN_'.$Profile_num.'_'.$count.'" onclick="getAvailableTubeFromAllBranches('.$Profile_num.','.$count.');" class="btn w3-left btn-sm w3-blue">Available Tube</button>
-                     </div>
+                    <div class="w3-col l12" id="best_tubeError_'.$Profile_num.'_'.$count.'"></div>
+                    <div class="w3-col l2 w3-margin-top" id="available_tube_'.$Profile_num.'_'.$count.'"></div>
 
-                     <div class="w3-col-l4">
-                     <div id="quotation_table" class="w3-col l4 w3-padding">
-                     <table class="table table-bordered table-responsive w3-small" ><!-- table starts here -->
+                    <div class="w3-col l12 w3-tiny">
+                    <div class="w3-col-l4">
+                    <div id="quotation_table" class="w3-col l4">
+                    <table class="table table-bordered table-responsive w3-small" ><!-- table starts here -->
                     <tr style="background-color:black; color:white;">
                     <th class="w3-center">Sr. No</th>
                     <th class="w3-center">#</th>
@@ -192,15 +189,15 @@ class Manage_materials extends CI_controller {
                     <th class="w3-center">Price</th>
                     </tr>
                     <tbody id = "allbranchAvailable_tube_'.$Profile_num.'_'.$count.'">
-                    <input type ="hidden" id="hiddentInputForBranch_Price_'.$Profile_num.'_'.$count.'" value="0" name="hiddentInputForBranch_Price[]">
+                    <input type ="text" id="hiddentInputForBranch_Price_'.$Profile_num.'_'.$count.'" value="0" name="hiddentInputForBranch_Price[]">
                     </tbody>
                     </table>
                     </div>
                     </div>
                     </div>
-                </div>';
+                    </div>';
 
-                echo'';
+                    echo'';
                     $count = $count + 1;
                 }
             }
@@ -302,7 +299,7 @@ class Manage_materials extends CI_controller {
     );
 
 }
-            
+
 //print_r(json_encode($material_Arr));
 $profile_arr[] = array(
     'product_name' => $product_nameForEnquiry[$prod],
@@ -317,7 +314,7 @@ $profile_arr[] = array(
     'Product_Discount' => $Product_Discount[$prod],
     'product_price' => $TotalProduct_Price[$prod]
 );
-        
+
 $HousingArr[] = array(
     'product_name' => $product_nameForEnquiry[$prod],
     'housing_status' => $housing_status,
@@ -614,7 +611,9 @@ public function fetchmaterial_details() {
         if($response['status'] == 1){//---this is for the response if true 
             $no = 2;
             
-            echo'  <tr id="branch_price_'.$fieldnum.'_'.$countnum.'_1">
+            echo 
+            '  
+            <tr id="branch_price_'.$fieldnum.'_'.$countnum.'_1">
             <td>1.</td>
             <td><input type="radio" name="branchPrice_radio_'.$fieldnum.'_'.$countnum.'" id="branch_id_'.$fieldnum.'_'.$countnum.'_1" checked value="0" onchange=GetMaterialBasePrice('.$fieldnum.','.$countnum.',1);></td>
             <td>None of These</td>

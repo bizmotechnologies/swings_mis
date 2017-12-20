@@ -595,14 +595,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 return: false, //stop the actual form post !important!
                 success: function (data)
                 {   
-                    //alert(data);
+                    alert(data);
                     $('#Available_Price_' + fieldnum + '_' + countnum).val(data);
-                    getAvailableTubeFromAllBranches(fieldnum, countnum)
+                    //getAvailableTubeFromAllBranches(fieldnum, countnum)
                     GetFinalPriceForMaterialCalculation(fieldnum, countnum);
                 }
             });
         }else{
          branchprice = document.getElementById('branch_id_'+ fieldnum + '_' + countnum + '_' +cellnum).value;
+         alert(branchprice);
          $.ajax({
 
             type: "POST",//----this funis used to get value from table to perform bestprice calculations
@@ -614,6 +615,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 return: false, //stop the actual form post !important!
                 success: function (data)
                 {
+                    alert(data);
                  $('#Available_Price_' + fieldnum + '_' + countnum).val(data);
                  GetFinalPriceForMaterialCalculation(fieldnum, countnum);
              }

@@ -40,11 +40,8 @@ class Manage_workorder extends CI_Controller
   $response_json = curl_exec($ch);
   curl_close($ch);
   $response=json_decode($response_json, true);
-          //print_r($response);die();
-          //print_r($response['status_message']);
-
+  
   if ($response['status']==0) {
-
   } else {
 
     foreach ($response['status_message'] as $key) {
@@ -182,13 +179,13 @@ class Manage_workorder extends CI_Controller
       </table>
       <div class="w3-center">
       <button class="w3-button w3-red w3-margin-top w3-margin-bottom" type="submit"><i class="fa fa-save"></i> Save #WO-0'.$key['wo_id'].'</button>';
-      $disable='';
-      if($key['current_status']=='0'){
-        $disable='disabled';
+      $hide='';
+      if($key['current_status']=='1'){
+        $hide='w3-hide';
       }
-       echo '
-       <button class="w3-button w3-red w3-margin-top w3-margin-bottom" type="submit" '.$disable.'><i class="fa fa-print"></i> Print #WO-0'.$key['wo_id'].'</button>
-     </div>
+      echo '
+      <a class="w3-button w3-red w3-margin-top w3-margin-bottom '.$hide.'" href="'.base_url().'sales_enquiry/work_order/'.$key['wo_id'].'"><i class="fa fa-print"></i> Print #WO-0'.$key['wo_id'].'</a>
+      </div>
       </form>
       <br>
       </div> 

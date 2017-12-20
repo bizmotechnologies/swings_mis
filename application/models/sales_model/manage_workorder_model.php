@@ -6,9 +6,9 @@ class Manage_workorder_model extends CI_model
     parent::__construct();
   }
 
+//------------------get all wo information model---------------------
   public function get_all_woinfo()
   {
-
    $query = "SELECT * FROM wo_master";
    $result=$this->db->query($query);  
 
@@ -23,8 +23,29 @@ class Manage_workorder_model extends CI_model
       'status_message' => $result->result_array());
   }
   return $response;
-
 }
+//------------------get all wo information model---------------------
+
+//------------------print all wo information model---------------------
+  public function print_WO($wo_id)
+  {
+   $query = "SELECT * FROM wo_production WHERE wo_id='$wo_id' AND current_status='1'";
+   $result=$this->db->query($query);  
+
+   if ($result->num_rows() <= 0) 
+   {
+    $response = array(                                             
+      'status' => 0,
+      'status_message' => 'No Work Order Found.');                           
+  } else {
+    $response = array(
+      'status' => 1,
+      'status_message' => $result->result_array());
+  }
+  return $response;
+}
+//------------------print all wo information model---------------------
+
 
 public function show_WO_id_info($wo_id)
 {
