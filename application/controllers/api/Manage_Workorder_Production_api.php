@@ -27,4 +27,9 @@ class Manage_Workorder_Production_api extends REST_Controller {
     }
 
 //----this fun is used to get details of all production work order details
+    public function Submit_raiseQueryDetails_post(){
+        $data=$_POST;		
+        $result = $this->ManageWorkorder_Production_model->Submit_raiseQueryDetails($data);
+        return $this->response($result);
+    }
 }
