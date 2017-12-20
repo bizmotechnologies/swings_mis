@@ -22,45 +22,46 @@ class Manage_enquiry extends CI_controller {
 
     public function showAvailable_Tube(){
        extract($_POST);
-       //print_r($_POST);die();
+
        if(isset($MaterialID) && isset($MaterialOD) && isset($MaterialLength)  && $MaterialID[0] != ''){
-            $Material_ID = min($MaterialID);
-            $Material_OD = max($MaterialOD);
-            $Material_LENGTH = max($MaterialLength);
-            
-            $path = base_url();
-            $url = $path . 'api/ManageEnquiry_api/showAvailable_Tube?material_id='.$Materialinfo.'&Material_ID='.$Material_ID.'&Material_OD='.$Material_OD.'&Material_LENGTH='.$Material_LENGTH;
-            $ch = curl_init($url);
-            curl_setopt($ch, CURLOPT_HTTPGET, true);
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-            $response_json = curl_exec($ch);
-            curl_close($ch);
-            $response=json_decode($response_json, true);
-            //print_r($response_json);
-            $length = min($response['length']);//----finding the minimum length for available tube
-            $key = array_search($length, $response['length']);  //--finding tube id/od by using key index of length
-            if($response['status']==0){
-                echo 'N/A';
-            }
-            else{
-            echo $response['tube'][$key]; //--returns the available tube for material
-            }
-        }
-        else{
+        $Material_ID = min($MaterialID);
+        $Material_OD = max($MaterialOD);
+        $Material_LENGTH = max($MaterialLength);
+
+        $path = base_url();
+        $url = $path . 'api/ManageEnquiry_api/showAvailable_Tube?material_id='.$Materialinfo.'&Material_ID='.$Material_ID.'&Material_OD='.$Material_OD.'&Material_LENGTH='.$Material_LENGTH;
+        $ch = curl_init($url);
+        curl_setopt($ch, CURLOPT_HTTPGET, true);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $response_json = curl_exec($ch);
+        curl_close($ch);
+        $response=json_decode($response_json, true);
+            //print_r($response_json);die();
+
+        if($response['status']==0){
             echo 'N/A';
         }
+        else{
+            $length = min($response['length']);//----finding the minimum length for available tube
+            $key = array_search($length, $response['length']);  //--finding tube id/od by using key index of length
+            echo $response['tube'][$key]; //--returns the available tube for material
+        }
     }
+    else{
+        echo 'N/A';
+    }
+}
     //---this fun is used to get Available tube for product from raw material 
     //---this fun is used to get best tube for product from raw material 
 
-    public function getBest_tube() {
-        extract($_POST);
+public function getBest_tube() {
+    extract($_POST);
         //print_r($_POST);die();
 
-        if(isset($MaterialID) && isset($MaterialOD) && isset($MaterialLength)){
-            $Material_ID = min($MaterialID);
-            $Material_OD = max($MaterialOD);
-            $Material_LENGTH = max($MaterialLength);
+    if(isset($MaterialID) && isset($MaterialOD) && isset($MaterialLength)){
+        $Material_ID = min($MaterialID);
+        $Material_OD = max($MaterialOD);
+        $Material_LENGTH = max($MaterialLength);
 
             $Material_ID=$Material_ID - $ID_tolerance;//-----taking tolerance value into consideration
             $Material_OD=$Material_OD - $OD_tolerance;//-----taking tolerance value into consideration
@@ -79,7 +80,7 @@ class Manage_enquiry extends CI_controller {
                 echo '<label>Best Tube: N/A</label>';
             }
             else{
-            echo '<label>Available Tube: '.$response['value'].'</label>';
+                echo '<label>Best Tube: '.$response['value'].'</label>';
             }
         }
         else{
@@ -90,39 +91,38 @@ class Manage_enquiry extends CI_controller {
 //---this fun is used to get base price from raw material-----------------------//
 //---this fun is used to get available tube from raw material-----------------//
 
-    public function get_AvailableTube(){
-        extract($_POST);
-        //print_r($_POST);
-        if(isset($MaterialID) && isset($MaterialOD)){
-            $Material_ID = min($MaterialID);
-            $Material_OD = max($MaterialOD);
+    // public function get_AvailableTube(){
+    //     extract($_POST);
+    //     //print_r($_POST);
+    //     if(isset($MaterialID) && isset($MaterialOD)){
+    //         $Material_ID = min($MaterialID);
+    //         $Material_OD = max($MaterialOD);
 
-            $path = base_url();
-            $url = $path . 'api/ManageEnquiry_api/get_AvailableTube?material_id='.$Materialinfo.'&Material_ID='.$Material_ID.'&Material_OD='.$Material_OD;
-            $ch = curl_init($url);
-            curl_setopt($ch, CURLOPT_HTTPGET, true);
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-            $response_json = curl_exec($ch);
-            curl_close($ch);
-            $response = json_decode($response_json, true);
-            //print_r($response_json);
-            if(empty($response) || $response['status_message'] == NULL){
-                echo '<label>Available Tube: N/A</label>';
-            }
-            else{
-            echo '<label>Available Tube: '.$response['status_message'].'</label>';
-            }
-        }
-        else{
-            echo '<label>Available Tube: N/A</label>';
-        }
-    }
+    //         $path = base_url();
+    //         $url = $path . 'api/ManageEnquiry_api/get_AvailableTube?material_id='.$Materialinfo.'&Material_ID='.$Material_ID.'&Material_OD='.$Material_OD;
+    //         $ch = curl_init($url);
+    //         curl_setopt($ch, CURLOPT_HTTPGET, true);
+    //         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    //         $response_json = curl_exec($ch);
+    //         curl_close($ch);
+    //         $response = json_decode($response_json, true);
+    //         //print_r($response_json);
+    //         if(empty($response) || $response['status_message'] == NULL){
+    //             echo '<label>Available Tube: N/A</label>';
+    //         }
+    //         else{
+    //             echo '<label>Available Tube: '.$response['status_message'].'</label>';
+    //         }
+    //     }
+    //     else{
+    //         echo '<label>Available Tube: N/A</label>';
+    //     }
+    // }
 //---this fun is used to get available tube from raw material-----------------------//
 
 //------------this fun is used to get calculation of material base price-------------//
     public function GetMaterialBasePrice() {
         extract($_POST);
-        //print_r($_POST);die();
 
         $Material_ID=0;
         $Material_OD=0;
@@ -141,7 +141,7 @@ class Manage_enquiry extends CI_controller {
             $response_json = curl_exec($ch);
             curl_close($ch);
             $response = json_decode($response_json, true);
-            echo $response_json;
+            echo $response;
         } else{
             echo '0.00';
         }
@@ -151,9 +151,8 @@ class Manage_enquiry extends CI_controller {
     public function GetMaterialBasePrice_byBranchPrice(){
         extract($_POST);
         
-//print_r($_POST);die();
         if(isset($branchprice) && $branchprice!=0 && isset($MaterialLength)){
-           
+
             $Material_LENGTH = max($MaterialLength);
             $path = base_url();
             $url = $path . 'api/ManageEnquiry_api/GetMaterialBasePrice_byBranchPrice?branchprice='.$branchprice.'&Material_LENGTH='.$Material_LENGTH;

@@ -104,8 +104,9 @@ class ManageEnquiry_model extends CI_Model {
         $costPer_mm= $landed_cost / $avail_length;
 
         $single_cost = $costPer_mm * ($profit_margin * ($cut_value + $MaterialLength));
+        $decimal_price=number_format($single_cost,2,'.','');
 
-        return $single_cost;
+        return $decimal_price;
     }
 
 
@@ -262,11 +263,20 @@ class ManageEnquiry_model extends CI_Model {
                 unset($criteria);
             }
         }
+        if(!empty($tube)){
         $response = array(
             'status' => 1,
             'tube' => $tube,
             'length' => $length
         );
+    }
+    else{
+        $response = array(
+            'status' => 0,
+            'tube' => 'N/A',
+            'length' => 'N/A'
+        );
+    }
         //print_r($response); //die();
         return $response;
     }

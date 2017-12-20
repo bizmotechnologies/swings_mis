@@ -166,7 +166,7 @@ class Manage_materials extends CI_controller {
 
                 <div class="w3-col l1 w3-padding-left">
                 <label>DISCOUNT(%)</label>
-                <input id="discount_'.$Profile_num.'_'.$count.'" name="discount[]" class="w3-input" required type="number" min="0" step="0.01" placeholder="Discount %." onkeypress="GetFinalPriceForMaterialCalculation('.$Profile_num.','.$count.');">
+                <input id="discount_'.$Profile_num.'_'.$count.'" name="discount[]" class="w3-input" required type="number" min="0" step="0.01" value="0" placeholder="Discount %." onkeypress="GetFinalPriceForMaterialCalculation('.$Profile_num.','.$count.');">
                 </div>
 
                 <div class="w3-col l2 w3-padding-left">
