@@ -25,6 +25,43 @@ class Manage_workorder_production extends CI_Controller {
         return $response;
     }
 //----this fun is used to get the all wo id for from wo production-------------------------//
+//----this fun is used to verify the alloted length and consume length-------------------------//
+    public function verify_materiallength(){
+        extract($_POST);
+        print_r($_POST);
+        $val='';
+        $count=1;
+        for ($j = 0; $j < count($profile_id); $j++) {
+        for ($p = 0; $p < count($_POST['usedlength_'.$count]); $p++) {
+            //print_r($_POST['usedlength_'.$count]);
+            //print_r($_POST['consumedtube_'.$count]);
+            if($_POST['usedlength_'.$count][$p] == $_POST['consumedtube_'.$count][$p]){
+                //echo 'No change in consumed tube';
+            }else{
+                echo '<div class="w3-col l12">
+                <div class="w3-col l6"><label>Profile Name</label>
+                <input type="hidden" name="wo_id" id="wo_id" value="'.$wo_id.'">
+                <input type="text" name="ChangedprofileName[]" id="ChangedprofileName" value="'.$profile_name[$j].'">
+                </div>
+                <div><label>Material Name</label>
+                <input type="text" name="ChangedmaterialName[]" id="materialName" value="'.$_POST['material_name_'.$count][$p].'">
+                </div>
+                <div><label>alloted Length</label>
+                <input type="text" name="Allotedmaterial_length[]" id="Allotedmaterial_length" value="'.$_POST['usedlength_'.$count][$p].'">
+                </div>
+                <div><label>Consume Length</label>
+                <input type="text" name="Consumedmaterial_length[]" id="Consumedmaterial_length" value="'.$_POST['consumedtube_'.$count][$p].'">
+                </div>
+                <div><label>Reason For Change Length</label>
+                <textarea class="form-control" rows="3" id="comment"></textarea>
+                </div>
+                </div>';
+            }
+        }
+        $count++;
+        }
+    }
+//----this fun is used to verify the alloted length and consume length-------------------------//    
 //----this fun is used to get the all work order details from wo production-------------------------//
 
     public function get_Workorderfor_Production_details() {
@@ -44,7 +81,7 @@ class Manage_workorder_production extends CI_Controller {
     foreach ($response['status_message'] as $key) {
       $date=date('d/m/Y',strtotime($key['dated'])); 
       echo '
-          
+       <form id="productionForm" name="productionForm" type="post">   
       <div id="" class="w3-col l12">
         <a class="w3-button w3-red" href="#">Start Time<i class="w3-margin-left fa fa-clock-o"></i></a>
         <a class="w3-button w3-black" href="#">End Time<i class="w3-margin-left fa fa-clock-o"></i></a>
@@ -84,8 +121,7 @@ class Manage_workorder_production extends CI_Controller {
       <tbody>';
       $count=1;
       $new = 0;
-      foreach (json_decode($key['product_associated'],TRUE) as $row) {
-                  
+      foreach (json_decode($key['product_associated'],TRUE) as $row) {                  
         //-----------------get profile name----------------------
         $path=base_url();
         $url = $path.'api/ManageProfile_api/profileDetails?profile_id='.$row['profile_id']; 
@@ -106,39 +142,34 @@ class Manage_workorder_production extends CI_Controller {
         <td class="text-center">
         <label>'.$profile_name.'</label>
         </td>
-        <td class="text-center">
-        <table>';
+        <td class="text-center">';
                     foreach ($row['material_associated'] as $material) {
-                        echo' <tr><td><label>';
+                        echo' <label>';
                         echo($material['material_id']);
-                        echo '</label><td></tr>';
+                        echo '</label>';
                     }
-                    echo'</table>
-        <input type="hidden" name="profile_id" id="profile_id" value="'.$row['profile_id'].'">
-        </td>
-        <td>
-        <table id="lengthtable">';
-                    //----this code for showing the tube for  the material associated
+                    echo'<input type="hidden" name="profile_id[]" id="profile_id" value="'.$row['profile_id'].'">
+                    
+        </td>';
+        echo'<input type="hidden" name="profile_name[]" id="profile_name" value="'.$profile_name.'">';
+        echo'<input type="hidden" name="wo_id" id="wo_id" value="'.$Workorder_id.'">';
+        foreach($row['material_associated'] as $material){
+        echo'<input type="hidden" name="material_name_'.$count.'[]" id="material_name" value="'.$material['material_id'].'">';
+        }
+        echo'<td>';  //----this code for showing the tube for  the material associated
                     $no = 0;
                     foreach ($row['material_associated'] as $material) {
-                        echo'<tr><td>';
-                        echo'<input type="text" name="usedlength[]" id="usedlength" value="' . ($material['material_Length'][$new][$no]) . '" </label>';
-                        echo'</td></tr>';
+                        echo'<input class="form-control" type="text" name="usedlength_'.$count.'[]" id="usedlength" value="' . ($material['material_Length'][$new][$no]) . '" </label>';
                         $no++;
                     }  //----this code for showing the text box related the material associated
-                    echo'</table>
-        </td>
-        <td>
-        <table id="mytable">'; //----this code for showing the text box related the material associated
+                    echo'</td>';
+        echo'<td>';
                     $no=0;
                     foreach ($row['material_associated'] as $material) {
-                        echo'<tr><td>';                       
-                        echo'<input type="text" id="consumedtube" name="consumedtube[]" value="'.$material['material_Length'][$new][$no].'" onkeyup="getconsumetube('.$count.');">';
-                        echo'</td></tr>';
+                        echo'<input type="text" class="form-control" id="consumedtube" name="consumedtube_'.$count.'[]" value="'.$material['material_Length'][$new][$no].'" onkeyup="getconsumetube('.$count.');">';
                         $no++;
                     }  //----this code for showing the text box related the material associated
-                    echo'</table>
-        </td>
+        echo'</td>
         <td class="text-center">
         <label>'.$row['Prod_ID'][0].'</label>
         </td>
@@ -158,8 +189,39 @@ class Manage_workorder_production extends CI_Controller {
         $count++;
       }
       echo '</tbody>
-      </table>';     
-    }
+      </table>
+      <div class="w3-col l12">
+      <button type="submit" class="btn w3-right btn-sm w3-blue w3-margin">Verify</button>
+      </div>
+      </form>
+      <form>
+      <div id="show_consume_tube_query"></div>
+      <div class="w3-col l12">
+      <button type="submit" class="btn w3-right btn-sm w3-blue w3-margin">Submit</button>
+      </div>
+      </form>';
+      echo'
+          <script>
+      $(function () {
+    $("#productionForm").submit(function () {
+        dataString = $("#productionForm").serialize();
+        //alert(dataString);
+        $.ajax({
+            type: "POST",
+            url: BASE_URL + "sales_enquiry/Manage_workorder_production/verify_materiallength",
+            data: dataString,
+            return: false, //stop the actual form post !important!
+            success: function (data)
+            {
+                //alert(data);
+                $("#show_consume_tube_query").html(data);
+            }
+        });
+        return false;  //stop the actual form post !important!
+    });
+});
+</script>';
+            }
   }
         
     }

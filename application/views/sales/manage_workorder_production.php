@@ -142,7 +142,7 @@ function getconsumetube(fieldnum){
     profile_id = $('#profile_id').val();
     usedlength = $("input[name='usedlength[]']").map(function(){return $(this).val();}).get();
     consumedtube = $("input[name='consumedtube[]']").map(function(){return $(this).val();}).get();
-    alert(usedlength);
+    //alert(usedlength);
     
 }
 </script>
