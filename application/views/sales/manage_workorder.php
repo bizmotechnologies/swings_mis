@@ -18,7 +18,7 @@
   <script src="<?php echo base_url(); ?>css/bootstrap/bootstrap-toggle.min.js"></script>
   <script type="text/javascript" src="<?php echo base_url(); ?>css/alert/jquery-confirm.js"></script>
   <script type="text/javascript" src="<?php echo base_url(); ?>css/js/config.js"></script>
-  <script type="text/javascript" src="<?php echo base_url(); ?>css/js/sales/manage_quotation.js"></script>
+  <script type="text/javascript" src="<?php echo base_url(); ?>css/js/sales/manage_workorder.js"></script>
 
 </head>
 <body class="w3-light-grey">
@@ -122,5 +122,7 @@ function readURL(input,count,x) {
 // }
 // ------------function preview image end------------------//
 </script>
+
+
 </body>
 </html>

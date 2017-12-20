@@ -1,5 +1,4 @@
 <?php
-error_reporting(E_ERROR | E_PARSE);
 
 class Manage_enquiry extends CI_controller {
 
