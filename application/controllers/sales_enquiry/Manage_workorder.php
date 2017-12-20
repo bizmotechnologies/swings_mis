@@ -1,6 +1,6 @@
 <?php 
 if(!defined('BASEPATH')) exit('No direct script access allowed');
-//error_reporting(E_ERROR | E_PARSE);
+error_reporting(E_ERROR | E_PARSE);
 
 class Manage_workorder extends CI_Controller
 {
@@ -104,7 +104,7 @@ class Manage_workorder extends CI_Controller
         <span>'.$count.'.</span>
         </td>
         <td class="text-center">
-        <span>'.$profile_name.'<input class="form-control" name="profile_name[]" value="'.$profile_name.'" type="text"></span>
+        <span>'.$profile_name.'<input class="form-control" name="profile_name[]" value="'.$profile_name.'" type="hidden"></span>
         </td>
         <td class="text-center">
         <span>';
@@ -181,8 +181,14 @@ class Manage_workorder extends CI_Controller
       echo '</tbody>
       </table>
       <div class="w3-center">
-      <button class="w3-button w3-red w3-margin-top w3-margin-bottom" type="submit"><i class="fa fa-print"></i> Print #WO-0'.$key['wo_id'].'</button>
-      </div>
+      <button class="w3-button w3-red w3-margin-top w3-margin-bottom" type="submit"><i class="fa fa-save"></i> Save #WO-0'.$key['wo_id'].'</button>';
+      $disable='';
+      if($key['current_status']=='0'){
+        $disable='disabled';
+      }
+       echo '
+       <button class="w3-button w3-red w3-margin-top w3-margin-bottom" type="submit" '.$disable.'><i class="fa fa-print"></i> Print #WO-0'.$key['wo_id'].'</button>
+     </div>
       </form>
       <br>
       </div> 
@@ -200,6 +206,7 @@ class Manage_workorder extends CI_Controller
             processData:false,
             success: function(data){
               $.alert(data);
+              $("#wo_details").load(location.href + " #wo_details>*", "");
             },
             error: function(){}             
           });
