@@ -77,6 +77,9 @@ class ManageEnquiry_model extends CI_Model {
         $single_cost = 0;
         $cut_value = $setting_value['cut_value'];
         $profit_margin = $setting_value['profit_margin'];
+        $landed_cost = $material_price * $setting_value['landing_value'];
+        $costPer_mm= $landed_cost / $avail_length;
+
 
         $single_cost = $branchprice * ($profit_margin * ($cut_value + $Material_LENGTH));
 
@@ -87,7 +90,8 @@ class ManageEnquiry_model extends CI_Model {
     public function GetMaterialBasePrice($material_id, $MaterialID, $MaterialOD, $MaterialLength) {
 
         $material_price = ManageEnquiry_model::getmaterialPriceforcalculation($material_id, $MaterialID, $MaterialOD, $MaterialLength);
-        //print_r($material_price);
+        $avail_length = ManageEnquiry_model::getmaterial_AvailLength($material_id, $MaterialID, $MaterialOD, $MaterialLength);
+
         $customizevalue = ManageEnquiry_model::getcustomizedvalueforCalculation();
         $setting_value = json_decode($customizevalue, TRUE);
         //print_r($setting_value);
@@ -96,15 +100,16 @@ class ManageEnquiry_model extends CI_Model {
         $single_cost = 0;
         $cut_value = $setting_value['cut_value'];
         $profit_margin = $setting_value['profit_margin'];
+        $landed_cost = $material_price * $setting_value['landing_value'];
+        $costPer_mm= $landed_cost / $avail_length;
 
-        $single_cost = $material_price * ($profit_margin * ($cut_value + $MaterialLength));
+        $single_cost = $costPer_mm * ($profit_margin * ($cut_value + $MaterialLength));
 
         return $single_cost;
     }
 
+
 //-----this fun is used to get material base price calculations-------------//
-
-
     public function getmaterialPriceforcalculation($material_id, $MaterialID, $MaterialOD, $MaterialLength) {
         $sql = "SELECT material_price FROM raw_materialstock WHERE material_id = '$material_id' "
                 . "AND raw_ID = '$MaterialID' AND raw_OD ='$MaterialOD'";
@@ -122,8 +127,29 @@ class ManageEnquiry_model extends CI_Model {
         }
         return $material_price;
     }
-
 //-----this fun is used to get material base price calculations-------------//
+
+//-----this fun is used to get material length -------------//
+    public function getmaterial_AvailLength($material_id, $MaterialID, $MaterialOD, $MaterialLength) {
+        $sql = "SELECT avail_length FROM raw_materialstock WHERE material_id = '$material_id' "
+                . "AND raw_ID = '$MaterialID' AND raw_OD ='$MaterialOD'";
+
+        $result = $this->db->query($sql);
+        $avail_length = '0';
+        if ($result->num_rows() <= 0) {
+            $avail_length = array(
+                'status' => 0,
+                'status_message' => 'No Records Found.');
+        } else {
+            foreach ($result->result_array() as $row) {
+                $avail_length = $row['avail_length'];
+            }
+        }
+        return $avail_length;
+    }
+//-----this fun is used to get material length-------------//
+
+
 //-----this fun is used to get customized values for  calculations-------------//
 
     public function getcustomizedvalueforCalculation() {

@@ -67,7 +67,11 @@ class Manage_materials extends CI_controller {
             $count=0;
             foreach ($material_associated as $key) {
                 for ($material_count=0; $material_count < $key['material_quantity']; $material_count++) { 
-                 
+                 echo '<div class="w3-col l12">
+                     <label>Select material</label>
+                    <input class="w3-left" name="select_material['.$Profile_num.'][]" data-onstyle="danger" data-size="mini" id="select_box_'.$Profile_num.'_'.$count.'" type="checkbox" value="'.$key['material_name'].'"  onchange="checkedMaterial('.$Profile_num.','.$count.');" checked>
+                    </div>';//div for select material checkbox
+
                     echo'<div class="w3-col l12 w3-tiny w3-margin-top" id="Div_no_'.$Profile_num.'_'.$count.'">';
                     echo '<div class="w3-col l12">
                     <input class="w3-right" name="make_boughtOut[]" data-onstyle="danger" data-size="mini" id="make_boughtOut_'.$Profile_num.'_'.$count.'" type="checkbox" data-toggle="toggle" data-on="ON" data-off="OFF" value="1" onchange="makeBought_out('.$Profile_num.','.$count.')">
@@ -93,6 +97,7 @@ class Manage_materials extends CI_controller {
                     <input onclick="this.select();" autocomplete="off" value="" id="OD_tolerance_'.$Profile_num.'_'.$count.'" name="OD_tolerance[]" class="w3-input" type="number" placeholder="Tolerance">
                     </div>
                     </div>
+
                     <div class="w3-col l3">
                     <div class="w3-col l4 s4 w3-padding-left">';
 
@@ -143,38 +148,39 @@ class Manage_materials extends CI_controller {
                 }
                 echo'</div>
                 </div>';
+
                 echo'<div class="w3-col l1 w3-padding-left" id="available_tubeDiv_'.$Profile_num.'_'.$count.'">
                 <label>TUBE</label>&nbsp;<a class="btn w3-right w3-red" id="available_tubebtn_'.$Profile_num.'_'.$count.'" style="padding:0 2px 0 2px;" onclick="showAvailable_Tube('.$Profile_num.','.$count.');"><i class="fa fa-refresh w3-small"></i></a>
-                <input id="Available_tube_'.$Profile_num.'_'.$count.'" name="Available_tube[]" value="" class="w3-input" required type="text" placeholder="ID/OD" readonly>
-                <div class="w3-col l12" id="tube_spinner_'.$Profile_num.'_'.$count.'">
-                </div>
+                <input id="Available_tube_'.$Profile_num.'_'.$count.'" step="0.01" name="Available_tube[]" value="" class="w3-input" required type="text" placeholder="ID/OD" readonly>
+                <div class="w3-col l12" id="tube_spinner_'.$Profile_num.'_'.$count.'"></div>
                 </div>';
+
                 echo'<div class="w3-col l2 w3-padding-left">
                 <label>PRICE</label><input id="Available_Price_'.$Profile_num.'_'.$count.'" name="Available_Price[]" value="" class="w3-input" min="0" step="0.01" required type="number" placeholder="Available Price"  onfocus="GetMaterialBasePrice('.$Profile_num.','.$count.');">
                 </div>';
+
                 echo'<div class="w3-col l1 w3-padding-left">
                 <label>QUANTITY</label>
                 <input id="select_Quantity_'.$Profile_num.'_'.$count.'" name="select_Quantity[]" value="1" class="w3-input" min="0" required type="number" placeholder="Quantity" onkeypress="GetFinalPriceForMaterialCalculation('.$Profile_num.','.$count.');" >
                 </div>
+
                 <div class="w3-col l1 w3-padding-left">
                 <label>DISCOUNT(%)</label>
                 <input id="discount_'.$Profile_num.'_'.$count.'" name="discount[]" class="w3-input" required type="number" min="0" step="0.01" placeholder="Discount %." onkeypress="GetFinalPriceForMaterialCalculation('.$Profile_num.','.$count.');">
                 </div>
+
                 <div class="w3-col l2 w3-padding-left">
                 <label>FINAL&nbsp;PRICE</label>
                 <input id="final_Price_'.$Profile_num.'_'.$count.'" name="final_Price[]" class="w3-input" required type="number" min="0" step="0.01" placeholder="Final Price" onfocus="GetFinalPriceForMaterialCalculation('.$Profile_num.','.$count.');">
                 </div>
 
-                <div class="w3-col l12" id="best_tubeError_'.$Profile_num.'_'.$count.'">
-
-                </div>
-                <div class="w3-col l2 w3-margin-top" id="available_tube_'.$Profile_num.'_'.$count.'">                     
-                </div>
-                </div>';
-                echo'<div class="w3-col l12 w3-tiny">
+                <div class="w3-col l12" id="best_tubeError_'.$Profile_num.'_'.$count.'"></div>
+                <div class="w3-col l2 w3-margin-top" id="available_tube_'.$Profile_num.'_'.$count.'"></div>
+                <div class="w3-col l12 w3-tiny">
                     <div class="w3-col-l2 w3-tiny">
                      <button type="button" id="fetchAvailableTubeBTN_'.$Profile_num.'_'.$count.'" onclick="getAvailableTubeFromAllBranches('.$Profile_num.','.$count.');" class="btn w3-left btn-sm w3-blue">Available Tube</button>
                      </div>
+
                      <div class="w3-col-l4">
                      <div id="quotation_table" class="w3-col l4 w3-padding">
                      <table class="table table-bordered table-responsive w3-small" ><!-- table starts here -->
@@ -190,7 +196,11 @@ class Manage_materials extends CI_controller {
                     </tbody>
                     </table>
                     </div>
-                    </div>';
+                    </div>
+                    </div>
+                </div>';
+
+                echo'';
                     $count = $count + 1;
                 }
             }
