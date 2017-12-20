@@ -542,7 +542,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         function getAvailableTubeFromAllBranches(fieldnum, countnum){
             Materialinfo = $('#Materialinfo_' + fieldnum + '_' + countnum + ' [value="' + $('#Select_material_' + fieldnum + '_' + countnum).val() + '"]').data('value');
             Available_tube = $('#Available_tube_' + fieldnum + '_' + countnum).val();
-            document.getElementById('hiddentInputForBranch_Price_'+ fieldnum + '_' + countnum).value='1';
+            //document.getElementById('hiddentInputForBranch_Price_'+ fieldnum + '_' + countnum).value='1';
 
         //alert(Materialinfo);
         $.ajax({
@@ -572,7 +572,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             branchprice = 0;
             Materialinfo = $('#Materialinfo_' + fieldnum + '_' + countnum + ' [value="' + $('#Select_material_' + fieldnum + '_' + countnum + '').val() + '"]').data('value');
 
-            document.getElementById('hiddentInputForBranch_Price_'+fieldnum + '_' + countnum).value = '0';
+           hiddentInputForBranch_Price = document.getElementById('hiddentInputForBranch_Price_'+fieldnum + '_' + countnum).value = '0';
             var MaterialLength = [];
 
             $("#Div_no_" + fieldnum + "_" + countnum + " input[name='Select_Length[" + fieldnum + "][]']").each(function ()
@@ -582,7 +582,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
             Available_tube = $('#Available_tube_' + fieldnum + '_' + countnum).val();
 
-            hiddentInputForBranch_Price = document.getElementById('hiddentInputForBranch_Price_'+fieldnum + '_' + countnum).value;
+            //hiddentInputForBranch_Price = document.getElementById('hiddentInputForBranch_Price_'+fieldnum + '_' + countnum).value;
         if(hiddentInputForBranch_Price == 0){//---if this hidden text box is value is 0 then perform the material bestprice  calculations
             $.ajax({
                 type: "POST",
@@ -597,7 +597,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 {   
                     //alert(data);
                     $('#Available_Price_' + fieldnum + '_' + countnum).val(data);
-                    getAvailableTubeFromAllBranches(fieldnum, countnum)
+                    //getAvailableTubeFromAllBranches(fieldnum, countnum)
                     GetFinalPriceForMaterialCalculation(fieldnum, countnum);
                 }
             });

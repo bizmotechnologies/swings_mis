@@ -176,12 +176,12 @@ class Manage_materials extends CI_controller {
 
                 <div class="w3-col l12" id="best_tubeError_'.$Profile_num.'_'.$count.'"></div>
                 <div class="w3-col l2 w3-margin-top" id="available_tube_'.$Profile_num.'_'.$count.'"></div>
-                <div class="w3-col l12 w3-tiny">
-                    <div class="w3-col-l2 w3-tiny">
-                     <button type="button" id="fetchAvailableTubeBTN_'.$Profile_num.'_'.$count.'" onclick="getAvailableTubeFromAllBranches('.$Profile_num.','.$count.');" class="btn w3-left btn-sm w3-blue">Available Tube</button>
-                     </div>
+                <div class="w3-col l12 w3-tiny">';
+//                    <div class="w3-col-l2 w3-tiny">
+//                     <button type="button" id="fetchAvailableTubeBTN_'.$Profile_num.'_'.$count.'" onclick="getAvailableTubeFromAllBranches('.$Profile_num.','.$count.');" class="btn w3-left btn-sm w3-blue">Available Tube</button>
+//                     </div>
 
-                     <div class="w3-col-l4">
+                    echo' <div class="w3-col-l4">
                      <div id="quotation_table" class="w3-col l4 w3-padding">
                      <table class="table table-bordered table-responsive w3-small" ><!-- table starts here -->
                     <tr style="background-color:black; color:white;">
@@ -192,7 +192,7 @@ class Manage_materials extends CI_controller {
                     <th class="w3-center">Price</th>
                     </tr>
                     <tbody id = "allbranchAvailable_tube_'.$Profile_num.'_'.$count.'">
-                    <input type ="hidden" id="hiddentInputForBranch_Price_'.$Profile_num.'_'.$count.'" value="0" name="hiddentInputForBranch_Price[]">
+                    <input type ="text" id="hiddentInputForBranch_Price_'.$Profile_num.'_'.$count.'" value="0" name="hiddentInputForBranch_Price[]">
                     </tbody>
                     </table>
                     </div>
