@@ -42,4 +42,31 @@ class ManageWorkorder_Production_model extends CI_Model {
     }
 
 //----this fun is used to get all details of workorder which is ready for production
+    public function Submit_raiseQueryDetails($data) {
+        extract($data);
+        //print_r($QueryForQuotationSpecialist);die();
+        $sql = "INSERT INTO quotation_specialist (wo_id,queryfor_specialist,submitted_date, current_status) "
+                . "VALUES ('$wo_id','$QueryForQuotationSpecialist',now(),'1')";
+        //echo $sql;die();
+        $resultnew = $this->db->query($sql);
+        if ($resultnew) {
+            $sqlupdate = "UPDATE wo_production SET query_status = '1' WHERE wo_id = '$wo_id'";
+            $resultnew = $this->db->query($sqlupdate);
+            if ($resultnew) {
+                $response = array(
+                    'status' => 1,
+                    'status_message' => 'Records Inserted Successfully..!');
+            } else {
+                $response = array(
+                    'status' => 0,
+                    'status_message' => 'Records Not Inserted Successfully...!');
+            }
+        } else {
+            $response = array(
+                'status' => 0,
+                'status_message' => 'Records Not Inserted Successfully...!');
+        }
+        return $response;
+    }
+
 }

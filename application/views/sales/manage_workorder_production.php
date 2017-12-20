@@ -87,7 +87,30 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 </div> 
             </div> 
         </div>  
+        <!-- Modal -->
+        <div id="myModalnew" class="modal fade" role="dialog">
+            <div class="modal-dialog">
 
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <div class="modal-title" id="msg_header"></div>
+                    </div>
+                    <div class="modal-body">
+                        <div id="addMaterials_err" name="addMaterials_err" class="w3-text-red"></div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button"  class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script>
+            $('#myModalnew').on('hidden.bs.modal', function () {
+                location.reload();
+            });
+        </script>
         <script>
             //---this fun is used to show active div of production of work order 
             $(function () {
@@ -137,14 +160,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     });
 </script>
 <!-- this function is used to get all information of wo production-->
-<script>
-function getconsumetube(fieldnum){
-    profile_id = $('#profile_id').val();
-    usedlength = $("input[name='usedlength[]']").map(function(){return $(this).val();}).get();
-    consumedtube = $("input[name='consumedtube[]']").map(function(){return $(this).val();}).get();
-    //alert(usedlength);
-    
-}
-</script>
+
 
 

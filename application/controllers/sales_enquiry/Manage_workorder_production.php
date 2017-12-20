@@ -28,7 +28,7 @@ class Manage_workorder_production extends CI_Controller {
 //----this fun is used to verify the alloted length and consume length-------------------------//
     public function verify_materiallength(){
         extract($_POST);
-        print_r($_POST);
+       // print_r($_POST);
         $val='';
         $count=1;
         for ($j = 0; $j < count($profile_id); $j++) {
@@ -36,24 +36,34 @@ class Manage_workorder_production extends CI_Controller {
             //print_r($_POST['usedlength_'.$count]);
             //print_r($_POST['consumedtube_'.$count]);
             if($_POST['usedlength_'.$count][$p] == $_POST['consumedtube_'.$count][$p]){
-                //echo 'No change in consumed tube';
             }else{
-                echo '<div class="w3-col l12">
-                <div class="w3-col l6"><label>Profile Name</label>
+                echo '<div class="w3-col l12">                 
+                <div class="w3-col l3 w3-margin-top w3-padding-right">
+                <label>Profile Name:</label>
                 <input type="hidden" name="wo_id" id="wo_id" value="'.$wo_id.'">
-                <input type="text" name="ChangedprofileName[]" id="ChangedprofileName" value="'.$profile_name[$j].'">
+                <input type="text" class="form-control" name="ChangedprofileName[]" id="ChangedprofileName" value="'.$profile_name[$j].'">
                 </div>
-                <div><label>Material Name</label>
-                <input type="text" name="ChangedmaterialName[]" id="materialName" value="'.$_POST['material_name_'.$count][$p].'">
+                
+                <div class="w3-col l3 w3-margin-top w3-padding-right">
+                <label>Material Name:</label>
+                <input type="text" class="form-control" name="ChangedmaterialName[]" id="materialName" value="'.$_POST['material_name_'.$count][$p].'">
                 </div>
-                <div><label>alloted Length</label>
-                <input type="text" name="Allotedmaterial_length[]" id="Allotedmaterial_length" value="'.$_POST['usedlength_'.$count][$p].'">
+                
+                 <div class="w3-col l3 w3-margin-top w3-padding-right">
+                <label>Alloted Length:</label>
+                <input type="text" class="form-control" name="Allotedmaterial_length[]" id="Allotedmaterial_length" value="'.$_POST['usedlength_'.$count][$p].'">
                 </div>
-                <div><label>Consume Length</label>
-                <input type="text" name="Consumedmaterial_length[]" id="Consumedmaterial_length" value="'.$_POST['consumedtube_'.$count][$p].'">
+                
+                <div class="w3-col l3 w3-margin-top w3-padding-right">
+                <label>Consume Length:</label>
+                <input type="text" class="form-control" name="Consumedmaterial_length[]" id="Consumedmaterial_length" value="'.$_POST['consumedtube_'.$count][$p].'">
                 </div>
-                <div><label>Reason For Change Length</label>
-                <textarea class="form-control" rows="3" id="comment"></textarea>
+                </div>  
+                            
+                <div class="w3-col l12">                
+                <div class="w3-col l12 w3-margin-top w3-padding-right">
+                <label>Reason For Change Length:</label>
+                <input type="text" class="form-control" id="reasonForchange" name="reasonForchange[]">
                 </div>
                 </div>';
             }
@@ -121,6 +131,7 @@ class Manage_workorder_production extends CI_Controller {
       <tbody>';
       $count=1;
       $new = 0;
+      $productQuantity = json_decode($key['modified_quantity'],true);
       foreach (json_decode($key['product_associated'],TRUE) as $row) {                  
         //-----------------get profile name----------------------
         $path=base_url();
@@ -159,14 +170,14 @@ class Manage_workorder_production extends CI_Controller {
         echo'<td>';  //----this code for showing the tube for  the material associated
                     $no = 0;
                     foreach ($row['material_associated'] as $material) {
-                        echo'<input class="form-control" type="text" name="usedlength_'.$count.'[]" id="usedlength" value="' . ($material['material_Length'][$new][$no]) . '" </label>';
+                        echo'<input class="form-control" type="text" name="usedlength_'.$count.'[]" id="usedlength" readonly value="' . ($material['material_Length'][$new][$no]) . '" </label>';
                         $no++;
                     }  //----this code for showing the text box related the material associated
                     echo'</td>';
         echo'<td>';
                     $no=0;
                     foreach ($row['material_associated'] as $material) {
-                        echo'<input type="text" class="form-control" id="consumedtube" name="consumedtube_'.$count.'[]" value="'.$material['material_Length'][$new][$no].'" onkeyup="getconsumetube('.$count.');">';
+                        echo'<input type="text" class="form-control" id="consumedtube" name="consumedtube_'.$count.'[]" value="'.$material['material_Length'][$new][$no].'" >';
                         $no++;
                     }  //----this code for showing the text box related the material associated
         echo'</td>
@@ -179,13 +190,15 @@ class Manage_workorder_production extends CI_Controller {
         <td class="text-center">
         <label>'.$row['Prod_length'][0].'</label>
         </td>        
-        <td class="text-center">
-        <label>'.$row['product_quantity'].'</label>
+        <td class="text-center">';
+        
+        echo'<label>'.$productQuantity[$new].'</label>
         </td>        
         <td class="text-center">
         <label>'.number_format($row['product_price']/$row['product_quantity'], 2, '.', '').'</label>
         </td>
         </tr>';
+        $new++;
         $count++;
       }
       echo '</tbody>
@@ -194,8 +207,9 @@ class Manage_workorder_production extends CI_Controller {
       <button type="submit" class="btn w3-right btn-sm w3-blue w3-margin">Verify</button>
       </div>
       </form>
-      <form>
+      <form id="raiseQueryForm" name="raiseQueryForm" type="post">
       <div id="show_consume_tube_query"></div>
+      <div id="checkqueryerror"></div>
       <div class="w3-col l12">
       <button type="submit" class="btn w3-right btn-sm w3-blue w3-margin">Submit</button>
       </div>
@@ -221,10 +235,66 @@ class Manage_workorder_production extends CI_Controller {
     });
 });
 </script>';
+      echo' <script>
+      $(function () {
+    $("#raiseQueryForm").submit(function () {
+        dataString = $("#raiseQueryForm").serialize();
+        //alert(dataString);
+        $.ajax({
+            type: "POST",
+            url: BASE_URL + "sales_enquiry/Manage_workorder_production/Submit_raiseQueryDetails",
+            data: dataString,
+            return: false, //stop the actual form post !important!
+            success: function (data)
+            {
+                //alert(data);
+                $("#msg_header").text("Message");
+                $("#msg_span").css({"color": "black"});
+                $("#addMaterials_err").html(data);
+                $("#myModalnew").modal("show");            }
+        });
+        return false;  //stop the actual form post !important!
+    });
+});
+</script>';
             }
   }
         
     }
 //----this fun is used to get the all work order details from wo production-------------------------//
+    public function Submit_raiseQueryDetails() {
+        extract($_POST);
+        //print_r($reasonForchange);die();
+        $query =array(); 
+        for($i=0; $i< count($ChangedprofileName); $i++){
+           $quotationSpecialistArr = array(
+               'wo_id' => $wo_id,
+               'ChangedprofileName' => $ChangedprofileName[$i],
+               'ChangedmaterialName' => $ChangedmaterialName[$i],
+               'Allotedmaterial_length' => $Allotedmaterial_length[$i],
+               'Consumedmaterial_length' => $Consumedmaterial_length[$i],
+               'reasonForchange' => $reasonForchange[$i]
+           );
+           $query[] = $quotationSpecialistArr;
+        }
+        $data['QueryForQuotationSpecialist']=json_encode($query);
+        $data['wo_id'] = $wo_id;
+        $path = base_url();
+        $url = $path . 'api/Manage_Workorder_Production_api/Submit_raiseQueryDetails';
+        $ch = curl_init($url);
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $response_json = curl_exec($ch);
+        curl_close($ch);
+        $response = json_decode($response_json, true);
+//print_r($response_json);die();
+        if ($response['status'] == 0) {
+            echo $response['status_message'];
+        } else {
+            echo $response['status_message']; 
+ 
+        }
+    }
 
 }
