@@ -26,7 +26,8 @@ class Work_order extends CI_Controller
 		if ($response['status']==0) {
 
 		} else {
-			$this->load->view('sales/')
+			$data['print_data']=$response['status_message'];
+			$this->load->view('sales/print_wo',$data);
 		}
 		
 	}

@@ -17,7 +17,7 @@ class Manage_workorder extends CI_Controller
   {
    $path=base_url();
    $url = $path.'api/Wo_get_all_infoapi/get_all_woinfo';   
-         // $url = $path.'api/Wo_get_all_infoapi/get_all_wo_id?wo_id='.$wo_id;	   
+       // $url = $path.'api/Wo_get_all_infoapi/get_all_wo_id?wo_id='.$wo_id;	   
    $ch = curl_init($url);
    curl_setopt($ch, CURLOPT_HTTPGET, true);
    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -31,7 +31,7 @@ class Manage_workorder extends CI_Controller
  public function show_WO_id_info()
  {
   extract($_POST);
-          //print_r($_POST);
+        //print_r($_POST);
   $path=base_url();
   $url = $path.'api/Wo_get_all_infoapi/show_WO_id_info?wo_id='.$wo_id; 
   $ch = curl_init($url);
@@ -40,12 +40,11 @@ class Manage_workorder extends CI_Controller
   $response_json = curl_exec($ch);
   curl_close($ch);
   $response=json_decode($response_json, true);
-  
-  if ($response['status']==0) {
-  } else {
 
+  if ($response['status']==0) {
+  } 
+  else {
     foreach ($response['status_message'] as $key) {
-             //$customer_name=$response['status_message']['customer_name'];
       $date=date('d/m/Y',strtotime($key['dated'])); 
       echo '
       <div class= "w3-margin-top w3-card-2 w3-padding">
@@ -83,7 +82,7 @@ class Manage_workorder extends CI_Controller
       $count=1;
       foreach (json_decode($key['product_associated'],TRUE) as $row) {
 
-        //-----------------get profile name----------------------
+      //-----------------get profile name----------------------
         $path=base_url();
         $url = $path.'api/ManageProfile_api/profileDetails?profile_id='.$row['profile_id']; 
         $ch = curl_init($url);
@@ -93,8 +92,8 @@ class Manage_workorder extends CI_Controller
         curl_close($ch);
         $response=json_decode($response_json, true);
         $profile_name=($response['status_message'][0]['profile_name']);
-        //echo $profile_name;
-        //------------------get profile name ends---------------------------
+      //echo $profile_name;
+      //------------------get profile name ends---------------------------
         echo '
         <tr>
         <td class="text-center">
@@ -219,33 +218,33 @@ class Manage_workorder extends CI_Controller
 //----------this function to save WO profile-----------------------------//
 public function addWO() { 
   extract($_POST);
-  //print_r($_POST);print_r($_FILES);die();
+//print_r($_POST);print_r($_FILES);die();
   $data = $_POST;
 
-  $drawing_Arr=array();  //material_image array
-  $allowed_types=['gif','jpg','png','jpeg','JPG','GIF','JPEG','PNG'];
+$drawing_Arr=array();  //material_image array
+$allowed_types=['gif','jpg','png','jpeg','JPG','GIF','JPEG','PNG'];
 
-  for($j = 1; $j <= count($profile_name); $j++){
-    for($i = 0; $i < count($_FILES['drawing_image_'.$j]['name']); $i++){
+for($j = 1; $j <= count($profile_name); $j++){
+  for($i = 0; $i < count($_FILES['drawing_image_'.$j]['name']); $i++){
 
-    $extension_drawing = pathinfo($_FILES['drawing_image_'.$j]['name'][$i], PATHINFO_EXTENSION); //get material image file extension 
+  $extension_drawing = pathinfo($_FILES['drawing_image_'.$j]['name'][$i], PATHINFO_EXTENSION); //get material image file extension 
 
-    //image validating---------------------------//
-    //check whether image size is less than 1 mb or not
-    if($_FILES['drawing_image_'.$j]['size'][$i] > 1048576){  //for material images
-      echo '<label class="w3-small w3-label w3-text-red"><i class="fa fa-warning w3-xxlarge"></i> Image size for material '.$profile_name[$i].' exceeds size limit of 1MB. Upload image having size less than 1MB</label>';
-      die();
-    }
-    
-    //check file is an image or not by checking extensions
-    if(!in_array($extension_drawing, $allowed_types)){  //for material images
-      echo '<label class="w3-small w3-label w3-text-red"><i class="fa fa-warning w3-xxlarge"></i> File uploading for material '.$profile_name[$i].' is not an image file. Upload image having type gif, jpg, jpeg OR png</label>';
-      die();
-    }
-    
+  //image validating---------------------------//
+  //check whether image size is less than 1 mb or not
+  if($_FILES['drawing_image_'.$j]['size'][$i] > 1048576){  //for material images
+    echo '<label class="w3-small w3-label w3-text-red"><i class="fa fa-warning w3-xxlarge"></i> Image size for material '.$profile_name[$i].' exceeds size limit of 1MB. Upload image having size less than 1MB</label>';
+    die();
   }
+  
+  //check file is an image or not by checking extensions
+  if(!in_array($extension_drawing, $allowed_types)){  //for material images
+    echo '<label class="w3-small w3-label w3-text-red"><i class="fa fa-warning w3-xxlarge"></i> File uploading for material '.$profile_name[$i].' is not an image file. Upload image having type gif, jpg, jpeg OR png</label>';
+    die();
+  }
+  
 }
-  //validating image ends---------------------------//
+}
+//validating image ends---------------------------//
 
 $imagePath ='';
 $count=1;
@@ -261,25 +260,25 @@ for ($j=0; $j < count($profile_name); $j++) {
       $_FILES['userFile']['error'] = $_FILES['drawing_image_'.$count]['error'][$i];
       $_FILES['userFile']['size'] = $_FILES['drawing_image_'.$count]['size'][$i];
 
-      $uploadPath ='images/wo_drawings/';  //upload images in images/desktop/ folder
-      $config['upload_path'] = $uploadPath;
-      $config['allowed_types'] = 'gif|jpg|png|jpeg'; //allowed types of images           
-      $config['overwrite'] = TRUE;            
+    $uploadPath ='images/wo_drawings/';  //upload images in images/desktop/ folder
+    $config['upload_path'] = $uploadPath;
+    $config['allowed_types'] = 'gif|jpg|png|jpeg'; //allowed types of images           
+    $config['overwrite'] = TRUE;            
 
-      $this->load->library('upload', $config);  //load upload file config.
-      $this->upload->initialize($config);
+    $this->load->library('upload', $config);  //load upload file config.
+    $this->upload->initialize($config);
 
-      if($this->upload->do_upload('userFile')){
-        $fileData = $this->upload->data();
-        $imagePath='images/wo_drawings/'.$fileData['file_name'];
-      }
-      $drawing_Arr[]= $imagePath;
-      //$drawing_Arr[]= $_FILES['userFile']['name'];
+    if($this->upload->do_upload('userFile')){
+      $fileData = $this->upload->data();
+      $imagePath='images/wo_drawings/'.$fileData['file_name'];
     }
+    $drawing_Arr[]= $imagePath;
+    //$drawing_Arr[]= $_FILES['userFile']['name'];
   }
-  $main_drawingArr[]=$drawing_Arr;
-  unset($drawing_Arr);
-  $count++;   
+}
+$main_drawingArr[]=$drawing_Arr;
+unset($drawing_Arr);
+$count++;   
 }
 $data['wo_drawing']=json_encode($main_drawingArr);
 $data['quantities']=json_encode($wo_quantity);
