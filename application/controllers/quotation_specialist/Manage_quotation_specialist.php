@@ -54,7 +54,7 @@ class Manage_quotation_specialist extends CI_Controller {
         $response_json = curl_exec($ch);
         curl_close($ch);
         $response = json_decode($response_json, true);
-        
+        print_r($response_json);die();
         if ($response['status']==0) {
   } 
   else {

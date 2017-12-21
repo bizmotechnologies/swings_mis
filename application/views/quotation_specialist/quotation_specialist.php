@@ -84,7 +84,7 @@ function getqueryForChange(wo_id){
     $("#showwoQueryForProduction").html('<center><img width="60%" height="auto" src="'+BASE_URL+'css/logos/page_spinner3.gif"/></center>');     
       $.ajax({
         type:'post',
-        url:BASE_URL+'sales_enquiry/Manage_quotation_specialist/getqueryForChange',
+        url:BASE_URL+'quotation_specialist/Manage_quotation_specialist/getqueryForChange',
         data:{
           wo_id:wo_id
         },
