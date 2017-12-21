@@ -196,13 +196,13 @@ error_reporting(E_ERROR | E_PARSE);
             productPrice = 0;
             $('#Product_' + rownum + ' input[name="final_Price[]"]').each(function ()
             {
-               if($(this).val() ){
+             if($(this).val() ){
                 final_Price.push($(this).val());
             }
         });
             $('#Product_' + rownum + ' input[name="Available_Price[]"]').each(function ()
             {
-               if($(this).val() ){
+             if($(this).val() ){
                 AvailablePrice.push($(this).val());
             }
         });
@@ -241,19 +241,19 @@ error_reporting(E_ERROR | E_PARSE);
     <script>
         function GetProductfinalPrice(rownum){
 
-         final_Price = 0;
-         var final_Price = [];
-         FinalPricesum = 0;
-         ProductQuantity = document.getElementById('Product_Quantity_' + rownum).value;
-         TotalProduct_Price = $('#TotalProduct_Price_' + rownum).val();
+           final_Price = 0;
+           var final_Price = [];
+           FinalPricesum = 0;
+           ProductQuantity = document.getElementById('Product_Quantity_' + rownum).value;
+           TotalProduct_Price = $('#TotalProduct_Price_' + rownum).val();
            productDiscount = $('#Product_Discount_' + rownum).val();   //------discount value set to the text field 
            
      $('#Product_' + rownum + ' input[name="final_Price[]"]').each(function ()  //get material final price array
      {
-       if($(this).val() ){
-        final_Price.push($(this).val());
-    }
-});
+         if($(this).val() ){
+            final_Price.push($(this).val());
+        }
+    });
 
      FinalPrice = final_Price.length;
      while (FinalPrice--) {
@@ -351,13 +351,13 @@ error_reporting(E_ERROR | E_PARSE);
             var MaterialOD = [];
             $('#Div_no_' + fieldnum + '_' + countnum + ' input[name="Select_ID[' + fieldnum + '][]"]').each(function ()
             {
-               if($(this).val() ){
+             if($(this).val() ){
                 MaterialID.push($(this).val());
             }
         });
             $("#Div_no_" + fieldnum + "_" + countnum + " input[name='Select_OD[" + fieldnum + "][]']").each(function ()
             {
-               if($(this).val() ){
+             if($(this).val() ){
                 MaterialOD.push($(this).val());
             }
         });
@@ -396,53 +396,54 @@ error_reporting(E_ERROR | E_PARSE);
         <form method="POST" action="<?php echo base_url(); ?>inventory/Manage_materials/SaveProductsForEnquiry" id="Manage_EnquiryForm" name="Manage_EnquiryForm">
             <div class="w3-col l12" id="parent"><!--this div for customer for to quotation-->
                 <div class="w3-col l12 w3-padding w3-small">
-                    <div class="w3-col l4 w3-padding-left">
-                        <div class="input-group w3-padding-top">
-                            <label>Customer Name:</label> 
-                            <input list="Customers" id="Select_Customers" autocomplete="off" onclick="this.select();" name="Select_Customers" value="<?php echo $cust_name; ?>" class="w3-input" required type="text" placeholder="Select Customer" onchange="getCustomerId()">  
-                            <input type="hidden" name="customer_id" id="customer_id">                                      
-                            <datalist id="Customers">
-                                <?php foreach ($customers['status_message'] as $result) { ?>
-                                <option data-value="<?php echo $result['cust_id']; ?>" value='<?php echo $result['customer_name']; ?>'></option>
-                                <?php } ?>
-                            </datalist>
-                        </div>
+                    <div class="w3-col l2 w3-padding-left">
+                        <label>Customer Name:</label> 
+                        <input list="Customers" id="Select_Customers" autocomplete="off" onclick="this.select();" name="Select_Customers" value="<?php echo $cust_name; ?>" class="w3-input" required type="text" placeholder="Select Customer" onchange="getCustomerId()">  
+                        <input type="hidden" name="customer_id" id="customer_id">                                      
+                        <datalist id="Customers">
+                            <?php foreach ($customers['status_message'] as $result) { ?>
+                            <option data-value="<?php echo $result['cust_id']; ?>" value='<?php echo $result['customer_name']; ?>'></option>
+                            <?php } ?>
+                        </datalist>
                     </div>
-                    <div class="w3-col l4 w3-left">
-                     <a class="w3-left w3-text-red" href="<?php echo base_url(); ?>inventory/Manage_customers" >Add New Customer<i class="w3-margin-left fa fa-address-card-o"></i></a>
+                    <div class="w3-col l2 w3-left">
+                       <div class="w3-col l12">
+                        <label class="w3-text-white">Customer Name:</label> 
+                        <a class="w3-left w3-small w3-button" href="<?php echo base_url(); ?>inventory/Manage_customers" style="padding:5px;margin:8px 0 0 5px"><i class="fa fa-plus"></i> Add Customer</a>
                     </div>
                 </div>
-
-            </div><!--this div for customer for to quotation-->
-            <div class="w3-col l12 w3-padding">
-                <a id="btn-add-product" class="btn w3-text-red w3-left"><i class="fa fa-plus"></i> Add New Product </a>
             </div>
-            <div class="w3-col l12"><!--this div for button for add product to quotation-->
-                <button type="submit" id="add_enquiryBTN" class="btn w3-right btn-lg w3-blue w3-margin">Add Enquiry Details</button>
-            </div> 
-            <!--this div for button for add product to quotation-->
-        </form>
-    </div>
 
-    <!-- Modal -->
-    <div id="myModalnew" class="modal fade" role="dialog">
-        <div class="modal-dialog">
+        </div><!--this div for customer for to quotation-->
+        <div class="w3-col l12 w3-padding">
+            <a id="btn-add-product" class="btn w3-text-red w3-left"><i class="fa fa-plus"></i> Add New Product </a>
+        </div>
+        <div class="w3-col l12"><!--this div for button for add product to quotation-->
+            <button type="submit" id="add_enquiryBTN" class="btn w3-right btn-lg w3-blue w3-margin">Add Enquiry Details</button>
+        </div> 
+        <!--this div for button for add product to quotation-->
+    </form>
+</div>
 
-            <!-- Modal content-->
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <div class="modal-title" id="msg_header"></div>
-                </div>
-                <div class="modal-body">
-                    <div id="addMaterials_err" name="addMaterials_err" class="w3-text-red"></div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button"  class="btn btn-default" data-dismiss="modal">Close</button>
-                </div>
+<!-- Modal -->
+<div id="myModalnew" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <div class="modal-title" id="msg_header"></div>
+            </div>
+            <div class="modal-body">
+                <div id="addMaterials_err" name="addMaterials_err" class="w3-text-red"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button"  class="btn btn-default" data-dismiss="modal">Close</button>
             </div>
         </div>
     </div>
+</div>
     <!--\n\<div class="w3-col l12 w3-padding-left w3-margin-top w3-margin-bottom">\n\
     <button class="btn-add-siblings">Add Material</button>\n\
 </div>\n\-->
@@ -474,19 +475,19 @@ error_reporting(E_ERROR | E_PARSE);
 
             $('#Div_no_' + fieldnum + '_' + countnum + ' input[name="Select_ID[' + fieldnum + '][]"]').each(function ()
             {
-               if($(this).val() ){
+             if($(this).val() ){
                 MaterialID.push($(this).val());
             }
         });
             $("#Div_no_" + fieldnum + "_" + countnum + " input[name='Select_OD[" + fieldnum + "][]']").each(function ()
             {
-               if($(this).val() ){
+             if($(this).val() ){
                 MaterialOD.push($(this).val());
             }
         });
             $("#Div_no_" + fieldnum + "_" + countnum + " input[name='Select_Length[" + fieldnum + "][]']").each(function ()
             {
-               if($(this).val() ){
+             if($(this).val() ){
                 MaterialLength.push($(this).val());
             }
         });
@@ -602,7 +603,7 @@ error_reporting(E_ERROR | E_PARSE);
             var MaterialLength = [];
             $("#Div_no_" + fieldnum + "_" + countnum + " input[name='Select_Length[" + fieldnum + "][]']").each(function ()
             {
-               if($(this).val() ){
+             if($(this).val() ){
                 MaterialLength.push($(this).val());//--this is for get material length array...
             }
         });
@@ -642,7 +643,7 @@ error_reporting(E_ERROR | E_PARSE);
 
         $("#Div_no_" + fieldnum + "_" + countnum + " input[name='Select_Length[" + fieldnum + "][]']").each(function ()
         {
-           if($(this).val() ){
+         if($(this).val() ){
             MaterialLength.push($(this).val());//--this is for get material length array...
         }
     });
