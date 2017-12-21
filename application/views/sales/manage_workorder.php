@@ -53,8 +53,13 @@ error_reporting(E_ERROR | E_PARSE);
                   foreach ($wo_info['status_message'] as $row)  
                   {  
                     $time=date('h:i a', strtotime($row['time_on']));
-                    $date=date('d/m/Y',strtotime($row['dated']));                       
-                    ?><tr>  
+                    $date=date('d/m/Y',strtotime($row['dated'])); 
+                    $color='w3-light-grey';
+
+                    if($row['current_status']==1){
+                      $color='';
+                    }                      
+                    ?><tr class="<?php echo $color; ?>">  
                       <td class="text-center"><?php echo $count;?>.</td>  
                       <td class="text-center">#WO-0<?php echo $row['wo_id'];?></td>  
                       <td class="text-center">#QUO-0<?php echo $row['quotation_id'];?></td>
