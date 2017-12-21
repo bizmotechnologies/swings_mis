@@ -56,7 +56,6 @@ class Manage_enquiry extends CI_controller {
 
 public function getBest_tube() {
     extract($_POST);
-        //print_r($_POST);die();
 
     if(isset($MaterialID) && isset($MaterialOD) && isset($MaterialLength)){
         $Material_ID = min($MaterialID);
@@ -150,7 +149,7 @@ public function getBest_tube() {
 //    -----------this fun is show fetched material info page
     public function GetMaterialBasePrice_byBranchPrice(){
         extract($_POST);
-        
+        print_r($_POST);die();
         if(isset($branchprice) && $branchprice!=0 && isset($MaterialLength)){
 
             $Material_LENGTH = max($MaterialLength);

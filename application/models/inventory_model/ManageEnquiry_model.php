@@ -343,6 +343,7 @@ class ManageEnquiry_model extends CI_Model {
     }
   
     public function getAvailableTubeFromAllBranches($material_id, $Material_ID, $Material_OD){
+        //echo $material_id;
         $branch_name = '';
         $branch = '';
         $tube = '';
@@ -350,7 +351,7 @@ class ManageEnquiry_model extends CI_Model {
         $available_tubes = '';
         $sql = "SELECT * FROM branch_table";
         $result = $this->db->query($sql);
-       
+       $all_branchData=array();
         if ($result->num_rows() >= 0) {         
             foreach ($result->result_array() as $row) {
                 $branch_name = $row['branch_name'];
@@ -371,12 +372,12 @@ class ManageEnquiry_model extends CI_Model {
                         'tube' => $tube,
                         'price' => $price
                     );       
-                      $all_banchData[] = $available_tubes;
+                      $all_branchData[] = $available_tubes;
                     }
                    // print_r($all_banchData);
                 $response = array(
                 'status' => 1,
-                'status_message' => $all_banchData);
+                'status_message' => $all_branchData);
                 } 
                 else{
                    $response = array(
