@@ -398,6 +398,9 @@ error_reporting(E_ERROR | E_PARSE);
                             </datalist>
                         </div>
                     </div>
+                    <div class="w3-col l4 w3-left">
+                     <a class="w3-left w3-text-red" href="<?php echo base_url(); ?>inventory/Manage_customers" >Add New Customer<i class="w3-margin-left fa fa-address-card-o"></i></a>
+                    </div>
                 </div>
 
             </div><!--this div for customer for to quotation-->
