@@ -42,7 +42,7 @@ error_reporting(E_ERROR | E_PARSE);
             <hr>\n\
             <div class="w3-col l3 w3-left">\n\
             <div class="input-group">\n\
-            <label>Profile Name:</label>\n\
+            <label>Profile:</label>\n\
             <input list="Profiles_' + currparent + '" onclick="this.select();" id="Select_Profiles_' + currparent + '" name="Select_Profiles[]" value="<?php echo $div['profile_id']; ?>" class="w3-input" required type="text" placeholder="Select Profile Name" onchange="GetProfileInformation(' + currparent + ');"><input name="profile_id[]" id="profile_id_fetch_' + currparent + '" type="hidden">\n\
             <datalist id="Profiles_' + currparent + '">\n\
             <?php foreach ($profileinfo['status_message'] as $result) { ?><option data-value="<?php echo $result['profile_id']; ?>" value="<?php echo $result['profile_name']; ?>"></option><?php } ?></datalist>\n\
@@ -196,12 +196,16 @@ error_reporting(E_ERROR | E_PARSE);
             productPrice = 0;
             $('#Product_' + rownum + ' input[name="final_Price[]"]').each(function ()
             {
+               if($(this).val() ){
                 final_Price.push($(this).val());
-            });
+            }
+        });
             $('#Product_' + rownum + ' input[name="Available_Price[]"]').each(function ()
             {
+               if($(this).val() ){
                 AvailablePrice.push($(this).val());
-            });
+            }
+        });
             ProductQuantity = document.getElementById('Product_Quantity_' + rownum).value;
 
         //-----this loop is used to addition of the final price of material------//
@@ -246,8 +250,10 @@ error_reporting(E_ERROR | E_PARSE);
            
      $('#Product_' + rownum + ' input[name="final_Price[]"]').each(function ()  //get material final price array
      {
+       if($(this).val() ){
         final_Price.push($(this).val());
-    });
+    }
+});
 
      FinalPrice = final_Price.length;
      while (FinalPrice--) {
@@ -345,12 +351,16 @@ error_reporting(E_ERROR | E_PARSE);
             var MaterialOD = [];
             $('#Div_no_' + fieldnum + '_' + countnum + ' input[name="Select_ID[' + fieldnum + '][]"]').each(function ()
             {
+               if($(this).val() ){
                 MaterialID.push($(this).val());
-            });
+            }
+        });
             $("#Div_no_" + fieldnum + "_" + countnum + " input[name='Select_OD[" + fieldnum + "][]']").each(function ()
             {
+               if($(this).val() ){
                 MaterialOD.push($(this).val());
-            });
+            }
+        });
         //alert(Materialinfo);
         $.ajax({
             type: "POST",
@@ -461,16 +471,22 @@ error_reporting(E_ERROR | E_PARSE);
 
             $('#Div_no_' + fieldnum + '_' + countnum + ' input[name="Select_ID[' + fieldnum + '][]"]').each(function ()
             {
+               if($(this).val() ){
                 MaterialID.push($(this).val());
-            });
+            }
+        });
             $("#Div_no_" + fieldnum + "_" + countnum + " input[name='Select_OD[" + fieldnum + "][]']").each(function ()
             {
+               if($(this).val() ){
                 MaterialOD.push($(this).val());
-            });
+            }
+        });
             $("#Div_no_" + fieldnum + "_" + countnum + " input[name='Select_Length[" + fieldnum + "][]']").each(function ()
             {
+               if($(this).val() ){
                 MaterialLength.push($(this).val());
-            });
+            }
+        });
             $.ajax({
                 type: "POST",
                 url: BASE_URL + "inventory/Manage_enquiry/getBest_tube",
@@ -506,16 +522,23 @@ error_reporting(E_ERROR | E_PARSE);
             $("#tube_spinner_" + fieldnum + '_' + countnum).html('<center><img width="100%" height="auto" src="'+BASE_URL+'css/logos/small_loader.gif"/></center>');
             $('#Div_no_' + fieldnum + '_' + countnum + ' input[name="Select_ID[' + fieldnum + '][]"]').each(function ()
             {
-                MaterialID.push($(this).val());
+                if($(this).val() ){
+                    MaterialID.push($(this).val());
+                }
             });
             $("#Div_no_" + fieldnum + "_" + countnum + " input[name='Select_OD[" + fieldnum + "][]']").each(function ()
             {
-                MaterialOD.push($(this).val());
+                if($(this).val() ){
+                    MaterialOD.push($(this).val());
+                }
             });
             $("#Div_no_" + fieldnum + "_" + countnum + " input[name='Select_Length[" + fieldnum + "][]']").each(function ()
             {
-                MaterialLength.push($(this).val());
+                if($(this).val() ){
+                    MaterialLength.push($(this).val());
+                }
             });
+            
             getBest_tube(fieldnum, countnum);
             $.ajax({
                 type: "POST",
@@ -576,8 +599,10 @@ error_reporting(E_ERROR | E_PARSE);
             var MaterialLength = [];
             $("#Div_no_" + fieldnum + "_" + countnum + " input[name='Select_Length[" + fieldnum + "][]']").each(function ()
             {
+               if($(this).val() ){
                 MaterialLength.push($(this).val());//--this is for get material length array...
-            });
+            }
+        });
 
             Available_tube = $('#Available_tube_' + fieldnum + '_' + countnum).val();
 
@@ -614,8 +639,10 @@ error_reporting(E_ERROR | E_PARSE);
 
         $("#Div_no_" + fieldnum + "_" + countnum + " input[name='Select_Length[" + fieldnum + "][]']").each(function ()
         {
+           if($(this).val() ){
             MaterialLength.push($(this).val());//--this is for get material length array...
-        });
+        }
+    });
 
         Available_tube = $('#Available_tube_' + fieldnum + '_' + countnum).val();
        //alert(branchprice);
