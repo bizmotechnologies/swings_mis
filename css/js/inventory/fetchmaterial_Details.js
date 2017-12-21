@@ -40,6 +40,8 @@ function GetMaterilaInformation() {
 
 
 
+
+
 function GetMaterialInformation_ForEnquiry(fieldnum) {
     Materialinfo = $('#Materialinfo_' + fieldnum + ' [value="' + $('#Select_material_' + fieldnum).val() + '"]').data('value');
     Materialinfo = {

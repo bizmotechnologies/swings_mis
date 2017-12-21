@@ -1,6 +1,6 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-//error_reporting(E_ERROR | E_PARSE);
+error_reporting(E_ERROR | E_PARSE);
 ?>
 <!DOCTYPE html>
 <html>
@@ -18,6 +18,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <script type="text/javascript" src="<?php echo base_url(); ?>css/bootstrap/bootstrap.min.js"></script>
     <script type="text/javascript" src="<?php echo base_url(); ?>css/js/config.js"></script>
     <script type="text/javascript" src="<?php echo base_url(); ?>css/js/inventory/fetchmaterial_Details.js"></script>
+    <script type="text/javascript" src="<?php echo base_url(); ?>css/js/sales/manage_enquiries.js"></script>
     <script>
         var currparent = 1;
         var currchild = 1;
@@ -241,8 +242,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
          FinalPricesum = 0;
          ProductQuantity = document.getElementById('Product_Quantity_' + rownum).value;
          TotalProduct_Price = $('#TotalProduct_Price_' + rownum).val();
-    productDiscount = $('#Product_Discount_' + rownum).val();   //------discount value set to the text field 
-    
+           productDiscount = $('#Product_Discount_' + rownum).val();   //------discount value set to the text field 
+           
      $('#Product_' + rownum + ' input[name="final_Price[]"]').each(function ()  //get material final price array
      {
         final_Price.push($(this).val());
@@ -703,5 +704,21 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 </script>
 <!-- script end -->
+
+<!-- script function to mkae final prize of material 0 when material is excluded -->
+<!-- <script>
+    function excludeMaterial(Profile_num,count)
+    {
+      if($(this).is(":checked")){ }
+        else
+        {
+            document.getElementById('final_Price_'+Profile_num + '_' + count).value = 0 ;
+            document.getElementById('Available_Price_'+Profile_num + '_' + count).value = 0 ;
+        }
+
+
+    }
+</script> -->
+<!-- script ends -->
 </body>
 </html>

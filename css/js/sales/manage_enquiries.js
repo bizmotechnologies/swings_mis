@@ -42,3 +42,16 @@ $(function () {
     });
 });
 // ------------function preview image end------------------//
+
+
+function excludeMaterial(Profile_num,count)
+{
+  if($(this).is(":checked")){ }
+    else
+    {
+        document.getElementById('final_Price_'+Profile_num + '_' + count).value = 0 ;
+        document.getElementById('Available_Price_'+Profile_num + '_' + count).value = 0 ;
+    }
+
+
+}

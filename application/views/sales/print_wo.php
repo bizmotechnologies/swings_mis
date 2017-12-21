@@ -185,7 +185,7 @@ error_reporting(E_ERROR | E_PARSE);
      ?>
    </div>
    <div class="col-lg-3">
-    <input name="b_print" id="b_print" type="button" class="w3-button w3-red w3-wide w3-margin-top" onClick="javascript:printdiv('container')" value=" Print"  >
+    <input name="wo_print" id="wo_print" type="button" class="w3-button w3-red w3-wide w3-margin-left fa fa-print" onClick="javascript:printdiv('container')" value="Print"  >
   </div>
 </div>
 </body>
