@@ -47,7 +47,19 @@ class Manage_workorder_production extends CI_Controller {
                 <input type="text" class="form-control" name="ChangedmaterialName[]" id="materialName" value="'.$_POST['material_name_'.$count][$p].'">
                 </div>
                 
-                 <div class="w3-col l3 w3-margin-top w3-padding-right">
+                <div class="w3-col l3 w3-margin-top w3-padding-right">
+                <label>Material ID:</label>
+                <input type="text" class="form-control" name="material_innerID[]" id="material_innerID" value="'.$_POST['material_ID_'.$count][$p].'">
+                </div>
+                
+                <div class="w3-col l3 w3-margin-top w3-padding-right">
+                <label>Material OD:</label>
+                <input type="text" class="form-control" name="material_outerID[]" id="material_outerID" value="'.$_POST['material_OD_'.$count][$p].'">
+                </div>
+                </div>  
+                
+                <div class="w3-col l12">
+                <div class="w3-col l3 w3-margin-top w3-padding-right">
                 <label>Alloted Length:</label>
                 <input type="text" class="form-control" name="Allotedmaterial_length[]" id="Allotedmaterial_length" value="'.$_POST['usedlength_'.$count][$p].'">
                 </div>
@@ -56,10 +68,10 @@ class Manage_workorder_production extends CI_Controller {
                 <label>Consume Length:</label>
                 <input type="text" class="form-control" name="Consumedmaterial_length[]" id="Consumedmaterial_length" value="'.$_POST['consumedtube_'.$count][$p].'">
                 </div>
-                </div>  
-                            
+                </div>
+
                 <div class="w3-col l12">                
-                <div class="w3-col l12 w3-margin-top w3-padding-right">
+                <div class="w3-col l10 w3-margin-top w3-padding-right">
                 <label>Reason For Change Length:</label>
                 <input type="text" class="form-control" id="reasonForchange" name="reasonForchange[]">
                 </div>
@@ -94,8 +106,8 @@ class Manage_workorder_production extends CI_Controller {
         <a class="w3-button w3-red" href="#">Start Time<i class="w3-margin-left fa fa-clock-o"></i></a>
         <a class="w3-button w3-black" href="#">End Time<i class="w3-margin-left fa fa-clock-o"></i></a>
         <hr>
-      </div>
-      <div class= "w3-margin-top w3-card-2">
+      </div>';
+      echo'<div class= "w3-margin-top w3-card-2">
       <div class="w3-col l12">
       <table class="table table-bordered">
       <tbody>
@@ -117,6 +129,8 @@ class Manage_workorder_production extends CI_Controller {
       <th class="text-center">Sr.</th>
       <th class="text-center">Profile</th>
       <th class="text-center">Material</th>
+      <th class="text-center">Material ID</th>
+      <th class="text-center">Material OD</th>
       <th class="text-center">Alloted Length</th>
       <th class="text-center">Consume Length</th>      
       <th class="text-center">ID</th>
@@ -152,14 +166,31 @@ class Manage_workorder_production extends CI_Controller {
         <label>'.$profile_name.'</label>
         </td>
         <td class="text-center">';
-                    foreach ($row['material_associated'] as $material) {
-                        echo' <label>';
-                        echo($material['material_id']);
-                        echo '</label>';
-                    }
-                    echo'<input type="hidden" name="profile_id[]" id="profile_id" value="'.$row['profile_id'].'">
-                    
+        foreach ($row['material_associated'] as $material) {
+        echo' <label>';
+        echo($material['material_id']);
+        echo '</label>';
+        }
+        echo'<input type="hidden" name="profile_id[]" id="profile_id" value="'.$row['profile_id'].'">                    
         </td>';
+        //---------td for show materila Inner Dimention
+        echo'<td class="text-center">';
+        $no = 0;            
+        foreach ($row['material_associated'] as $material) {            
+        echo'<input class="form-control" type="text" name="material_ID_'.$count.'[]" id="usedlength" readonly value="'.$material['material_ID'][$new][$no].'" </label>';
+        $no++;
+        }
+        echo'</td>';
+        //---------td for show materila Inner Dimention
+        //---------td for show materila outer Dimention
+        echo'<td class="text-center">';
+        $no = 0;            
+        foreach ($row['material_associated'] as $material) {            
+        echo'<input class="form-control" type="text" name="material_OD_'.$count.'[]" id="usedlength" readonly value="'.$material['material_OD'][$new][$no].'" </label>';
+        $no++;
+        }
+        echo'</td>';
+        //---------td for show materila outer Dimention
         echo'<input type="hidden" name="profile_name[]" id="profile_name" value="'.$profile_name.'">';
         echo'<input type="hidden" name="wo_id" id="wo_id" value="'.$Workorder_id.'">';
         echo'<input type="hidden" name="CustomerName" id="CustomerName" value="'.$key['customer_name'].'">';
