@@ -54,8 +54,6 @@ class Manage_quotation_specialist extends CI_Controller {
         $response_json = curl_exec($ch);
         curl_close($ch);
         $response = json_decode($response_json, true);
-        //print_r($response['status_message']);
-        //print_r($response['status_message'][0]['queryfor_specialist']);die();
         if ($response['status']==0) {
   } 
   else {
@@ -72,8 +70,8 @@ class Manage_quotation_specialist extends CI_Controller {
       </tr>
       </tbody>
       </table>
-      </div>
-                <div class="w3-col l12 w3-margin-top">';
+      </div>';//---this code is for showing the customer name and work order id
+                echo'<div class="w3-col l12 w3-margin-top">';
                 $queryforspecialist = json_decode($key['queryfor_specialist'], TRUE);
                 //print_r($queryforspecialist[0]);die();
                 $no=0;
@@ -99,16 +97,15 @@ class Manage_quotation_specialist extends CI_Controller {
                 </div>
                 
                 </div>  
-                            
-                
+                                            
                 <div class="w3-col l12 w3-padding-right">
                 <label>Reason For Change Length:</label>
                 <label>'.$val['reasonForchange'].'</label>
                 </div>
 
-                <div>
-                <a class="w3-button w3-red" href="approvedQuery('.$key['wo_id'].')">Approve<i class="w3-margin-left fa fa-thumbs-up"></i></a>
-                <a class="w3-button w3-black" href="rejectQuery('.$key['wo_id'].')">Reject<i class="w3-margin-left fa fa-thumbs-down"></i></a>
+                <div class="w3-col l12 w3-margin-top">
+                <a class="w3-button w3-red" href="'.base_url().'quotation_specialist/Manage_quotation_specialist/approvedQuery?wo_id='.$key['wo_id'].'">Approve<i class="w3-margin-left fa fa-thumbs-up"></i></a>
+                <a class="w3-button w3-black" href="'.base_url().'quotation_specialist/Manage_quotation_specialist/rejectedQuery?wo_id='.$key['wo_id'].'"">Reject<i class="w3-margin-left fa fa-thumbs-down"></i></a>
                 </div>
                 
                 ';
