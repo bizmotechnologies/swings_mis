@@ -189,7 +189,6 @@ class Manage_materials extends CI_controller {
                     <th class="w3-center">Price</th>
                     </tr>
                     <tbody id = "allbranchAvailable_tube_'.$Profile_num.'_'.$count.'">
-                    <input type ="text" id="hiddentInputForBranch_Price_'.$Profile_num.'_'.$count.'" value="0" name="hiddentInputForBranch_Price[]">
                     </tbody>
                     </table>
                     </div>
@@ -615,7 +614,7 @@ public function fetchmaterial_details() {
             '  
             <tr id="branch_price_'.$fieldnum.'_'.$countnum.'_1">
             <td>1.</td>
-            <td><input type="radio" name="branchPrice_radio_'.$fieldnum.'_'.$countnum.'" id="branch_id_'.$fieldnum.'_'.$countnum.'_1" checked value="0" onchange=GetMaterialBasePrice('.$fieldnum.','.$countnum.',1);></td>
+            <td><input type="radio" name="branchPrice_radio_'.$fieldnum.'_'.$countnum.'" id="branch_id_'.$fieldnum.'_'.$countnum.'_1" checked value="0" onclick=getTubePrice_byBranch('.$fieldnum.','.$countnum.',1);></td>
             <td>None of These</td>
             <td>N/A</td>
             <td>N/A</td>
@@ -624,7 +623,7 @@ public function fetchmaterial_details() {
 
                 echo'   <tr id="branch_price_'.$fieldnum.'_'.$countnum.'_'.$no.'">
                 <td>'.$no.'.</td>
-                <td><input type="radio" name="branchPrice_radio_'.$fieldnum.'_'.$countnum.'" id="branch_id_'.$fieldnum.'_'.$countnum.'_'.$no.'" value="'.$key['price'].'" onchange=GetMaterialBasePrice('.$fieldnum.','.$countnum.','.$no.');></td>
+                <td><input type="radio" name="branchPrice_radio_'.$fieldnum.'_'.$countnum.'" id="branch_id_'.$fieldnum.'_'.$countnum.'_'.$no.'" value="'.$key['price'].'" onclick=getTubePrice_byBranch('.$fieldnum.','.$countnum.','.$no.');></td>
                 <td>'.$key['branch_name'].'</td>
                 <td>'.$key['tube'].'</td>
                 <td>'.$key['price'].'</td>
@@ -635,7 +634,7 @@ public function fetchmaterial_details() {
         }else{
             echo'  <tr id="branch_price_'.$fieldnum.'_'.$countnum.'_1">
             <td>1.</td>
-            <td><input type="radio" name="branchPrice_radio_'.$fieldnum.'_'.$countnum.'" id="branch_id_'.$fieldnum.'_'.$countnum.'_1" checked value="0" onchange=GetMaterialBasePrice('.$fieldnum.','.$countnum.',1);></td>
+            <td><input type="radio" name="branchPrice_radio_'.$fieldnum.'_'.$countnum.'" id="branch_id_'.$fieldnum.'_'.$countnum.'_1" checked value="0" onclick=getTubePrice_byBranch('.$fieldnum.','.$countnum.',1);></td>
             <td>None of These</td>
             <td>N/A</td>
             <td>N/A</td>

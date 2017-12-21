@@ -532,7 +532,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     $('#Available_tube_' + fieldnum + '_' + countnum).val(data);
                     getAvailableTubeFromAllBranches(fieldnum, countnum);
                     $("#tube_spinner_" + fieldnum + '_' + countnum).html('');
-
+                    GetMaterialBasePrice(fieldnum, countnum);
                 }
             });
         }
@@ -566,15 +566,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 <script>
         //----this funis used to get value from table to perform bestprice calculations
-        function GetMaterialBasePrice(fieldnum, countnum ,cellnum) {
+        function GetMaterialBasePrice(fieldnum, countnum) {
             Materialinfo = 0;
             MaterialLength = 0;
             branchprice = 0;
             Materialinfo = $('#Materialinfo_' + fieldnum + '_' + countnum + ' [value="' + $('#Select_material_' + fieldnum + '_' + countnum + '').val() + '"]').data('value');
 
-           hiddentInputForBranch_Price = document.getElementById('hiddentInputForBranch_Price_'+fieldnum + '_' + countnum).value = '0';
             var MaterialLength = [];
-
             $("#Div_no_" + fieldnum + "_" + countnum + " input[name='Select_Length[" + fieldnum + "][]']").each(function ()
             {
                 MaterialLength.push($(this).val());//--this is for get material length array...
@@ -582,49 +580,65 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
             Available_tube = $('#Available_tube_' + fieldnum + '_' + countnum).val();
 
-            //hiddentInputForBranch_Price = document.getElementById('hiddentInputForBranch_Price_'+fieldnum + '_' + countnum).value;
-        if(hiddentInputForBranch_Price == 0){//---if this hidden text box is value is 0 then perform the material bestprice  calculations
-            $.ajax({
-                type: "POST",
-                url: BASE_URL + "inventory/Manage_enquiry/GetMaterialBasePrice",
-                data: {
-                    Materialinfo: Materialinfo,
-                    MaterialLength: MaterialLength,
-                    Available_tube: Available_tube
-                },
+        //---if this hidden text box is value is 0 then perform the material bestprice  calculations
+        $.ajax({
+            type: "POST",
+            url: BASE_URL + "inventory/Manage_enquiry/GetMaterialBasePrice",
+            data: {
+                Materialinfo: Materialinfo,
+                MaterialLength: MaterialLength,
+                Available_tube: Available_tube
+            },
                 return: false, //stop the actual form post !important!
                 success: function (data)
                 {   
                     //alert(data);
                     $('#Available_Price_' + fieldnum + '_' + countnum).val(data);
-                    //getAvailableTubeFromAllBranches(fieldnum, countnum)
                     GetFinalPriceForMaterialCalculation(fieldnum, countnum);
                 }
-            });
-        }else{
-         branchprice = document.getElementById('branch_id_'+ fieldnum + '_' + countnum + '_' +cellnum).value;
-         alert(branchprice);
-         $.ajax({
+            });    
+    }
+
+//----this funis used to get value from table to perform bestprice calculations
+</script>
+
+<!-- script to get price by branch_name -->
+<script>
+    function getTubePrice_byBranch(fieldnum, countnum ,cellnum) {
+        branchprice = document.getElementById('branch_id_'+ fieldnum + '_' + countnum + '_' +cellnum).value;
+
+        Materialinfo = $('#Materialinfo_' + fieldnum + '_' + countnum + ' [value="' + $('#Select_material_' + fieldnum + '_' + countnum + '').val() + '"]').data('value');
+
+        var MaterialLength = [];
+
+        $("#Div_no_" + fieldnum + "_" + countnum + " input[name='Select_Length[" + fieldnum + "][]']").each(function ()
+        {
+            MaterialLength.push($(this).val());//--this is for get material length array...
+        });
+
+        Available_tube = $('#Available_tube_' + fieldnum + '_' + countnum).val();
+       //alert(branchprice);
+       $.ajax({
 
             type: "POST",//----this funis used to get value from table to perform bestprice calculations
             url: BASE_URL + "inventory/Manage_enquiry/GetMaterialBasePrice_byBranchPrice",
             data: {
                 MaterialLength: MaterialLength,
+                Materialinfo: Materialinfo,
+                Available_tube: Available_tube,
                 branchprice: branchprice
             },
                 return: false, //stop the actual form post !important!
                 success: function (data)
                 {
                     //alert(data);
-                 $('#Available_Price_' + fieldnum + '_' + countnum).val(data);
-                 GetFinalPriceForMaterialCalculation(fieldnum, countnum);
-             }
-         });
-     }
- }
-
-//----this funis used to get value from table to perform bestprice calculations
+                    $('#Available_Price_' + fieldnum + '_' + countnum).val(data);
+                    GetFinalPriceForMaterialCalculation(fieldnum, countnum);
+                }
+            });
+   }
 </script>
+<!-- script to get price by branch name ends -->
 
 <!-- get customer id and profile id in hidden text input -->
 <script>

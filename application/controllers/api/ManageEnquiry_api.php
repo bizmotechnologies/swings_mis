@@ -80,8 +80,12 @@ class ManageEnquiry_api extends REST_Controller {
     //---------------------THIS FUN IS USED TO GET BEST PRICE FOR AVAILABLE TUBE FROM RAW MATERIAL-----------------------------/
     public function GetMaterialBasePrice_byBranchPrice_get(){
         $branchprice = $_GET['branchprice'];
+        //print_r($_GET);die();
         $Material_LENGTH = $_GET['Material_LENGTH'];
-        $response = $this->ManageEnquiry_model->GetMaterialBasePrice_byBranchPrice($branchprice, $Material_LENGTH);
+        $material_id = $_GET['material_id'];
+        $Material_ID = $_GET['Material_ID'];
+        $Material_OD = $_GET['Material_OD'];
+        $response = $this->ManageEnquiry_model->GetMaterialBasePrice_byBranchPrice($material_id, $Material_ID, $Material_OD,$branchprice, $Material_LENGTH);
         return $this->response($response);
     }
     //---------------------THIS FUN IS USED TO GET BEST PRICE FOR AVAILABLE TUBE FROM RAW MATERIAL-----------------------------/

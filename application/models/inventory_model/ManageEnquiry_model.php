@@ -68,22 +68,25 @@ class ManageEnquiry_model extends CI_Model {
         return $response;
     }
     //----this funis used to get value from table to perform bestprice calculations
-    public function GetMaterialBasePrice_byBranchPrice($branchprice, $Material_LENGTH){
+    public function GetMaterialBasePrice_byBranchPrice($material_id, $Material_ID, $Material_OD,$branchprice, $Material_LENGTH){
         $customizevalue = ManageEnquiry_model::getcustomizedvalueforCalculation();
         $setting_value = json_decode($customizevalue, TRUE);
+
+        $avail_length = ManageEnquiry_model::getmaterial_AvailLength($material_id, $Material_ID, $Material_OD, $Material_LENGTH);
+
         //print_r($setting_value);
         $cut_value = 0;
         $profit_margin = 0;
         $single_cost = 0;
         $cut_value = $setting_value['cut_value'];
         $profit_margin = $setting_value['profit_margin'];
-        $landed_cost = $material_price * $setting_value['landing_value'];
+        $landed_cost = $branchprice * $setting_value['landing_value'];
         $costPer_mm= $landed_cost / $avail_length;
 
+        $single_cost = $costPer_mm * ($profit_margin * ($cut_value + $Material_LENGTH));
+        $decimal_price=number_format($single_cost,2,'.','');
 
-        $single_cost = $branchprice * ($profit_margin * ($cut_value + $Material_LENGTH));
-
-        return $single_cost;
+        return $decimal_price;
     }
 //----this funis used to get value from table to perform bestprice calculations
 //-----this fun is used to get material base price calculations-------------//
