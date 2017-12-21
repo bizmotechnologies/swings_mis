@@ -27,7 +27,7 @@ class Manage_workorder_production extends CI_Controller {
 //----this fun is used to verify the alloted length and consume length-------------------------//
     public function verify_materiallength(){
         extract($_POST);
-       print_r($_POST);
+       //print_r($_POST);
         $val='';
         $count=1;
         for ($j = 0; $j < count($profile_id); $j++) {

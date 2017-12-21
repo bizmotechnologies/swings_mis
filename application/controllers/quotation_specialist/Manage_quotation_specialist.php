@@ -54,28 +54,66 @@ class Manage_quotation_specialist extends CI_Controller {
         $response_json = curl_exec($ch);
         curl_close($ch);
         $response = json_decode($response_json, true);
-        print_r($response_json);die();
+        //print_r($response['status_message']);
+        //print_r($response['status_message'][0]['queryfor_specialist']);die();
         if ($response['status']==0) {
   } 
   else {
     foreach ($response['status_message'] as $key) {
-      $date=date('d/m/Y',strtotime($key['dated'])); 
-      echo '
-      <div class= "w3-margin-top w3-card-2 w3-padding">
+      echo '          
       <div class="w3-col l12">
       <table class="table table-bordered">
       <tbody>
       <tr>
-      <th class="text-right">Customer ID:</th>
+      <th class="text-right">Customer Name:</th>
       <td>'.$key['customer_name'].'</th>
-      <th class="text-right">Date:</td>
-      <td>'.$date.'</td>
       <th class="text-right">Work Order No:</th>
-      <td>#WO-0'.$key['wo_id'].'</td>
+      <td>#WO-0'.$key['wo_id']. '</td>
       </tr>
       </tbody>
       </table>
-      </div>';
+      </div>
+                <div class="w3-col l12 w3-margin-top">';
+                $queryforspecialist = json_decode($key['queryfor_specialist'], TRUE);
+                //print_r($queryforspecialist[0]);die();
+                $no=0;
+                foreach($queryforspecialist as $val){
+                echo'<div class="w3-col l3 w3-padding-right">
+                <label>Profile Name:</label>
+                <label>'.$val['ChangedprofileName'].'</label>                
+                </div>
+                
+                <div class="w3-col l3 w3-padding-right">
+                <label>Material Name:</label>
+                <label>'.$val['ChangedmaterialName'].'</label>
+                </div>
+                
+                 <div class="w3-col l3 w3-padding-right">
+                <label>Alloted Length:</label>
+                <label>'.$val['Allotedmaterial_length'].'</label>
+                </div>
+                
+                <div class="w3-col l3 w3-padding-right">
+                <label>Consume Length:</label>
+                <label>'.$val['Consumedmaterial_length'].'</label>
+                </div>
+                
+                </div>  
+                            
+                
+                <div class="w3-col l12 w3-padding-right">
+                <label>Reason For Change Length:</label>
+                <label>'.$val['reasonForchange'].'</label>
+                </div>
+
+                <div>
+                <a class="w3-button w3-red" href="approvedQuery('.$key['wo_id'].')">Approve<i class="w3-margin-left fa fa-thumbs-up"></i></a>
+                <a class="w3-button w3-black" href="rejectQuery('.$key['wo_id'].')">Reject<i class="w3-margin-left fa fa-thumbs-down"></i></a>
+                </div>
+                
+                ';
+                $no++;
+                }
             }
         }
     }

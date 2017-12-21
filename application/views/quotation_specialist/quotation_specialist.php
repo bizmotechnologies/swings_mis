@@ -70,8 +70,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         </tbody>
                     </table>
                 </div><!-- this div for show table of work orders-->
-                <div><!-- this div for show details of work orders length change query for production -->
-                    <div class="w3-col l12" id="showwoQueryForProduction">
+                <div class="w3-col l8"><!-- this div for show details of work orders length change query for production -->
+                    <div class="w3-col l12 w3-padding" id="showwoQueryForProduction">
                         
                     </div>
                 </div><!-- this div for show details of work orders length change query for production -->
