@@ -105,7 +105,7 @@ class ManageEnquiry_model extends CI_Model {
         $landed_cost = $material_price * $setting_value['landing_value'];
         $costPer_mm= $landed_cost / $avail_length;
 
-        $single_cost = $costPer_mm * ($profit_margin * (0 + $MaterialLength));
+        $single_cost = $costPer_mm * ($profit_margin * ($cut_value + $MaterialLength));
         $decimal_price=number_format($single_cost,2,'.','');
 
         return $decimal_price;
