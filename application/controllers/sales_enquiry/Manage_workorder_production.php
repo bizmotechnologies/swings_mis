@@ -27,19 +27,18 @@ class Manage_workorder_production extends CI_Controller {
 //----this fun is used to verify the alloted length and consume length-------------------------//
     public function verify_materiallength(){
         extract($_POST);
-       // print_r($_POST);
+       print_r($_POST);
         $val='';
         $count=1;
         for ($j = 0; $j < count($profile_id); $j++) {
         for ($p = 0; $p < count($_POST['usedlength_'.$count]); $p++) {
-            //print_r($_POST['usedlength_'.$count]);
-            //print_r($_POST['consumedtube_'.$count]);
             if($_POST['usedlength_'.$count][$p] == $_POST['consumedtube_'.$count][$p]){
             }else{
                 echo '<div class="w3-col l12">                 
                 <div class="w3-col l3 w3-margin-top w3-padding-right">
                 <label>Profile Name:</label>
                 <input type="hidden" name="wo_id" id="wo_id" value="'.$wo_id.'">
+                <input type="hidden" name="CustomerName" id="CustomerName" value="'.$CustomerName.'">
                 <input type="text" class="form-control" name="ChangedprofileName[]" id="ChangedprofileName" value="'.$profile_name[$j].'">
                 </div>
                 
@@ -163,7 +162,7 @@ class Manage_workorder_production extends CI_Controller {
         </td>';
         echo'<input type="hidden" name="profile_name[]" id="profile_name" value="'.$profile_name.'">';
         echo'<input type="hidden" name="wo_id" id="wo_id" value="'.$Workorder_id.'">';
-        echo'<input type="hidden" name="wo_id" id="wo_id" value="'.$key['customer_name'].'">';
+        echo'<input type="hidden" name="CustomerName" id="CustomerName" value="'.$key['customer_name'].'">';
         foreach($row['material_associated'] as $material){
         echo'<input type="hidden" name="material_name_'.$count.'[]" id="material_name" value="'.$material['material_id'].'">';
         }
@@ -247,7 +246,7 @@ class Manage_workorder_production extends CI_Controller {
             return: false, //stop the actual form post !important!
             success: function (data)
             {
-                //alert(data);
+                alert(data);
                 $("#msg_header").text("Message");
                 $("#msg_span").css({"color": "black"});
                 $("#addMaterials_err").html(data);
@@ -279,6 +278,7 @@ class Manage_workorder_production extends CI_Controller {
         }
         $data['QueryForQuotationSpecialist']=json_encode($query);
         $data['wo_id'] = $wo_id;
+        $data['CustomerName'] = $CustomerName;
         $path = base_url();
         $url = $path . 'api/Manage_Workorder_Production_api/Submit_raiseQueryDetails';
         $ch = curl_init($url);

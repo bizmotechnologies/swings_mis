@@ -45,8 +45,8 @@ class ManageWorkorder_Production_model extends CI_Model {
     public function Submit_raiseQueryDetails($data) {
         extract($data);
         //print_r($QueryForQuotationSpecialist);die();
-        $sql = "INSERT INTO quotation_specialist (wo_id,queryfor_specialist,submitted_date, current_status) "
-                . "VALUES ('$wo_id','$QueryForQuotationSpecialist',now(),'1')";
+        $sql = "INSERT INTO quotation_specialist (wo_id,customer_name,queryfor_specialist,submitted_date, current_status) "
+                . "VALUES ('$wo_id','$CustomerName','$QueryForQuotationSpecialist',now(),'1')";
         //echo $sql;die();
         $resultnew = $this->db->query($sql);
         if ($resultnew) {
