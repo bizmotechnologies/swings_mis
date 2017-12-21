@@ -89,7 +89,7 @@ class Manage_materials extends CI_controller {
                     echo'</datalist>
                     <div class="w3-col l6 s6 w3-padding-top">
                     <label>Material Image</label>                
-                    <img class="img img-thumbnail" alt="Material Image not found" width="100px" height="auto" src="'.base_url().''.$key['material_image'].'">
+                    <img class="img img-thumbnail" alt="Material Image not found" width="100px" height="auto" src="'.base_url().''.$key['material_image'].'" onerror="this.src=\''.base_url().'images/default_image.png\'">
                     </div>
                     <div class="w3-col l6 s6 w3-padding-top w3-padding-left">
                     <label>ID Tolerance</label>                

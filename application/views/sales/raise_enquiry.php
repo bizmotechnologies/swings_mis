@@ -409,7 +409,7 @@ error_reporting(E_ERROR | E_PARSE);
                     <div class="w3-col l2 w3-left">
                        <div class="w3-col l12">
                         <label class="w3-text-white">Customer Name:</label> 
-                        <a class="w3-left w3-small w3-button" href="<?php echo base_url(); ?>inventory/Manage_customers" style="padding:5px;margin:8px 0 0 5px"><i class="fa fa-plus"></i> Add Customer</a>
+                        <a class="w3-left w3-small w3-button" href="<?php echo base_url(); ?>inventory/manage_customers" style="padding:5px;margin:8px 0 0 5px"><i class="fa fa-plus"></i> Add Customer</a>
                     </div>
                 </div>
             </div>
