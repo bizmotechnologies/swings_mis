@@ -112,7 +112,7 @@ class Manage_materials extends CI_controller {
                     for ($j = 0; $j < $key['ID_quantity']; $j++) {
 
                         echo'<label>ID</label>
-                        <input list="MaterialID_'.$Profile_num.'_'.$count.'_'.$j.'" onclick="this.select();" autocomplete="off" value="" id="Select_ID_'.$Profile_num.'_'.$count.'_'.$j.'" name="Select_ID['.$Profile_num.'][]" class="w3-input" required type="text" min="0" placeholder="ID">
+                        <input list="MaterialID_'.$Profile_num.'_'.$count.'_'.$j.'" onclick="this.select();" autocomplete="off" value="" id="Select_ID_'.$Profile_num.'_'.$count.'_'.$j.'" name="Select_ID['.$Profile_num.'][]" class="w3-input" type="text" min="0" placeholder="ID">
                         <datalist id="MaterialID_'.$Profile_num.'_'.$count.'_'.$j.'">
                         </datalist>';
 
@@ -124,12 +124,12 @@ class Manage_materials extends CI_controller {
                         $disabled='readonly';
                         $value='0';
                         echo'<label>OD</label>
-                        <input value="'.$value.'" onclick="this.select();" autocomplete="off" name="Select_OD['.$Profile_num.'][]" class="w3-input w3-light-grey" required type="text" min="0" placeholder="OD" '.$disabled.'>';
+                        <input value="'.$value.'" onclick="this.select();" autocomplete="off" name="Select_OD['.$Profile_num.'][]" class="w3-input w3-light-grey" type="text" min="0" placeholder="OD" '.$disabled.'>';
                     }
                     for ($k = 0; $k < $key['OD_quantity']; $k++) {
 
                         echo'<label>OD</label>
-                        <input list="MaterialOD_'.$Profile_num.'_'.$count.'_'.$k.'" value="" id="Select_OD_'.$Profile_num.'_'.$count.'_'.$k.'" name="Select_OD['.$Profile_num.'][]" class="w3-input" required type="text" min="0" placeholder="OD">
+                        <input list="MaterialOD_'.$Profile_num.'_'.$count.'_'.$k.'" value="" id="Select_OD_'.$Profile_num.'_'.$count.'_'.$k.'" name="Select_OD['.$Profile_num.'][]" class="w3-input" type="text" min="0" placeholder="OD">
                         <datalist id="MaterialOD_'.$Profile_num.'_'.$count.'_'.$k.'">
                         </datalist>';
                     }
@@ -144,7 +144,7 @@ class Manage_materials extends CI_controller {
                     }
                     for ($l = 0; $l < $key['length_quantity']; $l++) {
                         echo'<label>LENGTH</label>
-                        <input list="MaterialLength_'.$Profile_num.'_'.$count.'_'.$l.'" value="" id="Select_Length_'.$Profile_num.'_'.$count.'_'.$l.'" name="Select_Length['.$Profile_num.'][]" class="w3-input" required type="text" min="0" placeholder="Length" onkeyup="getBest_tube('.$Profile_num.','.$count.');">
+                        <input list="MaterialLength_'.$Profile_num.'_'.$count.'_'.$l.'" value="" id="Select_Length_'.$Profile_num.'_'.$count.'_'.$l.'" name="Select_Length['.$Profile_num.'][]" class="w3-input" type="text" min="0" placeholder="Length" onkeyup="getBest_tube('.$Profile_num.','.$count.');">
                         <datalist id="MaterialLength_'.$Profile_num.'_'.$count.'_'.$l.'">
                         </datalist>';
                     }
