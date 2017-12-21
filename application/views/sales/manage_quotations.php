@@ -218,7 +218,7 @@ error_reporting(E_ERROR | E_PARSE);
               </div>
             </div>
           </div>
-              
+
           <div class="w3-col l12" id="Show_quotationsTable">
             <hr class="w3-margin-right w3-margin-left">
             <div id="quotation_table" class="w3-col l12 w3-padding">
@@ -337,16 +337,29 @@ error_reporting(E_ERROR | E_PARSE);
 
         //--------------------------all the products fetched from enquiry----------------------//
                     foreach ($products_associatedArr as $value) { 
+
+                      //-----------------get profile name----------------------
+                      $path=base_url();
+                      $url = $path.'api/ManageProfile_api/profileDetails?profile_id='.$value['profile_id']; 
+                      $ch = curl_init($url);
+                      curl_setopt($ch, CURLOPT_HTTPGET, true);
+                      curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                      $response_json = curl_exec($ch);
+                      curl_close($ch);
+                      $response=json_decode($response_json, true);
+                      $profile_name=($response['status_message'][0]['profile_name']);
+      //echo $profile_name;
+                      
                       echo '
                       <li>'.strtoupper($value['product_name']).' -';
 
-                      if($value['housing_status']==1){ echo $value['housing_setQuantity'].' SETS'; } else { echo '1 SET'; }
+                      if($value['housing_status']==1){ echo $value['product_quantity'].' SETS'; } else { echo '1 SET'; }
 
                       echo '
                       </li>
                       <ol>
                       <i>
-                      <li>'.ucwords($value['profile_description'][0]).'- '.strtoupper($value['profile_id']).'- '.$value['Prod_ID'][0].'mm ID X '.$value['Prod_OD'][0].'mm OD X '.$value['Prod_length'][0].'mm THICK -';
+                      <li>'.ucwords($value['profile_description'][0]).'- '.strtoupper($profile_name).'- '.$value['Prod_ID'][0].'mm ID X '.$value['Prod_OD'][0].'mm OD X '.$value['Prod_length'][0].'mm THICK -';
 
                       if($value['housing_status']==1){ echo '1 NO.'; } else { echo $value['product_quantity'].' NO.'; }
 
@@ -389,17 +402,29 @@ error_reporting(E_ERROR | E_PARSE);
 
         //--------------------------all the products fetched from enquiry----------------------//
                     foreach ($products_associatedArr as $value) { 
+
+                      //-----------------get profile name----------------------
+                      $path=base_url();
+                      $url = $path.'api/ManageProfile_api/profileDetails?profile_id='.$value['profile_id']; 
+                      $ch = curl_init($url);
+                      curl_setopt($ch, CURLOPT_HTTPGET, true);
+                      curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                      $response_json = curl_exec($ch);
+                      curl_close($ch);
+                      $response=json_decode($response_json, true);
+                      $profile_name=($response['status_message'][0]['profile_name']);
+      //echo $profile_name;
                       echo '
                       <li>'.strtoupper($value['product_name']).' -';
 
-                      if($value['housing_status']==1){ echo $value['housing_setQuantity'].' SETS'; } else { echo '1 SET'; }
+                      if($value['housing_status']==1){ echo $value['product_quantity'].' SETS'; } else { echo '1 SET'; }
 
                       echo '
                       </li>
                       <ol>
                       <i>
                       <li>
-                      '.ucwords($value['profile_description'][0]).'- '.strtoupper($value['profile_id']).'- '.$value['Prod_ID'][0].'mm ID X '.$value['Prod_OD'][0].'mm OD X '.$value['Prod_length'][0].'mm THICK -';
+                      '.ucwords($value['profile_description'][0]).'- '.strtoupper($profile_name).'- '.$value['Prod_ID'][0].'mm ID X '.$value['Prod_OD'][0].'mm OD X '.$value['Prod_length'][0].'mm THICK -';
 
                       if($value['housing_status']==1){ echo '1 NO.'; } else { echo $value['product_quantity'].' NO.'; }
 
@@ -506,23 +531,23 @@ error_reporting(E_ERROR | E_PARSE);
 <script>
   function Show_EnquiryFromTable(enquiry_id) {
 
-        $("#fetched_enquiryDetails").html('<center><img width="70%" height="auto" src="'+BASE_URL+'css/logos/page_spinner3.gif"/></center>');
+    $("#fetched_enquiryDetails").html('<center><img width="70%" height="auto" src="'+BASE_URL+'css/logos/page_spinner3.gif"/></center>');
 
-        $.ajax({
-            type: "POST",
-            url: BASE_URL + "sales_enquiry/Manage_quotations/Show_Enquiry",
-            data: {
-                enquiry_id: enquiry_id
-            },
+    $.ajax({
+      type: "POST",
+      url: BASE_URL + "sales_enquiry/Manage_quotations/Show_Enquiry",
+      data: {
+        enquiry_id: enquiry_id
+      },
             return: false, //stop the actual form post !important!
             success: function (data)
             {
                 //alert(data);
                 $('#fetched_enquiryDetails').html(data);
 
-            }
-        });
-    }
+              }
+            });
+  }
 </script>
 <!-- script ends -->
 

@@ -175,9 +175,14 @@ class Manage_workorder extends CI_Controller
         $count++;
       }
       echo '</tbody>
-      </table>
+      </table>';
+       $save_hide='';
+      if($key['current_status']=='0'){
+        $save_hide='w3-hide';
+      }
+      echo '
       <div class="w3-center">
-      <button class="w3-button w3-red w3-margin-top w3-margin-bottom" type="submit"><i class="fa fa-save"></i> Save #WO-0'.$key['wo_id'].'</button>';
+      <button class="w3-button w3-red w3-margin-top w3-margin-bottom '.$save_hide.'" type="submit"><i class="fa fa-save"></i> Save #WO-0'.$key['wo_id'].'</button>';
       $hide='';
       if($key['current_status']=='1'){
         $hide='w3-hide';

@@ -67,12 +67,14 @@ class Manage_materials extends CI_controller {
             $count=0;
             foreach ($material_associated as $key) {
                 for ($material_count=0; $material_count < $key['material_quantity']; $material_count++) { 
-                 echo '<div class="w3-col l12">
-                 <label>Select material</label>
-                 <input class="w3-left" name="select_material['.$Profile_num.'][]" data-onstyle="danger" data-size="mini" id="select_box_'.$Profile_num.'_'.$count.'" type="checkbox" value="'.$key['material_name'].'"  onchange="checkedMaterial('.$Profile_num.','.$count.');" checked>
+                 echo '<div class="w3-col l12 w3-margin-top">
+                 <hr class="w3-border-white">
+                     <label class="w3-text-red w3-small">Include this material?</label>
+                    <input class="w3-left" name="regret_material['.$Profile_num.']['.$count.']" data-onstyle="danger" data-size="mini" id="select_box_'.$Profile_num.'_'.$count.'" type="checkbox" value="'.$key['material_name'].'" 
+                    onchange="excludeMaterial('.$Profile_num.','.$count.')"  checked>
                     </div>';//div for select material checkbox
 
-                    echo'<div class="w3-col l12 w3-tiny w3-margin-top" id="Div_no_'.$Profile_num.'_'.$count.'">';
+                    echo'<div class="w3-col l12 w3-tiny " id="Div_no_'.$Profile_num.'_'.$count.'">';
                     echo '<div class="w3-col l12">
                     <input class="w3-right" name="make_boughtOut[]" data-onstyle="danger" data-size="mini" id="make_boughtOut_'.$Profile_num.'_'.$count.'" type="checkbox" data-toggle="toggle" data-on="ON" data-off="OFF" value="1" onchange="makeBought_out('.$Profile_num.','.$count.')">
                     </div>';
@@ -150,13 +152,13 @@ class Manage_materials extends CI_controller {
                     </div>';
 
                     echo'<div class="w3-col l1 w3-padding-left" id="available_tubeDiv_'.$Profile_num.'_'.$count.'">
-                    <label>TUBE</label>&nbsp;<a class="btn w3-right w3-red" id="available_tubebtn_'.$Profile_num.'_'.$count.'" style="padding:0 2px 0 2px;" onclick="showAvailable_Tube('.$Profile_num.','.$count.');"><i class="fa fa-refresh w3-small"></i></a>
+                    <label>A/V TUBE</label>&nbsp;<a class="btn w3-right w3-red" id="available_tubebtn_'.$Profile_num.'_'.$count.'" style="padding:0 2px 0 2px;" onclick="showAvailable_Tube('.$Profile_num.','.$count.');"><i class="fa fa-refresh w3-small"></i></a>
                     <input id="Available_tube_'.$Profile_num.'_'.$count.'" step="0.01" name="Available_tube[]" value="" class="w3-input" required type="text" placeholder="ID/OD" readonly>
                     <div class="w3-col l12" id="tube_spinner_'.$Profile_num.'_'.$count.'"></div>
                     </div>';
 
                     echo'<div class="w3-col l2 w3-padding-left">
-                    <label>PRICE</label><input id="Available_Price_'.$Profile_num.'_'.$count.'" name="Available_Price[]" value="" class="w3-input" min="0" step="0.01" required type="number" placeholder="Available Price"  onfocus="GetMaterialBasePrice('.$Profile_num.','.$count.');">
+                    <label>AVAILABLE PRICE</label><input id="Available_Price_'.$Profile_num.'_'.$count.'" name="Available_Price[]" value="" class="w3-input" min="0" step="0.01" required type="number" placeholder="Available Price"  onfocus="GetMaterialBasePrice('.$Profile_num.','.$count.');">
                     </div>';
 
                     echo'<div class="w3-col l1 w3-padding-left">
@@ -285,7 +287,15 @@ class Manage_materials extends CI_controller {
         }
         $Length_arr[] = $multiple_Length;
     }
+
+    //--------------regretable material check----------------
+    $regret=0;
+    if(in_array($Select_material[$i],$regret_material[$i])){
+        $regret=1;//if material is not included... i.e. regretable.
+    }
+    //print_r($Select_material[$i]);
     $material_Arr[] = array(
+        'regret_material' => $regret,
         'material_id' => $Select_material[$i],
         'material_ID' => $ID_arr,
         'material_OD' => $OD_arr,
@@ -296,6 +306,7 @@ class Manage_materials extends CI_controller {
         'discount' => $discount[$i],
         'final_Price' => $final_Price[$i]
     );
+  //print_r($material_Arr);  
 
 }
 
