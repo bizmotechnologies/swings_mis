@@ -7,7 +7,7 @@ class ManageQuotationSpecialist_model extends CI_Model {
 
     public function Get_WorkorderProduction_Detaills() { /* this fun is used to get customer deatails */
 
-        $sqlselect = "";
+        $sqlselect = "SELECT * FROM quotation_specialist WHERE ";
 
         $result = $this->db->query($sqlselect);
 

@@ -24,9 +24,21 @@ class Manage_quotation_specialist extends CI_Controller {
     public function index() {
         
         $this->load->model('quotation_specialist_model/ManageQuotationSpecialist_model');
+        $data['details'] = Manage_quotation_specialist::Get_WorkorderProduction_Detaills();     //-------show all materials
         $this->load->view('includes/navigation');
-        $this->load->view('quotation_specialist/quotation_specialist');
-        
+        $this->load->view('quotation_specialist/quotation_specialist');   
     }
+    public function Get_WorkorderProduction_Detaills(){
+        $path = base_url();
+        $url = $path . 'api/ManageQuotation_Specialist_api/Get_WorkorderProduction_Detaills';
+        $ch = curl_init($url);
+        curl_setopt($ch, CURLOPT_HTTPGET, true);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $response_json = curl_exec($ch);
+        curl_close($ch);
+        $response = json_decode($response_json, true);
+        return $response;
+    }
+    
 
 }

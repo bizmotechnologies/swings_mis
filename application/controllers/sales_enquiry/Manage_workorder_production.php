@@ -164,6 +164,7 @@ class Manage_workorder_production extends CI_Controller {
         </td>';
         echo'<input type="hidden" name="profile_name[]" id="profile_name" value="'.$profile_name.'">';
         echo'<input type="hidden" name="wo_id" id="wo_id" value="'.$Workorder_id.'">';
+        echo'<input type="hidden" name="wo_id" id="wo_id" value="'.$key['customer_name'].'">';
         foreach($row['material_associated'] as $material){
         echo'<input type="hidden" name="material_name_'.$count.'[]" id="material_name" value="'.$material['material_id'].'">';
         }

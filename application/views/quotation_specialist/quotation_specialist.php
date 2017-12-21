@@ -22,26 +22,28 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <body class="w3-light-grey">
         <div class="w3-main" style="margin-left:120px;">
             <!-- Header -->
-            <header class="w3-container" >
+            <header class="w3-container w3-padding-left" >
                 <h5><b><i class="fa fa-cubes"></i> Manage Quotations Specialist</b></h5>
             </header>
             <div class="w3-col l12 w3-padding-left">
                 <div class="w3-col l12 w3-padding-left w3-small">
-                    <label></label>
+                    <label>Query For Quotations</label>
                 </div>
             </div>
 
             <div class="w3-col l12 w3-padding-left" id="Show_workorderQueries" name="Show_workorderQueries">
-                <table class="table table-bordered table-responsive w3-small" ><!-- table starts here -->
-                    <tr style="background-color:black; color:white;" >
-                        <th class="text-center">SR. No</th>
-                        <th class="text-center">Work Order No</th>              
-                        <th class="text-center">Query</th>              
-                        <th class="text-center">Action</th>                                                                            
-                    </tr>
-                    <tbody><!-- table body for showing table details -->
-                    </tbody>
-                </table>
+                <div class="w3-col l4">
+                    <table class="table table-bordered table-responsive w3-small" ><!-- table starts here -->
+                        <tr style="background-color:black; color:white;" >
+                            <th class="text-center">SR. No</th>
+                            <th class="text-center">WO No</th>              
+                            <th class="text-center">Query</th>              
+                            <th class="text-center">Action</th>                                                                            
+                        </tr>
+                        <tbody><!-- table body for showing table details -->
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </body>
