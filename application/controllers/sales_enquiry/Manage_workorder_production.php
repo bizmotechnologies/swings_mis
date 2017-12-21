@@ -103,8 +103,8 @@ class Manage_workorder_production extends CI_Controller {
       echo '
        <form id="productionForm" name="productionForm" type="post">   
       <div id="" class="w3-col l12">
-        <a class="w3-button w3-red" href="#">Start Time<i class="w3-margin-left fa fa-clock-o"></i></a>
-        <a class="w3-button w3-black" href="#">End Time<i class="w3-margin-left fa fa-clock-o"></i></a>
+        <a class="w3-button w3-red" href="'. base_url().'sales_enquiry/Manage_workorder_production/update_start_time?wo_id='.$key['wo_id'].'">Start Time<i class="w3-margin-left fa fa-clock-o"></i></a>
+        <a class="w3-button w3-black" href="'. base_url().'sales_enquiry/Manage_workorder_production/update_end_time?wo_id='.$key['wo_id'].'">End Time<i class="w3-margin-left fa fa-clock-o"></i></a>
         <hr>
       </div>';
       echo'<div class= "w3-margin-top w3-card-2">
@@ -231,6 +231,7 @@ class Manage_workorder_production extends CI_Controller {
         $new++;
         $count++;
       }
+      //-----thhis jquery for verify the changed length of workorder
       echo '</tbody>
       </table>
       <div class="w3-col l12">
@@ -244,6 +245,7 @@ class Manage_workorder_production extends CI_Controller {
       <button type="submit" class="btn w3-right btn-sm w3-blue w3-margin">Submit</button>
       </div>
       </form>';
+      //-----thhis jquery for verify the changed length of workorder
       echo'
           <script>
       $(function () {
@@ -265,6 +267,8 @@ class Manage_workorder_production extends CI_Controller {
     });
 });
 </script>';
+  //-----thhis jquery for verify the changed length of workorder
+  //-----thhis jquery for submit the changed length of workorder
       echo' <script>
       $(function () {
     $("#raiseQueryForm").submit(function () {
@@ -287,6 +291,7 @@ class Manage_workorder_production extends CI_Controller {
     });
 });
 </script>';
+//-----thhis jquery for submit the changed length of workorder
             }
   }
         
@@ -295,21 +300,24 @@ class Manage_workorder_production extends CI_Controller {
     public function Submit_raiseQueryDetails() {
         extract($_POST);
         //print_r($reasonForchange);die();
-        $query =array(); 
+        $query =array(); //---json for add reason for change in wo query
         for($i=0; $i< count($ChangedprofileName); $i++){
            $quotationSpecialistArr = array(
                'wo_id' => $wo_id,
                'ChangedprofileName' => $ChangedprofileName[$i],
                'ChangedmaterialName' => $ChangedmaterialName[$i],
+               'material_ID' => $material_innerID[$i],
+               'material_OD' => $material_outerID[$i],
                'Allotedmaterial_length' => $Allotedmaterial_length[$i],
                'Consumedmaterial_length' => $Consumedmaterial_length[$i],
                'reasonForchange' => $reasonForchange[$i]
            );
            $query[] = $quotationSpecialistArr;
-        }
+        } //---json for add reason for change in wo query
         $data['QueryForQuotationSpecialist']=json_encode($query);
         $data['wo_id'] = $wo_id;
         $data['CustomerName'] = $CustomerName;
+        //---api for save production raised query----------//
         $path = base_url();
         $url = $path . 'api/Manage_Workorder_Production_api/Submit_raiseQueryDetails';
         $ch = curl_init($url);
@@ -324,8 +332,36 @@ class Manage_workorder_production extends CI_Controller {
             echo $response['status_message'];
         } else {
             echo $response['status_message']; 
- 
         }
     }
+//----this fun is used to update the start time of the work order production 
+    public function update_start_time() {
+        extract($_GET);
+        $path = base_url();
+        $url = $path . 'api/Manage_Workorder_Production_api/update_start_time?wo_id='.$wo_id;
+        $ch = curl_init($url);
+        curl_setopt($ch, CURLOPT_HTTPGET, true);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $response_json = curl_exec($ch);
+        curl_close($ch);
+        $response = json_decode($response_json, true);
+        //print_r($response_json);die();
+    }
+//----this fun is used to update the start time of the work order production 
+//----this fun is used to update the END time of the work order production 
 
+    public function update_end_time() {
+        extract($_GET);
+        $path = base_url();
+        $url = $path . 'api/Manage_Workorder_Production_api/update_end_time?wo_id='.$wo_id;
+        $ch = curl_init($url);
+        curl_setopt($ch, CURLOPT_HTTPGET, true);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $response_json = curl_exec($ch);
+        curl_close($ch);
+        $response = json_decode($response_json, true);
+        //print_r($response_json);die();        
+    }
+
+    //----this fun is used to update the END time of the work order production 
 }
