@@ -752,8 +752,8 @@ function setMaterialTocheckbox(fieldnum, countnum){
 <!-- script function to mkae final prize of material 0 when material is excluded -->
 <script>
     function excludeMaterial(fieldnum,countnum)    {
-              selectMaterial = $('#select_box_'+fieldnum+'_'+countnum).prop('checked', false);
-              if(selectMaterial){
+              
+              if(document.getElementById('select_box_'+fieldnum+'_'+countnum).checked == false){
             document.getElementById('make_boughtOut_'+fieldnum+'_'+countnum).checked = false;
             document.getElementById('Available_tube_'+fieldnum+'_'+countnum).value = '';
             document.getElementById('Available_tube_'+fieldnum+'_'+countnum).disabled = false;
