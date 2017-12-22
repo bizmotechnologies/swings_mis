@@ -119,49 +119,49 @@ error_reporting(E_ERROR | E_PARSE);
                 currparent++;
         }); // this fun is used for add above code to parent div on click fun
 
-        $('div#parent').on('click', '.btn-add-siblings', function () {// this fun is used for add materials to parent div on click fun
-            $(this).parent().append('<div class="w3-col l12 w3-tiny w3-margin-top">\n\
-                <div class="w3-col l2 ">\n\
-                <label >MATERIAL</label>\n\
-                <input list="Materialinfo_' + currchild + '" value="<?php echo $material_id; ?>" id="Select_material_' + currchild + '" name="Select_material[]" class="w3-input" required type="text" placeholder="Material" onchange="GetMaterialInformation_ForEnquiry(' + currchild + ');">\n\
-                <datalist id="Materialinfo_' + currchild + '">\n\
-                <?php foreach ($materials['status_message'] as $result) { ?><option data-value="<?php echo $result['material_id']; ?>" value="<?php echo $result['material_name']; ?>"><?php echo $result['material_name']; ?></option><?php } ?></datalist>\n\
-                \n\</div>\n\
-                <div class="w3-col l3">\n\
-                \n\<div class="w3-col l4 s4 w3-padding-left">\n\
-                <label>ID</label>\n\
-                <input list="MaterialID_' + currchild + '" value="<?php echo $Select_ID; ?>" id="Select_ID_' + currchild + '" name="Select_ID[]" class="w3-input" required type="text" min="0" placeholder="ID" >\n\
-                <datalist id="MaterialID_' + currchild + '"></datalist>\n\
-                </div>\n\
-                <div class="w3-col l4 s4 w3-padding-left">\n\
-                <label>OD</label>\n\
-                <input list="MaterialOD_' + currchild + '" value="<?php echo $Select_OD; ?>" id="Select_OD_' + currchild + '" name="Select_OD[]" class="w3-input" required type="text" min="0" placeholder="OD" >\n\
-                <datalist id="MaterialOD_' + currchild + '"></datalist>\n\
-                </div>\n\
-                <div class="w3-col l4 s4 w3-padding-left">\n\
-                <label>LENGTH</label>\n\
-                <input list="MaterialLength_' + currchild + '" value="<?php echo $Select_Length; ?>" id="Select_Length_' + currchild + '" name="Select_Length[]" class="w3-input" required type="text" min="0" placeholder="Length" >\n\
-                <datalist id="MaterialLength_' + currchild + '"></datalist>\n\
-                </div>\n\
-                </div>\n\
-                <div class="w3-col l1 w3-padding-left">\n\
-                <label>BASE PRICE</label><input id="base_Price_' + currchild + '" name="base_Price[]" value="<?php echo $base_Price; ?>" class="w3-input" min="0" step="0.01" required type="number" placeholder="Base Price"  onfocus="GetMaterialBasePrice(' + currchild + ');">\n\
-                </div>\n\
-                <div class="w3-col l1 w3-padding-left">\n\
-                <label>QUANTITY</label>\n\
-                <input id="select_Quantity_' + currchild + '" name="select_Quantity[]" value="<?php echo $select_Quantity; ?>" class="w3-input" min="0" required type="number" placeholder="Quantity" onkeypress="GetFinalPriceForMaterialCalculation(' + currchild + ');">\n\
-                </div>\n\
-                <div class="w3-col l1 w3-padding-left">\n\
-                <label>DISCOUNT(%)</label>\n\
-                <input id="discount_' + currchild + '" name="discount[]" <?php echo $discount; ?> class="w3-input" required type="number" min="0" step="0.01" placeholder="Discount %." onkeypress="GetFinalPriceForMaterialCalculation(' + currchild + ');">\n\
-                </div>\n\
-                <div class="w3-col l1 w3-padding-left">\n\
-                <label>FINAL&nbsp;PRICE</label>\n\
-                <input id="final_Price_' + currchild + '" name="final_Price[]" <?php echo $final_Price; ?> class="w3-input" required type="number" min="0" step="0.0001" placeholder="Final Price" onfocus="GetFinalPriceForMaterialCalculation(' + currchild + ');">\n\
-                </div>\n\\n\
-</div>'); // this fun is used for add materials to parent div on click fun
-            currchild++;
-        });
+//        $('div#parent').on('click', '.btn-add-siblings', function () {// this fun is used for add materials to parent div on click fun
+//            $(this).parent().append('<div class="w3-col l12 w3-tiny w3-margin-top">\n\
+//                <div class="w3-col l2 ">\n\
+//                <label >MATERIAL</label>\n\
+//                <input list="Materialinfo_' + currchild + '" value="<?php echo $material_id; ?>" id="Select_material_' + currchild + '" name="Select_material[]" class="w3-input" required type="text" placeholder="Material" onchange="GetMaterialInformation_ForEnquiry(' + currchild + ');">\n\
+//                <datalist id="Materialinfo_' + currchild + '">\n\
+//                <?php foreach ($materials['status_message'] as $result) { ?><option data-value="<?php echo $result['material_id']; ?>" value="<?php echo $result['material_name']; ?>"><?php echo $result['material_name']; ?></option><?php } ?></datalist>\n\
+//                \n\</div>\n\
+//                <div class="w3-col l3">\n\
+//                \n\<div class="w3-col l4 s4 w3-padding-left">\n\
+//                <label>ID</label>\n\
+//                <input list="MaterialID_' + currchild + '" value="<?php echo $Select_ID; ?>" id="Select_ID_' + currchild + '" name="Select_ID[]" class="w3-input" required type="text" min="0" placeholder="ID" >\n\
+//                <datalist id="MaterialID_' + currchild + '"></datalist>\n\
+//                </div>\n\
+//                <div class="w3-col l4 s4 w3-padding-left">\n\
+//                <label>OD</label>\n\
+//                <input list="MaterialOD_' + currchild + '" value="<?php echo $Select_OD; ?>" id="Select_OD_' + currchild + '" name="Select_OD[]" class="w3-input" required type="text" min="0" placeholder="OD" >\n\
+//                <datalist id="MaterialOD_' + currchild + '"></datalist>\n\
+//                </div>\n\
+//                <div class="w3-col l4 s4 w3-padding-left">\n\
+//                <label>LENGTH</label>\n\
+//                <input list="MaterialLength_' + currchild + '" value="<?php echo $Select_Length; ?>" id="Select_Length_' + currchild + '" name="Select_Length[]" class="w3-input" required type="text" min="0" placeholder="Length" >\n\
+//                <datalist id="MaterialLength_' + currchild + '"></datalist>\n\
+//                </div>\n\
+//                </div>\n\
+//                <div class="w3-col l1 w3-padding-left">\n\
+//                <label>BASE PRICE</label><input id="base_Price_' + currchild + '" name="base_Price[]" value="<?php echo $base_Price; ?>" class="w3-input" min="0" step="0.01" required type="number" placeholder="Base Price"  onfocus="GetMaterialBasePrice(' + currchild + ');">\n\
+//                </div>\n\
+//                <div class="w3-col l1 w3-padding-left">\n\
+//                <label>QUANTITY</label>\n\
+//                <input id="select_Quantity_' + currchild + '" name="select_Quantity[]" value="<?php echo $select_Quantity; ?>" class="w3-input" min="0" required type="number" placeholder="Quantity" onkeypress="GetFinalPriceForMaterialCalculation(' + currchild + ');">\n\
+//                </div>\n\
+//                <div class="w3-col l1 w3-padding-left">\n\
+//                <label>DISCOUNT(%)</label>\n\
+//                <input id="discount_' + currchild + '" name="discount[]" <?php echo $discount; ?> class="w3-input" required type="number" min="0" step="0.01" placeholder="Discount %." onkeypress="GetFinalPriceForMaterialCalculation(' + currchild + ');">\n\
+//                </div>\n\
+//                <div class="w3-col l1 w3-padding-left">\n\
+//                <label>FINAL&nbsp;PRICE</label>\n\
+//                <input id="final_Price_' + currchild + '" name="final_Price[]" <?php echo $final_Price; ?> class="w3-input" required type="number" min="0" step="0.0001" placeholder="Final Price" onfocus="GetFinalPriceForMaterialCalculation(' + currchild + ');">\n\
+//                </div>\n\\n\
+//</div>'); // this fun is used for add materials to parent div on click fun
+//            currchild++;
+//        });
         $('div#parent').on("click", ".delete", function (e) {// this fun is used for remove materials from parent div on click fun
             e.preventDefault();
             $(this).parent('div').remove();
@@ -688,22 +688,22 @@ error_reporting(E_ERROR | E_PARSE);
     function GetFinalPriceForMaterialCalculation(fieldnum, countnum) {
 
         finalprice = '0';
-        
+        if(document.getElementById('make_boughtOut_'+fieldnum+'_'+countnum).checked = false){
         quantity = $("#select_Quantity_" + fieldnum + "_" + countnum).val();
         discount = $("#discount_" + fieldnum + "_" + countnum).val();
         Available_Price = $("#Available_Price_" + fieldnum + "_" + countnum).val();
         if (discount === '' && quantity === '') {
             finalprice = Available_Price;
         } else if (discount === '') {
-            finalprice = (parseInt(Available_Price) * parseInt(quantity));
+            finalprice = (parseFloat(Available_Price) * parseFloat(quantity));
         } else if (quantity === '') {
-            finalprice = (parseInt(Available_Price) - ((parseInt(discount) / 100) * (parseInt(Available_Price))));
+            finalprice = (parseFloat(Available_Price) - ((parseFloat(discount) / 100) * (parseFloat(Available_Price))));
         } else if (discount !== '' && quantity !== '') {
-            finalprice = ((parseInt(Available_Price) * parseInt(quantity)) - ((parseInt(discount) / 100) * (parseInt(Available_Price) * parseInt(quantity))));
+            finalprice = ((parseFloat(Available_Price) * parseFloat(quantity)) - ((parseFloat(discount) / 100) * (parseFloat(Available_Price) * parseFloat(quantity))));
         }
         $("#final_Price_" + fieldnum + "_" + countnum).val(finalprice);
     }
-
+    }
 </script>
 <!-- script end -->
 
@@ -712,24 +712,26 @@ error_reporting(E_ERROR | E_PARSE);
     function makeBought_out(fieldnum, countnum) {
 
         if(document.getElementById('make_boughtOut_'+fieldnum+'_'+countnum).checked){
-            //best tube disable/enable change
-            document.getElementById('bestTube_'+fieldnum+'_'+countnum).value = '0';
-            document.getElementById('bestTube_'+fieldnum+'_'+countnum).disabled = true;
-            document.getElementById('best_tubeDiv_'+fieldnum+'_'+countnum).disabled = true;
+            //Available tube and discount disable/enable change
+            document.getElementById('Available_tube_'+fieldnum+'_'+countnum).value = 'N/A';
+            document.getElementById('Available_tube_'+fieldnum+'_'+countnum).disabled = true;
+            document.getElementById('available_tubeDiv_'+fieldnum+'_'+countnum).disabled = true;
+            document.getElementById('discount_'+fieldnum+'_'+countnum).disabled = true;
 
-            //best price disable/enable change
-            document.getElementById('base_Price_'+fieldnum+'_'+countnum).value = '0.00';
-            document.getElementById('base_Price_'+fieldnum+'_'+countnum).disabled = true;
+            //Available price disable/enable change
+            document.getElementById('Available_Price_'+fieldnum+'_'+countnum).value = '0.00';
+            document.getElementById('Available_Price_'+fieldnum+'_'+countnum).disabled = true;
         }
         else{
-            //best tube disable/enable change
-            document.getElementById('bestTube_'+fieldnum+'_'+countnum).value = '';
-            document.getElementById('bestTube_'+fieldnum+'_'+countnum).disabled = false;
-            document.getElementById('best_tubeDiv_'+fieldnum+'_'+countnum).disabled = false;
+            //Available tube and discount disable/enable change
+            document.getElementById('Available_tube_'+fieldnum+'_'+countnum).value = '';
+            document.getElementById('Available_tube_'+fieldnum+'_'+countnum).disabled = false;
+            document.getElementById('available_tubeDiv_'+fieldnum+'_'+countnum).disabled = false;
+            document.getElementById('discount_'+fieldnum+'_'+countnum).disabled = false;
 
-            //best price disable/enable change
-            document.getElementById('base_Price_'+fieldnum+'_'+countnum).value = '';
-            document.getElementById('base_Price_'+fieldnum+'_'+countnum).disabled = false;
+            //Available price disable/enable change
+            document.getElementById('Available_Price_'+fieldnum+'_'+countnum).value = '';
+            document.getElementById('Available_Price_'+fieldnum+'_'+countnum).disabled = false;
         }
     }
 
