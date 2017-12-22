@@ -67,7 +67,7 @@ class Manage_materials extends CI_controller {
             $count=0;
             foreach ($material_associated as $key) {
                 for ($material_count=0; $material_count < $key['material_quantity']; $material_count++) { 
-                 echo '<div class="w3-col l12 w3-margin-top">
+                 echo '<div class="w3-col l12 ">
                  <hr class="w3-border-white">
                      <label class="w3-text-red w3-small">Include this material?</label>
                     <input class="w3-left" name="regret_material['.$Profile_num.']['.$count.']" data-onstyle="danger" data-size="mini" id="select_box_'.$Profile_num.'_'.$count.'" type="checkbox" value="'.$key['material_name'].'" 
@@ -183,7 +183,7 @@ class Manage_materials extends CI_controller {
                     </div>';
                     //------this div for material Final Price information div---------// 
                     echo'<div class="w3-col l12" id="best_tubeError_'.$Profile_num.'_'.$count.'"></div>
-                    <div class="w3-col l2 w3-margin-top" id="available_tube_'.$Profile_num.'_'.$count.'"></div>
+                    <div class="w3-col l4 w3-margin-top" id="available_tube_'.$Profile_num.'_'.$count.'"></div>
 
                     <div class="w3-col l12 w3-tiny">
                     <div class="w3-col-l4">
