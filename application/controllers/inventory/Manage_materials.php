@@ -231,7 +231,7 @@ class Manage_materials extends CI_controller {
     public function SaveProductsForEnquiry() {
         //$data = $_POST;
         extract($_POST);
-        print_r($_POST);die();
+        //print_r($_POST);die();
         if(!isset($Select_Profiles)){
             echo 'Add at least 1 Product in Enquiry';
             die();
@@ -350,6 +350,11 @@ $housingInfo['profile_id'] = $profile_id[$prod];
 }
 //print_r($profile_arr);die();
 $housingInfo['profile_data'] = json_encode($HousingArr);
+
+//-----------session branch_name--------------
+$branch_name=$this->session->userdata('branch_name');
+$housingInfo['branch_name']=$branch_name;
+
 $path = base_url();
 $url = $path . 'api/ManageEnquiry_api/SaveProfile_data';
 $ch = curl_init($url);
@@ -363,6 +368,7 @@ $response = json_decode($response_json, true);
 $data['customer_id']=$customer_id;
 $data['customer_name']=$Select_Customers;
 $data['products_associated']=json_encode($profile_arr);
+$data['branch_name']=$branch_name;
 
 $path = base_url();
 $url = $path . 'api/ManageEnquiry_api/SaveProductsForEnquiry';

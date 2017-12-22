@@ -181,6 +181,7 @@ class Manage_quotations extends CI_Controller
 		}
 
 		$data['products']=$product_session;
+
 		$ch = curl_init($url);
 		curl_setopt($ch, CURLOPT_POST, true);
 		curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
@@ -428,8 +429,11 @@ class Manage_quotations extends CI_Controller
 
 	public function raise_quotation(){
 		extract($_POST);
-		$data=$_POST;		
-
+		$data=$_POST;	
+		
+		//-----------session branch_name--------------
+		$branch_name=$this->session->userdata('branch_name');
+		$data['branch_name']=$branch_name;
 		$path=base_url();
 		$url = $path.'api/manageQuotations_api/save_quotation';			
 		$ch = curl_init($url);
@@ -532,117 +536,117 @@ class Manage_quotations extends CI_Controller
 			foreach ($products_associatedArr as $key) { 
 
 			 //-----------------get profile name----------------------
-					$path=base_url();
-					$url = $path.'api/ManageProfile_api/profileDetails?profile_id='.$key['profile_id']; 
-					$ch = curl_init($url);
-					curl_setopt($ch, CURLOPT_HTTPGET, true);
-					curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-					$response_json = curl_exec($ch);
-					curl_close($ch);
-					$response=json_decode($response_json, true);
-					$profile_name=($response['status_message'][0]['profile_name']);
+				$path=base_url();
+				$url = $path.'api/ManageProfile_api/profileDetails?profile_id='.$key['profile_id']; 
+				$ch = curl_init($url);
+				curl_setopt($ch, CURLOPT_HTTPGET, true);
+				curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+				$response_json = curl_exec($ch);
+				curl_close($ch);
+				$response=json_decode($response_json, true);
+				$profile_name=($response['status_message'][0]['profile_name']);
       //echo $profile_name;
       //------------------get profile name ends---------------------------
-					
-					echo '
-					<li>'.strtoupper($key['product_name']).' -';
+				
+				echo '
+				<li>'.strtoupper($key['product_name']).' -';
 
-					if($key['housing_status']==1){ echo $key['product_quantity'].' SETS'; } else { echo '1 SET'; }
+				if($key['housing_status']==1){ echo $key['product_quantity'].' SETS'; } else { echo '1 SET'; }
 
-					echo '
-					</li>
-					<ol>
-					<i>
-					<li>'.ucwords($key['profile_description'][0]).'- '.strtoupper($profile_name).'- '.$key['Prod_ID'][0].'mm ID X '.$key['Prod_OD'][0].'mm OD X '.$key['Prod_length'][0].'mm THICK -';
+				echo '
+				</li>
+				<ol>
+				<i>
+				<li>'.ucwords($key['profile_description'][0]).'- '.strtoupper($profile_name).'- '.$key['Prod_ID'][0].'mm ID X '.$key['Prod_OD'][0].'mm OD X '.$key['Prod_length'][0].'mm THICK -';
 
-					if($key['housing_status']==1){ echo '1 NO.'; } else { echo $key['product_quantity'].' NO.'; }
+				if($key['housing_status']==1){ echo '1 NO.'; } else { echo $key['product_quantity'].' NO.'; }
 
-					echo '@ '.$key['product_price'].' <i class="fa fa-inr"></i> per NO</li>
-					</i>
-					</ol>
-					<br>
-					';
-				//------------------------------products fetched end ----------------------------------//
-				} 
-
-
-				echo '</ol>              
-				</div>
-				<div class="w3-col l12 w3-margin-bottom">
-				<label class="w3-label w3-text-red">Delivery within:</label><br>
-				<input type="number" class="" style="width:60px;" name="delivery_span" id="delivery_span" required>
-				<select class="w3-select" style="width:100px;" name="delivery_period" id="delivery_period">
-				<option value="1">day/days</option>
-				<option value="2">week/weeks</option>
-				<option value="3">month/months</option>
-				<option value="4">year/years</option>
-				</select>             
-				</div><br>
-				<button class="btn w3-button btn-block w3-red" type="submit" id="send_quote" name="send_quote">Raise New Quotation for this Enquiry</button>
-				</div>
-				';			
-
-			}
-			else{
-
-				echo '<div class="alert alert-danger w3-col l12">
-				<strong>'.$response['status_message'].'</strong> 
-				</div>			
-				';	
-			}
-		}
-
-//------------this fun is used to get enquiry details for multiple quotations----------------------------------------//
-		public function getEnquiry_DetailsFor_MultipleQuotation(){
-
-			extract($_POST);
-		//$data=$_POST;
-			$revise_Price=json_encode($_POST['revise_productPrice']);
-			$data['product_JSON']=$revise_Price;
-			$data['enquiry_id']=$enquiry_id;
-			$data['revise_deliverySpan']=$revise_deliverySpan;
-			$data['revise_deliveryPeriod']=$revise_deliveryPeriod;
-//print_r($data);die();
-			$path=base_url();
-			$url = $path.'api/manageQuotations_api/getEnquiry_DetailsFor_MultipleQuotation';
-			$ch = curl_init($url);
-			curl_setopt($ch, CURLOPT_POST, true);
-			curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
-			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-			$response_json = curl_exec($ch);
-			curl_close($ch);
-			$response=json_decode($response_json, true);
-
-			if($response['status']==0){
-				echo '<div class="alert alert-danger">
-				<strong>'.$response['status_message'].'</strong> 
-				</div>
-				<script>
-				window.setTimeout(function() {
-					$(".alert").fadeTo(500, 0).slideUp(500, function(){
-						$(this).remove(); 
-					});
-					location.reload();
-				}, 1000);
-				</script>						
-				';	
-			}
-			else{
-				echo '<div class="alert alert-success">
-				<strong>'.$response['status_message'].'</strong> 
-				</div>
-				<script>
-				window.setTimeout(function() {
-					$(".alert").fadeTo(500, 0).slideUp(500, function(){
-						$(this).remove(); 
-					});
-					location.reload();
-				}, 1000);
-				</script>						
+				echo '@ '.$key['product_price'].' <i class="fa fa-inr"></i> per NO</li>
+				</i>
+				</ol>
+				<br>
 				';
-			}	
+				//------------------------------products fetched end ----------------------------------//
+			} 
+
+
+			echo '</ol>              
+			</div>
+			<div class="w3-col l12 w3-margin-bottom">
+			<label class="w3-label w3-text-red">Delivery within:</label><br>
+			<input type="number" class="" style="width:60px;" name="delivery_span" id="delivery_span" required>
+			<select class="w3-select" style="width:100px;" name="delivery_period" id="delivery_period">
+			<option value="1">day/days</option>
+			<option value="2">week/weeks</option>
+			<option value="3">month/months</option>
+			<option value="4">year/years</option>
+			</select>             
+			</div><br>
+			<button class="btn w3-button btn-block w3-red" type="submit" id="send_quote" name="send_quote">Raise New Quotation for this Enquiry</button>
+			</div>
+			';			
 
 		}
+		else{
+
+			echo '<div class="alert alert-danger w3-col l12">
+			<strong>'.$response['status_message'].'</strong> 
+			</div>			
+			';	
+		}
+	}
+
 //------------this fun is used to get enquiry details for multiple quotations----------------------------------------//
+	public function getEnquiry_DetailsFor_MultipleQuotation(){
+
+		extract($_POST);
+		//$data=$_POST;
+		$revise_Price=json_encode($_POST['revise_productPrice']);
+		$data['product_JSON']=$revise_Price;
+		$data['enquiry_id']=$enquiry_id;
+		$data['revise_deliverySpan']=$revise_deliverySpan;
+		$data['revise_deliveryPeriod']=$revise_deliveryPeriod;
+//print_r($data);die();
+		$path=base_url();
+		$url = $path.'api/manageQuotations_api/getEnquiry_DetailsFor_MultipleQuotation';
+		$ch = curl_init($url);
+		curl_setopt($ch, CURLOPT_POST, true);
+		curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		$response_json = curl_exec($ch);
+		curl_close($ch);
+		$response=json_decode($response_json, true);
+
+		if($response['status']==0){
+			echo '<div class="alert alert-danger">
+			<strong>'.$response['status_message'].'</strong> 
+			</div>
+			<script>
+			window.setTimeout(function() {
+				$(".alert").fadeTo(500, 0).slideUp(500, function(){
+					$(this).remove(); 
+				});
+				location.reload();
+			}, 1000);
+			</script>						
+			';	
+		}
+		else{
+			echo '<div class="alert alert-success">
+			<strong>'.$response['status_message'].'</strong> 
+			</div>
+			<script>
+			window.setTimeout(function() {
+				$(".alert").fadeTo(500, 0).slideUp(500, function(){
+					$(this).remove(); 
+				});
+				location.reload();
+			}, 1000);
+			</script>						
+			';
+		}	
 
 	}
+//------------this fun is used to get enquiry details for multiple quotations----------------------------------------//
+
+}

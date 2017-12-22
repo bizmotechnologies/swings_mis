@@ -142,7 +142,7 @@ class QuotationForEnquiry_model extends CI_Model {
         }
 
         $delivery_within = $delivery_span . ' ' . $delivery_P;
-        $insert_quotation = "INSERT INTO quotation_master(enquiry_id,customer_id,customer_name,product_associated,delivery_within,dated,time_at,current_status) VALUES ('$enquiry_id','$customer_id','" . $customer_details[0]['customer_name'] . "','" . $enquiry_products[0]['products_associated'] . "','$delivery_within',NOW(),NOW(),'1')";
+        $insert_quotation = "INSERT INTO quotation_master(enquiry_id,customer_id,customer_name,product_associated,delivery_within,dated,time_at,current_status,branch_name) VALUES ('$enquiry_id','$customer_id','" . $customer_details[0]['customer_name'] . "','" . $enquiry_products[0]['products_associated'] . "','$delivery_within',NOW(),NOW(),'1','$branch_name')";
 
         if ($this->db->query($insert_quotation)) {
 
@@ -290,6 +290,9 @@ class QuotationForEnquiry_model extends CI_Model {
         $this->load->model('sales_model/Enquiry_model');
         $quotation_details=$this->Enquiry_model->getQuotation($quotation_id);
         
+        //-----------session branch_name--------------
+        $branch_name=$this->session->userdata('branch_name');
+        
         $products=$quotation_details[0]['product_associated'];
          //---------------if record not found-------------
         if (isset($quotation_details['status']) && $quotation_details['status']==0) {
@@ -300,7 +303,7 @@ class QuotationForEnquiry_model extends CI_Model {
             die();
         }
 
-        $insert_quotation = "INSERT INTO wo_master(quotation_id,product_associated,dated,time_on) VALUES ('$quotation_id','$products',now(),now())";
+        $insert_quotation = "INSERT INTO wo_master(quotation_id,product_associated,dated,time_on,branch_name) VALUES ('$quotation_id','$products',now(),now(),'$branch_name')";
    
         if ($this->db->query($insert_quotation)) {
             $update_quotation = "UPDATE quotation_master SET current_status = '2' WHERE quotation_id = '$quotation_id'";

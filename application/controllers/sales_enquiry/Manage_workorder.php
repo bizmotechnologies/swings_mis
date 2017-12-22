@@ -176,7 +176,7 @@ class Manage_workorder extends CI_Controller
       }
       echo '</tbody>
       </table>';
-       $save_hide='';
+      $save_hide='';
       if($key['current_status']=='0'){
         $save_hide='w3-hide';
       }
@@ -287,6 +287,9 @@ $count++;
 }
 $data['wo_drawing']=json_encode($main_drawingArr);
 $data['quantities']=json_encode($wo_quantity);
+//-----------session branch_name--------------
+$branch_name=$this->session->userdata('branch_name');
+$data['branch_name']=$branch_name;
 
 // this code is for web service AND api for save production
 $path = base_url();                                                    

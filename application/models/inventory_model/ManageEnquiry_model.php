@@ -309,8 +309,8 @@ class ManageEnquiry_model extends CI_Model {
     public function saveProductForEnquiry($data) {
         extract($data);
 
-        $sql = "INSERT INTO enquiry_master (customer_id,customer_name,products_associated,time_on,date_on,current_status) 
-        VALUES ('".$customer_id."','".$customer_name."','".$products_associated."',NOW(),NOW(),'1')";
+        $sql = "INSERT INTO enquiry_master (customer_id,customer_name,products_associated,time_on,date_on,current_status,branch_name) 
+        VALUES ('".$customer_id."','".$customer_name."','".$products_associated."',NOW(),NOW(),'1','$branch_name')";
         //echo $sql; die();
         $result = $this->db->query($sql);
 
