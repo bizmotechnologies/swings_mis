@@ -57,7 +57,8 @@ class ManageEnquiry_model extends CI_Model {
             } else {
                 $response = array(
                     'status' => 1,
-                    'value' => $rawMaterial_ID . '/' . $rawMaterial_OD
+                    'value' => $rawMaterial_ID . '/' . $rawMaterial_OD,
+                    'best_price' => $row['material_price']
                 );
                 //print_r($response);die();
                 unset($criteria);

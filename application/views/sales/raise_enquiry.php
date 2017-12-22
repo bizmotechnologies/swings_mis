@@ -14,11 +14,12 @@ error_reporting(E_ERROR | E_PARSE);
     <link rel="stylesheet" href="<?php echo base_url(); ?>css/w3.css">
 
     <script type="text/javascript" src="<?php echo base_url(); ?>css/bootstrap/jquery-3.1.1.js"></script>
-    <script src="<?php echo base_url(); ?>css/bootstrap/bootstrap-toggle.min.js"></script>
     <script type="text/javascript" src="<?php echo base_url(); ?>css/bootstrap/bootstrap.min.js"></script>
     <script type="text/javascript" src="<?php echo base_url(); ?>css/js/config.js"></script>
     <script type="text/javascript" src="<?php echo base_url(); ?>css/js/inventory/fetchmaterial_Details.js"></script>
     <script type="text/javascript" src="<?php echo base_url(); ?>css/js/sales/manage_enquiries.js"></script>
+    <script src="<?php echo base_url(); ?>css/bootstrap/bootstrap-toggle.min.js"></script>
+
     <script>
         var currparent = 1;
         var currchild = 1;

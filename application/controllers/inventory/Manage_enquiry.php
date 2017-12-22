@@ -76,14 +76,14 @@ public function getBest_tube() {
             $response=json_decode($response_json, true);
             //print_r($response_json);die();
             if(empty($response['value'])){
-                echo '<label>Best Tube: N/A</label>';
+                echo '<b><span class="w3-small"><span class="w3-text-red">Best Tube:</span> N/A</span><span class="w3-small w3-margin-left"><span class="w3-text-red">Best Price:</span> N/A</span></b>';
             }
             else{
-                echo '<label>Best Tube: '.$response['value'].'</label>';
+                echo '<b><span class="w3-small"><span class="w3-text-red">Best Tube:</span> '.$response['value'].'</span><span class="w3-small w3-margin-left"><span class="w3-text-red">Best Price:</span> '.$response['best_price'].' <i class="fa fa-inr"></i></span></b>';
             }
         }
         else{
-            echo 'N/A';
+            echo '<b><span class="w3-small"><span class="w3-text-red">Best Tube:</span> N/A</span><span class="w3-small w3-margin-left"><span class="w3-text-red">Best Price:</span> N/A</span></b>';
         }
     }
 
