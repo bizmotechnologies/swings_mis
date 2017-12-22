@@ -87,7 +87,7 @@ class ManageEnquiry_model extends CI_Model {
         $landed_cost = $branchprice * ($vendor_details['status_message'][0]['vendor_landing_cost']);
         $costPer_mm= $landed_cost / 134;
 //print_r($vendor_discount);die();
-        $single_cost = $costPer_mm * (($profit_margin + ($vendor_discount/100)) * ($cut_value + $Material_LENGTH));
+        $single_cost = $costPer_mm * (($profit_margin + ((100 - $vendor_discount)/100)) * ($cut_value + $Material_LENGTH));
         $decimal_price=number_format($single_cost,2,'.','');
         return $decimal_price;
     }
@@ -114,7 +114,7 @@ class ManageEnquiry_model extends CI_Model {
         $landed_cost = $material_price * ($vendor_details['status_message'][0]['vendor_landing_cost']);
         $costPer_mm= $landed_cost / 134;
 
-        $single_cost = $costPer_mm * (($profit_margin + ($vendor_discount/100)) * ($cut_value + $MaterialLength));
+        $single_cost = $costPer_mm * (($profit_margin + ((100 - $vendor_discount)/100)) * ($cut_value + $MaterialLength));
         $decimal_price=number_format($single_cost,2,'.','');
         return $decimal_price;
     }
