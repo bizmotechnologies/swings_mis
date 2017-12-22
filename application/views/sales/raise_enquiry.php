@@ -452,7 +452,7 @@ error_reporting(E_ERROR | E_PARSE);
     --> 
     <script>
         $('#myModalnew').on('hidden.bs.modal', function () {
-            location.reload();
+            //location.reload();
         });
     </script>
     <!-- script end -->
@@ -594,7 +594,13 @@ error_reporting(E_ERROR | E_PARSE);
             });
     }
 </script>
-
+<script>
+function setMaterialTocheckbox(fieldnum, countnum){
+    var Materialinfo =  $('#Select_material_' + fieldnum + '_' + countnum).val();
+        document.getElementById('make_boughtOut_'+fieldnum+'_'+countnum).value = Materialinfo;
+        document.getElementById('select_box_'+fieldnum+'_'+countnum).value = Materialinfo;        
+}
+</script>
 <script>
         //----this funis used to get value from table to perform bestprice calculations
         function GetMaterialBasePrice(fieldnum, countnum) {
@@ -721,6 +727,7 @@ error_reporting(E_ERROR | E_PARSE);
             document.getElementById('available_tubeDiv_'+fieldnum+'_'+countnum).disabled = true;
             document.getElementById('discount_'+fieldnum+'_'+countnum).disabled = true;
             document.getElementById('available_tubebtn_'+fieldnum+'_'+countnum).disabled = true;
+            document.getElementById('select_box_'+fieldnum+'_'+countnum).checked = true;
 
 
             //Available price disable/enable change
@@ -738,25 +745,27 @@ error_reporting(E_ERROR | E_PARSE);
             document.getElementById('Available_Price_'+fieldnum+'_'+countnum).value = '';
             document.getElementById('Available_Price_'+fieldnum+'_'+countnum).disabled = false;
         }
-    }
-
+      }
 </script>
 <!-- script end -->
 
 <!-- script function to mkae final prize of material 0 when material is excluded -->
-<!-- <script>
-    function excludeMaterial(Profile_num,count)
-    {
-      if($(this).is(":checked")){ }
-        else
-        {
-            document.getElementById('final_Price_'+Profile_num + '_' + count).value = 0 ;
-            document.getElementById('Available_Price_'+Profile_num + '_' + count).value = 0 ;
-        }
+<script>
+    function excludeMaterial(fieldnum,countnum)    {
+              
+              if(document.getElementById('select_box_'+fieldnum+'_'+countnum).checked == false){
+            document.getElementById('make_boughtOut_'+fieldnum+'_'+countnum).checked = false;
+            document.getElementById('Available_tube_'+fieldnum+'_'+countnum).value = '';
+            document.getElementById('Available_tube_'+fieldnum+'_'+countnum).disabled = false;
+            document.getElementById('available_tubeDiv_'+fieldnum+'_'+countnum).disabled = false;
+            document.getElementById('discount_'+fieldnum+'_'+countnum).disabled = false;
 
-
-    }
-</script> -->
+            //Available price disable/enable change
+            document.getElementById('Available_Price_'+fieldnum+'_'+countnum).value = '';
+            document.getElementById('Available_Price_'+fieldnum+'_'+countnum).disabled = false;
+              }
+      }
+</script> 
 <!-- script ends -->
 </body>
 </html>

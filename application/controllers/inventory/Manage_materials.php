@@ -77,11 +77,11 @@ class Manage_materials extends CI_controller {
                     //---this div for material information div
                     echo'<div class="w3-col l12 w3-tiny " id="Div_no_'.$Profile_num.'_'.$count.'">';
                     echo '<div class="w3-col l12">
-                    <input class="w3-right" name="make_boughtOut[]" data-onstyle="danger" data-size="mini" id="make_boughtOut_'.$Profile_num.'_'.$count.'" type="checkbox" data-toggle="toggle" data-on="ON" data-off="OFF" value="1" onchange="makeBought_out('.$Profile_num.','.$count.')">
+                    <input class="w3-right" name="make_boughtOut['.$Profile_num.']['.$count.']" data-onstyle="danger" data-size="mini" id="make_boughtOut_'.$Profile_num.'_'.$count.'" type="checkbox" data-toggle="toggle" data-on="ON" data-off="OFF" value="'.$key['material_name'].'" onchange="makeBought_out('.$Profile_num.','.$count.')">
                     </div>';
                     echo '<div class="w3-col l2">';                    //---this div for material information div starts here
                     echo'<label>MATERIAL</label>';
-                    echo'<input onclick="this.select();" autocomplete="off" list="Materialinfo_'.$Profile_num.'_'.$count.'" value="'.$key['material_name'].'" id="Select_material_'.$Profile_num.'_'.$count.'" name="Select_material[]" class="w3-input" required type="text" placeholder="Material" onchange="get_AvailableTube('.$Profile_num.','.$count.');">';
+                    echo'<input onclick="this.select();" autocomplete="off" list="Materialinfo_'.$Profile_num.'_'.$count.'" value="'.$key['material_name'].'" id="Select_material_'.$Profile_num.'_'.$count.'" name="Select_material[]" class="w3-input" required type="text" placeholder="Material" onchange="setMaterialTocheckbox('.$Profile_num.','.$count.');">';
 
                     echo'<datalist id="Materialinfo_'.$Profile_num.'_'.$count.'">';
                     foreach ($materials['status_message'] as $result) {
@@ -231,7 +231,7 @@ class Manage_materials extends CI_controller {
     public function SaveProductsForEnquiry() {
         //$data = $_POST;
         extract($_POST);
-        //print_r($_POST);die();
+
         if(!isset($Select_Profiles)){
             echo 'Add at least 1 Product in Enquiry';
             die();
@@ -296,18 +296,19 @@ class Manage_materials extends CI_controller {
 
     //--------------regretable material check----------------
     $regret=0;
-    if(in_array($Select_material[$i],$regret_material[$i])){
+    if(!in_array($Select_material[$i],$regret_material[$prod+1])){
         $regret=1;//if material is not included... i.e. regretable.
     }
-    //print_r($Select_material[$i]);
     //--------------boughtout material items check----------------
-     $regret=0;
-    if(in_array($Select_material[$i],$regret_material[$i])){
-        $regret=1;//if material is not included... i.e. regretable.
+     $boughtoutMaterial=0;
+     //print_r((in_array($Select_material[$i],$make_boughtOut[$i])));
+    if(in_array($Select_material[$i],$make_boughtOut[$prod+1])){        
+        $boughtoutMaterial=1;//if material is not included... i.e. regretable.
     }
-    
+//----this array for material details
     $material_Arr[] = array(
         'regret_material' => $regret,
+        'boughtOutItems' => $boughtoutMaterial,
         'material_id' => $Select_material[$i],
         'material_ID' => $ID_arr,
         'material_OD' => $OD_arr,
@@ -318,11 +319,12 @@ class Manage_materials extends CI_controller {
         'discount' => $discount[$i],
         'final_Price' => $final_Price[$i]
     );
-  //print_r($material_Arr);  
+    //print_r($make_boughtOut);
+//----this array for material details
 
 }
+//----this array for profile details
 
-//print_r(json_encode($material_Arr));
 $profile_arr[] = array(
     'product_name' => $product_nameForEnquiry[$prod],
     'profile_id' => $profile_id[$prod],
@@ -336,6 +338,7 @@ $profile_arr[] = array(
     'Product_Discount' => $Product_Discount[$prod],
     'product_price' => $TotalProduct_Price[$prod]
 );
+//----this array for profile details
 
 $HousingArr[] = array(
     'product_name' => $product_nameForEnquiry[$prod],
@@ -348,7 +351,8 @@ $HousingArr[] = array(
 );
 $housingInfo['profile_id'] = $profile_id[$prod];
 }
-//print_r($profile_arr);die();
+print_r($profile_arr);
+die();
 $housingInfo['profile_data'] = json_encode($HousingArr);
 
 //-----------session branch_name--------------
