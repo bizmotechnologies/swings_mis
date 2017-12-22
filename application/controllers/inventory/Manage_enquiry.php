@@ -140,7 +140,7 @@ public function getBest_tube() {
             $response_json = curl_exec($ch);
             curl_close($ch);
             $response = json_decode($response_json, true);
-            echo $response;
+            echo ($response);
         } else{
             echo '0.00';
         }
@@ -167,7 +167,7 @@ public function getBest_tube() {
             $response_json = curl_exec($ch);
             curl_close($ch);
             $response = json_decode($response_json, true);
-            echo $response;
+            print_r($response_json);
         } else{
             echo '0.00';
         }

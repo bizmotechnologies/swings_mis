@@ -301,7 +301,7 @@ error_reporting(E_ERROR | E_PARSE);
                 cache: false,
                 success: function (data) {
                 //alert(data);
-                $('#profile_image_div_' + rownum).html('<center><img width="30%" alt="Profile image not found" class="img img-thumbnail" height="30%" src="' + BASE_URL + '' + data + '"/></center>');
+                $('#profile_image_div_' + rownum).html('<center><img width="30%" alt="Profile image not found" class="img img-thumbnail" height="30%" onerror="this.src=\''+ BASE_URL +'images/default_image.png\'" src="' + BASE_URL + '' + data + '"/></center>');
             }
         });
         }

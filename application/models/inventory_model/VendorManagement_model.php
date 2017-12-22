@@ -101,6 +101,27 @@ class VendorManagement_model extends CI_Model {
     }
 
     /* delete fun ends here */
+
+//----------------get particular vendor details--------------------------//
+    public function GetVendorDetails($vendor_id) {
+
+        $query = "SELECT * FROM vendor_details WHERE vendor_id='$vendor_id' AND visible = '1'";
+//echo $query;die();
+        $result = $this->db->query($query);
+
+        if ($result->num_rows() <= 0) {
+            $response = array(
+                'status' => 0,
+                'status_message' => 'No Records Found.');
+        } else {
+            $response = array(
+                'status' => 1,
+                'status_message' => $result->result_array());
+        }
+        return $response;
+    }
+
+    /* function ends here */
 }
 
 ?>

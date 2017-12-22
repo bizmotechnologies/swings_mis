@@ -71,54 +71,65 @@ class ManageEnquiry_model extends CI_Model {
         $customizevalue = ManageEnquiry_model::getcustomizedvalueforCalculation();
         $setting_value = json_decode($customizevalue, TRUE);
 
-        $avail_length = ManageEnquiry_model::getmaterial_AvailLength($material_id, $Material_ID, $Material_OD, $Material_LENGTH);
+        $material_details = ManageEnquiry_model::getmaterial_AvailLength($material_id, $Material_ID, $Material_OD, $Material_LENGTH);
+        $vendor_id=$material_details[0]['vendor_id'];
+        $avail_length=$material_details[0]['avail_length'];
 
-        //print_r($setting_value);
+        $this->load->model('inventory_model/VendorManagement_model');
+        $vendor_details=$this->VendorManagement_model->GetVendorDetails($vendor_id);
+
         $cut_value = 0;
         $profit_margin = 0;
         $single_cost = 0;
         $cut_value = $setting_value['cut_value'];
-        $profit_margin = $setting_value['profit_margin'];
-        $landed_cost = $branchprice * $setting_value['landing_value'];
+        $profit_margin = ($vendor_details['status_message'][0]['profit_margin']);
+        $vendor_discount = ($vendor_details['status_message'][0]['vendor_discount']);
+        $landed_cost = $branchprice * ($vendor_details['status_message'][0]['vendor_landing_cost']);
         $costPer_mm= $landed_cost / $avail_length;
-
+//print_r($vendor_discount);die();
         $single_cost = $costPer_mm * ($profit_margin * ($cut_value + $Material_LENGTH));
         $decimal_price=number_format($single_cost,2,'.','');
-
         return $decimal_price;
     }
 //----this funis used to get value from table to perform bestprice calculations
 //-----this fun is used to get material base price calculations-------------//
     public function GetMaterialBasePrice($material_id, $MaterialID, $MaterialOD, $MaterialLength) {
 
-        $material_price = ManageEnquiry_model::getmaterialPriceforcalculation($material_id, $MaterialID, $MaterialOD, $MaterialLength);
+        $material_details = ManageEnquiry_model::getmaterialDetailsforcalculation($material_id, $MaterialID, $MaterialOD, $MaterialLength);
         $avail_length = ManageEnquiry_model::getmaterial_AvailLength($material_id, $MaterialID, $MaterialOD, $MaterialLength);
+        $material_price=$material_details[0]['material_price'];
+        $vendor_id=$material_details[0]['vendor_id'];
 
+        $this->load->model('inventory_model/VendorManagement_model');
+        $vendor_details=$this->VendorManagement_model->GetVendorDetails($vendor_id);
+
+        //print_r($vendor_details['status_message'][0]['profit_margin']);
         $customizevalue = ManageEnquiry_model::getcustomizedvalueforCalculation();
         $setting_value = json_decode($customizevalue, TRUE);
-        //print_r($setting_value);
         $cut_value = 0;
         $profit_margin = 0;
         $single_cost = 0;
         $cut_value = $setting_value['cut_value'];
-        $profit_margin = $setting_value['profit_margin'];
-        $landed_cost = $material_price * $setting_value['landing_value'];
+        $profit_margin = ($vendor_details['status_message'][0]['profit_margin']);
+        $vendor_discount = ($vendor_details['status_message'][0]['vendor_discount']);
+        $landed_cost = $material_price * ($vendor_details['status_message'][0]['vendor_landing_cost']);
         $costPer_mm= $landed_cost / $avail_length;
 
         $single_cost = $costPer_mm * ($profit_margin * ($cut_value + $MaterialLength));
         $decimal_price=number_format($single_cost,2,'.','');
-
         return $decimal_price;
     }
 
 
 //-----this fun is used to get material base price calculations-------------//
-    public function getmaterialPriceforcalculation($material_id, $MaterialID, $MaterialOD, $MaterialLength) {
-        $sql = "SELECT material_price FROM raw_materialstock WHERE material_id = '$material_id' "
+    public function getmaterialDetailsforcalculation($material_id, $MaterialID, $MaterialOD, $MaterialLength) {
+        $sql = "SELECT vendor_id,material_price FROM raw_materialstock WHERE material_id = '$material_id' "
                 . "AND raw_ID = '$MaterialID' AND raw_OD ='$MaterialOD'";
 
         $result = $this->db->query($sql);
         $material_price = '0.00';
+        $vendor_id='0';
+        $details='';
         if ($result->num_rows() <= 0) {
             $material_price = array(
                 'status' => 0,
@@ -126,19 +137,25 @@ class ManageEnquiry_model extends CI_Model {
         } else {
             foreach ($result->result_array() as $row) {
                 $material_price = $row['material_price'];
+                $vendor_id = $row['vendor_id'];
             }
+            $details[]=array(
+                'material_price'    =>   $material_price,
+                'vendor_id' =>  $vendor_id
+            );
         }
-        return $material_price;
+        return $details;
     }
 //-----this fun is used to get material base price calculations-------------//
 
 //-----this fun is used to get material length -------------//
     public function getmaterial_AvailLength($material_id, $MaterialID, $MaterialOD, $MaterialLength) {
-        $sql = "SELECT avail_length FROM raw_materialstock WHERE material_id = '$material_id' "
+        $sql = "SELECT vendor_id,avail_length FROM raw_materialstock WHERE material_id = '$material_id' "
                 . "AND raw_ID = '$MaterialID' AND raw_OD ='$MaterialOD'";
 
         $result = $this->db->query($sql);
         $avail_length = '0';
+        $details='';
         if ($result->num_rows() <= 0) {
             $avail_length = array(
                 'status' => 0,
@@ -146,9 +163,14 @@ class ManageEnquiry_model extends CI_Model {
         } else {
             foreach ($result->result_array() as $row) {
                 $avail_length = $row['avail_length'];
+                $vendor_id = $row['vendor_id'];
             }
+            $details[]=array(
+                'avail_length'    =>   $avail_length,
+                'vendor_id' =>  $vendor_id
+            );
         }
-        return $avail_length;
+        return $details;
     }
 //-----this fun is used to get material length-------------//
 
