@@ -688,7 +688,7 @@ error_reporting(E_ERROR | E_PARSE);
     function GetFinalPriceForMaterialCalculation(fieldnum, countnum) {
 
         finalprice = '0';
-        if(document.getElementById('make_boughtOut_'+fieldnum+'_'+countnum).checked = false){
+        if(document.getElementById('make_boughtOut_'+fieldnum+'_'+countnum).checked == false){
         quantity = $("#select_Quantity_" + fieldnum + "_" + countnum).val();
         discount = $("#discount_" + fieldnum + "_" + countnum).val();
         Available_Price = $("#Available_Price_" + fieldnum + "_" + countnum).val();
