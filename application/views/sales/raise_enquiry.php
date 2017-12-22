@@ -523,6 +523,7 @@ error_reporting(E_ERROR | E_PARSE);
             var MaterialID = [];
             var MaterialOD = [];
             var MaterialLength = [];
+            if(document.getElementById('make_boughtOut_'+fieldnum+'_'+countnum).checked == false){
             $("#tube_spinner_" + fieldnum + '_' + countnum).html('<center><img width="100%" height="auto" src="'+BASE_URL+'css/logos/small_loader.gif"/></center>');
             $('#Div_no_' + fieldnum + '_' + countnum + ' input[name="Select_ID[' + fieldnum + '][]"]').each(function ()
             {
@@ -563,6 +564,7 @@ error_reporting(E_ERROR | E_PARSE);
                     GetMaterialBasePrice(fieldnum, countnum);
                 }
             });
+        }
         }
         //--------------get best tube end-----------------------
     </script>
@@ -717,6 +719,8 @@ error_reporting(E_ERROR | E_PARSE);
             document.getElementById('Available_tube_'+fieldnum+'_'+countnum).disabled = true;
             document.getElementById('available_tubeDiv_'+fieldnum+'_'+countnum).disabled = true;
             document.getElementById('discount_'+fieldnum+'_'+countnum).disabled = true;
+            document.getElementById('available_tubebtn_'+fieldnum+'_'+countnum).disabled = true;
+
 
             //Available price disable/enable change
             document.getElementById('Available_Price_'+fieldnum+'_'+countnum).value = '0.00';

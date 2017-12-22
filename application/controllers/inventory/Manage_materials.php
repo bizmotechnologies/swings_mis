@@ -231,7 +231,7 @@ class Manage_materials extends CI_controller {
     public function SaveProductsForEnquiry() {
         //$data = $_POST;
         extract($_POST);
-        //print_r($_POST);die();
+        print_r($_POST);die();
         if(!isset($Select_Profiles)){
             echo 'Add at least 1 Product in Enquiry';
             die();
@@ -300,6 +300,12 @@ class Manage_materials extends CI_controller {
         $regret=1;//if material is not included... i.e. regretable.
     }
     //print_r($Select_material[$i]);
+    //--------------boughtout material items check----------------
+     $regret=0;
+    if(in_array($Select_material[$i],$regret_material[$i])){
+        $regret=1;//if material is not included... i.e. regretable.
+    }
+    
     $material_Arr[] = array(
         'regret_material' => $regret,
         'material_id' => $Select_material[$i],
