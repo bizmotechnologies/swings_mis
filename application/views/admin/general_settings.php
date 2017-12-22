@@ -285,17 +285,7 @@ error_reporting(E_ERROR | E_PARSE);
               <label>Cut Value (in mm):</label>
               <input type="number" name="cut_value" class="form-control" placeholder="cut value in mm" id="cut_value" value="<?php echo $cut_value ?>" min="0" required>
             </div>
-            <div class="w3-col l6 w3-padding-right">
-              <label>Profit Margin (in %):</label>
-              <input type="number" name="profit_margin" class="form-control" placeholder="profit margin in percentage" value="<?php echo $profit_margin ?>" id="profit_margin" min="0" step="0.01" required>
-            </div>
-          </div>
-          <div class="w3-col l12 w3-margin-top ">
-            <div class="w3-col l6 w3-padding-right">
-              <label>Landing Cost :</label>
-              <input type="number" name="landing_value" class="form-control" placeholder="landing cost " step="0.01" id="landing_value" value="<?php echo $landing_value ?>" min="0" required>
-            </div>
-            <div class="w3-col l6 w3-padding-right">
+              <div class="w3-col l6 w3-padding-right">
               <label>Rupees/Euro (<i class="fa fa-rupee"></i>/<i class="fa fa-euro"></i>):</label>
               <input type="number" name="euro_cost" class="form-control" placeholder="rupees/euro cost" value="<?php echo $euro_cost ?>" id="euro_cost" min="0" step="0.01" required>
             </div>

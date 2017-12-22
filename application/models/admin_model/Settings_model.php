@@ -184,17 +184,11 @@ class Settings_model extends CI_Model{
 		
 		$query_cut="UPDATE customize_settings SET setting_value='$cut_value' WHERE setting_name='cut_value' ";
 		$result_cut =$this->db->query($query_cut);
-
-		$query_landing="UPDATE customize_settings SET setting_value='$landing_value' WHERE setting_name='landing_value' ";
-		$result_landing =$this->db->query($query_landing);
-
-		$query_profit="UPDATE customize_settings SET setting_value='$profit_margin' WHERE setting_name='profit_margin' ";
-		$result_profit =$this->db->query($query_profit);
 		
 		$query_euro="UPDATE customize_settings SET setting_value='$euro_cost' WHERE setting_name='euro_cost' ";
-		$result_euro =$this->db->query($query_euro);
 		
-		if($result_cut && $result_profit && $result_landing && $result_euro){
+		if($this->db->query($query_euro)){
+                //Settings_model::updateMaterialpricebyCustomizeValue($euro_cost);
 			$response=array(
 				'status'	=>	1,
 				'status_message'	=>	'Updated successfully'
@@ -211,5 +205,27 @@ class Settings_model extends CI_Model{
 		}
 	}
 	//----------------edit calculating parameters ends--------------------------//
+	//----------------update material price by cusomize value from manage general settings--------------------------//
+        public function updateMaterialpricebyCustomizeValue($euro_cost) {
+        $sql = "SELECT * FROM raw_materialstock ";
+        $result = $this->db->query($sql);
+        if ($result->num_rows() >= 0) {
+            foreach ($result->result_array() as $row) {
+                $rawmaterial_id = $row['rawmaterial_id'];
+                $price_euro = $row['price_euro'];
+                $priceInRS = $price_euro * $euro_cost;
+                $updateSql = "UPDATE raw_materialstock SET material_price = $priceInRS "
+                        . "WHERE rawmaterial_id = $rawmaterial_id";
+                //echo $updateSql; die();
+                $resultUpdate = $this->db->query($updateSql);
+                
+            }
+            
+            //return $response;
+        }
+    }
+
+    //----------------update material price by cusomize value from manage general settings--------------------------//        
 }
+
 ?>
