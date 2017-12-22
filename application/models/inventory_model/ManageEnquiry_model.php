@@ -85,16 +85,15 @@ class ManageEnquiry_model extends CI_Model {
         $profit_margin = ($vendor_details['status_message'][0]['profit_margin']);
         $vendor_discount = ($vendor_details['status_message'][0]['vendor_discount']);
         $landed_cost = $branchprice * ($vendor_details['status_message'][0]['vendor_landing_cost']);
-        $costPer_mm= $landed_cost / $avail_length;
+        $costPer_mm= $landed_cost / 134;
 //print_r($vendor_discount);die();
-        $single_cost = $costPer_mm * ($profit_margin * ($cut_value + $Material_LENGTH));
+        $single_cost = $costPer_mm * (($profit_margin + ($vendor_discount/100)) * ($cut_value + $Material_LENGTH));
         $decimal_price=number_format($single_cost,2,'.','');
         return $decimal_price;
     }
 //----this funis used to get value from table to perform bestprice calculations
 //-----this fun is used to get material base price calculations-------------//
     public function GetMaterialBasePrice($material_id, $MaterialID, $MaterialOD, $MaterialLength) {
-
         $material_details = ManageEnquiry_model::getmaterialDetailsforcalculation($material_id, $MaterialID, $MaterialOD, $MaterialLength);
         $avail_length = ManageEnquiry_model::getmaterial_AvailLength($material_id, $MaterialID, $MaterialOD, $MaterialLength);
         $material_price=$material_details[0]['material_price'];
@@ -113,9 +112,9 @@ class ManageEnquiry_model extends CI_Model {
         $profit_margin = ($vendor_details['status_message'][0]['profit_margin']);
         $vendor_discount = ($vendor_details['status_message'][0]['vendor_discount']);
         $landed_cost = $material_price * ($vendor_details['status_message'][0]['vendor_landing_cost']);
-        $costPer_mm= $landed_cost / $avail_length;
+        $costPer_mm= $landed_cost / 134;
 
-        $single_cost = $costPer_mm * ($profit_margin * ($cut_value + $MaterialLength));
+        $single_cost = $costPer_mm * (($profit_margin + ($vendor_discount/100)) * ($cut_value + $MaterialLength));
         $decimal_price=number_format($single_cost,2,'.','');
         return $decimal_price;
     }
