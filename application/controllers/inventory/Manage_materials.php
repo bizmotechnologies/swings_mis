@@ -62,23 +62,29 @@ class Manage_materials extends CI_controller {
 
             $material_associated = json_decode($response['status_message'][0]['material_associated'], TRUE);
 
-            echo '<div class="w3-col l12 w3-tiny"><span class="w3-text-red"><b>NOTE:</b> Input Fields which are disabled (marked in grey and default set to 0) are N/A for the respective material. Only fill enabled input fields</span></div>';
+            echo '
+            <div class="w3-col l12 w3-tiny"><span class="w3-text-red"><b>NOTE:</b> Input Fields which are disabled (marked in grey and default set to 0) are N/A for the respective material. Only fill enabled input fields</span></div>';
             
             $count=0;
             foreach ($material_associated as $key) {
                 for ($material_count=0; $material_count < $key['material_quantity']; $material_count++) { 
                  echo '<div class="w3-col l12 ">
                  <hr class="w3-border-white">
+                 <div class="w3-col l6 w3-left">
                      <label class="w3-text-red w3-small">Include this material?</label>
                     <input class="w3-left" name="regret_material['.$Profile_num.']['.$count.']" data-onstyle="danger" data-size="mini" id="select_box_'.$Profile_num.'_'.$count.'" type="checkbox" value="'.$key['material_name'].'" 
                     onchange="excludeMaterial('.$Profile_num.','.$count.')"  checked>
+                    </div>
+
+                    <div class="w3-col l6 w3-right">
+                    <label class="w3-text-red w3-right w3-small">&nbsp;Bought Out material</label>
+                    <input class="w3-right" name="make_boughtOut['.$Profile_num.']['.$count.']" data-onstyle="danger" data-size="mini" id="make_boughtOut_'.$Profile_num.'_'.$count.'" type="checkbox" data-toggle="toggle" data-on="ON" data-off="OFF" value="'.$key['material_name'].'" onchange="makeBought_out('.$Profile_num.','.$count.')">
+                    </div>
                     </div>';
                     //div for select material checkbox
                     //---this div for material information div
                     echo'<div class="w3-col l12 w3-tiny " id="Div_no_'.$Profile_num.'_'.$count.'">';
-                    echo '<div class="w3-col l12">
-                    <input class="w3-right" name="make_boughtOut['.$Profile_num.']['.$count.']" data-onstyle="danger" data-size="mini" id="make_boughtOut_'.$Profile_num.'_'.$count.'" type="checkbox" data-toggle="toggle" data-on="ON" data-off="OFF" value="'.$key['material_name'].'" onchange="makeBought_out('.$Profile_num.','.$count.')">
-                    </div>';
+                    
                     echo '<div class="w3-col l2">';                    //---this div for material information div starts here
                     echo'<label>MATERIAL</label>';
                     echo'<input onclick="this.select();" autocomplete="off" list="Materialinfo_'.$Profile_num.'_'.$count.'" value="'.$key['material_name'].'" id="Select_material_'.$Profile_num.'_'.$count.'" name="Select_material[]" class="w3-input" required type="text" placeholder="Material" onchange="setMaterialTocheckbox('.$Profile_num.','.$count.');">';
