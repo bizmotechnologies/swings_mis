@@ -44,10 +44,12 @@ class Manage_workorder_production extends CI_Controller {
         for ($j = 0; $j < count($profile_id); $j++) {
         for ($p = 0; $p < count($_POST['usedlength_'.$count]); $p++) {
             if(($_POST['usedlength_'.$count][$p] != $_POST['consumedtube_'.$count][$p]) || ($_POST['material_name_'.$count][$p] != $_POST['Material_Change_'.$count][$p])){
-            echo '<div class="w3-col l12">                 
-                <div class="w3-col l3 w3-margin-top w3-padding-right">
+            echo '<div class="w3-col l12">';
+            //print_r($profile_id);die();
+                echo'<div class="w3-col l3 w3-margin-top w3-padding-right">
                 <label>Profile Name:</label>
                 <input type="hidden" name="wo_id" id="wo_id" value="'.$wo_id.'">
+                <input type="hidden" name="profile_id[]" id="profile_id" value="'.$profile_id[$p].'">
                 <input type="hidden" name="CustomerName" id="CustomerName" value="'.$CustomerName.'">
                 <input type="text" class="form-control" name="ChangedprofileName[]" id="ChangedprofileName" value="'.$profile_name[$j].'">
                 </div>
@@ -179,8 +181,8 @@ class Manage_workorder_production extends CI_Controller {
         curl_close($ch);
         $response=json_decode($response_json, true);
         $profile_name=($response['status_message'][0]['profile_name']);
-        $profile_id = ($response['status_message'][0]['profile_id']);
-        //echo $profile_name;
+        $profile_id = ($response['status_message']['profile_id']);
+        //echo $profile_id;die();
         //------------------get profile name ends---------------------------
         echo '
         <tr id="divno_'.$count.'">
@@ -195,7 +197,7 @@ class Manage_workorder_production extends CI_Controller {
         foreach ($row['material_associated'] as $material) {
         echo '<input class="form-control" type="text" name="material_Name_'.$count.'[]" id="Material_Name" readonly value="'.$material['material_id'].'">';
         }
-        echo'<input type="hidden" name="profile_id[]" id="profile_id" value="'.$row['profile_id'].'">                    
+        echo'<input type="hidden" name="profile_id[]" id="profile_id" value="'.$row['profile_id'][$count].'">                    
         </td>';
         //-----this td is for to show original material
         //-----this td is for to show changed material and chnage material datalist
@@ -318,13 +320,13 @@ class Manage_workorder_production extends CI_Controller {
             return: false, //stop the actual form post !important!
             success: function (data)
             {
-                alert(data);
+                //alert(data);
                 $("#msg_header").text("Message");
                 $("#msg_span").css({"color": "black"});
                 $("#addMaterials_err").html(data);
                 $("#myModalnew").modal("show");            }
         });
-        return false;  //stop the actual form post !important!
+        return false;  
     });
 });
 </script>';
@@ -337,7 +339,8 @@ class Manage_workorder_production extends CI_Controller {
     public function Submit_raiseQueryDetails() {
         extract($_POST);
         //print_r($reasonForchange);die();
-        $query =array(); //---json for add reason for change in wo query
+        $query =array(); 
+                                    //---json for add reason for change in wo query
         for($i=0; $i< count($ChangedprofileName); $i++){
            $quotationSpecialistArr = array(
                'wo_id' => $wo_id,
@@ -350,12 +353,19 @@ class Manage_workorder_production extends CI_Controller {
                'Consumedmaterial_length' => $Consumedmaterial_length[$i],
                'reasonForchange' => $reasonForchange[$i]
            );
-           $query[] = $quotationSpecialistArr;
-        } //---json for add reason for change in wo query
+           $query[] = $quotationSpecialistArr;//---json for add reason for change in wo query
+        }
+                                                             
+        $branch_name=$this->session->userdata('branch_name');//---this is for taking branch name from the session 
+        $data['branch_name']=$branch_name;                   //---this is for taking branch name from session 
+        
         $data['QueryForQuotationSpecialist']=json_encode($query);
+                       //---storing quotation specilist query in json format
         $data['wo_id'] = $wo_id;
         $data['CustomerName'] = $CustomerName;
+        
         //---api for save production raised query----------//
+        
         $path = base_url();
         $url = $path . 'api/Manage_Workorder_Production_api/Submit_raiseQueryDetails';
         $ch = curl_init($url);
@@ -365,7 +375,7 @@ class Manage_workorder_production extends CI_Controller {
         $response_json = curl_exec($ch);
         curl_close($ch);
         $response = json_decode($response_json, true);
-//print_r($response_json);die();
+        print_r($response_json);die();
         if ($response['status'] == 0) {
             echo $response['status_message'];
         } else {

@@ -44,14 +44,45 @@ class ManageWorkorder_Production_model extends CI_Model {
 //----this fun is used to get all details of workorder which is ready for production
     public function Submit_raiseQueryDetails($data) {
         extract($data);
-        print_r($data); die();
+        //print_r($data); die();
         //print_r($QueryForQuotationSpecialist);die();
+        foreach($QueryForQuotationSpecialist[] as $key){
+            
+          $sql = "INSERT INTO sub_quotation_specialist (wo_id,customer_name,profile_name,"
+                    . "original_material_name,"
+                    . "changed_material_name,"
+                    . "material_id,material_od,"
+                    . "original_material_length,"
+                    . "changed_material_length,"
+                    . "reason_changed_length_material,"
+                    . "approved,"
+                    . "rejected,"
+                    . "reason_for_rejected,"
+                    . "role,"
+                    . "branch_name,"
+                    . "submitted_date,"
+                    . "modified_date,"
+                    . "current_status) "
+                    . "VALUES "
+                    . "('$wo_id',"
+                    . "'$CustomerName',"
+                    . "" . $key['ChangedprofileName'] . ","
+                    . "" . $key['ChangedmaterialName'] . ","
+                    . "" . $key['UpdatedMaterialName'] . ","
+                    . "" . $key['$material_ID'] . ","
+                    . "" . $key['$material_OD'] . ","
+                    . "" . $key['$Allotedmaterial_length'] . ","
+                    . "" . $key['$Consumedmaterial_length'] . ","
+                    . "" . $key['reasonForchange'] . ","
+                    . "'','','','',"
+                    . "'$branch_name',"
+                    . "now(),now(),'')";
+            echo $sql;die();
+        $resultnew = $this->db->query($sql);  
+            
+        }
         
         
-        $sql = "INSERT INTO quotation_specialist (wo_id,customer_name,queryfor_specialist,submitted_date, current_status) "
-                . "VALUES ('$wo_id','$CustomerName','$QueryForQuotationSpecialist',now(),'1')";
-        //echo $sql;die();
-        $resultnew = $this->db->query($sql);
         if ($resultnew) {
             $sqlupdate = "UPDATE wo_production SET query_status = '1' WHERE wo_id = '$wo_id'";
             $resultnew = $this->db->query($sqlupdate);

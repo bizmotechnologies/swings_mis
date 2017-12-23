@@ -108,7 +108,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         </div>
         <script>
             $('#myModalnew').on('hidden.bs.modal', function () {
-                location.reload();
+               // location.reload();
             });
         </script>
         <script>
