@@ -46,12 +46,15 @@ class ManageWorkorder_Production_model extends CI_Model {
         extract($data);
         //print_r($data); die();
         //print_r($QueryForQuotationSpecialist);die();
-        foreach($QueryForQuotationSpecialist[] as $key){
+         $QueryForQuotationSpecialistnew = json_decode($QueryForQuotationSpecialist, TRUE);
+         
+        foreach($QueryForQuotationSpecialistnew as $key){
             
           $sql = "INSERT INTO sub_quotation_specialist (wo_id,customer_name,profile_name,"
                     . "original_material_name,"
                     . "changed_material_name,"
-                    . "material_id,material_od,"
+                    . "material_id,"
+                    . "material_od,"
                     . "original_material_length,"
                     . "changed_material_length,"
                     . "reason_changed_length_material,"
@@ -66,18 +69,18 @@ class ManageWorkorder_Production_model extends CI_Model {
                     . "VALUES "
                     . "('$wo_id',"
                     . "'$CustomerName',"
-                    . "" . $key['ChangedprofileName'] . ","
-                    . "" . $key['ChangedmaterialName'] . ","
-                    . "" . $key['UpdatedMaterialName'] . ","
-                    . "" . $key['$material_ID'] . ","
-                    . "" . $key['$material_OD'] . ","
-                    . "" . $key['$Allotedmaterial_length'] . ","
-                    . "" . $key['$Consumedmaterial_length'] . ","
-                    . "" . $key['reasonForchange'] . ","
+                    . "'" . $key['ChangedprofileName'] ."',"
+                    . "'" . $key['ChangedmaterialName'] . "',"
+                    . "'" . $key['UpdatedMaterialName'] . "',"
+                    . "'" . $key['material_ID'] . "',"
+                    . "'" . $key['material_OD'] . "',"
+                    . "'" . $key['Allotedmaterial_length'] . "',"
+                    . "'" . $key['Consumedmaterial_length'] . "',"
+                    . "'" . $key['reasonForchange'] . "',"
                     . "'','','','',"
                     . "'$branch_name',"
                     . "now(),now(),'')";
-            echo $sql;die();
+            //echo $sql;die();
         $resultnew = $this->db->query($sql);  
             
         }
