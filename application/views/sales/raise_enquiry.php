@@ -452,7 +452,7 @@ error_reporting(E_ERROR | E_PARSE);
     --> 
     <script>
         $('#myModalnew').on('hidden.bs.modal', function () {
-            //location.reload();
+            location.reload();
         });
     </script>
     <!-- script end -->

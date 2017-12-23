@@ -351,8 +351,7 @@ $HousingArr[] = array(
 );
 $housingInfo['profile_id'] = $profile_id[$prod];
 }
-print_r($profile_arr);
-die();
+//print_r($profile_arr);die();
 $housingInfo['profile_data'] = json_encode($HousingArr);
 
 //-----------session branch_name--------------
