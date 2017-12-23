@@ -1,4 +1,6 @@
 <?php
+error_reporting(E_ERROR | E_PARSE);
+
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
@@ -18,7 +20,8 @@ class ManageEnquiry_model extends CI_Model {
         $rawMaterial_LENGTH = 0;
         $criteria = array();
         $response = array();
-
+        $bestTUBE_Arr=array();
+        $count=0;
 
         foreach ($result->result_array() as $row) {
             $rawMaterial_ID = $row['raw_ID'];
@@ -27,6 +30,7 @@ class ManageEnquiry_model extends CI_Model {
             $rawMaterial_Tolerance = $row['tolerance'];
             $Conditionone = $Material_ID - $rawMaterial_ID;
             $Conditiontwo = $Material_OD + $rawMaterial_Tolerance;
+            
             //echo $Conditionone;
             if ($Conditionone >= 0) {
                 $criteria[] = 1;
@@ -55,20 +59,60 @@ class ManageEnquiry_model extends CI_Model {
                 );
                 unset($criteria);
             } else {
-
                 $bestprice=ManageEnquiry_model::GetMaterialBasePrice($material_id, $rawMaterial_ID, $rawMaterial_OD, $MaterialLength);
-                $response = array(
-                    'status' => 1,
-                    'value' => $rawMaterial_ID . '/' . $rawMaterial_OD,
-                    'best_price' => $bestprice
+                
+                $bestTUBE=array(
+                    'best_tube' =>  $rawMaterial_ID . '/' . $rawMaterial_OD,
+                    'best_price'    =>  $bestprice
                 );
-                //print_r($response);die();
+                $bestTUBE_Arr[]=$bestTUBE;
                 unset($criteria);
-                break;
+                $count=1;
             }
         }
+
+        if($count==1){
+            ManageEnquiry_model::sksort($bestTUBE_Arr,'best_price');
+            $response = array(
+                'status' => 1,
+                'value' => $bestTUBE_Arr[0]['best_tube'],
+                'best_price' => $bestTUBE_Arr[0]['best_price']
+            ); 
+        }        
         return $response;
     }
+
+    // ----------------sksort function to get min best_price------------------//
+    public function sksort(&$array, $subkey="id", $sort_ascending=true) {
+
+        if (count($array))
+            $temp_array[key($array)] = array_shift($array);
+
+        foreach($array as $key => $val){
+            $offset = 0;
+            $found = false;
+            foreach($temp_array as $tmp_key => $tmp_val)
+            {
+                if(!$found and strtolower($val[$subkey]) > strtolower($tmp_val[$subkey]))
+                {
+                    $temp_array = array_merge(    (array)array_slice($temp_array,0,$offset),
+                        array($key => $val),
+                        array_slice($temp_array,$offset)
+                    );
+                    $found = true;
+                }
+                $offset++;
+            }
+            if(!$found) $temp_array = array_merge($temp_array, array($key => $val));
+        }
+
+        if ($sort_ascending) $array = array_reverse($temp_array);
+
+        else $array = $temp_array;
+    }
+
+    //------------------------end the functions-------------------------//
+
     //----this funis used to get value from table to perform bestprice calculations
     public function GetMaterialBasePrice_byBranchPrice($material_id, $Material_ID, $Material_OD,$branchprice, $Material_LENGTH){
         $customizevalue = ManageEnquiry_model::getcustomizedvalueforCalculation();
@@ -113,11 +157,14 @@ class ManageEnquiry_model extends CI_Model {
         $single_cost = 0;
         $cut_value = $setting_value['cut_value'];
         $profit_margin = 2.65;
+
         $vendor_discount = ($vendor_details['status_message'][0]['vendor_discount']);
+
         $landed_cost = ($material_price * ((100 - $vendor_discount)/100)) * ($vendor_details['status_message'][0]['vendor_landing_cost']);
         $costPer_mm= $landed_cost / 134;
 
         $single_cost = $costPer_mm * ($profit_margin * ($cut_value + $MaterialLength));
+
         $decimal_price=number_format($single_cost,2,'.','');
         return $decimal_price;
     }
@@ -126,7 +173,7 @@ class ManageEnquiry_model extends CI_Model {
 //-----this fun is used to get material base price calculations-------------//
     public function getmaterialDetailsforcalculation($material_id, $MaterialID, $MaterialOD, $MaterialLength) {
         $sql = "SELECT vendor_id,material_price FROM raw_materialstock WHERE material_id = '$material_id' "
-                . "AND raw_ID = '$MaterialID' AND raw_OD ='$MaterialOD'";
+        . "AND raw_ID = '$MaterialID' AND raw_OD ='$MaterialOD'";
 
         $result = $this->db->query($sql);
         $material_price = '0.00';
@@ -153,7 +200,7 @@ class ManageEnquiry_model extends CI_Model {
 //-----this fun is used to get material length -------------//
     public function getmaterial_AvailLength($material_id, $MaterialID, $MaterialOD, $MaterialLength) {
         $sql = "SELECT vendor_id,avail_length FROM raw_materialstock WHERE material_id = '$material_id' "
-                . "AND raw_ID = '$MaterialID' AND raw_OD ='$MaterialOD'";
+        . "AND raw_ID = '$MaterialID' AND raw_OD ='$MaterialOD'";
 
         $result = $this->db->query($sql);
         $avail_length = '0';
@@ -190,24 +237,24 @@ class ManageEnquiry_model extends CI_Model {
         foreach ($result->result_array() as $key) {
             switch ($key['setting_name']) {
                 case 'cut_value':
-                    $cut_value = $key['setting_value'];
-                    break;
+                $cut_value = $key['setting_value'];
+                break;
 
                 case 'landing_value':
-                    $landing_value = $key['setting_value'];
-                    break;
+                $landing_value = $key['setting_value'];
+                break;
 
                 case 'profit_margin':
-                    $profit_margin = $key['setting_value'];
-                    break;
+                $profit_margin = $key['setting_value'];
+                break;
 
                 case 'euro_cost':
-                    $euro_cost = $key['setting_value'];
-                    break;
+                $euro_cost = $key['setting_value'];
+                break;
 
                 default:
                     # code...
-                    break;
+                break;
             }
         }
         $arrnew = array(
@@ -225,12 +272,12 @@ class ManageEnquiry_model extends CI_Model {
     public function showAvailable_Tube($material_id, $Material_ID, $Material_OD, $Material_LENGTH){
         $criteriaForAvailableTube = ManageEnquiry_model::CheckCriteriaForAvailableTube($material_id, $Material_ID, $Material_OD, $Material_LENGTH);
         return ($criteriaForAvailableTube);
-    
+
     }
     /* this  function is used to show available tube from raw materials  */
     /* this  function is used to set Crieria for available tube from raw materials  */
     public function CheckCriteriaForAvailableTube($material_id, $Material_ID, $Material_OD, $Material_LENGTH){
-        
+
         $sql = "SELECT * from raw_materialstock WHERE material_id = '$material_id'";
         $result = $this->db->query($sql);
         $rawMaterial_ID = 0;
@@ -290,19 +337,19 @@ class ManageEnquiry_model extends CI_Model {
             }
         }
         if(!empty($tube)){
-        $response = array(
-            'status' => 1,
-            'tube' => $tube,
-            'length' => $length
-        );
-    }
-    else{
-        $response = array(
-            'status' => 0,
-            'tube' => 'N/A',
-            'length' => 'N/A'
-        );
-    }
+            $response = array(
+                'status' => 1,
+                'tube' => $tube,
+                'length' => $length
+            );
+        }
+        else{
+            $response = array(
+                'status' => 0,
+                'tube' => 'N/A',
+                'length' => 'N/A'
+            );
+        }
         //print_r($response); //die();
         return $response;
     }
@@ -325,70 +372,70 @@ class ManageEnquiry_model extends CI_Model {
                 'status' => 0,
                 'status_message' => 'Enquiry Not Inserted Successfully...!');
         }
-   
+
         return $response;
     }
 
 // Ending function save products in enquiry/////////////
    //---------------------GET AVAILABLE TUBE FROM RAW MATERIAL------------------------------//
     public function get_AvailableTube($material_id, $MaterialID, $MaterialOD){
-          $sql = "SELECT max(avail_length) as avail_length FROM raw_materialstock WHERE material_id = '$material_id' "
-                . "AND raw_ID <= '$MaterialID' AND raw_OD >='$MaterialOD'";
+      $sql = "SELECT max(avail_length) as avail_length FROM raw_materialstock WHERE material_id = '$material_id' "
+      . "AND raw_ID <= '$MaterialID' AND raw_OD >='$MaterialOD'";
 
-        $result = $this->db->query($sql);
-        $avail_length = '0.00';
-        if ($result->num_rows() <= 0) {
-            $avail_length = array(
-                'status' => 0,
-                'status_message' => '<label>Available Tube: N/A</label>');
-        } else {
-            foreach ($result->result_array() as $row) {
-                $avail_length = $row['avail_length'];
-            }
-            $avail_length = array(
-                'status' => 0,
-                'status_message' => $avail_length);
+      $result = $this->db->query($sql);
+      $avail_length = '0.00';
+      if ($result->num_rows() <= 0) {
+        $avail_length = array(
+            'status' => 0,
+            'status_message' => '<label>Available Tube: N/A</label>');
+    } else {
+        foreach ($result->result_array() as $row) {
+            $avail_length = $row['avail_length'];
         }
-        return $avail_length;
+        $avail_length = array(
+            'status' => 0,
+            'status_message' => $avail_length);
     }
+    return $avail_length;
+}
     //---------------------GET AVAILABLE TUBE FROM RAW MATERIAL------------------------------// 
-    
-    public function SaveProfile_data($housingInfo){
-        extract($housingInfo);
+
+public function SaveProfile_data($housingInfo){
+    extract($housingInfo);
         //print_r($housingInfo); die();
-        $sqlselect = "SELECT * FROM profile_combination WHERE profile_id = '$profile_id'";
-        $result = $this->db->query($sqlselect);
-        if ($result->num_rows() <= 0) {
-            $sql = "INSERT INTO profile_combination(profile_id,profile_data) 
+    $sqlselect = "SELECT * FROM profile_combination WHERE profile_id = '$profile_id'";
+    $result = $this->db->query($sqlselect);
+    if ($result->num_rows() <= 0) {
+        $sql = "INSERT INTO profile_combination(profile_id,profile_data) 
         VALUES ('$profile_id','$profile_data')";
-            $result = $this->db->query($sql);
-        } else {
-            $sql = "UPDATE profile_combination SET profile_data = '$profile_data' WHERE profile_id = '$profile_id'";
-            $result = $this->db->query($sql);
-        }
-    }
-  
-    public function getAvailableTubeFromAllBranches($material_id, $Material_ID, $Material_OD){
-        //echo $material_id;
-        $branch_name = '';
-        $branch = '';
-        $tube = '';
-        $price = '';
-        $available_tubes = '';
-        $sql = "SELECT * FROM branch_table";
         $result = $this->db->query($sql);
-       $all_branchData=array();
-        if ($result->num_rows() >= 0) {         
-            foreach ($result->result_array() as $row) {
-                $branch_name = $row['branch_name'];
-                
-                $selectSql = "SELECT * FROM raw_materialstock WHERE "
-                        . "raw_ID = '$Material_ID' AND raw_OD = '$Material_OD' "
-                        . "AND material_id ='$material_id' AND branch_name = '$branch_name' LIMIT 1";
+    } else {
+        $sql = "UPDATE profile_combination SET profile_data = '$profile_data' WHERE profile_id = '$profile_id'";
+        $result = $this->db->query($sql);
+    }
+}
+
+public function getAvailableTubeFromAllBranches($material_id, $Material_ID, $Material_OD){
+        //echo $material_id;
+    $branch_name = '';
+    $branch = '';
+    $tube = '';
+    $price = '';
+    $available_tubes = '';
+    $sql = "SELECT * FROM branch_table";
+    $result = $this->db->query($sql);
+    $all_branchData=array();
+    if ($result->num_rows() >= 0) {         
+        foreach ($result->result_array() as $row) {
+            $branch_name = $row['branch_name'];
+
+            $selectSql = "SELECT * FROM raw_materialstock WHERE "
+            . "raw_ID = '$Material_ID' AND raw_OD = '$Material_OD' "
+            . "AND material_id ='$material_id' AND branch_name = '$branch_name' LIMIT 1";
                 //echo $selectSql;                die();
-                $resultSelect = $this->db->query($selectSql);
-                if($resultSelect->num_rows() >= 0){
-                    foreach ($resultSelect->result_array() as $key) {
+            $resultSelect = $this->db->query($selectSql);
+            if($resultSelect->num_rows() >= 0){
+                foreach ($resultSelect->result_array() as $key) {
                     $branch = $key['branch_name'];
                     $tube = $key['raw_ID'] . '/' . $key['raw_OD'];
                     $price = $key['material_price'];
@@ -398,25 +445,25 @@ class ManageEnquiry_model extends CI_Model {
                         'tube' => $tube,
                         'price' => $price
                     );       
-                      $all_branchData[] = $available_tubes;
-                    }
+                    $all_branchData[] = $available_tubes;
+                }
                    // print_r($all_banchData);
                 $response = array(
-                'status' => 1,
-                'status_message' => $all_branchData);
-                } 
-                else{
-                   $response = array(
+                    'status' => 1,
+                    'status_message' => $all_branchData);
+            } 
+            else{
+             $response = array(
                 'status' => 0,
                 'status_message' => 'Tube is not available in this branch.'
-                       ); 
-                }
-            }
-            return $response;
-        }
+            ); 
+         }
+     }
+     return $response;
+ }
                 //return $response;
-    }
-       
+}
+
 }
 
 ?>

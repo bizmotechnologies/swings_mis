@@ -22,9 +22,9 @@ class Manage_enquiry extends CI_controller {
     //---this fun is used to get Available tube for product from raw material 
 
     public function showAvailable_Tube(){
-       extract($_POST);
+     extract($_POST);
 
-       if(isset($MaterialID) && isset($MaterialOD) && isset($MaterialLength)  && $MaterialID[0] != ''){
+     if(isset($MaterialID) && isset($MaterialOD) && isset($MaterialLength)  && $MaterialID[0] != ''){
         $Material_ID = min($MaterialID);
         $Material_OD = max($MaterialOD);
         $Material_LENGTH = max($MaterialLength);
