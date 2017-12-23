@@ -24,6 +24,17 @@ class Manage_workorder_production extends CI_Controller {
         return $response;
     }
 //----this fun is used to get the all wo id for from wo production-------------------------//
+    public function getMaterialrecord(){
+        $path = base_url();
+        $url = $path . 'api/ManageMaterial_api/getMaterialrecord';
+        $ch = curl_init($url);
+        curl_setopt($ch, CURLOPT_HTTPGET, true);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $response_json = curl_exec($ch);
+        curl_close($ch);
+        $response = json_decode($response_json, true);
+        return $response;
+    }
 //----this fun is used to verify the alloted length and consume length-------------------------//
     public function verify_materiallength(){
         extract($_POST);
@@ -32,9 +43,8 @@ class Manage_workorder_production extends CI_Controller {
         $count=1;
         for ($j = 0; $j < count($profile_id); $j++) {
         for ($p = 0; $p < count($_POST['usedlength_'.$count]); $p++) {
-            if($_POST['usedlength_'.$count][$p] == $_POST['consumedtube_'.$count][$p]){
-            }else{
-                echo '<div class="w3-col l12">                 
+            if(($_POST['usedlength_'.$count][$p] != $_POST['consumedtube_'.$count][$p]) || ($_POST['material_name_'.$count][$p] != $_POST['Material_Change_'.$count][$p])){
+            echo '<div class="w3-col l12">                 
                 <div class="w3-col l3 w3-margin-top w3-padding-right">
                 <label>Profile Name:</label>
                 <input type="hidden" name="wo_id" id="wo_id" value="'.$wo_id.'">
@@ -48,6 +58,13 @@ class Manage_workorder_production extends CI_Controller {
                 </div>
                 
                 <div class="w3-col l3 w3-margin-top w3-padding-right">
+                <label>Changed Material:</label>
+                <input type="text" class="form-control" name="updatedMaterialName[]" id="updatedMaterialName" value="'.$_POST['Material_Change_'.$count][$p].'">
+                </div>
+                </div>  
+                
+                <div class="w3-col l12">
+                <div class="w3-col l3 w3-margin-top w3-padding-right">
                 <label>Material ID:</label>
                 <input type="text" class="form-control" name="material_innerID[]" id="material_innerID" value="'.$_POST['material_ID_'.$count][$p].'">
                 </div>
@@ -55,10 +72,8 @@ class Manage_workorder_production extends CI_Controller {
                 <div class="w3-col l3 w3-margin-top w3-padding-right">
                 <label>Material OD:</label>
                 <input type="text" class="form-control" name="material_outerID[]" id="material_outerID" value="'.$_POST['material_OD_'.$count][$p].'">
-                </div>
-                </div>  
-                
-                <div class="w3-col l12">
+                </div>                
+
                 <div class="w3-col l3 w3-margin-top w3-padding-right">
                 <label>Alloted Length:</label>
                 <input type="text" class="form-control" name="Allotedmaterial_length[]" id="Allotedmaterial_length" value="'.$_POST['usedlength_'.$count][$p].'">
@@ -72,10 +87,13 @@ class Manage_workorder_production extends CI_Controller {
 
                 <div class="w3-col l12">                
                 <div class="w3-col l10 w3-margin-top w3-padding-right">
-                <label>Reason For Change Length:</label>
+                <label>Reason For Change Length / Material:</label>
                 <input type="text" class="form-control" id="reasonForchange" name="reasonForchange[]">
                 </div>
                 </div>';
+                
+            }else{
+                
             }
         }
         $count++;
@@ -86,6 +104,9 @@ class Manage_workorder_production extends CI_Controller {
 
     public function get_Workorderfor_Production_details() {
         extract($_POST);
+        
+        $materials = Manage_workorder_production::getMaterialrecord();     //-------show all Raw materials
+        
         $path = base_url();
         $url = $path . 'api/Manage_Workorder_Production_api/get_Workorderfor_Production_details?wo_id='.$Workorder_id;
         $ch = curl_init($url);
@@ -101,12 +122,14 @@ class Manage_workorder_production extends CI_Controller {
     foreach ($response['status_message'] as $key) {
       $date=date('d/m/Y',strtotime($key['dated'])); 
       echo '
-       <form id="productionForm" name="productionForm" type="post">   
-      <div id="" class="w3-col l12">
-        <a class="w3-button w3-red" href="'. base_url().'sales_enquiry/Manage_workorder_production/update_start_time?wo_id='.$key['wo_id'].'">Start Time<i class="w3-margin-left fa fa-clock-o"></i></a>
-        <a class="w3-button w3-black" href="'. base_url().'sales_enquiry/Manage_workorder_production/update_end_time?wo_id='.$key['wo_id'].'">End Time<i class="w3-margin-left fa fa-clock-o"></i></a>
-        <hr>
-      </div>';
+       <form id="productionForm" name="productionForm" type="post">';
+//      if($key['query_status'] == 1){
+//      echo'<div id="" class="w3-col l12">
+//        <a class="w3-button w3-red" href="'. base_url().'sales_enquiry/Manage_workorder_production/update_start_time?wo_id='.$key['wo_id'].'">Start Time<i class="w3-margin-left fa fa-clock-o"></i></a>
+//        <a class="w3-button w3-black" href="'. base_url().'sales_enquiry/Manage_workorder_production/update_end_time?wo_id='.$key['wo_id'].'">End Time<i class="w3-margin-left fa fa-clock-o"></i></a>
+//        <hr>
+//      </div>';
+//      }
       echo'<div class= "w3-margin-top w3-card-2">
       <div class="w3-col l12">
       <table class="table table-bordered">
@@ -129,6 +152,7 @@ class Manage_workorder_production extends CI_Controller {
       <th class="text-center">Sr.</th>
       <th class="text-center">Profile</th>
       <th class="text-center">Material</th>
+      <th class="text-center">Change Material</th>
       <th class="text-center">Material ID</th>
       <th class="text-center">Material OD</th>
       <th class="text-center">Alloted Length</th>
@@ -155,6 +179,7 @@ class Manage_workorder_production extends CI_Controller {
         curl_close($ch);
         $response=json_decode($response_json, true);
         $profile_name=($response['status_message'][0]['profile_name']);
+        $profile_id = ($response['status_message'][0]['profile_id']);
         //echo $profile_name;
         //------------------get profile name ends---------------------------
         echo '
@@ -164,15 +189,27 @@ class Manage_workorder_production extends CI_Controller {
         </td>
         <td class="text-center">
         <label>'.$profile_name.'</label>
-        </td>
-        <td class="text-center">';
+        </td>';
+        //-----this td is for to show original material        
+        echo'<td class="text-center">';
         foreach ($row['material_associated'] as $material) {
-        echo' <label>';
-        echo($material['material_id']);
-        echo '</label>';
+        echo '<input class="form-control" type="text" name="material_Name_'.$count.'[]" id="Material_Name" readonly value="'.$material['material_id'].'">';
         }
         echo'<input type="hidden" name="profile_id[]" id="profile_id" value="'.$row['profile_id'].'">                    
         </td>';
+        //-----this td is for to show original material
+        //-----this td is for to show changed material and chnage material datalist
+        echo'<td>';
+        foreach ($row['material_associated'] as $mat){
+            echo'<input onclick="this.select();" autocomplete="off" list="MaterialChanged" value="'.$mat['material_id'].'" id="Material_Change" name="Material_Change_'.$count.'[]" class="form-control" type="text" placeholder="Material" ">';
+            echo'<datalist id="MaterialChanged">';
+                    foreach ($materials['status_message'] as $result) {
+                        echo'<option data-value = "'.$result['material_id'].'" value = "'.$result['material_name'].'"></option>';
+                    }
+                    echo'</datalist>';
+        }   
+        echo'</td>';
+        //-----this td is for to show changed material and chnage material datalist
         //---------td for show materila Inner Dimention
         echo'<td class="text-center">';
         $no = 0;            
@@ -306,6 +343,7 @@ class Manage_workorder_production extends CI_Controller {
                'wo_id' => $wo_id,
                'ChangedprofileName' => $ChangedprofileName[$i],
                'ChangedmaterialName' => $ChangedmaterialName[$i],
+               'UpdatedMaterialName' => $updatedMaterialName[$i],
                'material_ID' => $material_innerID[$i],
                'material_OD' => $material_outerID[$i],
                'Allotedmaterial_length' => $Allotedmaterial_length[$i],
@@ -345,8 +383,23 @@ class Manage_workorder_production extends CI_Controller {
         $response_json = curl_exec($ch);
         curl_close($ch);
         $response = json_decode($response_json, true);
-        //print_r($response_json);die();
+        if ($response['status'] == 0) {
+            echo '<div class="alert alert-danger">
+      <strong>' . $response['status_message'] . '</strong> 
+      </div>
+      <script>
+      $.alert('.$response['status_message'].');
+      </script>';
+        } else {
+            echo '<div class="alert alert-success">
+      <strong>' . $response['status_message'] . '</strong> 
+      </div>
+      <script>
+           $.alert(' . $response['status_message'] . ');
+      </script>';
+        }
     }
+
 //----this fun is used to update the start time of the work order production 
 //----this fun is used to update the END time of the work order production 
 
@@ -360,7 +413,31 @@ class Manage_workorder_production extends CI_Controller {
         $response_json = curl_exec($ch);
         curl_close($ch);
         $response = json_decode($response_json, true);
-        //print_r($response_json);die();        
+        if ($response['status'] == 0) {
+            echo '<div class="alert alert-danger">
+      <strong>' . $response['status_message'] . '</strong> 
+      </div>
+      <script>
+      window.setTimeout(function() {
+        $(".alert").fadeTo(500, 0).slideUp(500, function(){
+          $(this).remove(); 
+        });
+        location.reload();
+      }, 1000);
+      </script>';
+        } else {
+            echo '<div class="alert alert-success">
+      <strong>' . $response['status_message'] . '</strong> 
+      </div>
+      <script>
+      window.setTimeout(function() {
+        $(".alert").fadeTo(500, 0).slideUp(500, function(){
+          $(this).remove(); 
+        });
+        location.reload();
+      }, 1000);
+      </script>';
+        }
     }
 
     //----this fun is used to update the END time of the work order production 

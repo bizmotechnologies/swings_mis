@@ -44,7 +44,10 @@ class ManageWorkorder_Production_model extends CI_Model {
 //----this fun is used to get all details of workorder which is ready for production
     public function Submit_raiseQueryDetails($data) {
         extract($data);
+        print_r($data); die();
         //print_r($QueryForQuotationSpecialist);die();
+        
+        
         $sql = "INSERT INTO quotation_specialist (wo_id,customer_name,queryfor_specialist,submitted_date, current_status) "
                 . "VALUES ('$wo_id','$CustomerName','$QueryForQuotationSpecialist',now(),'1')";
         //echo $sql;die();
