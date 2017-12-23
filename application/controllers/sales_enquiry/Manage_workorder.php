@@ -188,7 +188,7 @@ class Manage_workorder extends CI_Controller
         $hide='w3-hide';
       }
       echo '
-      <a class="w3-button w3-red w3-margin-top w3-margin-bottom '.$hide.'" href="'.base_url().'sales_enquiry/work_order/'.$key['wo_id'].'"><i class="fa fa-print"></i> Print #WO-0'.$key['wo_id'].'</a>
+      <a class="w3-button w3-red w3-margin-top w3-margin-bottom '.$hide.'" href="'.base_url().'sales_enquiry/work_order/'.$key['wo_id'].'" target="_blank"><i class="fa fa-print"></i> Print #WO-0'.$key['wo_id'].'</a>
       </div>
       </form>
       <br>
