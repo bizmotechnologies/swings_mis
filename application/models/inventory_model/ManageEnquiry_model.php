@@ -115,7 +115,6 @@ class ManageEnquiry_model extends CI_Model {
         $profit_margin = 2.65;
         $vendor_discount = ($vendor_details['status_message'][0]['vendor_discount']);
         $landed_cost = ($material_price * ((100 - $vendor_discount)/100)) * ($vendor_details['status_message'][0]['vendor_landing_cost']);
-
         $costPer_mm= $landed_cost / 134;
 
         $single_cost = $costPer_mm * ($profit_margin * ($cut_value + $MaterialLength));
