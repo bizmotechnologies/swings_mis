@@ -37,9 +37,9 @@ error_reporting(E_ERROR | E_PARSE);
           <span class="w3-small"></span>
         </header>
         <div class="w3-col l12 w3-padding-left">
-          <div class="w3-col l12 w3-margin-top">
-            <div class="" id="ShowRaw_products" name="ShowRaw_products">
-              <table class="table table-bordered table-responsive w3-small">            <!-- table starts here -->
+          <div class="w3-col l12 w3-margin-top" id="wo_tables">
+            <div class="" id="show_WOrecord" name="show_WOrecord">
+              <table class="table table-bordered table-responsive w3-small" >            <!-- table starts here -->
                 <tr class="w3-black">
                   <th class="text-center">Sr No.</th>
                   <th class="text-center">Work Order No.</th>

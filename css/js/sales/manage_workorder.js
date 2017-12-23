@@ -17,6 +17,8 @@ $(document).ready(function (e){
             processData:false,
             success: function(data){
                 $.alert(data);
+                location.reload();
+                //$("#show_WOrecord").load(location.href + " #show_WOrecord>*", "");
             },
             error: function(){}             
         });

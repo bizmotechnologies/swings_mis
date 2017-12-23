@@ -75,7 +75,8 @@ class ManageQuotations_api extends REST_Controller {
     //------------this fun is send quotation to PO-------------------------------------//
     public function sendTo_WO_get() {
         $quotation_id = $_GET['quotation_id'];
-        $response = $this->QuotationForEnquiry_model->sendTo_WO($quotation_id);
+        $branch_name = $_GET['branch_name'];
+        $response = $this->QuotationForEnquiry_model->sendTo_WO($quotation_id,$branch_name);
         return $this->response($response);
     }
 

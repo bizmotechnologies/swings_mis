@@ -250,16 +250,18 @@ class Manage_quotations extends CI_Controller
 	public function sendTo_WO(){
 		extract($_POST);
 		//print_r($_POST);
+		//-----------session branch_name--------------
+        $branch_name=$this->session->userdata('branch_name');
 
 		$path=base_url();
-		$url = $path.'api/manageQuotations_api/sendTo_WO?quotation_id='.$quotation_id;		
+		$url = $path.'api/manageQuotations_api/sendTo_WO?quotation_id='.$quotation_id.'&branch_name='.$branch_name;		
 		$ch = curl_init($url);
 		curl_setopt($ch, CURLOPT_HTTPGET, true);
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 		$response_json = curl_exec($ch);
 		curl_close($ch);
 		$response=json_decode($response_json, true);
-		//echo($response_json);
+		//echo($response_json);die();
 		echo($response['status_message']);
 	}
         // --------------------- this fun is used to to send quotation to WO ----------------------------------//
@@ -430,7 +432,7 @@ class Manage_quotations extends CI_Controller
 	public function raise_quotation(){
 		extract($_POST);
 		$data=$_POST;	
-		
+
 		//-----------session branch_name--------------
 		$branch_name=$this->session->userdata('branch_name');
 		$data['branch_name']=$branch_name;
@@ -547,7 +549,7 @@ class Manage_quotations extends CI_Controller
 				$profile_name=($response['status_message'][0]['profile_name']);
       //echo $profile_name;
       //------------------get profile name ends---------------------------
-				
+
 				echo '
 				<li>'.strtoupper($key['product_name']).' -';
 

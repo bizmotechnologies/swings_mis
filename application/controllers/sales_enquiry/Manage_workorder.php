@@ -207,6 +207,7 @@ class Manage_workorder extends CI_Controller
             processData:false,
             success: function(data){
               $.alert(data);
+              $("#show_WOrecord").load(location.href + " #show_WOrecord>*", "");
               $("#wo_details").load(location.href + " #wo_details>*", "");
             },
             error: function(){}             

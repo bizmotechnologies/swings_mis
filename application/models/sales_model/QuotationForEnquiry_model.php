@@ -286,12 +286,9 @@ class QuotationForEnquiry_model extends CI_Model {
 
     //----------------------------contact customer END------------------------------//
     //------------this fun is used to get enquiry product by enquiry id--------------------------------//
-    public function sendTo_WO($quotation_id) {
+    public function sendTo_WO($quotation_id,$branch_name) {
         $this->load->model('sales_model/Enquiry_model');
         $quotation_details=$this->Enquiry_model->getQuotation($quotation_id);
-        
-        //-----------session branch_name--------------
-        $branch_name=$this->session->userdata('branch_name');
         
         $products=$quotation_details[0]['product_associated'];
          //---------------if record not found-------------
@@ -303,8 +300,7 @@ class QuotationForEnquiry_model extends CI_Model {
             die();
         }
 
-        $insert_quotation = "INSERT INTO wo_master(quotation_id,product_associated,dated,time_on,branch_name) VALUES ('$quotation_id','$products',now(),now(),'$branch_name')";
-   
+        $insert_quotation = "INSERT INTO wo_master(quotation_id,product_associated,dated,time_on,current_status,branch_name) VALUES ('$quotation_id','$products',now(),now(),'1','$branch_name')";
         if ($this->db->query($insert_quotation)) {
             $update_quotation = "UPDATE quotation_master SET current_status = '2' WHERE quotation_id = '$quotation_id'";
             $this->db->query($update_quotation);
