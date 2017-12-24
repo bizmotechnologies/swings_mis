@@ -91,7 +91,7 @@ class Manage_quotation_specialist extends CI_Controller {
                 //----div for material name , changed name, and material ID--------------------//
                 
                 echo'<div class="w3-col l12 w3-margin-top"> 
-                    
+                <input type="hidden" name="" id="sp_id_'.$key['sub_quot_specialist_id'].'">    
                 <div class="w3-col l4 w3-padding-right">
                 <label>Material Name:</label>
                 <label>'.$key['original_material_name'].'</label>
@@ -147,8 +147,8 @@ class Manage_quotation_specialist extends CI_Controller {
                 //----div for reason of approved and rejected profile changes--------------------//                                 
                 //----div for button of approved and rejected profile changes--------------------//                                 
                 echo'<div class="w3-col l12 w3-margin-top w3-right">
-                <a class="w3-button w3-red" id="approveBtn_'.$key['sub_quot_specialist_id'].'" onclick="approvedQuery('.$key['sub_quot_specialist_id'].','.$key['wo_id'].')" >Approve<i class="w3-margin-left fa fa-thumbs-up"></i></a>
-                <a class="w3-button w3-black" id="rejectBtn_'.$key['sub_quot_specialist_id'].'" onclick="rejectQuery('.$key['sub_quot_specialist_id'].','.$key['wo_id'].')" >Reject<i class="w3-margin-left fa fa-thumbs-down"></i></a>
+                <a class="w3-button w3-red" id="approveBtn_'.$key['sub_quot_specialist_id'].'" >Approve<i class="w3-margin-left fa fa-thumbs-up"></i></a>
+                <a class="w3-button w3-black" id="rejectBtn_'.$key['sub_quot_specialist_id'].'" >Reject<i class="w3-margin-left fa fa-thumbs-down"></i></a>
                 </div>';
                 //----div for button of approved and rejected profile changes--------------------//                                 
                 
@@ -156,16 +156,17 @@ class Manage_quotation_specialist extends CI_Controller {
                 $count++;
                  //----script for approve query--------------------//                                 
             echo'<script>
-            function approvedQuery(row_id,Wo_id)
+            $("#approveBtn_'.$key['sub_quot_specialist_id'].'").click(function()
                     {
-                        ReasonForApprove= $("#reasonForApproved_Rejected_"+row_id).val();
-
+                        ReasonForApprove= $("#reasonForApproved_Rejected_'.$key['sub_quot_specialist_id'].'").val();
+                        sp_id = $("#sp_id_'.$key['sub_quot_specialist_id'].'").val();
+                        alert(sp_id);    
                         $.ajax({
                             type: "POST",
                             url: BASE_URL + "quotation_specialist/Manage_quotation_specialist/approvedQuery",
                             data: {
                                 ReasonForApprove: ReasonForApprove,
-                                sub_quot_specialist_id: row_id
+                                sub_quot_specialist_id: row_id,
                                 Wo_id: Wo_id
                             },
                             return: false, 
@@ -189,7 +190,7 @@ class Manage_quotation_specialist extends CI_Controller {
                             url: BASE_URL + "quotation_specialist/Manage_quotation_specialist/rejectQuery",
                             data: {
                                 ReasonForReject: ReasonForReject,
-                                sub_quot_specialist_id: row_id
+                                sub_quot_specialist_id: row_id,
                                 Wo_id: Wo_id
                             },
                             return: false, 
@@ -213,6 +214,34 @@ class Manage_quotation_specialist extends CI_Controller {
 
     $path = base_url();
     $url = $path . 'api/ManageQuotation_Specialist_api/approvedQuery';
+    $ch = curl_init($url);
+    curl_setopt($ch, CURLOPT_POST, true);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    $response_json = curl_exec($ch);
+    curl_close($ch);
+    $response = json_decode($response_json, true);
+    
+    if ($response['status'] == 0) {
+            echo'<div class="alert alert-danger w3-margin" style="text-align: center;">
+        <strong>' . $response['status_message'] . '</strong> 
+        </div>
+        ';
+        } else {
+            echo'<div class="alert alert-success w3-margin" style="text-align: center;">
+    <strong>' . $response['status_message'] . '</strong> 
+    </div>
+    ';
+        }
+    
+    }
+    
+public function rejectQuery(){
+    extract($_POST);
+    $data = $_POST;
+
+    $path = base_url();
+    $url = $path . 'api/ManageQuotation_Specialist_api/rejectQuery';
     $ch = curl_init($url);
     curl_setopt($ch, CURLOPT_POST, true);
     curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
