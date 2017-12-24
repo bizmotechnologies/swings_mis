@@ -42,4 +42,17 @@ class ManageQuotation_Specialist_api extends REST_Controller {
     }
 
     //----this fun is used to set start time of work order production
+    public function approvedQuery_post(){
+        extract($_POST);
+        $data=$_POST;		
+        $result = $this->ManageQuotationSpecialist_model->approvedQuery($data);
+        return $this->response($result);
+    }
+    
+    public function rejectQuery_post(){
+        extract($_POST);
+        $data=$_POST;		
+        $result = $this->ManageQuotationSpecialist_model->rejectQuery($data);
+        return $this->response($result); 
+    }
 }

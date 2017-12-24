@@ -82,5 +82,44 @@ class ManageQuotationSpecialist_model extends CI_Model {
         }
         return $response;
     }
+    //-------------------------------function for update wo_production end time-------------------//
+   //----this fun is used to update the raised query is approved by quotation specialist----------------//     
+    public function approvedQuery($data){
+        extract($data);
+        $query = "UPDATE sub_quotation_specialist SET approved ='approved',reason_for_rejected ='$ReasonForApprove', current_status='1' "
+                . "WHERE wo_id = '$wo_id' AND sub_quot_specialist_id='$sub_quot_specialist_id'";
+        $result = $this->db->query($query);
+        if ($result) {
+            $response = array(
+                'status' => 1,
+                'status_message' => 'Records update successfull');
+        } else {
+            $response = array(
+                'status' => 0,
+                'status_message' => 'No Records Updated'
+            );
+        }
+        return $response;
+    }
+   //----this fun is used to update the raised query is approved by quotation specialist----------------// 
+   //----this fun is used to update the raised query is rejected by quotation specialist----------------// 
+    public function rejectQuery($data){
+        extract($data);
+        $query = "UPDATE sub_quotation_specialist SET approved ='approved', reason_for_rejected ='$ReasonForReject', current_status='1' "
+                . "WHERE wo_id = '$wo_id' AND sub_quot_specialist_id='$sub_quot_specialist_id'";
+        $result = $this->db->query($query);
+        if ($result) {
+            $response = array(
+                'status' => 1,
+                'status_message' => 'Records update successfull');
+        } else {
+            $response = array(
+                'status' => 0,
+                'status_message' => 'No Records Updated'
+            );
+        }
+        return $response;
+    }
+       //----this fun is used to update the raised query is rejected by quotation specialist----------------// 
 
 }

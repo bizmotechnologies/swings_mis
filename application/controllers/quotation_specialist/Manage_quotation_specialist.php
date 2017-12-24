@@ -62,8 +62,7 @@ class Manage_quotation_specialist extends CI_Controller {
   } 
   else {
       //----div for Customer And work order information--------------------//                                 
-      echo '          
-      <div class="w3-col l12">
+      echo'<div class="w3-col l12">
       <table class="table table-bordered">
       <tbody>
       <tr>
@@ -72,7 +71,7 @@ class Manage_quotation_specialist extends CI_Controller {
       <th class="text-right">Branch Name:</th>
       <td>'.$branch_name. '</td>
       <th class="text-right">Work Order No:</th>
-      <td>#WO-0' .$wo_id. '</td>
+      <td>#WO-0'.$wo_id.'</td>
       </tr>
       </tbody>
       </table>
@@ -213,7 +212,7 @@ class Manage_quotation_specialist extends CI_Controller {
     $data = $_POST;
 
     $path = base_url();
-    $url = $path . 'api/MaterialStockManagement_api/Update_UpdatedRawStockMaterial_Info';
+    $url = $path . 'api/ManageQuotation_Specialist_api/approvedQuery';
     $ch = curl_init($url);
     curl_setopt($ch, CURLOPT_POST, true);
     curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
