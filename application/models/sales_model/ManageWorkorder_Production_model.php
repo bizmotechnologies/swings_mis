@@ -79,7 +79,7 @@ class ManageWorkorder_Production_model extends CI_Model {
                     . "'" . $key['reasonForchange'] . "',"
                     . "'','','','',"
                     . "'$branch_name',"
-                    . "now(),now(),'')";
+                    . "now(),'','')";
             //echo $sql;die();
         $resultnew = $this->db->query($sql);  
             

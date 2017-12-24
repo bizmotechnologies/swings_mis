@@ -27,7 +27,7 @@ class ManageQuotationSpecialist_model extends CI_Model {
     //----this fun is used to get all details of wo productions
     //----this fun is used to get all details of quotations specialist
     public function getqueryForChange($wo_id) {
-        $sqlselect = "SELECT * FROM quotation_specialist WHERE wo_id = '$wo_id'";
+        $sqlselect = "SELECT * FROM sub_quotation_specialist WHERE wo_id = '$wo_id' AND current_status IS NULL";
 
         $result = $this->db->query($sqlselect);
 
