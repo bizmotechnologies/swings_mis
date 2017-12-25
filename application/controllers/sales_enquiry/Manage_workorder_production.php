@@ -123,15 +123,15 @@ class Manage_workorder_production extends CI_Controller {
   } else {
     foreach ($response['status_message'] as $key) {
       $date=date('d/m/Y',strtotime($key['dated'])); 
-      echo '
+      echo'
        <form id="productionForm" name="productionForm" type="post">';
-//      if($key['query_status'] == 1){
-//      echo'<div id="" class="w3-col l12">
-//        <a class="w3-button w3-red" href="'. base_url().'sales_enquiry/Manage_workorder_production/update_start_time?wo_id='.$key['wo_id'].'">Start Time<i class="w3-margin-left fa fa-clock-o"></i></a>
-//        <a class="w3-button w3-black" href="'. base_url().'sales_enquiry/Manage_workorder_production/update_end_time?wo_id='.$key['wo_id'].'">End Time<i class="w3-margin-left fa fa-clock-o"></i></a>
-//        <hr>
-//      </div>';
-//      }
+      if($key['query_status'] == 1){$hide = "w3-hide";}
+      echo'<div id="" class="w3-col l12">
+        <a class="w3-button w3-red '.$hide.'" href="'. base_url().'sales_enquiry/Manage_workorder_production/update_start_time?wo_id='.$key['wo_id'].'">Start Time<i class="w3-margin-left fa fa-clock-o"></i></a>
+        <a class="w3-button w3-black '.$hide.'" href="'. base_url().'sales_enquiry/Manage_workorder_production/update_end_time?wo_id='.$key['wo_id'].'">End Time<i class="w3-margin-left fa fa-clock-o"></i></a>
+        <hr>
+      </div>';
+      }
       echo'<div class= "w3-margin-top w3-card-2">
       <div class="w3-col l12">
       <table class="table table-bordered">
@@ -281,7 +281,7 @@ class Manage_workorder_production extends CI_Controller {
       <div id="show_consume_tube_query"></div>
       <div id="checkqueryerror"></div>
       <div class="w3-col l12">
-      <button type="submit" class="btn w3-right btn-sm w3-blue w3-margin">Submit</button>
+      <button type="submit" class="btn w3-right btn-sm w3-blue w3-margin"'; if($key['query_status'] == 1){echo'disabled';} echo'>Submit</button>
       </div>
       </form>';
       //-----thhis jquery for verify the changed length of workorder
@@ -334,7 +334,7 @@ class Manage_workorder_production extends CI_Controller {
             }
   }
         
-    }
+    
 //----this fun is used to get the all work order details from wo production-------------------------//
     public function Submit_raiseQueryDetails() {
         extract($_POST);

@@ -69,7 +69,7 @@ class ManageQuotationSpecialist_model extends CI_Model {
         $tz = 'Asia/Kolkata';
         $time = date('H:i:s', time($tz));
         $query = "UPDATE wo_production SET end_time ='$time' WHERE wo_id = '$wo_id'";
-        $result = $this->db->query($query);
+        $this->db->query($query);
         if ($this->db->affected_rows() >= 1) {
             $response = array(
                 'status' => 0,
@@ -87,8 +87,15 @@ class ManageQuotationSpecialist_model extends CI_Model {
     public function approvedQuery($data){
         extract($data);
         $query = "UPDATE sub_quotation_specialist SET approved ='approved',reason_for_rejected ='$ReasonForApprove', current_status='1' "
-                . "WHERE wo_id = '$wo_id' AND sub_quot_specialist_id='$sub_quot_specialist_id'";
+                . "WHERE wo_id = '$wo_id' AND sub_quot_specialist_id='$sp_id'";
         $result = $this->db->query($query);
+        
+        $sqlSelect = "SELECT * FROM sub_quotation_specialist WHERE wo_id = '$wo_id' AND current_status IS NULL";
+        $select = $this->db->query($sqlSelect);
+        if($select->num_rows() == 0){
+        $updateWo = "UPDATE wo_production SET query_status = '0' WHERE wo_id = '$wo_id'";
+        $result = $this->db->query($updateWo);
+        }
         if ($result) {
             $response = array(
                 'status' => 1,
@@ -106,8 +113,16 @@ class ManageQuotationSpecialist_model extends CI_Model {
     public function rejectQuery($data){
         extract($data);
         $query = "UPDATE sub_quotation_specialist SET approved ='approved', reason_for_rejected ='$ReasonForReject', current_status='0' "
-                . "WHERE wo_id = '$wo_id' AND sub_quot_specialist_id='$sub_quot_specialist_id'";
+                . "WHERE wo_id = '$wo_id' AND sub_quot_specialist_id='$sp_id'";
         $result = $this->db->query($query);
+        //-----this update is for to update status of query which is selected----------------------//
+        $sqlSelect = "SELECT * FROM sub_quotation_specialist WHERE wo_id = '$wo_id' AND current_status IS NULL";
+        $select = $this->db->query($sqlSelect);
+        //-----this update is for to update status of query which is selected----------------------//
+        if($select->num_rows() == 0){
+        $updateWo = "UPDATE wo_production SET query_status = '0' WHERE wo_id = '$wo_id'";
+        $result = $this->db->query($updateWo);
+        }
         if ($result) {
             $response = array(
                 'status' => 1,

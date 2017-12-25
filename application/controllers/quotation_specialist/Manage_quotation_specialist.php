@@ -78,8 +78,9 @@ class Manage_quotation_specialist extends CI_Controller {
       </div>';
       //----div for Customer And work order information--------------------//                                 
                 $count=0;
+                $sp_id = '';
                 foreach ($response['status_message'] as $key) {
-                echo'<div class="w3-col l12 w3-padding">';
+                echo'<div class="w3-col l12 w3-padding" id="Div_'.$key['sub_quot_specialist_id'].'">';
                                 //----div for profile--------------------//
                 echo'<div class="w3-col l12 w3-margin-top">';  
                 echo'<div class="w3-col l3 w3-padding-right">
@@ -141,39 +142,40 @@ class Manage_quotation_specialist extends CI_Controller {
                 echo'<div class="w3-col l12 w3-padding-right w3-margin-top">
                 
                 <label>Reason For Approved/Rejected:</label>
-                <input type="text" class="form-control" name="reasonForApproved_Rejected" id="reasonForApproved_Rejected_'.$key['sub_quot_specialist_id'].'">
+                <input type="text" class="form-control" name="reasonForApproved_Rejected" id="reasonForApproved_Rejected_'.$key['sub_quot_specialist_id'].'" value="">
                           
                 </div>';
                 //----div for reason of approved and rejected profile changes--------------------//                                 
-                //----div for button of approved and rejected profile changes--------------------//                                 
+                //----div for button of approved and rejected profile changes--------------------// 
+                $sp_id = $key['sub_quot_specialist_id'];
+                $wo_id = $key['wo_id'];
                 echo'<div class="w3-col l12 w3-margin-top w3-right">
-                <a class="w3-button w3-red" id="approveBtn_'.$key['sub_quot_specialist_id'].'" >Approve<i class="w3-margin-left fa fa-thumbs-up"></i></a>
-                <a class="w3-button w3-black" id="rejectBtn_'.$key['sub_quot_specialist_id'].'" >Reject<i class="w3-margin-left fa fa-thumbs-down"></i></a>
+                <a class="w3-button btn w3-red" id="approveBtn_'.$sp_id.'" onclick="approvedQuery('.$sp_id.','.$wo_id.');">Approve<i class="w3-margin-left fa fa-thumbs-up"></i></a>
+                <a class="w3-button w3-black" id="rejectBtn_'.$sp_id.'" onclick="rejectQuery('.$sp_id.','.$wo_id.');">Reject<i class="w3-margin-left fa fa-thumbs-down"></i></a>
                 </div>';
                 //----div for button of approved and rejected profile changes--------------------//                                 
                 
                 echo'</div>';
                 $count++;
                  //----script for approve query--------------------//                                 
-            echo'<script>
-            $("#approveBtn_'.$key['sub_quot_specialist_id'].'").click(function()
-                    {
-                        ReasonForApprove= $("#reasonForApproved_Rejected_'.$key['sub_quot_specialist_id'].'").val();
-                        sp_id = $("#sp_id_'.$key['sub_quot_specialist_id'].'").val();
-                        alert(sp_id);    
+                }
+                echo'<script>
+                    function approvedQuery(sp_id,wo_id){                            
+                        ReasonForApprove= $("#reasonForApproved_Rejected_"+sp_id).val();
                         $.ajax({
                             type: "POST",
                             url: BASE_URL + "quotation_specialist/Manage_quotation_specialist/approvedQuery",
                             data: {
                                 ReasonForApprove: ReasonForApprove,
-                                sub_quot_specialist_id: row_id,
-                                Wo_id: Wo_id
+                                sp_id: sp_id,
+                                wo_id: wo_id
                             },
                             return: false, 
                             success: function (data)
                             {
-                                $.alert(data);  
-                                $("#showwoQueryForProduction").load(location.href + " #showwoQueryForProduction>*", "");
+                                //alert(data);  
+                                $("#Div_"+sp_id).load(location.href + " #Div_"+sp_id+">*", "");
+                                $("#Show_workorderQueries").load(location.href + " #Show_workorderQueries)*", "");                                
                             }
                         });
                     }
@@ -181,29 +183,29 @@ class Manage_quotation_specialist extends CI_Controller {
                   //----script for approve query--------------------//                                             
                  //----script for reject query--------------------//                                 
             echo'<script>
-            function rejectQuery(row_id,Wo_id)
-                    {
-                        ReasonForReject= $("#reasonForApproved_Rejected_"+row_id).val();
+            function rejectQuery(sp_id,wo_id){
+                        ReasonForReject= $("#reasonForApproved_Rejected_"+sp_id).val();
 
                         $.ajax({
                             type: "POST",
                             url: BASE_URL + "quotation_specialist/Manage_quotation_specialist/rejectQuery",
                             data: {
                                 ReasonForReject: ReasonForReject,
-                                sub_quot_specialist_id: row_id,
-                                Wo_id: Wo_id
+                                sp_id: sp_id,
+                                wo_id: wo_id
                             },
                             return: false, 
                             success: function (data)
                             {
-                                $.alert(data);  
-                                $("#showwoQueryForProduction").load(location.href + " #showwoQueryForProduction>*", "");
+                                //alert(data);  
+                                $("#Div_"+sp_id).load(location.href + " #Div_"+sp_id+">*", "");
+                                $("#Show_workorderQueries").load(location.href + " #Show_workorderQueries)*", "");
                             }
                         });
                     }
-</script>';
+            </script>';
                   //----script for reject query--------------------//                                 
-                }
+            
             }
         }
     //--this fun is used to get all details of quotation specialist by wo id----//
@@ -211,7 +213,7 @@ class Manage_quotation_specialist extends CI_Controller {
     public function approvedQuery(){
     extract($_POST);
     $data = $_POST;
-
+    //print_r($data);die();
     $path = base_url();
     $url = $path . 'api/ManageQuotation_Specialist_api/approvedQuery';
     $ch = curl_init($url);
@@ -221,7 +223,7 @@ class Manage_quotation_specialist extends CI_Controller {
     $response_json = curl_exec($ch);
     curl_close($ch);
     $response = json_decode($response_json, true);
-    
+    print_r($response_json);    die();
     if ($response['status'] == 0) {
             echo'<div class="alert alert-danger w3-margin" style="text-align: center;">
         <strong>' . $response['status_message'] . '</strong> 
