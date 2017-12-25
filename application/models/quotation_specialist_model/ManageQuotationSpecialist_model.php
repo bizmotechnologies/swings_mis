@@ -68,6 +68,7 @@ class ManageQuotationSpecialist_model extends CI_Model {
     public function update_end_time($wo_id) {
         $tz = 'Asia/Kolkata';
         $time = date('H:i:s', time($tz));
+        //date_default_timezone_set('Asia/Kuwait');
         $query = "UPDATE wo_production SET end_time ='$time' WHERE wo_id = '$wo_id'";
         $this->db->query($query);
         if ($this->db->affected_rows() >= 1) {

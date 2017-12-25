@@ -5,7 +5,13 @@ if (!defined('BASEPATH'))
 error_reporting(E_ERROR | E_PARSE);
 
 class Manage_workorder_production extends CI_Controller {
-
+    
+    public function __construct() {
+        parent::__construct();
+        //start session		
+      date_default_timezone_set('Asia/Kuwait');       
+    }
+    
     public function index() {
         $data['wo_info'] = Manage_workorder_production::get_Workorderfor_Production();
         $this->load->view('includes/navigation.php');
