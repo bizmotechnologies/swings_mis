@@ -120,7 +120,49 @@ error_reporting(E_ERROR | E_PARSE);
                 currparent++;
         }); // this fun is used for add above code to parent div on click fun
 
-
+//        $('div#parent').on('click', '.btn-add-siblings', function () {// this fun is used for add materials to parent div on click fun
+//            $(this).parent().append('<div class="w3-col l12 w3-tiny w3-margin-top">\n\
+//                <div class="w3-col l2 ">\n\
+//                <label >MATERIAL</label>\n\
+//                <input list="Materialinfo_' + currchild + '" value="<?php echo $material_id; ?>" id="Select_material_' + currchild + '" name="Select_material[]" class="w3-input" required type="text" placeholder="Material" onchange="GetMaterialInformation_ForEnquiry(' + currchild + ');">\n\
+//                <datalist id="Materialinfo_' + currchild + '">\n\
+//                <?php foreach ($materials['status_message'] as $result) { ?><option data-value="<?php echo $result['material_id']; ?>" value="<?php echo $result['material_name']; ?>"><?php echo $result['material_name']; ?></option><?php } ?></datalist>\n\
+//                \n\</div>\n\
+//                <div class="w3-col l3">\n\
+//                \n\<div class="w3-col l4 s4 w3-padding-left">\n\
+//                <label>ID</label>\n\
+//                <input list="MaterialID_' + currchild + '" value="<?php echo $Select_ID; ?>" id="Select_ID_' + currchild + '" name="Select_ID[]" class="w3-input" required type="text" min="0" placeholder="ID" >\n\
+//                <datalist id="MaterialID_' + currchild + '"></datalist>\n\
+//                </div>\n\
+//                <div class="w3-col l4 s4 w3-padding-left">\n\
+//                <label>OD</label>\n\
+//                <input list="MaterialOD_' + currchild + '" value="<?php echo $Select_OD; ?>" id="Select_OD_' + currchild + '" name="Select_OD[]" class="w3-input" required type="text" min="0" placeholder="OD" >\n\
+//                <datalist id="MaterialOD_' + currchild + '"></datalist>\n\
+//                </div>\n\
+//                <div class="w3-col l4 s4 w3-padding-left">\n\
+//                <label>LENGTH</label>\n\
+//                <input list="MaterialLength_' + currchild + '" value="<?php echo $Select_Length; ?>" id="Select_Length_' + currchild + '" name="Select_Length[]" class="w3-input" required type="text" min="0" placeholder="Length" >\n\
+//                <datalist id="MaterialLength_' + currchild + '"></datalist>\n\
+//                </div>\n\
+//                </div>\n\
+//                <div class="w3-col l1 w3-padding-left">\n\
+//                <label>BASE PRICE</label><input id="base_Price_' + currchild + '" name="base_Price[]" value="<?php echo $base_Price; ?>" class="w3-input" min="0" step="0.01" required type="number" placeholder="Base Price"  onfocus="GetMaterialBasePrice(' + currchild + ');">\n\
+//                </div>\n\
+//                <div class="w3-col l1 w3-padding-left">\n\
+//                <label>QUANTITY</label>\n\
+//                <input id="select_Quantity_' + currchild + '" name="select_Quantity[]" value="<?php echo $select_Quantity; ?>" class="w3-input" min="0" required type="number" placeholder="Quantity" onkeypress="GetFinalPriceForMaterialCalculation(' + currchild + ');">\n\
+//                </div>\n\
+//                <div class="w3-col l1 w3-padding-left">\n\
+//                <label>DISCOUNT(%)</label>\n\
+//                <input id="discount_' + currchild + '" name="discount[]" <?php echo $discount; ?> class="w3-input" required type="number" min="0" step="0.01" placeholder="Discount %." onkeypress="GetFinalPriceForMaterialCalculation(' + currchild + ');">\n\
+//                </div>\n\
+//                <div class="w3-col l1 w3-padding-left">\n\
+//                <label>FINAL&nbsp;PRICE</label>\n\
+//                <input id="final_Price_' + currchild + '" name="final_Price[]" <?php echo $final_Price; ?> class="w3-input" required type="number" min="0" step="0.0001" placeholder="Final Price" onfocus="GetFinalPriceForMaterialCalculation(' + currchild + ');">\n\
+//                </div>\n\\n\
+//</div>'); // this fun is used for add materials to parent div on click fun
+//            currchild++;
+//        });
         $('div#parent').on("click", ".delete", function (e) {// this fun is used for remove materials from parent div on click fun
             e.preventDefault();
             $(this).parent('div').remove();
@@ -466,8 +508,7 @@ error_reporting(E_ERROR | E_PARSE);
                 {
                     //alert(data);
                     $('#available_tube_' + fieldnum + '_' + countnum).html(data);
-                     showAvailable_Tube(fieldnum,countnum);
-
+                    $("#tube_spinner_" + fieldnum + '_' + countnum).html('');
                 }
             });
         }
@@ -484,7 +525,7 @@ error_reporting(E_ERROR | E_PARSE);
             var MaterialOD = [];
             var MaterialLength = [];
             if(document.getElementById('make_boughtOut_'+fieldnum+'_'+countnum).checked == false){
-                //$("#tube_spinner_" + fieldnum + '_' + countnum).html('<center><img width="100%" height="auto" src="'+BASE_URL+'css/logos/small_loader.gif"/></center>');
+                $("#tube_spinner_" + fieldnum + '_' + countnum).html('<center><img width="100%" height="auto" src="'+BASE_URL+'css/logos/small_loader.gif"/></center>');
                 $('#Div_no_' + fieldnum + '_' + countnum + ' input[name="Select_ID[' + fieldnum + '][]"]').each(function ()
                 {
                     if($(this).val() ){
@@ -504,7 +545,7 @@ error_reporting(E_ERROR | E_PARSE);
                     }
                 });
                 
-                //getBest_tube(fieldnum, countnum);
+                getBest_tube(fieldnum, countnum);
                 $.ajax({
                     type: "POST",
                     url: BASE_URL + "inventory/Manage_enquiry/showAvailable_Tube",
@@ -520,6 +561,7 @@ error_reporting(E_ERROR | E_PARSE);
                     //alert(data);
                     $('#Available_tube_' + fieldnum + '_' + countnum).val(data);
                     getAvailableTubeFromAllBranches(fieldnum, countnum);
+                    $("#tube_spinner_" + fieldnum + '_' + countnum).html('');
                     GetMaterialBasePrice(fieldnum, countnum);
                 }
             });

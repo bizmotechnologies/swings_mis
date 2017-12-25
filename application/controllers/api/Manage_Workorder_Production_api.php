@@ -49,13 +49,6 @@ class Manage_Workorder_Production_api extends REST_Controller {
         $result = $this->ManageWorkorder_Production_model->update_end_time($wo_id);
         return $this->response($result);
     }
-    //----this fun is used to set start time of work order production
-      public function cron_job_get(){
-        $wo_id = $_GET['wo_id'];
-        $scheduler_status = $_GET['scheduler_status'];
-        $result = $this->ManageWorkorder_Production_model->cron_job($wo_id,$scheduler_status);
-        return $this->response($result);
-    }
-//----this fun is used to get details of all production work order details
 
+    //----this fun is used to set start time of work order production
 }
