@@ -9,7 +9,7 @@ class Manage_workorder_production extends CI_Controller {
     public function __construct() {
         parent::__construct();
         //start session		
-      date_default_timezone_set('Asia/Kuwait');       
+      date_default_timezone_set('Asia/Kolkata');       
     }
     
     public function index() {
@@ -132,11 +132,12 @@ class Manage_workorder_production extends CI_Controller {
       echo'
        <form id="productionForm" name="productionForm" type="post">';
       if($key['query_status'] == 1){$hide = "w3-hide";}
+      
       echo'<div id="" class="w3-col l12">
-        <a class="w3-button w3-red '.$hide.'" onclick="update_start_time('.$key['wo_id'].');">Start Time<i class="w3-margin-left fa fa-clock-o"></i></a>
-        <a class="w3-button w3-black '.$hide.'" onclick="update_end_time('.$key['wo_id'].');">End Time<i class="w3-margin-left fa fa-clock-o"></i></a>
+        <a class="w3-button btn w3-red '.$hide.'" id="startTime_'.$key['wo_id'].'" onclick="update_start_time('.$key['wo_id'].');"';if($key['open'] == 'open'){ echo'disabled';} echo'>Start Time<i class="w3-margin-left fa fa-clock-o"></i></a>
+        <a class="w3-button btn w3-black '.$hide.'" id="endTime_'.$key['wo_id'].'" onclick="update_end_time('.$key['wo_id'].');">End Time<i class="w3-margin-left fa fa-clock-o"></i></a>
         <hr>
-      </div>';
+      </div>';//----div for start time and end time----------------------------------------//
       }
       echo'<div class= "w3-margin-top w3-card-2">
       <div class="w3-col l12">
@@ -287,7 +288,7 @@ class Manage_workorder_production extends CI_Controller {
       <div id="show_consume_tube_query"></div>
       <div id="checkqueryerror"></div>
       <div class="w3-col l12">
-      <button type="submit" class="btn w3-right btn-sm w3-blue w3-margin"'; if($key['query_status'] == 1){echo'disabled';} echo'>Submit</button>
+      <button type="submit" class="btn w3-right btn-sm w3-blue w3-margin"'; if($key['query_status'] == 1){echo'disabled';} if($key['open'] == 'open'){ echo'disabled';} echo'>Submit</button>
       </div>
       </form>';
       //-----thhis jquery for verify the changed length of workorder
@@ -304,7 +305,6 @@ class Manage_workorder_production extends CI_Controller {
             return: false, //stop the actual form post !important!
             success: function (data)
             {
-                //alert(data);
                 $("#show_consume_tube_query").html(data);
             }
         });
@@ -326,7 +326,6 @@ class Manage_workorder_production extends CI_Controller {
             return: false, //stop the actual form post !important!
             success: function (data)
             {
-                //alert(data);
                 $("#msg_header").text("Message");
                 $("#msg_span").css({"color": "black"});
                 $("#addMaterials_err").html(data);
@@ -336,35 +335,39 @@ class Manage_workorder_production extends CI_Controller {
     });
 });
 </script>';
-//-----thhis jquery for submit the changed length of workorder-----//
+      //-----thhis jquery for submit the changed length of workorder-----//
+      //----------this script is used to update the workorder is started here with time and date and closed status----------//
+      
       echo'<script>
                     function update_start_time(wo_id){ 
-                    alert(wo_id);
                         $.ajax({
                             type: "POST",
-                            url: BASE_URL + "quotation_specialist/Manage_workorder_production/update_start_time",
+                            url: BASE_URL + "sales_enquiry/Manage_workorder_production/update_start_time",
                             data: {
                                 wo_id: wo_id
                             },
                             return: false, 
                             success: function (data)
                             {
-                                //alert(data);  
                                 $("#msg_header").text("Message");
                                 $("#msg_span").css({"color": "black"});
                                 $("#addMaterials_err").html(data);
                                 $("#myModalnew").modal("show");
+                                $("#startTime_"+wo_id).attr("disabled","disabled");
+                                $("input[type=\'submit\']").attr("disabled","disabled");
+                                
                             }
                         });
                     }
             </script>';
-      
+      //----------this script is used to update the workorder is started here with time and date and closed status----------//
+      //----------this script is used to update the workorder is ended here with time and date and closed status----------//
       echo'<script>
                     function update_end_time(wo_id){ 
-                    alert(wo_id);
+                    //alert(wo_id);
                         $.ajax({
                             type: "POST",
-                            url: BASE_URL + "quotation_specialist/Manage_workorder_production/update_end_time",
+                            url: BASE_URL + "sales_enquiry/Manage_workorder_production/update_end_time",
                             data: {
                                 wo_id: wo_id
                             },
@@ -376,11 +379,14 @@ class Manage_workorder_production extends CI_Controller {
                                 $("#msg_span").css({"color": "black"});
                                 $("#addMaterials_err").html(data);
                                 $("#myModalnew").modal("show");
+                                $("#Demo1").load(location.href + " #Demo1>*", "");
+                                $("#showProduction_workorder").load(location.href + " #showProduction_workorder>*", "");
                             }
                         });
                     }
             </script>';
-      
+            //----------this script is used to update the workorder is ended here with time and date and closed status----------//
+
             }
   }
         
@@ -434,8 +440,8 @@ class Manage_workorder_production extends CI_Controller {
     }
 //----this fun is used to update the start time of the work order production 
     public function update_start_time() {
-        extract($_GET);
-        print_r($_GET);die();
+        extract($_POST);
+        //print_r($_POST);die();
         $path = base_url();
         $url = $path . 'api/Manage_Workorder_Production_api/update_start_time?wo_id='.$wo_id;
         $ch = curl_init($url);
@@ -444,6 +450,7 @@ class Manage_workorder_production extends CI_Controller {
         $response_json = curl_exec($ch);
         curl_close($ch);
         $response = json_decode($response_json, true);
+        //print_r($response_json);die();
         if ($response['status'] == 0) {
             echo $response['status_message'];
         } else {
@@ -455,8 +462,8 @@ class Manage_workorder_production extends CI_Controller {
 //----this fun is used to update the END time of the work order production 
 
     public function update_end_time() {
-        extract($_GET);
-        print_r($_GET);die();
+        extract($_POST);
+       // print_r($_GET);die();
         $path = base_url();
         $url = $path . 'api/Manage_Workorder_Production_api/update_end_time?wo_id='.$wo_id;
         $ch = curl_init($url);
@@ -465,6 +472,7 @@ class Manage_workorder_production extends CI_Controller {
         $response_json = curl_exec($ch);
         curl_close($ch);
         $response = json_decode($response_json, true);
+        print_r($response_json);die();
         if ($response['status'] == 0) {
             echo $response['status_message'];
         } else {

@@ -26,18 +26,21 @@ class ManageQuotation_Specialist_api extends REST_Controller {
     }
 
     //---this fun is used to get all work order for productions which has raised enquiry
-    
+    //------this fun is used to approve quotation specialist query------------------------//
     public function approvedQuery_post(){
         extract($_POST);
         $data=$_POST;		
         $result = $this->ManageQuotationSpecialist_model->approvedQuery($data);
         return $this->response($result);
     }
-    
+    //------this fun is used to approve quotation specialist query------------------------//
+    //------this fun is used to reject quotation specialist query------------------------//   
     public function rejectQuery_post(){
         extract($_POST);
         $data=$_POST;		
         $result = $this->ManageQuotationSpecialist_model->rejectQuery($data);
         return $this->response($result); 
     }
+    //------this fun is used to reject quotation specialist query------------------------//   
+
 }
