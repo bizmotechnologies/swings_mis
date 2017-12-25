@@ -57,39 +57,39 @@ class Manage_workorder_production extends CI_Controller {
                 <input type="hidden" name="wo_id" id="wo_id" value="'.$wo_id.'">
                 <input type="hidden" name="profile_id[]" id="profile_id" value="'.$profile_id[$p].'">
                 <input type="hidden" name="CustomerName" id="CustomerName" value="'.$CustomerName.'">
-                <input type="text" class="form-control" name="ChangedprofileName[]" id="ChangedprofileName" value="'.$profile_name[$j].'">
+                <input type="text" class="form-control" name="ChangedprofileName[]" id="ChangedprofileName" value="'.$profile_name[$j].'" disabled>
                 </div>
                 
                 <div class="w3-col l3 w3-margin-top w3-padding-right">
                 <label>Material Name:</label>
-                <input type="text" class="form-control" name="ChangedmaterialName[]" id="materialName" value="'.$_POST['material_name_'.$count][$p].'">
+                <input type="text" class="form-control" name="ChangedmaterialName[]" id="materialName" value="'.$_POST['material_name_'.$count][$p].'" disabled>
                 </div>
                 
                 <div class="w3-col l3 w3-margin-top w3-padding-right">
                 <label>Changed Material:</label>
-                <input type="text" class="form-control" name="updatedMaterialName[]" id="updatedMaterialName" value="'.$_POST['Material_Change_'.$count][$p].'">
+                <input type="text" class="form-control" name="updatedMaterialName[]" id="updatedMaterialName" value="'.$_POST['Material_Change_'.$count][$p].'" disabled>
                 </div>
                 </div>  
                 
                 <div class="w3-col l12">
                 <div class="w3-col l3 w3-margin-top w3-padding-right">
                 <label>Material ID:</label>
-                <input type="text" class="form-control" name="material_innerID[]" id="material_innerID" value="'.$_POST['material_ID_'.$count][$p].'">
+                <input type="text" class="form-control" name="material_innerID[]" id="material_innerID" value="'.$_POST['material_ID_'.$count][$p].'" disabled>
                 </div>
                 
                 <div class="w3-col l3 w3-margin-top w3-padding-right">
                 <label>Material OD:</label>
-                <input type="text" class="form-control" name="material_outerID[]" id="material_outerID" value="'.$_POST['material_OD_'.$count][$p].'">
+                <input type="text" class="form-control" name="material_outerID[]" id="material_outerID" value="'.$_POST['material_OD_'.$count][$p].'" disabled>
                 </div>                
 
                 <div class="w3-col l3 w3-margin-top w3-padding-right">
                 <label>Alloted Length:</label>
-                <input type="text" class="form-control" name="Allotedmaterial_length[]" id="Allotedmaterial_length" value="'.$_POST['usedlength_'.$count][$p].'">
+                <input type="text" class="form-control" name="Allotedmaterial_length[]" id="Allotedmaterial_length" value="'.$_POST['usedlength_'.$count][$p].'" disabled>
                 </div>
                 
                 <div class="w3-col l3 w3-margin-top w3-padding-right">
                 <label>Consume Length:</label>
-                <input type="text" class="form-control" name="Consumedmaterial_length[]" id="Consumedmaterial_length" value="'.$_POST['consumedtube_'.$count][$p].'">
+                <input type="text" class="form-control" name="Consumedmaterial_length[]" id="Consumedmaterial_length" value="'.$_POST['consumedtube_'.$count][$p].'" disabled>
                 </div>
                 </div>
 
@@ -133,8 +133,8 @@ class Manage_workorder_production extends CI_Controller {
        <form id="productionForm" name="productionForm" type="post">';
       if($key['query_status'] == 1){$hide = "w3-hide";}
       echo'<div id="" class="w3-col l12">
-        <a class="w3-button w3-red '.$hide.'" href="'. base_url().'sales_enquiry/Manage_workorder_production/update_start_time?wo_id='.$key['wo_id'].'">Start Time<i class="w3-margin-left fa fa-clock-o"></i></a>
-        <a class="w3-button w3-black '.$hide.'" href="'. base_url().'sales_enquiry/Manage_workorder_production/update_end_time?wo_id='.$key['wo_id'].'">End Time<i class="w3-margin-left fa fa-clock-o"></i></a>
+        <a class="w3-button w3-red '.$hide.'" onclick="update_start_time('.$key['wo_id'].');">Start Time<i class="w3-margin-left fa fa-clock-o"></i></a>
+        <a class="w3-button w3-black '.$hide.'" onclick="update_end_time('.$key['wo_id'].');">End Time<i class="w3-margin-left fa fa-clock-o"></i></a>
         <hr>
       </div>';
       }
@@ -336,7 +336,51 @@ class Manage_workorder_production extends CI_Controller {
     });
 });
 </script>';
-//-----thhis jquery for submit the changed length of workorder
+//-----thhis jquery for submit the changed length of workorder-----//
+      echo'<script>
+                    function update_start_time(wo_id){ 
+                    alert(wo_id);
+                        $.ajax({
+                            type: "POST",
+                            url: BASE_URL + "quotation_specialist/Manage_workorder_production/update_start_time",
+                            data: {
+                                wo_id: wo_id
+                            },
+                            return: false, 
+                            success: function (data)
+                            {
+                                //alert(data);  
+                                $("#msg_header").text("Message");
+                                $("#msg_span").css({"color": "black"});
+                                $("#addMaterials_err").html(data);
+                                $("#myModalnew").modal("show");
+                            }
+                        });
+                    }
+            </script>';
+      
+      echo'<script>
+                    function update_end_time(wo_id){ 
+                    alert(wo_id);
+                        $.ajax({
+                            type: "POST",
+                            url: BASE_URL + "quotation_specialist/Manage_workorder_production/update_end_time",
+                            data: {
+                                wo_id: wo_id
+                            },
+                            return: false, 
+                            success: function (data)
+                            {
+                                //alert(data);  
+                                $("#msg_header").text("Message");
+                                $("#msg_span").css({"color": "black"});
+                                $("#addMaterials_err").html(data);
+                                $("#myModalnew").modal("show");
+                            }
+                        });
+                    }
+            </script>';
+      
             }
   }
         
@@ -381,7 +425,7 @@ class Manage_workorder_production extends CI_Controller {
         $response_json = curl_exec($ch);
         curl_close($ch);
         $response = json_decode($response_json, true);
-        print_r($response_json);die();
+        //print_r($response_json);die();
         if ($response['status'] == 0) {
             echo $response['status_message'];
         } else {
@@ -391,6 +435,7 @@ class Manage_workorder_production extends CI_Controller {
 //----this fun is used to update the start time of the work order production 
     public function update_start_time() {
         extract($_GET);
+        print_r($_GET);die();
         $path = base_url();
         $url = $path . 'api/Manage_Workorder_Production_api/update_start_time?wo_id='.$wo_id;
         $ch = curl_init($url);
@@ -400,19 +445,9 @@ class Manage_workorder_production extends CI_Controller {
         curl_close($ch);
         $response = json_decode($response_json, true);
         if ($response['status'] == 0) {
-            echo '<div class="alert alert-danger">
-      <strong>' . $response['status_message'] . '</strong> 
-      </div>
-      <script>
-      $.alert('.$response['status_message'].');
-      </script>';
+            echo $response['status_message'];
         } else {
-            echo '<div class="alert alert-success">
-      <strong>' . $response['status_message'] . '</strong> 
-      </div>
-      <script>
-           $.alert(' . $response['status_message'] . ');
-      </script>';
+            echo $response['status_message']; 
         }
     }
 
@@ -421,6 +456,7 @@ class Manage_workorder_production extends CI_Controller {
 
     public function update_end_time() {
         extract($_GET);
+        print_r($_GET);die();
         $path = base_url();
         $url = $path . 'api/Manage_Workorder_Production_api/update_end_time?wo_id='.$wo_id;
         $ch = curl_init($url);
@@ -430,29 +466,9 @@ class Manage_workorder_production extends CI_Controller {
         curl_close($ch);
         $response = json_decode($response_json, true);
         if ($response['status'] == 0) {
-            echo '<div class="alert alert-danger">
-      <strong>' . $response['status_message'] . '</strong> 
-      </div>
-      <script>
-      window.setTimeout(function() {
-        $(".alert").fadeTo(500, 0).slideUp(500, function(){
-          $(this).remove(); 
-        });
-        location.reload();
-      }, 1000);
-      </script>';
+            echo $response['status_message'];
         } else {
-            echo '<div class="alert alert-success">
-      <strong>' . $response['status_message'] . '</strong> 
-      </div>
-      <script>
-      window.setTimeout(function() {
-        $(".alert").fadeTo(500, 0).slideUp(500, function(){
-          $(this).remove(); 
-        });
-        location.reload();
-      }, 1000);
-      </script>';
+            echo $response['status_message']; 
         }
     }
 

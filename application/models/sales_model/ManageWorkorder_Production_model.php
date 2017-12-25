@@ -106,4 +106,46 @@ class ManageWorkorder_Production_model extends CI_Model {
         return $response;
     }
 
+     //--------------------------function for update wo_production start time------------------//
+    public function update_start_time($wo_id) {
+        $tz = 'Asia/Kolkata';
+        $time = date('H:i:s', time($tz));
+        $query = "UPDATE wo_production SET start_time ='$time' WHERE wo_id = '$wo_id'";
+        $result = $this->db->query($query);
+        if ($this->db->affected_rows() >= 1) {
+            $response = array(
+                'status' => 0,
+                'status_message' => ' No Records Updated'
+            );
+        } else {
+            $response = array(
+                'status' => 1,
+                'status_message' => 'Records update successfull');
+        }
+        return $response;
+    }
+
+    //---this fun is 
+    //-------------------------------function for update wo_production end time-------------------//
+    public function update_end_time($wo_id) {
+        $tz = 'Asia/Kolkata';
+        $time = date('H:i:s', time($tz));
+        //date_default_timezone_set('Asia/Kuwait');
+        $query = "UPDATE wo_production SET end_time ='$time' WHERE wo_id = '$wo_id'";
+        $this->db->query($query);
+        if ($this->db->affected_rows() >= 1) {
+            $response = array(
+                'status' => 0,
+                'status_message' => ' No Records Updated'
+            );
+        } else {
+            $response = array(
+                'status' => 1,
+                'status_message' => 'Records update successfull');
+        }
+        return $response;
+    }
+    //-------------------------------function for update wo_production end time-------------------//
+   
+    
 }

@@ -26,22 +26,7 @@ class ManageQuotation_Specialist_api extends REST_Controller {
     }
 
     //---this fun is used to get all work order for productions which has raised enquiry
-    //----this fun is used to set start time of work order production
-    public function update_start_time_get() {
-        $wo_id = $_GET['wo_id'];
-        $result = $this->ManageQuotationSpecialist_model->update_start_time($wo_id);
-        return $this->response($result);
-    }
-
-    //----this fun is used to set start time of work order production
-    //----this fun is used to set end time of work order production
-    public function update_end_time_get() {
-        $wo_id = $_GET['wo_id'];
-        $result = $this->ManageQuotationSpecialist_model->update_end_time($wo_id);
-        return $this->response($result);
-    }
-
-    //----this fun is used to set start time of work order production
+    
     public function approvedQuery_post(){
         extract($_POST);
         $data=$_POST;		

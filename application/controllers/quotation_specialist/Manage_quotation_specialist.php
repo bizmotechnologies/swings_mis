@@ -151,7 +151,7 @@ class Manage_quotation_specialist extends CI_Controller {
                 $wo_id = $key['wo_id'];
                 echo'<div class="w3-col l12 w3-margin-top w3-right">
                 <a class="w3-button btn w3-red" id="approveBtn_'.$sp_id.'" onclick="approvedQuery('.$sp_id.','.$wo_id.');">Approve<i class="w3-margin-left fa fa-thumbs-up"></i></a>
-                <a class="w3-button w3-black" id="rejectBtn_'.$sp_id.'" onclick="rejectQuery('.$sp_id.','.$wo_id.');">Reject<i class="w3-margin-left fa fa-thumbs-down"></i></a>
+                <a class="w3-button btn w3-black" id="rejectBtn_'.$sp_id.'" onclick="rejectQuery('.$sp_id.','.$wo_id.');">Reject<i class="w3-margin-left fa fa-thumbs-down"></i></a>
                 </div>';
                 //----div for button of approved and rejected profile changes--------------------//                                 
                 
