@@ -573,6 +573,15 @@ error_reporting(E_ERROR | E_PARSE);
         function getAvailableTubeFromAllBranches(fieldnum, countnum){
             Materialinfo = $('#Materialinfo_' + fieldnum + '_' + countnum + ' [value="' + $('#Select_material_' + fieldnum + '_' + countnum).val() + '"]').data('value');
             Available_tube = $('#Available_tube_' + fieldnum + '_' + countnum).val();
+            var MaterialLength = [];
+
+            $("#Div_no_" + fieldnum + "_" + countnum + " input[name='Select_Length[" + fieldnum + "][]']").each(function ()
+            {
+                if($(this).val() ){
+                    MaterialLength.push($(this).val());
+                }
+            });
+            var material_length=Math.min.apply(Math,MaterialLength);
             //document.getElementById('hiddentInputForBranch_Price_'+ fieldnum + '_' + countnum).value='1';
 
         //alert(Materialinfo);
@@ -582,6 +591,7 @@ error_reporting(E_ERROR | E_PARSE);
             data: {
                 Materialinfo: Materialinfo,
                 Available_tube: Available_tube,
+                material_length: material_length,
                 fieldnum: fieldnum,
                 countnum: countnum
             },

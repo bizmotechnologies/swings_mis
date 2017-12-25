@@ -636,7 +636,7 @@ public function fetchmaterial_details() {
         $Material_ID = $materialID_OD[0];
         $Material_OD = $materialID_OD[1]; 
         $path = base_url();
-        $url = $path . 'api/ManageEnquiry_api/getAvailableTubeFromAllBranches?material_id='.$Materialinfo.'&material_ID='. $Material_ID.'&material_OD='.$Material_OD;
+        $url = $path . 'api/ManageEnquiry_api/getAvailableTubeFromAllBranches?material_id='.$Materialinfo.'&material_ID='. $Material_ID.'&material_OD='.$Material_OD.'&material_Length='.$material_length;
         $ch = curl_init($url);
         curl_setopt($ch, CURLOPT_HTTPGET, true);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);

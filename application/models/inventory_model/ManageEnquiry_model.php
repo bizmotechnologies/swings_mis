@@ -415,7 +415,7 @@ public function SaveProfile_data($housingInfo){
     }
 }
 
-public function getAvailableTubeFromAllBranches($material_id, $Material_ID, $Material_OD){
+public function getAvailableTubeFromAllBranches($material_id, $Material_ID, $Material_OD,$material_Length){
         //echo $material_id;
     $branch_name = '';
     $branch = '';
@@ -438,7 +438,7 @@ public function getAvailableTubeFromAllBranches($material_id, $Material_ID, $Mat
                 foreach ($resultSelect->result_array() as $key) {
                     $branch = $key['branch_name'];
                     $tube = $key['raw_ID'] . '/' . $key['raw_OD'];
-                    $price = $key['material_price'];
+                    $price = ManageEnquiry_model::GetMaterialBasePrice($material_id, $key['raw_ID'], $key['raw_OD'], $material_Length);
                     
                     $available_tubes = array(
                         'branch_name' => $branch,
