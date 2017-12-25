@@ -143,6 +143,23 @@ class ManageWorkorder_Production_model extends CI_Model {
         return $response;
     }
     //-------------------------------function for update wo_production end time-------------------//
+         
+        public function cron_job($wo_id, $scheduler_status) {
+        $sqlupdate = "UPDATE wo_production SET scheduler_status ='$scheduler_status' WHERE wo_id ='$wo_id'";
+        $resultupdate = $this->db->query($sqlupdate);
+        if ($resultupdate) {
+            $response = array(
+                'status' => 1,
+                'status_message' => 'Records Updated Successfully..!');
+        } else {
+            $response = array(
+                'status' => 0,
+                'status_message' => 'Records Not Updated Successfully...!');
+        }
+        return $response;
+    }
+
+//----this fun is used to get all wo id of workorder which is ready for production
+
    
-    
 }

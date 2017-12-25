@@ -153,7 +153,7 @@ class Manage_materials extends CI_controller {
                     }
                     for ($l = 0; $l < $key['length_quantity']; $l++) {
                         echo'<label>LENGTH</label>
-                        <input list="MaterialLength_'.$Profile_num.'_'.$count.'_'.$l.'" value="" id="Select_Length_'.$Profile_num.'_'.$count.'_'.$l.'" name="Select_Length['.$Profile_num.'][]" class="w3-input" type="text" min="0" placeholder="Length" onkeyup="getBest_tube('.$Profile_num.','.$count.');">
+                        <input list="MaterialLength_'.$Profile_num.'_'.$count.'_'.$l.'" value="" id="Select_Length_'.$Profile_num.'_'.$count.'_'.$l.'" name="Select_Length['.$Profile_num.'][]" class="w3-input" type="text" min="0" placeholder="Length" onkeyup="getBest_tube('.$Profile_num.','.$count.'),showAvailable_Tube('.$Profile_num.','.$count.');">
                         <datalist id="MaterialLength_'.$Profile_num.'_'.$count.'_'.$l.'">
                         </datalist>';
                     }
