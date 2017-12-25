@@ -197,13 +197,13 @@ error_reporting(E_ERROR | E_PARSE);
             productPrice = 0;
             $('#Product_' + rownum + ' input[name="final_Price[]"]').each(function ()
             {
-             if($(this).val() ){
+               if($(this).val() ){
                 final_Price.push($(this).val());
             }
         });
             $('#Product_' + rownum + ' input[name="Available_Price[]"]').each(function ()
             {
-             if($(this).val() ){
+               if($(this).val() ){
                 AvailablePrice.push($(this).val());
             }
         });
@@ -242,19 +242,19 @@ error_reporting(E_ERROR | E_PARSE);
     <script>
         function GetProductfinalPrice(rownum){
 
-           final_Price = 0;
-           var final_Price = [];
-           FinalPricesum = 0;
-           ProductQuantity = document.getElementById('Product_Quantity_' + rownum).value;
-           TotalProduct_Price = $('#TotalProduct_Price_' + rownum).val();
+         final_Price = 0;
+         var final_Price = [];
+         FinalPricesum = 0;
+         ProductQuantity = document.getElementById('Product_Quantity_' + rownum).value;
+         TotalProduct_Price = $('#TotalProduct_Price_' + rownum).val();
            productDiscount = $('#Product_Discount_' + rownum).val();   //------discount value set to the text field 
            
      $('#Product_' + rownum + ' input[name="final_Price[]"]').each(function ()  //get material final price array
      {
-         if($(this).val() ){
-            final_Price.push($(this).val());
-        }
-    });
+       if($(this).val() ){
+        final_Price.push($(this).val());
+    }
+});
 
      FinalPrice = final_Price.length;
      while (FinalPrice--) {
@@ -352,13 +352,13 @@ error_reporting(E_ERROR | E_PARSE);
             var MaterialOD = [];
             $('#Div_no_' + fieldnum + '_' + countnum + ' input[name="Select_ID[' + fieldnum + '][]"]').each(function ()
             {
-             if($(this).val() ){
+               if($(this).val() ){
                 MaterialID.push($(this).val());
             }
         });
             $("#Div_no_" + fieldnum + "_" + countnum + " input[name='Select_OD[" + fieldnum + "][]']").each(function ()
             {
-             if($(this).val() ){
+               if($(this).val() ){
                 MaterialOD.push($(this).val());
             }
         });
@@ -408,7 +408,7 @@ error_reporting(E_ERROR | E_PARSE);
                         </datalist>
                     </div>
                     <div class="w3-col l2 w3-left">
-                       <div class="w3-col l12">
+                     <div class="w3-col l12">
                         <label class="w3-text-white">Customer Name:</label> 
                         <a class="w3-left w3-small w3-button" href="<?php echo base_url(); ?>inventory/manage_customers" style="padding:5px;margin:8px 0 0 5px"><i class="fa fa-plus"></i> Add Customer</a>
                     </div>
@@ -476,19 +476,19 @@ error_reporting(E_ERROR | E_PARSE);
 
             $('#Div_no_' + fieldnum + '_' + countnum + ' input[name="Select_ID[' + fieldnum + '][]"]').each(function ()
             {
-             if($(this).val() ){
+               if($(this).val() ){
                 MaterialID.push($(this).val());
             }
         });
             $("#Div_no_" + fieldnum + "_" + countnum + " input[name='Select_OD[" + fieldnum + "][]']").each(function ()
             {
-             if($(this).val() ){
+               if($(this).val() ){
                 MaterialOD.push($(this).val());
             }
         });
             $("#Div_no_" + fieldnum + "_" + countnum + " input[name='Select_Length[" + fieldnum + "][]']").each(function ()
             {
-             if($(this).val() ){
+               if($(this).val() ){
                 MaterialLength.push($(this).val());
             }
         });
@@ -525,36 +525,36 @@ error_reporting(E_ERROR | E_PARSE);
             var MaterialOD = [];
             var MaterialLength = [];
             if(document.getElementById('make_boughtOut_'+fieldnum+'_'+countnum).checked == false){
-            $("#tube_spinner_" + fieldnum + '_' + countnum).html('<center><img width="100%" height="auto" src="'+BASE_URL+'css/logos/small_loader.gif"/></center>');
-            $('#Div_no_' + fieldnum + '_' + countnum + ' input[name="Select_ID[' + fieldnum + '][]"]').each(function ()
-            {
-                if($(this).val() ){
-                    MaterialID.push($(this).val());
-                }
-            });
-            $("#Div_no_" + fieldnum + "_" + countnum + " input[name='Select_OD[" + fieldnum + "][]']").each(function ()
-            {
-                if($(this).val() ){
-                    MaterialOD.push($(this).val());
-                }
-            });
-            $("#Div_no_" + fieldnum + "_" + countnum + " input[name='Select_Length[" + fieldnum + "][]']").each(function ()
-            {
-                if($(this).val() ){
-                    MaterialLength.push($(this).val());
-                }
-            });
-            
-            getBest_tube(fieldnum, countnum);
-            $.ajax({
-                type: "POST",
-                url: BASE_URL + "inventory/Manage_enquiry/showAvailable_Tube",
-                data: {
-                    Materialinfo: Materialinfo,
-                    MaterialID: MaterialID,
-                    MaterialOD: MaterialOD,
-                    MaterialLength: MaterialLength
-                },
+                $("#tube_spinner_" + fieldnum + '_' + countnum).html('<center><img width="100%" height="auto" src="'+BASE_URL+'css/logos/small_loader.gif"/></center>');
+                $('#Div_no_' + fieldnum + '_' + countnum + ' input[name="Select_ID[' + fieldnum + '][]"]').each(function ()
+                {
+                    if($(this).val() ){
+                        MaterialID.push($(this).val());
+                    }
+                });
+                $("#Div_no_" + fieldnum + "_" + countnum + " input[name='Select_OD[" + fieldnum + "][]']").each(function ()
+                {
+                    if($(this).val() ){
+                        MaterialOD.push($(this).val());
+                    }
+                });
+                $("#Div_no_" + fieldnum + "_" + countnum + " input[name='Select_Length[" + fieldnum + "][]']").each(function ()
+                {
+                    if($(this).val() ){
+                        MaterialLength.push($(this).val());
+                    }
+                });
+                
+                getBest_tube(fieldnum, countnum);
+                $.ajax({
+                    type: "POST",
+                    url: BASE_URL + "inventory/Manage_enquiry/showAvailable_Tube",
+                    data: {
+                        Materialinfo: Materialinfo,
+                        MaterialID: MaterialID,
+                        MaterialOD: MaterialOD,
+                        MaterialLength: MaterialLength
+                    },
                 return: false, //stop the actual form post !important!
                 success: function (data)
                 {
@@ -565,7 +565,7 @@ error_reporting(E_ERROR | E_PARSE);
                     GetMaterialBasePrice(fieldnum, countnum);
                 }
             });
-        }
+            }
         }
         //--------------get best tube end-----------------------
     </script>
@@ -581,7 +581,7 @@ error_reporting(E_ERROR | E_PARSE);
                     MaterialLength.push($(this).val());
                 }
             });
-            var material_length=Math.min.apply(Math,MaterialLength);
+            var material_length=Math.max.apply(Math,MaterialLength);
             //document.getElementById('hiddentInputForBranch_Price_'+ fieldnum + '_' + countnum).value='1';
 
         //alert(Materialinfo);
@@ -605,11 +605,11 @@ error_reporting(E_ERROR | E_PARSE);
     }
 </script>
 <script>
-function setMaterialTocheckbox(fieldnum, countnum){
-    var Materialinfo =  $('#Select_material_' + fieldnum + '_' + countnum).val();
+    function setMaterialTocheckbox(fieldnum, countnum){
+        var Materialinfo =  $('#Select_material_' + fieldnum + '_' + countnum).val();
         document.getElementById('make_boughtOut_'+fieldnum+'_'+countnum).value = Materialinfo;
         document.getElementById('select_box_'+fieldnum+'_'+countnum).value = Materialinfo;        
-}
+    }
 </script>
 <script>
         //----this funis used to get value from table to perform bestprice calculations
@@ -622,7 +622,7 @@ function setMaterialTocheckbox(fieldnum, countnum){
             var MaterialLength = [];
             $("#Div_no_" + fieldnum + "_" + countnum + " input[name='Select_Length[" + fieldnum + "][]']").each(function ()
             {
-             if($(this).val() ){
+               if($(this).val() ){
                 MaterialLength.push($(this).val());//--this is for get material length array...
             }
         });
@@ -655,27 +655,12 @@ function setMaterialTocheckbox(fieldnum, countnum){
 <script>
     function getTubePrice_byBranch(fieldnum, countnum ,cellnum) {
         branchprice = document.getElementById('branch_id_'+ fieldnum + '_' + countnum + '_' +cellnum).value;
-
-        Materialinfo = $('#Materialinfo_' + fieldnum + '_' + countnum + ' [value="' + $('#Select_material_' + fieldnum + '_' + countnum + '').val() + '"]').data('value');
-
-        var MaterialLength = [];
-
-        $("#Div_no_" + fieldnum + "_" + countnum + " input[name='Select_Length[" + fieldnum + "][]']").each(function ()
-        {
-         if($(this).val() ){
-            MaterialLength.push($(this).val());//--this is for get material length array...
-        }
-    });
-
         Available_tube = $('#Available_tube_' + fieldnum + '_' + countnum).val();
-       //alert(branchprice);
-       $.ajax({
 
+        $.ajax({
             type: "POST",//----this funis used to get value from table to perform bestprice calculations
             url: BASE_URL + "inventory/Manage_enquiry/GetMaterialBasePrice_byBranchPrice",
-            data: {
-                MaterialLength: MaterialLength,
-                Materialinfo: Materialinfo,
+            data: {               
                 Available_tube: Available_tube,
                 branchprice: branchprice
             },
@@ -687,14 +672,13 @@ function setMaterialTocheckbox(fieldnum, countnum){
                     GetFinalPriceForMaterialCalculation(fieldnum, countnum);
                 }
             });
-   }
+    }
 </script>
 <!-- script to get price by branch name ends -->
 
 <!-- get customer id and profile id in hidden text input -->
 <script>
     function getCustomerId() {
-
         var customer_id = $('#Customers option[value="' + $('#Select_Customers').val() + '"]').data('value');
         $('#customer_id').val(customer_id);
     }
@@ -705,23 +689,22 @@ function setMaterialTocheckbox(fieldnum, countnum){
 <!-- script to get final price -->
 <script>
     function GetFinalPriceForMaterialCalculation(fieldnum, countnum) {
-
         finalprice = '0';
         if(document.getElementById('make_boughtOut_'+fieldnum+'_'+countnum).checked == false){
-        quantity = $("#select_Quantity_" + fieldnum + "_" + countnum).val();
-        discount = $("#discount_" + fieldnum + "_" + countnum).val();
-        Available_Price = $("#Available_Price_" + fieldnum + "_" + countnum).val();
-        if (discount === '' && quantity === '') {
-            finalprice = Available_Price;
-        } else if (discount === '') {
-            finalprice = (parseFloat(Available_Price) * parseFloat(quantity));
-        } else if (quantity === '') {
-            finalprice = (parseFloat(Available_Price) - ((parseFloat(discount) / 100) * (parseFloat(Available_Price))));
-        } else if (discount !== '' && quantity !== '') {
-            finalprice = ((parseFloat(Available_Price) * parseFloat(quantity)) - ((parseFloat(discount) / 100) * (parseFloat(Available_Price) * parseFloat(quantity))));
+            quantity = $("#select_Quantity_" + fieldnum + "_" + countnum).val();
+            discount = $("#discount_" + fieldnum + "_" + countnum).val();
+            Available_Price = $("#Available_Price_" + fieldnum + "_" + countnum).val();
+            if (discount === '' && quantity === '') {
+                finalprice = Available_Price;
+            } else if (discount === '') {
+                finalprice = (parseFloat(Available_Price) * parseFloat(quantity));
+            } else if (quantity === '') {
+                finalprice = (parseFloat(Available_Price) - ((parseFloat(discount) / 100) * (parseFloat(Available_Price))));
+            } else if (discount !== '' && quantity !== '') {
+                finalprice = ((parseFloat(Available_Price) * parseFloat(quantity)) - ((parseFloat(discount) / 100) * (parseFloat(Available_Price) * parseFloat(quantity))));
+            }
+            $("#final_Price_" + fieldnum + "_" + countnum).val(finalprice);
         }
-        $("#final_Price_" + fieldnum + "_" + countnum).val(finalprice);
-    }
     }
 </script>
 <!-- script end -->
@@ -755,26 +738,26 @@ function setMaterialTocheckbox(fieldnum, countnum){
             document.getElementById('Available_Price_'+fieldnum+'_'+countnum).value = '';
             document.getElementById('Available_Price_'+fieldnum+'_'+countnum).disabled = false;
         }
-      }
+    }
 </script>
 <!-- script end -->
 
 <!-- script function to mkae final prize of material 0 when material is excluded -->
 <script>
     function excludeMaterial(fieldnum,countnum)    {
-              
-              if(document.getElementById('select_box_'+fieldnum+'_'+countnum).checked == false){
-            document.getElementById('make_boughtOut_'+fieldnum+'_'+countnum).checked = false;
-            document.getElementById('Available_tube_'+fieldnum+'_'+countnum).value = '';
-            document.getElementById('Available_tube_'+fieldnum+'_'+countnum).disabled = false;
-            document.getElementById('available_tubeDiv_'+fieldnum+'_'+countnum).disabled = false;
-            document.getElementById('discount_'+fieldnum+'_'+countnum).disabled = false;
+      
+      if(document.getElementById('select_box_'+fieldnum+'_'+countnum).checked == false){
+        document.getElementById('make_boughtOut_'+fieldnum+'_'+countnum).checked = false;
+        document.getElementById('Available_tube_'+fieldnum+'_'+countnum).value = '';
+        document.getElementById('Available_tube_'+fieldnum+'_'+countnum).disabled = false;
+        document.getElementById('available_tubeDiv_'+fieldnum+'_'+countnum).disabled = false;
+        document.getElementById('discount_'+fieldnum+'_'+countnum).disabled = false;
 
             //Available price disable/enable change
             document.getElementById('Available_Price_'+fieldnum+'_'+countnum).value = '';
             document.getElementById('Available_Price_'+fieldnum+'_'+countnum).disabled = false;
-              }
-      }
+        }
+    }
 </script> 
 <!-- script ends -->
 </body>

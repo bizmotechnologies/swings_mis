@@ -150,25 +150,9 @@ public function getBest_tube() {
 //    -----------this fun is show fetched material info page
     public function GetMaterialBasePrice_byBranchPrice(){
         extract($_POST);
-        //print_r($_POST);die();
-        $Material_ID=0;
-        $Material_OD=0;
-        if(isset($Available_tube) && $Available_tube!='N/A' && isset($Materialinfo) && isset($branchprice) && $branchprice!=0 && isset($MaterialLength)){
-
-            $materialID_OD = explode("/", $Available_tube);            
-            $Material_ID = $materialID_OD[0];
-            $Material_OD = $materialID_OD[1];
-            $Material_LENGTH = max($MaterialLength);
-            $path = base_url();
-            $url = $path . 'api/ManageEnquiry_api/GetMaterialBasePrice_byBranchPrice?material_id='.$Materialinfo.'&Material_ID='.$Material_ID.'&Material_OD='.$Material_OD.'&branchprice='.$branchprice.'&Material_LENGTH='.$Material_LENGTH;
-            //echo $url;die();
-            $ch = curl_init($url);
-            curl_setopt($ch, CURLOPT_HTTPGET, true);
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-            $response_json = curl_exec($ch);
-            curl_close($ch);
-            $response = json_decode($response_json, true);
-            echo ($response);
+        
+        if(isset($Available_tube) && $Available_tube!='N/A' && isset($branchprice) && $branchprice!=0){           
+            echo ($branchprice);
         } else{
             echo '0.00';
         }
