@@ -167,25 +167,25 @@ class Manage_materials extends CI_controller {
                     </div>';
 
                     echo'<div class="w3-col l2 w3-padding-left">
-                    <label>AVAILABLE PRICE</label><input id="Available_Price_'.$Profile_num.'_'.$count.'" name="Available_Price[]" value="" class="w3-input" min="0" step="0.01" required type="number" placeholder="Available Price"  onfocus="GetMaterialBasePrice('.$Profile_num.','.$count.');">
+                    <label>AVAILABLE PRICE</label><input id="Available_Price_'.$Profile_num.'_'.$count.'" name="Available_Price[]" value="" class="w3-input" min="0" step="0.01" required type="number" placeholder="Available Price" onkeyup="GetFinalPriceForMaterialCalculation('.$Profile_num.','.$count.');">
                     </div>';
                     //------this div for available tube and available price information div---------// 
                     //------this div for material quantity information div---------// 
                     echo'<div class="w3-col l1 w3-padding-left">
                     <label>QUANTITY</label>
-                    <input id="select_Quantity_'.$Profile_num.'_'.$count.'" name="select_Quantity[]" value="1" class="w3-input" min="0" required type="number" placeholder="Quantity" onkeypress="GetFinalPriceForMaterialCalculation('.$Profile_num.','.$count.');" >
+                    <input id="select_Quantity_'.$Profile_num.'_'.$count.'" name="select_Quantity[]" value="1" class="w3-input" min="0" required type="number" placeholder="Quantity" onkeyup="GetFinalPriceForMaterialCalculation('.$Profile_num.','.$count.');" >
                     </div>';
                     //------this div for material quantity information div---------// 
                     //------this div for material discount information div---------// 
                     echo'<div class="w3-col l1 w3-padding-left">
                     <label>DISCOUNT(%)</label>
-                    <input id="discount_'.$Profile_num.'_'.$count.'" name="discount[]" class="w3-input" required type="number" min="0" step="0.01" value="0" placeholder="Discount %." onkeypress="GetFinalPriceForMaterialCalculation('.$Profile_num.','.$count.');">
+                    <input id="discount_'.$Profile_num.'_'.$count.'" name="discount[]" class="w3-input" required type="number" min="0" step="0.01" value="0" placeholder="Discount %." onkeyup="GetFinalPriceForMaterialCalculation('.$Profile_num.','.$count.');">
                     </div>';
                     //------this div for material discount information div---------// 
                     //------this div for material Final Price information div---------// 
                     echo'<div class="w3-col l2 w3-padding-left">
                     <label>FINAL&nbsp;PRICE</label>
-                    <input id="final_Price_'.$Profile_num.'_'.$count.'" name="final_Price[]" class="w3-input" required type="number" min="0" step="0.01" placeholder="Final Price" onfocus="GetFinalPriceForMaterialCalculation('.$Profile_num.','.$count.');">
+                    <input id="final_Price_'.$Profile_num.'_'.$count.'" name="final_Price[]" class="w3-input" required type="number" min="0" step="0.01" placeholder="Final Price" onkeyup="GetProductfinalPrice('.$Profile_num.')" >
                     </div>';
                     //------this div for material Final Price information div---------// 
                     echo'<div class="w3-col l12" id="best_tubeError_'.$Profile_num.'_'.$count.'"></div>

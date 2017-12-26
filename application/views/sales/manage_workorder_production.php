@@ -56,9 +56,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                     <div class="w3-container">
                                         <hr>
                                         <div id="Demo1" class="w3-col l12 w3-bar-block">
-                                            <?php foreach ($wo_info['status_message'] as $result) { ?>
+                                            <?php foreach ($wo_info['status_message'] as $result) { 
+                                                $color='';
+                                                echo $result['schedular_status'];
+                                                ?>
                                                 <div class="w3-col l12">
-                                                    <div class="w3-bar-item w3-button w3-border-bottom w3-hover-black test" data-target="#welcomeDiv1" id="firstTab">
+                                                    <div class="w3-bar-item <?php echo $color; ?> w3-button w3-border-bottom w3-hover-black test" data-target="#welcomeDiv1" id="firstTab">
                                                         <div class="w3-container">
                                                             <h6>Work Order- <?php echo $result['wo_id']; ?></h6>
                                                             <input type="hidden" name="wo_id" id="wo_id" value="<?php echo $result['wo_id']; ?>">

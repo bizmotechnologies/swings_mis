@@ -102,11 +102,11 @@ error_reporting(E_ERROR | E_PARSE);
             <div class="w3-col l12 w3-margin-top w3-margin-bottom w3-small">\n\
             <div class="w3-col l4 w3-padding-left">\n\
             <label>QUANTITY</label>\n\
-            <input id="Product_Quantity_' + currparent + '" onclick="this.select();" name="Product_Quantity[]" value="<?php echo $div['product_quantity']; ?>" class="w3-input" required type="number" min="0" step="0.01" placeholder="Product Quantity" onkeyup="GetProductPrice(' + currparent + ');">\n\
+            <input value="1" id="Product_Quantity_' + currparent + '" onclick="this.select();" name="Product_Quantity[]" value="<?php echo $div['product_quantity']; ?>" class="w3-input" required type="number" min="0" placeholder="Product Quantity" onkeyup="GetProductfinalPrice(' + currparent + ');">\n\
             </div>\n\
             <div class="w3-col l4 w3-padding-left">\n\
             <label>Product Discount</label>\n\
-            <input id="Product_Discount_' + currparent + '" onclick="this.select();" name="Product_Discount[]" value="" class="w3-input" required type="number" min="0" step="0.01" placeholder="Product discount" onkeyup="GetProductfinalPrice(' + currparent + ');">\n\
+            <input id="Product_Discount_' + currparent + '" onclick="this.select();" name="Product_Discount[]" value="" class="w3-input" required type="number" value="0" min="0" step="0.01" placeholder="Product discount" onkeyup="GetProductfinalPrice(' + currparent + ');">\n\
             </div>\n\
             <div class="w3-col l4 w3-padding-left">\n\
             <label>Total Product Price</label>\n\
@@ -185,15 +185,15 @@ error_reporting(E_ERROR | E_PARSE);
         //alert(temporary_amount);
         Discount = temporary_amount / AvailablePricesum * 100; //-----finding the discount here by deviding 
         
-        $('#Product_Discount_' + rownum).val(Discount);   //------discount value set to the text field 
+        $('#Product_Discount_' + rownum).val(Discount.toFixed(2));   //------discount value set to the text field 
         
-        productPrice = (FinalPricesum * parseFloat(ProductQuantity));  //-----product price multiplied with quantity
+        productPrice = (FinalPricesum * parseInt(ProductQuantity));  //-----product price multiplied with quantity
         
         DiscountPrice = productPrice * Discount / 100;
         
         productFinalprice = AvailablePricesum - DiscountPrice;
         //alert(productPrice);
-        $('#TotalProduct_Price_' + rownum).val(productFinalprice);
+        $('#TotalProduct_Price_' + rownum).val(productFinalprice.toFixed(2));
     }
         //----------------------this fun is used to get product price---------------------------
     </script>  
@@ -203,26 +203,26 @@ error_reporting(E_ERROR | E_PARSE);
          final_Price = 0;
          var final_Price = [];
          FinalPricesum = 0;
-         ProductQuantity = document.getElementById('Product_Quantity_' + rownum).value;
          TotalProduct_Price = $('#TotalProduct_Price_' + rownum).val();
-           productDiscount = $('#Product_Discount_' + rownum).val();   //------discount value set to the text field 
+         ProductQuantity = $('#Product_Quantity_' + rownum).val();
+         productDiscount = $('#Product_Discount_' + rownum).val();   //------discount value set to the text field 
            
-     $('#Product_' + rownum + ' input[name="final_Price[]"]').each(function ()  //get material final price array
-     {
-       if($(this).val() ){
-        final_Price.push($(this).val());
-    }
-});
+            $('#Product_' + rownum + ' input[name="final_Price[]"]').each(function ()  //get material final price array
+            {
+               if($(this).val() ){
+                final_Price.push($(this).val());
+            }
+        });
 
-     FinalPrice = final_Price.length;
-     while (FinalPrice--) {
+            FinalPrice = final_Price.length;
+            while (FinalPrice--) {
         FinalPricesum += parseFloat(final_Price[FinalPrice]) || 0;  //--final price array sum
     }
     //alert(FinalPricesum);
-    price = parseFloat(ProductQuantity) * FinalPricesum; //---price multiplied by quantity
+    price = (ProductQuantity) * FinalPricesum; //---price multiplied by quantity
     finalProductPrice = price * productDiscount / 100; //---discount on final price
-    productPrice = FinalPricesum - finalProductPrice;  //-----total price
-    $('#TotalProduct_Price_' + rownum).val(productPrice);
+    productPrice = price - finalProductPrice;  //-----total price
+    $('#TotalProduct_Price_' + rownum).val(productPrice.toFixed(2));
 }
 </script>
 <script>
@@ -466,8 +466,8 @@ error_reporting(E_ERROR | E_PARSE);
                 {
                     //alert(data);
                     $('#available_tube_' + fieldnum + '_' + countnum).html(data);
-                     showAvailable_Tube(fieldnum,countnum);
-
+                    showAvailable_Tube(fieldnum,countnum);
+                    $("#tube_spinner_" + fieldnum + '_' + countnum).html('');
                 }
             });
         }
@@ -484,7 +484,7 @@ error_reporting(E_ERROR | E_PARSE);
             var MaterialOD = [];
             var MaterialLength = [];
             if(document.getElementById('make_boughtOut_'+fieldnum+'_'+countnum).checked == false){
-                //$("#tube_spinner_" + fieldnum + '_' + countnum).html('<center><img width="100%" height="auto" src="'+BASE_URL+'css/logos/small_loader.gif"/></center>');
+                $("#tube_spinner_" + fieldnum + '_' + countnum).html('<center><img width="100%" height="auto" src="'+BASE_URL+'css/logos/small_loader.gif"/></center>');
                 $('#Div_no_' + fieldnum + '_' + countnum + ' input[name="Select_ID[' + fieldnum + '][]"]').each(function ()
                 {
                     if($(this).val() ){
@@ -518,9 +518,11 @@ error_reporting(E_ERROR | E_PARSE);
                 success: function (data)
                 {
                     //alert(data);
+                    $("#tube_spinner_" + fieldnum + '_' + countnum).html('');
                     $('#Available_tube_' + fieldnum + '_' + countnum).val(data);
                     getAvailableTubeFromAllBranches(fieldnum, countnum);
                     GetMaterialBasePrice(fieldnum, countnum);
+                    GetProductfinalPrice(fieldnum);
                 }
             });
             }
@@ -558,6 +560,7 @@ error_reporting(E_ERROR | E_PARSE);
                 {
                     //alert(data);
                     $('#allbranchAvailable_tube_' + fieldnum + '_' + countnum).html(data);
+                    $("#tube_spinner_" + fieldnum + '_' + countnum).html('');
                 }
             });
     }
@@ -602,6 +605,7 @@ error_reporting(E_ERROR | E_PARSE);
                     //alert(data);
                     $('#Available_Price_' + fieldnum + '_' + countnum).val(data);
                     GetFinalPriceForMaterialCalculation(fieldnum, countnum);
+                    GetProductfinalPrice(fieldnum);
                 }
             });    
     }
@@ -655,13 +659,14 @@ error_reporting(E_ERROR | E_PARSE);
             if (discount === '' && quantity === '') {
                 finalprice = Available_Price;
             } else if (discount === '') {
-                finalprice = (parseFloat(Available_Price) * parseFloat(quantity));
+                finalprice = ((Available_Price) * (quantity));
             } else if (quantity === '') {
-                finalprice = (parseFloat(Available_Price) - ((parseFloat(discount) / 100) * (parseFloat(Available_Price))));
+                finalprice = ((Available_Price) - (((discount) / 100) * (parseFloat(Available_Price))));
             } else if (discount !== '' && quantity !== '') {
-                finalprice = ((parseFloat(Available_Price) * parseFloat(quantity)) - ((parseFloat(discount) / 100) * (parseFloat(Available_Price) * parseFloat(quantity))));
+                finalprice = (((Available_Price) * (quantity)) - (((discount) / 100) * ((Available_Price) * (quantity))));
             }
-            $("#final_Price_" + fieldnum + "_" + countnum).val(finalprice);
+            $("#final_Price_" + fieldnum + "_" + countnum).val(finalprice.toFixed(2));
+            GetProductfinalPrice(fieldnum);
         }
     }
 </script>
@@ -703,7 +708,7 @@ error_reporting(E_ERROR | E_PARSE);
 <!-- script function to mkae final prize of material 0 when material is excluded -->
 <script>
     function excludeMaterial(fieldnum,countnum)    {
-      
+
       if(document.getElementById('select_box_'+fieldnum+'_'+countnum).checked == false){
         document.getElementById('make_boughtOut_'+fieldnum+'_'+countnum).checked = false;
         document.getElementById('Available_tube_'+fieldnum+'_'+countnum).value = '';
@@ -711,11 +716,11 @@ error_reporting(E_ERROR | E_PARSE);
         document.getElementById('available_tubeDiv_'+fieldnum+'_'+countnum).disabled = false;
         document.getElementById('discount_'+fieldnum+'_'+countnum).disabled = false;
 
-            //Available price disable/enable change
-            document.getElementById('Available_Price_'+fieldnum+'_'+countnum).value = '';
-            document.getElementById('Available_Price_'+fieldnum+'_'+countnum).disabled = false;
-        }
+        //Available price disable/enable change
+        document.getElementById('Available_Price_'+fieldnum+'_'+countnum).value = '';
+        document.getElementById('Available_Price_'+fieldnum+'_'+countnum).disabled = false;
     }
+}
 </script> 
 <!-- script ends -->
 </body>
