@@ -102,11 +102,11 @@ error_reporting(E_ERROR | E_PARSE);
             <div class="w3-col l12 w3-margin-top w3-margin-bottom w3-small">\n\
             <div class="w3-col l4 w3-padding-left">\n\
             <label>QUANTITY</label>\n\
-            <input value="1" id="Product_Quantity_' + currparent + '" onclick="this.select();" name="Product_Quantity[]" value="<?php echo $div['product_quantity']; ?>" class="w3-input" required type="number" min="0" placeholder="Product Quantity" onkeyup="GetProductfinalPrice(' + currparent + ');">\n\
+            <input value="1" id="Product_Quantity_' + currparent + '" onclick="this.select();" name="Product_Quantity[]" class="w3-input" required type="number" min="0" placeholder="Product Quantity" onkeyup="GetProductfinalPrice(' + currparent + ');">\n\
             </div>\n\
             <div class="w3-col l4 w3-padding-left">\n\
             <label>Product Discount</label>\n\
-            <input id="Product_Discount_' + currparent + '" onclick="this.select();" name="Product_Discount[]" value="" class="w3-input" required type="number" value="0" min="0" step="0.01" placeholder="Product discount" onkeyup="GetProductfinalPrice(' + currparent + ');">\n\
+            <input id="Product_Discount_' + currparent + '" onclick="this.select();" name="Product_Discount[]" class="w3-input" required type="number" value="0" min="0" step="0.01" placeholder="Product discount" onkeyup="GetProductfinalPrice(' + currparent + ');">\n\
             </div>\n\
             <div class="w3-col l4 w3-padding-left">\n\
             <label>Total Product Price</label>\n\
