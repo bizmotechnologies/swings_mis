@@ -50,7 +50,7 @@ class Manage_workorder_production extends CI_Controller {
         for ($j = 0; $j < count($profile_id); $j++) {
         for ($p = 0; $p < count($_POST['usedlength_'.$count]); $p++) {
             if(($_POST['usedlength_'.$count][$p] != $_POST['consumedtube_'.$count][$p]) || ($_POST['material_name_'.$count][$p] != $_POST['Material_Change_'.$count][$p])){
-            echo '<div class="w3-col l12">';
+            echo '<div class="w3-col l12 w3-small">';
             //print_r($profile_id);die();
                 echo'<div class="w3-col l3 w3-margin-top w3-padding-right">
                 <label>Profile Name:</label>
@@ -133,18 +133,18 @@ class Manage_workorder_production extends CI_Controller {
        <form id="productionForm" name="productionForm" type="post">';
       if($key['query_status'] == 1){$hide = "w3-hide";}
       
-      echo'<div id="" class="w3-col l12">
+      echo'<div id="" class="w3-col l12 w3-small">
         <a class="w3-button btn w3-red '.$hide.'" id="startTime_'.$key['wo_id'].'" onclick="update_start_time('.$key['wo_id'].');"';if($key['open'] == 'open'){ echo'disabled';} echo'>Start Time<i class="w3-margin-left fa fa-clock-o"></i></a>
         <a class="w3-button btn w3-black '.$hide.'" id="endTime_'.$key['wo_id'].'" onclick="update_end_time('.$key['wo_id'].');">End Time<i class="w3-margin-left fa fa-clock-o"></i></a>
         <hr>
       </div>';//----div for start time and end time----------------------------------------//
       }
       echo'<div class= "w3-margin-top w3-card-2">
-      <div class="w3-col l12">
+      <div class="w3-col l12 w3-small">
       <table class="table table-bordered">
       <tbody>
       <tr>
-      <th class="text-right">Customer ID:</th>
+      <th class="text-right">Customer Name:</th>
       <td>'.$key['customer_name'].'</th>
       <th class="text-right">Date:</td>
       <td>'.$date.'</td>
@@ -155,6 +155,7 @@ class Manage_workorder_production extends CI_Controller {
       </table>
       </div>
       </div>
+      <div class="w3-col l12 w3-small">
       <table class="table table-bordered table-responsive">
       <thead>
       <tr>
@@ -280,7 +281,8 @@ class Manage_workorder_production extends CI_Controller {
       //-----thhis jquery for verify the changed length of workorder
       echo '</tbody>
       </table>
-      <div class="w3-col l12">
+      </div>
+      <div class="w3-col l12 w3-small">
       <button type="submit" class="btn w3-right btn-sm w3-blue w3-margin">Verify</button>
       </div>
       </form>

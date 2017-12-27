@@ -62,7 +62,7 @@ class Manage_quotation_specialist extends CI_Controller {
   } 
   else {
       //----div for Customer And work order information--------------------//                                 
-      echo'<div class="w3-col l12">
+      echo'<div class="w3-col l12 w3-small">
       <table class="table table-bordered">
       <tbody>
       <tr>
@@ -80,7 +80,7 @@ class Manage_quotation_specialist extends CI_Controller {
                 $count=0;
                 $sp_id = '';
                 foreach ($response['status_message'] as $key) {
-                echo'<div class="w3-col l12 w3-padding" id="Div_'.$key['sub_quot_specialist_id'].'">';
+                echo'<div class="w3-col l12 w3-padding w3-small" id="Div_'.$key['sub_quot_specialist_id'].'">';
                                 //----div for profile--------------------//
                 echo'<div class="w3-col l12 w3-margin-top">';  
                 echo'<div class="w3-col l3 w3-padding-right">
@@ -91,7 +91,7 @@ class Manage_quotation_specialist extends CI_Controller {
                                 //----div for profile--------------------//
                 //----div for material name , changed name, and material ID--------------------//
                 
-                echo'<div class="w3-col l12 w3-margin-top"> 
+                echo'<div class="w3-col l12 w3-margin-top w3-small"> 
                 <input type="hidden" name="" id="sp_id_'.$key['sub_quot_specialist_id'].'">    
                 <div class="w3-col l4 w3-padding-right">
                 <label>Material Name:</label>
@@ -111,7 +111,7 @@ class Manage_quotation_specialist extends CI_Controller {
                 </div>';  
                 //----div for material name , changed name, and material ID--------------------//
                 //----div for material OD , length, and changed length--------------------//                 
-                echo'<div class="w3-col l12 w3-margin-top">
+                echo'<div class="w3-col l12 w3-margin-top w3-small">
                 
                 <div class="w3-col l4 w3-padding-right">
                 <label>Material OD:</label>
@@ -131,7 +131,7 @@ class Manage_quotation_specialist extends CI_Controller {
                 </div>';
                 //----div for material OD , length, and changed length--------------------//                 
                 //----div for reason of change in material length and material name--------------------//                 
-                echo'<div class="w3-col l12 w3-padding-right w3-margin-top">
+                echo'<div class="w3-col l12 w3-padding-right w3-margin-top w3-small">
                 
                 <label>Reason For Change in Length/Material :</label>
                 <label>'.$key['reason_changed_length_material'].'</label>
@@ -139,7 +139,7 @@ class Manage_quotation_specialist extends CI_Controller {
                 </div>';
                 //----div for reason of change in material length and material name--------------------//                 
                 //----div for reason of approved and rejected profile changes--------------------//                                 
-                echo'<div class="w3-col l12 w3-padding-right w3-margin-top">
+                echo'<div class="w3-col l12 w3-padding-right w3-margin-top w3-small">
                 
                 <label>Reason For Approved/Rejected:</label>
                 <input type="text" class="form-control" name="reasonForApproved_Rejected" id="reasonForApproved_Rejected_'.$key['sub_quot_specialist_id'].'" value="">
@@ -149,7 +149,7 @@ class Manage_quotation_specialist extends CI_Controller {
                 //----div for button of approved and rejected profile changes--------------------// 
                 $sp_id = $key['sub_quot_specialist_id'];
                 $wo_id = $key['wo_id'];
-                echo'<div class="w3-col l12 w3-margin-top w3-right">
+                echo'<div class="w3-col l12 w3-margin-top w3-right w3-small">
                 <a class="w3-button btn w3-red" id="approveBtn_'.$sp_id.'" onclick="approvedQuery('.$sp_id.','.$wo_id.');">Approve<i class="w3-margin-left fa fa-thumbs-up"></i></a>
                 <a class="w3-button btn w3-black" id="rejectBtn_'.$sp_id.'" onclick="rejectQuery('.$sp_id.','.$wo_id.');">Reject<i class="w3-margin-left fa fa-thumbs-down"></i></a>
                 </div>';
