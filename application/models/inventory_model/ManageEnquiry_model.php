@@ -402,17 +402,16 @@ class ManageEnquiry_model extends CI_Model {
 
 public function SaveProfile_data($housingInfo){
     extract($housingInfo);
-        //print_r($housingInfo);die();
+        //print_r($housingInfo);
     $sqlselect = "SELECT * FROM profile_combination WHERE profile_id = '$profile_id' AND customer_id = '$customer_id'";
-    //echo $sqlselect;die();
+    //echo $sqlselect; 
     $result = $this->db->query($sqlselect);
-    if ($result->num_rows() == 0) {
-        foreach($profile_data as $key){
+
+    if ($result->num_rows() <= 0) {
         $sql = "INSERT INTO profile_combination(customer_id,customer_name,profile_id,profile_data) VALUES "
-                . "('".$key['customer_id']."','".$key['customer_name']."','".$key['profile_id']."','$profile_data')";
-        
-        $result = $this->db->query($sql);
-        }
+                . "('$customer_id','$customer_name','$profile_id','$profile_data')";
+       //echo $sql; die();
+        $result = $this->db->query($sql);       
     } else {
         $sql = "UPDATE profile_combination SET profile_data ='$profile_data' WHERE profile_id ='$profile_id' AND customer_id='$customer_id'";
         $result = $this->db->query($sql);

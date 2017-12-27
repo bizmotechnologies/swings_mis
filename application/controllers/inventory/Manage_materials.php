@@ -340,7 +340,6 @@ class Manage_materials extends CI_controller {
 
 }
 //----this array for profile details
-
 $profile_arr[] = array(
     'product_name' => $product_nameForEnquiry[$prod],
     'profile_id' => $profile_id[$prod],
@@ -355,29 +354,13 @@ $profile_arr[] = array(
     'product_price' => $TotalProduct_Price[$prod]
 );
 //----this array for profile details
-
-$HousingArr[] = array(//------------this array is used to save all details of the housing data and customer name and id
-    'customer_id' => $customer_id,
-    'customer_name' => $Select_Customers,
-    'product_name' => $product_nameForEnquiry[$prod],
-    'profile_id' => $profile_id[$prod],
-    'housing_status' => $housing_status,
-    'profile_description' => $Prod_description[$prod],
-    'Prod_ID' => $Prod_ID[$prod],
-    'Prod_OD' => $Prod_OD[$prod],
-    'Prod_length' => $Prod_length[$prod],
-    'material_associated' => $material_Arr,
-    'product_quantity' => $Product_Quantity[$prod],
-    'Product_Discount' => $Product_Discount[$prod],
-    'product_price' => $TotalProduct_Price[$prod]
-);
+$HousingArr = json_encode($profile_arr);
 $housingInfo['profile_id'] = $profile_id[$prod];
 $housingInfo['customer_id']=$customer_id;
 $housingInfo['customer_name']=$Select_Customers;
-}
-$housingInfo['profile_data'] = json_encode($HousingArr);
-
 //-----------session branch_name--------------
+$housingInfo['profile_data'] = $HousingArr;
+
 $branch_name=$this->session->userdata('branch_name');
 $housingInfo['branch_name']=$branch_name;
 //print_r($Select_Customers);die();
@@ -390,7 +373,12 @@ curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 $response_json = curl_exec($ch);
 curl_close($ch);
 $response = json_decode($response_json, true);
+
+
+}
+
 print_r($response_json);die();
+
 $data['customer_id']=$customer_id;
 $data['customer_name']=$Select_Customers;
 $data['products_associated']=json_encode($profile_arr);
