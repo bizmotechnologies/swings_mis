@@ -60,8 +60,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                  $color='';
                                                 $Status=$result['scheduler_status'];
                                                //print_r($Status);
-                                                switch($Status)
-                                                {
+                                                switch($Status){
                                                     case 1 :  $color ='w3-green';
                                                               break;
                                                     case 2 :  $color ='w3-orange';
@@ -73,11 +72,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                 }
                                                 ?>
                                                 <div class="w3-col l12">
-                                                    <div class="w3-bar-item <?php echo $color;?> w3-button w3-border-bottom w3-hover-black test "  data-target="#welcomeDiv1" id="firstTab">
-                                                        <div class="w3-container">
-                                                            <h6>Work Order- <?php echo $result['wo_id'];?></h6>
-                                                            <input type="hidden" name="wo_id" id="wo_id" value="<?php echo $result['wo_id']; ?>">
-                                                        </div>
+                                                    <div class="w3-bar-item <?php echo $color;?> w3-button w3-border-bottom w3-hover-black test">
+                                                        <a class="btn w3-medium" onclick="show_Work_Orderinfo(<?php echo $result['wo_id']; ?>);">Work Order-<?php echo $result['wo_id']; ?></a>
                                                     </div>
                                                 </div>
                                             <?php } ?>
@@ -87,15 +83,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <!-- End Left Column -->
                             </div>
                             <!-- Right Column -->
-                            <div class="w3-twothird target w3-col l10" id="welcomeDiv1">
-                                <div class="w3-container w3-white w3-margin-bottom">
+                                <div class=" w3-col l10 w3-container w3-white w3-margin-bottom">
                                     <div class="w3-main" style="overflow-y: auto;">                                        
-                                        <div class="w3-col l12" id="showProduction_workorder" >
+                                        <div class="w3-col l12" id="showProduction_workorder">
                                         </div>                                        
                                     </div>
                                     <hr>
                                 </div>
-                            </div>
                             <!-- End Page Container -->
                         </div>
                     </div>
@@ -127,7 +121,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             });
         </script>
         <script>
-            //---this fun is used to show active div of production of work order 
             $(function () {
                 $('.test').on('click', function () {
                     var $this = $(this);
@@ -154,25 +147,22 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 </html>
 <!-- this function is used to get all information of wo production-->
 <script>
-    $(function () {
-        $('.test').click(function () {
-            Workorder_id = $('#wo_id').val();
+       function show_Work_Orderinfo(Workorder_id){
             //alert(Workorder_id);
             $.ajax({
                 type: "POST",
-                url: BASE_URL + "sales_enquiry/Manage_workorder_production/get_Workorderfor_Production_details",
+                url: BASE_URL + "sales_enquiry/Manage_workorder_production/get_Workorderfor_Product_details",
                 data: {
                     Workorder_id: Workorder_id
                 },
                 return: false, //stop the actual form post !important!
                 success: function (data)
                 {
-                    //alert(data);
+                   // alert(data);
                     $('#showProduction_workorder').html(data);
                 }
             });
-        });
-    });
+        }
 </script>
 <!-- this function is used to get all information of wo production-->
 

@@ -110,20 +110,20 @@ class Manage_workorder_production extends CI_Controller {
 //----this fun is used to verify the alloted length and consume length-------------------------//    
 //----this fun is used to get the all work order details from wo production-------------------------//
 
-    public function get_Workorderfor_Production_details() {
+    public function get_Workorderfor_Product_details() {
         extract($_POST);
-        
         $materials = Manage_workorder_production::getMaterialrecord();     //-------show all Raw materials
         
         $path = base_url();
-        $url = $path . 'api/Manage_Workorder_Production_api/get_Workorderfor_Production_details?wo_id='.$Workorder_id;
+        $url = $path . 'api/Manage_Workorder_Production_api/get_Workorderfor_Product_details?wo_id='.$Workorder_id;
         $ch = curl_init($url);
         curl_setopt($ch, CURLOPT_HTTPGET, true);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         $response_json = curl_exec($ch);
         curl_close($ch);
         $response = json_decode($response_json, true);
- 
+         //print_r($response);
+
         if ($response['status']==0) {
           echo $response['status_message'];  
   } else {
