@@ -223,7 +223,39 @@ error_reporting(E_ERROR | E_PARSE);
     finalProductPrice = price * productDiscount / 100; //---discount on final price
     productPrice = price - finalProductPrice;  //-----total price
     $('#TotalProduct_Price_' + rownum).val(productPrice.toFixed(2));
+    showdiscountforproduct(rownum);
 }
+</script>
+<script>
+    function showdiscountforproduct(rownum){//get material final price array
+         final_Price = 0;
+         var final_Price = [];
+         FinalPricesum = 0;
+         AvailablePrice = 0;
+         var AvailablePrice = [];
+         AvailablePricesum = 0;
+        $('#Product_' + rownum + ' input[name="final_Price[]"]').each(function (){
+               if($(this).val() ){
+                final_Price.push($(this).val());
+            }
+        });
+            FinalPrice = final_Price.length;
+            while (FinalPrice--) {
+            FinalPricesum += parseFloat(final_Price[FinalPrice]) || 0;  //--final price array sum
+        }
+        $('#Product_' + rownum + ' input[name="Available_Price[]"]').each(function (){
+               if($(this).val() ){
+                AvailablePrice.push($(this).val());
+            }
+        });        
+        AvailablePricenew = AvailablePrice.length;
+        while (AvailablePricenew--) {
+            AvailablePricesum += parseFloat(AvailablePrice[AvailablePricenew]) || 0;
+        }
+        diffinavailableand_finalprice = AvailablePricesum - FinalPricesum;
+        discount = (diffinavailableand_finalprice / AvailablePricesum) * 100;
+        $('#Product_Discount_' + rownum).val(discount.toFixed(2));   //------discount value set to the text field 
+    }
 </script>
 <script>
         function GetProfileInformation(rownum) {//this fun is used for get profile information
