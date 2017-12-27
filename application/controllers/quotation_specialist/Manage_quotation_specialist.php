@@ -213,7 +213,9 @@ class Manage_quotation_specialist extends CI_Controller {
     public function approvedQuery(){
     extract($_POST);
     $data = $_POST;
-    //print_r($data);die();
+    //print_r($data);die
+    $user_id = $this->session->userdata('user_id');
+    $data['role']=$user_id; 
     $path = base_url();
     $url = $path . 'api/ManageQuotation_Specialist_api/approvedQuery';
     $ch = curl_init($url);
@@ -223,7 +225,7 @@ class Manage_quotation_specialist extends CI_Controller {
     $response_json = curl_exec($ch);
     curl_close($ch);
     $response = json_decode($response_json, true);
-    print_r($response_json);    die();
+    //print_r($response_json);    die();
     if ($response['status'] == 0) {
             echo'<div class="alert alert-danger w3-margin" style="text-align: center;">
         <strong>' . $response['status_message'] . '</strong> 
@@ -241,7 +243,8 @@ class Manage_quotation_specialist extends CI_Controller {
 public function rejectQuery(){
     extract($_POST);
     $data = $_POST;
-
+    $user_id = $this->session->userdata('user_id');
+    $data['role']=$user_id;
     $path = base_url();
     $url = $path . 'api/ManageQuotation_Specialist_api/rejectQuery';
     $ch = curl_init($url);
