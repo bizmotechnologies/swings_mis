@@ -88,7 +88,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                         <div class="w3-col l12" id="showProduction_workorder">
                                         </div>                                        
                                     </div>
-                                    <hr>
+                                    <div class="w3-col l12" id="showapprovedRejecteddiv">
+                                        
+                                    </div>
                                 </div>
                             <!-- End Page Container -->
                         </div>
@@ -160,6 +162,23 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 {
                    // alert(data);
                     $('#showProduction_workorder').html(data);
+                }
+            });
+            getapprovedrejecteddata(Workorder_id);
+        }
+        
+        function getapprovedrejecteddata(Workorder_id){
+            $.ajax({
+                type: "POST",
+                url: BASE_URL + "sales_enquiry/Manage_workorder_production/getapprovedrejecteddata",
+                data: {
+                    Workorder_id: Workorder_id
+                },
+                return: false, //stop the actual form post !important!
+                success: function (data)
+                {
+                   // alert(data);
+                    $('#showapprovedRejecteddiv').html(data);
                 }
             });
         }

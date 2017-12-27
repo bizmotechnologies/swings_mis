@@ -73,7 +73,7 @@ class ManageQuotationSpecialist_model extends CI_Model {
    //----this fun is used to update the raised query is rejected by quotation specialist----------------// 
     public function rejectQuery($data){
         extract($data);
-        $query = "UPDATE sub_quotation_specialist SET approved ='approved',role='$user_id',reason_for_rejected ='$ReasonForReject', current_status='0' "
+        $query = "UPDATE sub_quotation_specialist SET approved ='rejected',role='$user_id',reason_for_rejected ='$ReasonForReject', current_status='0' "
                 . "WHERE wo_id = '$wo_id' AND sub_quot_specialist_id='$sp_id'";
         $result = $this->db->query($query);
         //-----this update is for to update status of query which is selected----------------------//

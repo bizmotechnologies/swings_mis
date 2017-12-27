@@ -62,4 +62,9 @@ class Manage_Workorder_Production_api extends REST_Controller {
         $result = $this->ManageWorkorder_Production_model->get_Workorderfor_Product_details($wo_id);
         return $this->response($result);
     }
+    public function getapprovedrejecteddata_get(){
+        $wo_id = $_GET['wo_id'];
+        $result = $this->ManageWorkorder_Production_model->getapprovedrejecteddata($wo_id);
+        return $this->response($result);
+    }
 }

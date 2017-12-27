@@ -41,6 +41,87 @@ class Manage_workorder_production extends CI_Controller {
         $response = json_decode($response_json, true);
         return $response;
     }
+    public function getapprovedrejecteddata(){
+        extract($_POST);
+        $path = base_url();
+        $url = $path . 'api/Manage_Workorder_Production_api/getapprovedrejecteddata?wo_id='.$Workorder_id;
+        $ch = curl_init($url);
+        curl_setopt($ch, CURLOPT_HTTPGET, true);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $response_json = curl_exec($ch);
+        curl_close($ch);
+        $response = json_decode($response_json, true);
+        if($response['status'] == 0){
+           echo $response['status_message']; 
+        }else{
+        
+//        echo'<table class="table table-bordered">
+//      <tbody>
+//      <tr>
+//      <th class="text-right">Customer Name:</th>
+//      <td>'.$key['customer_name'].'</th>
+//      <th class="text-right">Date:</td>
+//      <td>'.$date.'</td>
+//      <th class="text-right">Work Order No:</th>
+//      <td>#WO-0'.$key['wo_id'].'</td>
+//      </tr>
+//      </tbody>
+//      </table>';
+
+      echo'<div class="w3-col-l12 w3-small">
+      <table class="table table-bordered table-responsive">
+      <tr>
+      <th>sr.no</th>
+      <th>Wo.No</th>
+      <th>Customer Name</th>
+      <th>Profile Name</th>
+      <th>Material</th>
+      <th>Changed Material</th>
+      <th>ID</th>
+      <th>OD</th>
+      <th>Material length</th>
+      <th>Changed Length</th>
+      <th>Approved</th>
+      <th>rejected</th>
+      <th>Branch Name</th>
+      </tr>
+      <tbody>';
+      $count=1;
+                  
+
+                  if($key['approved']=='approved'){
+                    $current_stat='approved';
+                    $color='w3-green';
+                  }else{
+                     $current_stat='rejected';
+                     $color='w3-red'; 
+                  }
+      foreach ($response['status_message'] as $key) {
+        //$date=date('d/m/Y',strtotime($key['dated'])); 
+      echo'<tr>
+      <td>'.$count.'</td>
+      <td>'.$key['wo_id'].'</td>
+      <td>'.$key['customer_name'].'</td>
+      <td>'.$key['profile_name'].'</td>
+      <td>'.$key['original_material_name'].'</td>
+      <td>'.$key['changed_material_name'].'</td>
+      <td>'.$key['material_id'].'</td>
+      <td>'.$key['material_od'].'</td>
+      <td>'.$key['original_material_length'].'</td>
+      <td>'.$key['changed_material_length'].'</td>
+      <td>'.$key['approved'].'</td>
+      <td>'.$key['rejected'].'</td>
+      <td>'.$key['branch_name'].'</td>
+      </tr>
+      </tbody>
+      </table>
+      </div>';
+      $count++;
+            }
+        }
+        
+    }
+
 //----this fun is used to verify the alloted length and consume length-------------------------//
     public function verify_materiallength(){
         extract($_POST);
@@ -57,39 +138,39 @@ class Manage_workorder_production extends CI_Controller {
                 <input type="hidden" name="wo_id" id="wo_id" value="'.$wo_id.'">
                 <input type="hidden" name="profile_id[]" id="profile_id" value="'.$profile_id[$p].'">
                 <input type="hidden" name="CustomerName" id="CustomerName" value="'.$CustomerName.'">
-                <input type="text" class="form-control" name="ChangedprofileName[]" id="ChangedprofileName" value="'.$profile_name[$j].'" disabled>
+                <input type="text" class="form-control" name="ChangedprofileName[]" id="ChangedprofileName" value="'.$profile_name[$j].'" >
                 </div>
                 
                 <div class="w3-col l3 w3-margin-top w3-padding-right">
                 <label>Material Name:</label>
-                <input type="text" class="form-control" name="ChangedmaterialName[]" id="materialName" value="'.$_POST['material_name_'.$count][$p].'" disabled>
+                <input type="text" class="form-control" name="ChangedmaterialName[]" id="materialName" value="'.$_POST['material_name_'.$count][$p].'" >
                 </div>
                 
                 <div class="w3-col l3 w3-margin-top w3-padding-right">
                 <label>Changed Material:</label>
-                <input type="text" class="form-control" name="updatedMaterialName[]" id="updatedMaterialName" value="'.$_POST['Material_Change_'.$count][$p].'" disabled>
+                <input type="text" class="form-control" name="updatedMaterialName[]" id="updatedMaterialName" value="'.$_POST['Material_Change_'.$count][$p].'" >
                 </div>
                 </div>  
                 
                 <div class="w3-col l12 w3-small">
                 <div class="w3-col l3 w3-margin-top w3-padding-right">
                 <label>Material ID:</label>
-                <input type="text" class="form-control" name="material_innerID[]" id="material_innerID" value="'.$_POST['material_ID_'.$count][$p].'" disabled>
+                <input type="text" class="form-control" name="material_innerID[]" id="material_innerID" value="'.$_POST['material_ID_'.$count][$p].'" >
                 </div>
                 
                 <div class="w3-col l3 w3-margin-top w3-padding-right">
                 <label>Material OD:</label>
-                <input type="text" class="form-control" name="material_outerID[]" id="material_outerID" value="'.$_POST['material_OD_'.$count][$p].'" disabled>
+                <input type="text" class="form-control" name="material_outerID[]" id="material_outerID" value="'.$_POST['material_OD_'.$count][$p].'" >
                 </div>                
 
                 <div class="w3-col l3 w3-margin-top w3-padding-right">
                 <label>Alloted Length:</label>
-                <input type="text" class="form-control" name="Allotedmaterial_length[]" id="Allotedmaterial_length" value="'.$_POST['usedlength_'.$count][$p].'" disabled>
+                <input type="text" class="form-control" name="Allotedmaterial_length[]" id="Allotedmaterial_length" value="'.$_POST['usedlength_'.$count][$p].'" >
                 </div>
                 
                 <div class="w3-col l3 w3-margin-top w3-padding-right">
                 <label>Consume Length:</label>
-                <input type="text" class="form-control" name="Consumedmaterial_length[]" id="Consumedmaterial_length" value="'.$_POST['consumedtube_'.$count][$p].'" disabled>
+                <input type="text" class="form-control" name="Consumedmaterial_length[]" id="Consumedmaterial_length" value="'.$_POST['consumedtube_'.$count][$p].'" >
                 </div>
                 </div>
 
@@ -320,7 +401,7 @@ class Manage_workorder_production extends CI_Controller {
       $(function () {
     $("#raiseQueryForm").submit(function () {
         dataString = $("#raiseQueryForm").serialize();
-        //alert(dataString);
+        alert(dataString);
         $.ajax({
             type: "POST",
             url: BASE_URL + "sales_enquiry/Manage_workorder_production/Submit_raiseQueryDetails",
@@ -331,7 +412,9 @@ class Manage_workorder_production extends CI_Controller {
                 $("#msg_header").text("Message");
                 $("#msg_span").css({"color": "black"});
                 $("#addMaterials_err").html(data);
-                $("#myModalnew").modal("show");            }
+                $("#myModalnew").modal("show");
+                $("#show_consume_tube_query").load(location.href + " #show_consume_tube_query>*", "");
+            }
         });
         return false;  
     });
@@ -357,6 +440,7 @@ class Manage_workorder_production extends CI_Controller {
                                 $("#myModalnew").modal("show");
                                 $("#startTime_"+wo_id).attr("disabled","disabled");
                                 $("input[type=\'submit\']").attr("disabled","disabled");
+                                $("#showProduction_workorder").load(location.href + " #showProduction_workorder>*", "");
                                 
                             }
                         });
