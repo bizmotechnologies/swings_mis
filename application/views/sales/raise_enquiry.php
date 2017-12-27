@@ -141,7 +141,7 @@ error_reporting(E_ERROR | E_PARSE);
     }
 }
 </script>
-<script>
+<!--<script>
         function GetProductPrice(rownum) { //----------------this fun is used to get product price---------------
             AvailablePrice = 0;
             final_Price = 0;
@@ -196,7 +196,7 @@ error_reporting(E_ERROR | E_PARSE);
         $('#TotalProduct_Price_' + rownum).val(productFinalprice.toFixed(2));
     }
         //----------------------this fun is used to get product price---------------------------
-    </script>  
+    </script>  -->
     <script>
         function GetProductfinalPrice(rownum){
 
@@ -410,7 +410,7 @@ error_reporting(E_ERROR | E_PARSE);
     --> 
     <script>
         $('#myModalnew').on('hidden.bs.modal', function () {
-            location.reload();
+            //location.reload();
         });
     </script>
     <!-- script end -->

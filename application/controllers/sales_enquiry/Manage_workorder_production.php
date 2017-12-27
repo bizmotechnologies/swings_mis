@@ -71,7 +71,7 @@ class Manage_workorder_production extends CI_Controller {
                 </div>
                 </div>  
                 
-                <div class="w3-col l12">
+                <div class="w3-col l12 w3-small">
                 <div class="w3-col l3 w3-margin-top w3-padding-right">
                 <label>Material ID:</label>
                 <input type="text" class="form-control" name="material_innerID[]" id="material_innerID" value="'.$_POST['material_ID_'.$count][$p].'" disabled>
@@ -93,7 +93,7 @@ class Manage_workorder_production extends CI_Controller {
                 </div>
                 </div>
 
-                <div class="w3-col l12">                
+                <div class="w3-col l12 w3-small">                
                 <div class="w3-col l10 w3-margin-top w3-padding-right">
                 <label>Reason For Change Length / Material:</label>
                 <input type="text" class="form-control" id="reasonForchange" name="reasonForchange[]">
