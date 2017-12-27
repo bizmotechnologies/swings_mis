@@ -300,7 +300,20 @@ class QuotationForEnquiry_model extends CI_Model {
             die();
         }
 
-        $insert_quotation = "INSERT INTO wo_master(quotation_id,product_associated,dated,time_on,current_status,branch_name) VALUES ('$quotation_id','$products',now(),now(),'1','$branch_name')";
+        // --------get total profit on all products--------------
+        $total_profit=0;
+        $net=0;
+        foreach (json_decode($products,TRUE) as $key) { 
+            //---------------------get total profit on all materials--------------
+            $material_profit=0;
+            foreach ($key['material_associated'] as $material_key){                
+                $material_profit=$material_profit + $material_key['material_profit'];
+            }
+            $total_profit=$total_profit + $material_profit;
+        }
+        $net=number_format($total_profit,2,'.',''); //-------------get number to 2 decimal
+
+        $insert_quotation = "INSERT INTO wo_master(quotation_id,product_associated,dated,time_on,current_status,branch_name,profit) VALUES ('$quotation_id','$products',now(),now(),'1','$branch_name','$net')";
         if ($this->db->query($insert_quotation)) {
             $update_quotation = "UPDATE quotation_master SET current_status = '2' WHERE quotation_id = '$quotation_id'";
             $this->db->query($update_quotation);

@@ -6,14 +6,14 @@ class Manage_materials extends CI_controller {
     public function __construct() {
         parent::__construct();
 //start session     
-        $user_id = $this->session->userdata('user_id');
-        $user_name = $this->session->userdata('user_name');
-        $privilege = $this->session->userdata('privilege');
+//         $user_id = $this->session->userdata('user_id');
+//         $user_name = $this->session->userdata('user_name');
+//         $privilege = $this->session->userdata('privilege');
 
-//check session variable set or not, otherwise logout
-        if (($user_id == '') || ($user_name == '') || ($privilege == '')) {
-            redirect('role_login');
-        }
+// //check session variable set or not, otherwise logout
+//         if (($user_id == '') || ($user_name == '') || ($privilege == '')) {
+//             redirect('role_login');
+//         }
     }
 
     public function index() {
@@ -309,10 +309,20 @@ class Manage_materials extends CI_controller {
      $boughtoutMaterial=0;
      //print_r((in_array($Select_material[$i],$make_boughtOut[$i])));
     if(in_array($Select_material[$i],$make_boughtOut[$prod+1])){        
-        $boughtoutMaterial=1;//if material is not included... i.e. regretable.
+        $boughtoutMaterial=1;//if material is bought out from supplier... i.e. bought out material.
     }
+
+    // -----------profit calculation for material--------------------
+    $profit=0.00;
+    $profit_margin=2.65;
+
+    if($boughtoutMaterial==0){
+    $profit=$final_Price[$i] * (($profit_margin - 1)/$profit_margin);
+    }
+
 //----this array for material details
     $material_Arr[] = array(
+        'material_profit' => number_format($profit,2,'.',''),
         'regret_material' => $regret,
         'boughtOutItems' => $boughtoutMaterial,
         'material_id' => $Select_material[$i],
@@ -357,7 +367,6 @@ $HousingArr[] = array(
 );
 $housingInfo['profile_id'] = $profile_id[$prod];
 }
-//print_r($profile_arr);die();
 $housingInfo['profile_data'] = json_encode($HousingArr);
 
 //-----------session branch_name--------------
@@ -388,7 +397,6 @@ curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 $response_json = curl_exec($ch);
 curl_close($ch);
 $response = json_decode($response_json, true);
-//print_r($response_json);die();
 
 echo $response['status_message'];
 }
