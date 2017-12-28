@@ -156,6 +156,41 @@ error_reporting(E_ERROR | E_PARSE);
                                 <div class="col-lg-6">
                                 <div class="w3-col l12">
                                 
+                                    <div class="w3-col l12">
+                                    <div class="w3-col l3 w3-margin-right ">
+                                        <label for="defaultmargin" class="control-label w3-right">Default&nbsp;profit:</label>
+                                        <label for="defaultmargin" class="control-label w3-right">50>OD>350</label>
+                                    </div>
+                                    <div class="w3-col l7 w3-margin-bottom">
+                                    <select class="form-control" name="Select_profitCategoryOne" id="Select_profitCategoryOne" required> <!-- this is for showing material stocks quantity -->
+                                    <option>Select Category</option>                                    
+                                    <option value="category_a"'; if($details['status_message'][$i]['profit_for_odgreater']=='category_a'){echo 'selected';} echo'>A</option>
+                                    <option value="category_b"'; if($details['status_message'][$i]['profit_for_odgreater']=='category_b'){echo 'selected';} echo'>B</option>
+                                    <option value="category_c"'; if($details['status_message'][$i]['profit_for_odgreater']=='category_c'){echo 'selected';} echo'>C</option>
+                                    <option value="category_d"'; if($details['status_message'][$i]['profit_for_odgreater']=='category_d'){echo 'selected';} echo'>D</option>
+                                    <option value="category_e"'; if($details['status_message'][$i]['profit_for_odgreater']=='category_e'){echo 'selected';} echo'>E</option>
+                                    <option value="category_f"'; if($details['status_message'][$i]['profit_for_odgreater']=='category_f'){echo 'selected';} echo'>F</option>
+                                    <option value="category_g"'; if($details['status_message'][$i]['profit_for_odgreater']=='category_g'){echo 'selected';} echo'>G</option>
+                                    </select>   
+                                    </div>
+                                   <div class="w3-col l3 w3-margin-right ">
+                                        <label for="defaultmargin" class="control-label w3-right">Default&nbsp;profit:</label>
+                                        <label for="defaultmargin" class="control-label w3-right">50<&nbsp;OD<350</label> 
+                                   </div>
+                                    <div class="w3-col l7 w3-margin-bottom">
+                                    <select class="form-control" name="Select_profitCategoryTwo" id="Select_profitCategoryTwo" required> <!-- this is for showing material stocks quantity -->
+                                    <option>Select Category</option>                                    
+                                    <option value="category_a"'; if($details['status_message'][$i]['profit_for_odsmall']=='category_a'){echo 'selected';} echo'>A</option>
+                                    <option value="category_b"'; if($details['status_message'][$i]['profit_for_odsmall']=='category_b'){echo 'selected';} echo'>B</option>
+                                    <option value="category_c"'; if($details['status_message'][$i]['profit_for_odsmall']=='category_c'){echo 'selected';} echo'>C</option>
+                                    <option value="category_d"'; if($details['status_message'][$i]['profit_for_odsmall']=='category_d'){echo 'selected';} echo'>D</option>
+                                    <option value="category_e"'; if($details['status_message'][$i]['profit_for_odsmall']=='category_e'){echo 'selected';} echo'>E</option>
+                                    <option value="category_f"'; if($details['status_message'][$i]['profit_for_odsmall']=='category_f'){echo 'selected';} echo'>F</option>
+                                    <option value="category_g"'; if($details['status_message'][$i]['profit_for_odsmall']=='category_g'){echo 'selected';} echo'>G</option>
+                                    </select>   
+                                    </div>
+                               </div>
+
                                 <div id="added_NewrowUpdated" class="w3-col l12">';
                                 foreach ($contact as $key) {
                                     echo'
@@ -276,11 +311,12 @@ error_reporting(E_ERROR | E_PARSE);
                                             <label for="CustomerAddress" class="control-label w3-right w3-padding-right">Customer Address:</label>
                                         </td>
                                         <td>
-                                            <textarea name="Input_CustomerAddress" rows="5" id="Input_CustomerAddress" class="form-control" placeholder="Customer Address" required></textarea><br>
+                                            <textarea name="Input_CustomerAddress" rows="5" id="Input_CustomerAddress" class="form-control" placeholder="Customer Address" style="resize:none;" required></textarea><br>
                                         </td>
                                     </tr>
 
                                 </table>
+                                
                                 <div class="w3-col l12" style="margin-left: 36px">
                                     <div class="w3-col l3 w3-margin-right">
                                         <label for="CustomerEmail" class="control-label w3-right">Customer&nbsp;Email:</label>
@@ -294,6 +330,40 @@ error_reporting(E_ERROR | E_PARSE);
                             </div>
 
                             <div class="col-lg-6">
+                               <div class="w3-col l12">
+                                    <div class="w3-col l3 w3-margin-right ">
+                                        <label for="defaultmargin" class="control-label w3-right">Default&nbsp;profit:</label>
+                                        <label for="defaultmargin" class="control-label w3-right">50>OD>350</label>
+                                    </div>
+                                    <div class="w3-col l7 w3-margin-bottom">
+                                    <select class="form-control" name="Select_profitCategoryOne" id="Select_profitCategoryOne" required> <!-- this is for showing material stocks quantity -->
+                                    <option>Select Category</option>                                    
+                                    <option value='category_a'>A</option>
+                                    <option value='category_b'>B</option>
+                                    <option value='category_c'>C</option>
+                                    <option value='category_d'>D</option>
+                                    <option value='category_e'>E</option>
+                                    <option value='category_f'>F</option>
+                                    <option value='category_g'>G</option>
+                                    </select>   
+                                    </div>
+                                   <div class="w3-col l3 w3-margin-right ">
+                                        <label for="defaultmargin" class="control-label w3-right">Default&nbsp;profit:</label>
+                                        <label for="defaultmargin" class="control-label w3-right">50<&nbsp;OD<350</label> 
+                                   </div>
+                                    <div class="w3-col l7 w3-margin-bottom">
+                                    <select class="form-control" name="Select_profitCategoryTwo" id="Select_profitCategoryTwo" required> <!-- this is for showing material stocks quantity -->
+                                    <option>Select Category</option>                                    
+                                    <option value='category_a'>A</option>
+                                    <option value='category_b'>B</option>
+                                    <option value='category_c'>C</option>
+                                    <option value='category_d'>D</option>
+                                    <option value='category_e'>E</option>
+                                    <option value='category_f'>F</option>
+                                    <option value='category_g'>G</option>
+                                    </select>   
+                                    </div>
+                               </div>
                                 <div class="w3-col l12">
                                     <div class="w3-col l3 w3-margin-right ">
                                         <label for="ContactPerson" class="control-label w3-right">Contact&nbsp;Person:</label>

@@ -24,35 +24,29 @@ class ManageCustomer_model extends CI_Model {
     }
 
     /* ends here */
-
+//----this fun is used to save the customer details-----------------------------------------//
     public function save_CustomerDetails($data) { /* this fun is used for save customer details */
-
         extract($data);
-        //print_r($data); die();
         $sqlnew = "INSERT INTO customer_details(customer_name,customer_email,"
                 . "customer_address,contact,bank_name,bank_address,"
-                . "account_no,IFSC_no,MICR_no,PAN_no,joining_date) "
+                . "account_no,IFSC_no,MICR_no,PAN_no,joining_date,profit_for_odgreater,profit_for_odsmall) "
                 . "values ('$Input_CustomerName','$Input_CustomerEmail','$Input_CustomerAddress',"
                 . "'$contact','$Input_Bank_name','$Input_Bank_Address',"
                 . "'$Input_Bank_AccNo','$Input_Bank_IFSC_Code','$Input_Bank_MICR_Code',"
-                . "'$Input_PAN_No',now())";
-//echo $sqlnew;die();
+                . "'$Input_PAN_No',now(),'$Select_profitCategoryOne','$Select_profitCategoryTwo')";
         $resultnew = $this->db->query($sqlnew);
-
         if ($resultnew) {
             $response = array(
                 'status' => 1,
-                'status_message' => 'Records Inserted Successfully..!');
+                'status_message' => 'Customer Details Inserted Successfully..!');
         } else {
             $response = array(
                 'status' => 0,
-                'status_message' => 'Records Not Inserted Successfully...!');
+                'status_message' => 'Customer Details Not Inserted Successfully...!');
         }
-        //print_r($response);
         return $response;
     }
-
-    /* save customer fun ends here */
+//----this fun is used to save the customer details-----------------------------------------//
 
     public function Update_CustomerDetails($data) { /* this fun is used to  update customer details */
         extract($data);

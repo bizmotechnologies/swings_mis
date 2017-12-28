@@ -9,7 +9,7 @@
 $(function () {
     $("#customerDetailsForm").submit(function () {
         dataString = $("#customerDetailsForm").serialize();
-                //alert('njgn');
+       alert(dataString);
 
         $.ajax({
             type: "POST",

@@ -19,12 +19,27 @@ class Manage_customers extends CI_controller {
     public function index() {
 
         $this->load->model('inventory_model/ManageCustomer_model');
-
+        $response['materials'] = Manage_customers::getMaterialrecord();     //-------show all materials
         $response['details'] = Manage_customers::getCustomerDetails();     //-------show all materials
         $this->load->view('includes/navigation');
         $this->load->view('inventory/customer/manage_customer', $response);
     }
 
+    //----------this fun for toget material details-----------------------------
+    public function getMaterialrecord() {
+
+        $path = base_url();
+        $url = $path . 'api/ManageMaterial_api/getMaterialrecord';
+        $ch = curl_init($url);
+        curl_setopt($ch, CURLOPT_HTTPGET, true);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $response_json = curl_exec($ch);
+        curl_close($ch);
+        $response = json_decode($response_json, true);
+        return $response;
+    }
+
+//----------------this fun is for get total info of materials---------------//
     /* ----------------this fun is used to show all customer info in tables----------------------------- */
 
     public function getCustomerDetails() {
