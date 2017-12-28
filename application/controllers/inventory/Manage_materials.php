@@ -48,6 +48,8 @@ class Manage_materials extends CI_controller {
         $materials = Manage_materials::getMaterialrecord();     //-------show all Raw materials
 
         extract($_POST);
+        //print_r($_POST);
+               
         $path = base_url();
         $url = $path . 'api/ManageMaterial_api/GetProfileInformation?Profiles='.$Profiles;
         $ch = curl_init($url);
@@ -56,16 +58,35 @@ class Manage_materials extends CI_controller {
         $response_json = curl_exec($ch);
         curl_close($ch);
         $response = json_decode($response_json, true);
-        //print_r($response['status_message']);die(); 
+        //print_r($response['status_message']);die();
+            
+//        //----if the selected profile and the populated profile is same the if condition part runs    
+//        $path = base_url();
+//        $url = $path . 'api/ManageMaterial_api/gethousingHistory?Profiles='.$Profiles.'&customer_id='.$Customer;
+//        $ch = curl_init($url);
+//        curl_setopt($ch, CURLOPT_HTTPGET, true);
+//        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+//        $response_json = curl_exec($ch);
+//        curl_close($ch);
+//        $responseofHousingHistory = json_decode($response_json, true);
+//        //print_r($responseofHousingHistory['status_message'][0]['profile_data']['material_associated']);
+//                //----if the selected profile and the populated profile is same the if condition part runs    
+//        
+//        $responseofHousingHistory['status_message'][0]['customer_id'] = $customer_IDForHousing;
+////--the customer id from the history of housing data
+//        $responseofHousingHistory['status_message'][0]['profile_id'] = $profile_IDForHousing;
+////--the customer name from the history of housing data
+        $material_associated = json_decode($response['status_message'][0]['material_associated'], TRUE);
+////--this material associted from profile table the actual materials are populated        
+//        $material_associatedForHousing = json_decode($responseofHousingHistory['status_message'][0]['profile_data']['material_associated'], TRUE);
+//       // print_r($material_associatedForHousing);        //print_r($responseofHousingHistory);
         if ($response['status'] == 1) {
-            //for ($i = 0; $i < count($response['status_message']); $i++) {
 
-            $material_associated = json_decode($response['status_message'][0]['material_associated'], TRUE);
-
+        
             echo '
             <div class="w3-col l12 w3-tiny"><span class="w3-text-red"><b>NOTE:</b> Input Fields which are disabled (marked in grey and default set to 0) are N/A for the respective material. Only fill enabled input fields</span></div>';
-            
             $count=0;
+            //foreach ($material_associatedForHousing as $val){
             foreach ($material_associated as $key) {
                 for ($material_count=0; $material_count < $key['material_quantity']; $material_count++) { 
                  echo '<div class="w3-col l12 ">
@@ -213,9 +234,11 @@ class Manage_materials extends CI_controller {
                     echo'';
                     $count = $count + 1;
                 }
-            }
             //}
-        }
+            }
+        //}
+    }
+       // }
     }
     
     //--------------this fun is used to get profile image-------------------//

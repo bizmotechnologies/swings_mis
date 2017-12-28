@@ -141,62 +141,6 @@ error_reporting(E_ERROR | E_PARSE);
     }
 }
 </script>
-<!--<script>
-        function GetProductPrice(rownum) { //----------------this fun is used to get product price---------------
-            AvailablePrice = 0;
-            final_Price = 0;
-            Product_Quantity = 0;
-            var final_Price = [];
-            var Product_Quantity = [];
-            var AvailablePrice = [];
-            AvailablePricesum = 0;
-            FinalPricesum = 0;
-            ProductQuantity = 0;
-            productPrice = 0;
-            $('#Product_' + rownum + ' input[name="final_Price[]"]').each(function ()
-            {
-               if($(this).val() ){
-                final_Price.push($(this).val());
-            }
-        });
-            $('#Product_' + rownum + ' input[name="Available_Price[]"]').each(function ()
-            {
-               if($(this).val() ){
-                AvailablePrice.push($(this).val());
-            }
-        });
-            ProductQuantity = document.getElementById('Product_Quantity_' + rownum).value;
-
-        //-----this loop is used to addition of the final price of material------//
-        FinalPrice = final_Price.length;
-        while (FinalPrice--) {
-            FinalPricesum += parseFloat(final_Price[FinalPrice]) || 0;
-        }
-        //-----this loop ends here for used to addition of the final price of material------//
-        
-        //-----this loop is used to addition of the base price of material------//
-        AvailablePricenew = AvailablePrice.length;
-        while (AvailablePricenew--) {
-            AvailablePricesum += parseFloat(AvailablePrice[AvailablePricenew]) || 0;
-        }
-        //-----this loop ends here for used to addition of the base price of material------//
-        
-        temporary_amount = AvailablePricesum - FinalPricesum;  //------this amount is used for get calculate price for discount
-        //alert(temporary_amount);
-        Discount = temporary_amount / AvailablePricesum * 100; //-----finding the discount here by deviding 
-        
-        $('#Product_Discount_' + rownum).val(Discount.toFixed(2));   //------discount value set to the text field 
-        
-        productPrice = (FinalPricesum * parseInt(ProductQuantity));  //-----product price multiplied with quantity
-        
-        DiscountPrice = productPrice * Discount / 100;
-        
-        productFinalprice = AvailablePricesum - DiscountPrice;
-        //alert(productPrice);
-        $('#TotalProduct_Price_' + rownum).val(productFinalprice.toFixed(2));
-    }
-        //----------------------this fun is used to get product price---------------------------
-    </script>  -->
     <script>
         function GetProductfinalPrice(rownum){
 
@@ -261,8 +205,9 @@ error_reporting(E_ERROR | E_PARSE);
         function GetProfileInformation(rownum) {//this fun is used for get profile information
             Profiles = $('#Profiles_' + rownum + ' [value="' + $('#Select_Profiles_' + rownum).val() + '"]').data('value');
             $('#profile_id_fetch_' + rownum).val(Profiles);
-            Customer = $('#Customers [value="' + $('#Customers').val() + '"]').data('value');
-
+            Customer = $('#Customers [value="' + $('#Select_Customers').val() + '"]').data('value');
+//            alert(Customer);
+//            alert(Profiles);
             $("#MaterialDiv_" + rownum).html('<center><img width="auto" height="auto" src="'+BASE_URL+'css/logos/page_spinner3.gif"/></center>');
             Get_housingData(Profiles,rownum);       //------------profile history data
             getprofileimage(Profiles, rownum);      //------------profile image data 
@@ -271,6 +216,7 @@ error_reporting(E_ERROR | E_PARSE);
                 url: "<?php echo base_url(); ?>inventory/Manage_materials/GetProfileInformation",
                 data: {
                     Profiles: Profiles,
+                    Customer: Customer,
                     Profile_num: rownum
                 },
                 cache: false,
@@ -389,7 +335,7 @@ error_reporting(E_ERROR | E_PARSE);
                 <div class="w3-col l12 w3-padding w3-small">
                     <div class="w3-col l2 w3-padding-left">
                         <label>Customer Name:</label> 
-                        <input list="Customers" id="Select_Customers" autocomplete="off" onclick="this.select();" name="Select_Customers" value="<?php echo $cust_name; ?>" class="w3-input" required type="text" placeholder="Select Customer" onchange="getCustomerId()">  
+                        <input list="Customers" id="Select_Customers" autocomplete="off" onclick="this.select();" name="Select_Customers" value="<?php echo $cust_name; ?>" class="w3-input" required type="text" placeholder="Select Customer" onchange="getCustomerId();">  
                         <input type="hidden" name="customer_id" id="customer_id">                                      
                         <datalist id="Customers">
                             <?php foreach ($customers['status_message'] as $result) { ?>
@@ -446,7 +392,29 @@ error_reporting(E_ERROR | E_PARSE);
         });
     </script>
     <!-- script end -->
-
+<script>
+//function gethousingHistory(){
+//     Profiles = $('#Profiles_' + rownum + ' [value="' + $('#Select_Profiles_' + rownum).val() + '"]').data('value');
+//     customers = $('#Customers option[value="' + $('#Select_Customers').val() + '"]').data('value');
+//     
+//     $("#MaterialDiv_" + rownum).html('<center><img width="auto" height="auto" src="'+BASE_URL+'css/logos/page_spinner3.gif"/></center>');
+//                  //------------profile image data 
+//            $.ajax({
+//                type: "POST",
+//                url: "<?php echo base_url(); ?>inventory/Manage_materials/GetProfileInformation",
+//                data: {
+//                    Profiles: Profiles,
+//                    Profile_num: rownum
+//                },
+//                cache: false,
+//                success: function (data) {
+//                //alert(data);
+//                $('#MaterialDiv_' + rownum).html(data);
+//                //$('#Housing_Div').css('display', 'block');                            // this fun is used for show housing div on checkbox of housing
+//            }
+//        });
+//}
+//</script>
     <script>
         //------------get best tube-------------
         function getBest_tube(fieldnum, countnum) {

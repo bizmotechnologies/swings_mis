@@ -112,4 +112,10 @@ class ManageMaterial_api extends REST_Controller {
         $response = $this->ManageMaterial_model->Get_housingData($Profiles);
         return $this->response($response);
     }
+    public function gethousingHistory_get(){
+        $Profiles = $_GET['Profiles'];
+        $cusomer_id = $_GET['customer_id'];
+        $response = $this->ManageMaterial_model->gethousingHistory($Profiles,$cusomer_id);
+        return $this->response($response);
+    }
 }
