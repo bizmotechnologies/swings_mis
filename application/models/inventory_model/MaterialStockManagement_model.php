@@ -479,7 +479,7 @@ class MaterialStockManagement_model extends CI_Model {
         $resultnew = $this->db->query($sql);
         if ($resultnew->num_rows() <= 0) {
             $sqlnew = "INSERT INTO material_category(material_id,material_name,category_a,category_b,category_c,category_d,category_e,category_f,category_g) 
-        values('$material_id','$material_info','$category_a','$category_b','$category_c','$category_d','$category_e','$category_f','$category_g')";
+        values('$material_id','$material_info','$Category_a','$Category_b','$Category_c','$Category_d','$Category_e','$Category_f','$Category_g')";
             //echo $sqlnew;die();
             $resultnew = $this->db->query($sqlnew);
             if ($resultnew) {

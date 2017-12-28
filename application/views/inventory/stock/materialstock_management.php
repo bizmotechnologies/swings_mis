@@ -217,7 +217,7 @@ $branch_name=$this->session->userdata('branch_name');
 $(function (){
     $("#addMaterialCategoryForm").submit(function (){
        dataString = $("#addMaterialCategoryForm").serialize();
-        //alert(dataString);
+        alert(dataString);
         $.ajax({
             type: "POST",
             url: BASE_URL + "inventory/MaterialStock_Management/saveMaterialCategory",
