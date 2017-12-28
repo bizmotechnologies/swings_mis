@@ -46,12 +46,13 @@ $branch_name=$this->session->userdata('branch_name');
 
                 <div class="tab-pane active" id="RawMaterialStock">  <!-- tab for Raw material starts here -->
 
-                    <div class="col-lg-12"><label>Add new Material</label>
+                    <div class="col-lg-12">
+                        <label>Add new Material</label>
                     </div>
                     <div class="w3-col l12 w3-margin-top w3-small">
                         <form id="Add_material_form">
 
-                            <div class="w3-col l3 w3-padding-left w3-padding-bottom">
+                            <div class="w3-col l4 w3-padding-left w3-padding-bottom">
                                 <label class="w3-label">Material Name:</label>
                                 <input type="text" placeholder="Material Name" class="form-control" style="text-transform:uppercase;" id="material_nameForStock" name="material_nameForStock" required>
                             </div>
@@ -78,10 +79,66 @@ $branch_name=$this->session->userdata('branch_name');
                                 </span>
                             </div>
                         </div>
-
+                        
                         <div class="w3-col l12" id="addMaterial_err"></div>
-                    </div><br>
-                    <div class="w3-col l12 w3-padding"><!-- table container -->
+                    </div><br><br>
+                    <div class="w3-col l12" id="categoryDiv">
+                        <form id="addMaterialCategoryForm" name="addMaterialCategoryForm">
+                         <hr>
+                        <label class="w3-padding-left">Material Category</label>
+                    <div class="w3-col l12 w3-margin-top">
+                        <div class="w3-col l2 w3-padding-left">
+                            <label class="w3-label">Material Name:</label> 
+                            <input list="Materials" id="material_info" autocomplete="off" onclick="this.select();" name="material_info" value="<?php echo $cust_name; ?>" class="form-control" required type="text" placeholder="Select material" onchange="getMaterialId();">  
+                            <input type="hidden" name="material_id" id="material_id">                                      
+                            <datalist id="Materials">
+                                <?php foreach ($materials['status_message'] as $result) { ?>
+                                    <option data-value="<?php echo $result['material_id']; ?>" value='<?php echo $result['material_name'] . '-' . $result['material_color']; ?>'></option>
+                                <?php } ?>
+                            </datalist>
+                        </div>
+                        <div class="w3-col l7">
+                        <div class="w3-col l12">
+                            <div class="w3-col l2 w3-center w3-padding-left">
+                            <label class="w3-label ">A</label>
+                            <input type="text" value="2.65" step="0.01" placeholder="material category" id="Category_a" name="Category_a" class="form-control" required>                                                            
+                            </div>
+                            <div class="w3-col l2  w3-center w3-padding-left">
+                            <label class="w3-label">B</label>
+                            <input type="text" autocomplete="off" value="2.65" step="0.01" placeholder="material category" id="Category_b" name="Category_b" class="form-control" required>                                                            
+                            </div>
+                            <div class="w3-col l2  w3-center w3-padding-left">
+                            <label class="w3-label ">C</label>
+                            <input type="text" autocomplete="off" value="2.65" step="0.01" placeholder="material category" id="Category_c" name="Category_c" class="form-control" required>                                                            
+                            </div>
+                            <div class="w3-col l2 w3-center w3-padding-left">
+                            <label class="w3-label">D</label>
+                            <input type="text" autocomplete="off" value="2.65" step="0.01" placeholder="material category" id="Category_d" name="Category_d" class="form-control" required>                                                            
+                            </div>
+                            <div class="w3-col l2 w3-center w3-padding-left">
+                            <label class="w3-label">E</label>
+                            <input type="text" autocomplete="off" value="2.65" step="0.01" placeholder="material category" id="Category_e" name="Category_e" class="form-control" required>                                                            
+                            </div>                         
+                            <div class="w3-col l2 w3-center w3-padding-left">
+                            <label class="w3-label">F</label>
+                            <input type="text" autocomplete="off" value="2.65" step="0.01" placeholder="material category" id="Category_f" name="Category_f" class="form-control" required>                                                            
+                            </div>
+                            <div class="w3-col l2 w3-center w3-padding-left">
+                            <label class="w3-label">G</label>
+                            <input type="text" autocomplete="off" value="2.65" step="0.01" placeholder="material category" id="Category_g" name="Category_g" class="form-control" required>                                                            
+                            </div> 
+                        </div>
+                        </div>
+                        <div>
+                           <div class="w3-col l1 w3-margin-right w3-padding-right w3-right">
+                             <button class="btn w3-blue w3-margin-top" type="submit" id="Save_materialCategoryBtn" name="Save_materialCategoryBtn">Add Category</button>
+                            </div> 
+                        </div>
+                    </div>
+                    </form>
+                     <div class="w3-col l12"id="categoryError"></div>
+                    </div>
+                    <div class="w3-col l12"><!-- table container -->
                         <hr>
                         
                         <div class="">
@@ -148,7 +205,34 @@ $branch_name=$this->session->userdata('branch_name');
                             </div>
                         </div>
                     </div><!-- table container ends here -->
+<script>
+  function getMaterialId(){
 
+    customer_id = $('#Materials [value="' + $('#material_info').val() + '"]').data('value');
+    $('#material_id').val(customer_id);
+  }
+</script>
+<script>
+/* this function is used for show total material stocks quantity*/
+$(function (){
+    $("#addMaterialCategoryForm").submit(function (){
+       dataString = $("#addMaterialCategoryForm").serialize();
+        //alert(dataString);
+        $.ajax({
+            type: "POST",
+            url: BASE_URL + "inventory/MaterialStock_Management/saveMaterialCategory",
+            data: dataString,
+            return: false, //stop the actual form post !important!
+            success: function (data)
+            {
+                $("#categoryError").html(data);
+                $("#categoryDiv").load(location.href + " #categoryDiv>*", "");
+            }
+        });
+        return false; //stop the actual form post !important! 
+    });
+});
+</script>
                     <!-- script to delete raw material stock -->
                     <script>
                         function delete_rawMaterial(row_id)
@@ -174,6 +258,9 @@ $branch_name=$this->session->userdata('branch_name');
                        }
                    </script>
                    <!-- script to delete raw material stock -->
+                   <script>
+                   
+                   </script>
                    <!-- script to update raw material stock -->
                    <script>
                     function update_rawMaterial(row_id)

@@ -472,7 +472,30 @@ class MaterialStockManagement_model extends CI_Model {
     }
 
     /* this fun ends here */
+    //----this fun is used to save material category -------------------------------//
+    public function saveMaterialCategory($data){        
+        extract($data);
+        $sql = "SELECT * FROM material_category WHERE material_id='$material_id'";
+        $resultnew = $this->db->query($sql);
+        if ($resultnew->num_rows() <= 0) {
+            $sqlnew = "INSERT INTO material_category(material_id,material_name,category_a,category_b,category_c,category_d,category_e,category_f,category_g) 
+        values('$material_id','$material_info','$category_a','$category_b','$category_c','$category_d','$category_e','$category_f','$category_g')";
+            //echo $sqlnew;die();
+            $resultnew = $this->db->query($sqlnew);
+            if ($resultnew) {
+                $response = array(
+                    'status' => 1,
+                    'status_message' => 'Categories Saved Successfully..!');
+            } else {
+                $response = array(
+                    'status' => 0,
+                    'status_message' => 'Categories Not Saved Successfully...!');
+            }
+        }
+        return $response;
+    }
 
+    //----this fun is used to save material category -------------------------------//
 
     /* --------------------------this fun for save raw material details----------------------------------------------- */
     public function Excelto_DB($data) {

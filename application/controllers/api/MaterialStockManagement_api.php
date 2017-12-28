@@ -124,41 +124,61 @@ class MaterialStockManagement_api extends REST_Controller {
         return $this->response($result);
     }
 
-//---------------------- 
+//---------------------- this fun is used to update purchased products-----------------------//
+//---------------------- this fun is used to Delete purchased products-----------------------//
     public function DeletePurchasedStockDetails_get() {
 
         $data = $_GET;
         $response = $this->MaterialStockManagement_model->DeletePurchasedStockDetails($data);
         return $this->response($response);
     }
+//---------------------- this fun is used to Delete purchased products-----------------------//
+//---------------------- this fun is used to save purchased products-----------------------//
 
     public function Save_FinishedProduct_Info_post() {
         $data = $_POST;
         $response = $this->MaterialStockManagement_model->Save_FinishedProduct_Info($data);
         return $this->response($response);
     }
+//---------------------- this fun is used to save finished products-----------------------//
+//---------------------- this fun is used to get finished products details-----------------------//
 
     public function GetFinishedInformationDetails_get() {
         $result = $this->MaterialStockManagement_model->GetFinishedInformationDetails();
         return $this->response($result);
     }
+//---------------------- this fun is used to get finished products details-----------------------//
+//---------------------- this fun is used to update finished products details-----------------------//
 
     public function Update_Finishedproducts_Info_post() {
         $data = $_POST;
         $result = $this->MaterialStockManagement_model->Update_Finishedproducts_Info($data);
         return $this->response($result);
     }
+//---------------------- this fun is used to update finished products details-----------------------//
+//---------------------- this fun is used to Delete finished products details-----------------------//
 
     public function DeleteFinishedProductDetails_get() {
         $data = $_GET;
         $response = $this->MaterialStockManagement_model->DeleteFinishedProductDetails($data);
         return $this->response($response);
     }
+//---------------------- this fun is used to Delete finished products details-----------------------//
+//---------------------- this fun is used to get price from price list-----------------------//
 
     public function GetPriceFromPriceList_post() {
         $data = $_POST;
         $response = $this->MaterialStockManagement_model->GetPriceFromPriceList($data);
         return $this->response($response);
     }
+    //---------------------- this fun is used to get price from price list-----------------------//
+//---------------------- this fun is used to save material category in material category table-----------------------//
+
+    public function saveMaterialCategory_post(){
+        $data = $_POST;
+        $response = $this->MaterialStockManagement_model->saveMaterialCategory($data);
+        return $this->response($response);
+    }
+    //---------------------- this fun is used to save material category in material category table-----------------------//
 
 }

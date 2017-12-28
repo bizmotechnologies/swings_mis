@@ -17,7 +17,7 @@ $(function () {
         return false; //stop the actual form post !important!
     });
 });
-/* this function is used for show total material stocks quantity*/
+
 function ShowMaterialStock() {
 
     dataString = 'Select_Materials_Id=' + $("#Select_Materials_Id").val();

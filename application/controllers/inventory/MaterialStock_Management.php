@@ -108,8 +108,45 @@ class MaterialStock_Management extends CI_controller {
       </script>';
   }
 }
+public function saveMaterialCategory(){
+        extract($_POST);
+        $data = $_POST;
+        //print_r($data);die();
+        $path = base_url();
+        $url = $path . 'api/MaterialStockManagement_api/saveMaterialCategory';
+        $ch = curl_init($url);
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $response_json = curl_exec($ch);
+        curl_close($ch);
+        $response = json_decode($response_json, true);
+        if ($response['status'] == 0) {
+        echo'<div class="alert alert-danger w3-margin" style="text-align: center;">
+            <strong>' . $response['status_message'] . '</strong> 
+            </div>
+            <script>
+            window.setTimeout(function() {
+               $(".alert").fadeTo(500, 0).slideUp(500, function(){
+                  $(this).remove(); 
+              });
+          }, 1000);
+          </script>';
+        } else {
+            echo'<div class="alert alert-success w3-margin" style="text-align: center;">
+        <strong>' . $response['status_message'] . '</strong> 
+        </div>
+        <script>
+        window.setTimeout(function() {
+           $(".alert").fadeTo(500, 0).slideUp(500, function(){
+              $(this).remove(); 
+          });
+      }, 1000);
+      </script>';
+        }
+    }
 
-    //-----------------------------api to fetch excel to db-------------//
+//-----------------------------api to fetch excel to db-------------//
 public function EXCELDB() {
 
     $data = 'rdrdh';
