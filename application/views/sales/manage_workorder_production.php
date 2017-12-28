@@ -46,16 +46,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <div class="w3-col l12 w3-padding-top">
                     <div class="w3-content w3-margin-top" style="max-width:1400px;">
                         <!-- The Grid -->
-                        <div class="w3-col l12">
+                        <div class="w3-col l12 w3-padding">
                             <!-- Left Column -->
-                            <div class="w3-col l2">        
-                                <div class="w3-white w3-text-grey w3-card-4">
-                                    <div class="w3-display-container">
-                                        <img src="http://localhost/swings_mis/images/desktop/SS01_UTEC_1-0.jpg"alt="Avatar">
+                            <div class="w3-col l2 w3-padding w3-border w3-round-large">        
+                                <div class="w3-white w3-text-grey">
+                                    <div class="w3-col l12">
+                                        <img class="img img-responsive" src="<?php echo base_url(); ?>css/logos/login.jpg" alt="Seal-Wings Pvt. Ltd.">
                                     </div>
                                     <div class="w3-container">
                                         <hr>
-                                        <div id="Demo1" class="w3-col l12 w3-bar-block">
+                                        <div id="Demo1" class="w3-col l12 w3-bar-block w3-grey">
                                             <?php foreach ($wo_info['status_message'] as $result) { 
                                                  $color='';
                                                 $Status=$result['scheduler_status'];
@@ -73,7 +73,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                 ?>
                                                 <div class="w3-col l12">
                                                     <div class="w3-bar-item <?php echo $color;?> w3-button w3-border-bottom w3-hover-black test">
-                                                        <a class="btn w3-medium" onclick="show_Work_Orderinfo(<?php echo $result['wo_id']; ?>);">Work Order-<?php echo $result['wo_id']; ?></a>
+                                                        <a class="btn w3-medium w3-text-white" onclick="show_Work_Orderinfo(<?php echo $result['wo_id']; ?>);"><b>#WO-0<?php echo $result['wo_id']; ?></b></a>
                                                     </div>
                                                 </div>
                                             <?php } ?>
