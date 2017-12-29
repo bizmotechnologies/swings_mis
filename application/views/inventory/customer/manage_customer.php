@@ -134,7 +134,7 @@ error_reporting(E_ERROR | E_PARSE);
                                 <label for="CustomerAddress" class="control-label w3-right w3-padding-right">Customer Address:</label>
                                 </td>
                                 <td>
-                                <textarea name="Updated_CustomerAddress" rows="5" id="Updated_CustomerAddress" value="" class="form-control" placeholder="Customer Address" required>' . $details['status_message'][$i]['customer_address'] . '</textarea><br>
+                                <textarea name="Updated_CustomerAddress" rows="5" id="Updated_CustomerAddress" value="" class="form-control" style="resize:none;" placeholder="Customer Address" required>' . $details['status_message'][$i]['customer_address'] . '</textarea><br>
                                 </td>
                                 </tr>
 

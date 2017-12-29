@@ -116,6 +116,20 @@ class Manage_materials extends CI_controller {
                     }
                     echo'</datalist>';
                     //------this div for material image and id and od for talerance information div---------//
+                    echo'
+                    <div class="w3-col l12 w3-padding-top">
+                    <label>Material Category</label>                
+                    <select class="w3-input" name="material_Category_'.$Profile_num.'_'.$count.'" id="material_Category_'.$Profile_num.'_'.$count.'" required> <!-- this is for showing material stocks quantity -->
+                    <option>Select Category</option>                                    
+                    <option value="category_a">A</option>
+                    <option value="category_b">B</option>
+                    <option value="category_c">C</option>
+                    <option value="category_d">D</option>
+                    <option value="category_e">E</option>
+                    <option value="category_f">F</option>
+                    <option value="category_g">G</option>
+                    <select>
+                    </div>';
                     echo'<div class="w3-col l6 s6 w3-padding-top">
                     <label>Material Image</label>                
                     <img class="img img-thumbnail" alt="Material Image not found" width="100px" height="auto" src="'.base_url().''.$key['material_image'].'" onerror="this.src=\''.base_url().'images/default_image.png\'">
@@ -189,6 +203,7 @@ class Manage_materials extends CI_controller {
 
                     echo'<div class="w3-col l2 w3-padding-left">
                     <label>AVAILABLE PRICE</label><input id="Available_Price_'.$Profile_num.'_'.$count.'" name="Available_Price[]" value="" class="w3-input" min="0" step="0.01" required type="number" placeholder="Available Price" onkeyup="GetFinalPriceForMaterialCalculation('.$Profile_num.','.$count.');">
+                                        
                     </div>';
                     //------this div for available tube and available price information div---------// 
                     //------this div for material quantity information div---------// 
