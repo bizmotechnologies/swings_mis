@@ -141,7 +141,7 @@ error_reporting(E_ERROR | E_PARSE);
     }
 }
 </script>
-<script>
+<script>//----this code is used for get the material category as per customer id--------------------//
 function getMaterialCategoryByCstomer(fieldnum, countnum){
         MaterialOD = 0;
         var MaterialOD = [];
@@ -166,6 +166,8 @@ function getMaterialCategoryByCstomer(fieldnum, countnum){
             }
         });
 }
+
+//----this code is used for get the material category as per customer id--------------------//
 </script>
     <script>
         function GetProductfinalPrice(rownum){
@@ -414,7 +416,7 @@ function getMaterialCategoryByCstomer(fieldnum, countnum){
     --> 
     <script>
         $('#myModalnew').on('hidden.bs.modal', function () {
-            //location.reload();
+            location.reload();
         });
     </script>
     <!-- script end -->

@@ -71,7 +71,7 @@ $branch_name=$this->session->userdata('branch_name');
                                 <select class="form-control" name="Select_NewMaterials_Id" id="Select_NewMaterials_Id" required> <!-- this is for showing material stocks quantity -->
                                     <option>Select Material</option>
                                     <?php foreach ($materials['status_message'] as $result) { ?>
-                                    <option value='<?php echo $result['material_id']; ?>' ><?php echo $result['material_name'] . '-' . $result['material_color']; ?></option>
+                                    <option value='<?php echo $result['material_id']; ?>' ><?php echo $result['material_name']; ?></option>
                                     <?php } ?>
                                 </select>
                                 <span class="input-group-btn">

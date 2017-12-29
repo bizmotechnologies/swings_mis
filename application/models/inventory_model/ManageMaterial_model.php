@@ -19,6 +19,19 @@ class ManageMaterial_model extends CI_Model {
         }
         return $response; 
     }
+    public function getMaterialCategory($Select_material,$material_Category){
+       $query = "SELECT $material_Category FROM material_category WHERE material_name='$Select_material'";
+       //echo $query;die();
+        $result = $this->db->query($query);
+        if ($result->num_rows() > 0) {
+            $response = $result->result_array();
+        } else {
+            $response = array(
+                'status' => 0,
+                'status_message' => 'No records found');
+        }
+        return $response; 
+    }
 
     public function getMaterialrecord() { /* this  function is used for material records  */
         $query = "SELECT * FROM materials";

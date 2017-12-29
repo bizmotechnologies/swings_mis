@@ -157,7 +157,7 @@ class Manage_materials extends CI_controller {
                     echo'
                     <div class="w3-col l12 w3-padding-top">
                     <label>Material Category</label>                
-                    <select class="w3-input" name="material_Category_'.$Profile_num.'_'.$count.'[]" id="material_Category_'.$Profile_num.'_'.$count.'" required> <!-- this is for showing material stocks quantity -->
+                    <select class="w3-input" name="material_Category[]" id="material_Category_'.$Profile_num.'_'.$count.'" required> <!-- this is for showing material stocks quantity -->
                     <option>Select Category</option>                                    
                     <option value="category_a">A</option>
                     <option value="category_b">B</option>
@@ -313,7 +313,7 @@ class Manage_materials extends CI_controller {
     public function SaveProductsForEnquiry() {
         //$data = $_POST;
         extract($_POST);
-
+        //print_r($_POST);die();
         if(!isset($Select_Profiles)){
             echo 'Add at least 1 Product in Enquiry';
             die();
@@ -387,13 +387,15 @@ class Manage_materials extends CI_controller {
     if(in_array($Select_material[$i],$make_boughtOut[$prod+1])){        
         $boughtoutMaterial=1;//if material is bought out from supplier... i.e. bought out material.
     }
-
+    
+    $this->load->model('inventory_model/ManageMaterial_model');
+    $profit_marginNew = $this->ManageMaterial_model->getMaterialCategory($Select_material[$i],$material_Category[$i]);
     // -----------profit calculation for material--------------------
+    $profit_margin = $profit_marginNew[0][$material_Category[$i]];
     $profit=0.00;
-    $profit_margin=2.65;
 
     if($boughtoutMaterial==0){
-    $profit=$final_Price[$i] * (($profit_margin - 1)/$profit_margin);
+    $profit = $final_Price[$i] * (($profit_margin - 1)/$profit_margin);
     }
 
 //----this array for material details
@@ -413,7 +415,7 @@ class Manage_materials extends CI_controller {
     );
     //print_r($make_boughtOut);
 //----this array for material details
-
+               // print_r($material_Arr);                die();
 }
 //----this array for profile details
 $profile_arr[] = array(
@@ -453,7 +455,7 @@ $response = json_decode($response_json, true);
 
 }
 
-print_r($response_json);die();
+//print_r($response_json);die();
 
 $data['customer_id']=$customer_id;
 $data['customer_name']=$Select_Customers;
