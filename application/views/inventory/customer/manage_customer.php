@@ -162,7 +162,7 @@ error_reporting(E_ERROR | E_PARSE);
                                         <label for="defaultmargin" class="control-label w3-right">50>OD>350</label>
                                     </div>
                                     <div class="w3-col l7 w3-margin-bottom">
-                                    <select class="form-control" name="Select_profitCategoryOne" id="Select_profitCategoryOne" required> <!-- this is for showing material stocks quantity -->
+                                    <select class="form-control" name="UpdateSelect_profitCategoryOne" id="UpdateSelect_profitCategoryOne" required> <!-- this is for showing material stocks quantity -->
                                     <option>Select Category</option>                                    
                                     <option value="category_a"'; if($details['status_message'][$i]['profit_for_odgreater']=='category_a'){echo 'selected';} echo'>A</option>
                                     <option value="category_b"'; if($details['status_message'][$i]['profit_for_odgreater']=='category_b'){echo 'selected';} echo'>B</option>
@@ -178,7 +178,7 @@ error_reporting(E_ERROR | E_PARSE);
                                         <label for="defaultmargin" class="control-label w3-right">50<&nbsp;OD<350</label> 
                                    </div>
                                     <div class="w3-col l7 w3-margin-bottom">
-                                    <select class="form-control" name="Select_profitCategoryTwo" id="Select_profitCategoryTwo" required> <!-- this is for showing material stocks quantity -->
+                                    <select class="form-control" name="UpdateSelect_profitCategoryTwo" id="UpdateSelect_profitCategoryTwo" required> <!-- this is for showing material stocks quantity -->
                                     <option>Select Category</option>                                    
                                     <option value="category_a"'; if($details['status_message'][$i]['profit_for_odsmall']=='category_a'){echo 'selected';} echo'>A</option>
                                     <option value="category_b"'; if($details['status_message'][$i]['profit_for_odsmall']=='category_b'){echo 'selected';} echo'>B</option>

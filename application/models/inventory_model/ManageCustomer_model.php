@@ -55,7 +55,7 @@ class ManageCustomer_model extends CI_Model {
   customer_email = '$Updated_CustomerEmail',customer_address = '$Updated_CustomerAddress',contact = '$contact',
   bank_name = '$Updated_Bank_name' ,bank_address = '$Updated_Bank_Address' ,
   account_no = '$Updated_Bank_AccNo' , IFSC_no = '$Updated_Bank_IFSC_Code' ,
-  MICR_no = '$Updated_Bank_MICR_Code' ,PAN_no = '$Updated_PAN_No' WHERE cust_id ='$new_Cust_id'";
+  MICR_no = '$Updated_Bank_MICR_Code' ,PAN_no = '$Updated_PAN_No',profit_for_odgreater='$UpdateSelect_profitCategoryOne',profit_for_odsmall='$UpdateSelect_profitCategoryTwo' WHERE cust_id ='$new_Cust_id'";
         //echo $sql; die();
         $resultUpadateCustomerDetails = $this->db->query($sql);
 
