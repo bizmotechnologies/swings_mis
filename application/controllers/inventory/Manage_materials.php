@@ -23,8 +23,39 @@ class Manage_materials extends CI_controller {
         $this->load->view('includes/navigation');
         $this->load->view('inventory/materials/manage_material', $data);
     }
-
-
+//---this fun is used to get material category by customer id----------------------//
+    public function getMaterialCategoryByCstomer(){
+        extract($_POST);
+        //print_r($_POST);
+        $material_OD = '';
+        $material_OD = max($MaterialOD);
+        $path = base_url();
+        $url = $path . 'api/ManageMaterial_api/getMaterialCategoryByCstomer?customer_id='.$Customer;
+        $ch = curl_init($url);
+        curl_setopt($ch, CURLOPT_HTTPGET, true);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $response_json = curl_exec($ch);
+        curl_close($ch);
+        $response = json_decode($response_json, true);
+        //print_r($response['status_message'][0]);
+        $smallCriteria='';
+        $greaterCriteria='';
+        $criteria='';
+        if ($response['status'] == 1) {
+            
+            foreach ($response['status_message'] as $key){
+                $greaterCriteria = $key['profit_for_odgreater'];
+                $smallCriteria = $key['profit_for_odsmall'];
+            }
+            if($material_OD > 350 || $material_OD > 50){
+               $criteria = $greaterCriteria;
+            }elseif ($material_OD < 350 || $material_OD < 50) {
+               $criteria = $smallCriteria;
+            }
+        }
+        echo $criteria;
+    }
+//---this fun is used to get material category by customer id----------------------//
 //--------this fun is uded to get all values of material----------// 
     public function GetMaterialInformation_ForEnquiry() {
         extract($_POST);
@@ -40,7 +71,6 @@ class Manage_materials extends CI_controller {
         print_r($response);
 //echo ($response_json);
     }
-
 //--------this fun is used to get all values of material----------// 
 //--------this fun is used to get all information of Profile----------// 
     public function GetProfileInformation() {
@@ -49,7 +79,15 @@ class Manage_materials extends CI_controller {
 
         extract($_POST);
         //print_r($_POST);
-               
+//        $path = base_url();
+//        $url = $path . 'api/ManageMaterial_api/GetMaterialCategoriesByCustomer?customer_id='.$Customer;
+//        $ch = curl_init($url);
+//        curl_setopt($ch, CURLOPT_HTTPGET, true);
+//        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+//        $response_json = curl_exec($ch);
+//        curl_close($ch);
+//        $response = json_decode($response_json, true);
+        
         $path = base_url();
         $url = $path . 'api/ManageMaterial_api/GetProfileInformation?Profiles='.$Profiles;
         $ch = curl_init($url);
@@ -119,7 +157,7 @@ class Manage_materials extends CI_controller {
                     echo'
                     <div class="w3-col l12 w3-padding-top">
                     <label>Material Category</label>                
-                    <select class="w3-input" name="material_Category_'.$Profile_num.'_'.$count.'" id="material_Category_'.$Profile_num.'_'.$count.'" required> <!-- this is for showing material stocks quantity -->
+                    <select class="w3-input" name="material_Category_'.$Profile_num.'_'.$count.'[]" id="material_Category_'.$Profile_num.'_'.$count.'" required> <!-- this is for showing material stocks quantity -->
                     <option>Select Category</option>                                    
                     <option value="category_a">A</option>
                     <option value="category_b">B</option>
@@ -172,7 +210,7 @@ class Manage_materials extends CI_controller {
                     for ($k = 0; $k < $key['OD_quantity']; $k++) {
 
                         echo'<label>OD</label>
-                        <input list="MaterialOD_'.$Profile_num.'_'.$count.'_'.$k.'" value="" id="Select_OD_'.$Profile_num.'_'.$count.'_'.$k.'" name="Select_OD['.$Profile_num.'][]" class="w3-input" type="text" min="0" placeholder="OD">
+                        <input list="MaterialOD_'.$Profile_num.'_'.$count.'_'.$k.'" value="" id="Select_OD_'.$Profile_num.'_'.$count.'_'.$k.'" name="Select_OD['.$Profile_num.'][]" class="w3-input" type="text" min="0" placeholder="OD" onkeyup="getMaterialCategoryByCstomer('.$Profile_num.','.$count.');">
                         <datalist id="MaterialOD_'.$Profile_num.'_'.$count.'_'.$k.'">
                         </datalist>';
                     }

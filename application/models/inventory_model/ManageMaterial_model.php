@@ -4,6 +4,21 @@ if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
 class ManageMaterial_model extends CI_Model {
+    
+    public function getMaterialCategoryByCstomer($customer_id){
+       $query = "SELECT profit_for_odgreater,profit_for_odsmall FROM customer_details WHERE cust_id='$customer_id'";
+        $result = $this->db->query($query);
+        if ($result->num_rows() > 0) {
+            $response = array(
+                'status' => 1,
+                'status_message' => $result->result_array());
+        } else {
+            $response = array(
+                'status' => 0,
+                'status_message' => 'No records found');
+        }
+        return $response; 
+    }
 
     public function getMaterialrecord() { /* this  function is used for material records  */
         $query = "SELECT * FROM materials";

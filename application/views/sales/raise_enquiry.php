@@ -141,6 +141,32 @@ error_reporting(E_ERROR | E_PARSE);
     }
 }
 </script>
+<script>
+function getMaterialCategoryByCstomer(fieldnum, countnum){
+        MaterialOD = 0;
+        var MaterialOD = [];
+        Customer = $('#Customers [value="' + $('#Select_Customers').val() + '"]').data('value');
+        $("#Div_no_" + fieldnum + "_" + countnum + " input[name='Select_OD[" + fieldnum + "][]']").each(function (){
+               if($(this).val() ){
+                MaterialOD.push($(this).val());
+            }
+        });
+        $.ajax({
+                type: "POST",
+                url: "<?php echo base_url(); ?>inventory/Manage_materials/getMaterialCategoryByCstomer",
+                data: {
+                    MaterialOD: MaterialOD,
+                    Customer: Customer,
+                    Profile_num: fieldnum,
+                    Count_num: countnum
+                },
+                cache: false,
+                success: function (data) {
+                $('#material_Category_' + fieldnum + '_' + countnum).val(data);
+            }
+        });
+}
+</script>
     <script>
         function GetProductfinalPrice(rownum){
 

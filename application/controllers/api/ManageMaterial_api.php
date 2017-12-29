@@ -107,15 +107,27 @@ class ManageMaterial_api extends REST_Controller {
     }
 
     //--------------this fun is used to get profile image-------------------//
+    //--------------this fun is used to get housing data-------------------//
     public function Get_housingData_get(){
         $Profiles = $_GET['profile_id'];
         $response = $this->ManageMaterial_model->Get_housingData($Profiles);
         return $this->response($response);
     }
+    //--------------this fun is used to get housing data-------------------//
+    //--------------this fun is used to get housing history data-------------------//
     public function gethousingHistory_get(){
         $Profiles = $_GET['Profiles'];
         $cusomer_id = $_GET['customer_id'];
         $response = $this->ManageMaterial_model->gethousingHistory($Profiles,$cusomer_id);
         return $this->response($response);
     }
+    //--------------this fun is used to get housing history data-------------------//
+    //--------------this fun is used to get material category details-------------------//
+    public function getMaterialCategoryByCstomer_get() {
+        $customer_id = $_GET['customer_id'];
+        $response = $this->ManageMaterial_model->getMaterialCategoryByCstomer($customer_id);
+        return $this->response($response);
+    }
+    //--------------this fun is used to get material category details-------------------//
+    
 }
