@@ -54,20 +54,6 @@ class Manage_workorder_production extends CI_Controller {
         if($response['status'] == 0){
            echo $response['status_message']; 
         }else{
-        
-//        echo'<table class="table table-bordered">
-//      <tbody>
-//      <tr>
-//      <th class="text-right">Customer Name:</th>
-//      <td>'.$key['customer_name'].'</th>
-//      <th class="text-right">Date:</td>
-//      <td>'.$date.'</td>
-//      <th class="text-right">Work Order No:</th>
-//      <td>#WO-0'.$key['wo_id'].'</td>
-//      </tr>
-//      </tbody>
-//      </table>';
-
       echo'<div class="w3-col-l12 w3-small">
       <table class="table table-bordered table-responsive">
       <tr>
@@ -86,18 +72,15 @@ class Manage_workorder_production extends CI_Controller {
       <th>Branch Name</th>
       </tr>
       <tbody>';
-      $count=1;
-                  
-
-                  if($key['approved']=='approved'){
-                    $current_stat='approved';
-                    $color='w3-green';
-                  }else{
-                     $current_stat='rejected';
-                     $color='w3-red'; 
-                  }
-      foreach ($response['status_message'] as $key) {
-        //$date=date('d/m/Y',strtotime($key['dated'])); 
+      $count=1;                
+            if ($key['approved'] == 'approved') {
+            $current_stat = 'approved';
+            $color = 'w3-green';
+            } else {
+            $current_stat = 'rejected';
+            $color = 'w3-red';
+            }
+            foreach ($response['status_message'] as $key) {
       echo'<tr>
       <td>'.$count.'</td>
       <td>'.$key['wo_id'].'</td>
@@ -118,8 +101,7 @@ class Manage_workorder_production extends CI_Controller {
       </div>';
       $count++;
             }
-        }
-        
+        }        
     }
 
 //----this fun is used to verify the alloted length and consume length-------------------------//
@@ -179,10 +161,8 @@ class Manage_workorder_production extends CI_Controller {
                 <label>Reason For Change Length / Material:</label>
                 <input type="text" class="form-control" id="reasonForchange" name="reasonForchange[]">
                 </div>
-                </div>';
-                
-            }else{
-                
+                </div>';                
+            }else{                
             }
         }
         $count++;
@@ -203,18 +183,18 @@ class Manage_workorder_production extends CI_Controller {
         $response_json = curl_exec($ch);
         curl_close($ch);
         $response = json_decode($response_json, true);
-         //print_r($response);
 
-        if ($response['status']==0) {
-          echo $response['status_message'];  
-  } else {
-    foreach ($response['status_message'] as $key) {
-      $date=date('d/m/Y',strtotime($key['dated'])); 
-      echo'
+        if ($response['status'] == 0) {
+            echo $response['status_message'];
+        } else {
+            foreach ($response['status_message'] as $key) {
+                $date = date('d/m/Y', strtotime($key['dated']));
+                echo'
        <form id="productionForm" name="productionForm" type="post">';
-      if($key['query_status'] == 1){$hide = "w3-hide";}
-      
-      echo'<div id="" class="w3-col l12 w3-small">
+                if ($key['query_status'] == 1) {
+                    $hide = "w3-hide";
+                }
+        echo'<div id="" class="w3-col l12 w3-small">
         <a class="w3-button btn w3-red '.$hide.'" id="startTime_'.$key['wo_id'].'" onclick="update_start_time('.$key['wo_id'].');"';if($key['open'] == 'open'){ echo'disabled';} echo'>Start Time<i class="w3-margin-left fa fa-clock-o"></i></a>
         <a class="w3-button btn w3-black '.$hide.'" id="endTime_'.$key['wo_id'].'" onclick="update_end_time('.$key['wo_id'].');">End Time<i class="w3-margin-left fa fa-clock-o"></i></a>
         <hr>
@@ -380,7 +360,6 @@ class Manage_workorder_production extends CI_Controller {
       $(function () {
     $("#productionForm").submit(function () {
         dataString = $("#productionForm").serialize();
-        //alert(dataString);
         $.ajax({
             type: "POST",
             url: BASE_URL + "sales_enquiry/Manage_workorder_production/verify_materiallength",
@@ -401,7 +380,6 @@ class Manage_workorder_production extends CI_Controller {
       $(function () {
     $("#raiseQueryForm").submit(function () {
         dataString = $("#raiseQueryForm").serialize();
-        alert(dataString);
         $.ajax({
             type: "POST",
             url: BASE_URL + "sales_enquiry/Manage_workorder_production/Submit_raiseQueryDetails",
