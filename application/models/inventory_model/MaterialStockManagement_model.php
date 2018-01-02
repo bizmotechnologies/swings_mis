@@ -480,8 +480,13 @@ class MaterialStockManagement_model extends CI_Model {
         if ($resultnew->num_rows() <= 0) {
             $sqlnew = "INSERT INTO material_category(material_id,material_name,category_a,category_b,category_c,category_d,category_e,category_f,category_g) 
         values('$material_id','$material_info','$Category_a','$Category_b','$Category_c','$Category_d','$Category_e','$Category_f','$Category_g')";
-            //echo $sqlnew;die();
-            $resultnew = $this->db->query($sqlnew);
+                    $resultnew = $this->db->query($sqlnew);          
+        }else{
+            $sqlupdate = "UPDATE material_category SET material_name='$material_info',"
+                    . "category_a='$Category_a',category_b='$Category_b',category_c='$Category_c',category_d='$Category_d',"
+                    . "category_e='$Category_e',category_f='$Category_f',category_g='$Category_g' WHERE material_id='$material_id'";
+                    $resultnew = $this->db->query($sqlupdate);                      
+        }
             if ($resultnew) {
                 $response = array(
                     'status' => 1,
@@ -491,7 +496,7 @@ class MaterialStockManagement_model extends CI_Model {
                     'status' => 0,
                     'status_message' => 'Categories Not Saved Successfully...!');
             }
-        }
+        
         return $response;
     }
 

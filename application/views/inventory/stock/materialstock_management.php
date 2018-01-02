@@ -93,7 +93,7 @@ $branch_name=$this->session->userdata('branch_name');
                             <input type="hidden" name="material_id" id="material_id">                                      
                             <datalist id="Materials">
                                 <?php foreach ($materials['status_message'] as $result) { ?>
-                                    <option data-value="<?php echo $result['material_id']; ?>" value='<?php echo $result['material_name'] . '-' . $result['material_color']; ?>'></option>
+                                    <option data-value="<?php echo $result['material_id']; ?>" value='<?php echo $result['material_name']; ?>'></option>
                                 <?php } ?>
                             </datalist>
                         </div>

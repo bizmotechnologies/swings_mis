@@ -195,7 +195,7 @@ function getMaterialCategoryByCstomer(fieldnum, countnum){
     finalProductPrice = price * productDiscount / 100; //---discount on final price
     productPrice = price - finalProductPrice;  //-----total price
     $('#TotalProduct_Price_' + rownum).val(productPrice.toFixed(2));
-    showdiscountforproduct(rownum);
+    //showdiscountforproduct(rownum);
 }
 </script>
 <script>

@@ -482,9 +482,9 @@ error_reporting(E_ERROR | E_PARSE);
 
 <!-- script for reload page when modal is closed  -->
 <script>
-//            $('#myModal').on('hidden.bs.modal', function () {
-//                location.reload();
-//            });
+            $('#myModal').on('hidden.bs.modal', function () {
+                location.reload();
+            });
 </script>
 <!-- script for reload page when modal is closed  -->
 <script>
