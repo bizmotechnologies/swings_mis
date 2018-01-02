@@ -6,7 +6,7 @@ class Enquiry_model extends CI_Model{
 	//---------------get all live quotations model-------------//
 	function getlive_Quotations()
 	{
-		$query="SELECT * FROM quotation_master WHERE current_status !='0' ORDER BY quotation_id DESC";
+		$query="SELECT * FROM quotation_master WHERE current_status !='0' AND club_quote !='0' ORDER BY quotation_id DESC";
 		$result = $this->db->query($query);
 		//return $result['num'];
 

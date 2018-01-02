@@ -4,7 +4,43 @@ if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
 class QuotationForEnquiry_model extends CI_Model {
-
+    
+//---this fun is used to club or join the quotations-------------------------------//    
+    public function joinQuotations($quotations_id,$join_QuotationsArray){
+//---------------------------getting id of next join_table record-------------------------------------------------//
+        $join_Quotation = json_decode($join_QuotationsArray);
+	$sql="SELECT * FROM information_schema.TABLES WHERE TABLE_NAME ='club_table' AND TABLE_SCHEMA='swing_db'";
+        //---this sql query for get auto increment value of club table
+        $parent_id = '';
+//---the parent_id is used to get autoincrement id of club table-------------------------------------------------//        
+        $result = $this->db->query($sql);
+        foreach ($result->result_array() as $row) {
+                  $parent_id = $row['AUTO_INCREMENT'];
+            }            
+//---the parent_id is used to get autoincrement id of club table-------------------------------------------------//
+        $insert = "INSERT INTO club_table(parent_quotation,child_quotation,clubed) values('$quotations_id','$join_QuotationsArray','1')";            
+        $resultinsert = $this->db->query($insert);
+//-----------insert data in club table as per the selected quotations---------------------------------------------//        
+        if($resultinsert){            
+	foreach ($join_Quotation as $key){
+                $sqlupdate = "UPDATE quotation_master SET club_quote = '1',club_id='$parent_id' WHERE quotation_id='$quotations_id'";
+                $resultnew = $this->db->query($sqlupdate);
+//-----------update the quotation master the club quotation value is 1 and set the club id as the club table as per quotations                
+                $update = "UPDATE quotation_master SET club_quote='0' WHERE quotation_id='$key'";
+                $resultupdate = $this->db->query($update);
+//-----------update the quotation master the club quotation value is 0  as per quotations------------------------------//                                
+            }
+            $response = array(
+                'status' => 1,
+                'status_message' => 'Quotations Joined Successfully....!');
+        }else{
+            $response = array(
+                'status' => 0,
+                'status_message' => 'Quotations Joining Failed....!');
+        }
+        return $response;
+    }
+//---this fun is used to club or join the quotations-------------------------------//
 //------------this fun is for get all enquiries for quotation status-------------
     public function fetchEnquiry_For_Quotation() {
         $query = "SELECT * FROM enquiry_master WHERE current_status = '1'";

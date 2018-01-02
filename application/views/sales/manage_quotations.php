@@ -222,9 +222,10 @@ error_reporting(E_ERROR | E_PARSE);
           <div class="w3-col l12" id="Show_quotationsTable">
             <hr class="w3-margin-right w3-margin-left">
             <div id="quotation_table" class="w3-col l12 w3-padding">
+             <button class="btn w3-button w3-blue w3-margin-bottom" id="joinQuotation" data-toggle="modal" data-target="#joinQuotationsModal" name="joinQuotation">Join Quotation</button>                                      
               <table class="table table-bordered table-responsive w3-small" ><!-- table starts here -->
                 <tr style="background-color:black; color:white;" >
-                  <th class="w3-center">Sr. No</th>
+                  <th class="w3-center">Sr.&nbsp;No</th>
                   <th class="w3-center">Quotation No.</th>              
                   <th class="w3-center">Enquiry No.</th>              
                   <th class="w3-center">Customer</th>              
@@ -509,8 +510,8 @@ error_reporting(E_ERROR | E_PARSE);
                }
                ?>
              </table>
+              </form>
            </div> 
-
 
            <!-- revise quotation div start -->
            <div class="w3-col l12">
@@ -527,6 +528,108 @@ error_reporting(E_ERROR | E_PARSE);
  <div id="Input_MaterialStock"></div>
  <!-- End page content -->
 </div>
+  
+<!-- Modal -->
+<div id="joinQuotationsModal" class="modal fade" role="dialog">
+  <div class="modal-dialog modal-lg">
+
+    <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <div class="modal-title" id="msg_header"></div>
+            </div>
+
+            <div class="modal-body" >
+              <form id="showAllQuotationsForm" name="showAllQuotationsForm">
+                <div class="w3-margin-bottom"><b>Join Quotations</b></div>
+                <div id="showQuotations" name="showQuotations" class="" style="max-height: 500px; overflow-y:auto;">
+                <table class="table table-bordered table-responsive w3-small" ><!-- table starts here -->
+                <tr style="background-color:black; color:white;" >
+                  <th class="w3-center">Sr.&nbsp;No</th>
+                  <th class="w3-center">Quotation No.</th>              
+                  <th class="w3-center">Enquiry No.</th>              
+                  <th class="w3-center">Customer</th>              
+                  <th class="w3-center">Raised on</th>              
+                  <th class="w3-center">Delivery within</th>              
+                  <th class="w3-center">Current Status</th> 
+                </tr>
+                <?php 
+                $count=1; 
+                if($all_liveQuotes['status']==0){
+                  echo '<div class="alert alert-danger">
+                  <strong>'.$all_liveQuotes['status_message'].'</strong> 
+                  </div>';
+                }
+                else
+                {
+                  foreach ($all_liveQuotes['status_message'] as $key) {
+                    $date=date('d/m/y', strtotime($key['dated']));
+                    $delivery_values=explode(' ', $key['delivery_within']);
+                    $customer_id=$key['customer_id'];
+                    $customer_name=$key['customer_name'];
+                    $quotation_id=$key['quotation_id'];
+
+                    $current_stat='live';
+                    $color='w3-green';
+                    $hide='';
+
+                    if($key['current_status']=='2'){
+                      $current_stat='In WO';
+                      $color='w3-red';
+                      $hide='w3-hide';
+                    }
+
+                    echo                    
+                    '<tr class="">
+                    <td class="w3-center">'.$count.'.<input style="width:16px;height:16px;" type="checkbox" name="join_Quotations[]" id="join_Quotations" value="'.$quotation_id.'"></td>
+                    <td class="w3-center">#QUO-0'.$quotation_id.'</td>
+                    <td class="w3-center">#ENQ-0'.$key['enquiry_id'].'</td>
+                    <td class="w3-center">'.ucwords($customer_name).'</td>
+                    <td class="w3-center">'.$date.'</td>
+                    <td class="w3-center">'.$key['delivery_within'].'</td>
+                    <td class="w3-center"><span class="'.$color.' w3-text-white w3-tiny w3-padding-small w3-round">'.$current_stat.'</span></td>
+                    </tr>
+                    ';
+                    $count++;
+                    }
+                  }
+                 ?>
+                </table>
+                </div>
+                <div class="w3-margin-bottom w3-padding"><!-- footer div-->
+                <button class="btn btn-default w3-red w3-center" type="submit" id="joinQuotBtn">Join Selected Quotations</button>
+            </div><!-- footer div-->
+             </form>
+            </div>
+            
+        </div>
+  </div>
+
+  </div>
+</div>  
+
+<script>
+  $(function(){
+   $("#showAllQuotationsForm").submit(function(){
+     dataString = $("#showAllQuotationsForm").serialize();
+     //$.alert(dataString);
+     $.ajax({
+       type: "POST",
+       url: "<?php echo base_url(); ?>sales_enquiry/Sort_Enquiries_Quotations/joinQuotations",
+       data: dataString,
+           return: false,  //stop the actual form post !important!
+           success: function(data)
+           {
+             $.alert(data);
+             $("#showQuotations").load(location.href + " #showQuotations>*", "");
+           }
+         });
+         return false;  //stop the actual form post !important!
+
+       });
+ });
+</script>
 <!-- script to show enquiry on click enquiry from table -->
 <script>
   function Show_EnquiryFromTable(enquiry_id) {
@@ -550,8 +653,9 @@ error_reporting(E_ERROR | E_PARSE);
   }
 </script>
 <!-- script ends -->
+<!--this script is used to join quotations-->
 
-
+<!--this script is used to join quotations-->
 <script>
   function getCustomerId(){
 

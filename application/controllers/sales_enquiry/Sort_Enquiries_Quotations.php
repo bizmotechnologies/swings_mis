@@ -23,9 +23,36 @@ class Sort_Enquiries_Quotations extends CI_Controller {
   public function index() {
 
   }
+  public function joinQuotations(){
+        extract($_POST);
+        //print_r($_POST);
+        //die();
+        if (empty($join_Quotations) || ($join_Quotations[1]) == '') {
+            echo "You must select at least two tables.";
+        } else {
+            $join_parentQuotations = "";
+            $join_parentQuotations = $join_Quotations[0]; //0th index value...i.e. first elelment in array will be parent table.......................
+            $childQuotations= json_encode(array_splice($join_Quotations, 1, count($join_Quotations)));//die(); //this shifts 1st index value to 0th index value.................................        
+            $path = base_url();
+            $url = $path . 'api/Sort_Enquiry_Quotations_api/joinQuotations?quotations_id='.$join_parentQuotations.'&join_QuotationsArr='.$childQuotations;
+            $ch = curl_init($url);
+            curl_setopt($ch, CURLOPT_HTTPGET, true);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            $response_json = curl_exec($ch);
+            curl_close($ch);
+            $response = json_decode($response_json, true);
+            //print_r($response_json);die();
+            if ($response['status'] == 0) {
+                echo $response['status_message'];
+            } else {
+                echo $response['status_message'];
+            }
+        }
+    }
 
-    //------------this fun is used to get all customer details------------//
-
+//----this fun is used to join quotations -------------//
+    
+//------------this fun is used to get all customer details------------//
   public function sort_Enquiries(){
     extract($_POST);
     $path = base_url();
