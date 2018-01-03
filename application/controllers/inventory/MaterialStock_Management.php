@@ -34,7 +34,75 @@ class MaterialStock_Management extends CI_controller {
     }
 //----this fun is used to filter the materials 
     public function FilterMaterialBy_Name(){
-        
+        extract($_POST);
+        $material_id=$Material_idForMaterialFilter;
+        if($Material_idForMaterialFilter=='undefined'){
+            $material_id=0;
+        }
+        //echo $material_id;die();
+        $path = base_url();
+        $url = $path . 'api/ManageMaterial_api/getMaterialrecord_filter?material_id='.$material_id;
+        $ch = curl_init($url);
+        curl_setopt($ch, CURLOPT_HTTPGET, true);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $response_json = curl_exec($ch);
+        curl_close($ch);
+        $response = json_decode($response_json, true);
+
+        if($response['status']==1){
+
+            echo '
+            <table class="table table-striped table-responsive w3-small"> 
+            <!-- table starts here -->
+            <thead>
+            <tr class="w3-black">
+            <th class="text-center">SR. No</th>
+            <th class="text-center">Material&nbsp;Name</th>  
+            <th class="text-center">ID</th>              
+            <th class="text-center">OD</th>              
+            <th class="text-center">Available&nbsp;Length</th>              
+            <th class="text-center">Tolerance</th>
+            <th class="text-center">Price/Unit</th>
+            <th class="text-center">Branch</th>
+            <th class="text-center">Actions</th>  
+
+            </tr>
+            </thead>
+            <tbody ><!-- table body starts here -->';
+            $count = 1;
+            if ($response['status'] == 1) {
+                for ($i = 0; $i < count($response['status_message']); $i++) {
+                    echo '<tr class="text-center">
+                    <td class="text-center">' . $count . '.</td>
+                    <td class="text-center"><input type="text" name="Updated_MaterialStock_Materialname" id="Updated_MaterialStock_Materialname_'.$response['status_message'][$i]['rawmaterial_id'].'" class="form-control" value="' . $response['status_message'][$i]['material_name'] . '"></td>
+                    <td class="text-center">' . $response['status_message'][$i]['raw_ID'] . '</td>
+                    <td class="text-center">' . $response['status_message'][$i]['raw_OD'] . '</td>
+                    <td class="text-center"><input type="number" name="Updated_MaterialStock_Length" id="Updated_MaterialStock_Length_'.$response['status_message'][$i]['rawmaterial_id'].'" class="form-control" value="' . $response['status_message'][$i]['avail_length'] . '"></td>
+                    <td class="text-center">' . $response['status_message'][$i]['tolerance'] . '</td>
+                    <td class="text-center">' . $response['status_message'][$i]['material_price'] . ' <i class="fa fa-rupee"></i></td>
+                    <td class="text-center">' . $response['status_message'][$i]['branch_name'] . '</td>
+                    <td class="text-center"><a class="btn w3-text-blue w3-medium w3-padding-small" id="update_rawMaterial_'.$response['status_message'][$i]['rawmaterial_id'].'" onclick="update_rawMaterial('.$response['status_message'][$i]['rawmaterial_id'].')" title="Update Raw Material" style="padding:0"><i class="fa fa-edit"></i></a>
+                    <a class="btn w3-text-red w3-medium w3-padding-small" title="Delete Raw Material" id="delete_rawMaterial_'.$response['status_message'][$i]['rawmaterial_id'].'" onclick="delete_rawMaterial('.$response['status_message'][$i]['rawmaterial_id'].')" style="padding:0"><i class="fa fa-close"></i>
+                    </a> 
+                    </td>
+                    </tr>';
+                    $count++;
+                }
+            } else {
+                echo'<tr><td style="text-align: center;" colspan = "9">No Records Found...!</td></tr>';
+            }
+
+            echo '</tbody><!-- table body close here -->
+            </table>   <!-- table closed here -->
+            ';
+        }
+        else{
+            echo '
+            <div class="alert alert-danger w3-margin" style="text-align: center;">
+            <strong>' . $response['status_message'] . '</strong> 
+            </div>    
+            ';
+        }
     }
 
 //this fun is used to get all prices from price list---------------------------------------    
@@ -113,31 +181,20 @@ class MaterialStock_Management extends CI_controller {
   }
 }
 public function saveMaterialCategory(){
-        extract($_POST);
-        $data = $_POST;
+    extract($_POST);
+    $data = $_POST;
         //print_r($data);die();
-        $path = base_url();
-        $url = $path . 'api/MaterialStockManagement_api/saveMaterialCategory';
-        $ch = curl_init($url);
-        curl_setopt($ch, CURLOPT_POST, true);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        $response_json = curl_exec($ch);
-        curl_close($ch);
-        $response = json_decode($response_json, true);
-        if ($response['status'] == 0) {
+    $path = base_url();
+    $url = $path . 'api/MaterialStockManagement_api/saveMaterialCategory';
+    $ch = curl_init($url);
+    curl_setopt($ch, CURLOPT_POST, true);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    $response_json = curl_exec($ch);
+    curl_close($ch);
+    $response = json_decode($response_json, true);
+    if ($response['status'] == 0) {
         echo'<div class="alert alert-danger w3-margin" style="text-align: center;">
-            <strong>' . $response['status_message'] . '</strong> 
-            </div>
-            <script>
-            window.setTimeout(function() {
-               $(".alert").fadeTo(500, 0).slideUp(500, function(){
-                  $(this).remove(); 
-              });
-          }, 1000);
-          </script>';
-        } else {
-            echo'<div class="alert alert-success w3-margin" style="text-align: center;">
         <strong>' . $response['status_message'] . '</strong> 
         </div>
         <script>
@@ -147,8 +204,19 @@ public function saveMaterialCategory(){
           });
       }, 1000);
       </script>';
-        }
-    }
+  } else {
+    echo'<div class="alert alert-success w3-margin" style="text-align: center;">
+    <strong>' . $response['status_message'] . '</strong> 
+    </div>
+    <script>
+    window.setTimeout(function() {
+       $(".alert").fadeTo(500, 0).slideUp(500, function(){
+          $(this).remove(); 
+      });
+  }, 1000);
+  </script>';
+}
+}
 
 //-----------------------------api to fetch excel to db-------------//
 public function EXCELDB() {
@@ -325,7 +393,7 @@ public function Save_RawStockMaterial_Info() {
         window.setTimeout(function() {
            $(".alert").fadeTo(500, 0).slideUp(500, function(){
               $(this).remove(); 
-              
+
           });
       }, 1000);
       </script>';
@@ -427,12 +495,12 @@ public function Update_UpdatedStockMaterial_Info() {
         <strong>' . $response['status_message'] . '</strong> 
         </div>
         ';
-  } else {
-    echo'<div class="alert alert-success w3-margin" style="text-align: center;">
-    <strong>' . $response['status_message'] . '</strong> 
-    </div>
-    ';
-}
+    } else {
+        echo'<div class="alert alert-success w3-margin" style="text-align: center;">
+        <strong>' . $response['status_message'] . '</strong> 
+        </div>
+        ';
+    }
 }
 
 public function Update_purchasedproducts_Info() {

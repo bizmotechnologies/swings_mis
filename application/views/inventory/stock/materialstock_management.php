@@ -19,7 +19,7 @@ $branch_name=$this->session->userdata('branch_name');
     <script type="text/javascript" src="<?php echo base_url(); ?>css/js/config.js"></script>
     <script type="text/javascript" src="<?php echo base_url(); ?>css/alert/jquery-confirm.js"></script>
     <script type="text/javascript" src="<?php echo base_url(); ?>css/js/inventory/materialstock_management.js"></script>
-  
+
 </head>
 <body class="w3-light-grey">
     <!-- !PAGE CONTENT! -->
@@ -46,7 +46,7 @@ $branch_name=$this->session->userdata('branch_name');
                         <label>Add new Material</label>
                     </div>
                     <div class="w3-col l12 w3-margin-top w3-small">
-                                                <hr>
+                        <hr>
 
                         <!-- add material form starts here----->
                         <form id="Add_material_form">
@@ -65,42 +65,42 @@ $branch_name=$this->session->userdata('branch_name');
                             </div>
                             <!--material category div-->
                             <div class="w3-col l12">
-                            <div  class="w3-col l12 w3-margin-top w3-margin-bottom"><label> Material Category </label></div>
-                            <div class="w3-col l1 w3-center">
-                            <label class="w3-label ">A</label>
-                            <input type="text" value="2.65" step="0.01" placeholder="material category" id="Category_a" name="Category_a" class="form-control" required>                                                            
-                            </div>
-                            <div class="w3-col l1 w3-center w3-padding-left">
-                            <label class="w3-label">B</label>
-                            <input type="text" autocomplete="off" value="2.65" step="0.01" placeholder="material category" id="Category_b" name="Category_b" class="form-control" required>                                                            
-                            </div>
-                            <div class="w3-col l1 w3-center w3-padding-left">
-                            <label class="w3-label ">C</label>
-                            <input type="text" autocomplete="off" value="2.65" step="0.01" placeholder="material category" id="Category_c" name="Category_c" class="form-control" required>                                                            
-                            </div>
-                            <div class="w3-col l1 w3-center w3-padding-left">
-                            <label class="w3-label">D</label>
-                            <input type="text" autocomplete="off" value="2.65" step="0.01" placeholder="material category" id="Category_d" name="Category_d" class="form-control" required>                                                            
-                            </div>
-                            <div class="w3-col l1 w3-center w3-padding-left">
-                            <label class="w3-label">E</label>
-                            <input type="text" autocomplete="off" value="2.65" step="0.01" placeholder="material category" id="Category_e" name="Category_e" class="form-control" required>                                                            
-                            </div>                         
-                            <div class="w3-col l1 w3-center w3-padding-left">
-                            <label class="w3-label">F</label>
-                            <input type="text" autocomplete="off" value="2.65" step="0.01" placeholder="material category" id="Category_f" name="Category_f" class="form-control" required>                                                            
-                            </div>
-                            <div class="w3-col l1 w3-center w3-padding-left">
-                            <label class="w3-label">G</label>
-                            <input type="text" autocomplete="off" value="2.65" step="0.01" placeholder="material category" id="Category_g" name="Category_g" class="form-control" required>                                                            
-                            </div>
-                                                                 
-                             <div class="w3-col l1 w3-padding-top w3-padding-right w3-padding-left">
-                                <button class="btn w3-blue w3-margin-top" type="submit" id="Save_materialBtn" name="Save_materialBtn">Add Material</button>
-                            </div> 
+                                <div  class="w3-col l12 w3-margin-top w3-margin-bottom"><label> Material Category </label></div>
+                                <div class="w3-col l1 w3-center">
+                                    <label class="w3-label ">A</label>
+                                    <input type="text" value="2.65" step="0.01" placeholder="material category" id="Category_a" name="Category_a" class="form-control" required>                                                            
+                                </div>
+                                <div class="w3-col l1 w3-center w3-padding-left">
+                                    <label class="w3-label">B</label>
+                                    <input type="text" autocomplete="off" value="2.65" step="0.01" placeholder="material category" id="Category_b" name="Category_b" class="form-control" required>                                                            
+                                </div>
+                                <div class="w3-col l1 w3-center w3-padding-left">
+                                    <label class="w3-label ">C</label>
+                                    <input type="text" autocomplete="off" value="2.65" step="0.01" placeholder="material category" id="Category_c" name="Category_c" class="form-control" required>                                                            
+                                </div>
+                                <div class="w3-col l1 w3-center w3-padding-left">
+                                    <label class="w3-label">D</label>
+                                    <input type="text" autocomplete="off" value="2.65" step="0.01" placeholder="material category" id="Category_d" name="Category_d" class="form-control" required>                                                            
+                                </div>
+                                <div class="w3-col l1 w3-center w3-padding-left">
+                                    <label class="w3-label">E</label>
+                                    <input type="text" autocomplete="off" value="2.65" step="0.01" placeholder="material category" id="Category_e" name="Category_e" class="form-control" required>                                                            
+                                </div>                         
+                                <div class="w3-col l1 w3-center w3-padding-left">
+                                    <label class="w3-label">F</label>
+                                    <input type="text" autocomplete="off" value="2.65" step="0.01" placeholder="material category" id="Category_f" name="Category_f" class="form-control" required>                                                            
+                                </div>
+                                <div class="w3-col l1 w3-center w3-padding-left">
+                                    <label class="w3-label">G</label>
+                                    <input type="text" autocomplete="off" value="2.65" step="0.01" placeholder="material category" id="Category_g" name="Category_g" class="form-control" required>                                                            
+                                </div>
+
+                                <div class="w3-col l1 w3-padding-top w3-padding-right w3-padding-left">
+                                    <button class="btn w3-blue w3-margin-top" type="submit" id="Save_materialBtn" name="Save_materialBtn">Add Material</button>
+                                </div> 
                                 
                             </div>
-                                                        <!--material category div-->
+                            <!--material category div-->
 
                         </form>                        <!-- add material form ends here----->
 
@@ -112,9 +112,9 @@ $branch_name=$this->session->userdata('branch_name');
                     <div class="w3-col l12">
                         <hr>
                         <div class="w3-col l12">
-                        <label class="w3-left">Delete Material</label>
+                            <label class="w3-left">Delete Material</label>
                         </div>
-                    <div class="w3-col l3 w3-padding-bottom w3-left">
+                        <div class="w3-col l3 w3-padding-bottom w3-left">
                             <div class="input-group w3-padding-top w3-margin-top">
                                 <select class="form-control" name="Select_NewMaterials_Id" id="Select_NewMaterials_Id" required> <!-- this is for showing material stocks quantity -->
                                     <option>Select Material</option>
@@ -133,184 +133,191 @@ $branch_name=$this->session->userdata('branch_name');
 
                     <div class="w3-col l12" id="categoryDiv">
                         <form id="addMaterialCategoryForm" name="addMaterialCategoryForm">
-                         <hr>
-                         <div class="w3-col l12">
-                             <label class="">Update Material Category</label>
-                         </div>
-                    <div class="w3-col l12 w3-margin-top">
-                        <div class="w3-col l2">
-                            <label class="w3-label">Material Name:</label> 
-                            <input list="Materials" id="material_info" autocomplete="off" onclick="this.select();" name="material_info" value="<?php echo $cust_name; ?>" class="form-control" required type="text" placeholder="Select material" onchange="getMaterialId();">  
-                            <input type="hidden" name="material_id" id="material_id">                                      
-                            <datalist id="Materials">
-                                <?php foreach ($materials['status_message'] as $result) { ?>
+                           <hr>
+                           <div class="w3-col l12">
+                               <label class="">Update Material Category</label>
+                           </div>
+                           <div class="w3-col l12 w3-margin-top">
+                            <div class="w3-col l2">
+                                <label class="w3-label">Material Name:</label> 
+                                <input list="Materials" id="material_info" autocomplete="off" onclick="this.select();" name="material_info" value="<?php echo $cust_name; ?>" class="form-control" required type="text" placeholder="Select material" onchange="getMaterialId();">  
+                                <input type="hidden" name="material_id" id="material_id">                                      
+                                <datalist id="Materials">
+                                    <?php foreach ($materials['status_message'] as $result) { ?>
                                     <option data-value="<?php echo $result['material_id']; ?>" value='<?php echo $result['material_name']; ?>'></option>
-                                <?php } ?>
-                            </datalist>
-                        </div>
-                        
+                                    <?php } ?>
+                                </datalist>
+                            </div>
+
                             <div class="w3-col l1 w3-center w3-padding-left">
-                            <label class="w3-label ">A</label>
-                            <input type="text" value="" step="0.01" placeholder="material category" id="Category_a" name="Category_a" class="form-control" required>                                                            
+                                <label class="w3-label ">A</label>
+                                <input type="text" value="" step="0.01" placeholder="material category" id="Category_a" name="Category_a" class="form-control" required>                                                            
                             </div>
                             <div class="w3-col l1  w3-center w3-padding-left">
-                            <label class="w3-label">B</label>
-                            <input type="text" autocomplete="off" value="" step="0.01" placeholder="material category" id="Category_b" name="Category_b" class="form-control" required>                                                            
+                                <label class="w3-label">B</label>
+                                <input type="text" autocomplete="off" value="" step="0.01" placeholder="material category" id="Category_b" name="Category_b" class="form-control" required>                                                            
                             </div>
                             <div class="w3-col l1 w3-center w3-padding-left">
-                            <label class="w3-label ">C</label>
-                            <input type="text" autocomplete="off" value="" step="0.01" placeholder="material category" id="Category_c" name="Category_c" class="form-control" required>                                                            
+                                <label class="w3-label ">C</label>
+                                <input type="text" autocomplete="off" value="" step="0.01" placeholder="material category" id="Category_c" name="Category_c" class="form-control" required>                                                            
                             </div>
                             <div class="w3-col l1 w3-center w3-padding-left">
-                            <label class="w3-label">D</label>
-                            <input type="text" autocomplete="off" value="" step="0.01" placeholder="material category" id="Category_d" name="Category_d" class="form-control" required>                                                            
+                                <label class="w3-label">D</label>
+                                <input type="text" autocomplete="off" value="" step="0.01" placeholder="material category" id="Category_d" name="Category_d" class="form-control" required>                                                            
                             </div>
                             <div class="w3-col l1 w3-center w3-padding-left">
-                            <label class="w3-label">E</label>
-                            <input type="text" autocomplete="off" value="" step="0.01" placeholder="material category" id="Category_e" name="Category_e" class="form-control" required>                                                            
+                                <label class="w3-label">E</label>
+                                <input type="text" autocomplete="off" value="" step="0.01" placeholder="material category" id="Category_e" name="Category_e" class="form-control" required>                                                            
                             </div>                         
                             <div class="w3-col l1 w3-center w3-padding-left">
-                            <label class="w3-label">F</label>
-                            <input type="text" autocomplete="off" value="" step="0.01" placeholder="material category" id="Category_f" name="Category_f" class="form-control" required>                                                            
+                                <label class="w3-label">F</label>
+                                <input type="text" autocomplete="off" value="" step="0.01" placeholder="material category" id="Category_f" name="Category_f" class="form-control" required>                                                            
                             </div>
                             <div class="w3-col l1 w3-center w3-padding-left">
-                            <label class="w3-label">G</label>
-                            <input type="text" autocomplete="off" value="" step="0.01" placeholder="material category" id="Category_g" name="Category_g" class="form-control" required>                                                            
+                                <label class="w3-label">G</label>
+                                <input type="text" autocomplete="off" value="" step="0.01" placeholder="material category" id="Category_g" name="Category_g" class="form-control" required>                                                            
                             </div> 
-                      
-                        <div class="w3-col l1 w3-padding-left w3-padding-top w3-margin-left">
-                            <button class="btn w3-blue w3-margin-top" type="submit" id="Save_materialCategoryBtn" name="Save_materialCategoryBtn">Update Category</button>
-                        </div> 
-                    </div>
+
+                            <div class="w3-col l1 w3-padding-left w3-padding-top w3-margin-left">
+                                <button class="btn w3-blue w3-margin-top" type="submit" id="Save_materialCategoryBtn" name="Save_materialCategoryBtn">Update Category</button>
+                            </div> 
+                        </div>
                     </form>
-                    </div>
-                    <div class="w3-col l12"id="categoryError"></div>
-                    <div class="w3-col l12"><!-- table container -->
-                        <hr>
-                        
-                        <div class="">
+                </div>
+                <div class="w3-col l12"id="categoryError"></div>
+                <div class="w3-col l12"><!-- table container -->
+                    <hr>
 
-                            <div class=" w3-col l12"><!-- container starts here -->
-                                <div class="w3-col l12"><label>Manage Raw Material</label></div><br>
+                    <div class="">
 
-                                <div class="w3-col l12 w3-margin-top">
-                                    <div class="w3-col l6 w3-left">
-                                        <a class="btn btn-info" data-toggle="modal" data-target="#addRawMaterial_modal">Add Raw Material</a><br>
-                                    </div>
-                                    <div class="w3-col l6 ">
-                                        <a class="btn btn-info w3-right" href="<?php echo base_url(); ?>inventory/materialConsumption">Add Consumed Material</a><br>
-                                    </div>
+                        <div class=" w3-col l12"><!-- container starts here -->
+                            <div class="w3-col l12"><label>Manage Raw Material</label></div><br>
 
-                                </div>
-                            </div><br><!-- container ends here -->
                             <div class="w3-col l12 w3-margin-top">
-                                <form id="MaterialFilter_Form" name="MaterialFilter_Form">
+                                <div class="w3-col l6 w3-left">
+                                    <a class="btn btn-info" data-toggle="modal" data-target="#addRawMaterial_modal">Add Raw Material</a><br>
+                                </div>
+                                <div class="w3-col l6 ">
+                                    <a class="btn btn-info w3-right" href="<?php echo base_url(); ?>inventory/materialConsumption">Add Consumed Material</a><br>
+                                </div>
+
+                            </div>
+                        </div><br><!-- container ends here -->
+                        <div class="w3-col l12 w3-margin-top">
+                            <form id="MaterialFilter_Form" name="MaterialFilter_Form">
                                 <div class="w3-col l4 ">
-                                    <label class="w3-label">Search Material:</label>
+                                    <label class="w3-label">Filter by Material:</label>
                                     <div class="input-group">
                                         <input type="hidden" name="Material_idForMaterialFilter" id="Material_idForMaterialFilter">
-                                        <input list="Material_Filter" id="Material_ForFilter" name="Material_ForFilter" class="form-control" placeholder="Materials..." onchange="getCustomerIdForEnquirySort();">
+                                        <input list="Material_Filter" id="Material_ForFilter" name="Material_ForFilter" class="form-control" placeholder="Materials..." onchange="getMaterialId_filter();">
                                         <datalist id="Material_Filter">
-                                              <?php foreach ($materials['status_message'] as $result) { ?>
-                                              <option data-value='<?php echo $result['material_id']; ?>' ><?php echo $result['material_name']; ?></option>
-                                              <?php } ?>
-                                        </datalist>
-                                        <span class="input-group-btn">
-                                            <button class="btn btn-secondary w3-blue" name="MaterialFilter" id="MaterialFilter" type="submit" title="Filter Enquiries"><i class="fa fa-filter"></i></button>
-                                        </span>
-                                    </div>                      
-                                </div> 
-                                </form>    
-                            </div>
-                            <div class="w3-col l12 w3-margin-top">
-                                <div class="" id="ShowRaw_products" name="ShowRaw_products" style="max-height: 400px; overflow: scroll;">
-                                    <table class="table table-striped table-responsive w3-small"> 
-                                               <!-- table starts here -->
-                                        <thead>
-                                            <tr class="w3-black">
-                                                <th class="text-center">SR. No</th>
-                                                <th class="text-center">Material&nbsp;Name</th>  
-                                                <th class="text-center">ID</th>              
-                                                <th class="text-center">OD</th>              
-                                                <th class="text-center">Available&nbsp;Length</th>              
-                                                <th class="text-center">Tolerance</th>
-                                                <th class="text-center">Price/Unit</th>
-                                                <th class="text-center">Branch</th>
-                                                <th class="text-center">Actions</th>  
+                                          <?php foreach ($materials['status_message'] as $result) { ?>
+                                          <option data-value='<?php echo $result['material_id']; ?>' value='<?php echo $result['material_name']; ?>'></option>
+                                          <?php } ?>
+                                      </datalist>
+                                      <span class="input-group-btn">
+                                        <button class="btn btn-secondary w3-blue" name="MaterialFilter" id="MaterialFilter" type="submit" title="Filter Enquiries"><i class="fa fa-filter"></i></button>
+                                    </span>
+                                </div>                      
+                            </div> 
+                            <!-- script to set material id when slected -->
+                            <script>
+                                function getMaterialId_filter(){
+                                    material_id = $('#Material_Filter [value="' + $('#Material_ForFilter').val() + '"]').data('value');
+                                    $('#Material_idForMaterialFilter').val(material_id);
+                                }
+                            </script>
+                        </form>    
+                    </div>
+                    <div class="w3-col l12 w3-margin-top">
+                        <div class="" id="ShowRaw_products" name="ShowRaw_products" style="max-height: 400px; overflow: scroll;">
+                            <table class="table table-striped table-responsive w3-small"> 
+                             <!-- table starts here -->
+                             <thead>
+                                <tr class="w3-black">
+                                    <th class="text-center">SR. No</th>
+                                    <th class="text-center">Material&nbsp;Name</th>  
+                                    <th class="text-center">ID</th>              
+                                    <th class="text-center">OD</th>              
+                                    <th class="text-center">Available&nbsp;Length</th>              
+                                    <th class="text-center">Tolerance</th>
+                                    <th class="text-center">Price/Unit</th>
+                                    <th class="text-center">Branch</th>
+                                    <th class="text-center">Actions</th>  
 
-                                            </tr>
-                                        </thead>
-                                        <tbody><!-- table body starts here -->
-                                            <?php
-                                            $count = 1;
-                                            if ($details['status'] == 1) {
-                                                for ($i = 0; $i < count($details['status_message']); $i++) {
-                                                    echo '<tr class="text-center">
-                                                    <td class="text-center">' . $count . '.</td>
-                                                    <td class="text-center"><input type="text" name="Updated_MaterialStock_Materialname" id="Updated_MaterialStock_Materialname_'.$details['status_message'][$i]['rawmaterial_id'].'" class="form-control" value="' . $details['status_message'][$i]['material_name'] . '"></td>
-                                                    <td class="text-center">' . $details['status_message'][$i]['raw_ID'] . '</td>
-                                                    <td class="text-center">' . $details['status_message'][$i]['raw_OD'] . '</td>
-                                                    <td class="text-center"><input type="number" name="Updated_MaterialStock_Length" id="Updated_MaterialStock_Length_'.$details['status_message'][$i]['rawmaterial_id'].'" class="form-control" value="' . $details['status_message'][$i]['avail_length'] . '"></td>
-                                                    <td class="text-center">' . $details['status_message'][$i]['tolerance'] . '</td>
-                                                    <td class="text-center">' . $details['status_message'][$i]['material_price'] . ' <i class="fa fa-rupee"></i></td>
-                                                    <td class="text-center">' . $details['status_message'][$i]['branch_name'] . '</td>
-                                                    <td class="text-center"><a class="btn w3-text-blue w3-medium w3-padding-small" id="update_rawMaterial_'.$details['status_message'][$i]['rawmaterial_id'].'" onclick="update_rawMaterial('.$details['status_message'][$i]['rawmaterial_id'].')" title="Update Raw Material" style="padding:0"><i class="fa fa-edit"></i></a>
-                                                    <a class="btn w3-text-red w3-medium w3-padding-small" title="Delete Raw Material" id="delete_rawMaterial_'.$details['status_message'][$i]['rawmaterial_id'].'" onclick="delete_rawMaterial('.$details['status_message'][$i]['rawmaterial_id'].')" style="padding:0"><i class="fa fa-close"></i>
-                                                    </a> 
-                                                    </td>
-                                                    </tr>';
-                                                    $count++;
-                                                }
-                                            } else {
-                                                echo'<tr><td style="text-align: center;" colspan = "9">No Records Found...!</td></tr>';
-                                            }
-                                            ?>
-                                        </tbody><!-- table body close here -->
-                                    </table>   <!-- table closed here -->
-                                </div>
-                            </div>
-                        </div>
-                    </div><!-- table container ends here -->
-<script>
-    $(function(){
-     $("#MaterialFilter_Form").submit(function(){
-      dataString = $("#MaterialFilter_Form").serialize();
-      $.alert(dataString);
-      $.ajax({
-       type: "POST",
-       url: "<?php echo base_url(); ?>inventory/MaterialStock_Management/FilterMaterialBy_Name",
-       data: dataString,
-           return: false,  //stop the actual form post !important!
+                                </tr>
+                            </thead>
+                            <tbody ><!-- table body starts here -->
+                                <?php
+                                $count = 1;
+                                if ($details['status'] == 1) {
+                                    for ($i = 0; $i < count($details['status_message']); $i++) {
+                                        echo '<tr class="text-center">
+                                        <td class="text-center">' . $count . '.</td>
+                                        <td class="text-center"><input type="text" name="Updated_MaterialStock_Materialname" id="Updated_MaterialStock_Materialname_'.$details['status_message'][$i]['rawmaterial_id'].'" class="form-control" value="' . $details['status_message'][$i]['material_name'] . '"></td>
+                                        <td class="text-center">' . $details['status_message'][$i]['raw_ID'] . '</td>
+                                        <td class="text-center">' . $details['status_message'][$i]['raw_OD'] . '</td>
+                                        <td class="text-center"><input type="number" name="Updated_MaterialStock_Length" id="Updated_MaterialStock_Length_'.$details['status_message'][$i]['rawmaterial_id'].'" class="form-control" value="' . $details['status_message'][$i]['avail_length'] . '"></td>
+                                        <td class="text-center">' . $details['status_message'][$i]['tolerance'] . '</td>
+                                        <td class="text-center">' . $details['status_message'][$i]['material_price'] . ' <i class="fa fa-rupee"></i></td>
+                                        <td class="text-center">' . $details['status_message'][$i]['branch_name'] . '</td>
+                                        <td class="text-center"><a class="btn w3-text-blue w3-medium w3-padding-small" id="update_rawMaterial_'.$details['status_message'][$i]['rawmaterial_id'].'" onclick="update_rawMaterial('.$details['status_message'][$i]['rawmaterial_id'].')" title="Update Raw Material" style="padding:0"><i class="fa fa-edit"></i></a>
+                                        <a class="btn w3-text-red w3-medium w3-padding-small" title="Delete Raw Material" id="delete_rawMaterial_'.$details['status_message'][$i]['rawmaterial_id'].'" onclick="delete_rawMaterial('.$details['status_message'][$i]['rawmaterial_id'].')" style="padding:0"><i class="fa fa-close"></i>
+                                        </a> 
+                                        </td>
+                                        </tr>';
+                                        $count++;
+                                    }
+                                } else {
+                                    echo'<tr><td style="text-align: center;" colspan = "9">No Records Found...!</td></tr>';
+                                }
+                                ?>
+                            </tbody><!-- table body close here -->
+                        </table>   <!-- table closed here -->
+                    </div>
+                </div>
+            </div>
+        </div><!-- table container ends here -->
+        <script>
+            $(function(){
+                $("#MaterialFilter_Form").submit(function(){
+                  dataString = $("#MaterialFilter_Form").serialize();
+                  
+                  $.ajax({
+                     type: "POST",
+                     url: "<?php echo base_url(); ?>inventory/MaterialStock_Management/FilterMaterialBy_Name",
+                     data: dataString,
+                    return: false,  //stop the actual form post !important!
 
-           success: function(data)
-           {
-             //$('#Show_quotationsTable').html(data);
-           }
+                    success: function(data)
+                    {    
+                    $('#ShowRaw_products').html(data);        
+                    }
 
-         });
+                });
          return false;  //stop the actual form post !important!
 
-       });
-   });
- </script>                    
-<script>
-  function getMaterialId(){
-    customer_id = $('#Materials [value="' + $('#material_info').val() + '"]').data('value');
-    $('#material_id').val(customer_id);
-  }
-</script>
+     });
+            });
+        </script>                    
+        <script>
+          function getMaterialId(){
+            customer_id = $('#Materials [value="' + $('#material_info').val() + '"]').data('value');
+            $('#material_id').val(customer_id);
+        }
+    </script>
 
-<script>
-  function getCustomerIdForEnquirySort(){
-    Material_id = $('#Material_Filter [value="' + $('#Material_ForFilter').val() + '"]').data('value');
-    $('#Material_idForMaterialFilter').val(Material_id);
-  }
+    <script>
+      function getCustomerIdForEnquirySort(){
+        Material_id = $('#Material_Filter [value="' + $('#Material_ForFilter').val() + '"]').data('value');
+        $('#Material_idForMaterialFilter').val(Material_id);
+    }
 </script>
 <script>
-/* this function is used for show total material stocks quantity*/
-$(function (){
-    $("#addMaterialCategoryForm").submit(function (){
-       dataString = $("#addMaterialCategoryForm").serialize();
+    /* this function is used for show total material stocks quantity*/
+    $(function (){
+        $("#addMaterialCategoryForm").submit(function (){
+         dataString = $("#addMaterialCategoryForm").serialize();
         //alert(dataString);
         $.ajax({
             type: "POST",
@@ -325,189 +332,189 @@ $(function (){
         });
         return false; //stop the actual form post !important! 
     });
-});
+    });
 </script>
-                    <!-- script to delete raw material stock -->
-                    <script>
-                        function delete_rawMaterial(row_id)
-                        {
-                           $.confirm({
-                            title: '<label class="w3-large w3-text-red"><i class="fa fa-envelope"></i> Delete Stock Entry.</label>',
-                            content: '<span class="w3-medium">Do You really want to delete this stock entry ?</span>',
-                            buttons: {
-                                confirm: function () {
-                                  $.ajax({
-                                    type:'get',
-                                    url:BASE_URL+'inventory/MaterialStock_Management/DeleteRawMaterialStockDetails?rawmaterial_id='+row_id,                                    
-                                    success:function(response) {
+<!-- script to delete raw material stock -->
+<script>
+    function delete_rawMaterial(row_id)
+    {
+     $.confirm({
+        title: '<label class="w3-large w3-text-red"><i class="fa fa-envelope"></i> Delete Stock Entry.</label>',
+        content: '<span class="w3-medium">Do You really want to delete this stock entry ?</span>',
+        buttons: {
+            confirm: function () {
+              $.ajax({
+                type:'get',
+                url:BASE_URL+'inventory/MaterialStock_Management/DeleteRawMaterialStockDetails?rawmaterial_id='+row_id,                                    
+                success:function(response) {
                                       //$.alert(response);
                                       //location.reload();
                                       $("#ShowRaw_products").load(location.href + " #ShowRaw_products>*", "");
                                   }
                               });
-                              },
-                              cancel: function () {}
-                          }
-                      });
-                       }
-                   </script>
-                   <!-- script to delete raw material stock -->
-                   <script>
-                   
-                   </script>
-                   <!-- script to update raw material stock -->
-                   <script>
-                    function update_rawMaterial(row_id)
-                    {
-                        Material_name= $("#Updated_MaterialStock_Materialname_"+row_id).val();
-                        Material_length= $("#Updated_MaterialStock_Length_"+row_id).val();
+          },
+          cancel: function () {}
+      }
+  });
+ }
+</script>
+<!-- script to delete raw material stock -->
+<script>
 
-                        $.ajax({
-                            type: "POST",
-                            url: "<?php echo base_url(); ?>inventory/MaterialStock_Management/Update_UpdatedStockMaterial_Info",
-                            data: {
-                                Material_name: Material_name,
-                                Material_length: Material_length,
-                                Raw_materialId: row_id
-                            },
-                            return: false, 
-                            success: function (data)
-                            {
-                                $.alert(data);  
-                                $("#ShowRaw_products").load(location.href + " #ShowRaw_products>*", "");
-                            }
-                        });
-                    }
-                </script>
-                <!-- script to edit raw material stock -->
+</script>
+<!-- script to update raw material stock -->
+<script>
+    function update_rawMaterial(row_id)
+    {
+        Material_name= $("#Updated_MaterialStock_Materialname_"+row_id).val();
+        Material_length= $("#Updated_MaterialStock_Length_"+row_id).val();
 
-                <!-- Modal -->
-                <div id="addRawMaterial_modal" class="modal fade" role="dialog"><!-- modal starts here for add Raw  materials stocks -->
-                    <div class="modal-dialog ">
-                        <!-- Modal content-->
-                        <div class="modal-content w3-col l12">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                <div class="w3-xlarge w3-center">Add Raw Materials</div>
+        $.ajax({
+            type: "POST",
+            url: "<?php echo base_url(); ?>inventory/MaterialStock_Management/Update_UpdatedStockMaterial_Info",
+            data: {
+                Material_name: Material_name,
+                Material_length: Material_length,
+                Raw_materialId: row_id
+            },
+            return: false, 
+            success: function (data)
+            {
+                $.alert(data);  
+                $("#ShowRaw_products").load(location.href + " #ShowRaw_products>*", "");
+            }
+        });
+    }
+</script>
+<!-- script to edit raw material stock -->
+
+<!-- Modal -->
+<div id="addRawMaterial_modal" class="modal fade" role="dialog"><!-- modal starts here for add Raw  materials stocks -->
+    <div class="modal-dialog ">
+        <!-- Modal content-->
+        <div class="modal-content w3-col l12">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <div class="w3-xlarge w3-center">Add Raw Materials</div>
+            </div>
+            <div class="modal-body w3-small ">
+                <form method="POST" action="" id="Manage_RawMaterialForm" name="Manage_RawMaterialForm">
+                    <div class="w3-padding-left col-lg-offset-1">
+                        <div class="row">
+                            <div class="col-lg-3">
+                                <label class="padding-left">Select&nbsp;Material:</label> 
                             </div>
-                            <div class="modal-body w3-small ">
-                                <form method="POST" action="" id="Manage_RawMaterialForm" name="Manage_RawMaterialForm">
-                                    <div class="w3-padding-left col-lg-offset-1">
-                                        <div class="row">
-                                            <div class="col-lg-3">
-                                                <label class="padding-left">Select&nbsp;Material:</label> 
-                                            </div>
-                                            <div class="col-lg-6">  
-                                                <select class="form-control" name="Select_RawMaterials" id="Select_RawMaterials" required> <!-- this is for showing material stocks quantity -->
-                                                    <option>Select Material:</option>
-                                                    <?php foreach ($All_Material as $result) { ?>
-                                                    <option value='<?php echo $result['material_id']; ?>' ><?php echo $result['material_name'] . '-' . $result['material_color'] ?></option>
-                                                    <?php } ?>
-                                                </select><br>
-                                            </div>
-                                        </div>
-
-                                        <div class="row">
-                                            <div class="col-lg-3">
-                                                <label class="padding-left">Select&nbsp;Vendor: </label> 
-                                            </div> 
-                                            <div class="col-lg-6">
-                                                <select class="form-control" name="Select_RawVendors_Id" id="Select_RawVendors_Id" required>                   
-                                                    <option>Select Vendor:</option>
-                                                    <?php foreach ($vendors as $result) { ?>
-                                                    <option value='<?php echo $result['vendor_id']; ?>' ><?php echo $result['vendor_name']; ?></option>
-                                                    <?php } ?> 
-                                                </select>
-                                            </div>
-                                        </div><br>
-
-                                        <div class="row">
-                                            <div class="col-lg-3">
-                                                <label class="padding-left">ID:</label>
-                                            </div>
-                                            <div class="col-lg-6">
-                                                <input type="number" name="Input_RawMaterialStock_ID" id="Input_RawMaterialStock_ID" class="form-control" placeholder="Material ID" step="0.01" required><br>
-                                            </div>
-                                        </div>
-
-                                        <div class="row">
-                                            <div class="col-lg-3">
-                                                <label class="padding-left">OD:</label>
-                                            </div>
-                                            <div class="col-lg-6">
-                                                <input type="number" name="Input_RawMaterialStock_OD" id="Input_RawMaterialStock_OD" class="form-control" placeholder="Material OD" step="0.01" required><br>
-                                            </div>
-                                        </div>
-
-                                        <div class="row">
-                                            <div class="col-lg-3">
-                                                <label class="padding-left">Length:</label>
-                                            </div>
-                                            <div class="col-lg-6">
-                                                <input type="number" name="Input_RawMaterialLength" id="Input_RawMaterialLength" class="form-control" placeholder="Material Length" step="0.01" required><br>
-                                            </div>
-                                        </div>
-
-                                        <div class="row">
-                                            <div class="col-lg-3">
-                                                <label class="padding-left">Quantity:</label>
-                                            </div>
-                                            <div class="col-lg-6">
-                                                <input type="number" name="Input_RawMaterialNewQuantity" id="Input_RawMaterialNewQuantity" class="form-control" placeholder="Material Quantity" min="0" required><br>
-                                            </div>      
-                                        </div>
-
-                                        <div class="row">
-                                            <div class="col-lg-3">
-                                                <label class="padding-left">Tolerance:</label>
-                                            </div>
-                                            <div class="col-lg-6">
-                                                <input type="number" name="Input_RawMaterialTolerance" id="Input_RawMaterialTolerance" class="form-control" placeholder="Material Tolerance" step="0.01" required><br>
-                                            </div>      
-                                        </div>
-
-                                        <div class="row">
-                                            <div class="col-lg-6">
-                                                <input type="checkbox" name="checkPrice" id="checkPrice" value=""> Fetch Price From Price list<br>
-                                            </div>
-                                        </div><br>
-
-                                        <div class="row" >
-                                            <div id="simple_price">
-                                                <div class="col-lg-3">
-                                                    <label class="padding-left">Price:</label>
-                                                </div>
-                                                <div class="col-lg-3" >
-                                                    <input type="number" name="Input_RawMaterialPrice" id="Input_RawMaterialPrice" class="form-control" placeholder="Price" step="0.01" ><br>
-                                                </div>
-                                            </div>
-                                            <div id="fetched_price" style="display:none">
-                                                <div class="col-lg-3">
-                                                    <label class="padding-left">Fetched&nbsp;Price:</label>
-                                                </div>
-                                                <div class="col-lg-3" > 
-                                                    <input type="number" name="Input_RawMaterialPriceFrom_Pricelist" id="Input_RawMaterialPriceFrom_Pricelist" class="form-control" placeholder="Price" step="0.01" ><br>
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-3">
-                                                <select class="form-control" name="Input_RawMaterialCurrency" id="Input_RawMaterialCurrency" required onchange="priceconversion();">                   
-                                                    <option value="INR">INR</option>
-                                                    <option value="EURO">EURO</option>
-                                                </select>
-                                            </div>
-                                        </div>                                     
-                                        <center>
-                                            <button type="submit" class="btn btn-primary">Save Stock</button>
-                                            <button type="reset" class="btn btn-default">Reset</button>
-                                        </center>
-                                        <div class="w3-margin-bottom w3-col l12 w3-small" id="addProducts_err"></div><br>
-                                    </div>
-                                </form><!-- form ends here -->
+                            <div class="col-lg-6">  
+                                <select class="form-control" name="Select_RawMaterials" id="Select_RawMaterials" required> <!-- this is for showing material stocks quantity -->
+                                    <option>Select Material:</option>
+                                    <?php foreach ($All_Material as $result) { ?>
+                                    <option value='<?php echo $result['material_id']; ?>' ><?php echo $result['material_name'] . '-' . $result['material_color'] ?></option>
+                                    <?php } ?>
+                                </select><br>
                             </div>
                         </div>
+
+                        <div class="row">
+                            <div class="col-lg-3">
+                                <label class="padding-left">Select&nbsp;Vendor: </label> 
+                            </div> 
+                            <div class="col-lg-6">
+                                <select class="form-control" name="Select_RawVendors_Id" id="Select_RawVendors_Id" required>                   
+                                    <option>Select Vendor:</option>
+                                    <?php foreach ($vendors as $result) { ?>
+                                    <option value='<?php echo $result['vendor_id']; ?>' ><?php echo $result['vendor_name']; ?></option>
+                                    <?php } ?> 
+                                </select>
+                            </div>
+                        </div><br>
+
+                        <div class="row">
+                            <div class="col-lg-3">
+                                <label class="padding-left">ID:</label>
+                            </div>
+                            <div class="col-lg-6">
+                                <input type="number" name="Input_RawMaterialStock_ID" id="Input_RawMaterialStock_ID" class="form-control" placeholder="Material ID" step="0.01" required><br>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-3">
+                                <label class="padding-left">OD:</label>
+                            </div>
+                            <div class="col-lg-6">
+                                <input type="number" name="Input_RawMaterialStock_OD" id="Input_RawMaterialStock_OD" class="form-control" placeholder="Material OD" step="0.01" required><br>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-3">
+                                <label class="padding-left">Length:</label>
+                            </div>
+                            <div class="col-lg-6">
+                                <input type="number" name="Input_RawMaterialLength" id="Input_RawMaterialLength" class="form-control" placeholder="Material Length" step="0.01" required><br>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-3">
+                                <label class="padding-left">Quantity:</label>
+                            </div>
+                            <div class="col-lg-6">
+                                <input type="number" name="Input_RawMaterialNewQuantity" id="Input_RawMaterialNewQuantity" class="form-control" placeholder="Material Quantity" min="0" required><br>
+                            </div>      
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-3">
+                                <label class="padding-left">Tolerance:</label>
+                            </div>
+                            <div class="col-lg-6">
+                                <input type="number" name="Input_RawMaterialTolerance" id="Input_RawMaterialTolerance" class="form-control" placeholder="Material Tolerance" step="0.01" required><br>
+                            </div>      
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <input type="checkbox" name="checkPrice" id="checkPrice" value=""> Fetch Price From Price list<br>
+                            </div>
+                        </div><br>
+
+                        <div class="row" >
+                            <div id="simple_price">
+                                <div class="col-lg-3">
+                                    <label class="padding-left">Price:</label>
+                                </div>
+                                <div class="col-lg-3" >
+                                    <input type="number" name="Input_RawMaterialPrice" id="Input_RawMaterialPrice" class="form-control" placeholder="Price" step="0.01" ><br>
+                                </div>
+                            </div>
+                            <div id="fetched_price" style="display:none">
+                                <div class="col-lg-3">
+                                    <label class="padding-left">Fetched&nbsp;Price:</label>
+                                </div>
+                                <div class="col-lg-3" > 
+                                    <input type="number" name="Input_RawMaterialPriceFrom_Pricelist" id="Input_RawMaterialPriceFrom_Pricelist" class="form-control" placeholder="Price" step="0.01" ><br>
+                                </div>
+                            </div>
+                            <div class="col-lg-3">
+                                <select class="form-control" name="Input_RawMaterialCurrency" id="Input_RawMaterialCurrency" required onchange="priceconversion();">                   
+                                    <option value="INR">INR</option>
+                                    <option value="EURO">EURO</option>
+                                </select>
+                            </div>
+                        </div>                                     
+                        <center>
+                            <button type="submit" class="btn btn-primary">Save Stock</button>
+                            <button type="reset" class="btn btn-default">Reset</button>
+                        </center>
+                        <div class="w3-margin-bottom w3-col l12 w3-small" id="addProducts_err"></div><br>
                     </div>
-                </div>
-            </div><!-- modal ends here -->
+                </form><!-- form ends here -->
+            </div>
+        </div>
+    </div>
+</div>
+</div><!-- modal ends here -->
 
             <!--  Script to reload page when add feature modal closes............................
             --> 
@@ -704,15 +711,15 @@ $(function (){
                                                 <script>
                                                 /* this script is used to update material info */
                                                 $(function(){
-                                                 $("#Update_purchasedManage_MaterialForm_' . $Purchased['status_message'][$i]['purchased_product_id'] . '").submit(function(){
-                                                   dataString = $("#Update_purchasedManage_MaterialForm_' . $Purchased['status_message'][$i]['purchased_product_id'] . '").serialize();
-                                                   $.ajax({
-                                                     type: "POST",
-                                                     url: "' . base_url() . 'inventory/MaterialStock_Management/Update_purchasedproducts_Info",
-                                                     data: dataString,
-                                                     return: false,  
-                                                     success: function(data)
-                                                     {
+                                                   $("#Update_purchasedManage_MaterialForm_' . $Purchased['status_message'][$i]['purchased_product_id'] . '").submit(function(){
+                                                     dataString = $("#Update_purchasedManage_MaterialForm_' . $Purchased['status_message'][$i]['purchased_product_id'] . '").serialize();
+                                                     $.ajax({
+                                                       type: "POST",
+                                                       url: "' . base_url() . 'inventory/MaterialStock_Management/Update_purchasedproducts_Info",
+                                                       data: dataString,
+                                                       return: false,  
+                                                       success: function(data)
+                                                       {
                                                         $("#Updatestock_errnew_' . $Purchased['status_message'][$i]['purchased_product_id'] . '").html(data);
                                                         location.reload();
                                                     }
@@ -995,15 +1002,15 @@ $(function (){
                                             <script>
                                             /* this script is used to update material info */
                                             $(function(){
-                                             $("#Update_Finished_ProductForm_' . $Finished['status_message'][$i]['finished_product_id'] . '").submit(function(){
-                                               dataString = $("#Update_Finished_ProductForm_' . $Finished['status_message'][$i]['finished_product_id'] . '").serialize();
-                                               $.ajax({
-                                                 type: "POST",
-                                                 url: "' . base_url() . 'inventory/MaterialStock_Management/Update_Finishedproducts_Info",
-                                                 data: dataString,
-                                                 return: false,  
-                                                 success: function(data)
-                                                 {
+                                               $("#Update_Finished_ProductForm_' . $Finished['status_message'][$i]['finished_product_id'] . '").submit(function(){
+                                                 dataString = $("#Update_Finished_ProductForm_' . $Finished['status_message'][$i]['finished_product_id'] . '").serialize();
+                                                 $.ajax({
+                                                   type: "POST",
+                                                   url: "' . base_url() . 'inventory/MaterialStock_Management/Update_Finishedproducts_Info",
+                                                   data: dataString,
+                                                   return: false,  
+                                                   success: function(data)
+                                                   {
                                                     $("#Updatestock_errnew_' . $Finished['status_message'][$i]['finished_product_id'] . '").html(data);
                                                     location.reload();
                                                 }

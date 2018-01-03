@@ -48,6 +48,23 @@ class ManageMaterial_model extends CI_Model {
         return $response;
     }
 
+
+    public function getMaterialrecord_filter($material_id) { /* this  function is used for material records  */
+        $query = "SELECT * FROM raw_materialstock WHERE material_id='$material_id'";
+        $result = $this->db->query($query);
+        if ($result->num_rows() > 0) {
+            $response = array(
+                'status' => 1,
+                'status_message' => $result->result_array());
+        } else {
+            $response = array(
+                'status' => 0,
+                'status_message' => 'No records found for the specified material!!!');
+        }
+        return $response;
+    }
+
+
     /* fun ends here */
     //--------------this fun is used to get profile image-------------------//
     public function getprofileimage($Profiles){

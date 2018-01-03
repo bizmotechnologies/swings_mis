@@ -18,16 +18,25 @@ class ManageMaterial_api extends REST_Controller {
         $response = $this->ManageMaterial_model->saveMaterial($data);
         return $this->response($response);
     }
-
     //---------------------SAVE MATERIAL API END------------------------------//
+
     // -----------------------GET ALL MATERIAL INFO API-----------------------------//
     //------------------------------------------------------------------------//
     public function getMaterialrecord_get() {
         $result = $this->ManageMaterial_model->getMaterialrecord();
         return $this->response($result);
     }
-
     //---------------------GET ALL MATERIAL INFO END------------------------------//
+
+    // -----------------------GET FILTERED MATERIAL INFO API-----------------------------//
+    //------------------------------------------------------------------------//
+    public function getMaterialrecord_filter_get() {
+        extract($_GET);
+        $result = $this->ManageMaterial_model->getMaterialrecord_filter($material_id);
+        return $this->response($result);
+    }
+    //---------------------GET FILTERED MATERIAL INFO END------------------------------//
+
     // -----------------------EDIT MATERIAL RECORD API----------------------//
     //-------------------------------------------------------------//
     public function updateRecord_post() {
