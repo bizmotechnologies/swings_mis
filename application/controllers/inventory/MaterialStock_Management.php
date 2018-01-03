@@ -33,8 +33,20 @@ class MaterialStock_Management extends CI_controller {
         $this->load->view('inventory/stock/materialstock_management', $response);
     }
 //----this fun is used to filter the materials 
-    public function FilterMaterialBy_Name(){
-        
+    public function showmaterialCategory(){
+        extract($_POST);
+        //print_r($_POST);die();
+        $path = base_url();
+        $url = $path . 'api/MaterialStockManagement_api/showmaterialCategory?material_id='.$material_id;
+        $ch = curl_init($url);
+        curl_setopt($ch, CURLOPT_HTTPGET, true);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $response_json = curl_exec($ch);
+        curl_close($ch);
+        $response = json_decode($response_json, true);
+        //print_r($response_json);die();
+        $response = json_encode($response['status_message'][0]);
+        print_r($response);
     }
 
 //this fun is used to get all prices from price list---------------------------------------    

@@ -180,5 +180,10 @@ class MaterialStockManagement_api extends REST_Controller {
         return $this->response($response);
     }
     //---------------------- this fun is used to save material category in material category table-----------------------//
-
+//----this fun is used to showing material category-------------------------------------------//
+    public function showmaterialCategory_get(){
+        $material_id = $_GET['material_id'];
+        $response = $this->MaterialStockManagement_model->showmaterialCategory($material_id);
+        return $this->response($response);        
+    }
 }

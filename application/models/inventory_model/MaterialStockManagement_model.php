@@ -519,7 +519,23 @@ class MaterialStockManagement_model extends CI_Model {
         }
         die();       
     }
-
+//--this fun is used  to get all material category as per the material id-----------------//
+    public function showmaterialCategory($material_id){
+        $sql = "SELECT * FROM material_category WHERE material_id ='$material_id'";
+        //echo $sql; die();
+        $result = $this->db->query($sql);                      
+        if ($result->num_rows() <= 0) {
+            $response = array(
+                'status' => 0,
+                'status_message' => 'No Records Found....!');
+        } else {
+            $response = array(
+                'status' => 1,
+                'status_message' => $result->result_array());
+        }
+        return $response;
+    }
+//--this fun is used  to get all material category as per the material id-----------------//    
 }
 
 ?>	

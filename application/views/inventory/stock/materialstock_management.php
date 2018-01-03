@@ -140,42 +140,41 @@ $branch_name=$this->session->userdata('branch_name');
                     <div class="w3-col l12 w3-margin-top">
                         <div class="w3-col l2">
                             <label class="w3-label">Material Name:</label> 
-                            <input list="Materials" id="material_info" autocomplete="off" onclick="this.select();" name="material_info" value="<?php echo $cust_name; ?>" class="form-control" required type="text" placeholder="Select material" onchange="getMaterialId();">  
+                            <input list="Materials" id="material_info" autocomplete="off" onclick="this.select();" name="material_info" value="<?php echo $cust_name; ?>" class="form-control" required type="text" placeholder="Select material" onchange="getMaterialId();showmaterialCategory();">  
                             <input type="hidden" name="material_id" id="material_id">                                      
                             <datalist id="Materials">
                                 <?php foreach ($materials['status_message'] as $result) { ?>
                                     <option data-value="<?php echo $result['material_id']; ?>" value='<?php echo $result['material_name']; ?>'></option>
                                 <?php } ?>
                             </datalist>
-                        </div>
-                        
+                        </div>                        
                             <div class="w3-col l1 w3-center w3-padding-left">
                             <label class="w3-label ">A</label>
-                            <input type="text" value="" step="0.01" placeholder="material category" id="Category_a" name="Category_a" class="form-control" required>                                                            
+                            <input type="text" value="" step="0.01" placeholder="material category" id="UpdateCategory_a" name="UpdateCategory_a" class="form-control" required>                                                            
                             </div>
                             <div class="w3-col l1  w3-center w3-padding-left">
                             <label class="w3-label">B</label>
-                            <input type="text" autocomplete="off" value="" step="0.01" placeholder="material category" id="Category_b" name="Category_b" class="form-control" required>                                                            
+                            <input type="text" autocomplete="off" value="" step="0.01" placeholder="material category" id="UpdateCategory_b" name="UpdateCategory_b" class="form-control" required>                                                            
                             </div>
                             <div class="w3-col l1 w3-center w3-padding-left">
                             <label class="w3-label ">C</label>
-                            <input type="text" autocomplete="off" value="" step="0.01" placeholder="material category" id="Category_c" name="Category_c" class="form-control" required>                                                            
+                            <input type="text" autocomplete="off" value="" step="0.01" placeholder="material category" id="UpdateCategory_c" name="UpdateCategory_c" class="form-control" required>                                                            
                             </div>
                             <div class="w3-col l1 w3-center w3-padding-left">
                             <label class="w3-label">D</label>
-                            <input type="text" autocomplete="off" value="" step="0.01" placeholder="material category" id="Category_d" name="Category_d" class="form-control" required>                                                            
+                            <input type="text" autocomplete="off" value="" step="0.01" placeholder="material category" id="UpdateCategory_d" name="UpdateCategory_d" class="form-control" required>                                                            
                             </div>
                             <div class="w3-col l1 w3-center w3-padding-left">
                             <label class="w3-label">E</label>
-                            <input type="text" autocomplete="off" value="" step="0.01" placeholder="material category" id="Category_e" name="Category_e" class="form-control" required>                                                            
+                            <input type="text" autocomplete="off" value="" step="0.01" placeholder="material category" id="UpdateCategory_e" name="UpdateCategory_e" class="form-control" required>                                                            
                             </div>                         
                             <div class="w3-col l1 w3-center w3-padding-left">
                             <label class="w3-label">F</label>
-                            <input type="text" autocomplete="off" value="" step="0.01" placeholder="material category" id="Category_f" name="Category_f" class="form-control" required>                                                            
+                            <input type="text" autocomplete="off" value="" step="0.01" placeholder="material category" id="UpdateCategory_f" name="UpdateCategory_f" class="form-control" required>                                                            
                             </div>
                             <div class="w3-col l1 w3-center w3-padding-left">
                             <label class="w3-label">G</label>
-                            <input type="text" autocomplete="off" value="" step="0.01" placeholder="material category" id="Category_g" name="Category_g" class="form-control" required>                                                            
+                            <input type="text" autocomplete="off" value="" step="0.01" placeholder="material category" id="UpdateCategory_g" name="UpdateCategory_g" class="form-control" required>                                                            
                             </div> 
                       
                         <div class="w3-col l1 w3-padding-left w3-padding-top w3-margin-left">
@@ -299,7 +298,34 @@ $branch_name=$this->session->userdata('branch_name');
     $('#material_id').val(customer_id);
   }
 </script>
-
+<script>
+    //---this script is used to get the material category by material id--------------------//
+function showmaterialCategory(){
+    material_id = $('#Materials [value="' + $('#material_info').val() + '"]').data('value');
+    //alert(material_id);
+    $.ajax({
+                type: "POST",
+                url: BASE_URL+"inventory/MaterialStock_Management/showmaterialCategory",
+                dataType:"json",
+                data: {
+                    material_id: material_id                 
+                },
+                cache: false,
+                success: function (data) {
+               
+                $('#UpdateCategory_a').val(data['category_a']);    
+                $('#UpdateCategory_b').val(data['category_b']);    
+                $('#UpdateCategory_c').val(data['category_c']);    
+                $('#UpdateCategory_d').val(data['category_d']);    
+                $('#UpdateCategory_e').val(data['category_e']);    
+                $('#UpdateCategory_f').val(data['category_f']);    
+                $('#UpdateCategory_g').val(data['category_g']);    
+              
+            }
+        }); //stop the actual form post !important! 
+}
+    //---this script is used to get the material category by material id--------------------//
+</script>
 <script>
   function getCustomerIdForEnquirySort(){
     Material_id = $('#Material_Filter [value="' + $('#Material_ForFilter').val() + '"]').data('value');
