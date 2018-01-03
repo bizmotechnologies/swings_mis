@@ -132,7 +132,7 @@ $branch_name=$this->session->userdata('branch_name');
                     <!--this div is for showing the delete material div -->
 
                     <div class="w3-col l12" id="categoryDiv">
-                        <form id="addMaterialCategoryForm" name="addMaterialCategoryForm">
+                        <form id="UpdateMaterialCategoryForm" name="UpdateMaterialCategoryForm">
                          <hr>
                          <div class="w3-col l12">
                              <label class="">Update Material Category</label>
@@ -337,12 +337,12 @@ function showmaterialCategory(){
     <script>
     /* this function is used for show total material stocks quantity*/
     $(function (){
-        $("#addMaterialCategoryForm").submit(function (){
-         dataString = $("#addMaterialCategoryForm").serialize();
+        $("#UpdateMaterialCategoryForm").submit(function (){
+         dataString = $("#UpdateMaterialCategoryForm").serialize();
         //alert(dataString);
         $.ajax({
             type: "POST",
-            url: BASE_URL + "inventory/MaterialStock_Management/saveMaterialCategory",
+            url: BASE_URL + "inventory/MaterialStock_Management/UpdateMaterialCategory",
             data: dataString,
             return: false, //stop the actual form post !important!
             success: function (data)

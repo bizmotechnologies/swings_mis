@@ -473,28 +473,22 @@ class MaterialStockManagement_model extends CI_Model {
 
     /* this fun ends here */
     //----this fun is used to save material category -------------------------------//
-    public function saveMaterialCategory($data){        
+    public function UpdateMaterialCategory($data){        
         extract($data);
-        $sql = "SELECT * FROM material_category WHERE material_id='$material_id'";
-        $resultnew = $this->db->query($sql);
-        if ($resultnew->num_rows() <= 0) {
-            $sqlnew = "INSERT INTO material_category(material_id,material_name,category_a,category_b,category_c,category_d,category_e,category_f,category_g) 
-        values('$material_id','$material_info','$Category_a','$Category_b','$Category_c','$Category_d','$Category_e','$Category_f','$Category_g')";
-                    $resultnew = $this->db->query($sqlnew);          
-        }else{
+        
             $sqlupdate = "UPDATE material_category SET material_name='$material_info',"
-                    . "category_a='$Category_a',category_b='$Category_b',category_c='$Category_c',category_d='$Category_d',"
-                    . "category_e='$Category_e',category_f='$Category_f',category_g='$Category_g' WHERE material_id='$material_id'";
+                    . "category_a='$UpdateCategory_a',category_b='$UpdateCategory_b',category_c='$UpdateCategory_c',category_d='$UpdateCategory_d',"
+                    . "category_e='$UpdateCategory_e',category_f='$UpdateCategory_f',category_g='$UpdateCategory_f' WHERE material_id='$material_id'";
                     $resultnew = $this->db->query($sqlupdate);                      
-        }
+        
             if ($resultnew) {
                 $response = array(
                     'status' => 1,
-                    'status_message' => 'Categories Saved Successfully..!');
+                    'status_message' => 'Categories Updated Successfully..!');
             } else {
                 $response = array(
                     'status' => 0,
-                    'status_message' => 'Categories Not Saved Successfully...!');
+                    'status_message' => 'Categories Not Updated Successfully...!');
             }
         
         return $response;

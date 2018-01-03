@@ -174,9 +174,9 @@ class MaterialStockManagement_api extends REST_Controller {
     //---------------------- this fun is used to get price from price list-----------------------//
 //---------------------- this fun is used to save material category in material category table-----------------------//
 
-    public function saveMaterialCategory_post(){
+    public function UpdateMaterialCategory_post(){
         $data = $_POST;
-        $response = $this->MaterialStockManagement_model->saveMaterialCategory($data);
+        $response = $this->MaterialStockManagement_model->UpdateMaterialCategory($data);
         return $this->response($response);
     }
     //---------------------- this fun is used to save material category in material category table-----------------------//

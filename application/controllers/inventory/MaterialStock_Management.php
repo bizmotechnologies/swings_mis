@@ -194,12 +194,12 @@ class MaterialStock_Management extends CI_controller {
       </script>';
   }
 }
-public function saveMaterialCategory(){
+public function UpdateMaterialCategory(){
     extract($_POST);
     $data = $_POST;
         //print_r($data);die();
     $path = base_url();
-    $url = $path . 'api/MaterialStockManagement_api/saveMaterialCategory';
+    $url = $path . 'api/MaterialStockManagement_api/UpdateMaterialCategory';
     $ch = curl_init($url);
     curl_setopt($ch, CURLOPT_POST, true);
     curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
