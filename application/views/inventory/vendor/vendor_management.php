@@ -500,7 +500,11 @@ $(function () {
             success: function (data)
             {
                 //alert(data);
-                $("#addVendorInformation_err").html(data);
+                $("#msg_header").text('Message');
+                $("#msg_span").css({'color': "black"});
+                $("#updateVendordetails_err").html(data);                         
+                $('#myModal').modal('show');
+                //$("#addVendorInformation_err").html(data);
             }
         });
         return false;  //stop the actual form post !important!

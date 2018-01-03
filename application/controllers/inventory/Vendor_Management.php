@@ -77,29 +77,9 @@ class Vendor_Management extends CI_controller {
         $response = json_decode($response_json, true);
         // print_r($response);
         if ($response['status'] == 0) {
-            echo'<div class="alert alert-danger w3-margin" style="text-align: center;">
-   <strong>' . $response['status_message'] . '</strong> 
-   </div>
-   <script>
-   window.setTimeout(function() {
-     $(".alert").fadeTo(500, 0).slideUp(500, function(){
-      $(this).remove(); 
-    });
-    location.reload();
-  }, 1000);
-  </script>';
+            echo $response['status_message'];
         } else {
-            echo'<div class="alert alert-success w3-margin" style="text-align: center;">
-  <strong>' . $response['status_message'] . '</strong> 
-  </div>
-  <script>
-  window.setTimeout(function() {
-   $(".alert").fadeTo(500, 0).slideUp(500, function(){
-    $(this).remove(); 
-  });
-  location.reload();
-}, 1000);
-</script>';
+            echo $response['status_message'];
         }
     }
 
