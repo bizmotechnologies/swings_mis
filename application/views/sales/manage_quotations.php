@@ -458,9 +458,12 @@ error_reporting(E_ERROR | E_PARSE);
                       ';
                     } 
                     echo '</ol>              
-                    </div>
-                    <div class="w3-col l12 w3-margin-bottom">
+                    </div>';
+                    
+                    echo'<div class="w3-col l12 w3-margin-bottom">
+                        
                     <div class="w3-col l12">
+                    
                     <label class="w3-label w3-text-red">Delivery within:</label>
                     <input type="number" name="revise_deliverySpan" class="form-control w3-padding-right" style="width:80px" min="0" value="'.$delivery_values[0].'">
                     <select class="w3-input" style="width:120px" name="revise_deliveryPeriod">
@@ -469,18 +472,39 @@ error_reporting(E_ERROR | E_PARSE);
                     <option '; if($delivery_values[1]=='month/months'){ echo 'selected'; } echo ' value="3">month/months</option>
                     <option '; if($delivery_values[1]=='year/years'){ echo 'selected'; } echo ' value="4">year/years</option>
                     </select>
+                    
                     </div> 
                     <button class="btn w3-button btn-block w3-red w3-margin-top w3-margin-bottom" type="submit" id="send_quote" name="send_quote">Revise Quotation For Enquiry #ENQ-0'.$enquiry_no.'</button>                     
                     <br>
                     </form>
-                    </div><br>
+                    
+                    </div>
+                    <br>
                     </div>';
       //------------------------------products fetched end ----------------------------------//
                     echo '</div>
-                    <br><br>
+                    <br><br>';
+//                    
+//        if ($key['club_quote'] == 1) {
+//            $path = base_url();
+//            $url = $path . 'api/ManageQuotations_api/Get_quotationDetails?club_id=' . $key['club_id'];
+//            $ch = curl_init($url);
+//            curl_setopt($ch, CURLOPT_HTTPGET, true);
+//            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+//            $response_json = curl_exec($ch);
+//            curl_close($ch);
+//            $response = json_decode($response_json, true);
+//
+//            $childQuotations = json_encode($response);
+//        }
 
-                    </div>
-                    <!-- //Modal End  -->
+        echo'</div>';//----div for revesed quote form ends here
+                    
+                   
+                    
+                    
+                    
+                    echo'<!-- //Modal End  -->
                     <!-- script to toggle i.e.hide/show revise and new quotation div -->
                     <script>
                     $(function() {

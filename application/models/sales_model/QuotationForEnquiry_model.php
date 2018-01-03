@@ -585,4 +585,22 @@ public function contact_admin($data) {
             }
 
     //----this fun is used to get customer details----------------------------//
+//-----this fun get child quotation from clubbed table--------------------------//            
+    public function Get_quotationDetails($club_id){
+        $sql = "SELECT * FROM club_table WHERE club_id='$club_id'";
+        $result = $this->db->query($sql);
+        $child_quotation = '';
+        if ($result->num_rows() <= 0) {
+            $child_quotation = array(
+                'status' => 0,
+                'status_message' => 'No Records Found.');
+        } else {
+            foreach ($result->result_array() as $row) {
+                $child_quotation = $row['child_quotation'];
+            }
         }
+        return $child_quotation;
+    }
+//-----this fun get child quotation from clubbed table--------------------------//            
+    
+}

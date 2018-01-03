@@ -118,4 +118,10 @@ class ManageQuotations_api extends REST_Controller {
         return $this->response($response);
     }
     //--------this fun is used to delete quotation--------------------------------//
+    public function Get_quotationDetails_get(){
+        extract($_GET);
+        $club_id = $_GET['club_id'];
+        $response = $this->QuotationForEnquiry_model->Get_quotationDetails($club_id);
+        return $this->response($response);
+    }
 }
