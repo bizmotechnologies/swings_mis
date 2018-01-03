@@ -286,14 +286,19 @@ error_reporting(E_ERROR | E_PARSE);
                     echo '
                     <!-- Modal start  --> 
                     <div id="viewQuote_modal_'.$key['quotation_id'].'" class="modal fade" role="dialog">
+                        
                     <div class="modal-dialog">
+                    
                     <!-- Modal content-->
-                    <div class="modal-content w3-col l12">
-                    <div class="modal-header w3-blue">
+                    <div class="modal-content w3-col l12">';
+                    //----this div for modal header-----------------------------------------------//
+                    echo'<div class="modal-header w3-blue">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                     <h4 class="modal-title"><span class="w3-text-white">Quotation No: #QUO-0'.$key['quotation_id'].'</span></h4>
-                    </div>
-                    <div class="modal-body">';
+                    </div>';
+                    //----this div for modal header-----------------------------------------------//
+                    //----this div for modal body starts here-----------------------------------------------//                    
+                    echo'<div class="modal-body">';
                     $products_associatedArr= json_decode($key['product_associated'],true);
 
                     $enquiry_no=$key['enquiry_id'];
@@ -305,40 +310,43 @@ error_reporting(E_ERROR | E_PARSE);
                     $product_arr=array();
       //print_r($products_associatedArr);die();
 
-                    echo '
-                    <div class="w3-col l12 w3-margin-bottom">
-                    <div class="checkbox">
+                    echo'<div class="w3-col l12 w3-margin-bottom">';//----div for toggle button starts here
+                    
+                    echo'<div class="checkbox">
                     <label title="Toggle the switch to raise this quotation" class="">
                     <input name="revise_quoteBtn" data-onstyle="danger" data-size="mini" id="revise_quoteBtn_'.$key['quotation_id'].'" type="checkbox" data-toggle="toggle" data-on="ON" data-off="OFF" value="1">
                     <b>Toggle to Revise Quotation</b>
                     </label>                           
-                    </div>
-                    </div>                      
-                    <div class="w3-col l12 w3-small" id="view_quoteDiv_'.$key['quotation_id'].'">
-                    <div class="w3-col l12 w3-margin-bottom">
+                    </div>';
+                    
+                    echo'</div>';//----div for toggle button ends here
+                    
+                    echo'<div class="w3-col l12 w3-small" id="view_quoteDiv_'.$key['quotation_id'].'">';//----view quote div
+                    //----div for show enquiry no and issued date-----------------------------------//    
+                    echo'<div class="w3-col l12 w3-margin-bottom">
+                    
                     <div class="w3-left">
                     <label class="w3-label w3-text-red">Enquiry No:</label> <span class="">#ENQ-0'.$enquiry_no.'</span>
                     <input type="hidden" value="'.$enquiry_no.'" name="enquiry_id" name="enquiry_id">
                     </div>
+                    
                     <div class="w3-right">
                     <label class="w3-label w3-text-red">Issued On:</label> <span class="">'.$date.', '.$time.'</span>
                     </div>
-                    </div>
-
-                    <div class="w3-col l12 w3-margin-bottom">
+                    
+                    </div>';
+                    //----div for show enquiry no and issued date-----------------------------------//    
+                    echo'<div class="w3-col l12 w3-margin-bottom">
                     <label class="w3-label w3-text-red">Customer Name:</label> <span class="">'.$customer_name.' (#CID-0'.$customer_id.')</span>
                     <input type="hidden" value="'.$customer_id.'" name="customer_id" name="customer_id">
-
-                    </div>
-
-                    <div class="w3-col l12 w3-margin-bottom">
+                    </div>';
+//---------------div for showing the products information starts here ------------------------//
+                    echo'<div class="w3-col l12 w3-margin-bottom">
+                        
                     <label class="w3-label w3-text-red">Products:</label>
-
                     <ol type="I" style="margin: 0">';
-
         //--------------------------all the products fetched from enquiry----------------------//
                     foreach ($products_associatedArr as $value) { 
-
                       //-----------------get profile name----------------------
                       $path=base_url();
                       $url = $path.'api/ManageProfile_api/profileDetails?profile_id='.$value['profile_id']; 
@@ -349,8 +357,7 @@ error_reporting(E_ERROR | E_PARSE);
                       curl_close($ch);
                       $response=json_decode($response_json, true);
                       $profile_name=($response['status_message'][0]['profile_name']);
-      //echo $profile_name;
-                      
+      //echo $profile_name;                      
                       echo '
                       <li>'.strtoupper($value['product_name']).' -';
 
@@ -371,36 +378,44 @@ error_reporting(E_ERROR | E_PARSE);
                       ';
                     } 
                     echo '</ol>              
-                    </div>
-                    <div class="w3-col l12 w3-margin-bottom">
-                    <label class="w3-label w3-text-red">Delivery within: '.$key['delivery_within'].'</label><br>
-
-                    </div></div><br>';
+                    </div>';
+//---------------div for showing the products information starts here ------------------------//
+                    
+                    echo'<div class="w3-col l12 w3-margin-bottom">
+                    <label class="w3-label w3-text-red">Delivery within:'.$key['delivery_within'].'</label>
+                     <br>
+                    </div>';
+                    
+                    echo'</div>';//---------view quote div ends here----------------------------------//
+                    
+                    echo'<br>';
 
                     echo '
                     <form id="revise_quoteForm_'.$key['quotation_id'].'">
                     <div class="w3-col l12 w3-small" id="revise_quoteDiv_'.$key['quotation_id'].'" style="display:none">
+                        
                     <div class="w3-col l12 w3-margin-bottom">
+                    
                     <div class="w3-left">
                     <label class="w3-label w3-text-red">Enquiry No:</label> <span class="">#ENQ-0'.$enquiry_no.'</span>
                     <input type="hidden" value="'.$enquiry_no.'" name="enquiry_id" name="enquiry_id">
                     </div>
+                    
                     <div class="w3-right">
                     <label class="w3-label w3-text-red">Issued On:</label> <span class="">'.$date.', '.$time.'</span>
                     </div>
+                    
                     </div>
 
                     <div class="w3-col l12 w3-margin-bottom">
                     <label class="w3-label w3-text-red">Customer Name:</label> <span class="">'.$customer_name.' (#CID-0'.$customer_id.')</span>
                     <input type="hidden" value="'.$customer_id.'" name="customer_id" name="customer_id">
-
                     </div>
 
                     <div class="w3-col l12 w3-margin-bottom">
                     <label class="w3-label w3-text-red">Products:</label>
 
                     <ol type="I" style="margin: 0">';
-
         //--------------------------all the products fetched from enquiry----------------------//
                     foreach ($products_associatedArr as $value) { 
 
