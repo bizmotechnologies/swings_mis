@@ -536,6 +536,7 @@ function getMaterialCategoryByCstomer(fieldnum, countnum){
                 $.ajax({
                     type: "POST",
                     url: BASE_URL + "inventory/Manage_enquiry/showAvailable_Tube",
+                    dataType:"json",
                     data: {
                         Materialinfo: Materialinfo,
                         MaterialID: MaterialID,
@@ -545,9 +546,9 @@ function getMaterialCategoryByCstomer(fieldnum, countnum){
                 return: false, //stop the actual form post !important!
                 success: function (data)
                 {
-                    //alert(data);
                     $("#tube_spinner_" + fieldnum + '_' + countnum).html('');
-                    $('#Available_tube_' + fieldnum + '_' + countnum).val(data);
+                    $('#Available_tube_' + fieldnum + '_' + countnum).val(data['avail_tube']);
+                    $('#available_length_' + fieldnum + '_' + countnum).html('<lable><b>AVAILABLE LENGTH:' + data['new_length'] + '<b></lable>' );
                     getAvailableTubeFromAllBranches(fieldnum, countnum);
                     GetMaterialBasePrice(fieldnum, countnum);
                     GetProductfinalPrice(fieldnum);

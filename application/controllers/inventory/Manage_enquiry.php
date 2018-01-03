@@ -43,9 +43,17 @@ class Manage_enquiry extends CI_controller {
             echo 'N/A';
         }
         else{
+            $new_length = '';
+            $avail_tube = '';
             $length = min($response['length']);//----finding the minimum length for available tube
             $key = array_search($length, $response['length']);  //--finding tube id/od by using key index of length
-            echo $response['tube'][$key]; //--returns the available tube for material
+            $tube = $response['tube'][$key]; //--returns the available tube for material
+            $tubeArr= array(
+                'avail_tube' => $tube,
+                'new_length' => $length
+            );
+            $response = json_encode($tubeArr);
+            echo $response;
         }
     }
     else{

@@ -263,6 +263,7 @@ class Manage_materials extends CI_controller {
                     </div>';
                     //------this div for material Final Price information div---------// 
                     echo'<div class="w3-col l12" id="best_tubeError_'.$Profile_num.'_'.$count.'"></div>
+                    <div class="w3-col l12 w3-margin-top" id="available_length_'.$Profile_num.'_'.$count.'"></div>                        
                     <div class="w3-col l4 w3-margin-top" id="available_tube_'.$Profile_num.'_'.$count.'"></div>
 
                     <div class="w3-col l12 w3-tiny">
