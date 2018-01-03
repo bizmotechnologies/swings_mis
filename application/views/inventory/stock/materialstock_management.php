@@ -157,6 +157,25 @@ $branch_name=$this->session->userdata('branch_name');
                                 </div>
                             </div><br><!-- container ends here -->
                             <div class="w3-col l12 w3-margin-top">
+                                <form id="MaterialFilter_Form" name="MaterialFilter_Form">
+                                <div class="w3-col l4 ">
+                                    <label class="w3-label">Search Material:</label>
+                                    <div class="input-group">
+                                        <input type="hidden" name="Material_idForMaterialFilter" id="Material_idForMaterialFilter">
+                                        <input list="Material_Filter" id="Material_ForFilter" name="Material_ForFilter" class="form-control" placeholder="Materials..." onchange="getCustomerIdForEnquirySort();">
+                                        <datalist id="Material_Filter">
+                                              <?php foreach ($materials['status_message'] as $result) { ?>
+                                              <option data-value='<?php echo $result['material_id']; ?>' ><?php echo $result['material_name']; ?></option>
+                                              <?php } ?>
+                                        </datalist>
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-secondary w3-blue" name="MaterialFilter" id="MaterialFilter" type="submit" title="Filter Enquiries"><i class="fa fa-filter"></i></button>
+                                        </span>
+                                    </div>                      
+                                </div> 
+                                </form>    
+                            </div>
+                            <div class="w3-col l12 w3-margin-top">
                                 <div class="" id="ShowRaw_products" name="ShowRaw_products" style="max-height: 400px; overflow: scroll;">
                                     <table class="table table-striped table-responsive w3-small"> 
                                                <!-- table starts here -->
@@ -206,10 +225,38 @@ $branch_name=$this->session->userdata('branch_name');
                         </div>
                     </div><!-- table container ends here -->
 <script>
-  function getMaterialId(){
+    $(function(){
+     $("#MaterialFilter_Form").submit(function(){
+      dataString = $("#MaterialFilter_Form").serialize();
+      $.alert(dataString);
+      $.ajax({
+       type: "POST",
+       url: "<?php echo base_url(); ?>inventory/MaterialStock_Management/FilterMaterialBy_Name",
+       data: dataString,
+           return: false,  //stop the actual form post !important!
 
+           success: function(data)
+           {
+             //$('#Show_quotationsTable').html(data);
+           }
+
+         });
+         return false;  //stop the actual form post !important!
+
+       });
+   });
+ </script>                    
+<script>
+  function getMaterialId(){
     customer_id = $('#Materials [value="' + $('#material_info').val() + '"]').data('value');
     $('#material_id').val(customer_id);
+  }
+</script>
+
+<script>
+  function getCustomerIdForEnquirySort(){
+    Material_id = $('#Material_Filter [value="' + $('#Material_ForFilter').val() + '"]').data('value');
+    $('#Material_idForMaterialFilter').val(Material_id);
   }
 </script>
 <script>

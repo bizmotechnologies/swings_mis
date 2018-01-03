@@ -32,6 +32,10 @@ class MaterialStock_Management extends CI_controller {
         $this->load->view('includes/navigation');
         $this->load->view('inventory/stock/materialstock_management', $response);
     }
+//----this fun is used to filter the materials 
+    public function FilterMaterialBy_Name(){
+        
+    }
 
 //this fun is used to get all prices from price list---------------------------------------    
     public function GetPriceFromPriceList() {
