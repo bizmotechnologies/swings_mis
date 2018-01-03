@@ -215,7 +215,7 @@ $branch_name=$this->session->userdata('branch_name');
                                           <?php } ?>
                                       </datalist>
                                       <span class="input-group-btn">
-                                        <button class="btn btn-secondary w3-blue" name="MaterialFilter" id="MaterialFilter" type="submit" title="Filter Enquiries"><i class="fa fa-filter"></i></button>
+                                        <button class="btn btn-secondary w3-blue" name="MaterialFilter" id="MaterialFilter" type="submit" title="Filter Raw material stock"><i class="fa fa-filter"></i></button>
                                     </span>
                                 </div>                      
                             </div> 
