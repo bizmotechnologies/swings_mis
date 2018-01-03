@@ -247,11 +247,27 @@ class ManageMaterial_model extends CI_Model {
         $checkMaterial=ManageMaterial_model::checkMaterial_exist($material_nameForStock);//---------check if material already exist or not
 
         if($checkMaterial){
-        $sql = "INSERT INTO materials
+        $sql="SELECT * FROM information_schema.TABLES WHERE TABLE_NAME ='materials' AND TABLE_SCHEMA='swing_db'";
+        //---this sql query for get auto increment value of club table
+        $material_id = '';
+//---the parent_id is used to get autoincrement id of material table-------------------------------------------------//        
+        $result = $this->db->query($sql);
+        foreach ($result->result_array() as $row) {
+                  $material_id = $row['AUTO_INCREMENT'];
+            }
+        //---------------------the insert query for save material info into materials table----------------------//    
+        $sqlinsert = "INSERT INTO materials
 		(material_name,material_color) 
         VALUES ('" . strtoupper($material_nameForStock) . "','" . strtoupper($materialColor_ForStock) . "')";
         //echo $sql; die();
-        $result = $this->db->query($sql);
+        $result = $this->db->query($sqlinsert);
+        //---------------------the insert query for save material info into materials table----------------------//    
+        //-----this query for insert the material category details--------------------------------------------//
+        $sqlInsertCategory = "INSERT INTO material_category(material_id,material_name,category_a,category_b,category_c,category_d,category_e,category_f,category_g) 
+        values('$material_id','".strtoupper($material_nameForStock)."','$Category_a','$Category_b','$Category_c','$Category_d','$Category_e','$Category_f','$Category_g')";
+         
+        $resultnew = $this->db->query($sqlInsertCategory);
+        //-----this query for insert the material category details--------------------------------------------//
 
         if ($result) {
             $response = array(

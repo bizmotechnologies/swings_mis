@@ -3,7 +3,7 @@
 $(function () {
     $("#Add_material_form").submit(function () {
         dataString = $("#Add_material_form").serialize();
-        //alert(dataString);
+        alert(dataString);
         $.ajax({
             type: "POST",
             url: BASE_URL + "inventory/Manage_materials/saveMaterial",

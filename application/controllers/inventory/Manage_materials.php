@@ -637,7 +637,7 @@ public function fetchmaterial_details() {
     public function saveMaterial() {
         extract($_POST);
         $data = $_POST;
-
+        //print_r($data);die();
         $path = base_url();
         $url = $path . 'api/ManageMaterial_api/saveMaterial';
         $ch = curl_init($url);

@@ -36,10 +36,6 @@ $branch_name=$this->session->userdata('branch_name');
                 <li class="active "><a class="w3-medium w3-button w3-red"  href="#RawMaterialStock" data-toggle="tab">Raw Material Stock</a></li>
                 <li><a class="w3-medium w3-orange w3-button w3-text-white"  href="#" data-toggle="tab">Purchased Products Stock</a></li>
                 <li><a class="w3-medium w3-brown w3-button"  href="#" data-toggle="tab">Finished Product Stock</a></li>
-<!--                    <li><a href="#PurchasedProducts" data-toggle="tab">Purchased Products Stock</a>
-                </li>
-                <li><a href="#FinishedProducts" data-toggle="tab">Finished Product Stock</a>
-                </li>-->
             </ul>
 
             <div class="tab-content clearfix "><br><!-- tab containt starts -->
@@ -50,24 +46,76 @@ $branch_name=$this->session->userdata('branch_name');
                         <label>Add new Material</label>
                     </div>
                     <div class="w3-col l12 w3-margin-top w3-small">
-                        <form id="Add_material_form">
+                                                <hr>
 
-                            <div class="w3-col l4 w3-padding-left w3-padding-bottom">
+                        <!-- add material form starts here----->
+                        <form id="Add_material_form">
+                            
+                            <div class="w3-col l12">
+                                
+                            <div class="w3-col l4 w3-padding-bottom">
                                 <label class="w3-label">Material Name:</label>
                                 <input type="text" placeholder="Material Name" class="form-control" style="text-transform:uppercase;" id="material_nameForStock" name="material_nameForStock" required>
                             </div>
-                            <div class="w3-col l3 w3-padding-left w3-padding-bottom">
+                            <div class="w3-col l3 w3-padding-bottom w3-padding-left">
                                 <label class="w3-label">Material Color:</label>
                                 <input type="text" autocomplete="off"  placeholder="Material Color" class="form-control" style="text-transform:uppercase;" id="materialColor_ForStock" name="materialColor_ForStock" required>
                             </div>
-
-                            <div class="w3-col l1 w3-padding-top w3-padding-left w3-padding-right ">
-                                <button class="btn w3-blue w3-margin-top" type="submit" id="Save_materialBtn" name="Save_materialBtn">Add Material</button>
+                                                              
                             </div>
+                            <!--material category div-->
+                            <div class="w3-col l12">
+                            <div  class="w3-col l12 w3-margin-top w3-margin-bottom"><label> Material Category </label></div>
+                            <div class="w3-col l1 w3-center">
+                            <label class="w3-label ">A</label>
+                            <input type="text" value="2.65" step="0.01" placeholder="material category" id="Category_a" name="Category_a" class="form-control" required>                                                            
+                            </div>
+                            <div class="w3-col l1 w3-center w3-padding-left">
+                            <label class="w3-label">B</label>
+                            <input type="text" autocomplete="off" value="2.65" step="0.01" placeholder="material category" id="Category_b" name="Category_b" class="form-control" required>                                                            
+                            </div>
+                            <div class="w3-col l1 w3-center w3-padding-left">
+                            <label class="w3-label ">C</label>
+                            <input type="text" autocomplete="off" value="2.65" step="0.01" placeholder="material category" id="Category_c" name="Category_c" class="form-control" required>                                                            
+                            </div>
+                            <div class="w3-col l1 w3-center w3-padding-left">
+                            <label class="w3-label">D</label>
+                            <input type="text" autocomplete="off" value="2.65" step="0.01" placeholder="material category" id="Category_d" name="Category_d" class="form-control" required>                                                            
+                            </div>
+                            <div class="w3-col l1 w3-center w3-padding-left">
+                            <label class="w3-label">E</label>
+                            <input type="text" autocomplete="off" value="2.65" step="0.01" placeholder="material category" id="Category_e" name="Category_e" class="form-control" required>                                                            
+                            </div>                         
+                            <div class="w3-col l1 w3-center w3-padding-left">
+                            <label class="w3-label">F</label>
+                            <input type="text" autocomplete="off" value="2.65" step="0.01" placeholder="material category" id="Category_f" name="Category_f" class="form-control" required>                                                            
+                            </div>
+                            <div class="w3-col l1 w3-center w3-padding-left">
+                            <label class="w3-label">G</label>
+                            <input type="text" autocomplete="off" value="2.65" step="0.01" placeholder="material category" id="Category_g" name="Category_g" class="form-control" required>                                                            
+                            </div>
+                                                                 
+                             <div class="w3-col l1 w3-padding-top w3-padding-right w3-padding-left">
+                                <button class="btn w3-blue w3-margin-top" type="submit" id="Save_materialBtn" name="Save_materialBtn">Add Material</button>
+                            </div> 
+                                
+                            </div>
+                                                        <!--material category div-->
 
-                        </form>
-                        <div class="w3-col l3 w3-padding-left w3-padding-bottom w3-margin-left w3-right">
-                            <div class="input-group w3-padding-left w3-padding-top w3-margin-top">
+                        </form>                        <!-- add material form ends here----->
+
+                                                
+                        <div class="w3-col l12" id="addMaterial_err"></div>
+                    </div><br><br>
+                    <!--this div is for showing the delete material div -->
+                    
+                    <div class="w3-col l12">
+                        <hr>
+                        <div class="w3-col l12">
+                        <label class="w3-left">Delete Material</label>
+                        </div>
+                    <div class="w3-col l3 w3-padding-bottom w3-left">
+                            <div class="input-group w3-padding-top w3-margin-top">
                                 <select class="form-control" name="Select_NewMaterials_Id" id="Select_NewMaterials_Id" required> <!-- this is for showing material stocks quantity -->
                                     <option>Select Material</option>
                                     <?php foreach ($materials['status_message'] as $result) { ?>
@@ -79,15 +127,18 @@ $branch_name=$this->session->userdata('branch_name');
                                 </span>
                             </div>
                         </div>
-                        
-                        <div class="w3-col l12" id="addMaterial_err"></div>
-                    </div><br><br>
+                    </div>
+                    
+                    <!--this div is for showing the delete material div -->
+
                     <div class="w3-col l12" id="categoryDiv">
                         <form id="addMaterialCategoryForm" name="addMaterialCategoryForm">
                          <hr>
-                        <label class="w3-padding-left">Material Category</label>
+                         <div class="w3-col l12">
+                             <label class="">Update Material Category</label>
+                         </div>
                     <div class="w3-col l12 w3-margin-top">
-                        <div class="w3-col l2 w3-padding-left">
+                        <div class="w3-col l2">
                             <label class="w3-label">Material Name:</label> 
                             <input list="Materials" id="material_info" autocomplete="off" onclick="this.select();" name="material_info" value="<?php echo $cust_name; ?>" class="form-control" required type="text" placeholder="Select material" onchange="getMaterialId();">  
                             <input type="hidden" name="material_id" id="material_id">                                      
@@ -97,47 +148,43 @@ $branch_name=$this->session->userdata('branch_name');
                                 <?php } ?>
                             </datalist>
                         </div>
-                        <div class="w3-col l7">
-                        <div class="w3-col l12">
-                            <div class="w3-col l2 w3-center w3-padding-left">
+                        
+                            <div class="w3-col l1 w3-center w3-padding-left">
                             <label class="w3-label ">A</label>
-                            <input type="text" value="2.65" step="0.01" placeholder="material category" id="Category_a" name="Category_a" class="form-control" required>                                                            
+                            <input type="text" value="" step="0.01" placeholder="material category" id="Category_a" name="Category_a" class="form-control" required>                                                            
                             </div>
-                            <div class="w3-col l2  w3-center w3-padding-left">
+                            <div class="w3-col l1  w3-center w3-padding-left">
                             <label class="w3-label">B</label>
-                            <input type="text" autocomplete="off" value="2.65" step="0.01" placeholder="material category" id="Category_b" name="Category_b" class="form-control" required>                                                            
+                            <input type="text" autocomplete="off" value="" step="0.01" placeholder="material category" id="Category_b" name="Category_b" class="form-control" required>                                                            
                             </div>
-                            <div class="w3-col l2  w3-center w3-padding-left">
+                            <div class="w3-col l1 w3-center w3-padding-left">
                             <label class="w3-label ">C</label>
-                            <input type="text" autocomplete="off" value="2.65" step="0.01" placeholder="material category" id="Category_c" name="Category_c" class="form-control" required>                                                            
+                            <input type="text" autocomplete="off" value="" step="0.01" placeholder="material category" id="Category_c" name="Category_c" class="form-control" required>                                                            
                             </div>
-                            <div class="w3-col l2 w3-center w3-padding-left">
+                            <div class="w3-col l1 w3-center w3-padding-left">
                             <label class="w3-label">D</label>
-                            <input type="text" autocomplete="off" value="2.65" step="0.01" placeholder="material category" id="Category_d" name="Category_d" class="form-control" required>                                                            
+                            <input type="text" autocomplete="off" value="" step="0.01" placeholder="material category" id="Category_d" name="Category_d" class="form-control" required>                                                            
                             </div>
-                            <div class="w3-col l2 w3-center w3-padding-left">
+                            <div class="w3-col l1 w3-center w3-padding-left">
                             <label class="w3-label">E</label>
-                            <input type="text" autocomplete="off" value="2.65" step="0.01" placeholder="material category" id="Category_e" name="Category_e" class="form-control" required>                                                            
+                            <input type="text" autocomplete="off" value="" step="0.01" placeholder="material category" id="Category_e" name="Category_e" class="form-control" required>                                                            
                             </div>                         
-                            <div class="w3-col l2 w3-center w3-padding-left">
+                            <div class="w3-col l1 w3-center w3-padding-left">
                             <label class="w3-label">F</label>
-                            <input type="text" autocomplete="off" value="2.65" step="0.01" placeholder="material category" id="Category_f" name="Category_f" class="form-control" required>                                                            
+                            <input type="text" autocomplete="off" value="" step="0.01" placeholder="material category" id="Category_f" name="Category_f" class="form-control" required>                                                            
                             </div>
-                            <div class="w3-col l2 w3-center w3-padding-left">
+                            <div class="w3-col l1 w3-center w3-padding-left">
                             <label class="w3-label">G</label>
-                            <input type="text" autocomplete="off" value="2.65" step="0.01" placeholder="material category" id="Category_g" name="Category_g" class="form-control" required>                                                            
+                            <input type="text" autocomplete="off" value="" step="0.01" placeholder="material category" id="Category_g" name="Category_g" class="form-control" required>                                                            
                             </div> 
-                        </div>
-                        </div>
-                        <div>
-                           <div class="w3-col l1 w3-margin-right w3-padding-right w3-right">
-                             <button class="btn w3-blue w3-margin-top" type="submit" id="Save_materialCategoryBtn" name="Save_materialCategoryBtn">Add Category</button>
-                            </div> 
-                        </div>
+                      
+                        <div class="w3-col l1 w3-padding-left w3-padding-top w3-margin-left">
+                            <button class="btn w3-blue w3-margin-top" type="submit" id="Save_materialCategoryBtn" name="Save_materialCategoryBtn">Update Category</button>
+                        </div> 
                     </div>
                     </form>
-                     <div class="w3-col l12"id="categoryError"></div>
                     </div>
+                    <div class="w3-col l12"id="categoryError"></div>
                     <div class="w3-col l12"><!-- table container -->
                         <hr>
                         
