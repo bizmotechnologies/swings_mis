@@ -303,7 +303,7 @@ error_reporting(E_ERROR | E_PARSE);
                                             <label for="CustomerName" class="control-label w3-right w3-padding-right">Customer Name:</label>
                                         </td>
                                         <td>
-                                            <input type="text" name="Input_CustomerName" id="Input_CustomerName" class="form-control" placeholder="Customer Name" required><br>
+                                            <input type="text" name="Input_CustomerName" id="Input_CustomerName" class="form-control" placeholder="Customer Name" ><br>
                                         </td>
                                     </tr>
                                     <tr>
@@ -311,7 +311,7 @@ error_reporting(E_ERROR | E_PARSE);
                                             <label for="CustomerAddress" class="control-label w3-right w3-padding-right">Customer Address:</label>
                                         </td>
                                         <td>
-                                            <textarea name="Input_CustomerAddress" rows="5" id="Input_CustomerAddress" class="form-control" placeholder="Customer Address" style="resize:none;" required></textarea><br>
+                                            <textarea name="Input_CustomerAddress" rows="5" id="Input_CustomerAddress" class="form-control" placeholder="Customer Address" style="resize:none;" ></textarea><br>
                                         </td>
                                     </tr>
 
@@ -322,7 +322,7 @@ error_reporting(E_ERROR | E_PARSE);
                                         <label for="CustomerEmail" class="control-label w3-right">Customer&nbsp;Email:</label>
                                     </div>
                                     <div class="w3-col l7">
-                                        <input type="email" name="Input_CustomerEmail[]" id="Input_CustomerEmail" class="form-control" placeholder="Customer Email" required>
+                                        <input type="email" name="Input_CustomerEmail[]" id="Input_CustomerEmail" class="form-control" placeholder="Customer Email" >
                                         <div id="added_row"></div>
                                         <span><a  id="add_row" class="btn add-more w3-text-blue w3-right">+Add</a></span>
                                     </div>
@@ -336,7 +336,7 @@ error_reporting(E_ERROR | E_PARSE);
                                         <label for="defaultmargin" class="control-label w3-right">50>OD>350</label>
                                     </div>
                                     <div class="w3-col l7 w3-margin-bottom">
-                                    <select class="form-control" name="Select_profitCategoryOne" id="Select_profitCategoryOne" required> <!-- this is for showing material stocks quantity -->
+                                    <select class="form-control" name="Select_profitCategoryOne" id="Select_profitCategoryOne" > <!-- this is for showing material stocks quantity -->
                                     <option>Select Category</option>                                    
                                     <option value='category_a'>A</option>
                                     <option value='category_b'>B</option>
@@ -352,7 +352,7 @@ error_reporting(E_ERROR | E_PARSE);
                                         <label for="defaultmargin" class="control-label w3-right">50<&nbsp;OD<350</label> 
                                    </div>
                                     <div class="w3-col l7 w3-margin-bottom">
-                                    <select class="form-control" name="Select_profitCategoryTwo" id="Select_profitCategoryTwo" required> <!-- this is for showing material stocks quantity -->
+                                    <select class="form-control" name="Select_profitCategoryTwo" id="Select_profitCategoryTwo" > <!-- this is for showing material stocks quantity -->
                                     <option>Select Category</option>                                    
                                     <option value='category_a'>A</option>
                                     <option value='category_b'>B</option>
@@ -369,13 +369,13 @@ error_reporting(E_ERROR | E_PARSE);
                                         <label for="ContactPerson" class="control-label w3-right">Contact&nbsp;Person:</label>
                                     </div>
                                     <div class="w3-col l7 w3-margin-bottom">
-                                        <input type="tel" name="Input_ContactPerson[]" id="Input_ContactPerson" class="form-control" placeholder="Customer Persone Name" required>
+                                        <input type="tel" name="Input_ContactPerson[]" id="Input_ContactPerson" class="form-control" placeholder="Customer Persone Name" >
                                     </div>
                                     <div class="w3-col l3 w3-margin-right">
                                         <label for="ContactNo" class="control-label w3-right">Contact&nbsp;No:</label>
                                     </div>
                                     <div class="w3-col l7">
-                                        <input type="tel" name="Input_ContactNo_one[]" id="Input_ContactNo_one" class="form-control" placeholder="Customer Contact No" required>
+                                        <input type="tel" name="Input_ContactNo_one[]" id="Input_ContactNo_one" class="form-control" placeholder="Customer Contact No" >
                                     </div>
                                     <div id="added_Newrow"></div>
                                     <span><a  id="add_Newrow" class="btn add-more w3-text-blue w3-right">+Add</a></span>
@@ -390,15 +390,15 @@ error_reporting(E_ERROR | E_PARSE);
                                 <table class="w3-margin-left">
                                     <tr>
                                         <td><label for="BankName" class="control-label w3-right w3-padding-right">Bank&nbsp;Name:</label></td>
-                                        <td><input type="text" name="Input_Bank_name" id="Input_Bank_name" class="form-control" placeholder="Customers Bank Name" required><br></td>
+                                        <td><input type="text" name="Input_Bank_name" id="Input_Bank_name" class="form-control" placeholder="Customers Bank Name" ><br></td>
                                     </tr>
                                     <tr>
                                         <td><label for="BankAccNo" class="control-label w3-right w3-padding-right">Account.No:</label></td>
-                                        <td><input type="text" name="Input_Bank_AccNo" id="Input_Bank_AccNo" class="form-control" placeholder="Customer Account No" required><br></td>
+                                        <td><input type="text" name="Input_Bank_AccNo" id="Input_Bank_AccNo" class="form-control" placeholder="Customer Account No" ><br></td>
                                     </tr>
                                     <tr>
                                         <td><label for="MICRCode" class="control-label w3-right w3-padding-right">MICR&nbsp;Code:</label></td>
-                                        <td><input type="text" name="Input_Bank_MICR_Code" id="Input_Bank_MICR_Code" class="form-control" placeholder="Customer MICR Code" required><br></td>
+                                        <td><input type="text" name="Input_Bank_MICR_Code" id="Input_Bank_MICR_Code" class="form-control" placeholder="Customer MICR Code" ><br></td>
                                     </tr>
                                 </table>
                             </div>
@@ -406,15 +406,15 @@ error_reporting(E_ERROR | E_PARSE);
                                 <table>
                                     <tr>
                                         <td><label for="BankAddress" class="control-label w3-right w3-padding-right">Bank&nbsp;Address:</label></td>
-                                        <td><input type="text" name="Input_Bank_Address" id="Input_Bank_Address" class="form-control" placeholder="Customers Bank Address" required><br></td>
+                                        <td><input type="text" name="Input_Bank_Address" id="Input_Bank_Address" class="form-control" placeholder="Customers Bank Address" ><br></td>
                                     </tr>
                                     <tr>
                                         <td><label for="IFSCCode" class="control-label w3-right w3-padding-right">IFSC&nbsp;Code:</label></td>
-                                        <td><input type="text" name="Input_Bank_IFSC_Code" id="Input_Bank_IFSC_Code" class="form-control" placeholder="Customer IFSC Code" required><br></td>
+                                        <td><input type="text" name="Input_Bank_IFSC_Code" id="Input_Bank_IFSC_Code" class="form-control" placeholder="Customer IFSC Code" ><br></td>
                                     </tr>
                                     <tr>
                                         <td><label for="PANNo" class="control-label w3-right w3-padding-right">PAN&nbsp;NO:</label></td>
-                                        <td><input type="text" name="Input_PAN_No" id="Input_PAN_No" class="form-control" placeholder="Customer PAN No" required><br></td>
+                                        <td><input type="text" name="Input_PAN_No" id="Input_PAN_No" class="form-control" placeholder="Customer PAN No" ><br></td>
                                     </tr>
                                 </table>
                             </div>
