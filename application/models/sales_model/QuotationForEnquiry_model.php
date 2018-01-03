@@ -4,233 +4,233 @@ if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
 class QuotationForEnquiry_model extends CI_Model {
-    
+
 //---this fun is used to club or join the quotations-------------------------------//    
     public function joinQuotations($quotations_id,$join_QuotationsArray){
 //---------------------------getting id of next join_table record-------------------------------------------------//
         $join_Quotation = json_decode($join_QuotationsArray);
-	$sql="SELECT * FROM information_schema.TABLES WHERE TABLE_NAME ='club_table' AND TABLE_SCHEMA='swing_db'";
+        $sql="SELECT * FROM information_schema.TABLES WHERE TABLE_NAME ='club_table' AND TABLE_SCHEMA='swing_db'";
         //---this sql query for get auto increment value of club table
         $parent_id = '';
 //---the parent_id is used to get autoincrement id of club table-------------------------------------------------//        
         $result = $this->db->query($sql);
         foreach ($result->result_array() as $row) {
-                  $parent_id = $row['AUTO_INCREMENT'];
-            }            
+          $parent_id = $row['AUTO_INCREMENT'];
+      }            
 //---the parent_id is used to get autoincrement id of club table-------------------------------------------------//
-        $insert = "INSERT INTO club_table(parent_quotation,child_quotation,clubed) values('$quotations_id','$join_QuotationsArray','1')";            
-        $resultinsert = $this->db->query($insert);
+      $insert = "INSERT INTO club_table(parent_quotation,child_quotation,clubed) values('$quotations_id','$join_QuotationsArray','1')";            
+      $resultinsert = $this->db->query($insert);
 //-----------insert data in club table as per the selected quotations---------------------------------------------//        
-        if($resultinsert){            
-	foreach ($join_Quotation as $key){
-                $sqlupdate = "UPDATE quotation_master SET club_quote = '1',club_id='$parent_id' WHERE quotation_id='$quotations_id'";
-                $resultnew = $this->db->query($sqlupdate);
+      if($resultinsert){            
+       foreach ($join_Quotation as $key){
+        $sqlupdate = "UPDATE quotation_master SET club_quote = '1',club_id='$parent_id' WHERE quotation_id='$quotations_id'";
+        $resultnew = $this->db->query($sqlupdate);
 //-----------update the quotation master the club quotation value is 1 and set the club id as the club table as per quotations                
-                $update = "UPDATE quotation_master SET club_quote='0' WHERE quotation_id='$key'";
-                $resultupdate = $this->db->query($update);
+        $update = "UPDATE quotation_master SET club_quote='0' WHERE quotation_id='$key'";
+        $resultupdate = $this->db->query($update);
 //-----------update the quotation master the club quotation value is 0  as per quotations------------------------------//                                
-            }
-            $response = array(
-                'status' => 1,
-                'status_message' => 'Quotations Joined Successfully....!');
-        }else{
-            $response = array(
-                'status' => 0,
-                'status_message' => 'Quotations Joining Failed....!');
-        }
-        return $response;
     }
+    $response = array(
+        'status' => 1,
+        'status_message' => 'Quotations Joined Successfully....!');
+}else{
+    $response = array(
+        'status' => 0,
+        'status_message' => 'Quotations Joining Failed....!');
+}
+return $response;
+}
 //---this fun is used to club or join the quotations-------------------------------//
 //------------this fun is for get all enquiries for quotation status-------------
-    public function fetchEnquiry_For_Quotation() {
-        $query = "SELECT * FROM enquiry_master WHERE current_status = '1'";
+public function fetchEnquiry_For_Quotation() {
+    $query = "SELECT * FROM enquiry_master WHERE current_status = '1'";
 
-        $result = $this->db->query($query);
-        if ($result->num_rows() <= 0) {
-            $response = array(
-                'status' => 0,
-                'status_message' => 'No Records Found.');
-        } else {
-            $response = array(
-                'status' => 1,
-                'status_message' => $result->result_array());
-        }
-        return $response;
+    $result = $this->db->query($query);
+    if ($result->num_rows() <= 0) {
+        $response = array(
+            'status' => 0,
+            'status_message' => 'No Records Found.');
+    } else {
+        $response = array(
+            'status' => 1,
+            'status_message' => $result->result_array());
     }
+    return $response;
+}
 
 //------------this fun is for get all enquiries for quotation status-------------
 //------------this fun is for get all enquiries for sorting-------------
-    public function GetEnquiriesForSorting() {
-        $query = "SELECT * FROM enquiry_master";
+public function GetEnquiriesForSorting() {
+    $query = "SELECT * FROM enquiry_master";
 
-        $result = $this->db->query($query);
-        if ($result->num_rows() <= 0) {
-            $response = array(
-                'status' => 0,
-                'status_message' => 'No Quotations Found for specified Filter !!!.');
-        } else {
-            $response = array(
-                'status' => 1,
-                'status_message' => $result->result_array());
-        }
-        return $response;
+    $result = $this->db->query($query);
+    if ($result->num_rows() <= 0) {
+        $response = array(
+            'status' => 0,
+            'status_message' => 'No Quotations Found for specified Filter !!!.');
+    } else {
+        $response = array(
+            'status' => 1,
+            'status_message' => $result->result_array());
     }
+    return $response;
+}
 
 //------------this fun is for get all enquiries for sorting-------------
 //------------this fun is for get all enquiries sort by date, customer and sort-------------
 
-    public function filter_quotation($From_date, $To_date, $customer_Id) {
+public function filter_quotation($From_date, $To_date, $customer_Id) {
 
-        if ($customer_Id == '') {
-            $query = "SELECT * FROM quotation_master WHERE dated BETWEEN '$From_date' AND '$To_date' AND current_status!='0' ";
-        } else {
-            $query = "SELECT * FROM quotation_master WHERE dated BETWEEN '$From_date' AND '$To_date' AND customer_id='$customer_Id' AND current_status!='0' ";
-        }
+    if ($customer_Id == '') {
+        $query = "SELECT * FROM quotation_master WHERE dated BETWEEN '$From_date' AND '$To_date' AND current_status!='0'  AND archived='0'";
+    } else {
+        $query = "SELECT * FROM quotation_master WHERE dated BETWEEN '$From_date' AND '$To_date' AND customer_id='$customer_Id' AND current_status!='0'  AND archived='0'";
+    }
 
         //echo $query;die();
-        $result = $this->db->query($query);
+    $result = $this->db->query($query);
 
-        if ($result->num_rows() <= 0) {
-            $response = array(
-                'status' => 0,
-                'status_message' => 'No Quotations Found for specified Filter !!!');
-        } else {
-            $response = array(
-                'status' => 1,
-                'status_message' => $result->result_array());
-        }
-        return $response;
+    if ($result->num_rows() <= 0) {
+        $response = array(
+            'status' => 0,
+            'status_message' => 'No Quotations Found for specified Filter !!!');
+    } else {
+        $response = array(
+            'status' => 1,
+            'status_message' => $result->result_array());
     }
+    return $response;
+}
 
     //------------this fun is for get all enquiries sort by date, customer and sort-------------//
     //------------this fun is used to get enquiries by enquiry id--------------------------------//
-    public function Show_Enquiry($enquiry_id) {
-        $query = "SELECT * FROM enquiry_master WHERE enquiry_id = '$enquiry_id'";
+public function Show_Enquiry($enquiry_id) {
+    $query = "SELECT * FROM enquiry_master WHERE enquiry_id = '$enquiry_id'";
 
-        $result = $this->db->query($query);
-        if ($result->num_rows() <= 0) {
-            $response = array(
-                'status' => 0,
-                'status_message' => 'No Records Found.');
-        } else {
-            $response = array(
-                'status' => 1,
-                'status_message' => $result->result_array());
-        }
-        return $response;
+    $result = $this->db->query($query);
+    if ($result->num_rows() <= 0) {
+        $response = array(
+            'status' => 0,
+            'status_message' => 'No Records Found.');
+    } else {
+        $response = array(
+            'status' => 1,
+            'status_message' => $result->result_array());
     }
+    return $response;
+}
 
     //------------this fun is used to get enquiries by enquiry id--------------------------------//
     //------------this fun is used to get enquiry product by enquiry id--------------------------------//
-    public function getEnquiry_products($enquiry_id) {
-        $query = "SELECT products_associated FROM enquiry_master WHERE enquiry_id = '$enquiry_id'";
+public function getEnquiry_products($enquiry_id) {
+    $query = "SELECT products_associated FROM enquiry_master WHERE enquiry_id = '$enquiry_id'";
 
-        $result = $this->db->query($query);
-        if ($result->num_rows() <= 0) {
-            $response = 0;
-        } else {
-            $response = $result->result_array();
-        }
-        return $response;
+    $result = $this->db->query($query);
+    if ($result->num_rows() <= 0) {
+        $response = 0;
+    } else {
+        $response = $result->result_array();
     }
+    return $response;
+}
 
     //------------this fun is used to get enquiry product by enquiry id--------------------------------//
     //------------this fun is used to save quotation--------------------------------//
-    public function save_quotation($data) {
-        extract($data);
+public function save_quotation($data) {
+    extract($data);
 
-        $delivery_P = '';
-        $enquiry_products = QuotationForEnquiry_model::getEnquiry_products($enquiry_id);
+    $delivery_P = '';
+    $enquiry_products = QuotationForEnquiry_model::getEnquiry_products($enquiry_id);
 
-        $this->load->model('inventory_model/ManageCustomer_model');
-        $customer_details = $this->ManageCustomer_model->getCustomerBy_ID($customer_id);
+    $this->load->model('inventory_model/ManageCustomer_model');
+    $customer_details = $this->ManageCustomer_model->getCustomerBy_ID($customer_id);
 
-        if ($enquiry_products == 0) {
-            $response = array(
-                'status' => 0,
-                'status_message' => 'Quotation Raised Successfully');
+    if ($enquiry_products == 0) {
+        $response = array(
+            'status' => 0,
+            'status_message' => 'Quotation Raised Successfully');
 
-            return $response;
-            die();
-        }
+        return $response;
+        die();
+    }
 
         //print_r($enquiry_products);die();
-        switch ($delivery_period) {
-            case '1':
-            $delivery_P = 'day/days';
-            break;
+    switch ($delivery_period) {
+        case '1':
+        $delivery_P = 'day/days';
+        break;
 
-            case '2':
-            $delivery_P = 'week/weeks';
-            break;
+        case '2':
+        $delivery_P = 'week/weeks';
+        break;
 
-            case '3':
-            $delivery_P = 'month/months';
-            break;
+        case '3':
+        $delivery_P = 'month/months';
+        break;
 
-            case '4':
-            $delivery_P = 'year/years';
-            break;
+        case '4':
+        $delivery_P = 'year/years';
+        break;
 
-            default:
+        default:
                 # code...
-            break;
-        }
+        break;
+    }
 
-        $delivery_within = $delivery_span . ' ' . $delivery_P;
-        $insert_quotation = "INSERT INTO quotation_master(enquiry_id,customer_id,customer_name,product_associated,delivery_within,dated,time_at,current_status,branch_name) VALUES ('$enquiry_id','$customer_id','" . $customer_details[0]['customer_name'] . "','" . $enquiry_products[0]['products_associated'] . "','$delivery_within',NOW(),NOW(),'1','$branch_name')";
+    $delivery_within = $delivery_span . ' ' . $delivery_P;
+    $insert_quotation = "INSERT INTO quotation_master(enquiry_id,customer_id,customer_name,product_associated,delivery_within,dated,time_at,current_status,branch_name) VALUES ('$enquiry_id','$customer_id','" . $customer_details[0]['customer_name'] . "','" . $enquiry_products[0]['products_associated'] . "','$delivery_within',NOW(),NOW(),'1','$branch_name')";
 
-        if ($this->db->query($insert_quotation)) {
+    if ($this->db->query($insert_quotation)) {
 
             //--------------update enquiry from live enquiry to Quotation---------------------
-            $update_enquiry = "UPDATE enquiry_master SET current_status = '0' WHERE enquiry_id = '$enquiry_id'";
-            if ($this->db->query($update_enquiry)) {
-                $response = array(
-                    'status' => 1,
-                    'status_message' => 'Quotation Raised Successfully');
-            } else {
-                $response = array(
-                    'status' => 0,
-                    'status_message' => 'Quotation Raised but Enquiry remained Live!!!');
-            }
+        $update_enquiry = "UPDATE enquiry_master SET current_status = '0' WHERE enquiry_id = '$enquiry_id'";
+        if ($this->db->query($update_enquiry)) {
+            $response = array(
+                'status' => 1,
+                'status_message' => 'Quotation Raised Successfully');
         } else {
             $response = array(
                 'status' => 0,
-                'status_message' => 'Quotation Raising Failed');
+                'status_message' => 'Quotation Raised but Enquiry remained Live!!!');
         }
-
-        return $response;
+    } else {
+        $response = array(
+            'status' => 0,
+            'status_message' => 'Quotation Raising Failed');
     }
+
+    return $response;
+}
 
     //------------this fun is used to save quotation--------------------------------//
     // -----------------------contact customer for quotation----------------------//
     //-------------------------------------------------------------//
-    public function contact_admin($data) {
-        extract($data);
-        $this->load->model('inventory_model/ManageCustomer_model');
-        $this->load->model('sales_model/Enquiry_model');
+public function contact_admin($data) {
+    extract($data);
+    $this->load->model('inventory_model/ManageCustomer_model');
+    $this->load->model('sales_model/Enquiry_model');
 
-        $customer_details=$this->ManageCustomer_model->getCustomerBy_ID($customer_id);
-        $quotation_details=$this->Enquiry_model->getQuotation($quotation_id);
+    $customer_details=$this->ManageCustomer_model->getCustomerBy_ID($customer_id);
+    $quotation_details=$this->Enquiry_model->getQuotation($quotation_id);
 
-
-        //---------------if record not found-------------
-        if (isset($customer_details['status']) && $customer_details['status']==0) {
-            $response = array(
-                'status' =>0,
-                'status_message' => 'Customer record not found');
-            return $response;
-            die();
-        }
 
         //---------------if record not found-------------
-        if (isset($quotation_details['status']) && $quotation_details['status']==0) {
-            $response = array(
-                'status' =>0,
-                'status_message' => 'Quotation record not found');
-            return $response;
-            die();
-        }
+    if (isset($customer_details['status']) && $customer_details['status']==0) {
+        $response = array(
+            'status' =>0,
+            'status_message' => 'Customer record not found');
+        return $response;
+        die();
+    }
+
+        //---------------if record not found-------------
+    if (isset($quotation_details['status']) && $quotation_details['status']==0) {
+        $response = array(
+            'status' =>0,
+            'status_message' => 'Quotation record not found');
+        return $response;
+        die();
+    }
 
         $customer_mail=$customer_details[0]['customer_email'];//----------customer emails
         $mail_details=array();
@@ -487,26 +487,26 @@ class QuotationForEnquiry_model extends CI_Model {
             public function sort_byStatus($From_date, $To_date, $Sort_by, $customer_Id) {
 
                 if ($From_date == '' && $To_date == '' && $customer_Id == '') {
-                    $sqlsort = "SELECT * FROM quotation_master WHERE current_status ='$Sort_by'";
+                    $sqlsort = "SELECT * FROM quotation_master WHERE current_status ='$Sort_by' AND archived='0'";
                 }
                 else if($From_date == '' && $To_date == ''){
-                    $sqlsort = "SELECT * FROM quotation_master WHERE customer_id = '$customer_Id' AND current_status ='$Sort_by'";
+                    $sqlsort = "SELECT * FROM quotation_master WHERE customer_id = '$customer_Id' AND current_status ='$Sort_by' AND archived='0'";
                 }
                 else if($customer_Id == '' && $To_date == ''){
-                    $sqlsort = "SELECT * FROM quotation_master WHERE customer_id = '$customer_Id' AND dated <= '$To_date' AND current_status ='$Sort_by'";
+                    $sqlsort = "SELECT * FROM quotation_master WHERE customer_id = '$customer_Id' AND dated <= '$To_date' AND current_status ='$Sort_by' AND archived='0'";
                 }
                 else if($From_date == '' && $customer_Id == ''){
-                    $sqlsort = "SELECT * FROM quotation_master WHERE customer_id = '$customer_Id' AND dated >= '$From_date' AND current_status ='$Sort_by'";
+                    $sqlsort = "SELECT * FROM quotation_master WHERE customer_id = '$customer_Id' AND dated >= '$From_date' AND current_status ='$Sort_by' AND archived='0'";
                 }
                 else {
                     if ($From_date == '') {
-                        $sqlsort = "SELECT * FROM quotation_master WHERE customer_id = '$customer_Id' AND dated <= '$To_date' AND current_status ='$Sort_by'";
+                        $sqlsort = "SELECT * FROM quotation_master WHERE customer_id = '$customer_Id' AND dated <= '$To_date' AND current_status ='$Sort_by' AND archived='0'";
                     } else if ($To_date == '') {
-                        $sqlsort = "SELECT * FROM quotation_master WHERE customer_id = '$customer_Id' AND dated >= '$From_date' AND current_status ='$Sort_by'";
+                        $sqlsort = "SELECT * FROM quotation_master WHERE customer_id = '$customer_Id' AND dated >= '$From_date' AND current_status ='$Sort_by' AND archived='0'";
                     } else if ($customer_Id == '') {
-                        $sqlsort = "SELECT * FROM quotation_master WHERE dated BETWEEN '$From_date' AND '$To_date' AND current_status ='$Sort_by'";
+                        $sqlsort = "SELECT * FROM quotation_master WHERE dated BETWEEN '$From_date' AND '$To_date' AND current_status ='$Sort_by' AND archived='0'";
                     } else {
-                        $sqlsort = "SELECT * FROM quotation_master WHERE dated BETWEEN '$From_date' AND '$To_date' AND customer_id='$customer_Id' AND current_status ='$Sort_by' ";
+                        $sqlsort = "SELECT * FROM quotation_master WHERE dated BETWEEN '$From_date' AND '$To_date' AND customer_id='$customer_Id' AND current_status ='$Sort_by'  AND archived='0'";
                     }
                 }
         //echo $sqlsort;die();
@@ -562,6 +562,24 @@ class QuotationForEnquiry_model extends CI_Model {
                     $response = array(
                         'status' => 1,
                         'status_message' => $result->result_array());
+                }
+                return $response;
+            }
+
+    //----this fun is used to get customer details----------------------------//
+
+
+            public function delete_quote($quotation_id) {
+                $query = "UPDATE quotation_master SET archived='1' WHERE quotation_id='$quotation_id'";
+
+                if ($this->db->query($query)) {
+                    $response = array(
+                        'status' => 1,
+                        'status_message' => 'Quotation deleted.');
+                } else {
+                    $response = array(
+                        'status' => 0,
+                        'status_message' => 'Quotation deletion failed.');
                 }
                 return $response;
             }

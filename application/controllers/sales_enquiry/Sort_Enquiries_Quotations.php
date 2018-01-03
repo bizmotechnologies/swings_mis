@@ -83,7 +83,7 @@ class Sort_Enquiries_Quotations extends CI_Controller {
         $hide='';
 
         if($key['current_status']=='2'){
-          $current_stat='In PO';
+          $current_stat='In WO';
           $color='w3-red';
           $hide='w3-hide';
         }
@@ -126,14 +126,14 @@ class Sort_Enquiries_Quotations extends CI_Controller {
     echo'<div id="quotation_table" class="w3-col l12 w3-padding">
     <table class="table table-bordered table-responsive w3-small" ><!-- table starts here -->
     <tr style="background-color:black; color:white;" >
-    <th class="w3-center">Sr. No</th>
+    <th class="w3-center">Sr.No</th>
     <th class="w3-center">Quotation No.</th>              
     <th class="w3-center">Enquiry No.</th>              
     <th class="w3-center">Customer</th>              
     <th class="w3-center">Raised on</th>              
     <th class="w3-center">Delivery within</th>              
     <th class="w3-center">Current Status</th> 
-    <th class="w3-center">#&nbsp;Actions</th>                                           
+    <th class="w3-center">#&nbsp;Actions&nbsp;</th>                                           
     </tr>';
     $count=1; 
     if($response['status']==0){
@@ -155,7 +155,7 @@ class Sort_Enquiries_Quotations extends CI_Controller {
         $hide='';
 
         if($key['current_status']=='2'){
-          $current_stat='In PO';
+          $current_stat='In WO';
           $color='w3-red';
           $hide='w3-hide';
         }
@@ -171,11 +171,13 @@ class Sort_Enquiries_Quotations extends CI_Controller {
         <td class="w3-center"><span class="'.$color.'  w3-padding-small w3-round">'.$current_stat.'</span></td>
         <td>
         <div class="w3-col l12 w3-text-grey">
-        <a class="btn w3-medium" style="padding:0px;" data-toggle="modal" data-target="#viewQuote_modal_'.$key['quotation_id'].'" title="View Quotation"><i class="fa fa-eye"></i></a>
+        <a class="btn w3-small" style="padding:0px;" data-toggle="modal" data-target="#viewQuote_modal_'.$key['quotation_id'].'" title="View Quotation"><i class="fa fa-eye"></i></a>
 
-        <a class="btn w3-medium '.$hide.'" style="padding:0px;" onclick="send_ToPO('.$quotation_id.');" title="Send to PO"><i class="fa fa-sign-out"></i></a>
+        <a class="btn w3-small '.$hide.'" style="padding:0px;" onclick="send_ToPO('.$quotation_id.');" title="Send to WO"><i class="fa fa-sign-out"></i></a>
 
-        <a class="btn w3-medium" style="padding:0px;" onclick="send_mail('.$customer_id.',\''.$customer_name.'\','.$quotation_id.')" title="Send To Client"><i class="fa fa-envelope"></i></a>
+        <a class="btn w3-small" style="padding:0px;" onclick="send_mail('.$customer_id.',\''.$customer_name.'\','.$quotation_id.')" title="Send To Client"><i class="fa fa-envelope"></i></a>
+
+        <a class="btn w3-small" style="padding:0px;" onclick="delete_quote('.$quotation_id.')" title="remove quotation"><i class="fa fa-trash"></i></a>
         </div>                      
         </td>
         </tr>
@@ -405,14 +407,14 @@ class Sort_Enquiries_Quotations extends CI_Controller {
   echo'<div id="quotation_table" class="w3-col l12 w3-padding">
   <table class="table table-bordered table-responsive w3-small" ><!-- table starts here -->
   <tr style="background-color:black; color:white;" >
-  <th class="w3-center">Sr. No</th>
+  <th class="w3-center">Sr.No</th>
   <th class="w3-center">Quotation No.</th>              
   <th class="w3-center">Enquiry No.</th>              
   <th class="w3-center">Customer</th>              
   <th class="w3-center">Raised on</th>              
   <th class="w3-center">Delivery within</th>              
   <th class="w3-center">Current Status</th> 
-  <th class="w3-center">#&nbsp;Actions</th>                                           
+  <th class="w3-center">#&nbsp;Actions&nbsp;</th>                                           
   </tr>';
   $count=1; 
   if($response['status']==0){
@@ -434,7 +436,7 @@ class Sort_Enquiries_Quotations extends CI_Controller {
       $hide='';
 
       if($key['current_status']=='2'){
-        $current_stat='In PO';
+        $current_stat='In WO';
         $color='w3-red';
         $hide='w3-hide';
       }
@@ -450,11 +452,13 @@ class Sort_Enquiries_Quotations extends CI_Controller {
       <td class="w3-center"><span class="'.$color.'  w3-padding-small w3-round">'.$current_stat.'</span></td>
       <td>
       <div class="w3-col l12 w3-text-grey">
-      <a class="btn w3-medium" style="padding:0px;" data-toggle="modal" data-target="#viewQuote_modal_'.$key['quotation_id'].'" title="View Quotation"><i class="fa fa-eye"></i></a>
+      <a class="btn w3-small" style="padding:0px;" data-toggle="modal" data-target="#viewQuote_modal_'.$key['quotation_id'].'" title="View Quotation"><i class="fa fa-eye"></i></a>
 
-      <a class="btn w3-medium '.$hide.'" style="padding:0px;" onclick="send_ToPO('.$quotation_id.');" title="Send to PO"><i class="fa fa-sign-out"></i></a>
+      <a class="btn w3-small '.$hide.'" style="padding:0px;" onclick="send_ToPO('.$quotation_id.');" title="Send to WO"><i class="fa fa-sign-out"></i></a>
 
-      <a class="btn w3-medium" style="padding:0px;" onclick="send_mail('.$customer_id.',\''.$customer_name.'\','.$quotation_id.')" title="Send To Client"><i class="fa fa-envelope"></i></a>
+      <a class="btn w3-small" style="padding:0px;" onclick="send_mail('.$customer_id.',\''.$customer_name.'\','.$quotation_id.')" title="Send To Client"><i class="fa fa-envelope"></i></a>
+
+      <a class="btn w3-small" style="padding:0px;" onclick="delete_quote('.$quotation_id.')" title="remove quotation"><i class="fa fa-trash"></i></a>
       </div>                      
       </td>
       </tr>

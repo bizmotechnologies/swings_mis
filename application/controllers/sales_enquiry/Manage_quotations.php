@@ -77,6 +77,28 @@ class Manage_quotations extends CI_Controller
 	}
 // ---------------------function ends----------------------------------//
 
+	 //------------this fun is used to delete quotations------------//
+	public function delete_quote(){
+		$quotation_id=$_POST['quotation_id'];
+
+		//Connection establishment, processing of data and response from REST API
+		$path=base_url();
+		$url = $path.'api/ManageQuotations_api/delete_quote?quotation_id='.$quotation_id;		
+		$ch = curl_init($url);
+		curl_setopt($ch, CURLOPT_HTTPGET, true);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		$response_json = curl_exec($ch);
+		curl_close($ch);
+		$response=json_decode($response_json, true);
+		if($response['status']==0){
+			echo '<label class="w3-text-red">'.$response['status_message'].'</label>';
+		}
+		else{
+			echo '<label class="w3-text-green">'.$response['status_message'].'</label>';
+		}
+	}
+// ---------------------function ends----------------------------------//
+
 	// ---------------function to show all live quotations of customer------------------------//
 	public function getCustomer_quotations(){
 		extract($_POST);

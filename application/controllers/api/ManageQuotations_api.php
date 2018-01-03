@@ -97,11 +97,13 @@ class ManageQuotations_api extends REST_Controller {
         return $this->response($response);
     }
     //------------this fun is send quotation to customer by mail-------------------------------------//
+
     public function getcustomerDetails_get() {
         $result = $this->QuotationForEnquiry_model->getcustomerDetails();
         return $this->response($result);
     }
     //--------this fun is used to show all customer details--------------------------------//
+
     //--------this fun is used to get all enquiry details for sorting--------------------------------//
     public function GetEnquiriesForSorting_get(){
         $result = $this->QuotationForEnquiry_model->GetEnquiriesForSorting();
@@ -109,4 +111,11 @@ class ManageQuotations_api extends REST_Controller {
     }
     //--------this fun is used to get all enquiry details for sorting--------------------------------//
 
+     //------------this fun deletes quoatation-------------------------------------//
+    public function delete_quote_get() {
+        extract($_GET);
+        $response = $this->QuotationForEnquiry_model->delete_quote($quotation_id);
+        return $this->response($response);
+    }
+    //--------this fun is used to delete quotation--------------------------------//
 }

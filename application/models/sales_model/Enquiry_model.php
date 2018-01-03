@@ -6,7 +6,7 @@ class Enquiry_model extends CI_Model{
 	//---------------get all live quotations model-------------//
 	function getlive_Quotations()
 	{
-		$query="SELECT * FROM quotation_master WHERE current_status !='0' AND club_quote !='0' ORDER BY quotation_id DESC";
+		$query="SELECT * FROM quotation_master WHERE current_status !='0' AND club_quote !='0' AND archived='0' ORDER BY quotation_id DESC";
 		$result = $this->db->query($query);
 		//return $result['num'];
 
@@ -97,7 +97,7 @@ class Enquiry_model extends CI_Model{
 	//---------------get all live quotations of customer model-------------//
 	function getQuotations($customer_id)
 	{
-		$query="SELECT * FROM quotation_master WHERE customer_id='$customer_id' AND current_status='0'";
+		$query="SELECT * FROM quotation_master WHERE customer_id='$customer_id' AND current_status='0' AND archived='0'";
 		$result = $this->db->query($query);
 		//return $result['num'];
 
@@ -124,7 +124,7 @@ class Enquiry_model extends CI_Model{
 	//---------------get revised subquotation list to quotation master table model-------------//
 	function getLive_subquotation($quotation_id,$sub_quotation)
 	{
-		$query="SELECT * FROM quotation_master WHERE quotation_id='$quotation_id'";
+		$query="SELECT * FROM quotation_master WHERE quotation_id='$quotation_id' AND archived='0'";
 		$result = $this->db->query($query);
 		
 		$response=$result->result_array();
