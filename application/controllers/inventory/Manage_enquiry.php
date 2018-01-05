@@ -65,7 +65,7 @@ class Manage_enquiry extends CI_controller {
 
 public function getBest_tube() {
     extract($_POST);
-
+    //print_r($_POST);die();
     if(isset($MaterialID) && isset($MaterialOD) && isset($MaterialLength)){
         $Material_ID = min($MaterialID);
         $Material_OD = max($MaterialOD);
@@ -75,7 +75,7 @@ public function getBest_tube() {
             $Material_OD=$Material_OD - $OD_tolerance;//-----taking tolerance value into consideration
 
             $path = base_url();
-            $url = $path . 'api/ManageEnquiry_api/getBestTube?material_id='.$Materialinfo.'&Material_ID='.$Material_ID.'&Material_OD='.$Material_OD.'&Material_LENGTH='.$Material_LENGTH;
+            $url = $path . 'api/ManageEnquiry_api/getBestTube?material_id='.$Materialinfo.'&Material_ID='.$Material_ID.'&Material_OD='.$Material_OD.'&Material_LENGTH='.$Material_LENGTH.'&MaterialCategory='.$MaterialCategory;
             //echo $url;die();
             $ch = curl_init($url);
             curl_setopt($ch, CURLOPT_HTTPGET, true);
@@ -83,7 +83,7 @@ public function getBest_tube() {
             $response_json = curl_exec($ch);
             curl_close($ch);
             $response=json_decode($response_json, true);
-            //print_r($response_json);die();
+           // print_r($response_json);die();
             if(empty($response['value'])){
                 echo '<b><span class="w3-small"><span class="w3-text-red">Best Tube:</span> N/A</span><span class="w3-small w3-margin-left"><span class="w3-text-red">Best Price:</span> N/A</span></b>';
             }
@@ -141,7 +141,7 @@ public function getBest_tube() {
             $Material_OD = $materialID_OD[1];            
             $Material_LENGTH = max($MaterialLength);
             $path = base_url();
-            $url = $path . 'api/ManageEnquiry_api/GetMaterialBasePrice?material_id='.$Materialinfo.'&Material_ID='.$Material_ID.'&Material_OD='.$Material_OD.'&Material_LENGTH='.$Material_LENGTH;
+            $url = $path . 'api/ManageEnquiry_api/GetMaterialBasePrice?material_id='.$Materialinfo.'&Material_ID='.$Material_ID.'&Material_OD='.$Material_OD.'&Material_LENGTH='.$Material_LENGTH.'&MaterialCategory='.$MaterialCategory;
             //echo $url;die();
             $ch = curl_init($url);
             curl_setopt($ch, CURLOPT_HTTPGET, true);

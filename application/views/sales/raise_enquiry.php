@@ -141,6 +141,34 @@ error_reporting(E_ERROR | E_PARSE);
     }
 }
 </script>
+
+<!--<script>
+//-------this script is used to get change the final price by material category-------------//
+function changeFinalPriceBy_MaterialCategory(fieldnum, countnum){
+ 
+MaterialCategory = $('#material_Category_' + fieldnum + '_' + countnum).val();
+Materialinfo = $('#Materialinfo_' + fieldnum + '_' + countnum + ' [value="' + $('#Select_material_' + fieldnum + '_' + countnum).val() + '"]').data('value');
+alert(MaterialCategory);
+alert(Materialinfo);
+$.ajax({
+       type: "POST",
+       url: "<?php echo base_url(); ?>inventory/Manage_materials/changeFinalPriceBy_MaterialCategory",
+       data: {
+           Materialinfo: Materialinfo,
+           MaterialCategory: MaterialCategory,
+           fieldnum: fieldnum,
+           countnum: countnum
+                },
+                cache: false,
+                success: function (data) {
+                    alert(data);
+                    
+            $("#final_Price_" + fieldnum + "_" + countnum).val(data);
+            }
+        });   
+}
+//-------this script is used to get change the final price by material category-------------//
+</script>-->
 <script>//----this code is used for get the material category as per customer id--------------------//
 function getMaterialCategoryByCstomer(fieldnum, countnum){
         MaterialOD = 0;
@@ -198,7 +226,7 @@ function getMaterialCategoryByCstomer(fieldnum, countnum){
     //showdiscountforproduct(rownum);
 }
 </script>
-<script>
+<!--<script>
     function showdiscountforproduct(rownum){//get material final price array
          final_Price = 0;
          var final_Price = [];
@@ -228,7 +256,7 @@ function getMaterialCategoryByCstomer(fieldnum, countnum){
         discount = (diffinavailableand_finalprice / AvailablePricesum) * 100;
         $('#Product_Discount_' + rownum).val(discount.toFixed(2));   //------discount value set to the text field 
     }
-</script>
+</script>-->
 <script>
         function GetProfileInformation(rownum) {//this fun is used for get profile information
             Profiles = $('#Profiles_' + rownum + ' [value="' + $('#Select_Profiles_' + rownum).val() + '"]').data('value');
@@ -457,6 +485,7 @@ function getMaterialCategoryByCstomer(fieldnum, countnum){
             var MaterialLength = [];
             var ID_tolerance=$('#ID_tolerance_' + fieldnum + '_' + countnum).val();
             var OD_tolerance=$('#OD_tolerance_' + fieldnum + '_' + countnum).val();
+            var MaterialCategory = $('#material_Category_' + fieldnum + '_' + countnum).val();
 
             $("#tube_spinner_" + fieldnum + '_' + countnum).html('<center><img width="100%" height="auto" src="'+BASE_URL+'css/logos/small_loader.gif"/></center>');
 
@@ -487,7 +516,8 @@ function getMaterialCategoryByCstomer(fieldnum, countnum){
                     MaterialOD: MaterialOD,
                     MaterialLength: MaterialLength,
                     ID_tolerance: ID_tolerance,
-                    OD_tolerance: OD_tolerance
+                    OD_tolerance: OD_tolerance,
+                    MaterialCategory: MaterialCategory
                 },
                 return: false, //stop the actual form post !important!
                 success: function (data)
@@ -511,6 +541,7 @@ function getMaterialCategoryByCstomer(fieldnum, countnum){
             var MaterialID = [];
             var MaterialOD = [];
             var MaterialLength = [];
+            
             if(document.getElementById('make_boughtOut_'+fieldnum+'_'+countnum).checked == false){
                 $("#tube_spinner_" + fieldnum + '_' + countnum).html('<center><img width="100%" height="auto" src="'+BASE_URL+'css/logos/small_loader.gif"/></center>');
                 $('#Div_no_' + fieldnum + '_' + countnum + ' input[name="Select_ID[' + fieldnum + '][]"]').each(function ()
@@ -548,7 +579,7 @@ function getMaterialCategoryByCstomer(fieldnum, countnum){
                 {
                     $("#tube_spinner_" + fieldnum + '_' + countnum).html('');
                     $('#Available_tube_' + fieldnum + '_' + countnum).val(data['avail_tube']);
-                    $('#available_length_' + fieldnum + '_' + countnum).html('<lable><b>AVAILABLE LENGTH:' + data['new_length'] + '<b></lable>' );
+                    $('#available_length_' + fieldnum + '_' + countnum).html('<lable><b>A/V LEN:' + data['new_length'] + '<b></lable>' );
                     getAvailableTubeFromAllBranches(fieldnum, countnum);
                     GetMaterialBasePrice(fieldnum, countnum);
                     GetProductfinalPrice(fieldnum);
@@ -562,6 +593,7 @@ function getMaterialCategoryByCstomer(fieldnum, countnum){
         function getAvailableTubeFromAllBranches(fieldnum, countnum){
             Materialinfo = $('#Materialinfo_' + fieldnum + '_' + countnum + ' [value="' + $('#Select_material_' + fieldnum + '_' + countnum).val() + '"]').data('value');
             Available_tube = $('#Available_tube_' + fieldnum + '_' + countnum).val();
+            MaterialCategory = $('#material_Category_' + fieldnum + '_' + countnum).val();    
             var MaterialLength = [];
 
             $("#Div_no_" + fieldnum + "_" + countnum + " input[name='Select_Length[" + fieldnum + "][]']").each(function ()
@@ -582,7 +614,8 @@ function getMaterialCategoryByCstomer(fieldnum, countnum){
                 Available_tube: Available_tube,
                 material_length: material_length,
                 fieldnum: fieldnum,
-                countnum: countnum
+                countnum: countnum,
+                MaterialCategory: MaterialCategory
             },
                 return: false, //stop the actual form post !important!
                 success: function (data)
@@ -608,6 +641,7 @@ function getMaterialCategoryByCstomer(fieldnum, countnum){
             MaterialLength = 0;
             branchprice = 0;
             Materialinfo = $('#Materialinfo_' + fieldnum + '_' + countnum + ' [value="' + $('#Select_material_' + fieldnum + '_' + countnum + '').val() + '"]').data('value');
+            MaterialCategory = $('#material_Category_' + fieldnum + '_' + countnum).val();
 
             var MaterialLength = [];
             $("#Div_no_" + fieldnum + "_" + countnum + " input[name='Select_Length[" + fieldnum + "][]']").each(function ()
@@ -626,7 +660,8 @@ function getMaterialCategoryByCstomer(fieldnum, countnum){
             data: {
                 Materialinfo: Materialinfo,
                 MaterialLength: MaterialLength,
-                Available_tube: Available_tube
+                Available_tube: Available_tube,
+                MaterialCategory: MaterialCategory
             },
                 return: false, //stop the actual form post !important!
                 success: function (data)
@@ -635,6 +670,7 @@ function getMaterialCategoryByCstomer(fieldnum, countnum){
                     $('#Available_Price_' + fieldnum + '_' + countnum).val(data);
                     GetFinalPriceForMaterialCalculation(fieldnum, countnum);
                     GetProductfinalPrice(fieldnum);
+                    getAvailableTubeFromAllBranches(fieldnum, countnum);
                 }
             });    
     }

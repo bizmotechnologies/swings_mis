@@ -6,12 +6,12 @@ if (!defined('BASEPATH'))
 
 class ManageEnquiry_model extends CI_Model {
 
-    public function getBest_tube($material_id, $Material_ID, $Material_OD, $MaterialLength) {
-        $criteriaForTube = ManageEnquiry_model::CheckCriteriaForCalculatedTube($material_id, $Material_ID, $Material_OD, $MaterialLength);
+    public function getBest_tube($material_id, $Material_ID, $Material_OD, $MaterialLength,$MaterialCategory) {
+        $criteriaForTube = ManageEnquiry_model::CheckCriteriaForCalculatedTube($material_id, $Material_ID, $Material_OD, $MaterialLength,$MaterialCategory);
         return ($criteriaForTube);
     }
 
-    public function CheckCriteriaForCalculatedTube($material_id, $Material_ID, $Material_OD, $MaterialLength) {
+    public function CheckCriteriaForCalculatedTube($material_id, $Material_ID, $Material_OD, $MaterialLength,$MaterialCategory) {
         $sql = "SELECT * from raw_materialstock WHERE material_id = '$material_id'";
         $result = $this->db->query($sql);
         $rawMaterial_ID = 0;
@@ -59,7 +59,7 @@ class ManageEnquiry_model extends CI_Model {
                 );
                 unset($criteria);
             } else {
-                $bestprice=ManageEnquiry_model::GetMaterialBasePrice($material_id, $rawMaterial_ID, $rawMaterial_OD, $MaterialLength);
+                $bestprice=ManageEnquiry_model::GetMaterialBasePrice($material_id, $rawMaterial_ID, $rawMaterial_OD, $MaterialLength,$MaterialCategory);
                 
                 $bestTUBE=array(
                     'best_tube' =>  $rawMaterial_ID . '/' . $rawMaterial_OD,
@@ -112,7 +112,24 @@ class ManageEnquiry_model extends CI_Model {
     }
 
     //------------------------end the functions-------------------------//
-
+//-------------this fun is used to get change the final price by the material category-------------//
+    public function changeFinalPriceBy_MaterialCategory($material_id, $MaterialCategory){
+        $query = "SELECT ".$MaterialCategory." FROM material_category WHERE material_id='$material_id'";
+       //echo $query;die();
+        $result = $this->db->query($query);
+        $profit_margin = '';
+        if ($result->num_rows() <= 0) {
+            $profit_margin = array(
+                'status' => 0,
+                'status_message' => 'No Records Found.');
+        } else {
+            foreach ($result->result_array() as $row) {
+                $profit_margin = $row[$MaterialCategory];
+            }
+        }
+        return $profit_margin;
+    }
+//-------------this fun is used to get change the final price by the material category-------------//
     //----this funis used to get value from table to perform bestprice calculations
     public function GetMaterialBasePrice_byBranchPrice($material_id, $Material_ID, $Material_OD,$branchprice, $Material_LENGTH){
         $customizevalue = ManageEnquiry_model::getcustomizedvalueforCalculation();
@@ -140,9 +157,10 @@ class ManageEnquiry_model extends CI_Model {
     }
 //----this funis used to get value from table to perform bestprice calculations
 //-----this fun is used to get material base price calculations-------------//
-    public function GetMaterialBasePrice($material_id, $MaterialID, $MaterialOD, $MaterialLength) {
+    public function GetMaterialBasePrice($material_id, $MaterialID, $MaterialOD, $MaterialLength,$MaterialCategory) {
         $material_details = ManageEnquiry_model::getmaterialDetailsforcalculation($material_id, $MaterialID, $MaterialOD, $MaterialLength);
         $avail_length = ManageEnquiry_model::getmaterial_AvailLength($material_id, $MaterialID, $MaterialOD, $MaterialLength);
+
         $material_price=$material_details[0]['material_price'];
         $vendor_id=$material_details[0]['vendor_id'];
 
@@ -153,10 +171,11 @@ class ManageEnquiry_model extends CI_Model {
         $customizevalue = ManageEnquiry_model::getcustomizedvalueforCalculation();
         $setting_value = json_decode($customizevalue, TRUE);
         $cut_value = 0;
-        $profit_margin = 0;
+        //$profit_margin = 0;
         $single_cost = 0;
         $cut_value = $setting_value['cut_value'];
-        $profit_margin = 2.65;
+        //$profit_margin = 2.65;
+        $profit_margin = ManageEnquiry_model::changeFinalPriceBy_MaterialCategory($material_id,$MaterialCategory);
 
         $vendor_discount = ($vendor_details['status_message'][0]['vendor_discount']);
 
@@ -418,7 +437,7 @@ public function SaveProfile_data($housingInfo){
     }
 }
 
-public function getAvailableTubeFromAllBranches($material_id, $Material_ID, $Material_OD,$material_Length){
+public function getAvailableTubeFromAllBranches($material_id, $Material_ID, $Material_OD,$material_Length,$MaterialCategory){
         //echo $material_id;
     $branch_name = '';
     $branch = '';
@@ -441,7 +460,7 @@ public function getAvailableTubeFromAllBranches($material_id, $Material_ID, $Mat
                 foreach ($resultSelect->result_array() as $key) {
                     $branch = $key['branch_name'];
                     $tube = $key['raw_ID'] . '/' . $key['raw_OD'];
-                    $price = ManageEnquiry_model::GetMaterialBasePrice($material_id, $key['raw_ID'], $key['raw_OD'], $material_Length);
+                    $price = ManageEnquiry_model::GetMaterialBasePrice($material_id, $key['raw_ID'], $key['raw_OD'], $material_Length,$MaterialCategory);
                     
                     $available_tubes = array(
                         'branch_name' => $branch,
@@ -466,6 +485,9 @@ public function getAvailableTubeFromAllBranches($material_id, $Material_ID, $Mat
  }
                 //return $response;
 }
+//-----this fun is used to get available tube for all branches--------------------------//
+
+
 
 }
 

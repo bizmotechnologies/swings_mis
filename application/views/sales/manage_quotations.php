@@ -329,7 +329,7 @@ error_reporting(E_ERROR | E_PARSE);
                     
                     <div class="w3-left">
                     <label class="w3-label w3-text-red">Enquiry No:</label> <span class="">#ENQ-0'.$enquiry_no.'</span>
-                    <input type="hidden" value="'.$enquiry_no.'" name="enquiry_id" name="enquiry_id">
+                    <input type="hidden" value="'.$enquiry_no.'" name="enquiry_id[]">
                     </div>
                     
                     <div class="w3-right">
@@ -387,20 +387,128 @@ error_reporting(E_ERROR | E_PARSE);
                     <label class="w3-label w3-text-red">Delivery within:'.$key['delivery_within'].'</label>
                      <br>
                     </div>';
-                    
-                    echo'</div>';//---------view quote div ends here----------------------------------//
-                    
-                    echo'<br>';
+                  
+                      
+                    ///-------------------div for clubbed quotations------------------------------------------------//
 
-                    echo '
-                    <form id="revise_quoteForm_'.$key['quotation_id'].'">
+                    //-----checking the quotation is to be clubbed with another quotation---------------------------------//
+//        if ($key['club_quote'] == 1) {
+//            $path = base_url();
+//            $url = $path . 'api/ManageQuotations_api/Get_quotationDetails?club_id=' . $key['club_id'];
+//            $ch = curl_init($url);
+//            curl_setopt($ch, CURLOPT_HTTPGET, true);
+//            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+//            $response_json = curl_exec($ch);
+//            curl_close($ch);
+//            $response = json_decode($response_json, true);
+//
+//            $childQuotations = json_decode($response);//----getting the child quotations as per parent quotations
+////---showing the quotation information from here----------------------------------------------------------//
+//            foreach ($childQuotations as $child) {
+//                $path = base_url();
+//                $url = $path . 'api/ManageQuotations_api/getQuotationInfo?quotation_id='.$child;
+//                $ch = curl_init($url);
+//                curl_setopt($ch, CURLOPT_HTTPGET, true);
+//                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+//                $response_json = curl_exec($ch);
+//                curl_close($ch);
+//                $response = json_decode($response_json, true);
+//
+//                $quotationArr = $response['status_message'][0];
+//                
+//                //-----putting quotations data into quotation array
+//                
+//                $products_associatedArr= json_decode($quotationArr['product_associated'],true);
+//                //print_r($products_associatedArr);die();
+//                    $enquiry_no = $quotationArr['enquiry_id'];
+//                    $quotation_id = $quotationArr['quotation_id'];
+//                    $customer_id = $quotationArr['customer_id'];
+//                    $customer_name = $quotationArr['customer_name'];
+//                    $date = date('d M Y', strtotime($quotationArr['dated']));
+//                    $time = date('h:m A', strtotime($quotationArr['time_at']));
+//                    
+//                echo'<div class="w3-col l12 w3-margin-bottom">
+//                    <hr>
+//                    <div>
+//                    <label class="w3-padding-bottom w3-padding-top w3-label w3-text-red">Quotation No: #QUO-</label>
+//                    <span>'.$quotation_id.'</span>                    
+//                    </div>
+//                    <div class="w3-left">
+//                    <label class="w3-label w3-text-red">Enquiry No:</label> <span class="">#ENQ-0'.$enquiry_no.'</span>
+//                    <input type="hidden" value="'.$enquiry_no.'" name="enquiry_id[]">
+//                    </div>
+//                    
+//                    <div class="w3-right">
+//                    <label class="w3-label w3-text-red">Issued On:</label> <span class="">'.$date.', '.$time.'</span>
+//                    </div>
+//                    
+//                    </div>';
+//                    //----div for show enquiry no and issued date-----------------------------------//    
+//                    echo'<div class="w3-col l12 w3-margin-bottom">
+//                    <label class="w3-label w3-text-red">Customer Name:</label> <span class="">'.$customer_name.' (#CID-0'.$customer_id.')</span>
+//                    <input type="hidden" value="'.$customer_id.'" name="customer_id" name="customer_id">
+//                    </div>';
+////---------------div for showing the products information starts here ------------------------//
+//                    echo'<div class="w3-col l12 w3-margin-bottom">
+//                        
+//                    <label class="w3-label w3-text-red">Products:</label>
+//                    <ol type="I" style="margin: 0">';
+//        //--------------------------all the products fetched from enquiry----------------------//
+//                    foreach ($products_associatedArr as $value) { 
+//                      //-----------------get profile name----------------------
+//                      $path=base_url();
+//                      $url = $path.'api/ManageProfile_api/profileDetails?profile_id='.$value['profile_id']; 
+//                      $ch = curl_init($url);
+//                      curl_setopt($ch, CURLOPT_HTTPGET, true);
+//                      curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+//                      $response_json = curl_exec($ch);
+//                      curl_close($ch);
+//                      $response=json_decode($response_json, true);
+//                      $profile_name=($response['status_message'][0]['profile_name']);
+//                      echo '
+//                      <li>'.strtoupper($value['product_name']).' -';
+//
+//                      if($value['housing_status']==1){ echo $value['product_quantity'].' SETS'; } else { echo '1 SET'; }
+//
+//                      echo '
+//                      </li>
+//                      <ol>
+//                      <i>
+//                      <li>'.ucwords($value['profile_description'][0]).'- '.strtoupper($profile_name).'- '.$value['Prod_ID'][0].'mm ID X '.$value['Prod_OD'][0].'mm OD X '.$value['Prod_length'][0].'mm THICK -';
+//
+//                      if($value['housing_status']==1){ echo '1 NO.'; } else { echo $value['product_quantity'].' NO.'; }
+//
+//                      echo '@ '.$value['product_price'].' <i class="fa fa-inr"></i> per NO</li>
+//                      </i>
+//                      </ol>
+//                      <br>
+//                      ';
+//                    } 
+//                    echo '</ol>              
+//                    </div>';
+////---------------div for showing the products information starts here ------------------------//
+//                    
+//                    echo'<div class="w3-col l12 w3-margin-bottom">
+//                    <label class="w3-label w3-text-red">Delivery within:'.$key['delivery_within'].'</label>
+//                     <br>
+//                    </div>';                                                         
+//            }
+//        }
+///-------------------div for clubbed quotations------------------------------------------------//
+              
+                    
+                    echo'</div>'; //---------view quote div ends here----------------------------------//
+
+                    echo'<br>';
+//------------div for revised quotation is starts here---------------------------------------------------------//
+               echo'<form id="revise_quoteForm_'.$key['quotation_id'].'">
                     <div class="w3-col l12 w3-small" id="revise_quoteDiv_'.$key['quotation_id'].'" style="display:none">
                         
                     <div class="w3-col l12 w3-margin-bottom">
                     
                     <div class="w3-left">
                     <label class="w3-label w3-text-red">Enquiry No:</label> <span class="">#ENQ-0'.$enquiry_no.'</span>
-                    <input type="hidden" value="'.$enquiry_no.'" name="enquiry_id" name="enquiry_id">
+                    <input type="hidden" value="'.$enquiry_no.'" name="enquiry_id[]">
                     </div>
                     
                     <div class="w3-right">
@@ -465,26 +573,20 @@ error_reporting(E_ERROR | E_PARSE);
                     <div class="w3-col l12">
                     
                     <label class="w3-label w3-text-red">Delivery within:</label>
-                    <input type="number" name="revise_deliverySpan" class="form-control w3-padding-right" style="width:80px" min="0" value="'.$delivery_values[0].'">
-                    <select class="w3-input" style="width:120px" name="revise_deliveryPeriod">
+                    <input type="number" name="revise_deliverySpan[]" class="form-control w3-padding-right" style="width:80px" min="0" value="'.$delivery_values[0].'">
+                    <select class="w3-input" style="width:120px" name="revise_deliveryPeriod[]">
                     <option '; if($delivery_values[1]=='day/days'){ echo 'selected'; } echo ' value="1">day/days</option>
                     <option '; if($delivery_values[1]=='week/weeks'){ echo 'selected'; } echo ' value="2">week/weeks</option>
                     <option '; if($delivery_values[1]=='month/months'){ echo 'selected'; } echo ' value="3">month/months</option>
                     <option '; if($delivery_values[1]=='year/years'){ echo 'selected'; } echo ' value="4">year/years</option>
-                    </select>
+                    </select>';
+                
+                    echo'</div>';
                     
-                    </div> 
-                    <button class="btn w3-button btn-block w3-red w3-margin-top w3-margin-bottom" type="submit" id="send_quote" name="send_quote">Revise Quotation For Enquiry #ENQ-0'.$enquiry_no.'</button>                     
-                    <br>
-                    </form>
-                    
-                    </div>
-                    <br>
-                    </div>';
-      //------------------------------products fetched end ----------------------------------//
-                    echo '</div>
-                    <br><br>';
-//                    
+//                      
+//                    ///-------------------div for clubbed quotations------------------------------------------------//
+//
+//                    //-----checking the quotation is to be clubbed with another quotation---------------------------------//
 //        if ($key['club_quote'] == 1) {
 //            $path = base_url();
 //            $url = $path . 'api/ManageQuotations_api/Get_quotationDetails?club_id=' . $key['club_id'];
@@ -495,15 +597,132 @@ error_reporting(E_ERROR | E_PARSE);
 //            curl_close($ch);
 //            $response = json_decode($response_json, true);
 //
-//            $childQuotations = json_encode($response);
+//            $childQuotations = json_decode($response);//----getting the child quotations as per parent quotations
+////---showing the quotation information from here----------------------------------------------------------//
+//            foreach ($childQuotations as $child) {
+//                $path = base_url();
+//                $url = $path . 'api/ManageQuotations_api/getQuotationInfo?quotation_id='.$child;
+//                $ch = curl_init($url);
+//                curl_setopt($ch, CURLOPT_HTTPGET, true);
+//                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+//                $response_json = curl_exec($ch);
+//                curl_close($ch);
+//                $response = json_decode($response_json, true);
+//
+//                $quotationArr = $response['status_message'][0];
+//                
+//                //-----putting quotations data into quotation array
+//                
+//                $products_associatedArr= json_decode($quotationArr['product_associated'],true);
+//                //print_r($products_associatedArr);die();
+//                    $enquiry_no = $quotationArr['enquiry_id'];
+//                    $quotation_id = $quotationArr['quotation_id'];
+//                    $customer_id = $quotationArr['customer_id'];
+//                    $customer_name = $quotationArr['customer_name'];
+//                    $date = date('d M Y', strtotime($quotationArr['dated']));
+//                    $time = date('h:m A', strtotime($quotationArr['time_at']));
+//                    
+//                echo'<div class="w3-col l12 w3-margin-bottom">
+//                    <hr>
+//                    <div>
+//                    <label class="w3-padding-bottom w3-padding-top w3-label w3-text-red">Quotation No: #QUO-</label>
+//                    <span>'.$quotation_id.'</span>                    
+//                    </div>
+//                    <div class="w3-left">
+//                    <label class="w3-label w3-text-red">Enquiry No:</label> <span class="">#ENQ-0'.$enquiry_no.'</span>
+//                    <input type="hidden" value="'.$enquiry_no.'" name="enquiry_id[]" name="enquiry_id">
+//                    </div>
+//                    
+//                    <div class="w3-right">
+//                    <label class="w3-label w3-text-red">Issued On:</label> <span class="">'.$date.', '.$time.'</span>
+//                    </div>
+//                    
+//                    </div>';
+//                    //----div for show enquiry no and issued date-----------------------------------//    
+//                    echo'<div class="w3-col l12 w3-margin-bottom">
+//                    <label class="w3-label w3-text-red">Customer Name:</label> <span class="">'.$customer_name.' (#CID-0'.$customer_id.')</span>
+//                    <input type="hidden" value="'.$customer_id.'" name="customer_id" name="customer_id">
+//                    </div>';
+//        //---------------div for showing the products information starts here ------------------------//
+//                    echo'<div class="w3-col l12 w3-margin-bottom">
+//                        
+//                    <label class="w3-label w3-text-red">Products:</label>
+//                    <ol type="I" style="margin: 0">';
+//        //--------------------------all the products fetched from enquiry----------------------//
+//                    foreach ($products_associatedArr as $value) { 
+//                      //-----------------get profile name----------------------
+//                      $path=base_url();
+//                      $url = $path.'api/ManageProfile_api/profileDetails?profile_id='.$value['profile_id']; 
+//                      $ch = curl_init($url);
+//                      curl_setopt($ch, CURLOPT_HTTPGET, true);
+//                      curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+//                      $response_json = curl_exec($ch);
+//                      curl_close($ch);
+//                      $response=json_decode($response_json, true);
+//                      $profile_name=($response['status_message'][0]['profile_name']);
+//      //echo $profile_name;
+//                      echo '
+//                      <li>'.strtoupper($value['product_name']).' -';
+//
+//                      if($value['housing_status']==1){ echo $value['product_quantity'].' SETS'; } else { echo '1 SET'; }
+//
+//                      echo '
+//                      </li>
+//                      <ol>
+//                      <i>
+//                      <li>
+//                      '.ucwords($value['profile_description'][0]).'- '.strtoupper($profile_name).'- '.$value['Prod_ID'][0].'mm ID X '.$value['Prod_OD'][0].'mm OD X '.$value['Prod_length'][0].'mm THICK -';
+//
+//                      if($value['housing_status']==1){ echo '1 NO.'; } else { echo $value['product_quantity'].' NO.'; }
+//
+//                      echo '@ 
+//                      <div class="input-group w3-small" style="width:200px">
+//                      <input name="revise_productPrice[]" type="number" class="form-control" step="0.01" min="0" value="'.$value['product_price'].'">
+//                      <span class="input-group-addon"><i class="fa fa-inr"></i> per NO</span>
+//                      </div>                        
+//                      </li>
+//                      </i>
+//                      </ol>
+//                      <br>
+//                      ';
+//                    } 
+//                    echo '</ol>              
+//                    </div>';
+//        //---------------div for showing the products information starts here ------------------------//
+//                    
+//                    echo'<div class="w3-col l12 w3-margin-bottom">
+//                        
+//                    <div class="w3-col l12">
+//                    
+//                    <label class="w3-label w3-text-red">Delivery within:</label>
+//                    <input type="number" name="revise_deliverySpan[]" class="form-control w3-padding-right" style="width:80px" min="0" value="'.$delivery_values[0].'">
+//                    <select class="w3-input" style="width:120px" name="revise_deliveryPeriod[]">
+//                    <option '; if($delivery_values[1]=='day/days'){ echo 'selected'; } echo ' value="1">day/days</option>
+//                    <option '; if($delivery_values[1]=='week/weeks'){ echo 'selected'; } echo ' value="2">week/weeks</option>
+//                    <option '; if($delivery_values[1]=='month/months'){ echo 'selected'; } echo ' value="3">month/months</option>
+//                    <option '; if($delivery_values[1]=='year/years'){ echo 'selected'; } echo ' value="4">year/years</option>
+//                    </select>';
+//                
+//                    echo'</div>';                                                         
+//            }
 //        }
-
-        echo'</div>';//----div for revesed quote form ends here
+        //-------------------div for clubbed quotations------------------------------------------------//
+                                
+                    echo'<button class="btn w3-button btn-block w3-red w3-margin-top w3-margin-bottom" type="submit" id="send_quote" name="send_quote">Revise Quotation For Enquiry #ENQ-0'.$enquiry_no.'</button>                     
+                    <br>';
+                                   
+               echo'</form>
+                    </div>
+                    <br>';
+                    echo'</div>';
+        //------------------------------products fetched end ----------------------------------//
+                    echo '</div>
+                    <br>
+                    <br>';     
+                    echo'</div>';//----div for revesed quote form ends here----//
                     
-                   
-                    
-                    
-                    
+        //--------script for submit revised quoation----------------------------------------------// 
+        //--------------this script for show the revised div-------------------------------------//            
                     echo'<!-- //Modal End  -->
                     <!-- script to toggle i.e.hide/show revise and new quotation div -->
                     <script>
@@ -520,9 +739,10 @@ error_reporting(E_ERROR | E_PARSE);
                       })
                     })
                     </script>
-                    <!-- script ends -->
-
-                    <!--     script to add revised quotation     -->
+                    <!-- script ends -->';
+//--------------this script for show the revised div-------------------------------------//                    
+        //--------script for submit revised quoation----------------------------------------------//
+                   echo'<!--     script to add revised quotation     -->
                     <script>
                     $(function(){
                       $("#revise_quoteForm_'.$key['quotation_id'].'").submit(function(){
@@ -545,8 +765,7 @@ error_reporting(E_ERROR | E_PARSE);
                      });
                    });
                    </script>
-                   <!-- script ends here -->
-                   ';
+                   <!-- script ends here -->';
                  }
                }
                ?>

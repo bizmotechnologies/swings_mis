@@ -23,6 +23,22 @@ class Manage_materials extends CI_controller {
         $this->load->view('includes/navigation');
         $this->load->view('inventory/materials/manage_material', $data);
     }
+////-----this fun is used to get change the final price by material category-----------------//
+//    public function changeFinalPriceBy_MaterialCategory(){
+//        extract($_POST);
+//        //print_r($_POST);
+//        $path = base_url();
+//        $url = $path.'api/ManageEnquiry_api/changeFinalPriceBy_MaterialCategory?material_id='.$Materialinfo.'&material_category='.$MaterialCategory;
+//        $ch = curl_init($url);
+//        curl_setopt($ch, CURLOPT_HTTPGET, true);
+//        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+//        $response_json = curl_exec($ch);
+//        curl_close($ch);
+//        $response = json_decode($response_json, true);
+//        echo $response[0][$MaterialCategory];
+//    }
+////----this fun is used to get change the material final price by material category---------------// 
+
 //---this fun is used to get material category by customer id----------------------//
     public function getMaterialCategoryByCstomer(){
         extract($_POST);
@@ -157,7 +173,7 @@ class Manage_materials extends CI_controller {
                     echo'
                     <div class="w3-col l12 w3-padding-top">
                     <label>Material Category</label>                
-                    <select class="w3-input" name="material_Category[]" id="material_Category_'.$Profile_num.'_'.$count.'" required> <!-- this is for showing material stocks quantity -->
+                    <select class="w3-input" name="material_Category[]" id="material_Category_'.$Profile_num.'_'.$count.'" onchange="GetMaterialBasePrice('.$Profile_num.','.$count.');"> <!-- this is for showing material stocks quantity -->
                     <option>Select Category</option>                                    
                     <option value="category_a">A</option>
                     <option value="category_b">B</option>
@@ -236,6 +252,7 @@ class Manage_materials extends CI_controller {
                     echo'<div class="w3-col l1 w3-padding-left" id="available_tubeDiv_'.$Profile_num.'_'.$count.'">
                     <label>A/V TUBE</label>&nbsp;<a class="btn w3-right w3-red" id="available_tubebtn_'.$Profile_num.'_'.$count.'" style="padding:0 2px 0 2px;" onclick="showAvailable_Tube('.$Profile_num.','.$count.');"><i class="fa fa-refresh w3-small"></i></a>
                     <input id="Available_tube_'.$Profile_num.'_'.$count.'" step="0.01" name="Available_tube[]" value="" class="w3-input" required type="text" placeholder="ID/OD" readonly>
+                    <div class="w3-col l12 w3-margin-top" id="available_length_'.$Profile_num.'_'.$count.'"></div>                        
                     <div class="w3-col l12" id="tube_spinner_'.$Profile_num.'_'.$count.'"></div>
                     </div>';
 
@@ -263,7 +280,6 @@ class Manage_materials extends CI_controller {
                     </div>';
                     //------this div for material Final Price information div---------// 
                     echo'<div class="w3-col l12" id="best_tubeError_'.$Profile_num.'_'.$count.'"></div>
-                    <div class="w3-col l12 w3-margin-top" id="available_length_'.$Profile_num.'_'.$count.'"></div>                        
                     <div class="w3-col l4 w3-margin-top" id="available_tube_'.$Profile_num.'_'.$count.'"></div>
 
                     <div class="w3-col l12 w3-tiny">
@@ -715,11 +731,12 @@ public function fetchmaterial_details() {
     // ---- this function is used to get available tubes from all branches -------//
     public function getAvailableTubeFromAllBranches(){
         extract($_POST);
+        //print_r($_POST);
         $materialID_OD = explode("/", $Available_tube); 
         $Material_ID = $materialID_OD[0];
         $Material_OD = $materialID_OD[1]; 
         $path = base_url();
-        $url = $path . 'api/ManageEnquiry_api/getAvailableTubeFromAllBranches?material_id='.$Materialinfo.'&material_ID='. $Material_ID.'&material_OD='.$Material_OD.'&material_Length='.$material_length;
+        $url = $path . 'api/ManageEnquiry_api/getAvailableTubeFromAllBranches?material_id='.$Materialinfo.'&material_ID='. $Material_ID.'&material_OD='.$Material_OD.'&material_Length='.$material_length.'&MaterialCategory='.$MaterialCategory;
         $ch = curl_init($url);
         curl_setopt($ch, CURLOPT_HTTPGET, true);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);

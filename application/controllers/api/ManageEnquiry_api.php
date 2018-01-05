@@ -16,7 +16,8 @@ class ManageEnquiry_api extends REST_Controller {
         $Material_ID = $_GET['Material_ID'];
         $Material_OD = $_GET['Material_OD'];
         $Material_LENGTH = $_GET['Material_LENGTH'];
-        $response = $this->ManageEnquiry_model->getBest_tube($material_id, $Material_ID, $Material_OD, $Material_LENGTH);
+        $MaterialCategory = $_GET['MaterialCategory'];
+        $response = $this->ManageEnquiry_model->getBest_tube($material_id, $Material_ID, $Material_OD, $Material_LENGTH,$MaterialCategory);
         //print_r($_GET);
         return $this->response($response);
     }
@@ -27,7 +28,8 @@ class ManageEnquiry_api extends REST_Controller {
         $Material_ID = $_GET['Material_ID'];
         $Material_OD = $_GET['Material_OD'];
         $Material_LENGTH = $_GET['Material_LENGTH'];
-        $response = $this->ManageEnquiry_model->GetMaterialBasePrice($material_id, $Material_ID, $Material_OD, $Material_LENGTH);
+        $MaterialCategory = $_GET['MaterialCategory'];
+        $response = $this->ManageEnquiry_model->GetMaterialBasePrice($material_id, $Material_ID, $Material_OD, $Material_LENGTH,$MaterialCategory);
         return $this->response($response);
     }
 
@@ -74,7 +76,8 @@ class ManageEnquiry_api extends REST_Controller {
         $Material_ID = $_GET['material_ID'];
         $Material_OD = $_GET['material_OD'];
         $material_Length = $_GET['material_Length'];
-        $response = $this->ManageEnquiry_model->getAvailableTubeFromAllBranches($material_id, $Material_ID, $Material_OD,$material_Length);
+        $MaterialCategory = $_GET['MaterialCategory'];
+        $response = $this->ManageEnquiry_model->getAvailableTubeFromAllBranches($material_id, $Material_ID, $Material_OD,$material_Length,$MaterialCategory);
         return $this->response($response);
     }
     //---------------------THIS FUN IS USED TO GET AVAILABLE TUBE FROM RAW MATERIAL-----------------------------//
@@ -90,7 +93,15 @@ class ManageEnquiry_api extends REST_Controller {
         return $this->response($response);
     }
     //---------------------THIS FUN IS USED TO GET BEST PRICE FOR AVAILABLE TUBE FROM RAW MATERIAL-----------------------------/
-
-}
+//    //---------------------this fun is used to get final price by material category -----------------------------------//
+//    public function changeFinalPriceBy_MaterialCategory_get(){
+//        $material_id = $_GET['material_id'];
+//        $material_category = $_GET['material_category'];
+//        $response = $this->ManageEnquiry_model->changeFinalPriceBy_MaterialCategory($material_id, $material_category);
+//        return $this->response($response);
+//    }
+//    //---------------------this fun is used to get final price by material category -----------------------------------//
+//    
+    }
 
 ?>

@@ -124,4 +124,13 @@ class ManageQuotations_api extends REST_Controller {
         $response = $this->QuotationForEnquiry_model->Get_quotationDetails($club_id);
         return $this->response($response);
     }
+    //-----------this fun is used to get quotations details---------------------------------------//
+    //------------this fun is used to get the quotations details----------------------------------//
+    
+    public function getQuotationInfo_get(){
+        extract($_GET);
+        $quotation_id = $_GET['quotation_id'];
+        $response = $this->QuotationForEnquiry_model->getQuotationInfo($quotation_id);
+        return $this->response($response);
+    }
 }

@@ -602,5 +602,21 @@ public function contact_admin($data) {
         return $child_quotation;
     }
 //-----this fun get child quotation from clubbed table--------------------------//            
-    
+//------------this fun is used to get the all details of quotation by quotation id-----------------//
+    public function getQuotationInfo($quotation_id){
+        $query = "SELECT * FROM quotation_master WHERE quotation_id ='$quotation_id'";
+        $result = $this->db->query($query);
+
+        if ($result->num_rows() <= 0) {
+            $response = array(
+                'status' => 0,
+                'status_message' => 'No Records Found.');
+        } else {
+            $response = array(
+                'status' => 1,
+                'status_message' => $result->result_array());
+        }
+        return $response;
+    }
+//------------this fun is used to get the all details of quotation by quotation id-----------------//    
 }
