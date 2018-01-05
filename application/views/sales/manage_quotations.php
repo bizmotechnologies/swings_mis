@@ -222,7 +222,7 @@ error_reporting(E_ERROR | E_PARSE);
           <div class="w3-col l12" id="Show_quotationsTable">
             <hr class="w3-margin-right w3-margin-left">
             <div id="quotation_table" class="w3-col l12 w3-padding">
-             <button class="btn w3-button w3-blue w3-margin-bottom" id="joinQuotation" data-toggle="modal" data-target="#joinQuotationsModal" name="joinQuotation">Join Quotation</button>                                      
+             <!--<button class="btn w3-button w3-blue w3-margin-bottom" id="joinQuotation" data-toggle="modal" data-target="#joinQuotationsModal" name="joinQuotation">Join Quotation</button>-->                                      
               <table class="table table-bordered table-responsive w3-small" ><!-- table starts here -->
                 <tr style="background-color:black; color:white;" >
                   <th class="w3-center">Sr.No</th>
