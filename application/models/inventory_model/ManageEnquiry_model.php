@@ -174,9 +174,10 @@ class ManageEnquiry_model extends CI_Model {
         //$profit_margin = 0;
         $single_cost = 0;
         $cut_value = $setting_value['cut_value'];
-        //$profit_margin = 2.65;
         $profit_margin = ManageEnquiry_model::changeFinalPriceBy_MaterialCategory($material_id,$MaterialCategory);
-
+        if($profit_margin == 0){
+           $profit_margin = 2.65;
+        }
         $vendor_discount = ($vendor_details['status_message'][0]['vendor_discount']);
 
         $landed_cost = ($material_price * ((100 - $vendor_discount)/100)) * ($vendor_details['status_message'][0]['vendor_landing_cost']);
