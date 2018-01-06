@@ -229,9 +229,9 @@ class Manage_workorder_production extends CI_Controller {
       <th class="text-center">Material OD</th>
       <th class="text-center">Alloted Length</th>
       <th class="text-center">Consume Length</th>      
-      <th class="text-center">ID</th>
-      <th class="text-center">OD</th>
-      <th class="text-center">Length</th>      
+      <th class="text-center">Housing ID</th>
+      <th class="text-center">Housing OD</th>
+      <th class="text-center">Housing Length</th>      
       <th class="text-center">Qty</th>
       </tr>
       </thead>
@@ -239,7 +239,7 @@ class Manage_workorder_production extends CI_Controller {
       $count=1;
       $new = 0;
       $diagram = '';
-      $productQuantity = json_decode($key['modified_quantity'],true);
+      //$productQuantity = json_decode($key['modified_quantity'],true);
       foreach (json_decode($key['product_associated'],TRUE) as $row) {                  
         //-----------------get profile name----------------------
         $path=base_url();
@@ -327,19 +327,28 @@ class Manage_workorder_production extends CI_Controller {
                         echo'<input type="text" class="form-control" id="consumedtube" name="consumedtube_'.$count.'[]" value="'.$material['material_Length'][$new][$no].'" >';
                         $no++;
                     }  //----this code for showing the text box related the material associated
-        echo'</td>
-        <td class="text-center">
-        <label>'.$row['Prod_ID'][0].'</label>
-        </td>
-        <td class="text-center">
-        <label>'.$row['Prod_OD'][0].'</label>
-        </td>
-        <td class="text-center">
-        <label>'.$row['Prod_length'][0].'</label>
-        </td>        
-        <td class="text-center">';
+        echo'</td>';
+        $modified_id = json_decode($key['modified_ID'],TRUE);
+        echo'<td class="text-center" style="width:60px">';
+        foreach($modified_id as $id){
+        echo'<label>'.$id[$new].'</label>';
+        }
+        echo'</td>';
+        $modified_od = json_decode($key['modified_OD'],TRUE);        
+        echo'<td class="text-center">';
+        foreach($modified_od as $od){
+        echo'<label>'.$od[$new].'</label>';
+        }
+        echo'</td>';
+        $modified_length = json_decode($key['modified_length'],TRUE);                
+        echo'<td class="text-center">';
+        foreach($modified_length as $length){
+        echo'<label>'.$length[$new].'</label>';
+        }
+        echo'</td>';        
+        echo'<td class="text-center">';
         
-        echo'<label>'.$productQuantity[$new].'</label>
+        echo'<label>'.$row['product_quantity'].'</label>
         </td>';        
 //       echo'<td class="text-center">
 //        <label>'.number_format($row['product_price']/$row['product_quantity'], 2, '.', '').'</label>
