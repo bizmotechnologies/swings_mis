@@ -222,6 +222,7 @@ class Manage_workorder_production extends CI_Controller {
       <tr>
       <th class="text-center">Sr.</th>
       <th class="text-center">Profile</th>
+      <th class="text-center">Diagrams</th>
       <th class="text-center">Material</th>
       <th class="text-center">Change Material</th>
       <th class="text-center">Material ID</th>
@@ -232,12 +233,12 @@ class Manage_workorder_production extends CI_Controller {
       <th class="text-center">OD</th>
       <th class="text-center">Length</th>      
       <th class="text-center">Qty</th>
-      <th class="text-center">per Piece (<i class="fa fa-inr"></i>)</th>
       </tr>
       </thead>
       <tbody>';
       $count=1;
       $new = 0;
+      $diagram = '';
       $productQuantity = json_decode($key['modified_quantity'],true);
       foreach (json_decode($key['product_associated'],TRUE) as $row) {                  
         //-----------------get profile name----------------------
@@ -253,6 +254,11 @@ class Manage_workorder_production extends CI_Controller {
         $profile_id = ($response['status_message']['profile_id']);
         //echo $profile_id;die();
         //------------------get profile name ends---------------------------
+         $diagrams=json_decode($key['wo_drawings'],TRUE);
+         foreach($diagrams[0] as $val)
+         {
+                $diagram = $val;
+        
         echo '
         <tr id="divno_'.$count.'">
         <td class="text-center">
@@ -260,6 +266,9 @@ class Manage_workorder_production extends CI_Controller {
         </td>
         <td class="text-center">
         <label>'.$profile_name.'</label>
+        </td>
+        <td class="text-center">
+        <label><img class="img img-thumbnail" src="'.base_url().$diagram.'"></label>
         </td>';
         //-----this td is for to show original material        
         echo'<td class="text-center">';
@@ -331,13 +340,14 @@ class Manage_workorder_production extends CI_Controller {
         <td class="text-center">';
         
         echo'<label>'.$productQuantity[$new].'</label>
-        </td>        
-        <td class="text-center">
-        <label>'.number_format($row['product_price']/$row['product_quantity'], 2, '.', '').'</label>
-        </td>
-        </tr>';
+        </td>';        
+//       echo'<td class="text-center">
+//        <label>'.number_format($row['product_price']/$row['product_quantity'], 2, '.', '').'</label>
+//        </td>';
+        echo'</tr>';
         $new++;
         $count++;
+         }
       }
       //-----thhis jquery for verify the changed length of workorder
       echo '</tbody>
