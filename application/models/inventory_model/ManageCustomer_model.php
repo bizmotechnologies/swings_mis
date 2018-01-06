@@ -5,9 +5,9 @@ if (!defined('BASEPATH'))
 
 class ManageCustomer_model extends CI_Model {
 
-    public function getCustomerDetails() { /* this fun is used to get customer deatails */
+    public function getCustomerDetails($branch_name) { /* this fun is used to get customer deatails */
 
-        $sqlselect = "SELECT * FROM customer_details WHERE visible = '1'";
+        $sqlselect = "SELECT * FROM customer_details WHERE visible = '1' AND branch_name='$branch_name'";
 
         $result = $this->db->query($sqlselect);
 

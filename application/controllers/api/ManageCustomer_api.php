@@ -22,7 +22,8 @@ class ManageCustomer_api extends REST_Controller
 	// -----------------------GET ALL CUSTOMER DETAILS API----------------------//
 	//-------------------------------------------------------------//
 	public function getCustomerDetails_get(){
-		$result = $this->ManageCustomer_model->getCustomerDetails();
+                $branch_name = $_GET['branch_name'];
+		$result = $this->ManageCustomer_model->getCustomerDetails($branch_name);
 		return $this->response($result);			
 	}
 	//---------------------GET ALL CUSTOMER END------------------------------//

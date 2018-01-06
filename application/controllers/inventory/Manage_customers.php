@@ -43,9 +43,11 @@ class Manage_customers extends CI_controller {
     /* ----------------this fun is used to show all customer info in tables----------------------------- */
 
     public function getCustomerDetails() {
-
+        $branch_name=$this->session->userdata('branch_name');
+	$data['branch_name']=$branch_name;
+        
         $path = base_url();
-        $url = $path . 'api/ManageCustomer_api/getCustomerDetails';
+        $url = $path . 'api/ManageCustomer_api/getCustomerDetails?branch_name='.$branch_name;
         $ch = curl_init($url);
         curl_setopt($ch, CURLOPT_HTTPGET, true);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
