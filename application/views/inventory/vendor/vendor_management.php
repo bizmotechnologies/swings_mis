@@ -172,14 +172,7 @@ error_reporting(E_ERROR | E_PARSE);
                                     echo'</div>
                                     </div>
                                     </div>
-                                    <div class="w3-col l12 w3-margin-bottom">
-                                        <div class="w3-col l3 w3-margin-right">
-                                            <label for="ProfitMargin" class="control-label w3-right">Profit&nbsp;Margin:</label>
-                                        </div>
-                                        <div class="w3-col l7">
-                                            <input type="profitmargin" name="Updated_ProfitMargin" value="'.$details['status_message'][$i]['profit_margin'].'" id="Updated_ProfitMargin" class="form-control" placeholder="Profit Margin" >
-                                        </div>
-                                    </div>
+                                    
                                     <div class="w3-col l12 w3-left">
                                         <label for="vendorTag" class="control-label"><b>Vendor Tag:</b></label>
                                     </div>
@@ -339,14 +332,7 @@ error_reporting(E_ERROR | E_PARSE);
                                             <span><a  id="add_row" class="btn add-more w3-text-red w3-right">+Add</a></span>
                                         </div>
                                     </div>
-                                    <div class="w3-col l12 w3-margin-bottom" >
-                                        <div class="w3-col l3 w3-margin-right">
-                                            <label for="ProfitMargin" class="control-label w3-right">Profit&nbsp;Margin:</label>
-                                        </div>
-                                        <div class="w3-col l7">
-                                            <input type="profitmargin" name="Input_ProfitMargin" id="Input_ProfitMargin" class="form-control" placeholder="Profit Margin" >
-                                        </div>
-                                    </div>
+                                    
                                     <div class="w3-col l12 w3-left">
                                         <label for="vendorTag" class="control-label"><b>Vendor Tag:</b></label>
                                     </div>

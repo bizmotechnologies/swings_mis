@@ -60,7 +60,6 @@ class Vendor_Management extends CI_controller {
             'Input_VendorBank_IFSC_Code' => $Input_VendorBank_IFSC_Code,
             'Input_VendorPAN_No' => $Input_VendorPAN_No,
             'vendor_tag' => $vendor_tag,
-            'Input_ProfitMargin' => $Input_ProfitMargin,
             'Input_VendorEmail' => json_encode($emailArr)
         );
 
