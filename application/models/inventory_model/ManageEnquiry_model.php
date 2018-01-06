@@ -119,9 +119,7 @@ class ManageEnquiry_model extends CI_Model {
         $result = $this->db->query($query);
         $profit_margin = '';
         if ($result->num_rows() <= 0) {
-            $profit_margin = array(
-                'status' => 0,
-                'status_message' => 'No Records Found.');
+            $profit_margin = '0';
         } else {
             foreach ($result->result_array() as $row) {
                 $profit_margin = $row[$MaterialCategory];
