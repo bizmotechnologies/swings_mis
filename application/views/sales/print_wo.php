@@ -67,6 +67,10 @@ error_reporting(E_ERROR | E_PARSE);
       <?php
 
       foreach ($print_data as $key) {
+        $number=0;
+        $modified_IDArr=json_decode($key['modified_ID'],TRUE);
+        $modified_ODArr=json_decode($key['modified_OD'],TRUE);
+        $modified_LengthArr=json_decode($key['modified_length'],TRUE);
         $date=date('d/m/Y',strtotime($key['dated'])); 
         echo '
         <div class= "">
@@ -137,13 +141,13 @@ error_reporting(E_ERROR | E_PARSE);
           echo '</span>
           </td>
           <td class="text-center">
-          <span>'.$row['Prod_ID'][0].'</span>
+          <span>'.$modified_IDArr[$number].'</span>
           </td>
           <td class="text-center">
-          <span>'.$row['Prod_OD'][0].'</span>
+          <span>'.$modified_ODArr[$number].'</span>
           </td>
           <td class="text-center">
-          <span>'.$row['Prod_length'][0].'</span>
+          <span>'.$modified_LengthArr[$number].'</span>
           </td>
           <td class="text-center">
           <span>'.$row['product_quantity'].'</span>
@@ -154,6 +158,7 @@ error_reporting(E_ERROR | E_PARSE);
           </tr>               
           ';       
           $count++;
+          $number++;
         }
         echo '
         </tbody>

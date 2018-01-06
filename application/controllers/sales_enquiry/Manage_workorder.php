@@ -110,16 +110,16 @@ class Manage_workorder extends CI_Controller
         echo '</span>
         </td>
         <td class="text-center">
-        <span>'.$row['Prod_ID'][0].'</span>
+        <span><input type="text" name="wo_ID[]" value="'.$row['Prod_ID'][0].'" style="width:60px" type="number"></span>
         </td>
         <td class="text-center">
-        <span>'.$row['Prod_OD'][0].'</span>
+        <span><input type="text" name="wo_OD[]" value="'.$row['Prod_OD'][0].'" style="width:60px" type="number"></span>
         </td>
         <td class="text-center">
-        <span>'.$row['Prod_length'][0].'</span>
+        <span><input type="text" name="Prod_length[]" value="'.$row['Prod_length'][0].'" style="width:60px" type="number"></span>
         </td>
         <td class="text-center">
-        <span><input class="form-control" name="wo_quantity[]" value="'.$row['product_quantity'].'" style="width:60px" type="number"></span>
+        <span>'.$row['product_quantity'].'</span>
         </td>
         <td class="text-center">
         <span>'.number_format($row['product_price']/$row['product_quantity'], 2, '.', '').'</span>
@@ -287,7 +287,9 @@ unset($drawing_Arr);
 $count++;   
 }
 $data['wo_drawing']=json_encode($main_drawingArr);
-$data['quantities']=json_encode($wo_quantity);
+$data['ID']=json_encode($wo_ID);
+$data['OD']=json_encode($wo_OD);
+$data['length']=json_encode($Prod_length);
 //-----------session branch_name--------------
 $branch_name=$this->session->userdata('branch_name');
 $data['branch_name']=$branch_name;

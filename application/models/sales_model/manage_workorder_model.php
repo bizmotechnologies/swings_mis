@@ -90,7 +90,7 @@ public function sendTo_Prod($data) {
             die();
         }
 
-        $insert_prod = "INSERT INTO wo_production(wo_id,customer_name,product_associated,wo_drawings,modified_quantity,dated,start_date,start_time,end_date,end_time,current_status,branch_name) VALUES ('$wo_number','$wo_customerName','$products','$wo_drawing','$quantities',now(),'','','','','1','$branch_name')";
+        $insert_prod = "INSERT INTO wo_production(wo_id,customer_name,product_associated,wo_drawings,modified_ID,modified_OD,modified_length,dated,start_date,start_time,end_date,end_time,current_status,branch_name) VALUES ('$wo_number','$wo_customerName','$products','$wo_drawing','$ID','$OD','$length',now(),'','','','','1','$branch_name')";
     //echo $insert_prod;die();
         if ($this->db->query($insert_prod)) {
             $update_wo = "UPDATE wo_master SET current_status = '0' WHERE wo_id = '$wo_number'";
