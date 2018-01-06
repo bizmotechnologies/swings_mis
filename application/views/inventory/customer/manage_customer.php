@@ -60,8 +60,8 @@ error_reporting(E_ERROR | E_PARSE);
                                         <td class="text-center">' . $count . '</td>
                                         <td class="text-center">' . $details['status_message'][$i]['customer_name'] . '</td>
                                         <td class="text-center">';
-                                        for ($key = 0; $key < count($email_arr); $key++) {
-                                            echo $email_arr[$key] . '<br>';
+                                        foreach ($contact as $val) {
+                                            echo $val['contact_email'] . '<br>';
                                         }
                                         echo '</td>
                                         <td class="text-center">' . $details['status_message'][$i]['customer_address'] . '</td>
@@ -139,18 +139,7 @@ error_reporting(E_ERROR | E_PARSE);
                                 </tr>
 
                                 </table>
-                                <div class="w3-col l12" style="margin-left: 36px">
-                                <div class="w3-col l3 w3-margin-right ">
-                                <label for="CustomerEmail" class="control-label w3-right">Customer&nbsp;Email:</label>
-                                </div>
-                                <div class="w3-col l7">
-                                <div id="added_rowUpdated">';
-                                for ($key = 0; $key < count($email_arr); $key++) {
-                                    echo '<input type="email" name="Updated_CustomerEmail[]" id="Updated_CustomerEmail" class="form-control w3-margin-bottom" value="' . $email_arr[$key] . '" placeholder="Vendor Email">';
-                                }
-                                echo'</div>
-                                </div>
-                                </div>
+                                
                                 </div>
 
                                 <div class="col-lg-6">
@@ -200,6 +189,12 @@ error_reporting(E_ERROR | E_PARSE);
                                     </div>
                                     <div class="w3-col l7 w3-margin-bottom">
                                     <input type="tel" name="Updated_ContactPerson[]" id="Updated_ContactPerson" value="' . $key['contact_person'] . '" class="form-control" placeholder="Customer Persone Name" required>
+                                    </div>
+                                    <div class="w3-col l3 w3-margin-right ">
+                                        <label for="ContactPerson" class="control-label w3-right">Contact&nbsp;Email:</label>
+                                    </div>
+                                    <div class="w3-col l7 w3-margin-bottom">
+                                        <input type="email" name="Updated_CustomerEmail[]" id="Updated_CustomerEmail"  value="'.$key['contact_email'].'" class="form-control" placeholder="Customer Email" required>
                                     </div>
                                     <div class="w3-col l3 w3-margin-right w3-padding-left">
                                     <label for="ContactNo" class="control-label w3-right">Contact&nbsp;No:</label>
@@ -316,17 +311,7 @@ error_reporting(E_ERROR | E_PARSE);
                                     </tr>
 
                                 </table>
-                                
-                                <div class="w3-col l12" style="margin-left: 36px">
-                                    <div class="w3-col l3 w3-margin-right">
-                                        <label for="CustomerEmail" class="control-label w3-right">Customer&nbsp;Email:</label>
-                                    </div>
-                                    <div class="w3-col l7">
-                                        <input type="email" name="Input_CustomerEmail[]" id="Input_CustomerEmail" class="form-control" placeholder="Customer Email" >
-                                        <div id="added_row"></div>
-                                        <span><a  id="add_row" class="btn add-more w3-text-blue w3-right">+Add</a></span>
-                                    </div>
-                                </div>
+                         
                             </div>
 
                             <div class="col-lg-6">
@@ -370,6 +355,12 @@ error_reporting(E_ERROR | E_PARSE);
                                     </div>
                                     <div class="w3-col l7 w3-margin-bottom">
                                         <input type="tel" name="Input_ContactPerson[]" id="Input_ContactPerson" class="form-control" placeholder="Customer Persone Name" >
+                                    </div>
+                                    <div class="w3-col l3 w3-margin-right ">
+                                        <label for="ContactPerson" class="control-label w3-right">Contact&nbsp;Email:</label>
+                                    </div>
+                                    <div class="w3-col l7 w3-margin-bottom">
+                                        <input type="email" name="Input_ContactEmail[]" id="Input_ContactEmail" class="form-control" placeholder="Customer Email" >
                                     </div>
                                     <div class="w3-col l3 w3-margin-right">
                                         <label for="ContactNo" class="control-label w3-right">Contact&nbsp;No:</label>
@@ -524,7 +515,7 @@ error_reporting(E_ERROR | E_PARSE);
             e.preventDefault();
             if (x < max_fields) {
                 x++;
-                        $(wrapper).append('<div class="w3-col l12 w3-margin-top"><a href="#" class="delete w3-text-grey w3-right fa fa-remove" title="Delete Contact field"></a><div class="w3-col l3 w3-margin-right "><label for="ContactPerson" class="control-label w3-right">Person ' + x + ':</label></div><div class="w3-col l7 w3-margin-bottom"><input type="tel" name="Input_ContactPerson[]" id="Input_ContactPerson" class="form-control" placeholder="Customer Contact Person" required></div><div class="w3-col l3 w3-margin-right"><label for="ContactNo" class="control-label w3-right">Contact&nbsp;No ' + x + ':</label></div><div class="w3-col l7"><input type="tel" name="Input_ContactNo_one[]" id="Input_ContactNo_one" class="form-control" placeholder="Customer Contact No" required></div></div><br>'); //add input box
+                        $(wrapper).append('<div class="w3-col l12 w3-margin-top"><a href="#" class="delete w3-text-grey w3-right fa fa-remove" title="Delete Contact field"></a><div class="w3-col l3 w3-margin-right "><label for="ContactPerson" class="control-label w3-right">Person ' + x + ':</label></div><div class="w3-col l7 w3-margin-bottom"><input type="tel" name="Input_ContactPerson[]" id="Input_ContactPerson" class="form-control" placeholder="Customer Contact Person" required></div><div class="w3-col l3 w3-margin-right "><label for="ContactEmail" class="control-label w3-right">Email ' + x + ':</label></div><div class="w3-col l7 w3-margin-bottom"><input type="tel" name="Input_ContactEmail[]" id="Input_ContactEmail" class="form-control" placeholder="Customer Email" required></div><div class="w3-col l3 w3-margin-right"><label for="ContactNo" class="control-label w3-right">Contact&nbsp;No ' + x + ':</label></div><div class="w3-col l7"><input type="tel" name="Input_ContactNo_one[]" id="Input_ContactNo_one" class="form-control" placeholder="Customer Contact No" required></div></div><br>'); //add input box
 
                     } else
                     {

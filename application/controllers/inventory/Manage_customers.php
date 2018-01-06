@@ -62,9 +62,10 @@ class Manage_customers extends CI_controller {
         extract($_POST);
         $data = $_POST;
 
-        $emailArr = array();
-        foreach ($Input_CustomerEmail as $key) {
-            $emailArr[] = $key;  //---------create array of roles to store in feature table
+        $contactEmail = array();
+        foreach($Input_ContactEmail as $key)
+        {
+            $contactEmail[] = $key;
         }
         $contactno = array();
         foreach ($Input_ContactNo_one as $value) {
@@ -78,6 +79,7 @@ class Manage_customers extends CI_controller {
         for($i=0;$i<count($contactno);$i++){
         $contact=array(
             'contact_person'    => $contactperson[$i],
+            'contact_email'     => $contactEmail[$i],
             'contact_number'    => $contactno[$i]
         );
         $contact_arr[]=$contact;
@@ -116,9 +118,10 @@ class Manage_customers extends CI_controller {
         extract($_POST);
         $data = $_POST;
         
-        $emailArr = array();
-        foreach ($Updated_CustomerEmail as $key) {
-            $emailArr[] = $key;  //---------create array of roles to store in feature table
+         $contactEmail = array();
+        foreach($Updated_CustomerEmail as $key)
+        {
+            $contactEmail[] = $key;
         }
         $contactno = array();
         foreach ($Updated_ContactNo_one as $value) {
@@ -132,6 +135,7 @@ class Manage_customers extends CI_controller {
         for($i=0;$i<count($contactno);$i++){
         $contact=array(
             'contact_person'    => $contactperson[$i],
+            'contact_email'     => $contactEmail[$i],            
             'contact_number'    => $contactno[$i]
         );
         $contact_arr[]=$contact;
