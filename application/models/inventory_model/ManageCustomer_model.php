@@ -29,11 +29,11 @@ class ManageCustomer_model extends CI_Model {
         extract($data);
         $sqlnew = "INSERT INTO customer_details(customer_name,customer_email,"
                 . "customer_address,contact,bank_name,bank_address,"
-                . "account_no,IFSC_no,MICR_no,PAN_no,joining_date,profit_for_odgreater,profit_for_odsmall) "
+                . "account_no,IFSC_no,MICR_no,PAN_no,joining_date,profit_for_odgreater,profit_for_odsmall,branch_name) "
                 . "values ('$Input_CustomerName','$Input_CustomerEmail','$Input_CustomerAddress',"
                 . "'$contact','$Input_Bank_name','$Input_Bank_Address',"
                 . "'$Input_Bank_AccNo','$Input_Bank_IFSC_Code','$Input_Bank_MICR_Code',"
-                . "'$Input_PAN_No',now(),'$Select_profitCategoryOne','$Select_profitCategoryTwo')";
+                . "'$Input_PAN_No',now(),'$Select_profitCategoryOne','$Select_profitCategoryTwo','$branch_name')";
         $resultnew = $this->db->query($sqlnew);
         if ($resultnew) {
             $response = array(
@@ -55,7 +55,9 @@ class ManageCustomer_model extends CI_Model {
   customer_email = '$Updated_CustomerEmail',customer_address = '$Updated_CustomerAddress',contact = '$contact',
   bank_name = '$Updated_Bank_name' ,bank_address = '$Updated_Bank_Address' ,
   account_no = '$Updated_Bank_AccNo' , IFSC_no = '$Updated_Bank_IFSC_Code' ,
-  MICR_no = '$Updated_Bank_MICR_Code' ,PAN_no = '$Updated_PAN_No',profit_for_odgreater='$UpdateSelect_profitCategoryOne',profit_for_odsmall='$UpdateSelect_profitCategoryTwo' WHERE cust_id ='$new_Cust_id'";
+  MICR_no = '$Updated_Bank_MICR_Code' ,PAN_no = '$Updated_PAN_No',"
+                . "profit_for_odgreater='$UpdateSelect_profitCategoryOne',"
+                . "profit_for_odsmall='$UpdateSelect_profitCategoryTwo',branch_name='$branch_name' WHERE cust_id ='$new_Cust_id'";
         //echo $sql; die();
         $resultUpadateCustomerDetails = $this->db->query($sql);
 

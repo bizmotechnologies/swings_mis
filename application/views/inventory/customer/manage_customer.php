@@ -188,7 +188,7 @@ error_reporting(E_ERROR | E_PARSE);
                                     <label for="ContactPerson" class="control-label w3-right">Contact&nbsp;Person:</label>
                                     </div>
                                     <div class="w3-col l7 w3-margin-bottom">
-                                    <input type="tel" name="Updated_ContactPerson[]" id="Updated_ContactPerson" value="' . $key['contact_person'] . '" class="form-control" placeholder="Customer Persone Name" required>
+                                    <input type="text" name="Updated_ContactPerson[]" id="Updated_ContactPerson" value="' . $key['contact_person'] . '" class="form-control" placeholder="Customer Persone Name" required>
                                     </div>
                                     <div class="w3-col l3 w3-margin-right ">
                                         <label for="ContactPerson" class="control-label w3-right">Contact&nbsp;Email:</label>
@@ -200,7 +200,7 @@ error_reporting(E_ERROR | E_PARSE);
                                     <label for="ContactNo" class="control-label w3-right">Contact&nbsp;No:</label>
                                     </div>
                                     <div class="w3-col l7">
-                                    <input type="tel" name="Updated_ContactNo_one[]" id="Updated_ContactNo_one" value="' . $key['contact_number'] . '" class="form-control" placeholder="Customer Contact No" required>
+                                    <input type="number" name="Updated_ContactNo_one[]" id="Updated_ContactNo_one" value="' . $key['contact_number'] . '" class="form-control" placeholder="Customer Contact No" required>
                                     </div>
                                     </div><br>';
                                 }
@@ -354,7 +354,7 @@ error_reporting(E_ERROR | E_PARSE);
                                         <label for="ContactPerson" class="control-label w3-right">Contact&nbsp;Person:</label>
                                     </div>
                                     <div class="w3-col l7 w3-margin-bottom">
-                                        <input type="tel" name="Input_ContactPerson[]" id="Input_ContactPerson" class="form-control" placeholder="Customer Persone Name" >
+                                        <input type="text" name="Input_ContactPerson[]" id="Input_ContactPerson" class="form-control" placeholder="Customer Persone Name" >
                                     </div>
                                     <div class="w3-col l3 w3-margin-right ">
                                         <label for="ContactPerson" class="control-label w3-right">Contact&nbsp;Email:</label>
@@ -366,7 +366,7 @@ error_reporting(E_ERROR | E_PARSE);
                                         <label for="ContactNo" class="control-label w3-right">Contact&nbsp;No:</label>
                                     </div>
                                     <div class="w3-col l7">
-                                        <input type="tel" name="Input_ContactNo_one[]" id="Input_ContactNo_one" class="form-control" placeholder="Customer Contact No" >
+                                        <input type="number" name="Input_ContactNo_one[]" id="Input_ContactNo_one" class="form-control" placeholder="Customer Contact No" >
                                     </div>
                                     <div id="added_Newrow"></div>
                                     <span><a  id="add_Newrow" class="btn add-more w3-text-blue w3-right">+Add</a></span>

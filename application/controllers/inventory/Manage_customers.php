@@ -87,7 +87,9 @@ class Manage_customers extends CI_controller {
 //        print_r(json_encode($contact_arr));die();
         $data['Input_CustomerEmail'] = json_encode($emailArr);
         $data['contact'] = json_encode($contact_arr);
-
+        
+        $branch_name=$this->session->userdata('branch_name');
+	$data['branch_name']=$branch_name;
         //print_r($data); die();
         $path = base_url();                                                   /* this code is for web service AND api for saave customer details */
         $url = $path . 'api/ManageCustomer_api/save_CustomerDetails';
@@ -144,6 +146,8 @@ class Manage_customers extends CI_controller {
         $data['Updated_CustomerEmail'] = json_encode($emailArr);
         $data['contact'] = json_encode($contact_arr);
         //print_r($data); die();
+        $branch_name=$this->session->userdata('branch_name');
+	$data['branch_name']=$branch_name;
         $path = base_url();
         $url = $path . 'api/ManageCustomer_api/Update_CustomerDetails';
         $ch = curl_init($url);
