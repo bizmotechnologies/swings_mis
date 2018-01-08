@@ -61,7 +61,7 @@ class MaterialStockManagement_model extends CI_Model {
 
     public function GetRawMaterialInfoDetails($branch_name) {
 
-        $query = "SELECT * FROM raw_materialstock WHERE branch_name='".$branch_name."' ORDER BY material_name,raw_ID,raw_OD,avail_length ";
+        $query = "SELECT * FROM raw_materialstock ORDER BY material_name,raw_ID,raw_OD,avail_length ";
         //echo $query;die();
         $result = $this->db->query($query);
         if ($result->num_rows() <= 0) {
@@ -506,7 +506,7 @@ class MaterialStockManagement_model extends CI_Model {
             
             $sqlnew = "INSERT INTO raw_materialstock(vendor_id,material_name,raw_ID,"
             . "raw_OD,avail_length,weight,material_price,price_euro,branch_name)"
-            . " values ('1','".$key['Material']."','".$key['ID']."',"
+            . " values ('10','".$key['Material']."','".$key['ID']."',"
             . "'".$key['OD']."',0,"
             . "'".$key['weight']."','".$rupee."','".$key['price']."','PUNE')";
             $this->db->query($sqlnew);
