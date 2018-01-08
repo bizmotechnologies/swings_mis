@@ -162,7 +162,7 @@ class Manage_materials extends CI_controller {
                     
                     echo '<div class="w3-col l2">';                    //---this div for material information div starts here
                     echo'<label>MATERIAL</label>';
-                    echo'<input onclick="this.select();" autocomplete="off" list="Materialinfo_'.$Profile_num.'_'.$count.'" value="'.$key['material_name'].'" id="Select_material_'.$Profile_num.'_'.$count.'" name="Select_material[]" class="w3-input" required type="text" placeholder="Material" onchange="setMaterialTocheckbox('.$Profile_num.','.$count.');">';
+                    echo'<input onclick="this.select();" autocomplete="off" list="Materialinfo_'.$Profile_num.'_'.$count.'" value="'.$key['material_name'].'" id="Select_material_'.$Profile_num.'_'.$count.'" name="Select_material[]" class="w3-input" required type="text" placeholder="Material" onchange="setMaterialTocheckbox('.$Profile_num.','.$count.');setmaterial_ToTextbox('.$Profile_num.','.$count.');">';
                     echo'<input type="hidden" value="'.$key['material_id'].'" name="Profile_material_id[]" id="Profile_material_id_'.$Profile_num.'_'.$count.'">';
                     echo'<datalist id="Materialinfo_'.$Profile_num.'_'.$count.'">';
                     foreach ($materials['status_message'] as $result) {

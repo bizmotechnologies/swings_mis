@@ -633,6 +633,10 @@ function getMaterialCategoryByCstomer(fieldnum, countnum){
         document.getElementById('make_boughtOut_'+fieldnum+'_'+countnum).value = Materialinfo;
         document.getElementById('select_box_'+fieldnum+'_'+countnum).value = Materialinfo;        
     }
+    function setmaterial_ToTextbox(fieldnum, countnum){
+    Materialinfo = $('#Materialinfo_' + fieldnum + '_' + countnum + ' [value="' + $('#Select_material_' + fieldnum + '_' + countnum + '').val() + '"]').data('value');
+    $('#Profile_material_id_'+fieldnum+'_'+countnum).val(Materialinfo);
+    }
 </script>
 <script>
         //----this funis used to get value from table to perform bestprice calculations
