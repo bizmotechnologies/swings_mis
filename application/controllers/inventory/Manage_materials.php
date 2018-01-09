@@ -174,8 +174,7 @@ class Manage_materials extends CI_controller {
                     <div class="w3-col l12 w3-padding-top">
                     <label>Material Category</label>                
                     <select class="w3-input" name="material_Category[]" id="material_Category_'.$Profile_num.'_'.$count.'" onchange="GetMaterialBasePrice('.$Profile_num.','.$count.');"> <!-- this is for showing material stocks quantity -->
-                    <option>Select Category</option>                                    
-                    <option value="category_a">A</option>
+                    <option value="category_a" selected>A</option>
                     <option value="category_b">B</option>
                     <option value="category_c">C</option>
                     <option value="category_d">D</option>

@@ -190,7 +190,9 @@ function getMaterialCategoryByCstomer(fieldnum, countnum){
                 },
                 cache: false,
                 success: function (data) {
+                    if(data!= ''){
                 $('#material_Category_' + fieldnum + '_' + countnum).val(data);
+                    }
             }
         });
 }
@@ -522,7 +524,7 @@ function getMaterialCategoryByCstomer(fieldnum, countnum){
                 return: false, //stop the actual form post !important!
                 success: function (data)
                 {
-                    //alert(data);
+                   //alert(data);
                     $('#available_tube_' + fieldnum + '_' + countnum).html(data);
                     showAvailable_Tube(fieldnum,countnum);
                     $("#tube_spinner_" + fieldnum + '_' + countnum).html('');
@@ -541,7 +543,8 @@ function getMaterialCategoryByCstomer(fieldnum, countnum){
             var MaterialID = [];
             var MaterialOD = [];
             var MaterialLength = [];
-            
+            var ID_tolerance=$('#ID_tolerance_' + fieldnum + '_' + countnum).val();
+            var OD_tolerance=$('#OD_tolerance_' + fieldnum + '_' + countnum).val();
             if(document.getElementById('make_boughtOut_'+fieldnum+'_'+countnum).checked == false){
                 $("#tube_spinner_" + fieldnum + '_' + countnum).html('<center><img width="100%" height="auto" src="'+BASE_URL+'css/logos/small_loader.gif"/></center>');
                 $('#Div_no_' + fieldnum + '_' + countnum + ' input[name="Select_ID[' + fieldnum + '][]"]').each(function ()
@@ -572,11 +575,14 @@ function getMaterialCategoryByCstomer(fieldnum, countnum){
                         Materialinfo: Materialinfo,
                         MaterialID: MaterialID,
                         MaterialOD: MaterialOD,
+                        ID_tolerance: ID_tolerance,
+                        OD_tolerance: OD_tolerance,
                         MaterialLength: MaterialLength
                     },
                 return: false, //stop the actual form post !important!
                 success: function (data)
                 {
+                    //alert(data);
                     $("#tube_spinner_" + fieldnum + '_' + countnum).html('');
                     $('#Available_tube_' + fieldnum + '_' + countnum).val(data['avail_tube']);
                     $('#available_length_' + fieldnum + '_' + countnum).html('<lable><b>A/V LEN:' + data['new_length'] + '<b></lable>' );
@@ -620,7 +626,7 @@ function getMaterialCategoryByCstomer(fieldnum, countnum){
                 return: false, //stop the actual form post !important!
                 success: function (data)
                 {
-                    //alert(data);
+                   //alert(data);
                     $('#allbranchAvailable_tube_' + fieldnum + '_' + countnum).html(data);
                     $("#tube_spinner_" + fieldnum + '_' + countnum).html('');
                 }
