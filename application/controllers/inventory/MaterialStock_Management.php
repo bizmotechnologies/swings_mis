@@ -29,9 +29,39 @@ class MaterialStock_Management extends CI_controller {
         $response['Purchased'] = MaterialStock_Management::GetPurchaseProductsName();
         $response['Finished'] = MaterialStock_Management::GetFinishedInformationDetails();
         $response['materials'] = MaterialStock_Management::getMaterialrecord();     //-------show all materials
+        $response['Fg_info']=MaterialStock_Management::GetFinishedGoodsDetails();
+        $response['quotation']=MaterialStock_Management::GetQuotationIdFromquoation_master();    //-------show all materials
         $this->load->view('includes/navigation');
         $this->load->view('inventory/stock/materialstock_management', $response);
     }
+    public function GetFinishedGoodsDetails()
+    {
+         $path=base_url();
+         $url = $path.'api/finished_good_api/GetFinishedGoodsDetails';   
+         // $url = $path.'api/Wo_get_all_infoapi/sget_all_wo_id?wo_id='.$wo_id;    
+         $ch = curl_init($url);
+         curl_setopt($ch, CURLOPT_HTTPGET, true);
+         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+         $response_json = curl_exec($ch);
+         curl_close($ch);
+         $response=json_decode($response_json, true);
+         return $response;
+    }
+    
+     public function GetQuotationIdFromquoation_master() {
+
+        $path = base_url();
+        $url = $path . 'api/finished_good_api/GetQuotationIdFromquoation_master';
+        $ch = curl_init($url);
+        curl_setopt($ch, CURLOPT_HTTPGET, true);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $response_json = curl_exec($ch);
+        curl_close($ch);
+        $response = json_decode($response_json, true);
+        //print_r($response);
+        return $response;
+    }
+
 //----this fun is used to filter the materials 
     public function showmaterialCategory(){
         extract($_POST);
@@ -235,7 +265,7 @@ public function UpdateMaterialCategory(){
 //-----------------------------api to fetch excel to db-------------//
 public function EXCELDB() {
 
-    $data = 'rdrdh';
+    $data = '';
     print_r($data); die();
 
     $path = base_url();

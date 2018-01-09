@@ -34,7 +34,7 @@ $branch_name=$this->session->userdata('branch_name');
             <br>
             <ul  class="nav nav-tabs">
                 <li class="active "><a class="w3-medium w3-button w3-red"  href="#RawMaterialStock" data-toggle="tab">Raw Material Stock</a></li>
-                <li><a class="w3-medium w3-orange w3-button w3-text-white"  href="#" data-toggle="tab">Purchased Products Stock</a></li>
+                <li><a class="w3-medium w3-orange w3-button w3-text-white"  href="#PurchasedProducts" data-toggle="tab">Purchased Products Stock</a></li>
                 <li><a class="w3-medium w3-brown w3-button"  href="#" data-toggle="tab">Finished Product Stock</a></li>
             </ul>
 
@@ -547,360 +547,165 @@ function showmaterialCategory(){
         <!-- script end -->
         <!--____________________________________ tab div 1 ends here_________________________________________ -->
 
-        <div class="tab-pane" id="PurchasedProducts">  <!-- tab 2 starts here -->
+         <!--_______________________________ tab 3 starts here_____________________________________________ -->
 
-            <div class=" container w3-padding"><!-- container starts here -->
-                <div class="w3-left">
-                    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#ModalFor_purchasedProduct">Add Purchased Stock</button><br>
-                </div><br><br>
-            </div><br><!-- container ends here -->
-
-            <div class="container w3-padding"><!-- table container -->
-                <div class="">
-                    <div>
-                        <div class="w3-margin-right" id="ShowPurchasedProduct" name="ShowPurchasedProduct" style="max-height: 400px; overflow: scroll;">
-                            <table class="table table-bordered table-responsive" >            <!-- table starts here -->
-                                <tr >
-                                    <th class="text-center">SR. No</th>
-                                    <th class="text-center">Material&nbsp;Name</th>  
-                                    <th class="text-center">ID</th>              
-                                    <th class="text-center">OD</th>              
-                                    <th class="text-center">Length</th>              
-                                    <th class="text-center">Quantity</th>
-                                    <th class="text-center">price</th>                         
-                                    <th class="text-center">Actions</th>                                           
-                                </tr>
-                                <tbody><!-- table body starts here -->
-
-                                    <?php
-                                    $count = 1;
-                                            if ($Purchased['status'] == 1) {//print_r($Purchased['status_message']);
-                                            for ($i = 0; $i < count($Purchased['status_message']); $i++) {
-                                                echo '<tr class="text-center">
-                                                <td class="text-center">' . $count . '.</td>
-                                                <td class="text-center">' . $Purchased['status_message'][$i]['product_name'] . '</td>
-                                                <td class="text-center">' . $Purchased['status_message'][$i]['stock_id'] . '</td>
-                                                <td class="text-center">' . $Purchased['status_message'][$i]['stock_od'] . '</td>
-                                                <td class="text-center">' . $Purchased['status_message'][$i]['length'] . '</td>
-                                                <td class="text-center">' . $Purchased['status_message'][$i]['quantity'] . '</td>
-                                                <td class="text-center">' . $Purchased['status_message'][$i]['purchase_price'] . '</td>
-                                                <td class="text-center"><a class="btn w3-blue w3-medium w3-padding-small" title="UpdateCustomer" data-toggle="modal" data-target="#myModalnew_' . $Purchased['status_message'][$i]['purchased_product_id'] . '" style="padding:0"><i class="fa fa-edit"></i></a>
-                                                <a class="btn w3-red w3-medium w3-padding-small" title="DeleteCustomer" href="' . base_url() . 'inventory/MaterialStock_Management/DeletePurchasedStockDetails?purchased_product_id=' . $Purchased['status_message'][$i]['purchased_product_id'] . '" style="padding:0"><i class="fa fa-close"></i></a>
-
-                                                <!-- Modal  starts here-->
-
-                                                <div id="myModalnew_' . $Purchased['status_message'][$i]['purchased_product_id'] . '" class="modal fade" role="dialog">
-                                                <div class="modal-dialog">
-
-                                                <!-- Modal content-->
-                                                <div class="modal-content">
-                                                <div class="modal-header">
-                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                                <div>Manage Stock Material</div>
-                                                </div>
-                                                <div class="modal-body w3-light-grey">   
-                                                <form method="POST" action="" id="Update_purchasedManage_MaterialForm_' . $Purchased['status_message'][$i]['purchased_product_id'] . '" name="Update_purchasedManage_MaterialForm_' . $Purchased['status_message'][$i]['purchased_product_id'] . '">
-                                                <input type="hidden" name="purchased_product_id" id="purchased_product_id' . $Purchased['status_message'][$i]['purchased_product_id'] . '" value="' . $Purchased['status_message'][$i]['purchased_product_id'] . '">
-                                                <div class="row">
-                                                <div class="col-lg-3">
-                                                <label>Select Product:</label> 
-                                                </div>
-                                                <div class="col-lg-6">                   
-                                                <select class="form-control" name="Select_UpdatedPurchased_Id" id="Select_UpdatedPurchased_Id_' . $Purchased['status_message'][$i]['purchased_product_id'] . '" required> <!-- this is for showing material stocks quantity -->
-                                                <option value="0">Select Product</option>';
-                                                foreach ($product as $result) {
-                                                    echo '<option value="' . $result['product_id'] . '"';
-                                                    if ($Purchased['status_message'][$i]['product_id'] == $result['product_id']) {
-                                                        echo 'selected';
-                                                    } echo '>' . $result['product_name'] . '</option>';
-                                                }
-                                                echo '</select><br>
-                                                </div>
-                                                </div>
-
-                                                <div class="row">
-                                                <div class="col-lg-3">
-                                                <label>Select Vendor</label> 
-                                                </div>
-                                                <div class="col-lg-6">                   
-                                                <select class="form-control" name="Select_UpdatedVendor_Id" id="Select_UpdatedVendor_Id" required> <!-- this is for showing material stocks quantity -->
-                                                <option value="0">Select Material</option>';
-                                                foreach ($vendors as $result) {
-                                                    echo '<option value="' . $result['vendor_id'] . '"';
-                                                    if ($Purchased['status_message'][$i]['vendor_id'] == $result['vendor_id']) {
-                                                        echo 'selected';
-                                                    } echo '>' . $result['vendor_name'] . '</option>';
-                                                }
-                                                echo '</select><br>
-                                                </div>
-                                                </div>
-
-                                                <div class="row">
-                                                <div class="col-lg-3">
-                                                <label>ID:</label>
-                                                </div>
-                                                <div class="col-lg-6">
-                                                <input type="number" name="Updated_PurchasedStock_ID" id="Updated_PurchasedStock_ID" class="form-control" placeholder="Material ID" step="0.01" value="' . $Purchased['status_message'][$i]['stock_id'] . '" required><br>
-                                                </div>
-                                                </div>
-
-                                                <div class="row">
-                                                <div class="col-lg-3">
-                                                <label>OD:</label>
-                                                </div>
-                                                <div class="col-lg-6">
-                                                <input type="number" name="Updated_purchasedStock_OD" id="Updated_purchasedStock_OD" class="form-control" placeholder="Material OD" step="0.01" value="' . $Purchased['status_message'][$i]['stock_od'] . '" required><br>
-                                                </div>
-                                                </div>
-
-                                                <div class="row">
-                                                <div class="col-lg-3">
-                                                <label>Length:</label>
-                                                </div>
-                                                <div class="col-lg-6">
-                                                <input type="number" name="Updated_purchasedLength" id="Updated_purchasedLength" class="form-control" placeholder="Material Length" step="0.01" value="' . $Purchased['status_message'][$i]['length'] . '" required><br>
-                                                </div>          
-                                                </div>
-
-                                                <div class="row">
-                                                <div class="col-lg-3">
-                                                <label>Quantity:</label>
-                                                </div>
-                                                <div class="col-lg-6">
-                                                <input type="number" name="Updated_PurchasedNewQuantity" id="Updated_PurchasedNewQuantity" class="form-control" placeholder="Material Quantity" value="' . $Purchased['status_message'][$i]['quantity'] . '" step="0.01" required><br>
-                                                </div>
-                                                </div>
-
-                                                <div class="row">
-                                                <div class="col-lg-3">
-                                                <label for="price" class="control-label w3-medium">Price<span class="w3-tiny">(cost/mm)</span>:</label></div>
-                                                <div class="col-lg-3">
-                                                <input type="number" name="input_updatedpriceForPurchase" id="input_updatedpriceForPurchase" class="form-control" value="' . $Purchased['status_message'][$i]['purchase_price'] . '" placeholder="Product Price" step="0.01" required>
-                                                </div>
-                                                <div class="col-lg-3">
-                                                <select class="form-control" name="Select_UpdatedpurchasedCurrency" id="Select_UpdatedpurchasedCurrency"  required>
-                                                <option class="w3-red" value="0">Currency </option>
-                                                <option value="dollar"';
-                                                if ($Purchased['status_message'][$i]['purchase_currency'] == 'dollar') {
-                                                    echo 'selected';
-                                                } echo '>Dollar</option>
-                                                <option value="euro" ';
-                                                if ($Purchased['status_message'][$i]['purchase_currency'] == 'euro') {
-                                                    echo 'selected';
-                                                } echo '>Euro</option>
-                                                <option value="pound" ';
-                                                if ($Purchased['status_message'][$i]['purchase_currency'] == 'pound') {
-                                                    echo 'selected';
-                                                } echo '>Pound</option>
-                                                <option value="rupees" ';
-                                                if ($Purchased['status_message'][$i]['purchase_currency'] == 'rupees') {
-                                                    echo 'selected';
-                                                } echo '>Rupees</option>
-
-                                                </select>
-                                                </div>
-                                                </div><br>
-
-                                                <div class="row">
-                                                <div class="col-lg-3">
-                                                <label>Currency price in <i class="fa fa-rupee"></i>:</label>
-                                                </div>
-                                                <div class="col-lg-6">
-                                                <input type="number" name="Input_UpdatedPurchased_Price" id="Input_Purchased_Price" class="form-control" value="' . $Purchased['status_message'][$i]['price_in_rs'] . '" placeholder="product prize in rs" step="0.01" required><br>
-                                                </div>
-                                                </div>
-
-                                                <div class="row">
-                                                <div class="col-lg-3">
-                                                <label>Discount:</label>
-                                                </div>
-                                                <div class="col-lg-6">
-                                                <input type="number" name="Input_PurchasedDiscount" id="Input_PurchasedDiscount" class="form-control" value="' . $Purchased['status_message'][$i]['purchase_discount'] . '" placeholder="product discount" step="0.01" required><br>
-                                                </div>
-                                                </div>
-
-                                                <br>
-                                                <div class="w3-right">
-                                                <button type="submit" class="btn btn-primary">Save Stock</button></div><br><br>
-                                                <div class="w3-margin-bottom w3-col l12 w3-small w3-center" id="Updatestock_errnew_' . $Purchased['status_message'][$i]['purchased_product_id'] . '"></div><br><br><br>
-                                                </form>
-                                                </div> 
-                                                </div>
-                                                </div>
-                                                </div>
-
-                                                <script>
-                                                /* this script is used to update material info */
-                                                $(function(){
-                                                   $("#Update_purchasedManage_MaterialForm_' . $Purchased['status_message'][$i]['purchased_product_id'] . '").submit(function(){
-                                                     dataString = $("#Update_purchasedManage_MaterialForm_' . $Purchased['status_message'][$i]['purchased_product_id'] . '").serialize();
-                                                     $.ajax({
-                                                       type: "POST",
-                                                       url: "' . base_url() . 'inventory/MaterialStock_Management/Update_purchasedproducts_Info",
-                                                       data: dataString,
-                                                       return: false,  
-                                                       success: function(data)
-                                                       {
-                                                        $("#Updatestock_errnew_' . $Purchased['status_message'][$i]['purchased_product_id'] . '").html(data);
-                                                        location.reload();
-                                                    }
-                                                });
-                                                return false;  
-                                            });
-                                        });
-                                        /* update script ends here  */
-                                        </script>   
-
-                                        <script>   
-                                        /* this script is used to reload page when close modal*/
-                                        $("#myModal_' . $Purchased['status_message'][$i]['purchased_product_id'] . '").on("hidden.bs.modal", function () {
-                                          location.reload();
-                                      });
-                                      /* this script is used to reload page when close modal*/
-                                      </script>
-
-
-                                      </td>
-                                      </tr>';
-                                      $count++;
-                                  }
-                              } else {
-                                echo'<tr><td style="text-align: center;" colspan = "9">No Records Found...!</td></tr>';
-                            }
-                            ?>
-
-                        </tbody><!-- table body close here -->
-                    </table><!-- table closed here -->
+<div class="tab-pane" id="PurchasedProducts"><!-- tab 3 starts here -->
+    <div class="w3-row-padding w3-margin-bottom ">
+      <div class="w3-col l12 w3-light-grey">        
+        <div class="w3-padding">
+          <div class="w3-col l12 w3-white w3-round w3-margin-bottom w3-padding w3-small">
+            <form id="finishedGoods_form" method="POST" action="" name="finishedGoods_form">       
+             <div class="w3-col l12 w3-margin-top">
+                <div class="row">
+                    <div class="w3-col l4">
+                        <div class="w3-padding-left w3-padding-bottom">
+                          <label class="w3-label">Material</label>
+                          <input type="text" placeholder="Enter Material" class="form-control" id="Fmaterial" name="Fmaterial" onclick="this.select();">
+                        </div>
+                    </div>
                 </div>
+             </div>
+             <div class="w3-col l12 w3-margin-top">
+                <div class="row">
+                    <div class="w3-col l9 w3-padding-left">
+                      <div class="row">
+                        <div class="w3-col l3 w3-padding-left w3-padding-bottom">
+                          <label class="w3-label">Inner Dimensions(ID)</label>
+                          <input type="number" placeholder="Enter ID" class="form-control" id="Id" name="Id" onclick="this.select();">
+                        </div>
+                        <div class="w3-col l3 w3-padding-left w3-padding-bottom">
+                          <label class="w3-label">Outer Dimension(OD)</label>
+                          <input type="number" placeholder="Enter OD" class="form-control" id="Od" name="Od" onclick="this.select();">
+                        </div>
+                        <div class="w3-col l3 w3-padding-left w3-padding-bottom">
+                          <label class="w3-label">Lenght</label>
+                          <input type="number" placeholder="Enter Length" class="form-control" id="Lenght" name="Lenght" onclick="this.select();">
+                        </div>
+                     </div>
+                  </div>
+                </div>
+             </div>
+             <div class="w3-col l12 w3-margin-top">
+                <div class="row">
+                  <div class="w3-col l12 w3-padding-left">
+                    <div class="row">
+                        <div class="w3-col l2 w3-padding-left w3-padding-bottom">
+                            <label class="w3-label">Price</label>
+                            <input type="number" placeholder="Enter Price" class="form-control" id="Price" name="Price" onclick="this.select();">
+                        </div>
+                        <div class="w3-col l2 w3-padding-left w3-padding-bottom">
+                            <label class="w3-label">Discount In Percentage</label>
+                            <input type="number" placeholder="Enter Discount" class="form-control" onclick="this.select();" id="Discount" name="Discount">
+                        </div>
+                        <div class="w3-col l2 w3-padding-left w3-padding-bottom">
+                            <label class="w3-label">Margin In Percentage</label>
+                            <input type="number" placeholder="Enter Margin" class="form-control" onclick="this.select();" id="Margin" name="Margin">
+                        </div>
+                        <div class="w3-col l2 w3-padding-left w3-padding-bottom">
+                            <label class="w3-label">Cost Price</label>
+                            <input type="number" placeholder="Enter Cost Price" class="form-control" onclick="this.select();" id="CostPrice" name="CostPrice">
+                        </div>
+                     </div>
+                  </div>
+                </div>
+             </div>
+             <div class="w3-col l12 w3-margin-top">
+                <div class="row">
+                  <div class="w3-col l12 w3-padding-left">
+                    <div class="row">
+                        <div class="w3-col l3 w3-padding-bottom w3-padding-left">
+                            <label class="w3-label">Quotation</label>
+                            <select id="Select_Quotation" class="form-control" onclick="this.select();" name="Select_Quotation" value="" class="w3-input" required type="text" placeholder="Enter Quotation">
+                                <?php
+                                 foreach ($quotation['status_message'][0] as $result) { ?>
+                                      <option value='<?php echo $result['quotation_id']; ?>' >#QUO-0<?php echo $result['quotation_id']; ?></option>
+                                <?php } ?>
+                            </select>
+                        </div>
+                        <div class="w3-col l3 w3-padding-bottom w3-padding-left">
+                            <label class="w3-label">Vendor</label>
+                            <select id="Select_Vendor" class="form-control" onclick="this.select();" name="Select_Vendor" value="" class="w3-input" required type="text" placeholder="Enter Vendor">
+                                <?php foreach ($vendors as $result) { ?>
+                                      <option value='<?php echo $result['vendor_id']; ?>' ><?php echo $result['vendor_name']; ?></option>
+                                <?php } ?>
+                            </select>
+                        </div>
+                        <div class="w3-col l2 w3-padding-left w3-padding-bottom">
+                            <label class="w3-label">Quantity</label>
+                            <input type="number" placeholder="Enter Quantity" class="form-control" id="Quantity" name="Quantity" onclick="this.select();">
+                        </div>
+                     </div>
+                  </div>
+                </div>
+             </div>
+             <div class="w3-col l12 w3-margin-top">
+                <div class="row">
+                    <div class="w3-left w3-padding-left">
+                        <button id="SaveGoodInfo" name="SaveGoodInfo" type="submit" class="btn btn-info" onclick="">Add</button><br>
+                    </div>
+                </div>
+                <div class="w3-margin-bottom w3-col l12 w3-small" id="addfinishedgood_err"></div>
+             </div>
             </div>
+           </div>
+          </form>
         </div>
-    </div><!-- table container ends here -->
-    <!-- Modal -->
-    <div id="ModalFor_purchasedProduct" class="modal fade" role="dialog">
-        <div class="modal-dialog">
-            <!-- Modal content-->
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Add Purchased Products</h4>
-                </div>
-                <div class="modal-body">
-                    <form method="POST" action="" id="Manage_PurchasedProductForm" name="Manage_PurchasedProductForm">
-
-                        <div class="row">
-                            <div class="col-lg-3">
-                                <label>Select Product:</label> 
-                            </div>
-                            <div class="col-lg-6">                   
-                                <select class="form-control" name="Select_PurchasedProduct_Id" id="Select_PurchasedProduct_Id" required> <!-- this is for showing material stocks quantity -->
-                                    <option>Select Product</option>
-                                    <?php foreach ($product as $result) { ?>
-                                    <option value='<?php echo $result['product_id']; ?>' ><?php echo $result['product_name']; ?></option>
-                                    <?php } ?>
-                                </select><br>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-lg-3">
-                                <label>Select Vendor: </label> 
-                            </div> 
-                            <div class="col-lg-6">
-                                <select class="form-control" name="Select_PurchasedVendors_Id" id="Select_PurchasedVendors_Id" required>                   
-                                    <option>Select Vendor:</option>
-                                    <?php foreach ($vendors as $result) { ?>
-                                    <option value='<?php echo $result['vendor_id']; ?>' ><?php echo $result['vendor_name']; ?></option>
-                                    <?php } ?> </div>
-                                </select>
-                            </div>
-                        </div><br>
-
-                        <div class="row">
-                            <div class="col-lg-3">
-                                <label>ID:</label>
-                            </div>
-                            <div class="col-lg-6">
-                                <input type="number" name="Input_PurchasedProductStock_ID" id="Input_PurchasedProductStock_ID" class="form-control" placeholder="product ID" step="0.01" required><br>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-lg-3">
-                                <label>OD:</label>
-                            </div>
-                            <div class="col-lg-6">
-                                <input type="number" name="Input_ProductStock_OD" id="Input_ProductStock_OD" class="form-control" placeholder="product OD" step="0.01" required><br>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-lg-3">
-                                <label>Length:</label>
-                            </div>
-                            <div class="col-lg-6">
-                                <input type="number" name="Input_PurchasedLength" id="Input_PurchasedLength" class="form-control" placeholder="product Length" step="0.01" required><br>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-lg-3">
-                                <label>Quantity:</label>
-                            </div>
-                            <div class="col-lg-6">
-                                <input type="number" name="Input_Purchased_quantity" id="Input_Purchased_quantity" class="form-control" placeholder="product Length" step="0.01" required><br>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-lg-3">
-                                <label for="price" class="control-label w3-medium">Price<span class="w3-tiny">(cost/mm)</span>:</label></div>
-                                <div class="col-lg-3">
-                                    <input type="number" name="input_priceForPurchase" id="input_priceForPurchase" class="form-control" placeholder="Product Price" step="0.01" required>
-                                </div>
-                                <div class="col-lg-3">
-                                    <select class="form-control" name="Select_purchasedCurrency" id="Select_purchasedCurrency"  required>
-                                        <option class="w3-red" value="0">Currency </option>
-                                        <option value="dollar">Dollar</option>
-                                        <option value="euro">Euro</option>
-                                        <option value="pound">Pound</option>
-                                        <option value="rupees">Rupees</option>
-                                    </select>
-                                </div>
-                            </div><br>
-
-                            <div class="row">
-                                <div class="col-lg-3">
-                                    <label>price in <i class="fa fa-rupee"></i>:</label>
-                                </div>
-                                <div class="col-lg-6">
-                                    <input type="number" name="Input_Purchased_Price" id="Input_Purchased_Price" class="form-control" placeholder="product Length" step="0.01" required><br>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-lg-3">
-                                    <label>Discount:</label>
-                                </div>
-                                <div class="col-lg-6">
-                                    <input type="number" name="Input_PurchasedDiscount" id="Input_PurchasedDiscount" class="form-control" placeholder="product Length" step="0.01" required><br>
-                                </div>
-                            </div>
-                            <br>
-
-                            <center>
-                                <button type="submit" class="btn btn-primary">Save Stock</button>
-                                <button type="reset" class="btn btn-default">Reset</button>
-                            </center><br><br>
-                            <div class="w3-margin-bottom w3-col l12 w3-small" id="addpurchaseproducts_err"></div><br><br><br>
-                        </div>
-                    </form><!-- form ends here -->
-
-                </div>
-
-            </div>
+        <div class="w3-col l12 w3-margin-top">
+          <div class="" id="ShowFinishedGoods" name="ShowFinishedGoods" style="max-height: 400px; overflow: scroll;">
+            <table class="table table-striped table-responsive w3-small"> 
+               <!-- table starts here -->
+               <thead>
+                <tr class="w3-black">
+                   <th class="text-center">Material</th>  
+                   <th class="text-center">ID</th>              
+                   <th class="text-center">OD</th>              
+                   <th class="text-center">Length</th>              
+                   <th class="text-center">Price</th>
+                   <th class="text-center">Discount In Percentage</th>
+                   <th class="text-center">Margin In Percentage</th>
+                   <th class="text-center">Cost Price</th>
+                   <th class="text-center">Quotation</th>
+                   <th class="text-center">Vendor</th>
+                   <th class="text-center">Quantity</th>        
+                </tr>
+                </thead>
+                <tbody><!-- table body starts here --> 
+                <?php
+                    if($Fg_info['status']==1)
+                    {
+                      foreach($Fg_info['status_message'] as $finish)
+                      {
+                  ?>      
+                    <tr class="text-center">
+                        <td class="text-center"><?php echo $finish['material_name'];?></td>
+                        <td class="text-center"><?php echo $finish['id'];?></td>
+                        <td class="text-center"><?php echo $finish['od'];?></td>
+                        <td class="text-center"><?php echo $finish['length'];?></td>
+                        <td class="text-center"><?php echo $finish['price'];?></td>
+                        <td class="text-center"><?php echo $finish['discount_percentage'];?></td>
+                        <td class="text-center"><?php echo $finish['margin_percentage'];?></td>
+                        <td class="text-center"><?php echo $finish['cost_price'];?></td>
+                        <td class="text-center">#QUO-0<?php echo $finish['quotation'];?></td>
+                        <td class="text-center"><?php echo $finish['vendor_name'];?></td>
+                        <td class="text-center"><?php echo $finish['quantity'];?></td>
+                    </tr>
+                   <?php
+                    }
+                  }
+                    else{
+                        echo $Fg_info['status_message'];
+                   }
+                ?>
+            </tbody><!-- table body close here -->
+           </table>   <!-- table closed here -->
+          </div>
         </div>
+      </div>     
+    </div>
+<!--  </div>
+</div>-->
+<!-- ___________________________tab 2 div ends here__________________________________ -->
 
-    </div><!--tab 2 ends here -->
     <!-- ____________________________the tab 2 ends here____________________ -->
 
     <!--_______________________________ tab 3 starts here_____________________________________________ -->
