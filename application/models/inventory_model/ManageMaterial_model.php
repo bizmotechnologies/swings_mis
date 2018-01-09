@@ -113,7 +113,7 @@ class ManageMaterial_model extends CI_Model {
 
 //------this fun is used to get all customers details-----------//
     public function GetCustomersDetails() {
-        $query = "SELECT * FROM customer_details";
+        $query = "SELECT * FROM customer_details WHERE visible='1'";
         $result = $this->db->query($query);
         if ($result->num_rows() > 0) {
             $response = array(
